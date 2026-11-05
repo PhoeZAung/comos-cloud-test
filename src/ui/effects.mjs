@@ -2,10 +2,10 @@ import {preferences,themes} from './preferences.mjs';
 export function setupEffects(){
  const target=document.querySelector('[data-galaxy]');if(!target)return ()=>{};
  const sheet=document.body.dataset.layout==='sheet',reduced=matchMedia('(prefers-reduced-motion: reduce)'),coarse=matchMedia('(pointer: coarse)').matches;
- const control=new AbortController(),splashRoot=document.createElement('div');splashRoot.className='splash-effect';splashRoot.setAttribute('aria-hidden','true');document.body.append(splashRoot);
+ const control=new AbortController(),splashRoot=document.createElement('div'),laserRoot=document.createElement('div');splashRoot.className='splash-effect';splashRoot.setAttribute('aria-hidden','true');document.body.append(splashRoot);laserRoot.className='laser-flow';laserRoot.setAttribute('aria-hidden','true');laserRoot.hidden=true;laserRoot.innerHTML='<span class="laser-flow-beam"></span><span class="laser-flow-core"></span><span class="laser-flow-impact"></span><span class="laser-flow-mist"></span>';document.body.append(laserRoot);
  let settings={...preferences},galaxyDispose,splashDispose,lastKey='',generation=0,closed=false,idle,timer;
  async function render(){
-  if(closed)return;const key=JSON.stringify([settings.theme,settings.effectColors,settings.pauseStars,settings.splashCursor,reduced.matches]);if(key===lastKey)return;lastKey=key;
+  if(closed)return;const key=JSON.stringify([settings.theme,settings.effectColors,settings.pauseStars,settings.splashCursor,settings.laserFlow,reduced.matches]);laserRoot.hidden=!settings.laserFlow||reduced.matches;if(key===lastKey)return;lastKey=key;
   const ticket=++generation;galaxyDispose?.();galaxyDispose=null;splashDispose?.();splashDispose=null;splashRoot.replaceChildren();
   const palette=settings.effectColors?themes[settings.theme].colors:undefined;
   try{const {createGalaxy}=await import('./galaxy.mjs');if(closed||ticket!==generation)return;galaxyDispose=createGalaxy(target,{density:1,glowIntensity:.3,flareIntensity:1,starSpeed:.5,starColors:palette,mouseRepulsion:true,clickWarp:!settings.pauseStars,mouseInteraction:!settings.pauseStars,intro:false,disableAnimation:settings.pauseStars||reduced.matches,dpr:sheet||coarse?0.75:1,layers:sheet||coarse?2:4});}catch{target.dataset.galaxyState='unavailable';target.replaceChildren();}
@@ -17,6 +17,6 @@ export function setupEffects(){
  reduced.addEventListener('change',()=>void render(),{signal:control.signal});
  document.addEventListener('comos:preferences',event=>{settings={...event.detail};void render();},{signal:control.signal});
  if('requestIdleCallback' in window)idle=requestIdleCallback(()=>void render(),{timeout:1500});else timer=setTimeout(()=>void render(),250);
- const dispose=()=>{if(closed)return;closed=true;generation++;control.abort();if(idle!==undefined)cancelIdleCallback(idle);clearTimeout(timer);galaxyDispose?.();splashDispose?.();splashRoot.remove();};
+ const dispose=()=>{if(closed)return;closed=true;generation++;control.abort();if(idle!==undefined)cancelIdleCallback(idle);clearTimeout(timer);galaxyDispose?.();splashDispose?.();splashRoot.remove();laserRoot.remove();};
  window.addEventListener('pagehide',dispose,{once:true,signal:control.signal});return dispose;
 }
