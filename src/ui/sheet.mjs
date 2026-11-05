@@ -10,7 +10,7 @@ import {preferences} from './preferences.mjs';
 import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel,damageTypeLine} from '../features/sheet/calculations.mjs';
-import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails} from '../features/sheet/inventory-fields.mjs';
+import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue} from '../features/sheet/inventory-fields.mjs';
 import {skillSupportsSpecialization} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
 import {escape as e,sections,renderCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
@@ -132,7 +132,7 @@ export function mountSheet(){
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
  }
  function renderEntryFields(keys,values,collection){
-  const render=k=>field(k,values[k],{weapon:collection==='weapons',item:collection==='items'});
+  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{weapon:collection==='weapons',item:collection==='items'});
   if(collection==='items'){
    const parts=inventoryEditorFields(values.sourceCategory||'Misc'),group=(title,keys)=>'<fieldset class="cs-editor-group cs-inventory-field-group"><legend>'+e(title)+'</legend>'+keys.map(render).join('')+'</fieldset>';
    return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',parts.common.map(([,key])=>key).concat(parts.allowTwoHanded?['two_handed']:[]))+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
