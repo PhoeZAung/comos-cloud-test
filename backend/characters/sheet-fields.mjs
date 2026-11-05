@@ -29,7 +29,7 @@ export function mergeSheetData(original,change){
   for(const [key,value] of Object.entries(change.fields)){
    if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
-   if(numericFields.includes(key)){data[key]=numeric(value);if(['speed','speed_burrow','speed_climb','speed_fly','speed_swim'].includes(key)&&(!Number.isInteger(data[key])||data[key]<0||data[key]>10000))bad('Movement speeds must be whole numbers from 0 to 10,000 feet.');if(key==='hp_temp')data[key]=Math.max(0,data[key]);if(abilities.includes(key)&&(data[key]<0||data[key]>999))bad('Ability score must be 0–999.');}
+   if(numericFields.includes(key)){data[key]=numeric(value);if(['speed','speed_burrow','speed_climb','speed_fly','speed_swim'].includes(key)&&(!Number.isInteger(data[key])||data[key]<0||data[key]>10000))bad('Movement speeds must be whole numbers from 0 to 10,000 feet.');if(['currency_gil','currency_moogle','slot_cap'].includes(key)&&(!Number.isSafeInteger(data[key])||data[key]<(key==='slot_cap'?1:0)))bad('Currency and capacity must be nonnegative whole numbers; capacity must be at least 1.');if(key==='hp_temp')data[key]=Math.max(0,data[key]);if(abilities.includes(key)&&(data[key]<0||data[key]>999))bad('Ability score must be 0–999.');}
    else if(booleanFields.includes(key)&&typeof value==='boolean')data[key]=value;
    else if(textFields.includes(key))data[key]=text(value);
    else if(Object.hasOwn(enumFields,key)&&enumFields[key].includes(value))data[key]=value;
@@ -108,7 +108,14 @@ export function mergeSheetData(original,change){
   // Compatibility for older open clients: casting never changes MP.
   if(!Number.isInteger(change.index)||!data.spells?.[change.index])bad('Entry not found.');
   return data;
- }else if(change.action==='useAbility'){
+  }else if(change.action==='useWeapon'){
+   if(!Number.isInteger(change.index)||!data.weapons?.[change.index])bad('Weapon not found.');
+   const row=data.weapons[change.index],calc=entryCalculations(row,data,'weapons');
+   if(!row.uses_formula&&calc.maxUses<=0)bad('This weapon does not track limited uses.');
+   if(calc.maxUses<=0||calc.currentUses<=0)bad('No weapon uses remaining.');
+   if(!Number.isInteger(calc.currentUses))bad('Set whole remaining weapon uses first.');
+   row.u_curr=calc.currentUses-1;
+  }else if(change.action==='useAbility'){
   const collection=change.collection||'activeAbilities';if(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection))bad('Invalid ability.');const row=data[collection]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');if(isLimitBreak(row)){spendLimitBreak(data);}else if(gunbreakerAmmoAbilityCost(data,row)){updateGunbreakerAmmo(data,{operation:'spend',rounds:gunbreakerAmmoAbilityCost(data,row)});}else{const calc=entryCalculations(row,data,collection);
   if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');row.u_curr=calc.currentUses-1;}
  }else if(change.action==='spendMp'){

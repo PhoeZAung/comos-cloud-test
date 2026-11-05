@@ -9,13 +9,13 @@ export function mountAccount({user=null,fixture=false,onUser=()=>{}}={}) {
  const name=root.querySelector('[data-account-name]'),profileStatus=root.querySelector('[data-profile-status]'),prefStatus=root.querySelector('[data-preferences-status]'),retry=root.querySelector('[data-settings-retry]');
  const photo=root.querySelector('[data-avatar-preview]'),placeholder=root.querySelector('[data-avatar-placeholder]'),remove=root.querySelector('[data-avatar-remove]'),fileInput=root.querySelector('[data-avatar-file]');
  const dice=root.querySelector('[data-dice-popup]');
- const splash=root.querySelector('[data-splash-toggle]'),colors=root.querySelector('[data-effect-colors]'),pauseStars=root.querySelector('[data-pause-stars]');
+ const splash=root.querySelector('[data-splash-toggle]'),colors=root.querySelector('[data-effect-colors]'),pauseStars=root.querySelector('[data-pause-stars]'),notes=root.querySelector('[data-notes-electric]'),laser=root.querySelector('[data-laser-flow]');
  const say=(element,text)=>{if(!disposed)element.textContent=text;};
  const describe=error=>error.code==='conflict'?'Changed in another session. Your edits are not saved. Refresh and try again.':error.code==='signed-out'?'Your session expired. Sign in again to save.':error.code==='rate-limit'?'Too many changes. Wait a minute, then retry.':error.message||'Could not save. Check your connection and retry.';
  const client=fixture?null:createAccountClient({user,onUser:next=>{user=next;onUser(next,{applyTheme:disposed});}});
  function syncChoices(){
   for(const button of root.querySelectorAll('[data-theme-choice]'))button.setAttribute('aria-pressed',String(button.dataset.themeChoice===latestPreferences.theme));
-  if(dice)dice.checked=latestPreferences.dicePopup;splash.checked=latestPreferences.splashCursor;colors.checked=latestPreferences.effectColors;pauseStars.checked=latestPreferences.pauseStars;
+  if(dice)dice.checked=latestPreferences.dicePopup;splash.checked=latestPreferences.splashCursor;colors.checked=latestPreferences.effectColors;pauseStars.checked=latestPreferences.pauseStars;if(notes)notes.checked=latestPreferences.notesElectricBorder;if(laser)laser.checked=latestPreferences.laserFlow;
  }
  function syncPhoto(){if(!photo)return;
   if(previewURL){URL.revokeObjectURL(previewURL);previewURL=null;}
@@ -37,7 +37,7 @@ export function mountAccount({user=null,fixture=false,onUser=()=>{}}={}) {
  for(const button of root.querySelectorAll('[data-theme-choice]'))button.addEventListener('click',()=>choose({theme:button.dataset.themeChoice}),{signal});
  root.querySelector('[data-open-dice-themes]')?.addEventListener('click',async()=>{const {openDiceThemes}=await import('../ui/dice-theme-picker.mjs');void openDiceThemes({onChoose:async patch=>{await choose(patch);if(settingsDirty)throw Error('Preference save failed.');}});},{signal});
  dice?.addEventListener('change',()=>choose({dicePopup:dice.checked}),{signal});
- splash.addEventListener('change',()=>choose({splashCursor:splash.checked}),{signal});pauseStars.addEventListener('change',()=>choose({pauseStars:pauseStars.checked}),{signal});colors.addEventListener('change',()=>choose({effectColors:colors.checked}),{signal});retry.addEventListener('click',()=>void savePreferences(),{signal});
+ notes?.addEventListener('change',()=>choose({notesElectricBorder:notes.checked}),{signal});laser?.addEventListener('change',()=>choose({laserFlow:laser.checked}),{signal});splash.addEventListener('change',()=>choose({splashCursor:splash.checked}),{signal});pauseStars.addEventListener('change',()=>choose({pauseStars:pauseStars.checked}),{signal});colors.addEventListener('change',()=>choose({effectColors:colors.checked}),{signal});retry.addEventListener('click',()=>void savePreferences(),{signal});
  name.addEventListener('blur',async()=>{
   const value=name.value.trim();if(value===user?.displayName)return;
   if(!value||value.length>80||/[\u0000-\u001f\u007f]/u.test(value)){say(profileStatus,'Enter a display name of 1–80 characters.');name.setAttribute('aria-invalid','true');return;}

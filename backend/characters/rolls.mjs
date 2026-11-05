@@ -60,17 +60,23 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  const label=entry?String(row.name||'Weapon').slice(0,120):change.label;
  const last=db.prepare('SELECT created_at FROM sheet_rolls WHERE user_id=? ORDER BY created_at DESC LIMIT 1').get(userId);if(last&&Date.now()-last.created_at<1500)throw Error('Wait a moment before rolling again.');
  if(ability&&mode!=='send'&&isLimitBreak(row)){const gate=limitBreakState(character.data);if(!gate.allowed)throw Error(gate.reason);}
- const external=change.owlbearRolls===undefined?null:externalRollSource(change.owlbearRolls);
+ const weaponUsage=weapon&&mode==='use'?entryCalculations(row,character.data,'weapons'):null;
+  if(weaponUsage&&(row.uses_formula||weaponUsage.maxUses>0)&&(!Number.isInteger(weaponUsage.currentUses)||weaponUsage.currentUses<1))throw Error('No weapon uses remaining.');
+  const external=change.owlbearRolls===undefined?null:externalRollSource(change.owlbearRolls);
  const diceRoll=external?expression=>external.roll(expression):serverRoll;
  const weaponDice=external?(row,data)=>weaponRoll(row,data,diceRoll):makeWeaponRoll;
  const spellDice=external?(row,data)=>spellRoll(row,data,diceRoll):makeSpellRoll;
  const abilityDice=external?(row,data,key)=>abilityRoll(row,data,key,diceRoll):makeAbilityRoll;
  let updated=null;
- const descriptionOnly=entry&&(mode==='send'||mode==='use'&&!String(row.damage||row.dmg||'').trim());
+ const descriptionOnly=entry&&(mode==='send'||mode==='use'&&!weapon&&!String(row.damage||row.dmg||'').trim());
  const roll=descriptionOnly?{kind:change.kind,description:String(row.desc||''),descriptionOnly:true,expression:'description',rolls:[],bonus:0,total:0,...(weapon?{weaponName:label}:spell?{spellName:label}:{abilityName:label})}:weapon?weaponDice(row,character.data):spell?spellDice(row,character.data):ability?abilityDice(row,character.data,change.collection):diceRoll(expression),delivery=change.discord?'pending':'off';
  if(external){external.finish();roll.provider='owlbear-dice-plus';}
  if(mode==='use'&&roll.damageError)throw Error(roll.damageError);
- if(spell&&mode==='use'){
+ if(weapon&&mode==='use'&&(row.uses_formula||weaponUsage.maxUses>0)){
+   updated=mergeSheetData(character.data,{action:'useWeapon',index:change.index});
+   roll.used=true;roll.remainingUses=updated.weapons[change.index].u_curr;
+  }
+  if(spell&&mode==='use'){
   const calculation=entryCalculations(row,character.data,'spells'),level=calculation.mp;if(calculation.level===null)throw Error('Set the spell level before using it.');
   roll.mpAmount=level;roll.mpSpent=level;roll.used=true;
   if(level>0)updated=mergeSheetData(character.data,{action:'spendMp',amount:level});

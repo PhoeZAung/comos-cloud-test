@@ -1,6 +1,6 @@
 import {buildDiceAssets} from './build-dice.mjs';
 import {buildCriticalEffects} from './build-critical-effects.mjs';
-import {build} from 'esbuild';
+import {build,transform} from 'esbuild';
 import {fileURLToPath} from 'node:url';
 import {generateRaceCatalog} from './generate-races.mjs';
 import {generateArcherPreview} from './generate-archer.mjs';
@@ -46,7 +46,9 @@ for (const file of ['preview.mjs', 'validation.mjs']) {
 }
 for (const [id, html] of pages) await writeFile(new URL(`dist/${id}.html`, root), html);
 await writeFile(new URL('dist/assets/site.css', root), styles.join('\n'));
-await writeFile(new URL('dist/assets/sheet.css',root),(await Promise.all(['tokens.css','themes.css','sheet-loading.css','dice-themes.css','sheet-base.css','sheet.css','item-categories.css','tag-groups.css','critical-effects.css'].map(file=>readFile(new URL('src/styles/'+file,root),'utf8')))).join('\n'));
+const sheetCss=(await Promise.all(['tokens.css','themes.css','sheet-loading.css','dice-themes.css','sheet-base.css','sheet.css','item-categories.css','tag-groups.css','critical-effects.css'].map(file=>readFile(new URL('src/styles/'+file,root),'utf8')))).join('\n');
+await writeFile(new URL('dist/assets/sheet.css',root),(await transform(sheetCss,{loader:'css',minify:true,target:'es2022'})).code);
+await writeFile(new URL('dist/assets/laser-flow.css',root),(await transform(await readFile(new URL('src/styles/laser-flow.css',root),'utf8'),{loader:'css',minify:true,target:'es2022'})).code);
 await writeFile(new URL('dist/assets/feedback.css',root),await readFile(new URL('src/styles/feedback.css',root)));
 console.log(`Built ${pages.length} Cosmos pages in isolated fixture preview mode.`);
 
