@@ -13,7 +13,7 @@ test('live Home and post thread ship every transitive static relative module imp
 test('live sheet has a small isolated entry and stylesheet, without an eager app shell or background effects import',async()=>{
  const root=new URL('../',import.meta.url),html=await readFile(new URL('dist-live/sheet.html',root),'utf8');
  assert.match(html,/assets\/sheet-entry.mjs/);assert.match(html,/assets\/sheet.css/);assert.doesNotMatch(html,/src="assets\/(?:shell|auth|galaxy)/);
- const css=await readFile(new URL('dist-live/assets/sheet.css',root),'utf8');assert.ok(Buffer.byteLength(css)<73728,'standalone sheet CSS should stay below 72 KiB including theme, settings and critical effect styles');assert.match(css,/data-theme="ocean"/);
+ const css=await readFile(new URL('dist-live/assets/sheet.css',root),'utf8');assert.ok(Buffer.byteLength(css)<73728,'standalone sheet CSS should stay below 72 KiB including theme, settings and critical effect styles');assert.match(css,/data-theme=(?:"ocean"|ocean)/);
  const seen=new Set();async function inspect(url){if(seen.has(url.href))return;seen.add(url.href);const code=await readFile(url,'utf8');assert.doesNotMatch(code,/firebase\/|createGalaxy|createSplash|createRouter|\/api\/v1\/(?:items|feed|lore)/);for(const m of code.matchAll(/from\s*['"](\.[^'"]+)['"]/g))await inspect(new URL(m[1],url));}
  const entry=await readFile(new URL('dist-live/assets/sheet-entry.mjs',root),'utf8');assert.match(entry,/Promise\.all\(\[import\('\.\/sheet\.mjs'\)/);assert.doesNotMatch(entry,/^import /m);await inspect(new URL('dist-live/assets/sheet.mjs',root));assert.ok(seen.size>=4);
 });
