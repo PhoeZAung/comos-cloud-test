@@ -9,7 +9,7 @@ import {preferences} from './preferences.mjs';
 import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel,damageTypeLine} from '../features/sheet/calculations.mjs';
-import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel} from '../features/sheet/inventory-fields.mjs';
+import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails} from '../features/sheet/inventory-fields.mjs';
 import {skillSupportsSpecialization} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
 import {escape as e,sections,renderCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
@@ -169,7 +169,9 @@ export function mountSheet(){
   if(!item)return;
   const popup=itemDescriptionDialog();if(!popup)return;
   popup.querySelector('[data-item-description-title]').textContent=String(item.name||'Unnamed');
+  const facts=inventoryItemDetails(item);popup.querySelector('[data-item-details]').innerHTML=facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>':'';
   popup.querySelector('[data-item-description-text]').textContent=String(item.desc||item.description||'').trim()||'No description.';
+  const special=popup.querySelector('[data-item-special]');special.hidden=!String(item.special||'').trim();special.innerHTML=item.special?'<h3>Special</h3><p>'+e(item.special)+'</p>':'';
   popup.showModal();
  }
  async function openRuleAbilities(){try{const {availableRuleAbilities}=await import('../features/characters/rules/ability-library.mjs');const options=availableRuleAbilities(character.data);const modal=document.createElement('dialog');modal.className='cs-dialog';modal.setAttribute('aria-label','Race and class abilities');modal.innerHTML='<div class="cs-card-title"><h2>Add abilities</h2><button type="button" class="cs-icon" data-library-close aria-label="Close">×</button></div><label class="cs-search">Find an ability<input type="search" data-library-search></label><div data-library-list></div><p role="status" data-library-status></p>';const drawLibrary=()=>{const query=modal.querySelector('[data-library-search]').value.toLowerCase();modal.querySelector('[data-library-list]').innerHTML=options.filter(o=>o.name.toLowerCase().includes(query)).map(o=>'<details class="cs-card"><summary>'+e(o.name)+'</summary><p class="cs-prose">'+e(o.description)+'</p>'+(o.url?'<a href="'+e(o.url)+'" target="_blank" rel="noopener">Official source ↗</a>':'')+'<button class="button" type="button" data-library-add="'+e(o.id)+'" '+(o.added?'disabled':'')+'>'+(o.added?'Added':'Add')+'</button></details>').join('')||'<p>No available abilities.</p>';};modal.addEventListener('input',drawLibrary);modal.addEventListener('click',async event=>{if(event.target.closest('[data-library-close]'))modal.close();const add=event.target.closest('[data-library-add]');if(!add)return;add.disabled=true;try{if(await save({action:'addRuleAbility',ruleId:add.dataset.libraryAdd})){const option=options.find(o=>o.id===add.dataset.libraryAdd);option.added=true;drawLibrary();notify('Added');}else add.disabled=false;}catch(error){modal.querySelector('[data-library-status]').textContent=error.message;add.disabled=false;}});modal.addEventListener('close',()=>modal.remove(),{once:true});document.body.append(modal);drawLibrary();modal.showModal();}catch(error){status(error.message);}}
