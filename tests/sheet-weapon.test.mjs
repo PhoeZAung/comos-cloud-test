@@ -45,3 +45,43 @@ test('Dice+ faces use the same Discord receipt once; disabled delivery stays off
   const silent=await publishRoll({...args,change:{...args.change,requestId:randomUUID(),discord:false}});assert.equal(silent.discord,'off');assert.equal(silent.roll.total,22);assert.equal(calls,1);
  }finally{db.close();}
 });
+
+test('limited weapon rolls spend one use atomically and duplicate requests never spend twice',async()=>{
+ const db=await openDatabase(':memory:');
+ try{
+  const user=createUserRepository(db).create(),id=randomUUID(),service=createCharactersService(db);
+  service.save({op:'save',id,revision:0,name:'Limited weapon',ownerId:user.id,sources:[]});
+  const limited={...data,weapons:[{...data.weapons[0],u_max:2,u_curr:2}]};
+  const base={db,userId:user.id,origin:'https://example.test',sendFetch:async()=>({ok:true}),
+   makeWeaponRoll:()=>({kind:'weapon',weaponName:'Flaming sword',expression:'1d20+4',rolls:[9],bonus:4,total:13,damage:{expression:'1d8+4',rolls:[5],bonus:4,total:9}})};
+  const change={kind:'weapon',mode:'use',index:0,revision:1,requestId:randomUUID(),discord:false};
+  const first=await publishRoll({...base,character:{id,name:'Limited weapon',revision:1,data:limited},change});
+  assert.equal(first.roll.remainingUses,1);
+  assert.equal(JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json).weapons[0].u_curr,1);
+  const replay=await publishRoll({...base,character:{id,name:'Limited weapon',revision:2,data:limited},change});
+  assert.deepEqual(replay,first);
+  assert.equal(JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json).weapons[0].u_curr,1);
+  db.prepare('UPDATE sheet_rolls SET created_at=0').run();
+  let fresh=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json);
+  const second=await publishRoll({...base,character:{id,name:'Limited weapon',revision:2,data:fresh},change:{...change,revision:2,requestId:randomUUID()}});
+  assert.equal(second.roll.remainingUses,0);
+  db.prepare('UPDATE sheet_rolls SET created_at=0').run();
+  fresh=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json);
+  await assert.rejects(()=>publishRoll({...base,character:{id,name:'Limited weapon',revision:3,data:fresh},change:{...change,revision:3,requestId:randomUUID()}}),/No weapon uses remaining/);
+  assert.equal(fresh.weapons[0].u_curr,0);
+  const view=renderSection({id,name:'Limited weapon',data:fresh},'combat');
+  assert.match(view,/0 \/ 2/);
+ }finally{db.close();}
+});
+test('inventory is first, inline values edit, and equipped items are identified',()=>{
+ const char={id:'sample',name:'Sample',data:{...data,currency_gil:30,currency_moogle:8,slot_cap:22,items:[{name:'Robe',amount:1,equipped:true,equip_slot:'body'}]}};
+ const frame=renderSheetFrame(char,'items');
+ assert.ok(frame.indexOf('data-item-view="inventory"')<frame.indexOf('data-item-view="equip"'));
+ assert.match(frame,/data-inline-currency="currency_gil"/);
+ assert.match(frame,/data-inline-currency="currency_moogle"/);
+ assert.match(frame,/data-inline-currency="slot_cap"/);
+ assert.match(frame,/cs-capacity-value/);
+ assert.match(frame,/cs-entry is-equipped/);
+ assert.doesNotMatch(frame,/Edit currency &amp; capacity/);
+ assert.throws(()=>mergeSheetData(char.data,{action:'fields',fields:{slot_cap:0}}),/capacity/);
+});
