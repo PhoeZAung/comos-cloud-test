@@ -53,7 +53,7 @@ export function mergeSheetData(original,change){
   else{
    if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>30)bad('Invalid entry fields.');
    if(change.collection==='items'){
-    const currentCategory=change.fields.sourceCategory??rows[change.index]?.sourceCategory??'Misc',allowed=new Set(inventoryEditorKeys(currentCategory));
+    const currentCategory=change.fields.sourceCategory??rows[change.index]?.sourceCategory??'Misc',allowed=new Set([...inventoryEditorKeys(currentCategory),'favorite','equipped']);
     if(Object.keys(change.fields).some(key=>!allowed.has(key)))bad('That field is not available for this inventory tag.');
    }
    if(change.mode==='update'&&data.gunbreakerAmmo!==undefined&&rows[change.index].rulesOwned&&rows[change.index].sourceRuleId===MAGICKED_AMMO_ID&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Use the gun arm ammunition tracker to change these rounds.');
