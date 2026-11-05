@@ -4,3 +4,6 @@ export function sheetSkills(data){
  for(const skill of fixedSkills){const key=skill.name+'::'+skill.stat,occurrence=(used.get(key)||0)+1;used.set(key,occurrence);if((counts.get(key)||0)<occurrence)rows.push({...skill,skillKey:key+'::'+occurrence,lvl:0,temp:0,cs:false,subName:''});}
  return rows;
 }
+
+/** Only these Pathfinder skills have named specializations. */
+export const skillSupportsSpecialization=name=>['craft','profession','perform'].includes(String(name||'').trim().toLowerCase());
