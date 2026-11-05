@@ -52,6 +52,7 @@ await writeFile(new URL('dist/assets/sheet.css',root),(await transform(sheetCss,
 await writeFile(new URL('dist/assets/laser-flow.css',root),(await transform(await readFile(new URL('src/styles/laser-flow.css',root),'utf8'),{loader:'css',minify:true,target:'es2022'})).code);
 await writeFile(new URL('dist/assets/feedback.css',root),await readFile(new URL('src/styles/feedback.css',root)));
 await writeFile(new URL('dist/assets/sheet-refinements.css',root),(await transform(await readFile(new URL('src/styles/sheet-refinements.css',root),'utf8'),{loader:'css',minify:true,target:'es2022'})).code);
+await writeFile(new URL('dist/assets/sheet-effects.css',root),(await transform(await readFile(new URL('src/styles/sheet-effects.css',root),'utf8'),{loader:'css',minify:true,target:'es2022'})).code);
 console.log(`Built ${pages.length} Cosmos pages in isolated fixture preview mode.`);
 
 for (const file of ['sheet-delete.mjs','critical-effects-player.mjs','critical-frames.mjs','dice-3d.mjs','sheet-settings.mjs','critical-fx.mjs','dice-theme-picker.mjs','sheet-loading.mjs','feedback.mjs','shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','items.mjs','record-id.mjs','lore.mjs','lore-draft.mjs','lore-draft-controller.mjs','lore-compose.mjs','lore-entry.mjs','feed.mjs','compose.mjs','post-thread.mjs','directory.mjs','character-view.mjs','rules-wizard.mjs','sheet.mjs','sheet-entry.mjs','character-library.mjs','admin-icons.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
