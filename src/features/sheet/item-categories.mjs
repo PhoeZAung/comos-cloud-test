@@ -95,14 +95,14 @@ export function visibleInventoryCategory(counts={},selected='All'){
  return Number(counts[selected]||0)>0?selected:'All';
 }
 
-export function renderCategoryTiles(counts={},selected='All',{attribute='data-item-tag',label='Item categories',groups=false}={}){
+export function renderCategoryTiles(counts={},selected='All',{attribute='data-item-tag',label='Item categories',groups=false,iconOnly=false}={}){
  const total=Object.values(counts).reduce((sum,value)=>sum+Number(value||0),0);
  if(total===0)return '';
  const categories=[...ITEM_TAG_OPTIONS,...Object.keys(counts).filter(tag=>!ITEM_TAG_OPTIONS.includes(tag)&&tag!=='All')].filter(tag=>Number(counts[tag]||0)>0);
  const visible=visibleInventoryCategory(counts,selected);
  const groupsMarkup=groups?'<nav class="item-group-buttons" aria-label="Item groups">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).filter(([,tags])=>tags.some(tag=>Number(counts[tag]||0)>0)).map(([name])=>'<button type="button" '+attribute+'="'+name+'" aria-pressed="'+(visible===name)+'">'+name+'</button>').join('')+'</nav>':'';
- return groupsMarkup+'<nav class="item-category-tiles" aria-label="'+escape(label)+'">'
-  +'<button type="button" class="item-category-all" '+attribute+'="All" aria-pressed="'+(visible==='All')+'"><span aria-hidden="true">▦</span><strong>All</strong><small>'+total+'</small></button>'
-  +categories.map(tag=>'<button type="button" '+attribute+'="'+escape(tag)+'" aria-pressed="'+(visible===tag)+'"><span aria-hidden="true">'+itemCategorySymbol(tag)+'</span><span>'+escape(tag)+'</span><small>'+Number(counts[tag]||0)+'</small></button>').join('')
+ return groupsMarkup+'<nav class="item-category-tiles'+(iconOnly?' item-category-icon-only':'')+'" aria-label="'+escape(label)+'">'
+  +'<button type="button" class="item-category-all" '+attribute+'="All" aria-pressed="'+(visible==='All')+'" aria-label="All inventory items" title="All items"><span aria-hidden="true">▦</span>'+(iconOnly?'':'<strong>All</strong>')+'<small>'+total+'</small></button>'
+  +categories.map(tag=>'<button type="button" '+attribute+'="'+escape(tag)+'" aria-pressed="'+(visible===tag)+'" aria-label="'+escape(tag)+'" title="'+escape(tag)+'"><span aria-hidden="true">'+itemCategorySymbol(tag)+'</span>'+(iconOnly?'':'<span>'+escape(tag)+'</span>')+'<small>'+Number(counts[tag]||0)+'</small></button>').join('')
   +'</nav>';
 }

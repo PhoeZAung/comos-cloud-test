@@ -13,7 +13,7 @@ test('Inventory hides category tiles and group buttons when its item count is ze
  assert.match(section,/data-add-entry="items"/);
 });
 
-test('Inventory renders only occupied categories and occupied category groups',()=>{
+test('Inventory renders only occupied categories as icon buttons',()=>{
  const items=[{name:'Sword',sourceCategory:'Weapon',amount:1},{name:'Bow',sourceCategory:'Weapon',amount:1},{name:'Potion',sourceCategory:'Alchemical Items',amount:2}];
  const counts=inventoryCategoryCounts(items);
  assert.equal(counts.Weapon,2);
@@ -21,8 +21,8 @@ test('Inventory renders only occupied categories and occupied category groups',(
  const html=renderItemCategories({items},'Weapon');
  assert.match(html,/data-item-tag="Weapon" aria-pressed="true"/);
  assert.match(html,/data-item-tag="Alchemical Items"/);
- assert.match(html,/data-item-tag="Tools"/);
- assert.match(html,/data-item-tag="Magic"/);
+ assert.doesNotMatch(html,/data-item-tag="Tools"/);
+ assert.doesNotMatch(html,/data-item-tag="Magic"/);
  assert.match(html,/data-item-tag="All"/);
  assert.doesNotMatch(html,/data-item-tag="Armor"|data-item-tag="Food"|data-item-tag="Other"|data-item-tag="Misc"/);
 });
