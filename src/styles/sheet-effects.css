@@ -1,0 +1,47 @@
+/* Optional effects and inventory editor refinements; intentionally outside core sheet CSS budget. */
+.cs-inventory-tools{justify-content:flex-end;min-height:0;margin:0;padding:0}
+.cs-inventory-tools:empty{display:none}
+.cs-inventory-tools .cs-favorite{margin-left:auto}
+.cs-item-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:12px}
+.cs-item-tabs button{display:grid;place-items:center;min-width:54px;min-height:46px;padding:9px 12px}
+.cs-item-tabs button svg{width:23px;height:23px}
+.sheet .item-category-tiles.item-category-icon-only{grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:7px}
+.sheet .item-category-icon-only button{min-height:62px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:5px;border-radius:11px}
+.sheet .item-category-icon-only button>span{font-size:24px;line-height:1.1}
+.sheet .item-category-icon-only button small{font-size:10px;line-height:1.2}
+.sheet .item-category-icon-only .item-category-all{aspect-ratio:1;grid-column:auto}
+.cs-inventory-editor{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.cs-inventory-editor>.cs-tag-editor,.cs-inventory-editor>.cs-field{grid-column:1/-1}
+.cs-inventory-field-group{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.cs-inventory-field-group legend{font-weight:700;font-size:13px;letter-spacing:.02em;color:var(--accent)}
+.cs-inventory-field-group>.cs-field{width:100%;min-width:0;max-width:none}
+.cs-inventory-field-group>.cs-checkbox{grid-column:1/-1}
+.cs-inventory-editor .cs-ability-prose{grid-column:1/-1}
+.cs-inventory-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:12px 0 18px}
+.cs-inventory-facts>div{background:color-mix(in srgb,var(--accent) 6%,var(--surface));padding:11px;border:1px solid var(--line);border-radius:9px;min-width:0}
+.cs-inventory-facts dt{color:var(--muted);font-size:11px;font-weight:600}
+.cs-inventory-facts dd{margin:5px 0 0;color:var(--text);font-weight:600;overflow-wrap:anywhere}
+.cs-inventory-item-special{padding-top:16px;margin-top:14px;border-top:1px solid var(--line)}
+.cs-inventory-item-special h3{text-align:center;color:var(--accent);font-size:13px}
+.cs-inventory-item-special p{text-align:left;white-space:pre-wrap;overflow-wrap:anywhere}
+.cs-delete-confirm{width:min(420px,calc(100vw - 24px));padding:24px}
+.cs-delete-confirm h2{margin:0 0 8px;font-size:19px}
+.cs-delete-confirm p{line-height:1.5}
+.cs-delete-confirm-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
+.cs-delete-confirm-actions button{min-width:100px;min-height:42px}
+.cs-paper-fold{transform-style:preserve-3d;backface-visibility:visible;will-change:transform,opacity,filter}
+.cs-paper-fold::after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(128deg,#fff0 0 28px,#fff4 29px,#0003 30px,#fff0 35px),linear-gradient(37deg,#0004,transparent 48%,#fff3 59%,transparent 78%);mix-blend-mode:overlay}
+.cs-paper-wad{position:fixed;z-index:10003;width:62px;height:61px;border-radius:36% 49% 31% 43%;pointer-events:none;opacity:0;box-shadow:inset -13px -14px 14px #0005,inset 9px 6px 9px #fff5,0 20px 30px #0008;background:repeating-linear-gradient(43deg,#fff1 0 2px,#0004 3px 4px,transparent 6px 12px),conic-gradient(from 50deg at 43% 37%,#f5f0e8,#8c8a98,#f4f0e8,#777686,#d9d6d2,#6d6a77,#f7f4ef);filter:contrast(1.08)}
+.cs-paper-wad::after{content:'';position:absolute;inset:8px;border:2px solid #68687766;border-radius:39% 35% 55% 42%;transform:rotate(30deg);box-shadow:inset 5px -9px 7px #0003}
+.cs-notes-electric{position:relative;isolation:isolate;border-radius:14px}
+html[data-notes-electric="true"] .cs-notes-electric::before,
+html[data-notes-electric="true"] .cs-notes-electric::after{content:none!important}
+.cs-note-electric-overlay{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:4;opacity:0}
+html[data-notes-electric="true"] .cs-note-electric-overlay{opacity:1}
+.cs-note-electric-overlay rect{fill:none;vector-effect:non-scaling-stroke}
+.cs-note-electric-glow{stroke:var(--accent);stroke-width:5;stroke-dasharray:14 6 27 12;stroke-dashoffset:0;opacity:.58;filter:drop-shadow(0 0 5px var(--accent));animation:cs-note-current 3.9s linear infinite}
+.cs-note-electric-arc{stroke:#e8f4ff;stroke-width:2;stroke-dasharray:2 5 19 4;stroke-linecap:round;stroke-dashoffset:0;opacity:.9;animation:cs-note-current 1.8s linear infinite reverse}
+.cs-note-electric-core{stroke:var(--accent);stroke-width:1.1;opacity:.55;stroke-dasharray:45 9 10 5;animation:cs-note-current 6.3s linear infinite}
+@keyframes cs-note-current{to{stroke-dashoffset:-230}}
+@media(max-width:520px){.cs-inventory-field-group,.cs-inventory-facts{grid-template-columns:minmax(0,1fr)}.sheet .item-category-tiles.item-category-icon-only{grid-template-columns:repeat(auto-fill,minmax(50px,1fr))}}
+@media(prefers-reduced-motion:reduce){.cs-note-electric-overlay rect{animation:none!important;filter:none!important}.cs-note-electric-overlay{opacity:.35}.cs-paper-wad{display:none}}
