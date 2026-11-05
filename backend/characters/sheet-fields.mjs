@@ -6,7 +6,8 @@ import {restRecovery} from '../../src/features/sheet/recovery.mjs';
 import {skillBudget} from '../../src/features/sheet/skill-budget.mjs';
 import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
 import {updateManagedStats} from '../../src/features/characters/managed-stats.mjs';
-import {sheetSkills} from '../../src/features/sheet/skills.mjs';
+import {sheetSkills,skillSupportsSpecialization} from '../../src/features/sheet/skills.mjs';
+import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields} from '../../src/features/sheet/inventory-fields.mjs';
 import {entryCalculations} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
 import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
@@ -47,9 +48,14 @@ export function mergeSheetData(original,change){
   const rows=change.collection==='skills'?sheetSkills(data):Array.isArray(data[change.collection])?data[change.collection]:[];
   if(change.collection==='skills'){if(change.mode!=='update'||Object.keys(change.fields||{}).some(k=>!['lvl','temp','cs','subName','favorite'].includes(k)))bad('Skills are fixed. Edit ranks, class skill, misc or specialization.');data.skills=sheetSkills(data);}
   if(change.mode!=='add'&&(!Number.isInteger(change.index)||change.index<0||change.index>=rows.length))bad('Entry no longer exists.');
+  if(change.collection==='skills'&&Object.hasOwn(change.fields||{},'subName')&&!skillSupportsSpecialization(rows[change.index]?.name))bad('Only Craft, Profession and Perform can have a specialization.');
   if(change.mode==='remove')rows.splice(change.index,1);
   else{
    if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>30)bad('Invalid entry fields.');
+   if(change.collection==='items'){
+    const currentCategory=change.fields.sourceCategory??rows[change.index]?.sourceCategory??'Misc',allowed=new Set(inventoryEditorKeys(currentCategory));
+    if(Object.keys(change.fields).some(key=>!allowed.has(key)))bad('That field is not available for this inventory tag.');
+   }
    if(change.mode==='update'&&data.gunbreakerAmmo!==undefined&&rows[change.index].rulesOwned&&rows[change.index].sourceRuleId===MAGICKED_AMMO_ID&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Use the gun arm ammunition tracker to change these rounds.');
    if(change.mode==='update'&&isLimitBreak(rows[change.index])&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Limit Break usage is shared and calculated.');
    const safe={};
@@ -59,6 +65,8 @@ export function mergeSheetData(original,change){
     if(key==='damage_types'&&change.collection==='weapons'){if(!Array.isArray(value)||value.length>damageTypes.length||value.some(v=>!damageTypes.includes(v)))bad('Choose valid damage types.');safe[key]=[...new Set(value)];}
     else if(key==='action_type'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');safe[key]=value;}
     else if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
+    else if(key==='weight'&&change.collection==='items'){safe.weight=numeric(value);if(safe.weight<0||safe.weight>1000000)bad('Weight must be from 0 to 1,000,000 lb.');}
+    else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount'){safe[key]=text(value,key==='img'?2048:1200);if(key==='rarity'&&safe[key]&&!['Common','Uncommon','Rare','Epic','Legendary'].includes(safe[key]))bad('Choose a valid rarity.');}
     else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=text(value,key==='name'?120:12000);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
     else if(entryNumber.includes(key)){if(['mp_cost','caster_level'].includes(key)&&value===''){safe[key]='';continue;}safe[key]=numeric(value);if(['u_curr','u_max'].includes(key)&&(!Number.isInteger(safe[key])||safe[key]<0))bad('Uses must be nonnegative whole numbers.');if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
     else if(key==='two_handed'&&['items','weapons'].includes(change.collection)&&typeof value==='boolean')safe[key]=value;
@@ -74,6 +82,7 @@ export function mergeSheetData(original,change){
      if(change.collection==='spells'&&Object.hasOwn(safe,'mp_cost'))for(const alias of ['mpCost','mp_amount','mpAmount'])delete updated[alias];
      if(['items','weapons'].includes(change.collection)){
        if(safe.equipped===false){updated.equip_slot='';}
+       if(change.collection==='items'&&!inventoryEditorFields(updated.sourceCategory).allowTwoHanded)updated.two_handed=false;
        if(Object.hasOwn(safe,'amount')&&safe.amount<=0&&updated.equip_slot){
          updated.equip_slot='';updated.equipped=false;
        }
