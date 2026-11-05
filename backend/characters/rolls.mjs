@@ -58,9 +58,10 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  else if(typeof change.label!=='string'||!change.label.trim()||change.label.length>120||/[\u0000-\u001f]/.test(change.label))throw Error('Invalid roll.');
  if(ability&&(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)||typeof change.spendUse!=='boolean'))throw Error('Invalid ability roll.');
  const mode=change.mode||'legacy';if(!['legacy','send','use'].includes(mode)||(!entry&&change.mode!==undefined))throw Error('Invalid entry action.');
- const expression=(entry?change.kind+':'+(ability?change.collection+':'+(change.spendUse?'use':'roll')+':':'')+change.index+':'+change.revision:change.expression)+(entry&&mode!=='legacy'?':'+mode+':'+change.discord:'')+(change.discordStats===false?':hide-stats':'');
+ const expression=(entry?change.kind+':'+(ability?change.collection+':'+(change.spendUse?'use':'roll')+':':'')+change.index+':'+change.revision:change.expression)+(entry&&mode!=='legacy'?':'+mode+':'+change.discord:'');
+  const receiptKey=expression+(change.discordStats===false?':hide-stats':'');
  const old=db.prepare('SELECT * FROM sheet_rolls WHERE id=?').get(change.requestId);
- if(old){if(old.user_id!==userId||old.character_id!==character.id||old.expression!==expression||(!entry&&old.label!==change.label))throw Error('Roll identifier already used.');return {roll:JSON.parse(old.result_json),discord:old.delivery};}
+ if(old){if(old.user_id!==userId||old.character_id!==character.id||old.expression!==receiptKey||(!entry&&old.label!==change.label))throw Error('Roll identifier already used.');return {roll:JSON.parse(old.result_json),discord:old.delivery};}
  if(entry&&(change.revision!==character.revision||change.revision!==db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision))throw Object.assign(Error('This character changed. Load the latest sheet before rolling.'),{httpStatus:409});
  const row=entry?character.data?.[weapon?'weapons':spell?'spells':change.collection]?.[change.index]:null;if(entry&&!row)throw Error('Entry not found.');
  const label=entry?String(row.name||'Weapon').slice(0,120):change.label;
@@ -93,7 +94,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  db.exec('BEGIN IMMEDIATE');try{
   if(entry&&db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision!==change.revision)throw Object.assign(Error('This character changed. Load the latest sheet.'),{httpStatus:409});
   if(updated){db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(character.id,JSON.stringify(updated));db.prepare('UPDATE characters SET revision=revision+1,updated_at=? WHERE id=?').run(new Date().toISOString(),character.id);}
-  db.prepare('INSERT INTO sheet_rolls VALUES(?,?,?,?,?,?,?,?,?)').run(change.requestId,userId,character.id,expression,label,JSON.stringify(roll),delivery,Date.now(),change.discord?1:0);db.exec('COMMIT');
+  db.prepare('INSERT INTO sheet_rolls VALUES(?,?,?,?,?,?,?,?,?)').run(change.requestId,userId,character.id,receiptKey,label,JSON.stringify(roll),delivery,Date.now(),change.discord?1:0);db.exec('COMMIT');
  }catch(error){db.exec('ROLLBACK');throw error;}
  if(!change.discord)return {roll,discord:'off'};
  const safe=s=>String(s).replaceAll('@','＠');
