@@ -16,8 +16,8 @@ import {publishRoll} from '../backend/characters/rolls.mjs';
 test('inventory uses icon-only filters and navigation without the redundant Inventory title',()=>{
  const char={id:'sheet',name:'Character',data:{slot_cap:30,items:[{name:'Robe',sourceCategory:'Armor',weight:3}]}};
  const html=renderSheetFrame(char,'items');
- assert.match(html,/data-item-view="inventory" aria-label="Inventory"/);
- assert.match(html,/data-item-view="equip" aria-label="Equip"/);
+ assert.match(html,/data-item-view="inventory" aria-pressed="true" aria-label="Inventory"/);
+ assert.match(html,/data-item-view="equip" aria-pressed="false" aria-label="Equip"/);
  assert.doesNotMatch(html,/<h2>Inventory<\/h2>/);
  assert.match(html,/class="item-category-tiles item-category-icon-only"/);
  assert.doesNotMatch(html,/class="item-group-buttons"/);
