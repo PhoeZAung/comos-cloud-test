@@ -1,0 +1,41 @@
+/* Supplemental sheet-only styling, separate from the 72 KiB core sheet budget. */
+.cs-d20-symbol{display:inline-block;flex:none;width:25px;height:25px;background:currentColor;
+ -webkit-mask:url("icons/d20.png") center/contain no-repeat;
+ mask:url("icons/d20.png") center/contain no-repeat}
+.cs-dice-button{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.cs-dice-button .cs-d20-symbol{width:20px;height:20px}
+.cs-action-type .cs-action-graphic{display:inline-block;width:25px;height:25px;background:currentColor;vertical-align:middle}
+.cs-action-standard{color:#000!important}
+.cs-action-standard .cs-action-graphic{
+ -webkit-mask:url("icons/sword-action.png") center/contain no-repeat;
+ mask:url("icons/sword-action.png") center/contain no-repeat;
+ filter:drop-shadow(0 0 1px #e8eaf2);
+}
+.cs-action-move{color:#34c77b!important}
+.cs-action-move .cs-action-graphic{
+ -webkit-mask:url("icons/running-action.png") center/contain no-repeat;
+ mask:url("icons/running-action.png") center/contain no-repeat;
+}
+.cs-action-immediate{color:#60a5fa!important}
+.cs-action-immediate svg{stroke-width:2.35}
+.cs-entry-heading>.cs-action-type{width:25px;height:28px;margin:.55em 0}
+.cs-entry-actions .cs-entry-use{color:var(--accent)}
+.cs-weapon-detail-grid h3{font:700 14px/1.35 system-ui;color:var(--accent);letter-spacing:.025em;text-transform:none}
+.cs-weapon-editor .cs-editor-group legend{font-size:14px;font-weight:700;color:var(--accent);letter-spacing:.025em}
+.cs-weapon-editor>.cs-field:first-child>span{font-weight:700;color:var(--accent)}
+.cs-weapon-editor>.cs-field-wide>span{font-weight:700;color:var(--accent);text-align:center}
+.cs-weapon-editor>.cs-field-wide textarea{text-align:left}
+.cs-ability-editor{gap:12px;align-items:start}
+.cs-ability-editor>.cs-field{min-width:0}
+.cs-ability-editor .cs-field>span{color:var(--muted);font-size:12px;font-weight:500}
+.cs-ability-editor .cs-field input,.cs-ability-editor .cs-field select,
+.cs-ability-editor .cs-field textarea{background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px}
+.cs-ability-editor .cs-field input:focus,.cs-ability-editor .cs-field select:focus,
+.cs-ability-editor .cs-field textarea:focus{border-color:var(--accent)}
+.cs-ability-prose{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:8px;padding-top:18px;border-top:1px solid var(--line)}
+.cs-ability-prose .cs-field{width:100%;max-width:none}
+.cs-ability-prose .cs-field>span{display:block;width:100%;text-align:center;font-size:14px;font-weight:700;color:var(--accent);letter-spacing:.025em}
+.cs-ability-prose textarea{display:block;text-align:left;resize:vertical;min-height:95px;line-height:1.55}
+.cs-entry-prose h3{text-align:center;font-weight:700}
+.cs-entry-prose .cs-prose{text-align:left}
+@media(max-width:520px){.cs-ability-editor{grid-template-columns:minmax(0,1fr)}.cs-action-type .cs-action-graphic{width:22px;height:22px}}
