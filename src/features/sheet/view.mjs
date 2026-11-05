@@ -8,7 +8,7 @@ import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCateg
 import {skillBudget} from './skill-budget.mjs';
 import {spellLevel as levelOf} from './calculations.mjs';
 import {sheetSkills,skillSupportsSpecialization} from './skills.mjs';
-import {inventoryItemDetails} from './inventory-fields.mjs';
+
 import {abilities,number,signed,sheetStats,skillTotal,weaponAttack,weaponAttackParts,attackTypes} from './model.mjs';
 import {characterClasses,totalClassLevel} from '../characters/ffd20.mjs';
 import {renderEquipment} from './equipment.mjs';
