@@ -32,7 +32,7 @@ for (const file of files) {
   await mkdir(new URL('dist/assets/routes/', root), {recursive:true});
   await writeFile(new URL(`dist/assets/routes/${page.id}.mjs`,root), 'export default '+JSON.stringify(routeView(page))+';\n');
 }
-const styles = await Promise.all(['tokens.css', 'themes.css', 'sheet-loading.css', 'dice-themes.css', 'site.css', 'character-carousel.css', 'character-wizard.css', 'rules-wizard.css', 'feed-lore.css', 'feed-additions.css', 'thread.css', 'item-categories.css', 'item-control.css','tag-groups.css','critical-effects.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
+const styles = await Promise.all(['tokens.css', 'themes.css', 'sheet-loading.css', 'dice-themes.css','laser-flow.css', 'site.css', 'character-carousel.css', 'character-wizard.css', 'rules-wizard.css', 'feed-lore.css', 'feed-additions.css', 'thread.css', 'item-categories.css', 'item-control.css','tag-groups.css','critical-effects.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
 await mkdir(new URL('dist/assets/', root), { recursive: true });
 await mkdir(new URL('dist/assets/icons/',root),{recursive:true});
 await cp(new URL('src/assets/icons/level-up.png',root),new URL('dist/assets/icons/level-up.png',root));
@@ -46,7 +46,7 @@ for (const file of ['preview.mjs', 'validation.mjs']) {
 }
 for (const [id, html] of pages) await writeFile(new URL(`dist/${id}.html`, root), html);
 await writeFile(new URL('dist/assets/site.css', root), styles.join('\n'));
-await writeFile(new URL('dist/assets/sheet.css',root),(await Promise.all(['tokens.css','themes.css','sheet-loading.css','dice-themes.css','sheet-base.css','sheet.css','item-categories.css','tag-groups.css','critical-effects.css'].map(file=>readFile(new URL('src/styles/'+file,root),'utf8')))).join('\n'));
+await writeFile(new URL('dist/assets/sheet.css',root),(await Promise.all(['tokens.css','themes.css','sheet-loading.css','dice-themes.css','laser-flow.css','sheet-base.css','sheet.css','item-categories.css','tag-groups.css','critical-effects.css'].map(file=>readFile(new URL('src/styles/'+file,root),'utf8')))).join('\n'));
 await writeFile(new URL('dist/assets/feedback.css',root),await readFile(new URL('src/styles/feedback.css',root)));
 console.log(`Built ${pages.length} Cosmos pages in isolated fixture preview mode.`);
 
