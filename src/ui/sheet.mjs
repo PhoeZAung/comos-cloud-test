@@ -55,7 +55,7 @@ export function formatRoll(label,r){
  const receipt=(x,typed=false)=>x.total+' ('+x.expression+(x.rolls?.length?' · '+x.rolls.join(', '):'')+')'+(typed&&damageTypeLine(x)?' — '+damageTypeLine(x):'');
  const title=r.weaponName||r.spellName||r.abilityName||label;
  if(r.descriptionOnly)return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingInfusedAmmo!==undefined?' · '+r.remainingInfusedAmmo+' infused rounds remaining':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+'\n'+r.description;
- if(!['weapon','spell','ability'].includes(r.kind))return label+': '+receipt(r);
+ if(!['weapon','spell','ability'].includes(r.kind))return label+': '+receipt(r,true);
  const attack=r.kind==='weapon'?r:r.attack;
  return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingInfusedAmmo!==undefined?' · '+r.remainingInfusedAmmo+' infused rounds remaining':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+(attack?'\nAttack Roll: '+receipt(attack):'')+(r.damage?'\nDice Roll: '+receipt(r.damage,true):'')+(r.critical?.threat?'\nCrit!\nAttack Roll: '+receipt(r.critical.confirmation)+(r.critical.damage?'\nDice Roll: '+receipt(r.critical.damage,true):''):'');
 }
