@@ -4,7 +4,7 @@ import {createUserRepository,createIdentityRepository} from '../repositories/use
 import {reserveName} from '../repositories/names.mjs';
 import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 export async function importDirectory({db,auth,projectId,env=process.env}){
- for(const u of db.prepare("SELECT id,display_name FROM users WHERE display_name<>'' AND display_name_key IS NULL ORDER BY created_at,id").all())reserveName(db,u.display_name,u.id);
+ for(const u of db.prepare("SELECT id,display_name FROM users WHERE deleted_at IS NULL AND display_name<>'' AND display_name_key IS NULL ORDER BY created_at,id").all())reserveName(db,u.display_name,u.id);
  const count=Number(env.COMOS_LEGACY_IMPORT_PARTS||0);if(!count)return;
  if(!Number.isInteger(count)||count<1||count>30)throw Error('Invalid private import configuration.');
  const packed=Array.from({length:count},(_,i)=>env['COMOS_LEGACY_IMPORT_'+i]||'').join('');
@@ -16,10 +16,10 @@ export async function importDirectory({db,auth,projectId,env=process.env}){
  try{
   for(const account of live){const key={provider:'firebase',issuer,subject:account.uid};let id=identities.find(key);
    if(!id){id=users.create().id;identities.link(key,id);}
-   const user=users.get(id);if(!user.displayName)reserveName(db,backup.users.find(u=>u.uid===account.uid)?.displayName||account.displayName||'Player',id);
+   const user=users.get(id);if(!user)continue;if(!user.displayName)reserveName(db,backup.users.find(u=>u.uid===account.uid)?.displayName||account.displayName||'Player',id);
   }
   for(const c of backup.characters){
-   const owner=identities.find({provider:'firebase',issuer,subject:c.uid});if(!owner||!c.data||typeof c.legacyId!=='string')continue;
+   const owner=identities.find({provider:'firebase',issuer,subject:c.uid});if(!owner||!users.get(owner)||!c.data||typeof c.legacyId!=='string')continue;
    const key=c.uid+'/'+c.legacyId;if(db.prepare('SELECT 1 FROM character_details WHERE legacy_key=?').get(key))continue;
    const id=randomUUID(),now=new Date().toISOString(),name=String(c.data.charName||c.data.name||'Unnamed character').slice(0,80);
    db.prepare('INSERT INTO characters(id,owner_id,name,sources_json,created_at,updated_at) VALUES(?,?,?,?,?,?)').run(id,owner,name,'[]',now,now);

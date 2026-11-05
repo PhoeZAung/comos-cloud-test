@@ -7,9 +7,9 @@ export function createGroupsService(db){
  const parties=()=>db.prepare('SELECT id,world_id AS worldId,name FROM parties ORDER BY name,id').all();
  function snapshot({q='',userId=''}={}){
   if(typeof q!=='string'||q.length>80||typeof userId!=='string'||userId.length>128)throw invalid('Invalid search.');
-  const users=db.prepare('SELECT id,display_name AS displayName FROM users WHERE instr(lower(display_name),lower(?))>0 OR id=? ORDER BY display_name,id LIMIT 51').all(q,q);
+  const users=db.prepare('SELECT id,display_name AS displayName FROM users WHERE deleted_at IS NULL AND (instr(lower(display_name),lower(?))>0 OR id=?) ORDER BY display_name,id LIMIT 51').all(q,q);
   const selected=userId||users[0]?.id;
-  const user=selected?db.prepare('SELECT id,display_name AS displayName FROM users WHERE id=?').get(selected):null;
+  const user=selected?db.prepare('SELECT id,display_name AS displayName FROM users WHERE id=? AND deleted_at IS NULL').get(selected):null;
   return {revision:revision(),worlds:worlds(),parties:parties(),users:users.slice(0,50),moreUsers:users.length>50,selectedUser:user||null,
    memberships:user?{worldIds:db.prepare('SELECT world_id AS id FROM world_memberships WHERE user_id=?').all(user.id).map(r=>r.id),partyIds:db.prepare('SELECT party_id AS id FROM party_memberships WHERE user_id=?').all(user.id).map(r=>r.id)}:{worldIds:[],partyIds:[]}};
  }
@@ -29,7 +29,7 @@ export function createGroupsService(db){
     if(data.id){const old=db.prepare('SELECT world_id FROM parties WHERE id=?').get(data.id);if(!old||old.world_id!==data.worldId)throw invalid('An existing party must stay in its world.');db.prepare('UPDATE parties SET name=? WHERE id=?').run(value,data.id);}
     else {if(parties().length>=200)throw invalid('Party limit reached.');db.prepare('INSERT INTO parties VALUES(?,?,?,?)').run(randomUUID(),data.worldId,value,new Date().toISOString());}
    }else{
-    if(!db.prepare('SELECT id FROM users WHERE id=?').get(data.userId))throw invalid('Select a player.');
+    if(!db.prepare('SELECT id FROM users WHERE id=? AND deleted_at IS NULL').get(data.userId))throw invalid('Select a player.');
     for(const [key,max] of [['worldIds',4],['partyIds',200]])if(!Array.isArray(data[key])||data[key].length>max||data[key].some(id=>typeof id!=='string')||new Set(data[key]).size!==data[key].length)throw invalid('Invalid memberships.');
     for(const id of data.worldIds)if(!db.prepare('SELECT id FROM worlds WHERE id=?').get(id))throw invalid('Unknown world.');
     for(const id of data.partyIds){const party=db.prepare('SELECT world_id FROM parties WHERE id=?').get(id);if(!party||!data.worldIds.includes(party.world_id))throw invalid('Party access requires membership in its world.');}

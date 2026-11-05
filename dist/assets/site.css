@@ -145,6 +145,8 @@ header .install-control{margin-right:0;margin-left:auto}header .install-control+
 /* Supplied level-up artwork for admin character controls. */
 [data-character-admin] .character-controls .cs-level-up-icon{display:inline-block;width:22px;height:22px;flex:none;background:currentColor;-webkit-mask:url("icons/level-up.png") center/contain no-repeat;mask:url("icons/level-up.png") center/contain no-repeat}
 
+.directory-delete-user{width:min(440px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto}.directory-delete-user label{display:grid;gap:8px}.directory-delete-user input{width:100%}.directory-delete-user p{color:var(--muted);line-height:1.6}.directory-user .danger,.directory-delete-user .danger{color:#ef98a4;border-color:#b7546470}
+
 /* Step 7 — translucent 3D character coverflow (Dark-Grasp-inspired). */
 .cc-roster{width:100%;max-width:1040px;margin:0 auto;min-width:0}
 .cc-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:4px 2px 0}

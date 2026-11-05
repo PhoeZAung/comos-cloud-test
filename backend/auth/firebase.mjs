@@ -1,3 +1,4 @@
+import {createUserDeletionRoutes} from '../characters/user-deletion.mjs';
 import {createDirectoryRoutes} from '../characters/directory.mjs';
 import {createPartyNotesRoutes} from '../characters/party-notes.mjs';
 import {createOwlbearRoutes} from './owlbear.mjs';
@@ -85,7 +86,8 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const replyRoutes=createReplyRoutes({sessions,posts,replies:createRepliesService(db,{posts}),origin:config.origin,adminUids});
     const sessionRoutes=createSessionRoutes({sessions,origin:config.origin});
     const owlbear=createOwlbearRoutes({db,sessions,adminUids,origin:config.origin,handlers:[directory,partyNotes,characterLibraryRoutes,accountRoutes,sessionRoutes]});
-    const directoryRoutes=async(...args)=>await owlbear(...args)||await partyNotes(...args)||await directory(...args);
+    const userDeletion=createUserDeletionRoutes({db,sessions,adminUids,origin:config.origin});
+    const directoryRoutes=async(...args)=>await userDeletion(...args)||await owlbear(...args)||await partyNotes(...args)||await directory(...args);
     return { loreImageRoutes,loreRoutes,characterLibraryRoutes,directoryRoutes,homeMediaRoutes,itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,replyRoutes,backupRoutes,accountRoutes,sessionRoutes, close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }

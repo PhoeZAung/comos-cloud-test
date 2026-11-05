@@ -1,0 +1,63 @@
+// Real sheet controls and server save/archive routes, isolated SQLite and fake
+// administrator session. Never opens Firebase or sends a Discord message.
+import {chromium} from 'playwright';
+import {createServer} from 'node:http';
+import {readFile,mkdtemp,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {openDatabase} from '../backend/db/database.mjs';
+import {createUserRepository} from '../backend/repositories/users.mjs';
+import {createCharactersService} from '../backend/characters/service.mjs';
+import {createDirectoryRoutes} from '../backend/characters/directory.mjs';
+import {createUserDeletionRoutes} from '../backend/characters/user-deletion.mjs';
+
+const db=await openDatabase(':memory:'),users=createUserRepository(db),admin=users.create({displayName:'Test Admin'}),player=users.create({displayName:'Test Player'}),id=randomUUID(),checks=[],errors=[];
+const output=await mkdtemp(path.join(tmpdir(),'cosmos-sheet-entry-'));let origin,failArchive=false,archives=0;
+createCharactersService(db).save({op:'save',id,revision:0,name:'Test Character',ownerId:player.id,sources:[]});
+db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(id,JSON.stringify({str:14,dex:12,hp_max:10,hp_curr:10,mp_class:4,mp_curr:4,weapons:[{name:'Celestial Gunblade',damage:'1d8',attack_type:'melee',u_curr:2,u_max:6,desc:'A blade of starlight.'}],activeAbilities:[{name:'Celestial Ward',type:'Su',action_type:'Swift',desc:'Raise a shield.',effect:'Absorb the next strike.',at_higher_lvls:'The shield grows stronger.',u_curr:2,u_max:3}]}));
+const sessions={restore:async()=>({user:users.get(admin.id),subject:'admin'})};let directory,removeUser;
+const mime={'.mjs':'text/javascript','.js':'text/javascript','.html':'text/html','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.json':'application/json'};
+const server=createServer(async(req,res)=>{
+ const send=(status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
+ try{
+  const url=new URL(req.url,origin);req.headers.cookie='__Host-comos_session=admin';
+  if(url.pathname==='/api/v1/auth/session'||url.pathname==='/api/v1/account'){send(200,{user:users.get(admin.id)});return;}
+  if(url.pathname==='/api/v1/access'){send(200,{admin:true});return;}
+  if(req.method==='POST'&&url.pathname.startsWith('/api/v1/character-records/')){
+   const chunks=[];for await(const chunk of req)chunks.push(chunk);const body=JSON.parse(Buffer.concat(chunks));
+   if(body.op==='archive'){archives++;if(failArchive){send(503,{message:'Synthetic archive failure.'});return;}}
+   const {Readable}=await import('node:stream');const proxy=Readable.from([Buffer.from(JSON.stringify(body))]);Object.assign(proxy,{headers:req.headers,method:req.method,url:req.url,socket:req.socket});await directory(proxy,res,url.pathname,send);return;
+  }
+  if(await removeUser(req,res,url.pathname,send)||await directory(req,res,url.pathname,send))return;
+  if(url.pathname.startsWith('/api/')){send(200,{characters:[],items:[]});return;}
+  if(url.pathname==='/favicon.ico'){res.writeHead(204).end();return;}
+  const file=path.resolve('dist-live','.'+(url.pathname==='/'?'/sheet.html':url.pathname));if(!file.startsWith(path.resolve('dist-live')+path.sep)){res.writeHead(404).end();return;}
+  const bytes=await readFile(file);res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream'});res.end(bytes);
+ }catch(error){errors.push(error.message);send(500,{message:error.message});}
+});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));origin='http://127.0.0.1:'+server.address().port;
+directory=createDirectoryRoutes({db,sessions,adminUids:['admin'],origin});removeUser=createUserDeletionRoutes({db,sessions,adminUids:['admin'],origin});
+let page;const browser=await chromium.launch({headless:true,...(process.platform==='win32'?{channel:'msedge'}:{})});
+const readData=()=>JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json);
+try{
+ page=await browser.newPage({viewport:{width:1280,height:900}});page.on('pageerror',error=>errors.push(error.message));
+ const open=async()=>{await page.goto(origin+'/sheet.html?characterId='+id+'&section=combat');await page.locator('[data-entry-preview="weapons:0"]').waitFor();};await open();
+ const popup=page.locator('[data-entry-popup]');await page.locator('[data-collapse-weapons]').click();assert.equal(await page.locator('[data-entry-preview="weapons:0"]').isVisible(),false);await page.locator('[data-sheet-tab=skills]').click();await page.locator('[data-sheet-tab=combat]').click();assert.equal(await page.locator('[data-entry-preview="weapons:0"]').isVisible(),false);await page.locator('[data-collapse-weapons]').click();checks.push('collapse all weapons persists through sheet tab changes');
+ await page.locator('[data-entry-preview="weapons:0"]').click();assert.equal(await popup.isVisible(),true);assert.match(await popup.innerText(),/A blade of starlight/);assert.equal(await popup.evaluate(n=>getComputedStyle(n,'::before').animationName),'cs-star-orbit');await page.keyboard.press('Escape');checks.push('weapon name opens a themed modal with animated star border');await page.locator('[data-edit-entry="weapons:0"]').click();await page.screenshot({path:path.join(output,'weapon-editor.png')});await page.keyboard.press('Escape');
+ await page.locator('[data-edit-entry="weapons:0"]').click();const editor=page.locator('[data-sheet-dialog]');
+ assert.deepEqual(await editor.locator('.cs-editor-group legend').allTextContents(),['Attack','Damage','Damage Type','Usage']);
+ const fields=await editor.locator('[name=attack_type],[name=ability_mod],[name=u_curr],[name=u_max]').evaluateAll(nodes=>nodes.map(n=>({name:n.name,y:n.getBoundingClientRect().y,x:n.getBoundingClientRect().x})));assert.equal(fields[0].x,fields[1].x);assert.ok(fields[1].y>fields[0].y);assert.ok(fields.find(n=>n.name==='u_max').y>fields.find(n=>n.name==='u_curr').y);
+ for(const type of ['Piercing','Fire','Good'])await editor.locator('[data-add-damage-type]').selectOption(type);await editor.locator('[data-remove-damage-type=Good]').click();await editor.locator('[name=misfire]').fill('1–2');await editor.locator('[name=u_curr]').fill('4');await editor.locator('[name=u_max]').fill('8');await editor.locator('[type=submit]').click();await editor.waitFor({state:'hidden'});assert.deepEqual(readData().weapons[0].damage_types,['Piercing','Fire']);assert.equal(readData().weapons[0].misfire,'1–2');assert.equal(readData().weapons[0].u_curr,4);checks.push('grouped weapon editor saves add/remove damage tags, misfire and stacked Uses / Max Usage through real server validation');
+ await page.locator('[data-sheet-tab=abilities]').click();await page.locator('[data-edit-entry="activeAbilities:0"]').click();assert.deepEqual(await editor.locator('[name=action_type] option').allTextContents(),['—','Standard','Move','Full Round','Free','Swift','Immediate']);await editor.locator('[name=action_type]').selectOption('Immediate');await editor.locator('[name=effect]').fill('A new effect.\nWith another line.');assert.equal(await editor.locator('[name=at_higher_lvls]').evaluate(n=>getComputedStyle(n).resize),'both');await editor.locator('[type=submit]').click();await editor.waitFor({state:'hidden'});assert.equal(readData().activeAbilities[0].type,'Su');assert.equal(readData().activeAbilities[0].action_type,'Immediate');assert.equal(await page.locator('.cs-action-immediate').count(),1);await page.locator('[data-entry-preview="activeAbilities:0"]').click();assert.match(await popup.innerText(),/A new effect/);assert.equal(await popup.locator('.cs-entry-prose').evaluate(n=>getComputedStyle(n).textAlign),'center');await page.screenshot({path:path.join(output,'ability-desktop.png')});checks.push('ability action dropdown and independent resizable prose save and render centered, preserving legacy feature type');
+ for(const width of [390,320,768]){await page.setViewportSize({width,height:780});const bounds=await popup.boundingBox();assert.ok(bounds.x>=0&&bounds.width<=width);assert.ok(await popup.evaluate(n=>n.scrollWidth<=n.clientWidth+1));}await page.setViewportSize({width:390,height:780});await page.screenshot({path:path.join(output,'ability-mobile.png')});checks.push('detail dialogs fit desktop, tablet and 320px / 390px phone widths without horizontal overflow');await page.keyboard.press('Escape');
+ await page.emulateMedia({reducedMotion:'reduce'});await page.locator('[data-entry-preview="activeAbilities:0"]').click();assert.equal(await popup.evaluate(n=>getComputedStyle(n,'::before').animationName),'none');await page.keyboard.press('Escape');await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.goto(origin+'/admin.html');await page.locator('[data-user]').first().waitFor();await page.locator('.main-nav a').filter({hasText:'Lore',exact:true}).click();await page.locator('.main-nav a').filter({hasText:'Characters',exact:true}).click();await page.waitForURL('**/admin.html');checks.push('admin → Lore → Characters returns to the admin directory');
+ const playerRow=page.locator('[data-user="'+player.id+'"]');await playerRow.locator('summary').click();await playerRow.locator('[data-delete-user]').click();const userPopup=page.locator('.directory-delete-user');assert.match(await userPopup.innerText(),/shared Firebase account stays active/);await userPopup.locator('[data-cancel-delete]').click();assert.ok(users.get(player.id));checks.push('admin user-removal confirmation explains Firebase scope; cancellation changes nothing');
+ await open();await page.setViewportSize({width:1000,height:900});await page.locator('[data-recovery-menu]').click();await page.locator('[data-setting-tab=site]').click();const hold=page.locator('[data-delete-character]');await hold.scrollIntoViewIfNeeded();const point=await hold.boundingBox();await page.mouse.move(point.x+point.width/2,point.y+point.height/2);await page.mouse.down();await page.waitForTimeout(180);await page.mouse.up();assert.equal(await page.locator('.cs-delete-confirm').count(),0);assert.equal(archives,0);checks.push('short press cancels delete hold without sending a request');
+ const holdFor=async(locator,ms=1480)=>{await locator.focus();await page.keyboard.down('Enter');await page.waitForTimeout(ms);await page.keyboard.up('Enter');};await holdFor(hold);const confirmation=page.locator('.cs-delete-confirm');await confirmation.waitFor();assert.equal(await confirmation.locator('button').count(),1);assert.equal((await confirmation.innerText()).trim(),'Delete');await holdFor(confirmation.locator('button'),180);assert.equal(archives,0);await page.keyboard.press('Escape');checks.push('full hold opens a button-only confirmation; releasing its second hold early sends nothing');
+ failArchive=true;await holdFor(hold);await holdFor(confirmation.locator('button'));await page.locator('[data-sheet-status]').filter({hasText:'Synthetic archive failure.'}).waitFor();assert.equal(await page.locator('.cs-paper-crumple').count(),0);assert.equal(db.prepare('SELECT archived FROM characters WHERE id=?').get(id).archived,0);checks.push('failed server deletion leaves the sheet intact and never crumples it');
+ failArchive=false;await holdFor(hold);const next=confirmation.locator('button');await next.focus();await page.keyboard.down('Enter');await page.locator('.cs-paper-crumple').waitFor();assert.equal(db.prepare('SELECT archived FROM characters WHERE id=?').get(id).archived,1);assert.equal(await page.locator('.cs-paper-fold').count(),6);await page.screenshot({path:path.join(output,'crumple.png')});await page.keyboard.up('Enter');await page.waitForURL('**/characters.html');checks.push('two deliberate holds archive exactly once, fold the sheet and return to Characters');
+ assert.deepEqual(errors,[]);await writeFile(path.join(output,'results.json'),JSON.stringify({checks,errors},null,2));console.log(JSON.stringify({checks,errors,output},null,2));
+}catch(error){await page?.screenshot({path:path.join(output,'failure.png')});console.log(JSON.stringify({archives,errors,output,url:page?.url(),status:await page?.locator('[data-sheet-status]').textContent().catch(()=>''),confirmation:await page?.locator('.cs-delete-confirm').count(),checks},null,2));throw error;}finally{await browser.close();await new Promise(resolve=>server.close(resolve));db.close();}

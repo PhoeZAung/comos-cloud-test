@@ -26,15 +26,16 @@ export function createSessionService({ db, auth, projectId, now = () => Date.now
       const key = identity(claims);
       const age = now() / 1000 - claims.auth_time;
       if (!Number.isFinite(age) || age < 0 || age > 300) throw new Error('Recent sign-in required.');
-      const cookie = await auth.createSessionCookie(token, { expiresIn });
       db.exec('BEGIN IMMEDIATE');
       let user;
       try {
         const existing = identities.find(key);
         user = existing ? users.get(existing) : users.create();
+        if(!user)throw Object.assign(Error('This Cosmos account has been removed.'),{code:'auth/user-disabled'});
         identities.link(key, user.id);
         db.exec('COMMIT');
       } catch (error) { db.exec('ROLLBACK'); throw error; }
+      const cookie = await auth.createSessionCookie(token, { expiresIn });
       return { cookie, expiresIn, user };
     },
     async restore(cookie) {

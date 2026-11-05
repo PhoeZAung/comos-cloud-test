@@ -134,7 +134,7 @@ export function createCharacterLibraryRoutes({db,sessions,origin,adminUids=[],th
         const body=await adminJson(req,210000);
         if(!plain(body)||Object.keys(body).some(k=>!['ownerId','requestId','build'].includes(k))||
            typeof body.ownerId!=='string'||body.ownerId.length>128||
-           !db.prepare('SELECT 1 FROM users WHERE id=?').get(body.ownerId))
+           !db.prepare('SELECT 1 FROM users WHERE id=? AND deleted_at IS NULL').get(body.ownerId))
           throw fail('INVALID_CHARACTER','Choose an existing Comos player.');
         // The request's owner is trusted only after admin session verification.
         // Do not give the target player the admin-only Lore tag.

@@ -90,7 +90,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');
   if(roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');
   lines.push(safe(row.desc||'No description.'));
-  for(const [key,title]of Object.entries({type:'Type',lvl:'Level',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',spell_resist:'Spell resistance',damage:'Dice Roll',at_higher_lvls:'At higher levels'}))if(row[key]!==undefined&&row[key]!=='')lines.push(title+': '+safe(row[key]));
+  for(const [key,title]of Object.entries({effect:'Effect',action_type:'Action type',damage_types:'Damage Type',misfire:'Misfire',type:'Type',lvl:'Level',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',spell_resist:'Spell resistance',damage:'Dice Roll',at_higher_lvls:'At higher levels'}))if(row[key]!==undefined&&row[key]!=='')lines.push(title+': '+safe(row[key]));
  }else if(entry){lines.push(...entryReceipt(roll));if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');if(roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');}
  else lines.push(diceLine(roll));
  // Send complete stored descriptions in bounded Discord messages. Receipt replay never resends or spends twice.

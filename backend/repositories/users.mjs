@@ -13,7 +13,7 @@ function name(value) {
   return value.trim();
 }
 export function createUserRepository(db) {
-  const get = id => record(db.prepare('SELECT users.*,p.theme_choice,p.splash_cursor,p.effect_colors,p.pause_stars,p.dice_popups,p.dice_theme,p.dice_options FROM users LEFT JOIN user_preferences p ON p.user_id=users.id WHERE users.id = ?').get(id));
+  const get = id => record(db.prepare('SELECT users.*,p.theme_choice,p.splash_cursor,p.effect_colors,p.pause_stars,p.dice_popups,p.dice_theme,p.dice_options FROM users LEFT JOIN user_preferences p ON p.user_id=users.id WHERE users.id = ? AND users.deleted_at IS NULL').get(id));
   return Object.freeze({
     get,
     create({ displayName = '' } = {}) {
