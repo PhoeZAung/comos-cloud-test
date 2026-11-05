@@ -87,7 +87,7 @@ export function mountSheet(){
  let combatView=new URL(location.href).searchParams.get('combatView')==='offense'?'offense':'defense';
  let itemTag=new URL(location.href).searchParams.get('itemTag')||'All';if(itemTag!=='All'&&!ITEM_TAG_OPTIONS.includes(itemTag)&&!Object.hasOwn(SHOP_ITEM_CATEGORY_GROUPS,itemTag))itemTag='All';
  let spellFilter=new URL(location.href).searchParams.get('spellLevel')||'all';if(spellFilter!=='all'){spellFilter=Number(spellFilter);if(!Number.isInteger(spellFilter)||spellFilter<0||spellFilter>9)spellFilter='all';}
- let itemView=new URL(location.href).searchParams.get('itemView')==='inventory'?'inventory':'equip';
+ let itemView=new URL(location.href).searchParams.get('itemView')==='equip'?'equip':'inventory';
  document.body.classList.toggle('sheet-compact',compact);
  if(!id){root.innerHTML='<h1>Character sheet</h1><p>Choose a character to open its sheet.</p><a class="button" href="characters.html">Characters</a>';return ()=>control.abort();}
  const endpoint='/api/v1/character-records/'+encodeURIComponent(id);
@@ -216,6 +216,12 @@ export function mountSheet(){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
+   if(button.matches('[data-inline-currency]')){
+    if(busy||conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or refresh before editing currency.');return;}
+    const field=button.dataset.inlineCurrency,current=Number(character.data[field]??(field==='currency_gil'?character.data.gil??0:field==='slot_cap'?20:0));
+    const input=document.createElement('input');input.type='number';input.min=field==='slot_cap'?'1':'0';input.max='100000000';input.step='1';input.value=String(current);input.dataset.inlineCurrencyInput=field;input.dataset.originalValue=String(current);input.setAttribute('aria-label','Edit '+(field==='slot_cap'?'maximum capacity':field==='currency_gil'?'Gil':'Moogle'));
+    button.hidden=true;button.after(input);input.focus();input.select();return;
+   }
    if(button.matches('[data-ammo-operation]')){const operation=button.dataset.ammoOperation,change={action:'gunbreakerAmmo',operation};if(operation==='configure')change.profileId=root.querySelector('[data-ammo-profile]').value;if(['reload','fire','spend','brutal-shell'].includes(operation))change.rounds=Number(root.querySelector('[data-ammo-rounds]')?.value);void save(change);return;}
    if(button.matches('[data-combat-details]')){
     const kind=button.dataset.combatDetails;
@@ -307,7 +313,21 @@ export function mountSheet(){
   if(button.matches('[data-formula]')){showFormula(button.dataset.formula);return;}
   if(button.matches('[data-spend-mp]')){openDialog('Spend MP',['amount'],{amount:1},{action:'spendMp'},{help:'Enter the MP cost for this cast.'});return;}
  },{signal:control.signal});
- root.addEventListener('submit',event=>{
+ root.addEventListener('keydown',event=>{
+   if(!event.target.matches('[data-inline-currency-input]'))return;
+   if(event.key==='Escape'){event.preventDefault();event.target.dataset.cancelled='true';event.target.blur();}
+   else if(event.key==='Enter'){event.preventDefault();event.target.blur();}
+  },{signal:control.signal});
+  root.addEventListener('focusout',event=>{
+   const input=event.target;if(!input.matches('[data-inline-currency-input]'))return;
+   const button=input.previousElementSibling,field=input.dataset.inlineCurrencyInput,old=Number(input.dataset.originalValue);
+   input.remove();if(button)button.hidden=false;
+   if(input.dataset.cancelled==='true')return;
+   const value=Number(input.value);
+   if(input.value.trim()===''||!Number.isSafeInteger(value)||value<(field==='slot_cap'?1:0)||value>100000000){status('Enter a valid whole number'+(field==='slot_cap'?' of at least 1':' of at least 0')+'.');return;}
+   if(value!==old)void save({action:'fields',fields:{[field]:value}});
+  },{signal:control.signal});
+  root.addEventListener('submit',event=>{
   if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
   const fields={};for(const key of dialogState.keys){if(key==='damage_types'){fields[key]=new FormData(event.target).getAll(key);continue;}const node=event.target.elements[key];if(['caster_level','mp_cost'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
