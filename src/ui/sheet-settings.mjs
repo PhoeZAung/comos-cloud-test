@@ -8,6 +8,7 @@ export function mountSheetSettings(root){
  function paint(){
   const options=preferences.diceOptions;
   panel.querySelector('[data-setting-dice-popup]').checked=preferences.dicePopup;
+   panel.querySelector('[data-setting-notes-electric]').checked=preferences.notesElectricBorder;
   for(const key of ['nat20Effects','nat1Effects','critSound'])panel.querySelector('[data-dice-option='+key+']').checked=options[key];
   const volume=panel.querySelector('[data-dice-option=volume]');if(document.activeElement!==volume)volume.value=options.volume;
   panel.querySelector('[data-volume-label]').textContent=Math.round(Number(volume.value)*100)+'%';
@@ -28,8 +29,8 @@ export function mountSheetSettings(root){
  },{signal:control.signal});
  panel.addEventListener('input',event=>{if(event.target.matches('[data-dice-option=volume]'))panel.querySelector('[data-volume-label]').textContent=Math.round(Number(event.target.value)*100)+'%';},{signal:control.signal});
  panel.addEventListener('change',event=>{
-  const input=event.target;if(!input.matches('[data-setting-dice-popup],[data-dice-option]'))return;
-  choose(input.matches('[data-setting-dice-popup]')?{dicePopup:input.checked}:{diceOptions:{...preferences.diceOptions,[input.dataset.diceOption]:input.type==='checkbox'?input.checked:input.type==='range'?Number(input.value):input.value}});
+  const input=event.target;if(!input.matches('[data-setting-dice-popup],[data-dice-option],[data-setting-notes-electric]'))return;
+  choose(input.matches('[data-setting-notes-electric]')?{notesElectricBorder:input.checked}:input.matches('[data-setting-dice-popup]')?{dicePopup:input.checked}:{diceOptions:{...preferences.diceOptions,[input.dataset.diceOption]:input.type==='checkbox'?input.checked:input.type==='range'?Number(input.value):input.value}});
  },{signal:control.signal});
  document.addEventListener('comos:preferences',paint,{signal:control.signal});paint();
  return ()=>{closed=true;control.abort();disposeAccount?.();};
