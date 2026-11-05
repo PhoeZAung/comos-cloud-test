@@ -43,16 +43,22 @@ export function abilityRoll(row,data,key,roll=serverRoll){
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
  return {critical,kind:'ability',abilityName:String(row.name||'Ability'),dc:c.dc,attack,damage,description:String(row.desc||''),expression:'ability',rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
 }
-function diceLine(r,{typed=false}={}){const detail=typed?damageTypeLine(r):'';return r.total+' ('+r.expression+(r.rolls?.length?' · '+r.rolls.join(', '):'')+')'+(detail?' — '+detail:'');}
+function diceLine(r,{typed=false}={}){
+ const rolls=Array.isArray(r.rolls)?r.rolls.filter(Number.isFinite):[];
+ const bonus=Number(r.bonus)||0,parts=[...rolls,...(bonus?[bonus]:[])];
+ const calculation=parts.length<2&&parts[0]===r.total?String(r.total):parts.length?parts.map((n,i)=>i===0?String(n):n<0?' - '+Math.abs(n):' + '+n).join('')+' = '+r.total:String(r.total);
+ const elements=typed?damageTypeLine(r):'';
+ return calculation+(elements?' — '+elements:'');
+}
 export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push('Dice Roll: '+diceLine(r.damage,{typed:true}));if(r.critical?.threat){lines.push('Crit!');lines.push('Attack Roll: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Dice Roll: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
 export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch,makeWeaponRoll=weaponRoll,makeSpellRoll=spellRoll,makeAbilityRoll=abilityRoll}){
  const weapon=change.kind==='weapon',spell=change.kind==='spell',ability=change.kind==='ability',entry=weapon||spell||ability;
- if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.discord!=='boolean'||(change.kind!==undefined&&!entry))throw Error('Invalid roll.');
+ if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.discord!=='boolean'||(change.discordStats!==undefined&&typeof change.discordStats!=='boolean')||(change.kind!==undefined&&!entry))throw Error('Invalid roll.');
  if(entry){if(!Number.isInteger(change.index)||change.index<0||!Number.isInteger(change.revision)||change.revision<0)throw Error('Invalid entry roll.');}
  else if(typeof change.label!=='string'||!change.label.trim()||change.label.length>120||/[\u0000-\u001f]/.test(change.label))throw Error('Invalid roll.');
  if(ability&&(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)||typeof change.spendUse!=='boolean'))throw Error('Invalid ability roll.');
  const mode=change.mode||'legacy';if(!['legacy','send','use'].includes(mode)||(!entry&&change.mode!==undefined))throw Error('Invalid entry action.');
- const expression=(entry?change.kind+':'+(ability?change.collection+':'+(change.spendUse?'use':'roll')+':':'')+change.index+':'+change.revision:change.expression)+(entry&&mode!=='legacy'?':'+mode+':'+change.discord:'');
+ const expression=(entry?change.kind+':'+(ability?change.collection+':'+(change.spendUse?'use':'roll')+':':'')+change.index+':'+change.revision:change.expression)+(entry&&mode!=='legacy'?':'+mode+':'+change.discord:'')+(change.discordStats===false?':hide-stats':'');
  const old=db.prepare('SELECT * FROM sheet_rolls WHERE id=?').get(change.requestId);
  if(old){if(old.user_id!==userId||old.character_id!==character.id||old.expression!==expression||(!entry&&old.label!==change.label))throw Error('Roll identifier already used.');return {roll:JSON.parse(old.result_json),discord:old.delivery};}
  if(entry&&(change.revision!==character.revision||change.revision!==db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision))throw Object.assign(Error('This character changed. Load the latest sheet before rolling.'),{httpStatus:409});
@@ -91,14 +97,14 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  }catch(error){db.exec('ROLLBACK');throw error;}
  if(!change.discord)return {roll,discord:'off'};
  const safe=s=>String(s).replaceAll('@','＠');
- const lines=['🎲 '+safe(character.name)+' — '+safe(label)];if(external)lines.push('Dice+ client roll');
+ const stats=change.discordStats!==false,lines=['🎲 '+safe(character.name)+' — '+safe(label)];if(external)lines.push('Dice+ client roll');
  if(descriptionOnly){
-  if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');
-  if(roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');
+  if(stats&&roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');
+  if(stats&&roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(stats&&roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');
   lines.push(safe(row.desc||'No description.'));
-  for(const [key,title]of Object.entries({effect:'Effect',action_type:'Action type',damage_types:'Damage Type',misfire:'Misfire',type:'Type',lvl:'Level',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',spell_resist:'Spell resistance',damage:'Dice Roll',at_higher_lvls:'At higher levels'}))if(row[key]!==undefined&&row[key]!=='')lines.push(title+': '+safe(row[key]));
- }else if(entry){lines.push(...entryReceipt(roll));if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');if(roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');}
- else lines.push(diceLine(roll,{typed:true}));
+  for(const [key,title]of Object.entries({effect:'Effect',action_type:'Action type',damage_types:'Damage Type',misfire:'Misfire',type:'Type',lvl:'Level',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',spell_resist:'Spell resistance',damage:'Dice Roll',at_higher_lvls:'At higher levels'}))if(row[key]!==undefined&&row[key]!==''&&(stats||key!=='damage'))lines.push(title+': '+safe(row[key]));
+ }else if(entry){if(stats)lines.push(...entryReceipt(roll));if(stats&&roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');if(stats&&roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(stats&&roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');}
+ else if(stats)lines.push(diceLine(roll,{typed:true}));
  // Send complete stored descriptions in bounded Discord messages. Receipt replay never resends or spends twice.
  const content=lines.join('\n').replaceAll('@','＠'),chunks=[];for(let start=0;start<content.length;){let end=Math.min(start+1900,content.length);if(end<content.length&&/[\uD800-\uDBFF]/.test(content[end-1]))end--;chunks.push(content.slice(start,end));start=end;}
  let state='sent';for(const chunk of chunks){try{const response=await sendFetch(relay,{method:'POST',redirect:'error',headers:{'Content-Type':'application/json',Origin:origin},body:JSON.stringify({content:chunk,allowed_mentions:{parse:[]}}),signal:AbortSignal.timeout(7000)});if(!response.ok){state='failed';break;}}catch{state='failed';break;}}
