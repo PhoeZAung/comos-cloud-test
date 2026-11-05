@@ -34,10 +34,10 @@ export function entryCalculations(row,data,key){
 export function damageExpression(source,values={}){
  if(typeof source!=='string'||source.length>300)throw Error('Damage formula is too long.');
  let out=source.replace(/\(([^()]+)\)(?=d\d)/gi,(_,f)=>String(arithmetic(f,values))).replace(/\{([A-Z_]+)\}/gi,(_,key)=>{const n=values[key.toUpperCase()];if(!Number.isFinite(n))throw Error('Set '+key.toUpperCase()+' for this damage formula.');return String(n);});
- out=out.replace(/\+\s*-/g,'-').replace(/-\s*-/g,'+');if(!/^[\d\sd+\-.a-z/]+$/i.test(out))throw Error('Use a dice expression with supported numeric variables.');return out;
+ out=out.replace(/\+\s*-/g,'-').replace(/-\s*-/g,'+').replace(/([a-z])\s+(?=\d*d\d+\b)/gi,'$1 + ');if(!/^[\d\sd+\-.a-z/]+$/i.test(out))throw Error('Use a dice expression with supported numeric variables.');return out;
 }
 export function diceTerms(source){
- if(typeof source!=='string'||source.length>500)throw Error('Invalid dice expression.');const text=source.replaceAll('−','-').trim(),parts=text.match(/[+-]?[^+-]+/g)||[];if(!parts.length||parts.length>16||parts.join('')!==text)throw Error('Invalid dice expression.');let dice=0;
+ if(typeof source!=='string'||source.length>500)throw Error('Invalid dice expression.');const text=source.replaceAll('−','-').replace(/([a-z])\s+(?=\d*d\d+\b)/gi,'$1 + ').trim(),parts=text.match(/[+-]?[^+-]+/g)||[];if(!parts.length||parts.length>16||parts.join('')!==text)throw Error('Invalid dice expression.');let dice=0;
  const terms=parts.map(part=>{const sign=part.trim().startsWith('-')?-1:1,body=part.trim().replace(/^[+-]\s*/,'');let m=/^(\d*)d(\d+)(?:\s+([a-z][a-z /]*))?$/i.exec(body);if(m){const count=Number(m[1]||1),sides=Number(m[2]);dice+=count;if(count<1||dice>50||sides<2||sides>1000)throw Error('Use at most 50 dice, with 2–1,000 sides.');return {sign,count,sides,type:m[3]||''};}m=/^(\d+)(?:\s+([a-z][a-z /]*))?$/i.exec(body);if(!m||Number(m[1])>1000000)throw Error('Invalid dice term.');return {sign,flat:Number(m[1]),type:m[2]||''};});if(!dice)throw Error('A roll needs at least one die.');return terms;
 }
 
@@ -45,4 +45,25 @@ export function maximumSpellLevel(data){
  const classes=characterClasses(data).filter(c=>c.name),profiles=data.castingProfiles||[];
  const levels=classes.map(c=>{const p=profiles.find(p=>p.className?.toLowerCase()===c.name.toLowerCase());if(p)return p.mode==='none'?0:Number.isInteger(p.highestSpellLevel)?p.highestSpellLevel:null;if(/^black mage$/i.test(c.name)&&!c.archetype)return Math.min(9,Math.ceil(c.level/2));return null;});
  const known=levels.filter(n=>n!==null);return known.length?Math.max(...known):null;
+}
+
+/**
+ * Combine like damage types, preserving the recorded totals (never reroll dice).
+ * Untyped terms are shown only when a typed component is present.
+ * This is used by the sheet and Discord receipt for every roll kind.
+ */
+export function damageTypeTotals(roll){
+ const parts=Array.isArray(roll?.breakdown)?roll.breakdown:[];
+ if(!parts.some(part=>String(part.type||'').trim()))return [];
+ const grouped=new Map();
+ for(const part of parts){
+  if(!Number.isFinite(part.total))continue;
+  const type=String(part.type||'').trim().replace(/\s+/g,' ').toLowerCase()||'untyped';
+  grouped.set(type,(grouped.get(type)||0)+part.total);
+ }
+ return [...grouped].map(([type,total])=>({type,total}));
+}
+export function damageTypeLine(roll){
+ const totals=damageTypeTotals(roll);
+ return totals.length?totals.map(part=>part.total+' '+part.type).join(' + ').replace(/\+ -/g,'− ')+' damage':'';
 }
