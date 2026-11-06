@@ -7,7 +7,7 @@ import {skillBudget} from '../../src/features/sheet/skill-budget.mjs';
 import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
 import {updateManagedStats} from '../../src/features/characters/managed-stats.mjs';
 import {sheetSkills,skillSupportsSpecialization} from '../../src/features/sheet/skills.mjs';
-import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields} from '../../src/features/sheet/inventory-fields.mjs';
+import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields,inventoryFieldLabel} from '../../src/features/sheet/inventory-fields.mjs';
 import {entryCalculations} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
 import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
@@ -22,7 +22,7 @@ const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 const bad=message=>{throw Error(message);};
 function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.isFinite(Number(v))||Math.abs(Number(v))>100000000)bad('Enter a valid number.');return Number(v);}
-function text(v,max=12000){if(typeof v!=='string'||v.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v))bad('Text is too long or invalid.');return v;}
+function text(v,max=12000,label='Text'){if(typeof v!=='string'||v.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v))bad(label+' is too long (limit '+max+' characters) or contains invalid characters.');return v;}
 export function mergeSheetData(original,change){
  const data=structuredClone(original);
  if(change.action==='fields'){
@@ -72,13 +72,13 @@ export function mergeSheetData(original,change){
     else if(key==='action_type'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');safe[key]=value;}
     else if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
     else if(key==='weight'&&change.collection==='items'){safe.weight=numeric(value);if(safe.weight<0||safe.weight>1000000)bad('Weight must be from 0 to 1,000,000 lb.');}
-    else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount'){safe[key]=text(value,key==='img'?2048:1200);if(key==='rarity'&&safe[key]&&!['Common','Uncommon','Rare','Epic','Legendary'].includes(safe[key]))bad('Choose a valid rarity.');}
+    else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount'){safe[key]=text(value,key==='img'?2048:key==='special'?30000:12000,inventoryFieldLabel(key));if(key==='rarity'&&safe[key]&&!['Common','Uncommon','Rare','Epic','Legendary'].includes(safe[key]))bad('Choose a valid rarity.');}
     else if(key==='link'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
       safe.link=text(value,2048);
       if(safe.link){try{const url=new URL(safe.link);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)bad('Link must be an http or https URL.');}
        catch{bad('Link must be a valid http or https URL.');}}
      }
-     else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=text(value,key==='name'?120:12000);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
+     else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=text(value,key==='name'?120:key==='desc'&&change.collection==='items'?30000:12000,key==='desc'?'Description':key);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
     else if(entryNumber.includes(key)){if(['mp_cost','caster_level'].includes(key)&&value===''){safe[key]='';continue;}safe[key]=numeric(value);if(['u_curr','u_max'].includes(key)&&(!Number.isInteger(safe[key])||safe[key]<0))bad('Uses must be nonnegative whole numbers.');if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
     else if(key==='two_handed'&&['items','weapons'].includes(change.collection)&&typeof value==='boolean')safe[key]=value;
     else if(['equipped','cs','restoreOnLongRest','favorite'].includes(key)&&typeof value==='boolean')safe[key]=value;
