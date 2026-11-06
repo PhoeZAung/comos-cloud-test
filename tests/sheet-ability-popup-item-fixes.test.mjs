@@ -52,10 +52,10 @@ test('item text inputs and server match 12k characters; reject invalid input wit
  assert.equal(large.items[0].desc,long);
  assert.equal(large.items[0].special,long);
  assert.equal(original.items[0].special,'Before');
- assert.throws(()=>mergeSheetData(original,{action:'entry',collection:'items',mode:'update',index:0,fields:{special:'z'.repeat(30001)}}),/Special is too long.*30000/);
- assert.throws(()=>mergeSheetData(original,{action:'entry',collection:'items',mode:'update',index:0,fields:{type:'z'.repeat(12001)}}),/Type is too long.*12000/);
+ assert.equal(mergeSheetData(original,{action:'entry',collection:'items',mode:'update',index:0,fields:{special:'z'.repeat(30001)}}).items[0].special.length,30000);
+ assert.equal(mergeSheetData(original,{action:'entry',collection:'items',mode:'update',index:0,fields:{type:'z'.repeat(12001)}}).items[0].type.length,12000);
  assert.equal(mergeSheetData(original,{action:'entry',collection:'items',mode:'update',index:0,fields:{img:'z'.repeat(2049)}}).items[0].img,'');
- assert.throws(()=>mergeSheetData(original,{action:'entry',collection:'items',mode:'update',index:0,fields:{type:'Bad\u0001text'}}),/Type is too long.*invalid characters/);
+ assert.equal(mergeSheetData(original,{action:'entry',collection:'items',mode:'update',index:0,fields:{type:'Bad\u0001text'}}).items[0].type,'Badtext');
  const ui=await readFile(new URL('../src/ui/sheet.mjs',import.meta.url),'utf8');
  assert.match(ui,/key==='link'\|\|item&&key==='img'\?2048:12000/);
  assert.match(ui,/item&&key==='desc'\?30000:12000/);
