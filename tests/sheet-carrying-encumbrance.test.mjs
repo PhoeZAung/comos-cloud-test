@@ -164,10 +164,11 @@ test('minimal capacity UI exposes threshold hover, warnings, info and editor; no
  assert.doesNotMatch(inventory,/data-inline-currency="slot_cap"/);
  assert.match(overview,/cs-score-encumbered/);
  assert.match(overview,/data-roll="DEX check" data-bonus="6"/);
- assert.match(overview,/<strong>22<\/strong><small>\+1<\/small>/);
+ assert.match(overview,/<strong>22<\/strong><small>\+6<\/small>/);
+ assert.match(overview,/AC \+1/);
  assert.match(overview,/cs-score-load-info/);
  const speed=renderSpeedDetails(hero.data);
- assert.match(speed,/Land \(base 30 ft\)/);
+ assert.match(speed,/Base land<\/dt><dd>30 ft/);
  const ui=await readFile(new URL('../src/ui/sheet.mjs',import.meta.url),'utf8');
  assert.match(ui,/capacity:\['capacity_modifier','capacity_body_type'\]/);
  assert.match(ui,/name="carried"/);

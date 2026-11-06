@@ -5,7 +5,7 @@ import {itemCategoryForItem,normalizeItemTagLabel} from './item-categories.mjs';
 export const ITEM_EDIT_FIELDS_BY_CATEGORY=Object.freeze({
   Weapon:[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Critical','crit'],['Range','range']],
   'Ranged Weapon':[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Critical','crit'],['Range','range'],['Ammunition','ammo']],
-  Armor:[['AC Bonus','acBonus'],['Max Dex','maxDex'],['Check Penalty','checkPenalty'],['Spell Failure','spellFailure'],['Speed','speed']],
+  Armor:[['Armor Bonus','acBonus'],['Max Dex','maxDex'],['Check Penalty','checkPenalty'],['Spell Failure','spellFailure'],['Speed','speed']],
   Machine:[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['Mileage','mileage'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness'],['Attack/Damage','attackDmg'],['Critical','critical'],['Range','range'],['Damage Type','damageType'],['Aim','aim'],['Load','load']],
   'Alchemical Items':[['Tier','tier'],['Range','range'],['DC/Save','dcSave']]
 });
