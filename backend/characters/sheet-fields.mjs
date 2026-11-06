@@ -7,7 +7,7 @@ import {skillBudget} from '../../src/features/sheet/skill-budget.mjs';
 import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
 import {updateManagedStats} from '../../src/features/characters/managed-stats.mjs';
 import {sheetSkills,skillSupportsSpecialization} from '../../src/features/sheet/skills.mjs';
-import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields,inventoryFieldLabel} from '../../src/features/sheet/inventory-fields.mjs';
+import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields,inventoryFieldLabel,usableItemImageUrl} from '../../src/features/sheet/inventory-fields.mjs';
 import {entryCalculations} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
 import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
@@ -72,7 +72,8 @@ export function mergeSheetData(original,change){
     else if(key==='action_type'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');safe[key]=value;}
     else if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
     else if(key==='weight'&&change.collection==='items'){safe.weight=numeric(value);if(safe.weight<0||safe.weight>1000000)bad('Weight must be from 0 to 1,000,000 lb.');}
-    else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount'){safe[key]=text(value,key==='img'?2048:key==='special'?30000:12000,inventoryFieldLabel(key));if(key==='rarity'&&safe[key]&&!['Common','Uncommon','Rare','Epic','Legendary'].includes(safe[key]))bad('Choose a valid rarity.');}
+    else if(key==='img'&&change.collection==='items')safe.img=usableItemImageUrl(value);
+     else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount'){safe[key]=text(value,key==='special'?30000:12000,inventoryFieldLabel(key));if(key==='rarity'&&safe[key]&&!['Common','Uncommon','Rare','Epic','Legendary'].includes(safe[key]))bad('Choose a valid rarity.');}
     else if(key==='link'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
       safe.link=text(value,2048);
       if(safe.link){try{const url=new URL(safe.link);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)bad('Link must be an http or https URL.');}

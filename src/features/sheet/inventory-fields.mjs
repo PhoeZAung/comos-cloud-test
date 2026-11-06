@@ -65,6 +65,17 @@ export function inventoryItemValue(item={},key){
  if(key==='weight'&&value!==undefined){const parsed=Number.parseFloat(String(value));return Number.isFinite(parsed)?parsed:value;}
  return value;
 }
+// An image URL is optional display metadata. Never block an item save because
+// imported catalog data contains an oversized image, data URI, or unsupported URL.
+export function usableItemImageUrl(value){
+ if(typeof value!=='string')return '';
+ const raw=value.trim();
+ if(!raw||raw.length>2048||/[\u0000-\u001f\u007f]/u.test(raw))return '';
+ try{
+  const url=new URL(raw);
+  return ['http:','https:'].includes(url.protocol)&&url.hostname&&!url.username&&!url.password?url.href:'';
+ }catch{return '';}
+}
 export function inventoryFieldLabel(key){
  return [...ITEM_COMMON_FIELDS,...Object.values(ITEM_EDIT_FIELDS_BY_CATEGORY).flat(),['Name','name'],['Description','desc'],['Special','special']].find(([,field])=>field===key)?.[0]||key;
 }
