@@ -158,12 +158,12 @@ export function mountSheet(){
  }
  function syncWeapons(){for(const collection of root.querySelectorAll('[data-collection="weapons"]')){collection.querySelector('.cs-entry-list').hidden=weaponsCollapsed;const toggle=collection.querySelector('[data-collapse-weapons]');toggle.setAttribute('aria-expanded',String(!weaponsCollapsed));toggle.setAttribute('aria-label',weaponsCollapsed?'Expand weapons':'Collapse weapons');toggle.title=weaponsCollapsed?'Expand weapons':'Collapse weapons';}}
  let dragState=null;
-  function moveAbility(collection,from,to){
+  function moveAbility(collection,from,to,focusAfter=false){
    if(from===to)return;
-   if(busy||conflict||dirty||remainingInvalid){status('Save or refresh the sheet before reordering abilities.');draw();return;}
+   if(busy||conflict||dirty||remainingInvalid){status('Save or refresh the sheet before reordering abilities.');return;}
    void(async()=>{
     if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;
-    if(!await save({action:'reorderAbility',collection,from,to})){if(!closed){draw();status('Ability order was not saved. Refresh and try again.');}}
+    if(await save({action:'reorderAbility',collection,from,to})){if(focusAfter&&!closed)root.querySelector('[data-ability-drag="'+collection+':'+to+'"]')?.focus();}else if(!closed){draw();status('Ability order was not saved. Refresh and try again.');}
    })();
   }
   function clearAbilityDrag(cancel=false){
@@ -172,7 +172,7 @@ export function mountSheet(){
    if(cancel){if(originalNext?.isConnected)list.insertBefore(row,originalNext);else list.append(row);placeholder.remove();}
    else placeholder.replaceWith(row);
    row.classList.remove('cs-ability-dragging');row.style.removeProperty('left');row.style.removeProperty('top');row.style.removeProperty('width');row.style.removeProperty('height');
-   if(!cancel){for(const chosen of root.querySelectorAll('.cs-ability-selected'))chosen.classList.remove('cs-ability-selected');row.classList.add('cs-ability-selected');handle?.setAttribute('aria-pressed','true');}
+   if(cancel)handle?.setAttribute('aria-pressed','false');else{for(const chosen of root.querySelectorAll('.cs-ability-selected'))chosen.classList.remove('cs-ability-selected');row.classList.add('cs-ability-selected');handle?.setAttribute('aria-pressed','true');}
    if(!cancel&&from!==to)moveAbility(collection,from,to);
   }
   function beginAbilityDrag(event){
@@ -184,6 +184,7 @@ export function mountSheet(){
    const rect=row.getBoundingClientRect(),originalNext=row.nextSibling;
    const placeholder=document.createElement('div');placeholder.className='cs-ability-drop-slot';placeholder.style.height=Math.max(48,rect.height)+'px';row.before(placeholder);
    for(const chosen of root.querySelectorAll('.cs-ability-selected'))chosen.classList.remove('cs-ability-selected');
+   for(const chosen of root.querySelectorAll('[data-ability-drag][aria-pressed=true]'))chosen.setAttribute('aria-pressed','false');
    row.classList.add('cs-ability-dragging','cs-ability-selected');row.style.left=rect.left+'px';row.style.top=rect.top+'px';row.style.width=rect.width+'px';row.style.height=rect.height+'px';
    handle.setAttribute('aria-pressed','true');
    dragState={id:event.pointerId,row,list,handle,placeholder,originalNext,collection,from,to:from,offsetY:event.clientY-rect.top};
@@ -283,7 +284,7 @@ export function mountSheet(){
    event.preventDefault();
    const [collection,raw]=grip.dataset.abilityDrag.split(':'),from=Number(raw),all=[...grip.closest('.cs-entry-list').querySelectorAll('[data-ability-index]')];
    const pos=all.findIndex(node=>Number(node.dataset.abilityIndex)===from),next=all[pos+(event.key==='ArrowUp'?-1:1)];
-   if(next)moveAbility(collection,from,Number(next.dataset.abilityIndex));
+   if(next)moveAbility(collection,from,Number(next.dataset.abilityIndex),true);
   },{signal:control.signal});
   root.addEventListener('keydown',event=>{if(!event.target.matches('[data-spell-level]')||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const levels=['all',0,1,2,3,4,5,6,7,8,9],at=levels.indexOf(spellFilter),level=event.key==='Home'?'all':event.key==='End'?9:levels[(at+(event.key==='ArrowRight'?1:10))%11];selectSpellLevel(level,true);},{signal:control.signal});
  async function persistRemaining(){
