@@ -49,7 +49,7 @@ test('Mount Aetheria inventory categories have their own fields and Weight inste
  assert.equal(added.items[0].weight,2.5);
  assert.equal(added.items[0].dmg,'1d8');
  assert.equal(added.items[0].special,'Cold steel');
- assert.throws(()=>mergeSheetData(added,{action:'entry',collection:'items',mode:'update',index:0,fields:{sourceCategory:'Weapon',weight:-2}}),/Weight/);
+ assert.equal(mergeSheetData(added,{action:'entry',collection:'items',mode:'update',index:0,fields:{sourceCategory:'Weapon',weight:-2}}).items[0].weight,2.5); // Invalid optional weight does not block other edits.
  assert.throws(()=>mergeSheetData(added,{action:'entry',collection:'items',mode:'update',index:0,fields:{sourceCategory:'Armor',dmg:'1d8'}}),/not available/);
  const armor=mergeSheetData(added,{action:'entry',collection:'items',mode:'update',index:0,fields:{sourceCategory:'Armor',weight:4,acBonus:'+2',checkPenalty:'-1'}});
  assert.equal(armor.items[0].acBonus,'+2');
