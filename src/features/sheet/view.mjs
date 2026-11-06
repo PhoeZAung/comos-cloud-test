@@ -75,7 +75,7 @@ export function renderSheetFrame(character,section='overview',{admin=false,compa
 }
 export function renderSpeedDetails(data={}){
  const stats=sheetStats(data),land=stats.speed,enc=stats.encumbrance;
- const items=[['Land (effective)',land],['Land (base)',stats.baseSpeed],['Speed Mod',enc.speedMod],['After armor / load',enc.constrainedSpeed],['Burrow',data.speed_burrow],['Climb',data.speed_climb],['Fly',data.speed_fly],['Swim',data.speed_swim]];
+ const items=[['Land',land],['Burrow',data.speed_burrow],['Climb',data.speed_climb],['Fly',data.speed_fly],['Swim',data.speed_swim],['Base land',stats.baseSpeed],['After armor / load',enc.constrainedSpeed],['Speed Mod',enc.speedMod]];
  const value=v=>Number.isFinite(Number(v))&&Number(v)>0?e(Number(v)+' ft'):'—';
  return '<dl class="cs-speed-list">'+items.map(([label,v])=>'<div><dt>'+e(label)+'</dt><dd>'+((label==='Speed Mod')?e((Number(v)>=0?'+':'')+Number(v)+' ft'):value(v))+'</dd></div>').join('')+'</dl>'+(enc.speedCapReasons.length?'<p class="cs-speed-warning-details">Restricted by '+e(enc.speedCapReasons.join(' and '))+'. Armor allows '+e(enc.armorSpeed)+' ft; load allows '+e(enc.loadSpeed)+' ft before Speed Mod.</p>':'');
 }

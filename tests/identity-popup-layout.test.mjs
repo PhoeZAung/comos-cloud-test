@@ -16,7 +16,7 @@ test('Identity popup groups character details and movement speeds without extra 
  assert.ok(first>0&&second>first);
  const details=html.slice(first,second),movement=html.slice(second);
  assert.deepEqual([...details.matchAll(/name="([^"]+)"/g)].map(m=>m[1]),['size_category','languages','senses']);
- assert.deepEqual([...movement.matchAll(/name="([^"]+)"/g)].map(m=>m[1]),['speed','speed_burrow','speed_climb','speed_fly','speed_swim']);
+ assert.deepEqual([...movement.matchAll(/name="([^"]+)"/g)].map(m=>m[1]),['speed','speed_mod','speed_burrow','speed_climb','speed_fly','speed_swim']);
  assert.match(movement,/name="speed"[^>]*value="30"/);
  assert.match(movement,/name="speed_fly"[^>]*value="20"/);
  assert.doesNotMatch(html,/speed_fly_maneuverability|Fly Maneuverability|cs-movement-hint|cs-movement-summary|Tunneling;|hazardous|ascent restrictions/i);

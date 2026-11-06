@@ -58,11 +58,11 @@ test('Speed label opens read-only view of five modes; header retains only edit c
  assert.equal((identity.match(/data-speed-details/g)||[]).length,1);
  assert.match(identity,/<dt><button[^>]*data-speed-details[^>]*>Speed<\/button><\/dt><dd>20 ft<\/dd>/);
  const popup=renderSpeedDetails(data);
- assert.deepEqual([...popup.matchAll(/<dt>([^<]+)<\/dt>/g)].map(x=>x[1]),['Land','Burrow','Climb','Fly','Swim']);
+ assert.deepEqual([...popup.matchAll(/<dt>([^<]+)<\/dt>/g)].map(x=>x[1]),['Land','Burrow','Climb','Fly','Swim','Base land','After armor / load','Speed Mod']);
  assert.match(popup,/Land<\/dt><dd>20 ft/);assert.match(popup,/Burrow<\/dt><dd>10 ft/);
  assert.match(popup,/Climb<\/dt><dd>15 ft/);assert.match(popup,/Fly<\/dt><dd>—/);assert.match(popup,/Swim<\/dt><dd>25 ft/);
  assert.doesNotMatch(popup,/<input|<select|data-edit-stats|Maneuverability|hint/i);
  const none=renderSpeedDetails({speed:30});
- assert.equal((none.match(/<dt>/g)||[]).length,5);
+ assert.equal((none.match(/<dt>/g)||[]).length,8);
  assert.equal((none.match(/<dd>—<\/dd>/g)||[]).length,4);
 });
