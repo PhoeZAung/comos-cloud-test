@@ -15,7 +15,7 @@ export const ITEM_COMMON_FIELDS=Object.freeze([
 const noSubtype=new Set(['Weapon','Ranged Weapon','Ammunition','Armor','Machine']);
 const noCasterLevel=new Set(['Weapon','Ranged Weapon','Ammunition','Armor','Food']);
 export const itemEditableColumns=Object.freeze([
- ...new Set([...ITEM_COMMON_FIELDS.map(([,key])=>key),...Object.values(ITEM_EDIT_FIELDS_BY_CATEGORY).flat().map(([,key])=>key),'special'])
+ ...new Set([...ITEM_COMMON_FIELDS.map(([,key])=>key),...Object.values(ITEM_EDIT_FIELDS_BY_CATEGORY).flat().map(([,key])=>key),'special','carried'])
 ]);
 export function inventoryEditorFields(category){
  const normalized=normalizeItemTagLabel(category);
@@ -25,7 +25,7 @@ export function inventoryEditorFields(category){
 }
 export function inventoryEditorKeys(category){
  const fields=inventoryEditorFields(category);
- return ['sourceCategory','name',...fields.common.map(([,key])=>key),...fields.extras.map(([,key])=>key),...(fields.allowTwoHanded?['two_handed']:[]),'desc','special'];
+ return ['sourceCategory','name',...fields.common.map(([,key])=>key),...fields.extras.map(([,key])=>key),...(fields.allowTwoHanded?['two_handed']:[]),'carried','desc','special'];
 }
 // Read legacy shop aliases without changing the saved schema until the user edits the field.
 const legacyAliases={
