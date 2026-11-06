@@ -15,7 +15,7 @@ export const ITEM_COMMON_FIELDS=Object.freeze([
 const noSubtype=new Set(['Weapon','Ranged Weapon','Ammunition','Armor','Machine']);
 const noCasterLevel=new Set(['Weapon','Ranged Weapon','Ammunition','Armor','Food']);
 export const itemEditableColumns=Object.freeze([
- ...new Set([...ITEM_COMMON_FIELDS.map(([,key])=>key),...Object.values(ITEM_EDIT_FIELDS_BY_CATEGORY).flat().map(([,key])=>key),'special','carried'])
+ ...new Set([...ITEM_COMMON_FIELDS.map(([,key])=>key),...Object.values(ITEM_EDIT_FIELDS_BY_CATEGORY).flat().map(([,key])=>key),'special'])
 ]);
 export function inventoryEditorFields(category){
  const normalized=normalizeItemTagLabel(category);
