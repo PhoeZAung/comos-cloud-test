@@ -158,13 +158,17 @@ export function createCharacterLibraryRoutes({db,sessions,origin,adminUids=[],th
       if(adminCreate){
         if(!session.admin){send(403,{error:'admin_required'});return true;}
         const body=await adminJson(req,210000);
-        if(!plain(body)||Object.keys(body).some(k=>!['ownerId','requestId','build'].includes(k))||
+        const manual=body?.mode==='manual';
+        const allowed=manual?['ownerId','requestId','mode']:['ownerId','requestId','build'];
+        if(!plain(body)||Object.keys(body).some(k=>!allowed.includes(k))||
            typeof body.ownerId!=='string'||body.ownerId.length>128||
            !db.prepare('SELECT 1 FROM users WHERE id=? AND deleted_at IS NULL').get(body.ownerId))
           throw fail('INVALID_CHARACTER','Choose an existing Comos player.');
-        // The request's owner is trusted only after admin session verification.
-        // Do not give the target player the admin-only Lore tag.
-        send(201,{character:service.createBuild(body.ownerId,{build:body.build,requestId:body.requestId})});
+        // Admins may create a blank manual character for the selected player.
+        // The target owner is trusted only after admin verification; no admin-only tag is granted.
+        send(201,{character:manual
+          ?service.createManual(body.ownerId,{mode:'manual',requestId:body.requestId})
+          :service.createBuild(body.ownerId,{build:body.build,requestId:body.requestId})});
       }else if(loreTags){
         const url=new URL(req.url,origin);
         if(url.search){send(400,{error:'invalid_request'});return true;}
