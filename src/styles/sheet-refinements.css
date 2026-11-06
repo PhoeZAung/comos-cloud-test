@@ -39,3 +39,8 @@
 .cs-entry-prose h3{text-align:center;font-weight:700}
 .cs-entry-prose .cs-prose{text-align:left}
 @media(max-width:520px){.cs-ability-editor{grid-template-columns:minmax(0,1fr)}.cs-action-type .cs-action-graphic{width:1em;height:1em}}
+
+/* Formatting toolbar and safe Markdown prose. */
+.cs-rich-field>label{color:var(--muted)}.cs-rich-toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:5px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.cs-rich-toolbar button{min-height:32px;min-width:36px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--text);font:600 13px system-ui;cursor:pointer}
+.cs-rich-toolbar button:hover{border-color:var(--accent);color:var(--accent)}.cs-richtext{white-space:normal;overflow-wrap:anywhere}.cs-richtext p{margin:5px 0}.cs-richtext ul{padding-left:24px;margin:7px 0;list-style:disc}.cs-richtext li{margin:3px 0}.cs-richtext h3,.cs-richtext h4{font-weight:700;margin:12px 0 5px}.cs-richtext h3{font-size:1.12em}.cs-richtext h4{font-size:1em}.cs-rich-align-left{text-align:left}.cs-rich-align-center{text-align:center}.cs-rich-align-right{text-align:right}
