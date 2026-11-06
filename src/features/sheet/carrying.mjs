@@ -66,14 +66,14 @@ function equippedArmor(data){
  const maxDexCaps=worn.map(row=>Number.parseFloat(String(inventoryItemValue(row,'maxDex')??''))).filter(Number.isFinite);
  let category='light';
  for(const row of worn){
-  const type=String(row.type||row.secondaryType||row.subtype||'').toLowerCase();
+  const type=String(inventoryItemValue(row,'type')||row.secondaryType||row.subtype||'').toLowerCase();
   if(/\bheavy\b/.test(type))category='heavy';
   else if(category!=='heavy'&&/\bmedium\b/.test(type))category='medium';
  }
  return {worn:worn.length,checkPenalty:Math.min(0,...penalties),maxDex:maxDexCaps.length?Math.min(...maxDexCaps):Infinity,category};
 }
 export function carryingCapacity(data={}){
- const strength=Math.floor(numeric(data.str)),size=Object.keys(SIZE_CAPACITY).find(s=>s.toLowerCase()===String(data.size_category||data.size||'Medium').toLowerCase())||'Medium';
+ const strength=Math.floor(data.str===undefined||data.str===null||data.str===''?10:numeric(data.str)),size=Object.keys(SIZE_CAPACITY).find(s=>s.toLowerCase()===String(data.size_category||data.size||'Medium').toLowerCase())||'Medium';
  const bodyType=data.capacity_body_type==='quadruped'?'quadruped':'biped',multiplier=SIZE_CAPACITY[size][bodyType==='quadruped'?1:0];
  const base=strengthCapacity(strength),capacityModifier=bounded(numeric(data.capacity_modifier),-1e6,1e6);
  const originalMax=base.heavy*multiplier;

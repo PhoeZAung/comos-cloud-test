@@ -20,6 +20,7 @@ test('official Pathfinder carrying table has correct normalization and higher-St
  assert.deepEqual(strengthCapacity(40),{light:2128,medium:4256,heavy:6400});
  assert.deepEqual(strengthCapacity(0),{light:0,medium:0,heavy:0});
  assert.equal(Object.keys(SIZE_CAPACITY).length,9);
+ assert.equal(carryingCapacity({items:[item(27)]}).maximum,100); // Missing STR uses neutral score 10, not STR 0.
 });
 
 test('STR 8, Medium biped meets 26/27/54/80lb acceptance thresholds',()=>{
