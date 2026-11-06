@@ -10,7 +10,7 @@ import {preferences} from './preferences.mjs';
 import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel,damageTypeLine} from '../features/sheet/calculations.mjs';
-import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue} from '../features/sheet/inventory-fields.mjs';
+import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,usableItemImageUrl} from '../features/sheet/inventory-fields.mjs';
 import {skillSupportsSpecialization} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
 import {applyRichFormat,formatSheetText} from '../features/sheet/rich-text.mjs';
@@ -35,6 +35,7 @@ function field(key,value,{weapon=false,item=false}={}){
  if(key==='action_type')return '<label class="cs-field"><span>Action type</span><select name="action_type"><option value="">None (no icon)</option>'+actionTypes.map(type=>'<option'+(value===type?' selected':'')+'>'+type+'</option>').join('')+'</select></label>';
  if(key==='damage_types'){const chosen=selectedDamageTypes(value);return '<fieldset class="cs-field cs-field-wide cs-damage-tags"><legend>Damage Type</legend><div data-damage-tags>'+chosen.map(type=>damageTag(type)).join('')+'</div><select data-add-damage-type aria-label="Add damage type"><option value="">Add damage type…</option>'+damageTypes.map(type=>'<option'+(chosen.includes(type)?' disabled':'')+'>'+type+'</option>').join('')+'</select></fieldset>';}
 
+ if(key==='img'&&item)return '<label class="cs-field"><span>Image URL (optional)</span><input type="text" name="img" maxlength="2048" autocomplete="off" value="'+e(usableItemImageUrl(value))+'" placeholder="https://example.com/image.png"><small class="cs-caption">Unsupported links are ignored when saving.</small></label>';
  if(key==='rarity')return '<label class="cs-field"><span>Rarity</span><select name="rarity">'+['','Common','Uncommon','Rare','Epic','Legendary'].map(v=>'<option value="'+v+'"'+(v===String(value||'')?' selected':'')+'>'+(v||'—')+'</option>').join('')+'</select></label>';
  if(key==='sourceCategory')return '<label class="cs-field cs-field-wide cs-tag-editor"><span>Item Tag / Shop Category</span><div><span data-category-icon aria-hidden="true">'+itemCategorySymbol(value)+'</span><select name="sourceCategory" aria-label="Item Tag / Shop Category">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).map(([group,tags])=>'<optgroup label="'+(group==='Other'?'Older Items':group)+'">'+tags.map(tag=>'<option value="'+tag+'"'+(value===tag?' selected':'')+'>'+tag+'</option>').join('')+'</optgroup>').join('')+'</select></div></label>';
 

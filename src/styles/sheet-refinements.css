@@ -90,3 +90,19 @@
 .cs-entry-popup-scroll>.cs-card-title{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .cs-entry-popup-scroll>.cs-card-title h2{font:500 23px/1.25 Georgia,serif;margin:0;overflow-wrap:anywhere}
 @media(max-width:620px){.cs-entry-popup>.cs-entry-popup-scroll{padding:18px}}
+
+/* Give item previews the same unbroken star outline as weapon/ability previews:
+   the dialog shell does not scroll, only its descriptive contents do. */
+.cs-dialog.cs-item-description-dialog.cs-star-border{padding:0;overflow:visible;max-height:calc(100dvh - 32px)}
+.cs-item-description-dialog>.cs-item-description-scroll{
+ box-sizing:border-box;max-height:calc(100dvh - 34px);
+ padding:20px;overflow-y:auto;overflow-x:hidden;
+ overscroll-behavior:contain;scrollbar-width:thin;border-radius:inherit;
+}
+.cs-item-description-dialog [data-item-description-text],
+.cs-item-description-dialog [data-item-special]{
+ max-height:none;overflow:visible;overflow-wrap:anywhere;white-space:normal;
+}
+.cs-item-description-dialog [data-item-description-text] p,
+.cs-item-description-dialog [data-item-special] p{overflow-wrap:anywhere}
+@media(max-width:620px){.cs-item-description-dialog>.cs-item-description-scroll{padding:18px}}
