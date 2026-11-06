@@ -14,7 +14,7 @@ import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.
 import {isEquipmentSlot,equipmentRows,occupiesSlot} from '../../src/features/sheet/equipment.mjs';
 export const numericFields=[...abilities,'hp_curr','hp_temp','hp_max','hp_max_temp','mp','mp_curr','mp_temp','mp_class','mp_bonus','mp_max','mp_total_max','mp_max_temp','mp_max_spell_level','init_temp','bab','bab_temp','speed','speed_burrow','speed_climb','speed_fly','speed_swim','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp','touch_temp','flat_temp','cmd_temp','ar_melee_temp','ar_ranged_temp','ar_touch_temp','ar_ranged_touch_temp','cmb_temp','fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp','currency_gil','currency_moogle','slot_cap'];
 const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
-const textFields=['languages','senses','resistances','proficiencies','notesArea'];
+const textFields=['languages','senses','resistances','proficiencies','favored_class_options','notesArea'];
 const enumFields={size_category:sizes,speed_fly_maneuverability:['','clumsy','poor','average','good','perfect'],spell_dc_base:abilities,ar_melee_ability:['str','dex'],ar_ranged_ability:['str','dex'],ar_touch_ability:['str','dex'],ar_ranged_touch_ability:['str','dex']};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
 const entryText=['name','desc','effect','misfire','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage'];
@@ -132,7 +132,8 @@ export function mergeSheetData(original,change){
  }else if(change.action==='rest'){
   const current=sheetStats(data),level=totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1;
   if(data.limitBreakPool||['activeAbilities','passiveAbilities','racialAbilities','feats'].some(k=>data[k]?.some(isLimitBreak)))data.limitBreakPool={spent:0};const recovery=restRecovery(data);data.hp_curr=Math.min(current.hpMax,current.hp+recovery.hp);data.mp=Math.min(current.mpMax,Math.max(0,current.mp-Math.max(0,number(data.mp_temp)))+recovery.mp);data.mp_temp=0;
-  for(const row of ['activeAbilities','passiveAbilities','racialAbilities','feats'].flatMap(k=>data[k]||[]))if(row.restoreOnLongRest!==false){const max=entryCalculations(row,data,'activeAbilities').maxUses;if(max>0)row.u_curr=max;}
+  for(const collection of ['activeAbilities','passiveAbilities','racialAbilities','feats'])for(const row of data[collection]||[]){if(row.restoreOnLongRest===false||isLimitBreak(row))continue;const max=entryCalculations(row,data,collection).maxUses;if(max>0)row.u_curr=max;}
+   // Weapon/ammunition uses are intentionally not restored by this action.
  }else bad('Invalid sheet action.');
  syncGunbreakerAmmo(data);
  syncLimitBreaks(data);

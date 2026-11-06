@@ -4,7 +4,7 @@
  mask:url("icons/d20.png") center/contain no-repeat}
 .cs-dice-button{display:inline-flex;align-items:center;justify-content:center;gap:7px}
 .cs-dice-button .cs-d20-symbol{width:20px;height:20px}
-.cs-action-type .cs-action-graphic{display:inline-block;width:25px;height:25px;background:currentColor;vertical-align:middle}
+.cs-action-type .cs-action-graphic{display:block;width:1em;height:1em;background:currentColor;vertical-align:middle;flex:none}
 .cs-action-standard{color:#000!important}
 .cs-action-standard .cs-action-graphic{
  -webkit-mask:url("icons/sword-action.png") center/contain no-repeat;
@@ -18,7 +18,7 @@
 }
 .cs-action-immediate{color:#60a5fa!important}
 .cs-action-immediate svg{stroke-width:2.35}
-.cs-entry-heading>.cs-action-type{width:25px;height:28px;margin:.55em 0}
+.cs-entry-heading>.cs-action-type{width:1.1em;height:1.5em;margin:.65em 0}
 .cs-entry-actions .cs-entry-use{color:var(--accent)}
 .cs-weapon-detail-grid h3{font:700 14px/1.35 system-ui;color:var(--accent);letter-spacing:.025em;text-transform:none}
 .cs-weapon-editor .cs-editor-group legend{font-size:14px;font-weight:700;color:var(--accent);letter-spacing:.025em}
@@ -38,4 +38,4 @@
 .cs-ability-prose textarea{display:block;text-align:left;resize:vertical;min-height:95px;line-height:1.55}
 .cs-entry-prose h3{text-align:center;font-weight:700}
 .cs-entry-prose .cs-prose{text-align:left}
-@media(max-width:520px){.cs-ability-editor{grid-template-columns:minmax(0,1fr)}.cs-action-type .cs-action-graphic{width:22px;height:22px}}
+@media(max-width:520px){.cs-ability-editor{grid-template-columns:minmax(0,1fr)}.cs-action-type .cs-action-graphic{width:1em;height:1em}}
