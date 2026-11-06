@@ -48,6 +48,45 @@ export function mountCharacterLibrary({fixture=false}={}){
     message='Sample preview only.';
     draw();
   }else void load();
+
+  const createButton=document.querySelector('[data-character-create-open]');
+  const createDialog=document.querySelector('[data-character-create-dialog]');
+  let creating=false,manualRequestId=null;
+  if(createButton&&createDialog){
+    createButton.addEventListener('click',()=>{if(!createDialog.open){createDialog.querySelector('[data-character-create-status]').textContent='';createDialog.showModal();}},{signal:control.signal});
+    createDialog.addEventListener('click',event=>{
+      if(event.target===createDialog){if(!creating)createDialog.close();return;}
+      if(!event.target.closest('[data-character-create-manual]'))return;
+      if(creating)return;
+      const status=createDialog.querySelector('[data-character-create-status]');
+      if(fixture){status.textContent='Sign in to create a character. This is a sample preview.';return;}
+      creating=true;manualRequestId||=crypto.randomUUID();
+      const manual=createDialog.querySelector('[data-character-create-manual]');
+      const cancel=createDialog.querySelector('[data-character-create-cancel]');
+      manual.disabled=true;cancel.disabled=true;status.textContent='Creating blank character…';
+      void(async()=>{
+        try{
+          const response=await fetch('/api/v1/my/characters',{
+            method:'POST',credentials:'same-origin',cache:'no-store',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({mode:'manual',requestId:manualRequestId}),
+            signal:control.signal
+          });
+          if(!response.ok)throw Error(await readError(response));
+          const payload=await response.json();
+          if(typeof payload.character?.id!=='string')throw Error('Character was not returned. Refresh and try again.');
+          location.assign('sheet.html?characterId='+encodeURIComponent(payload.character.id));
+        }catch(err){
+          if(closed||control.signal.aborted)return;
+          status.textContent=err.message||'Could not create the character.';
+          creating=false;manual.disabled=false;cancel.disabled=false;
+          // Retain requestId so a retry does not create a duplicate character.
+        }
+      })();
+    },{signal:control.signal});
+    createDialog.addEventListener('cancel',event=>{if(creating)event.preventDefault();},{signal:control.signal});
+    createDialog.querySelector('[data-character-create-cancel]')?.addEventListener('click',event=>{if(creating)event.preventDefault();},{signal:control.signal});
+  }
   root.addEventListener('click',event=>{
     const toggle=event.target.closest('[data-character-view]');
     if(toggle){view=toggle.dataset.characterView==='list'?'list':'carousel';draw();root.querySelector('[data-character-view]')?.focus();return;}
