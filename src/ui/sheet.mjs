@@ -306,7 +306,14 @@ export function mountSheet(){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
-   if(button.matches('[data-inline-currency]')){
+   if(button.matches('[data-rename-character]')){
+     if(character.data.manualCharacter!==true||busy||conflict||dirty){status('Save or refresh before renaming this character.');return;}
+     const rename=root.querySelector('[data-rename-dialog]');
+     if(rename){rename.querySelector('[data-rename-status]').textContent='';rename.showModal();rename.querySelector('[name=charName]')?.focus();}
+     return;
+    }
+    if(button.matches('[data-rename-cancel]')){root.querySelector('[data-rename-dialog]')?.close();return;}
+    if(button.matches('[data-inline-currency]')){
     if(busy||conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or refresh before editing currency.');return;}
     const field=button.dataset.inlineCurrency,current=Number(character.data[field]??(field==='currency_gil'?character.data.gil??0:field==='slot_cap'?20:0));
     const input=document.createElement('input');input.type='number';input.min=field==='slot_cap'?'1':'0';input.max='100000000';input.step='1';input.value=String(current);input.dataset.inlineCurrencyInput=field;input.dataset.originalValue=String(current);input.setAttribute('aria-label','Edit '+(field==='slot_cap'?'maximum capacity':field==='currency_gil'?'Gil':'Moogle'));
@@ -424,7 +431,16 @@ export function mountSheet(){
    if(value!==old)void save({action:'fields',fields:{[field]:value}});
   },{signal:control.signal});
   root.addEventListener('submit',event=>{
-  if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
+  if(event.target.matches('[data-rename-form]')){
+    event.preventDefault();
+    const name=event.target.elements.charName.value.trim();
+    const message=root.querySelector('[data-rename-status]');
+    if(!name||name.length>80){if(message)message.textContent='Enter a name of 1–80 characters.';return;}
+    if(busy||conflict)return;
+    void save({op:'edit',fields:{charName:name}});
+    return;
+   }
+   if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
   const fields={};for(const key of dialogState.keys){if(key==='damage_types'){fields[key]=new FormData(event.target).getAll(key);continue;}const node=event.target.elements[key];if(['caster_level','mp_cost'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
