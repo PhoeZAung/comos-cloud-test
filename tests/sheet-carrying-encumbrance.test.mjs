@@ -127,7 +127,7 @@ test('encumbrance modifies AC and STR/DEX skills without changing base DEX, refl
  assert.equal(data.speed,30);
  assert.equal(skillTotal({name:'Acrobatics',stat:'dex',lvl:2,temp:0},data),2);
  assert.equal(skillTotal({name:'Acrobatics',stat:'dex',lvl:2,temp:0},before),8);
- assert.equal(skillTotal({name:'Knowledge',stat:'int',lvl:2,temp:0},data),-3); // absent INT gives standard -5
+ assert.equal(skillTotal({name:'Knowledge',stat:'int',lvl:2,temp:0},data),2); // absent INT has no configured modifier
  const stored=mergeSheetData(data,{action:'fields',fields:{capacity_modifier:10,capacity_body_type:'quadruped'}});
  assert.equal(stored.speed,30);
  assert.equal(stored.dex,22);
