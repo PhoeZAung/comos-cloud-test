@@ -27,6 +27,8 @@ test('equipped armor and shield add separate AC bonuses while touch AC excludes 
  assert.equal(stats.ac,19);  // 10 + capped DEX 3 + armor 4 + shield 2
  assert.equal(stats.touch,13); // 10 + capped DEX 3
  assert.equal(stats.flat,16); // 10 + armor 4 + shield 2
+ assert.equal(sheetStats({...hero,ac_armor:6}).ac,19); // manual legacy AC is not double-counted with worn gear
+ assert.equal(sheetStats({...base,ac_armor:6,items:[]}).ac,22); // manual value remains fallback without equipped armor
  assert.equal(stats.ref,6); // capped DEX does NOT affect Reflex
  assert.equal(stats.cmd,19); // nor CMD
  assert.equal(stats.speed,20);

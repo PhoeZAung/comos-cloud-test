@@ -7,7 +7,7 @@ export const signed=value=>(number(value)>=0?'+':'')+number(value);
 export const sizes=['Fine','Diminutive','Tiny','Small','Medium','Large','Huge','Gargantuan','Colossal'];
 export function sheetStats(d={}){
  const n=k=>number(d[k]),mod=k=>d[k]===''||d[k]===undefined?0:modifier(d[k]);
- const encumbrance=carryingCapacity(d),dexAcModifier=Math.min(mod('dex'),encumbrance.maxDex);
+ const encumbrance=carryingCapacity(d),dexAcModifier=Math.min(mod('dex'),encumbrance.maxDex),armorBonus=encumbrance.armor.worn?encumbrance.armorBonus:n('ac_armor');
  const si=sizes.findIndex(s=>s.toLowerCase()===String(d.size_category||d.size||'Medium').toLowerCase());
  const size=[8,4,2,1,0,-1,-2,-4,-8][si<0?4:si],special=-size,bab=n('bab')+n('bab_temp');
  const has=(...keys)=>keys.some(k=>d[k]!==undefined&&d[k]!=='');
@@ -17,9 +17,9 @@ export function sheetStats(d={}){
   mods:Object.fromEntries(abilities.map(a=>[a,mod(a)])),hp:n('hp_curr'),hpMax:Math.max(0,n('hp_max')+n('hp_max_temp')),hpTemp:n('hp_temp'),
   mp:has('mp')?n('mp')+n('mp_temp'):n('mp_curr'),mpMax:Math.max(0,has('mp_class','mp_bonus')?n('mp_class')+n('mp_bonus')+n('mp_max_temp'):number(d.mp_total_max??d.mp_max??d.mp_effective_max)),
   initiative:total('init_bonus',['dex','init_temp'],mod('dex')+n('init_temp')),bab,speed:encumbrance.effectiveSpeed,baseSpeed:encumbrance.baseSpeed,encumbrance,dexAcModifier,
-  ac:total('ac_total',['dex','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp'],10+dexAcModifier+size+n('ac_armor')+encumbrance.armorBonus+n('ac_natural')+n('ac_deflect')+n('ac_dodge')+n('ac_temp')),
+  ac:total('ac_total',['dex','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp'],10+dexAcModifier+size+armorBonus+n('ac_natural')+n('ac_deflect')+n('ac_dodge')+n('ac_temp')),
   touch:total('touch_ac_total',['dex','ac_deflect','ac_dodge','touch_temp'],10+dexAcModifier+size+n('ac_deflect')+n('ac_dodge')+n('touch_temp')),
-  flat:total('flat_ac_total',['ac_armor','ac_natural','ac_deflect','flat_temp'],10+size+n('ac_armor')+encumbrance.armorBonus+n('ac_natural')+n('ac_deflect')+n('flat_temp')),
+  flat:total('flat_ac_total',['ac_armor','ac_natural','ac_deflect','flat_temp'],10+size+armorBonus+n('ac_natural')+n('ac_deflect')+n('flat_temp')),
   cmd:total('cmd_total',['str','dex','cmd_temp'],10+mod('str')+mod('dex')+special+n('cmd_temp')),
   cmb:total('cmb',['str','dex','bab','cmb_temp'],bab+mod('str')+mod('dex')+special+n('cmb_temp')),
   melee:attack('ar_melee','str'),ranged:attack('ar_ranged','dex'),touchAttack:attack('ar_touch','str'),rangedTouch:attack('ar_ranged_touch','dex'),
