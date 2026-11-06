@@ -35,9 +35,12 @@ export function applyRichFormat(value,start,end,command){
  }
  const tags={bold:['**','**'],italic:['*','*'],left:['[left]','[/left]'],center:['[center]','[/center]'],right:['[right]','[/right]']};
  const pair=tags[command];if(!pair)return {value:source,selectionStart:from,selectionEnd:to};
- const inner=hasSelection?selected:'Text',inserted=pair[0]+inner+pair[1];
+ const inner=hasSelection?selected:'Text';
+ const inserted=['left','center','right'].includes(command)&&inner.includes('\n')
+  ?inner.split('\n').map(line=>pair[0]+line+pair[1]).join('\n')
+  :pair[0]+inner+pair[1];
  const selectionStart=from+pair[0].length;
- return {value:source.slice(0,from)+inserted+source.slice(to),selectionStart,selectionEnd:selectionStart+inner.length};
+ return {value:source.slice(0,from)+inserted+source.slice(to),selectionStart,selectionEnd:from+inserted.length-pair[1].length};
 }
 
 export function safeSheetLink(value){

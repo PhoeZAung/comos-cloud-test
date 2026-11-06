@@ -53,6 +53,7 @@ test('Rich prose supports headings, bullets, alignment, bold, and italic without
  assert.equal(applyRichFormat('Word',0,4,'bullet').value,'- Word');
  assert.equal(applyRichFormat('Word',0,4,'heading').value,'## Word');
  assert.equal(applyRichFormat('Word',0,4,'right').value,'[right]Word[/right]');
+ assert.equal(applyRichFormat('First\nSecond',0,12,'center').value,'[center]First[/center]\n[center]Second[/center]');
 });
 
 test('Ability link is editable, restricted to web URLs, and displayed simply as Link',()=>{
