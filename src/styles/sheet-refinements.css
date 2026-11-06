@@ -154,3 +154,11 @@
 .cs-score-encumbered small{color:#dea24b}
 .cs-score .cs-score-load-info{position:absolute;right:5px;top:4px;color:#dea24b;font-size:13px;line-height:1;cursor:help}
 @media(max-width:440px){.cs-capacity-metric .cs-capacity-value strong{font-size:16px}.cs-load-key{font-size:9px}.cs-capacity-metric{padding-inline:4px}}
+
+/* Armor/load restrict only the pre-modifier speed. Keep warnings restrained. */
+.cs-pairs dd.cs-speed-capped{color:#d96570;font-weight:700;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.cs-speed-cap-info{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;font:600 12px system-ui;border:1px solid currentColor;border-radius:50%;color:#d96570;cursor:help}
+.cs-speed-warning-details{font-size:12px;color:#d96570;margin:8px 0 0;line-height:1.5}
+.cs-score-encumbered .cs-score-ac-cap{color:#dea24b;font:600 11px/1.2 system-ui;letter-spacing:0}
+.cs-score-encumbered>small{color:var(--accent)}
+.cs-score .cs-score-load-info{pointer-events:auto}
