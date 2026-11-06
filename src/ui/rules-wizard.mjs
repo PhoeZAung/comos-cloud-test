@@ -124,6 +124,7 @@ function mutantRollPanel(b,{advanceOnly=false}={}){
   '<p>Rolled advancement score bonuses: '+Object.entries(p.scoreBonuses).map(([k,v])=>k.toUpperCase()+' +'+v).join(' · ')+'.</p>'+
   '<p>Extra HP +'+p.hp+' · MP +'+p.mp+' · Fort +'+p.fort+' · Reflex +'+p.ref+' · Will +'+p.will+
    ' · AC +'+p.ac+' (AC is still manual) · Base-speed increase +'+p.speed+' ft.</p>'+
+  '<p>Verified d100 movement: Swim '+(p.swim?p.swim+' ft':'not granted')+'. Combat preview only: CMB +'+p.cmb+' · CMD +'+p.cmd+' · Natural armor +'+p.naturalArmor+' (not yet written to a saved sheet).</p>'+ 
   '<p>Unmapped/conditional d100 results remain manual: '+p.manualResults.length+'. '+p.manualResults.map(x=>e(x.name)).join('; ')+'</p>');
  result+='<p class="rw-notice" role="status">Verified flat bonuses appear in the live build preview. Mutant character saving remains blocked: AC, resistance, Blue Mage spell selection, numerous d100 effects, and full character-sheet/level-up integration need further review. Manual effects have not been automatically applied.</p>';
  return result;

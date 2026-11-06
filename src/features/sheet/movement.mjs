@@ -9,6 +9,15 @@ export const flyManeuverabilities=['','clumsy','poor','average','good','perfect'
 export const movementDetails=data=>movementModes.filter(m=>Number(data?.[m.field])>0&&Number.isFinite(Number(data[m.field]))).map(m=>m.label+' '+Number(data[m.field])+' ft'+(m.field==='speed_fly'&&data.speed_fly_maneuverability?' ('+data.speed_fly_maneuverability+')':''));
 export function seedRacialMovement(next,previous,raceId,traits){
  // Only fill missing fields. User-entered values, including zero, are preserved.
+ if(raceId==='ffd20:race:mutant'){
+  // The verified d100 outcome 19 is an actual swim speed; read the owned
+  // racial effect rather than trusting arbitrary roll text or a UI default.
+  const mutant=traits.find(t=>t.id==='ffd20:race:mutant:trait:variable-mutant-abilities');
+  const swim=mutant?.effects?.find(e=>e.target==='identity.speed.swim'&&
+   e.automation==='automatic'&&!e.condition&&e.value?.kind==='constant'&&e.value.value===30);
+  if(swim&&!Object.hasOwn(previous,'speed_swim'))next.speed_swim=30;
+  return;
+ }
  if(raceId==='ffd20:race:syricta'){
   const clipped=traits.some(t=>t.id==='ffd20:race:syricta:trait:wing-clipped');
    const evasive=traits.some(t=>t.id==='ffd20:race:syricta:trait:evasive-maneuvers');
