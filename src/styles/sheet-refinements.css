@@ -106,3 +106,13 @@
 .cs-item-description-dialog [data-item-description-text] p,
 .cs-item-description-dialog [data-item-special] p{overflow-wrap:anywhere}
 @media(max-width:620px){.cs-item-description-dialog>.cs-item-description-scroll{padding:18px}}
+
+/* Editing items/abilities uses the same stationary glowing shell as previews.
+   The form scrolls in one contained region; its border remains on all edges. */
+.cs-dialog.cs-star-border[data-sheet-dialog]{padding:0;overflow:visible;max-height:calc(100dvh - 32px)}
+.cs-dialog[data-sheet-dialog]>.cs-sheet-dialog-scroll{
+ box-sizing:border-box;max-height:calc(100dvh - 34px);
+ overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+ scrollbar-width:thin;border-radius:inherit;padding:20px;
+}
+@media(max-width:640px){.cs-dialog[data-sheet-dialog]>.cs-sheet-dialog-scroll{padding:16px}}
