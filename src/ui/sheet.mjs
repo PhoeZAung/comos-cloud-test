@@ -123,7 +123,7 @@ export function mountSheet(){
   finally{if(!closed)setBusy(false);}
  }
  async function refresh(force=false){
-  if(closed||busy||deletePending||polling||document.hidden||(!force&&document.activeElement?.matches('[data-party-notes-input]'))||(!force&&(dirty||conflict||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))))return;
+  if(closed||busy||deletePending||polling||dragState||document.hidden||(!force&&document.activeElement?.matches('[data-party-notes-input]'))||(!force&&(dirty||conflict||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))))return;
   if(force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
   polling=true;const previousRevision=character?.revision;
   try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
@@ -157,7 +157,54 @@ export function mountSheet(){
    return '<div class="cs-form-grid">'+keys.filter(k=>!['u_max','u_curr','desc','effect','at_higher_lvls'].includes(k)).map(render).join('')+(keys.includes('u_curr')?'<fieldset class="cs-editor-group cs-usage-fields"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>':'')+(narrative.length?'<div class="cs-ability-prose">'+narrative.map(render).join('')+'</div>':'')+'</div>';
  }
  function syncWeapons(){for(const collection of root.querySelectorAll('[data-collection="weapons"]')){collection.querySelector('.cs-entry-list').hidden=weaponsCollapsed;const toggle=collection.querySelector('[data-collapse-weapons]');toggle.setAttribute('aria-expanded',String(!weaponsCollapsed));toggle.setAttribute('aria-label',weaponsCollapsed?'Expand weapons':'Collapse weapons');toggle.title=weaponsCollapsed?'Expand weapons':'Collapse weapons';}}
- function openEntryPreview(ref){const [key,i]=ref.split(':'),row=character.data[key]?.[Number(i)];if(!row)return;const popup=root.querySelector('[data-entry-popup]');popup.querySelector('h2').textContent=row.name||'Unnamed';popup.querySelector('[data-entry-popup-content]').innerHTML=entryDetail(row,character.data,key);popup.showModal();}
+ let dragState=null;
+  function moveAbility(collection,from,to){
+   if(from===to)return;
+   if(busy||conflict||dirty||remainingInvalid){status('Save or refresh the sheet before reordering abilities.');draw();return;}
+   void(async()=>{
+    if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;
+    if(!await save({action:'reorderAbility',collection,from,to})){if(!closed){draw();status('Ability order was not saved. Refresh and try again.');}}
+   })();
+  }
+  function clearAbilityDrag(cancel=false){
+   const current=dragState;if(!current)return;dragState=null;
+   const {row,placeholder,list,originalNext,handle,collection,from,to}=current;
+   if(cancel){if(originalNext?.isConnected)list.insertBefore(row,originalNext);else list.append(row);placeholder.remove();}
+   else placeholder.replaceWith(row);
+   row.classList.remove('cs-ability-dragging');row.style.removeProperty('left');row.style.removeProperty('top');row.style.removeProperty('width');row.style.removeProperty('height');
+   if(!cancel){for(const chosen of root.querySelectorAll('.cs-ability-selected'))chosen.classList.remove('cs-ability-selected');row.classList.add('cs-ability-selected');handle?.setAttribute('aria-pressed','true');}
+   if(!cancel&&from!==to)moveAbility(collection,from,to);
+  }
+  function beginAbilityDrag(event){
+   const handle=event.target.closest?.('[data-ability-drag]');
+   if(!handle||event.button!==0||dragState||busy||conflict||dirty||remainingInvalid||pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)return;
+   const [collection,raw]=handle.dataset.abilityDrag.split(':'),from=Number(raw);
+   if(!abilityTabs.includes(collection)||!Number.isInteger(from))return;
+   const row=handle.closest('.cs-entry'),list=handle.closest('.cs-entry-list');if(!row||!list||!list.closest('[data-collection="'+collection+'"]'))return;
+   const rect=row.getBoundingClientRect(),originalNext=row.nextSibling;
+   const placeholder=document.createElement('div');placeholder.className='cs-ability-drop-slot';placeholder.style.height=Math.max(48,rect.height)+'px';row.before(placeholder);
+   for(const chosen of root.querySelectorAll('.cs-ability-selected'))chosen.classList.remove('cs-ability-selected');
+   row.classList.add('cs-ability-dragging','cs-ability-selected');row.style.left=rect.left+'px';row.style.top=rect.top+'px';row.style.width=rect.width+'px';row.style.height=rect.height+'px';
+   handle.setAttribute('aria-pressed','true');
+   dragState={id:event.pointerId,row,list,handle,placeholder,originalNext,collection,from,to:from,offsetY:event.clientY-rect.top};
+   event.preventDefault();
+   try{handle.setPointerCapture(event.pointerId);}catch{}
+  }
+  function updateAbilityDrag(event){
+   const drag=dragState;if(!drag||event.pointerId!==drag.id)return;
+   drag.row.style.top=event.clientY-drag.offsetY+'px';
+   const others=[...drag.list.children].filter(node=>node.classList.contains('cs-entry')&&node!==drag.row);
+   const before=new Map(others.map(node=>[node,node.getBoundingClientRect().top]));
+   const target=others.find(node=>event.clientY<node.getBoundingClientRect().top+node.getBoundingClientRect().height/2);
+   if(target)drag.list.insertBefore(drag.placeholder,target);else drag.list.append(drag.placeholder);
+   const visible=[...drag.list.children].filter(node=>node===drag.placeholder||others.includes(node));
+   const pos=visible.indexOf(drag.placeholder),next=visible[pos+1];
+   const targetIndex=next?Number(next.dataset.abilityIndex):null;
+   drag.to=targetIndex===null?(others.length?Number(others.at(-1).dataset.abilityIndex):drag.from):(targetIndex>drag.from?targetIndex-1:targetIndex);
+   for(const [node,top] of before){const shift=top-node.getBoundingClientRect().top;if(Math.abs(shift)>1&&node.animate)node.animate([{transform:'translateY('+shift+'px)'},{transform:'translateY(0)'}],{duration:150,easing:'ease-out'});}
+   if(event.clientY<55)window.scrollBy(0,-10);else if(event.clientY>window.innerHeight-55)window.scrollBy(0,10);
+  }
+  function openEntryPreview(ref){const [key,i]=ref.split(':'),row=character.data[key]?.[Number(i)];if(!row)return;const popup=root.querySelector('[data-entry-popup]');popup.querySelector('h2').textContent=row.name||'Unnamed';popup.querySelector('[data-entry-popup-content]').innerHTML=entryDetail(row,character.data,key);popup.showModal();}
  async function deleteCharacter(){
   if(deletePending||busy||conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or discard unsaved changes before deleting this character.');return;}
   deletePending=true;if(!await confirmCharacterDelete({signal:control.signal,name:character.name})||closed){deletePending=false;return;}
@@ -227,7 +274,18 @@ export function mountSheet(){
   catch(err){if(!closed)node.textContent=err.message;}finally{if(!closed)setBusy(false);}
  }
  function selectSpellLevel(level,focus=false){spellFilter=level;draw();const url=new URL(location.href);url.searchParams.set('spellLevel',level);history.replaceState(null,'',url);if(focus){const tab=root.querySelector('[data-spell-level="'+level+'"]');tab.focus({preventScroll:true});tab.scrollIntoView({block:'nearest',inline:'nearest'});}}
- root.addEventListener('keydown',event=>{if(!event.target.matches('[data-spell-level]')||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const levels=['all',0,1,2,3,4,5,6,7,8,9],at=levels.indexOf(spellFilter),level=event.key==='Home'?'all':event.key==='End'?9:levels[(at+(event.key==='ArrowRight'?1:10))%11];selectSpellLevel(level,true);},{signal:control.signal});
+ root.addEventListener('pointerdown',beginAbilityDrag,{signal:control.signal});
+  root.addEventListener('pointermove',updateAbilityDrag,{signal:control.signal});
+  root.addEventListener('pointerup',event=>{if(dragState?.id===event.pointerId)clearAbilityDrag();},{signal:control.signal});
+  root.addEventListener('pointercancel',event=>{if(dragState?.id===event.pointerId)clearAbilityDrag(true);},{signal:control.signal});
+  root.addEventListener('keydown',event=>{
+   const grip=event.target.closest?.('[data-ability-drag]');if(!grip||!['ArrowUp','ArrowDown'].includes(event.key))return;
+   event.preventDefault();
+   const [collection,raw]=grip.dataset.abilityDrag.split(':'),from=Number(raw),all=[...grip.closest('.cs-entry-list').querySelectorAll('[data-ability-index]')];
+   const pos=all.findIndex(node=>Number(node.dataset.abilityIndex)===from),next=all[pos+(event.key==='ArrowUp'?-1:1)];
+   if(next)moveAbility(collection,from,Number(next.dataset.abilityIndex));
+  },{signal:control.signal});
+  root.addEventListener('keydown',event=>{if(!event.target.matches('[data-spell-level]')||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const levels=['all',0,1,2,3,4,5,6,7,8,9],at=levels.indexOf(spellFilter),level=event.key==='Home'?'all':event.key==='End'?9:levels[(at+(event.key==='ArrowRight'?1:10))%11];selectSpellLevel(level,true);},{signal:control.signal});
  async function persistRemaining(){
   if(remainingPromise)return remainingPromise;
   const patch=pendingRemaining,resources={...pendingResourceFields};if(!patch&&!Object.keys(resources).length)return true;
@@ -369,7 +427,8 @@ export function mountSheet(){
  },{signal:control.signal});
  root.addEventListener('change',event=>{if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
  root.addEventListener('input',event=>{
-  if(event.target.matches('[data-ammo-profile],[data-ammo-rounds]')){dirty=true;status('Choose an ammunition action to save.');return;}
+  if(event.target.matches('[data-owlbear-section-slider]')){const output=root.querySelector('[data-owlbear-nav-label]');if(output)output.textContent=['Favorites','Character','Combat','Skills','Inventory','Notes'][Number(event.target.value)]||'Character';return;}
+   if(event.target.matches('[data-ammo-profile],[data-ammo-rounds]')){dirty=true;status('Choose an ammunition action to save.');return;}
   if(event.target.matches('[data-equip-search]')){
    equipmentDialog().querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,event.target.value,selectedEquipmentSlot);
    return;
@@ -381,7 +440,8 @@ export function mountSheet(){
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const key=event.target.dataset.resourceInput,value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(key!=='hp_temp'||value>=0)){pendingResourceFields[key]=value;resourceTimer=setTimeout(()=>{if(Object.keys(pendingResourceFields).length)void save({action:'fields',fields:{...pendingResourceFields}});},650);}}
  },{signal:control.signal});
  root.addEventListener('change',event=>{
-  if(event.target.matches('[data-sheet-portrait]')){const file=event.target.files?.[0];if(!file)return;if(busy||conflict){status('Save or refresh before changing the portrait.');return;}status('Preparing portrait…');void processPicture(file).then(portrait=>save({op:'wizard',step:'identity',fields:{charName:character.name,alignment:character.data.alignment||'',bio:character.data.bio||'',portrait}})).catch(err=>status(err.message));return;}
+  if(event.target.matches('[data-owlbear-section-slider]')){const tabs=['favorites','overview','combat','skills','items','notes'],target=tabs[Number(event.target.value)];if(target)root.querySelector('.cs-tabs[aria-label="Character sheet"] [data-sheet-tab="'+target+'"]')?.click();return;}
+   if(event.target.matches('[data-sheet-portrait]')){const file=event.target.files?.[0];if(!file)return;if(busy||conflict){status('Save or refresh before changing the portrait.');return;}status('Preparing portrait…');void processPicture(file).then(portrait=>save({op:'wizard',step:'identity',fields:{charName:character.name,alignment:character.data.alignment||'',bio:character.data.bio||'',portrait}})).catch(err=>status(err.message));return;}
   if(event.target.matches('[data-sheet-background]')){void save({action:'fields',fields:{sheet_background_enabled:event.target.checked}});return;}
   if(event.target.matches('[data-spell-ability]')){void save({action:'fields',fields:{spell_dc_base:event.target.value}});return;}
   if(event.target.matches('[name=sourceCategory]')){
