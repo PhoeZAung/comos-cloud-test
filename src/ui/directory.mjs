@@ -6,14 +6,62 @@ async function api(path,body,signal){const r=await fetch('/api/v1/'+path,{creden
 export function mountCharacterAdmin(){
  const root=document.querySelector('[data-character-admin]'),control=new AbortController();let query='',cursor='',closed=false,searchTimer,searchGeneration=0;const partyMode=root.hasAttribute('data-party-admin'),openGroups=new Set();
  root.innerHTML=`<div class="directory-tools"><form data-find><label class="sr-only" for="directory-search">${partyMode?'Find party / character':'Find character / user'}</label><input type="search" id="directory-search" name="q" maxlength="80" placeholder="${partyMode?'Find party / character':'Find character / user'}"><button class="button" type="submit">Find</button></form><a class="icon-button" href="admin-tags.html" aria-label="Manage tags" title="Manage tags">${tag}</a></div><p role="status" data-feedback></p><div data-users></div><dialog data-tags-dialog aria-labelledby="tag-heading"><form data-tag-form><h2 id="tag-heading">Character tags</h2><div data-tag-choices></div><p role="status" data-dialog-status></p><div class="actions"><button class="button primary" type="submit">Save</button><button class="button" data-close type="button">Close</button></div></form></dialog>`;
- const feedback=root.querySelector('[data-feedback]'),list=root.querySelector('[data-users]'),dialog=root.querySelector('dialog');let selected,opening=false;
- async function load(){const generation=++searchGeneration;feedback.textContent='Loading…';try{const d=await api('admin/directory?'+new URLSearchParams({q:query,cursor,...(partyMode?{groupBy:'party'}:{})}),null,control.signal);if(closed||generation!==searchGeneration)return;list.innerHTML=(partyMode?(d.parties||[]).map(p=>({...p,displayName:p.name})):d.users).map(u=>`<details class="directory-user" data-user="${esc(u.id)}" ${query||openGroups.has(u.id)?'open':''}><summary>${esc(u.displayName||'Unnamed user')} <span>${u.characterCount}</span></summary>${partyMode?'':`<div class="actions"><a class="button primary" href="create-identity.html?ownerId=${encodeURIComponent(u.id)}" aria-label="Create character for ${esc(u.displayName||'Unnamed user')}">+ Create character for this player</a><button type="button" class="button danger" data-delete-user="${esc(u.id)}" data-user-name="${esc(u.displayName||'')}" data-user-revision="${u.revision}" aria-label="Delete user ${esc(u.displayName||'Unnamed user')}">Delete user</button></div>`}<div data-character-list></div></details>`).join('')||(partyMode?'<p>No parties.</p>':'<p>No users found.</p>');if(d.nextCursor)list.insertAdjacentHTML('beforeend',`<button class="button" data-more-users="${esc(d.nextCursor)}">${partyMode?'More parties':'More users'}</button>`);feedback.textContent='';for(const detail of list.querySelectorAll('[data-user][open]')){detail.dataset.loaded='true';void characters(detail);}}catch(e){if(!closed&&generation===searchGeneration)feedback.textContent=e.message;}}
+ if(!partyMode)root.insertAdjacentHTML('beforeend',`<dialog class="character-create-dialog" data-admin-create-dialog aria-labelledby="admin-create-title">
+   <h2 id="admin-create-title">Create a character</h2>
+   <p data-admin-create-owner></p>
+   <p>How would you like to start?</p>
+   <div class="character-create-choices">
+     <a class="button primary" data-admin-create-wizard href="create-identity.html">Use Wizard</a>
+     <button type="button" class="button" data-admin-create-manual>Create Manually</button>
+   </div>
+   <p role="status" aria-live="polite" data-admin-create-status></p>
+   <div class="actions"><button type="button" class="button" data-admin-create-cancel>Cancel</button></div>
+ </dialog>`);
+ const feedback=root.querySelector('[data-feedback]'),list=root.querySelector('[data-users]'),dialog=root.querySelector('[data-tags-dialog]'),createDialog=root.querySelector('[data-admin-create-dialog]');let selected,opening=false,createOwnerId='',createRequestId=null,creating=false;
+ createDialog?.addEventListener('cancel',event=>{if(creating)event.preventDefault();},{signal:control.signal});
+ createDialog?.addEventListener('click',event=>{if(event.target===createDialog&&!creating)createDialog.close();},{signal:control.signal});
+ async function load(){const generation=++searchGeneration;feedback.textContent='Loading…';try{const d=await api('admin/directory?'+new URLSearchParams({q:query,cursor,...(partyMode?{groupBy:'party'}:{})}),null,control.signal);if(closed||generation!==searchGeneration)return;list.innerHTML=(partyMode?(d.parties||[]).map(p=>({...p,displayName:p.name})):d.users).map(u=>`<details class="directory-user" data-user="${esc(u.id)}" ${query||openGroups.has(u.id)?'open':''}><summary>${esc(u.displayName||'Unnamed user')} <span>${u.characterCount}</span></summary>${partyMode?'':`<div class="actions"><button type="button" class="button primary" data-admin-create-open="${esc(u.id)}" data-admin-owner-name="${esc(u.displayName||'Unnamed user')}" aria-label="Create character for ${esc(u.displayName||'Unnamed user')}">+ Create character for this player</button><button type="button" class="button danger" data-delete-user="${esc(u.id)}" data-user-name="${esc(u.displayName||'')}" data-user-revision="${u.revision}" aria-label="Delete user ${esc(u.displayName||'Unnamed user')}">Delete user</button></div>`}<div data-character-list></div></details>`).join('')||(partyMode?'<p>No parties.</p>':'<p>No users found.</p>');if(d.nextCursor)list.insertAdjacentHTML('beforeend',`<button class="button" data-more-users="${esc(d.nextCursor)}">${partyMode?'More parties':'More users'}</button>`);feedback.textContent='';for(const detail of list.querySelectorAll('[data-user][open]')){detail.dataset.loaded='true';void characters(detail);}}catch(e){if(!closed&&generation===searchGeneration)feedback.textContent=e.message;}}
  async function characters(details,next=''){
   const box=details.querySelector('[data-character-list]'),generation=searchGeneration;try{const d=await api('admin/directory?'+new URLSearchParams({...(partyMode?{groupBy:'party',partyTagId:details.dataset.user}:{ownerId:details.dataset.user}),cursor:next,q:query}),null,control.signal);if(closed||generation!==searchGeneration||!details.isConnected)return;const markup=d.characters.map(c=>`<article class="directory-character"><div><a class="directory-sheet-link" href="sheet.html?characterId=${encodeURIComponent(c.id)}" aria-label="Open sheet for ${esc(c.name)}"><strong>${esc(c.name)}</strong></a><div class="character-tag-labels">${c.tags.map(t=>`<span>${esc(t.name)}</span>`).join('')}</div></div><div class="character-controls"><button type="button" class="icon-button owlbear-status-toggle" data-owlbear-status="${esc(c.id)}" aria-pressed="${c.owlbearStatusVisible===true}" aria-label="Cosmos party for ${esc(c.name)}" title="${c.owlbearStatusVisible?'Hide from Cosmos party':'Show in Cosmos party'}">${statusCard}</button><button type="button" class="icon-button" data-character-tags="${esc(c.id)}" aria-label="Tags for ${esc(c.name)}" title="Tags">${tag}</button><a class="icon-button" href="admin-items.html?characterId=${encodeURIComponent(c.id)}" aria-label="Shop as ${esc(c.name)}" title="Shop as character">${shop}</a><a class="icon-button" href="create-identity.html?characterId=${encodeURIComponent(c.id)}" aria-label="Edit ${esc(c.name)}" title="Edit wizard">${edit}</a><a class="icon-button" href="create-identity.html?characterId=${encodeURIComponent(c.id)}&levelUp=1" aria-label="Level up ${esc(c.name)}" title="Level up character">${levelUp}</a></div></article>`).join('');if(next)box.insertAdjacentHTML('beforeend',markup);else box.innerHTML=markup||'<p>No characters.</p>';box.querySelector('[data-more-characters]')?.remove();if(d.nextCursor)box.insertAdjacentHTML('beforeend',`<button class="button" data-more-characters="${esc(d.nextCursor)}">More characters</button>`);}catch(e){if(!closed)box.textContent=e.message;}
  }
  root.addEventListener('input',event=>{if(!event.target.matches('#directory-search'))return;query=event.target.value;cursor='';searchGeneration++;clearTimeout(searchTimer);searchTimer=setTimeout(()=>void load(),120);},{signal:control.signal});
  root.addEventListener('toggle',event=>{const detail=event.target;if(detail.matches?.('[data-user]')){if(detail.open)openGroups.add(detail.dataset.user);else openGroups.delete(detail.dataset.user);}if(detail.matches?.('[data-user]')&&detail.open&&!detail.dataset.loaded){detail.dataset.loaded='true';void characters(detail);}},{capture:true,signal:control.signal});
  root.addEventListener('click',async event=>{
+  const create=event.target.closest('[data-admin-create-open]');
+  if(create&&createDialog){
+   if(creating)return;
+   const ownerId=create.dataset.adminCreateOpen;
+   if(createOwnerId!==ownerId)createRequestId=null;
+   createOwnerId=ownerId;
+   createDialog.querySelector('[data-admin-create-owner]').textContent='For '+(create.dataset.adminOwnerName||'this player');
+   createDialog.querySelector('[data-admin-create-wizard]').href='create-identity.html?ownerId='+encodeURIComponent(ownerId);
+   createDialog.querySelector('[data-admin-create-status]').textContent='';
+   createDialog.showModal();
+   return;
+  }
+  if(event.target.closest('[data-admin-create-cancel]')){if(!creating)createDialog?.close();return;}
+  if(event.target.closest('[data-admin-create-wizard]')&&creating){event.preventDefault();return;}
+  const manual=event.target.closest('[data-admin-create-manual]');
+  if(manual&&createDialog){
+   if(creating||!createOwnerId)return;
+   creating=true;createRequestId||=crypto.randomUUID();
+   const status=createDialog.querySelector('[data-admin-create-status]');
+   const cancel=createDialog.querySelector('[data-admin-create-cancel]');
+   const wizard=createDialog.querySelector('[data-admin-create-wizard]');
+   manual.disabled=true;cancel.disabled=true;wizard.setAttribute('aria-disabled','true');wizard.tabIndex=-1;
+   status.textContent='Creating blank character…';
+   try{
+    const result=await api('admin/characters/create',{mode:'manual',ownerId:createOwnerId,requestId:createRequestId},control.signal);
+    if(typeof result.character?.id!=='string')throw Error('Character was not returned. Try again.');
+    location.assign('sheet.html?characterId='+encodeURIComponent(result.character.id));
+   }catch(error){
+    if(!closed&&!control.signal.aborted){
+     status.textContent=error.message||'Could not create the character.';
+     creating=false;manual.disabled=false;cancel.disabled=false;wizard.removeAttribute('aria-disabled');wizard.removeAttribute('tabindex');
+    }
+   }
+   return;
+  }
   const remove=event.target.closest('[data-delete-user]');if(remove){
    const popup=document.createElement('dialog');popup.className='directory-delete-user';popup.setAttribute('aria-label','Delete user');
    popup.innerHTML='<form><h2>Delete '+esc(remove.dataset.userName||'user')+'?</h2><p>Removes Cosmos access and archives their characters. Their shared Firebase account stays active.</p><label>Confirm user name<input name="confirmName" required autocomplete="off"></label><p role="status"></p><div class="actions"><button type="button" class="button" data-cancel-delete>Cancel</button><button type="submit" class="button danger">Delete user</button></div></form>';
@@ -36,7 +84,7 @@ export function mountCharacterAdmin(){
   event.preventDefault();if(event.target.matches('[data-find]')){query=new FormData(event.target).get('q');cursor='';void load();return;}
   if(!event.target.matches('[data-tag-form]'))return;const status=root.querySelector('[data-dialog-status]'),save=event.target.querySelector('[type=submit]');save.disabled=true;
   try{await api('character-records/'+selected.id,{op:'tags',revision:selected.revision,tagIds:new FormData(event.target).getAll('tags')},control.signal);if(!closed){dialog.close();if(partyMode)void load();else for(const d of list.querySelectorAll('details[open]'))void characters(d);}}catch(e){if(!closed)status.textContent=e.message;}finally{save.disabled=false;}
- },{signal:control.signal});void load();return ()=>{closed=true;clearTimeout(searchTimer);control.abort();dialog.close();};
+ },{signal:control.signal});void load();return ()=>{closed=true;clearTimeout(searchTimer);control.abort();dialog.close();createDialog?.close();};
 }
 export function mountTags(){
  const root=document.querySelector('[data-tag-manager]'),control=new AbortController();let closed=false;
