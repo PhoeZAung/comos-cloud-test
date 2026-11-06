@@ -116,3 +116,41 @@
  scrollbar-width:thin;border-radius:inherit;padding:20px;
 }
 @media(max-width:640px){.cs-dialog[data-sheet-dialog]>.cs-sheet-dialog-scroll{padding:16px}}
+
+/* Pathfinder carrying capacity: small, theme-aware, accessible load display. */
+.cs-capacity-metric{gap:4px;min-width:0}
+.cs-capacity-heading{display:flex;justify-content:center;align-items:center;gap:5px;min-height:20px}
+.cs-capacity-heading>span:first-child{font:12px system-ui;color:var(--muted)}
+.cs-capacity-metric .cs-capacity-edit{display:inline-grid;place-items:center;width:22px;min-width:22px;max-width:22px;height:22px;min-height:22px;padding:0;font-size:14px;line-height:1;color:var(--muted)}
+.cs-capacity-info{display:inline-grid;place-items:center;width:19px;height:19px;color:var(--muted);font-size:13px;cursor:help}
+.cs-capacity-info:focus-visible{outline:2px solid var(--accent);border-radius:50%}
+.cs-capacity-metric .cs-capacity-value{display:flex;gap:3px;align-items:baseline;justify-content:center;min-height:28px;font-size:19px;line-height:1.2}
+.cs-capacity-metric .cs-capacity-value strong{font:600 19px/1.3 system-ui;color:var(--text)}
+.cs-capacity-metric .cs-capacity-value span{color:var(--muted);font:13px system-ui}
+.cs-capacity-metric .cs-capacity-value small{color:var(--muted);font-size:11px}
+.cs-capacity-meter{display:block;width:100%;height:12px;margin:3px 0 1px;cursor:help;accent-color:#409e7d}
+.cs-capacity-meter::-webkit-meter-bar{border:1px solid var(--line);border-radius:8px;background:linear-gradient(to right,#36886d 0% 33%,#bd873e 33% 66%,#b84a60 66% 100%);box-shadow:none}
+.cs-capacity-meter::-webkit-meter-optimum-value{border-radius:7px;background:#50b892;box-shadow:inset 0 0 0 1px #0003}
+.cs-capacity-meter::-webkit-meter-suboptimum-value{border-radius:7px;background:#dea24b;box-shadow:inset 0 0 0 1px #0003}
+.cs-capacity-meter::-webkit-meter-even-less-good-value{border-radius:7px;background:#df6b75;box-shadow:inset 0 0 0 1px #0003}
+.cs-capacity-meter::-moz-meter-bar{background:#50b892;border-radius:7px}
+.cs-capacity-metric[data-load=medium] .cs-capacity-meter::-moz-meter-bar{background:#dea24b}
+.cs-capacity-metric[data-load=heavy] .cs-capacity-meter::-moz-meter-bar,
+.cs-capacity-metric[data-load=over] .cs-capacity-meter::-moz-meter-bar{background:#df6b75}
+.cs-load-key{display:flex;justify-content:space-between;gap:2px;width:100%;font:10px system-ui;color:var(--muted)}
+.cs-load-key span{cursor:help}
+.cs-capacity-state{font:11px/1.35 system-ui;color:var(--muted);text-align:center}
+.cs-capacity-metric[data-load=medium]{border-color:color-mix(in srgb,#dea24b 70%,var(--line))}
+.cs-capacity-metric[data-load=medium] .cs-capacity-value strong,
+.cs-capacity-metric[data-load=medium] .cs-capacity-state{color:#dea24b}
+.cs-capacity-metric[data-load=heavy]{border-color:color-mix(in srgb,#df6b75 55%,var(--line))}
+.cs-capacity-metric[data-load=heavy] .cs-capacity-value strong,
+.cs-capacity-metric[data-load=heavy] .cs-capacity-state{color:#df6b75}
+.cs-capacity-metric[data-load=over]{border-color:#df6b75}
+.cs-capacity-metric[data-load=over] .cs-capacity-value strong,
+.cs-capacity-metric[data-load=over] .cs-capacity-state{color:#df6b75}
+.cs-score-encumbered{border-color:#dea24b;background:color-mix(in srgb,#dea24b 9%,var(--bg));position:relative}
+.cs-score-encumbered strong{color:var(--text)}
+.cs-score-encumbered small{color:#dea24b}
+.cs-score .cs-score-load-info{position:absolute;right:5px;top:4px;color:#dea24b;font-size:13px;line-height:1;cursor:help}
+@media(max-width:440px){.cs-capacity-metric .cs-capacity-value strong{font-size:16px}.cs-load-key{font-size:9px}.cs-capacity-metric{padding-inline:4px}}
