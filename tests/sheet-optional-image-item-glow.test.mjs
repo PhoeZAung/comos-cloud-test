@@ -40,7 +40,7 @@ test('imported raw image metadata never requires a matching valid inventory imag
  assert.equal(usableItemImageUrl(fromCatalog),'');
  const result=mergeSheetData({items:[item]},{action:'entry',collection:'items',mode:'update',index:0,fields:{name:'Imported +1',img:fromCatalog}});
  assert.equal(result.items[0].img,'');
- assert.equal(result.items[0].sourceCatalog,sourceCatalog);
+ assert.deepEqual(result.items[0].sourceCatalog,sourceCatalog);
 });
 
 test('item preview has the same moving glow and single scroll container as ability preview',async()=>{
