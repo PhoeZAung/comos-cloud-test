@@ -20,7 +20,7 @@ export function sheetStats(d={}){
   ac:total('ac_total',['dex','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp'],10+dexAcModifier+size+n('ac_armor')+n('ac_natural')+n('ac_deflect')+n('ac_dodge')+n('ac_temp')),
   touch:total('touch_ac_total',['dex','ac_deflect','ac_dodge','touch_temp'],10+dexAcModifier+size+n('ac_deflect')+n('ac_dodge')+n('touch_temp')),
   flat:total('flat_ac_total',['ac_armor','ac_natural','ac_deflect','flat_temp'],10+size+n('ac_armor')+n('ac_natural')+n('ac_deflect')+n('flat_temp')),
-  cmd:total('cmd_total',['str','dex','cmd_temp'],10+mod('str')+dexAcModifier+special+n('cmd_temp')),
+  cmd:total('cmd_total',['str','dex','cmd_temp'],10+mod('str')+mod('dex')+special+n('cmd_temp')),
   cmb:total('cmb',['str','dex','bab','cmb_temp'],bab+mod('str')+mod('dex')+special+n('cmb_temp')),
   melee:attack('ar_melee','str'),ranged:attack('ar_ranged','dex'),touchAttack:attack('ar_touch','str'),rangedTouch:attack('ar_ranged_touch','dex'),
   fort:total('fort_bonus',['con','fort_base','fort_enhance','fort_temp'],mod('con')+n('fort_base')+n('fort_enhance')+n('fort_temp')),

@@ -120,6 +120,7 @@ test('encumbrance modifies AC and STR/DEX skills without changing base DEX, refl
  assert.equal(s.dexAcModifier,1);
  assert.equal(s.ac,11);
  assert.equal(s.touch,11);
+ assert.equal(s.cmd,15);
  assert.equal(s.initiative,6);
  assert.equal(s.ref,6);
  assert.equal(s.speed,20);
