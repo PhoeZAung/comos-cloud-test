@@ -119,7 +119,7 @@ export function collectionBlock(key,d,query='',{category='All',level=null}={}){
 }
 function renderLimits(d){const rows=abilityTabs.flatMap(key=>(d[key]||[]).map((row,index)=>({row,index,key}))).filter(({row})=>isLimitBreak(row));if(!rows.length)return '';const state=limitBreakState(d);return '<section class="cs-limit-breaks"><div class="cs-section-tools"><h2>✦ Limit Break</h2><strong>'+state.current+' / '+state.max+'</strong></div>'+(state.reason?'<p class="cs-limit-condition">'+e(state.reason)+'</p>':'')+rows.map(({row,index,key})=>entry(key,row,index,d)).join('')+'</section>';}
 
-const weaponOrAbility=key=>key==='weapons'||abilityTabs.includes(key);
+const weaponOrAbility=key=>key==='weapons'||key==='spells'||abilityTabs.includes(key);
 export function actionIcon(row){
  const action=actionType(row.action_type??row.type);if(!action)return '';
  const paths={Standard:'<path d="M5 19 19 5M12 5h7v7"/>',Move:'<path d="m4 16 5-5 4 3 7-10M15 4h5v5M3 20h8"/>','Full Round':'<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>',Free:'<path d="m12 3 2 6 6 3-6 2-2 7-3-7-6-2 6-3Z"/>',Swift:'<path d="m13 2-9 12h7l-1 8 10-12h-7Z"/>'};
@@ -146,7 +146,7 @@ export function entryDetail(row,data={},key=''){
  const prose=weaponOrAbility(key)?'<div class="cs-entry-prose">'+[['Description',row.desc],['Effect',row.effect],['At higher levels',row.at_higher_lvls]].filter(([,v])=>v).map(([title,text])=>'<section><h3>'+title+'</h3><div class="cs-prose">'+formatSheetText(text)+'</div></section>').join('')+'</div>':'<div class="cs-prose">'+formatSheetText(row.desc||'No description.')+'</div>';
 
   const available=Object.entries(labels).filter(([k])=>
-    !(weaponOrAbility(key)&&['effect','at_higher_lvls','type'].includes(k))&&
+    !(weaponOrAbility(key)&&['effect','at_higher_lvls'].includes(k))&&
     !(k==='attack_type'&&row[k]==='none')&&
     row[k]!==undefined&&(row[k]!==''||k==='action_type'));
   const group=(title,keys)=>{
