@@ -79,7 +79,9 @@ test('inventory is first, inline values edit, and equipped items are identified'
  assert.ok(frame.indexOf('data-item-view="inventory"')<frame.indexOf('data-item-view="equip"'));
  assert.match(frame,/data-inline-currency="currency_gil"/);
  assert.match(frame,/data-inline-currency="currency_moogle"/);
- assert.match(frame,/data-inline-currency="slot_cap"/);
+ assert.doesNotMatch(frame,/data-inline-currency="slot_cap"/);
+ assert.match(frame,/data-edit-stats="capacity"/);
+ assert.match(frame,/cs-capacity-meter/);
  assert.match(frame,/cs-capacity-value/);
  assert.match(frame,/cs-entry is-equipped/);
  assert.doesNotMatch(frame,/Edit currency &amp; capacity/);
