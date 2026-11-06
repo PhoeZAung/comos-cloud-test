@@ -5,7 +5,6 @@ import {readFile} from 'node:fs/promises';
 import {openDatabase} from '../backend/db/database.mjs';
 import {createUserRepository} from '../backend/repositories/users.mjs';
 import {createCharacterLibraryService,createCharacterLibraryRoutes} from '../backend/characters/library.mjs';
-import {createCharacterDirectoryRoutes} from '../backend/characters/directory.mjs';
 import {createApiServer} from '../backend/http/app.mjs';
 import {renderSheetFrame} from '../src/features/sheet/view.mjs';
 import charactersPage from '../src/pages/characters.mjs';
