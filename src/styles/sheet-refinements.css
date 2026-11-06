@@ -44,3 +44,41 @@
 .cs-rich-field>label{color:var(--muted)}.cs-rich-toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:5px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
 .cs-rich-toolbar button{min-height:32px;min-width:36px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--text);font:600 13px system-ui;cursor:pointer}
 .cs-rich-toolbar button:hover{border-color:var(--accent);color:var(--accent)}.cs-richtext{white-space:normal;overflow-wrap:anywhere}.cs-richtext p{margin:5px 0}.cs-richtext ul{padding-left:24px;margin:7px 0;list-style:disc}.cs-richtext li{margin:3px 0}.cs-richtext h3,.cs-richtext h4{font-weight:700;margin:12px 0 5px}.cs-richtext h3{font-size:1.12em}.cs-richtext h4{font-size:1em}.cs-rich-align-left{text-align:left}.cs-rich-align-center{text-align:center}.cs-rich-align-right{text-align:right}
+
+/* Compact weapon collapse icon immediately next to the heading. */
+.cs-weapons-toggle{display:inline-grid;place-items:center;flex:none;width:30px;height:30px;margin-right:auto;margin-left:4px;border:1px solid var(--line);border-radius:7px;background:transparent;color:var(--muted);cursor:pointer}
+.cs-weapons-toggle svg{width:17px;height:17px;transition:transform .18s ease}
+.cs-weapons-toggle[aria-expanded=false] svg{transform:rotate(180deg)}
+.cs-weapons-toggle:hover,.cs-weapons-toggle:focus-visible{color:var(--accent);border-color:var(--accent)}
+/* The Add button remains accessible at the bottom-right on a long ability list. */
+.cs-ability-wheel .cs-ability-add-menu{position:fixed;left:auto;top:auto;right:clamp(12px,3vw,32px);bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:none;z-index:45}
+.cs-ability-wheel .cs-ability-add-options{left:auto;right:0;top:auto;bottom:calc(100% + 8px);transform:none}
+.cs-ability-add-menu>summary{box-shadow:0 3px 16px #0005}
+.cs-rich-heading{display:flex;align-items:center;justify-content:center;gap:10px;min-height:32px}
+.cs-rich-tools{position:relative}
+.cs-rich-tools summary{list-style:none;display:grid;place-items:center;width:29px;height:27px;border:1px solid var(--line);border-radius:7px;color:var(--muted);cursor:pointer;font-size:17px}
+.cs-rich-tools summary::-webkit-details-marker{display:none}
+.cs-rich-tools[open] summary{color:var(--accent);border-color:var(--accent)}
+.cs-rich-tools .cs-rich-toolbar{margin:6px 0;position:relative}
+.cs-ability-editor .cs-ability-field-group{min-width:0;align-items:stretch}
+.cs-ability-editor .cs-ability-field-group .cs-field-wide{width:100%}
+.cs-ability-editor .cs-ability-prose{display:grid;grid-column:1/-1;gap:16px;margin:0;padding:14px}
+.cs-entry-popup .cs-prose,.cs-entry-popup .cs-richtext,.cs-entry-popup .cs-entry-prose .cs-prose{max-height:none;overflow:visible;overflow-wrap:anywhere;white-space:normal}
+.cs-entry-popup .cs-entry-prose{max-width:none;width:100%;margin:18px 0;gap:16px;min-height:0}
+.cs-entry-popup .cs-entry-prose section{min-width:0}
+.cs-entry-popup .cs-entry-meta-groups{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));margin:12px 0 18px}
+.cs-entry-popup .cs-entry-detail-group{min-width:0;padding:12px;border:1px solid var(--line);border-radius:9px}
+.cs-entry-popup .cs-entry-detail-group h3,.cs-entry-popup .cs-entry-calcs h3{color:var(--accent);font-size:13px;margin:0 0 9px}
+.cs-entry-popup .cs-entry-detail-group .cs-pairs{margin:0}
+.cs-entry-popup .cs-entry-detail-group .cs-pairs>div{min-width:0}
+.cs-ability-grip{flex:none;align-self:center;min-width:28px;height:38px;padding:0 4px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:22px;cursor:grab;touch-action:none;user-select:none}
+.cs-ability-grip:hover,.cs-ability-grip:focus-visible,.cs-ability-grip[aria-pressed=true]{color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.cs-entry.cs-ability-selected{outline:2px solid var(--accent);outline-offset:1px;background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+.cs-entry.cs-ability-dragging{position:fixed!important;z-index:55;pointer-events:none;box-shadow:0 9px 30px #0007;opacity:.94;cursor:grabbing;box-sizing:border-box}
+.cs-ability-drop-slot{box-sizing:border-box;border:2px dashed var(--accent);border-radius:9px;background:color-mix(in srgb,var(--accent) 11%,transparent);transition:height .15s}
+.cs-owlbear-section-slider{display:grid;gap:4px;margin:6px 0 12px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}
+.cs-owlbear-section-slider>span{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.cs-owlbear-section-slider output{color:var(--accent);font-weight:700}
+.cs-owlbear-section-slider input{width:100%;accent-color:var(--accent);min-height:28px}
+@media(max-width:540px){.cs-entry-popup .cs-entry-meta-groups{grid-template-columns:minmax(0,1fr)}.cs-ability-editor{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.cs-weapons-toggle svg,.cs-ability-drop-slot{transition:none}}
