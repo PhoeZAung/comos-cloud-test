@@ -43,7 +43,13 @@ export function mergeSheetData(original,change){
   updateGunbreakerAmmo(data,change);
  }else if(change.action==='addRuleAbility'){
   if(typeof change.ruleId!=='string'||change.ruleId.length>250)bad('Choose an ability.');addRuleAbility(data,change.ruleId);
- }else if(change.action==='entry'){
+ }else if(change.action==='reorderAbility'){
+   const allowed=['activeAbilities','passiveAbilities','racialAbilities','feats'];
+   if(!allowed.includes(change.collection)||!Number.isInteger(change.from)||!Number.isInteger(change.to))bad('Choose an ability and a valid destination.');
+   const rows=data[change.collection];
+   if(!Array.isArray(rows)||change.from<0||change.from>=rows.length||change.to<0||change.to>=rows.length||isLimitBreak(rows[change.from]))bad('Cannot reorder this ability.');
+   const [entry]=rows.splice(change.from,1);rows.splice(change.to,0,entry);
+  }else if(change.action==='entry'){
   if(!collections.includes(change.collection)||!['add','update','remove'].includes(change.mode))bad('Invalid sheet entry.');
   const rows=change.collection==='skills'?sheetSkills(data):Array.isArray(data[change.collection])?data[change.collection]:[];
   if(change.collection==='skills'){if(change.mode!=='update'||Object.keys(change.fields||{}).some(k=>!['lvl','temp','cs','subName','favorite'].includes(k)))bad('Skills are fixed. Edit ranks, class skill, misc or specialization.');data.skills=sheetSkills(data);}
