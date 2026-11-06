@@ -25,7 +25,7 @@ export function inventoryEditorFields(category){
 }
 export function inventoryEditorKeys(category){
  const fields=inventoryEditorFields(category);
- return ['sourceCategory','name',...fields.common.map(([,key])=>key),...fields.extras.map(([,key])=>key),...(fields.allowTwoHanded?['two_handed']:[]),'desc','special'];
+ return ['sourceCategory','name',...fields.common.map(([,key])=>key),...fields.extras.map(([,key])=>key),...(fields.allowTwoHanded?['two_handed']:[]),'carried','desc','special'];
 }
 // Read legacy shop aliases without changing the saved schema until the user edits the field.
 const legacyAliases={
