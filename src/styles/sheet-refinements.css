@@ -50,10 +50,7 @@
 .cs-weapons-toggle svg{width:17px;height:17px;transition:transform .18s ease}
 .cs-weapons-toggle[aria-expanded=false] svg{transform:rotate(180deg)}
 .cs-weapons-toggle:hover,.cs-weapons-toggle:focus-visible{color:var(--accent);border-color:var(--accent)}
-/* The Add button remains accessible at the bottom-right on a long ability list. */
-.cs-ability-wheel .cs-ability-add-menu{position:fixed;left:auto;top:auto;right:clamp(12px,3vw,32px);bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:none;z-index:45}
-.cs-ability-wheel .cs-ability-add-options{left:auto;right:0;top:auto;bottom:calc(100% + 8px);transform:none}
-.cs-ability-add-menu>summary{box-shadow:0 3px 16px #0005}
+/* Keep Add Ability centered within its category wheel; it scrolls away with the page. */
 .cs-rich-heading{display:flex;align-items:center;justify-content:center;gap:10px;min-height:32px}
 .cs-rich-tools{position:relative}
 .cs-rich-tools summary{list-style:none;display:grid;place-items:center;width:29px;height:27px;border:1px solid var(--line);border-radius:7px;color:var(--muted);cursor:pointer;font-size:17px}
@@ -82,3 +79,14 @@
 .cs-owlbear-section-slider input{width:100%;accent-color:var(--accent);min-height:28px}
 @media(max-width:540px){.cs-entry-popup .cs-entry-meta-groups{grid-template-columns:minmax(0,1fr)}.cs-ability-editor{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.cs-weapons-toggle svg,.cs-ability-drop-slot{transition:none}}
+
+/* The animated border belongs to a stationary dialog shell, never the scrolling body.
+   Long ability/weapon prose has one scroll surface while the glow follows all four edges. */
+.cs-dialog.cs-entry-popup{padding:0;overflow:visible;max-height:calc(100dvh - 32px)}
+.cs-entry-popup>.cs-entry-popup-scroll{
+  box-sizing:border-box;max-height:calc(100dvh - 34px);overflow-y:auto;overflow-x:hidden;
+  padding:24px;overscroll-behavior:contain;scrollbar-width:thin;border-radius:inherit;
+}
+.cs-entry-popup-scroll>.cs-card-title{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.cs-entry-popup-scroll>.cs-card-title h2{font:500 23px/1.25 Georgia,serif;margin:0;overflow-wrap:anywhere}
+@media(max-width:620px){.cs-entry-popup>.cs-entry-popup-scroll{padding:18px}}

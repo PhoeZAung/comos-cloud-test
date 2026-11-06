@@ -46,7 +46,7 @@ function field(key,value,{weapon=false,item=false}={}){
   if(['resistances','proficiencies','favored_class_options','special'].includes(key))return `<label class="cs-field cs-field-wide"><span>${label}</span><textarea name="${key}" rows="5" maxlength="12000">${e(value||'')}</textarea></label>`;
   const isText=item?key!=='weight'&&key!=='amount':textKeys.has(key),optionalZero=!isText&&(/(?:_temp|_misc|_bonus|_adjustment)$/.test(key)||['u_curr','u_max','temp','attack_misc','dc_misc','mp_adjustment','weight'].includes(key));
   const display=optionalZero&&Number(value??0)===0?'':value??(isText?'':0);
-  return `<label class="cs-field"><span>${label}</span><input name="${key}" type="${isText?'text':'number'}" ${isText?'maxlength="'+(key==='name'?120:key==='link'?2048:12000)+'"':'step="any" '+(optionalZero||['caster_level','mp_cost'].includes(key)?'':'required')} value="${e(display)}" ${optionalZero?'placeholder="0"':''} ${key==='name'?'required':''}></label>`;
+  return `<label class="cs-field"><span>${label}</span><input name="${key}" type="${isText?'text':'number'}" ${isText?'maxlength="'+(key==='name'?120:key==='link'||item&&key==='img'?2048:12000)+'"':'step="any" '+(optionalZero||['caster_level','mp_cost'].includes(key)?'':'required')} value="${e(display)}" ${optionalZero?'placeholder="0"':''} ${key==='name'?'required':''}></label>`;
 }
 const damageTag=type=>'<span class="cs-damage-tag"><input type="hidden" name="damage_types" value="'+e(type)+'">'+e(type)+'<button type="button" data-remove-damage-type="'+e(type)+'" aria-label="Remove '+e(type)+'">×</button></span>';
 // One compact Identity editor, with no extra speed descriptions.

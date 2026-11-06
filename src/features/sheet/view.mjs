@@ -70,7 +70,7 @@ export function renderSheetFrame(character,section='overview',{admin=false,compa
 <div data-sheet-panel>${renderSection(character,section,{ability,combatView,itemView,itemTag,spellLevel,notesTab})}</div><div class="cs-roll-result" role="status" data-roll-result hidden></div>
  <dialog class="cs-dialog" data-sheet-dialog aria-labelledby="cs-dialog-title"><form data-sheet-form><div class="cs-card-title"><h2 id="cs-dialog-title"></h2><button type="button" class="cs-icon" data-dialog-close aria-label="Close">×</button></div><div data-dialog-fields></div><p role="status" data-dialog-status></p><div class="cs-dialog-actions"><button class="button" type="button" data-dialog-close>Cancel</button><button class="button primary" type="submit">Save</button></div></form></dialog>
  <dialog class="cs-dialog cs-equipment-dialog" data-equipment-dialog aria-label="Choose item"><div class="cs-equip-picker-toolbar"><label class="sr-only" for="cs-equip-search">Search items</label><input id="cs-equip-search" type="search" data-equip-search placeholder="Search items…" autocomplete="off"><button type="button" class="cs-icon cs-equip-unequip" data-equip-unequip aria-label="Unequip item" title="Unequip" hidden><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></button><button type="button" class="cs-icon" data-equipment-close aria-label="Close equipment picker">×</button></div><div class="cs-equip-choices" data-equip-choices></div><p class="cs-equip-error" role="status" data-equip-status></p></dialog>
- <dialog class="cs-dialog cs-entry-popup cs-star-border" data-entry-popup aria-labelledby="cs-entry-popup-title"><div class="cs-card-title"><h2 id="cs-entry-popup-title"></h2><button type="button" class="cs-icon" data-entry-popup-close aria-label="Close details">×</button></div><div data-entry-popup-content></div></dialog>
+ <dialog class="cs-dialog cs-entry-popup cs-star-border" data-entry-popup aria-labelledby="cs-entry-popup-title"><div class="cs-entry-popup-scroll"><div class="cs-card-title"><h2 id="cs-entry-popup-title"></h2><button type="button" class="cs-icon" data-entry-popup-close aria-label="Close details">×</button></div><div data-entry-popup-content></div></div></dialog>
  <dialog class="cs-dialog cs-item-description-dialog" data-item-description-dialog aria-labelledby="cs-item-description-title"><div class="cs-card-title"><h2 id="cs-item-description-title" data-item-description-title></h2><button type="button" class="cs-icon" data-item-description-close aria-label="Close item description">×</button></div><div class="cs-inventory-item-facts" data-item-details></div><div class="cs-prose" data-item-description-text></div><div class="cs-inventory-item-special" data-item-special hidden></div></dialog></div>`;
 }
 export function renderSpeedDetails(data={}){
@@ -145,13 +145,16 @@ export function entryDetail(row,data={},key=''){
  const dice=String(row.damage||row.dmg||'');const rollable=/^\s*\d{1,2}d\d{1,4}(?:\s*[+-]\s*\d{1,6})?\s*$/i.test(dice);
  const prose=weaponOrAbility(key)?'<div class="cs-entry-prose">'+[['Description',row.desc],['Effect',row.effect],['At higher levels',row.at_higher_lvls]].filter(([,v])=>v).map(([title,text])=>'<section><h3>'+title+'</h3><div class="cs-prose">'+formatSheetText(text)+'</div></section>').join('')+'</div>':'<div class="cs-prose">'+formatSheetText(row.desc||'No description.')+'</div>';
 
+  const isAbility=abilityTabs.includes(key);
+  const previewRow=isAbility?{...row,action_type:actionType(row.action_type??row.type)||''}:row;
   const available=Object.entries(labels).filter(([k])=>
     !(weaponOrAbility(key)&&['effect','at_higher_lvls'].includes(k))&&
-    !(k==='attack_type'&&row[k]==='none')&&
-    row[k]!==undefined&&(row[k]!==''||k==='action_type'));
+    !(isAbility&&k==='type')&&
+    !(k==='attack_type'&&previewRow[k]==='none')&&
+    previewRow[k]!==undefined&&(previewRow[k]!==''||k==='action_type'&&isAbility));
   const group=(title,keys)=>{
     const entries=available.filter(([k])=>keys.includes(k));
-    return entries.length?'<section class="cs-entry-detail-group"><h3>'+title+'</h3><dl class="cs-pairs">'+entries.map(([k,label])=>'<div><dt>'+e(label)+'</dt><dd>'+e(k==='action_type'&&!row[k]?'None':Array.isArray(row[k])?row[k].join(' · '):row[k])+'</dd></div>').join('')+'</dl></section>':'';
+    return entries.length?'<section class="cs-entry-detail-group"><h3>'+title+'</h3><dl class="cs-pairs">'+entries.map(([k,label])=>'<div><dt>'+e(label)+'</dt><dd>'+e(k==='action_type'&&!previewRow[k]?'None':Array.isArray(previewRow[k])?previewRow[k].join(' · '):previewRow[k])+'</dd></div>').join('')+'</dl></section>':'';
   };
   const priority=['action_type','attack_type','range','duration','target','saving_throw','school','spell_resist','type'];
   const rolls=['damage','dmg','extra_damage','misfire','crit_range','crit_mult','uses'];
