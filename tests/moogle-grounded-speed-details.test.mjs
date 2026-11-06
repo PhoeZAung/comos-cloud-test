@@ -50,13 +50,13 @@ test('Grounded selection permanent; manual movement edits preserved; disabling o
  assert.match(raceTraits(disabled).errors.join(' '),/disabled/);
  assert.throws(()=>compileBuild(disabled));
 });
-test('Speed value opens read-only view of five modes; header retains only edit control',()=>{
+test('Speed label opens read-only view of five modes; header retains only edit control',()=>{
  const data=compileBuild(fixture(true));Object.assign(data,{speed_burrow:10,speed_climb:15,speed_swim:25});
  const html=renderSection({id:'f',name:'Moogle',data},'overview');
  const identity=html.slice(html.indexOf('<h2>Identity</h2>'),html.indexOf('<h2>Proficiencies</h2>'));
  assert.equal((identity.match(/data-edit-stats="identity"/g)||[]).length,1);
  assert.equal((identity.match(/data-speed-details/g)||[]).length,1);
- assert.match(identity,/<dt>Speed<\/dt><dd><button[^>]*data-speed-details[^>]*>20 ft<\/button><\/dd>/);
+ assert.match(identity,/<dt><button[^>]*data-speed-details[^>]*>Speed<\/button><\/dt><dd>20 ft<\/dd>/);
  const popup=renderSpeedDetails(data);
  assert.deepEqual([...popup.matchAll(/<dt>([^<]+)<\/dt>/g)].map(x=>x[1]),['Land','Burrow','Climb','Fly','Swim']);
  assert.match(popup,/Land<\/dt><dd>20 ft/);assert.match(popup,/Burrow<\/dt><dd>10 ft/);

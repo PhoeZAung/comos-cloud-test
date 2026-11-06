@@ -29,25 +29,39 @@ export function inventoryEditorKeys(category){
 }
 // Read legacy shop aliases without changing the saved schema until the user edits the field.
 const legacyAliases={
- secondaryType:['filterTag','secondary type'],img:['image','imageUrl','imgUrl','icon'],cost:['priceGil','unitPriceGil','price'],
+ secondaryType:['filterTag','secondary type'],img:['image','imageUrl','imgUrl','image_url','image url','icon','picture'],cost:['priceGil','unitPriceGil','price'],
  weight:['weightLb','weight_lb','weightlbs','bulk'],cl:['casterLevel','caster level'],
- dmg:['damage','damageDice','damage_dice','dmgM','dmgS','attackDmg'],crit:['critical','crit_range','critRange'],
+ dmg:['damage','damageDice','damage_dice','dmgM','dmgS','damageM','damageS','damage (m)','attackDmg'],crit:['critical','crit_range','critRange'],
  proficiency:['proficiency'],usageType:['usage','use'],ammo:['ammunition','capacity'],
  acBonus:['armorBonus','shieldBonus'],maxDex:['maxDexBonus'],checkPenalty:['armorCheckPenalty'],
  spellFailure:['arcaneSpellFailure'],speed:['speedPenalty','speed30Ft','speed20Ft'],
  fullSpeed:['full speed'],passengersCrew:['passengers','crew'],acCmd:['ac/cmd'],critical:['crit'],
- damageType:['damage type'],dcSave:['saveDc','dc saves'],range:['rangeIncrement','range_increment']
+ damageType:['damage type'],dcSave:['saveDc','dc saves'],range:['rangeIncrement','range_increment'],special:['Special','Special Properties','specialProperties','properties']
 };
 export function inventoryItemValue(item={},key){
  const candidates=[key,...(legacyAliases[key]||[])];
+ const normalize=label=>String(label||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+ const normalized=new Set(candidates.map(normalize));
+ const present=val=>val!==undefined&&val!==null&&typeof val!=='object'&&String(val).trim()!=='';
  const lookup=source=>{
-  for(const candidate of candidates){
-   const val=source?.[candidate];
-   if(val!==undefined&&val!==null&&String(val).trim()!=='')return val;
+  if(!source||typeof source!=='object')return undefined;
+  for(const candidate of candidates)if(present(source[candidate]))return source[candidate];
+  for(const [label,val] of Object.entries(source))if(normalized.has(normalize(label))&&present(val))return val;
+  return undefined;
+ };
+ const lookupDetails=source=>{
+  if(!Array.isArray(source))return undefined;
+  for(const detail of source){
+   if(!detail||typeof detail!=='object')continue;
+   const name=detail.name??detail.label??detail.key??detail.title;
+   const val=detail.val??detail.value??detail.text;
+   if(normalized.has(normalize(name))&&present(val))return val;
   }
   return undefined;
  };
- const value=lookup(item)??lookup(item.raw);
+ const catalog=item.sourceCatalog??item.catalog;
+ const value=[item,item.raw,catalog,catalog?.raw].map(lookup).find(present)
+    ??[item.details,catalog?.details].map(lookupDetails).find(present);
  if(key==='weight'&&value!==undefined){const parsed=Number.parseFloat(String(value));return Number.isFinite(parsed)?parsed:value;}
  return value;
 }

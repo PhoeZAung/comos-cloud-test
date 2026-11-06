@@ -1,4 +1,5 @@
 import {gilUnits} from './catalog.mjs';
+import {inventoryEditorKeys,inventoryItemValue} from '../../src/features/sheet/inventory-fields.mjs';
 const fail=(message,status=400)=>Object.assign(Error(message),{httpStatus:status,error:'invalid_purchase'});
 const uuid=v=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
 const balance=d=>gilUnits(Number(d.currency_gil??d.gil??0));
@@ -26,8 +27,18 @@ export function createPurchaseService(db,items){
    if(funds===null)throw fail('Set a valid gil balance in the sheet first.');if(funds<total)throw fail('Not enough gil.');
    const inventory=Array.isArray(data.items)?data.items:[],catalog=item.catalog||{},now=new Date().toISOString();
    if(inventory.length>=1000)throw fail('Inventory has too many entries.');
-   // Retain all source properties separately. Never equip or apply bonuses while buying.
-   inventory.push({name:item.name,desc:item.description,sourceCategory:item.category,tags:item.category,amount:change.quantity,equipped:false,equip_slot:'',sourceItemId:item.id,sourceOriginalId:catalog.id||'',sourceCatalog:catalog,details:catalog.details||[],slot:Number.isFinite(Number(catalog.slotAmount))&&Number(catalog.slotAmount)>=0?Number(catalog.slotAmount):1,unitPriceGil:item.priceGil,purchasedForGil:total/100,purchasedAt:now,cost:item.costText,link:catalog.sourceUrl||'',...(catalog.dmg?{damage:catalog.dmg}:{}),...(catalog.range?{range:catalog.range}:{})});
+   // Copy tagged source statistics into editable inventory fields (not only desc).
+   // Keep the complete source record. Buying never equips or applies item bonuses.
+   const mapped={};
+   for(const key of inventoryEditorKeys(item.category)){
+    if(['sourceCategory','name','amount','desc','two_handed'].includes(key))continue;
+    const value=inventoryItemValue({sourceCatalog:catalog},key);
+    if(value===undefined||value===null||String(value).trim()==='')continue;
+    if(key==='weight'){
+     const weight=Number.parseFloat(String(value));if(Number.isFinite(weight)&&weight>=0&&weight<=1000000)mapped.weight=weight;
+    }else if(['string','number'].includes(typeof value))mapped[key]=String(value).slice(0,key==='img'?2048:1200);
+   }
+   inventory.push({...mapped,name:item.name,desc:item.description,sourceCategory:item.category,tags:item.category,amount:change.quantity,equipped:false,equip_slot:'',sourceItemId:item.id,sourceOriginalId:catalog.id||'',sourceCatalog:catalog,details:catalog.details||[],unitPriceGil:item.priceGil,purchasedForGil:total/100,purchasedAt:now,cost:item.costText||mapped.cost||'',link:catalog.sourceUrl||'',...(catalog.dmg?{damage:catalog.dmg}:{})});
    data.items=inventory;data.currency_gil=(funds-total)/100;data.gil=data.currency_gil;
    const json=JSON.stringify(data);if(Buffer.byteLength(json)>500000)throw fail('Character inventory is too large.');
    db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(c.id,json);
