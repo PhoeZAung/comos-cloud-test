@@ -60,17 +60,79 @@ export function reducedSpeed(base){
  if(speed>120)return Math.floor(speed*2/3/5)*5;
  return [...REDUCED_SPEED_THRESHOLDS].reverse().find(([minimum])=>speed>=minimum)?.[1]||speed;
 }
-function equippedArmor(data){
- const worn=(Array.isArray(data.items)?data.items:[]).filter(row=>row&&(row.equipped!==false&&row.equip_slot)&&itemCategoryForItem(row)==='Armor');
- const penalties=worn.map(row=>Number.parseFloat(String(inventoryItemValue(row,'checkPenalty')??'0'))).filter(Number.isFinite);
- const maxDexCaps=worn.map(row=>Number.parseFloat(String(inventoryItemValue(row,'maxDex')??''))).filter(Number.isFinite);
- let category='light';
- for(const row of worn){
-  const type=String(inventoryItemValue(row,'type')||row.secondaryType||row.subtype||'').toLowerCase();
-  if(/\bheavy\b/.test(type))category='heavy';
-  else if(category!=='heavy'&&/\bmedium\b/.test(type))category='medium';
+// The two speed columns in PF armor tables refer to 30-ft and 20-ft NORMAL
+// movement, not literally creature size. Prefer a recorded base speed.
+const armNumber=value=>{
+ if(value===undefined||value===null||value==='')return null;
+ const raw=String(value).replaceAll(',','').trim();
+ if(/^[-—–]$/.test(raw))return null;
+ const match=raw.match(/[-+]?\d+(?:\.\d+)?/);
+ return match&&Number.isFinite(Number(match[0]))?Number(match[0]):null;
+};
+const rowSources=row=>[row,row.raw,row.sourceCatalog,row.sourceCatalog?.raw,row.catalog,row.catalog?.raw].filter(source=>source&&typeof source==='object');
+const findColumn=(row,thirty)=>{
+ const expected=thirty?'speed30ft':'speed20ft';
+ for(const source of rowSources(row)){
+  for(const [name,value] of Object.entries(source)){
+   if(name.toLowerCase().replace(/[^a-z0-9]/g,'')===expected){
+    const parsed=armNumber(value);if(parsed!==null)return parsed;
+   }
+  }
  }
- return {worn:worn.length,checkPenalty:Math.min(0,...penalties),maxDex:maxDexCaps.length?Math.min(...maxDexCaps):Infinity,category};
+ const details=[row.details,row.sourceCatalog?.details,row.catalog?.details].flat().filter(Boolean);
+ for(const detail of details){
+  if(typeof detail!=='object')continue;
+  const key=String(detail.name??detail.label??detail.key??'').toLowerCase().replace(/[^a-z0-9]/g,'');
+  if(key===expected){const parsed=armNumber(detail.val??detail.value??detail.text);if(parsed!==null)return parsed;}
+ }
+ return null;
+};
+export function armorSpeedLimit(row,baseSpeed,category='light'){
+ // Prefer a complete explicit speed column pair, e.g. "20 ft. / 15 ft.".
+ const direct=row.speed??row.raw?.speed??row.sourceCatalog?.raw?.speed??row.sourceCatalog?.speed;
+ let cap30=findColumn(row,true),cap20=findColumn(row,false);
+ if(direct!==undefined&&direct!==null&&String(direct).trim()){
+  const values=String(direct).match(/\d+(?:\.\d+)?/g)?.map(Number)||[];
+  if(values.length>=2){[cap30,cap20]=values;}
+  else if(values.length===1&&cap30===null&&cap20===null){cap30=cap20=values[0];}
+ }
+ if(cap30===null&&cap20===null){
+  // Older shop items sometimes expose speed only through aliases.
+  const alias=inventoryItemValue(row,'speed');
+  const values=String(alias??'').match(/\d+(?:\.\d+)?/g)?.map(Number)||[];
+  if(values.length>=2)[cap30,cap20]=values;
+  else if(values.length===1)cap30=cap20=values[0];
+ }
+ if(cap30===null&&cap20===null){
+  return ['medium','heavy'].includes(category)?reducedSpeed(baseSpeed):baseSpeed;
+ }
+ // Complete 30/20 values refer to normal land speed, not character size.
+ const selected=baseSpeed<=20?(cap20??cap30):(cap30??cap20);
+ return Math.max(0,Math.min(baseSpeed,selected));
+}
+const armorCategoryOf=row=>{
+ const type=[inventoryItemValue(row,'type'),row.secondaryType,row.subtype,row.name].join(' ').toLowerCase();
+ return /\bheavy\b/.test(type)?'heavy':/\bmedium\b/.test(type)?'medium':'light';
+};
+const isShield=row=>/\b(shield|buckler)\b/i.test([row.name,inventoryItemValue(row,'type'),row.secondaryType].join(' '));
+export function equippedArmor(data={},baseSpeed=30){
+ const worn=(Array.isArray(data.items)?data.items:[]).filter(row=>row&&row.equipped!==false&&row.equip_slot&&itemCategoryForItem(row)==='Armor');
+ const body=worn.filter(row=>!isShield(row)),shields=worn.filter(isShield);
+ // Pathfinder non-stacking armor and shield bonus types: take the best of each.
+ // Enhancement values are expected to be included in the item's total bonus.
+ const maximumBonus=rows=>Math.max(0,...rows.map(row=>armNumber(inventoryItemValue(row,'acBonus'))??0));
+ const bodyBonus=maximumBonus(body),shieldBonus=maximumBonus(shields);
+ const maxDexCaps=worn.map(row=>armNumber(inventoryItemValue(row,'maxDex'))).filter(v=>v!==null);
+ const worstPenalty=rows=>Math.min(0,...rows.map(row=>armNumber(inventoryItemValue(row,'checkPenalty'))??0));
+ // Shields and armor have separate ACPs. Their penalties stack with each other,
+ // but the resulting worn-gear ACP does not stack with load ACP.
+ const armorPenalty=worstPenalty(body),shieldPenalty=worstPenalty(shields);
+ const category=body.some(row=>armorCategoryOf(row)==='heavy')?'heavy':body.some(row=>armorCategoryOf(row)==='medium')?'medium':'light';
+ const speedCaps=body.map(row=>armorSpeedLimit(row,baseSpeed,armorCategoryOf(row)));
+ return {worn:worn.length,bodyBonus,shieldBonus,acBonus:bodyBonus+shieldBonus,
+  checkPenalty:armorPenalty+shieldPenalty,armorPenalty,shieldPenalty,
+  maxDex:maxDexCaps.length?Math.min(...maxDexCaps):Infinity,
+  category,speedCap:speedCaps.length?Math.min(baseSpeed,...speedCaps):baseSpeed};
 }
 export function carryingCapacity(data={}){
  const strength=Math.floor(data.str===undefined||data.str===null||data.str===''?10:numeric(data.str)),size=Object.keys(SIZE_CAPACITY).find(s=>s.toLowerCase()===String(data.size_category||data.size||'Medium').toLowerCase())||'Medium';
@@ -83,16 +145,22 @@ export function carryingCapacity(data={}){
  const {total:weight,lineItems}=carriedWeight(data);
  const load=weight<=lightMax?'light':weight<=mediumMax?'medium':weight<=maximum?'heavy':'over';
  const effects={light:{maxDex:Infinity,checkPenalty:0,run:4,armor:'none'},medium:{maxDex:3,checkPenalty:-3,run:4,armor:'medium'},heavy:{maxDex:1,checkPenalty:-6,run:3,armor:'heavy'},over:{maxDex:0,checkPenalty:-6,run:0,armor:'heavy'}}[load];
- const armor=equippedArmor(data),maxDex=Math.min(effects.maxDex,armor.maxDex);
+ const sizeSpeedDefault=['Fine','Diminutive','Tiny','Small'].includes(size)?20:30;
+ const baseSpeed=Math.max(0,numeric(data.speed===undefined||data.speed===null||data.speed===''?sizeSpeedDefault:data.speed));
+ const speedMod=numeric(data.speed_mod);
+ const armor=equippedArmor(data,baseSpeed),maxDex=Math.min(effects.maxDex,armor.maxDex);
  const checkPenalty=Math.min(effects.checkPenalty,armor.checkPenalty);
  const armorRanks={none:0,light:1,medium:2,heavy:3},armorCategory=armorRanks[armor.category]>armorRanks[effects.armor]?armor.category:effects.armor;
- const baseSpeed=Math.max(0,numeric(data.speed));
- const slowed=load!=='light'||armorRanks[armor.category]>=2;
- const effectiveSpeed=load==='over'?(weight<=maximum*2&&maximum>0?5:0):slowed?reducedSpeed(baseSpeed):baseSpeed;
+ const loadSpeed=load==='over'?(weight<=maximum*2&&maximum>0?5:0):load==='light'?baseSpeed:reducedSpeed(baseSpeed);
+ const limitedByArmor=armor.speedCap<baseSpeed,limitedByLoad=loadSpeed<baseSpeed;
+ const constrainedSpeed=Math.min(baseSpeed,armor.speedCap,loadSpeed);
+ // Speed Mod deliberately adds AFTER armor and encumbrance restrictions.
+ const effectiveSpeed=Math.max(0,constrainedSpeed+speedMod);
  const runMultiplier=armor.category==='heavy'?Math.min(effects.run,3):effects.run;
+ const speedCapReasons=[...(limitedByArmor?['armor']:[]),...(limitedByLoad?['load']:[])];
  return {strength,size,bodyType,multiplier,capacityModifier,lightMax,mediumMax,maximum,weight,load,label:loadName(load),
   remaining:pounds(Math.max(0,maximum-weight)),overBy:pounds(Math.max(0,weight-maximum)),lineItems,
-  maxDex,checkPenalty,baseSpeed,effectiveSpeed,runMultiplier,armorCategory,armor,
+  maxDex,checkPenalty,baseSpeed,speedMod,effectiveSpeed,constrainedSpeed,loadSpeed,armorSpeed:armor.speedCap,speedCapReasons,limitedByArmor,limitedByLoad,runMultiplier,armorCategory,armor,armorBonus:armor.acBonus,
   liftOverhead:maximum,liftGround:pounds(maximum*2),pushDrag:pounds(maximum*5),
   mediumStarts:pounds(lightMax),heavyStarts:pounds(mediumMax)};
 }
