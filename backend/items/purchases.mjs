@@ -1,5 +1,5 @@
 import {gilUnits} from './catalog.mjs';
-import {inventoryEditorKeys,inventoryItemValue} from '../../src/features/sheet/inventory-fields.mjs';
+import {inventoryEditorKeys,inventoryItemValue,usableItemImageUrl} from '../../src/features/sheet/inventory-fields.mjs';
 const fail=(message,status=400)=>Object.assign(Error(message),{httpStatus:status,error:'invalid_purchase'});
 const uuid=v=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
 const balance=d=>gilUnits(Number(d.currency_gil??d.gil??0));
@@ -36,7 +36,10 @@ export function createPurchaseService(db,items){
     if(value===undefined||value===null||String(value).trim()==='')continue;
     if(key==='weight'){
      const weight=Number.parseFloat(String(value));if(Number.isFinite(weight)&&weight>=0&&weight<=1000000)mapped.weight=weight;
-    }else if(['string','number'].includes(typeof value))mapped[key]=String(value).slice(0,key==='img'?2048:1200);
+    }else if(key==='img'){
+      const url=usableItemImageUrl(value);
+      if(url)mapped.img=url;
+     }else if(['string','number'].includes(typeof value))mapped[key]=String(value).slice(0,1200);
    }
    inventory.push({...mapped,name:item.name,desc:item.description,sourceCategory:item.category,tags:item.category,amount:change.quantity,equipped:false,equip_slot:'',sourceItemId:item.id,sourceOriginalId:catalog.id||'',sourceCatalog:catalog,details:catalog.details||[],unitPriceGil:item.priceGil,purchasedForGil:total/100,purchasedAt:now,cost:item.costText||mapped.cost||'',link:catalog.sourceUrl||'',...(catalog.dmg?{damage:catalog.dmg}:{})});
    data.items=inventory;data.currency_gil=(funds-total)/100;data.gil=data.currency_gil;
