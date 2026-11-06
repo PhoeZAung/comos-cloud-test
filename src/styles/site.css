@@ -120,3 +120,12 @@ header .install-control{margin-right:0;margin-left:auto}header .install-control+
 [data-character-admin] .character-controls .cs-level-up-icon{display:inline-block;width:22px;height:22px;flex:none;background:currentColor;-webkit-mask:url("icons/level-up.png") center/contain no-repeat;mask:url("icons/level-up.png") center/contain no-repeat}
 
 .directory-delete-user{width:min(440px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto}.directory-delete-user label{display:grid;gap:8px}.directory-delete-user input{width:100%}.directory-delete-user p{color:var(--muted);line-height:1.6}.directory-user .danger,.directory-delete-user .danger{color:#ef98a4;border-color:#b7546470}
+
+/* Two-path character creation, matching the existing dark Cosmos dialog. */
+.character-create-dialog{width:min(410px,calc(100vw - 32px));padding:24px}
+.character-create-dialog .character-create-choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 12px}
+.character-create-dialog .character-create-choices .button{display:flex;min-height:52px;align-items:center;justify-content:center;text-align:center;cursor:pointer}
+.character-create-dialog [data-character-create-status]{min-height:1.5em;font-size:13px;margin:12px 0}
+.character-create-dialog form{display:flex;justify-content:flex-end}
+.character-create-dialog button:disabled{opacity:.55;cursor:wait}
+@media(max-width:420px){.character-create-dialog .character-create-choices{grid-template-columns:minmax(0,1fr)}}

@@ -88,6 +88,32 @@ export function createCharacterLibraryService(db){
       const rows=page.all(ownerId,cursor);
       return {characters:rows.slice(0,40).map(roster),nextCursor:rows.length>40?rows[39].id:null};
     },
+
+    // A manual character intentionally has no built-in class, race or generated
+    // ability scores. The request ID makes accidental duplicate clicks/retries safe.
+    createManual(ownerId,raw,{admin=false}={}){
+      if(!ownerId||!plain(raw)||Object.keys(raw).sort().join(',')!=='mode,requestId'||
+         raw.mode!=='manual'||!uuid.test(raw.requestId))throw fail('INVALID_CHARACTER','Invalid manual character request.');
+      const hex=createHash('sha256').update('manual|'+ownerId+'|'+raw.requestId).digest('hex');
+      const id=hex.slice(0,8)+'-'+hex.slice(8,12)+'-4'+hex.slice(13,16)+'-a'+hex.slice(17,20)+'-'+hex.slice(20,32);
+      const name='New Character',data={manualCharacter:true},now=new Date().toISOString();
+      db.exec('BEGIN IMMEDIATE');try{
+        const existing=db.prepare('SELECT id,name,revision,owner_id FROM characters WHERE id=?').get(id);
+        if(existing){
+          const previous=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');
+          if(existing.owner_id!==ownerId||previous.manualCharacter!==true)throw fail('INVALID_CHARACTER','This request was already used.');
+          db.exec('COMMIT');
+          return {id,name:existing.name,revision:existing.revision,data:previous};
+        }
+        db.prepare('INSERT INTO characters(id,owner_id,name,sources_json,created_at,updated_at) VALUES(?,?,?,?,?,?)')
+          .run(id,ownerId,name,'[]',now,now);
+        db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)')
+          .run(id,JSON.stringify(data));
+        if(admin)loreAccess.ensureAdminTag(ownerId);
+        db.exec('COMMIT');
+        return {id,name,revision:1,data};
+      }catch(error){db.exec('ROLLBACK');throw error;}
+    },
     create(ownerId,raw,{admin=false}={}){
       if(!ownerId)throw fail('INVALID_IMPORT','Sign in first.');
       const values=validateWizardFields('identity',raw?.fields);
@@ -150,7 +176,7 @@ export function createCharacterLibraryRoutes({db,sessions,origin,adminUids=[],th
       }else if(list){
         if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
         const body=await adminJson(req,210000);
-        send(201,{character:body.build?service.createBuild(userId,body,{admin:session.admin}):service.create(userId,body,{admin:session.admin})});
+        send(201,{character:body.mode==='manual'?service.createManual(userId,body,{admin:session.admin}):body.build?service.createBuild(userId,body,{admin:session.admin}):service.create(userId,body,{admin:session.admin})});
       }else{
         if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
         const body=await adminJson(req,270000);
