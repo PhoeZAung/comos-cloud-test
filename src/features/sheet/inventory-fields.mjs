@@ -76,6 +76,14 @@ export function usableItemImageUrl(value){
   return ['http:','https:'].includes(url.protocol)&&url.hostname&&!url.username&&!url.password?url.href:'';
  }catch{return '';}
 }
+// Catalog values are often imported from unstructured text. All optional item
+// metadata is display-only and must not prevent changes to unrelated fields.
+export function normalizeInventoryText(value,key=''){
+ const max=['desc','special'].includes(key)?30000:12000;
+ if(value===null||value===undefined)return '';
+ const raw=typeof value==='string'?value:typeof value==='number'&&Number.isFinite(value)||typeof value==='boolean'?String(value):'';
+ return raw.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/gu,'').slice(0,max);
+}
 export function inventoryFieldLabel(key){
  return [...ITEM_COMMON_FIELDS,...Object.values(ITEM_EDIT_FIELDS_BY_CATEGORY).flat(),['Name','name'],['Description','desc'],['Special','special']].find(([,field])=>field===key)?.[0]||key;
 }
