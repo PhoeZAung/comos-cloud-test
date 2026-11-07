@@ -33,7 +33,7 @@ test('group cards retain empty drop zones, escape titles and honor rest opt-out'
  let d=grouped(),id=d.abilityGroups[0].id;
  d=change(d,'update',{id,fields:{name:'<script>Group</script>',u_curr:1,u_max:3,restoreOnLongRest:false}});
  d=mergeSheetData(d,{action:'rest'});assert.equal(d.abilityGroups[0].u_curr,1);
- const html=collectionBlock(collection,d);assert.match(html,/&lt;script&gt;/);assert.match(html,/data-ability-group=""/);assert.match(html,/Move to group/);
+ const html=collectionBlock(collection,d);assert.match(html,/&lt;script&gt;/);assert.match(html,/data-ability-group=""/);assert.doesNotMatch(html,/Move to group|Ungrouped|Drag abilities here/);assert.match(html,/data-group-drag/);
  assert.equal(JSON.parse(JSON.stringify(d)).activeAbilities[0].abilityGroupId,id);
 });
 
@@ -50,4 +50,26 @@ test('a grouped ability use persists one shared spend and receipt retries do not
   const saved=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json);
   assert.equal(saved.abilityGroups[0].u_curr,1);assert.equal(entryCalculations(saved.activeAbilities[0],saved,collection).currentUses,1);
  }finally{db.close();}
+});
+
+
+test('groups and standalone abilities share a stable order without changing group membership or usage',async()=>{
+ const {abilityLayout}=await import('../src/features/sheet/ability-groups.mjs');
+ let d=grouped(),id=d.abilityGroups[0].id;
+ d=change(d,'move',{index:1,id:''});
+ d=mergeSheetData(d,{action:'placeAbility',collection,source:{groupId:id},before:null,groupId:''});
+ assert.deepEqual(abilityLayout(d,collection).map(e=>e.group?.name||e.row.name),['Frost','Elemental arts']);
+ assert.equal(d.activeAbilities[0].abilityGroupId,id);assert.equal(d.abilityGroups[0].u_curr,2);
+ d=JSON.parse(JSON.stringify(d));
+ d=mergeSheetData(d,{action:'placeAbility',collection,source:{index:0},before:{index:1},groupId:''});
+ assert.deepEqual(abilityLayout(d,collection).map(e=>e.group?.name||e.row.name),['Flame','Frost','Elemental arts']);
+ d=mergeSheetData(d,{action:'placeAbility',collection,source:{index:1},before:null,groupId:id});
+ assert.equal(d.activeAbilities.find(r=>r.name==='Frost').abilityGroupId,id);
+ assert.deepEqual(abilityLayout(d,collection).map(e=>e.group?.name||e.row.name),['Flame','Elemental arts']);
+ const flame=d.activeAbilities.findIndex(r=>r.name==='Flame');
+ d=mergeSheetData(d,{action:'entry',mode:'remove',collection,index:flame});
+ assert.deepEqual(abilityLayout(d,collection).map(e=>e.group?.name||e.row.name),['Elemental arts']);
+ assert.throws(()=>mergeSheetData(d,{action:'placeAbility',collection,source:{groupId:id},before:null,groupId:id}),/nested/);
+ assert.throws(()=>mergeSheetData(d,{action:'placeAbility',collection,source:{index:999},before:null,groupId:''}));
+ assert.throws(()=>mergeSheetData(d,{action:'placeAbility',collection,source:{groupId:id},before:{groupId:id},groupId:''}));
 });

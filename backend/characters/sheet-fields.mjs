@@ -1,5 +1,5 @@
 import {randomUUID} from 'node:crypto';
-import {abilityGroup,abilityCollections} from '../../src/features/sheet/ability-groups.mjs';
+import {abilityGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
@@ -27,7 +27,37 @@ function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.
 function text(v,max=12000,label='Text'){if(typeof v!=='string'||v.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v))bad(label+' is too long (limit '+max+' characters) or contains invalid characters.');return v;}
 export function mergeSheetData(original,change){
  const data=structuredClone(original);
- if(change.action==='abilityGroup'){
+ if(change.action==='placeAbility'){
+  const collection=change.collection;
+  if(!abilityCollections.includes(collection))bad('Choose an ability category.');
+  const rows=data[collection]||[],groups=(data.abilityGroups||[]).filter(g=>g.collection===collection);
+  const resolve=ref=>{
+   if(!plain(ref))bad('Invalid ability position.');
+   if(typeof ref.groupId==='string'){const group=groups.find(g=>g.id===ref.groupId);if(!group)bad('Group no longer exists.');return {group};}
+   if(!Number.isInteger(ref.index)||!rows[ref.index]||isLimitBreak(rows[ref.index]))bad('Ability no longer exists.');
+   return {row:rows[ref.index],index:ref.index};
+  };
+  const source=resolve(change.source),target=change.before===null?null:resolve(change.before),destination=change.groupId;
+  if(typeof destination!=='string'||destination&&!groups.some(g=>g.id===destination))bad('Group no longer exists.');
+  if(source.group&&destination)bad('Groups cannot be nested.');
+  if(target&&(destination?(target.group||abilityGroup(data,target.row,collection)?.id!==destination):target.row&&abilityGroup(data,target.row,collection)))bad('Invalid destination.');
+  if(target&&(source.group&&source.group===target.group||source.row&&source.row===target.row))bad('Choose another position.');
+  const beforeLayout=abilityLayout(data,collection);
+  for(const row of rows)row.abilityLayoutId??=randomUUID();
+  const key=entry=>entry.group?'group:'+entry.group.id:'ability:'+entry.row.abilityLayoutId;
+  const order=beforeLayout.map(key).filter(k=>k!==key(source));
+  if(source.row){
+   const oldGroup=abilityGroup(data,source.row,collection)?.id||'';
+   if(destination!==oldGroup&&(gunbreakerAmmoAbilityCost(data,source.row)||source.row.sourceRuleId===MAGICKED_AMMO_ID))bad('This ability uses its own special pool.');
+   if(destination)source.row.abilityGroupId=destination;else delete source.row.abilityGroupId;
+   if(destination){
+    rows.splice(rows.indexOf(source.row),1);
+    const at=target?rows.indexOf(target.row):rows.length;rows.splice(at,0,source.row);
+   }
+  }
+  if(!destination){const at=target?order.indexOf(key(target)):order.length;if(at<0)bad('Invalid destination.');order.splice(at,0,key(source));}
+  data.abilityOrder={...data.abilityOrder,[collection]:order};
+ }else if(change.action==='abilityGroup'){
   if(!abilityCollections.includes(change.collection))bad('Choose an ability category.');
   data.abilityGroups??=[];
   const groups=data.abilityGroups,group=groups.find(g=>g.id===change.id&&g.collection===change.collection);
