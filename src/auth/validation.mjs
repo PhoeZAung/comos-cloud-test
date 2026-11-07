@@ -28,6 +28,8 @@ export function authMessage(error) {
     'form/invalid': 'Check the highlighted fields and try again.',
     'session/rate-limited': 'Too many requests. Wait a minute and try again.',
     'session/busy': 'Please wait for the current request to finish.',
+    'session/sign-in-rejected': 'Cosmos could not accept this sign-in. Please sign in again. If it continues, report this message.',
+    'session/not-retained': 'Sign-in succeeded, but this browser could not keep your session. Open Cosmos directly in Safari or your browser and check that cookies are allowed.',
     'session/required': 'Your session ended. Please sign in again.',
   };
   return messages[error?.code] || 'Unable to complete this request. Please try again.';

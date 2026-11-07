@@ -58,7 +58,8 @@ export function createSessionRoutes({ sessions, origin, throttle = createAuthThr
       if (['auth/internal-error', 'auth/network-request-failed', 'app/network-error', 'app/network-timeout', 'app/invalid-credential', 'auth/insufficient-permission'].includes(error?.code)) {
         send(503, { error: 'service_unavailable' }); return true;
       }
-      if (read) res.setHeader('Set-Cookie', clearCookie);
+      // A restore may finish after a newer login. Never let that stale read
+      // erase the new cookie; invalid sessions still receive 401. Logout clears it.
       send(401, { error: 'sign_in_required' });
     } finally { admission.release(); }
     return true;

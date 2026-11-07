@@ -25,7 +25,17 @@ export function createAuthService({ provider, request = fetch, origin = location
           const credential = kind === 'google' ? await provider.google() : await provider.email(values.email.trim(), values.password, kind === 'signup');
           accountCreated = kind === 'signup';
           const idToken = await credential.user.getIdToken(true);
-          return await api('session', 'POST', { idToken });
+          try { await api('session', 'POST', { idToken }); }
+          catch (error) {
+            if (error.code === 'session/required') error.code = 'session/sign-in-rejected';
+            throw error;
+          }
+          // Confirm the browser sends the HttpOnly cookie before navigating.
+          try { return await api('session'); }
+          catch (error) {
+            if (error.code === 'session/required') error.code = 'session/not-retained';
+            throw error;
+          }
         } catch (error) {
           failure = error;
           if (accountCreated) error.accountCreated = true;

@@ -26,9 +26,9 @@ test('real adapter exchanges proof, restores sessions and clears provider state'
  const result=await service.signIn('signin',{email:' test@example.com ',password:' untouched '});assert.equal(result.user.id,'internal-user');
  assert.deepEqual(providerCalls[0],['test@example.com',' untouched ',false]);assert.equal(providerCalls[1],'out');
  assert.deepEqual(JSON.parse(calls[0].options.body),{idToken:'verified-proof'});assert.equal(calls[0].options.credentials,'same-origin');
- await service.restore();assert.equal(calls[1].options.method,'GET');
+ await service.restore();assert.equal(calls[2].options.method,'GET');
  assert.match((await service.reset('test@example.com')).message,/If an account/);
- await service.signOut();assert.match(calls[2].url,/logout$/);assert.equal(providerCalls.at(-1),'out');
+ await service.signOut();assert.match(calls[3].url,/logout$/);assert.equal(providerCalls.at(-1),'out');
 });
 
 test('failed exchange clears provider state and duplicate submissions are rejected',async()=>{
@@ -82,3 +82,34 @@ test('interrupted signup reports existing account and keeps the original failure
  const service=createAuthService({provider,origin:'https://comos.example',request:async()=>{throw Error('must not send');}});
  await assert.rejects(service.signIn('signup',{email:'test@example.com',password:'abcdefgh',confirm:'abcdefgh'}),error=>error.code==='auth/network-request-failed'&&error.accountCreated===true);
 });
+
+ test('sign-in distinguishes rejected proof from a cookie not retained by the browser', async () => {
+  for (const failureAt of [0, 1]) {
+   let requests=0,outs=0;
+   const provider={email:async()=>({user:{getIdToken:async()=> 'proof'}}),signOut:async()=>{outs++;}};
+   const service=createAuthService({provider,origin:'https://comos.example',request:async()=>{
+    const failed=requests++===failureAt;
+    return {ok:!failed,status:failed?401:200,json:async()=>({user:{id:'user'}})};
+   }});
+   await assert.rejects(service.signIn('signin',{email:'test@example.com',password:'test'}),{code:failureAt===0?'session/sign-in-rejected':'session/not-retained'});
+   assert.equal(outs,1);
+  }
+ });
+
+ test('a delayed unauthorized restore cannot erase a newly issued login cookie', async () => {
+  const {createSessionRoutes}=await import('../backend/auth/routes.mjs');
+  let rejectRestore;
+  const route=createSessionRoutes({origin:'https://comos.example',sessions:{
+   restore:()=>new Promise((resolve,reject)=>{rejectRestore=reject;}),
+   login:async()=>({cookie:'new-session',expiresIn:60000,user:{id:'user'}})
+  }});
+  const readHeaders={},loginHeaders={},replies=[];
+  const restore=route({method:'GET',headers:{cookie:'__Host-comos_session=expired'}},{setHeader:(k,v)=>readHeaders[k]=v},'/api/v1/auth/session',(...args)=>replies.push(args));
+  const req={method:'POST',headers:{origin:'https://comos.example','content-type':'application/json'},async *[Symbol.asyncIterator](){yield Buffer.from(JSON.stringify({idToken:'proof'}));}};
+  await route(req,{setHeader:(k,v)=>loginHeaders[k]=v},'/api/v1/auth/session',()=>{});
+  assert.match(loginHeaders['Set-Cookie'],/new-session/);
+  rejectRestore(Error('No session on earlier request'));
+  await restore;
+  assert.equal(replies[0][0],401);
+  assert.equal(readHeaders['Set-Cookie'],undefined);
+ });
