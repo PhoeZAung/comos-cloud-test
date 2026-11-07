@@ -125,8 +125,10 @@ test('Shindroid Heavy Platform changes only land 30→20, preserves immunity and
  assert.match(active(b,'base-speed').description,/armor or encumbrance/);
  assert.match(saved.racialAbilities.find(x=>x.sourceRuleId===id('shindroid','heavy-platform'))?.desc||'',/50 pounds/);
  assert.equal(compileBuild(saved.rulesBuild.input,saved).speed,20);
- const altered=mergeSheetData(saved,{action:'fields',fields:{speed:25}});
- assert.equal(compileBuild(altered.rulesBuild.input,altered).speed,25);
+ const altered=mergeSheetData(saved,{action:'fields',fields:{speed_mod:5}});
+ const rebuilt=compileBuild(altered.rulesBuild.input,altered);
+ assert.equal(rebuilt.speed,20);
+ assert.equal(rebuilt.speed_mod,5);
  const disabled=fixture('shindroid',['heavy-platform']);disabled.disabledTraits=[id('shindroid','base-speed')];
  assert.ok(raceTraits(disabled).errors.some(x=>/Cannot modify/.test(x)));
 });

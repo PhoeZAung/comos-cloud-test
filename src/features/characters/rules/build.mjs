@@ -516,9 +516,9 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
  next.favored_class_options=p.race.data.favoredRewards.filter(r=>r.classId===registry.class.id).map(r=>r.description).join('\n')+'\nApply favored-class rewards manually; they are not automatically awarded.';
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
- if(previousManaged)for(const key of ownedKeys){if(key==='mp_max_spell_level')continue;const oldBase=previousManaged.lastValues?.[key];if(typeof oldBase==='number'&&typeof previous[key]==='number')next[key]+=previous[key]-oldBase;else if(oldBase!==undefined&&previous[key]!==oldBase)next[key]=previous[key];}
+ if(previousManaged)for(const key of ownedKeys){if(key==='mp_max_spell_level'||key==='speed')continue;const oldBase=previousManaged.lastValues?.[key];if(typeof oldBase==='number'&&typeof previous[key]==='number')next[key]+=previous[key]-oldBase;else if(oldBase!==undefined&&previous[key]!==oldBase)next[key]=previous[key];}
  next.castingProfiles=[...(b.carry?.castingProfiles||[]),{className:'Black Mage',mode:'full',ability:'int',casterLevel:b.level,highestSpellLevel:p.summary.spellLevel}];
- if(b.carry){next.classes=[...structuredClone(b.carry.classes),{name:'Black Mage',level:b.level,archetype:''}];next.languages=b.carry.languages;next.senses=b.carry.senses;next.speed=b.carry.speed;next.size=next.size_category=b.carry.size;next.class=next.classes[0].name;next.class_level=next.classes[0].level;next.level=next.character_level=next.total_level=buildLevel(b);}
+ if(b.carry){next.classes=[...structuredClone(b.carry.classes),{name:'Black Mage',level:b.level,archetype:''}];next.languages=b.carry.languages;next.senses=b.carry.senses;next.size=next.size_category=b.carry.size;next.class=next.classes[0].name;next.class_level=next.classes[0].level;next.level=next.character_level=next.total_level=buildLevel(b);}
  next.rulesBuild={rankFloor:b.skillRanks?[...b.skillRanks]:previousManaged?.rankFloor,version:registry.version,input:b,ownedIds:Object.values(rows).flat().map(r=>r.sourceRuleId),lastValues,rollback};
  applyRacialFlatStats(next,previous,b);syncLimitBreaks(next);return next;
 }

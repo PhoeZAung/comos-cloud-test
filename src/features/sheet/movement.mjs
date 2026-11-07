@@ -1,4 +1,39 @@
-// Movement modes are editable sheet values. 0 means no such movement.
+import {racialLandSpeeds} from './racial-land-speeds.mjs';
+
+const validSpeed=value=>value!==undefined&&value!==null&&String(value).trim()!==''&&Number.isFinite(Number(value))&&Number(value)>=0;
+const raceName=data=>String(data.race||'').trim().toLowerCase();
+function standardMovement(data){
+ const race=raceName(data);
+ if(!Object.hasOwn(racialLandSpeeds,race))return null;
+ const standard=racialLandSpeeds[race];
+ const disabled=Array.isArray(data.standardRacialTraits)&&data.standardRacialTraits.some(trait=>trait?.name===standard.trait&&trait.enabled===false);
+ return disabled?null:standard;
+}
+export function baseLandSpeed(data={},size=data.size_category||data.size||'Medium'){
+ const compiled=data.rulesBuild?.lastValues?.speed;
+ if(validSpeed(compiled))return Number(compiled);
+
+ const standard=standardMovement(data);
+ // Imported alternate traits may replace land speed without a compiled build.
+ // Preserve their recorded baseline unless the build provides an exact value.
+ const hasAlternates=Array.isArray(data.alternateRacialTraits)&&data.alternateRacialTraits.some(trait=>trait&&trait.enabled!==false);
+ const variableSpeed=raceName(data)==='mutant';
+ if(standard&&(!(hasAlternates||variableSpeed)||!validSpeed(data.speed)))return standard.feet;
+ if(validSpeed(data.speed))return Number(data.speed);
+ return /^(fine|diminutive|tiny|small)$/i.test(size)?20:30;
+}
+
+export function ignoresArmorAndLoadSpeed(data){
+ if(standardMovement(data)?.ignoresSlowdown)return true;
+ const race=raceName(data);
+ const alternate=race==='moogle'?['grounded','Grounded']:race==='shindroid'?['heavy-platform','Heavy Platform']:null;
+ if(!alternate)return false;
+ const [id,name]=alternate;
+ return data.rulesBuild?.input?.alternateIds?.includes(`ffd20:race:${race}:trait:${id}`)||
+   (Array.isArray(data.alternateRacialTraits)&&data.alternateRacialTraits.some(trait=>trait?.name===name&&trait.enabled!==false));
+}
+
+// Other movement modes are editable. 0 means no such movement.
 export const movementModes=[
  {field:'speed_burrow',label:'Burrow',hint:'Tunneling; source rules determine eligible terrain and whether a tunnel remains.'},
  {field:'speed_climb',label:'Climb',hint:'Climbing movement; special hazards may still require checks.'},

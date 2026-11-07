@@ -41,9 +41,9 @@ test('Normal Moogle retains limited clumsy flight at 20 ft and source descriptio
 });
 test('Grounded selection permanent; manual movement edits preserved; disabling original speed conflicts',()=>{
  const b=fixture(true),saved=compileBuild(b);
- const changed=mergeSheetData(saved,{action:'fields',fields:{speed:25,speed_fly:10,speed_swim:15}});
+ const changed=mergeSheetData(saved,{action:'fields',fields:{speed_mod:5,speed_fly:10,speed_swim:15}});
  const rebuilt=compileBuild(changed.rulesBuild.input,changed);
- assert.equal(rebuilt.speed,25);assert.equal(rebuilt.speed_fly,10);assert.equal(rebuilt.speed_swim,15);
+ assert.equal(rebuilt.speed,20);assert.equal(rebuilt.speed_mod,5);assert.equal(rebuilt.speed_fly,10);assert.equal(rebuilt.speed_swim,15);
  const removed=structuredClone(saved.rulesBuild.input);removed.alternateIds=[];
  assert.throws(()=>compileBuild(removed,saved),/permanent/);
  const disabled=fixture(true);disabled.disabledTraits=[BASE];

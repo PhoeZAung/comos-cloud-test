@@ -16,11 +16,11 @@ test('Identity popup groups character details and movement speeds without extra 
  assert.ok(first>0&&second>first);
  const details=html.slice(first,second),movement=html.slice(second);
  assert.deepEqual([...details.matchAll(/name="([^"]+)"/g)].map(m=>m[1]),['size_category','languages','senses']);
- assert.deepEqual([...movement.matchAll(/name="([^"]+)"/g)].map(m=>m[1]),['speed','speed_mod','speed_burrow','speed_climb','speed_fly','speed_swim']);
- assert.match(movement,/name="speed"[^>]*value="30"/);
+ assert.deepEqual([...movement.matchAll(/name="([^"]+)"/g)].map(m=>m[1]),['speed_mod','speed_burrow','speed_climb','speed_fly','speed_swim']);
+ assert.match(html,/Base land speed: 30 ft \(read-only\)/);
  assert.match(movement,/name="speed_fly"[^>]*value="20"/);
  assert.doesNotMatch(html,/speed_fly_maneuverability|Fly Maneuverability|cs-movement-hint|cs-movement-summary|Tunneling;|hazardous|ascent restrictions/i);
- assert.equal((html.match(/name="speed"/g)||[]).length,1);
+ assert.doesNotMatch(html,/name="speed"/);
 });
 test('Identity overview has only the header edit action, with land speed visible and no extra descriptions',()=>{
  const html=renderSection({id:'a',name:'One Edit',data:{...saved,racialIdentity:{rules:[{name:'Base Speed',description:'Long flight explanation'}]}}},'overview');
@@ -34,9 +34,9 @@ test('Identity overview has only the header edit action, with land speed visible
 test('Removing fly maneuverability from editor does not erase existing stored values or other speed updates',()=>{
  const html=renderIdentityEditor(saved);
  assert.doesNotMatch(html,/name="speed_fly_maneuverability"/);
- const changed=mergeSheetData(saved,{action:'fields',fields:{speed:35,speed_burrow:5,speed_climb:20,speed_fly:40,speed_swim:0}});
+ const changed=mergeSheetData(saved,{action:'fields',fields:{speed_mod:5,speed_burrow:5,speed_climb:20,speed_fly:40,speed_swim:0}});
  assert.equal(changed.speed_fly_maneuverability,'poor');
- assert.deepEqual([changed.speed,changed.speed_burrow,changed.speed_climb,changed.speed_fly,changed.speed_swim],[35,5,20,40,0]);
+ assert.deepEqual([changed.speed,changed.speed_burrow,changed.speed_climb,changed.speed_fly,changed.speed_swim],[30,5,20,40,0]);
 });
 test('Identity modal uses two tidy columns on desktop and one on narrow screens',()=>{
  const css=readFileSync(new URL('../src/styles/sheet.css',import.meta.url),'utf8');

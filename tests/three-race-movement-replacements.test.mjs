@@ -134,6 +134,8 @@ test('Seto Lion compatible Faster plus Nimble Attacks combine to land 50 with no
  const conflict=fixture('seto-lion',['nimble-attacks','jumper']);
  assert.ok(raceTraits(conflict).errors.some(x=>/Two selections replace/.test(x)));
  assert.throws(()=>compileBuild(conflict));
- const edited=mergeSheetData(compiled,{action:'fields',fields:{speed:55}});
- assert.equal(compileBuild(edited.rulesBuild.input,edited).speed,55);
+ const edited=mergeSheetData(compiled,{action:'fields',fields:{speed_mod:5}});
+ const rebuilt=compileBuild(edited.rulesBuild.input,edited);
+ assert.equal(rebuilt.speed,50);
+ assert.equal(rebuilt.speed_mod,5);
 });

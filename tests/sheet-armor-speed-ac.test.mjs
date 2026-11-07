@@ -73,6 +73,45 @@ test('armor and medium/heavy encumbrance use strictest cap and penalty without d
  assert.equal(weaponAttack({attack_type:'ranged'},heavy),6);
 });
 
+test('legacy equipped armor applies imported stats, while shields leave DEX and speed alone',()=>{
+ const hero={...base,race:'Tarutaru',speed:30,items:[armor({equip_slot:'',acBonus:undefined,maxDex:undefined,checkPenalty:undefined,attrs:[{name:'Armor/Shield Bonus',val:'+5'},{name:'Maximum Dex Bonus',val:'+2'},{name:'Armor Check Penalty',val:'−4'}]}),shield({maxDex:0,speed:'5 ft.'})]};
+ const stats=sheetStats(hero);
+ assert.equal(stats.baseSpeed,20);
+ assert.equal(stats.speed,15);
+ assert.equal(stats.armorBonus,7);
+ assert.equal(stats.dexAcModifier,2);
+ assert.equal(stats.encumbrance.checkPenalty,-5);
+ assert.equal(skillTotal({stat:'DEX',lvl:1},hero),2);
+ assert.match(renderSection({data:hero},'overview'),/data-roll="DEX check" data-bonus="6"/);
+});
+
+test('racial speed restores standard legacy sheets and respects compiled alternate movement',()=>{
+ const normal={...base,race:'Hume',size_category:'Small',speed:15,items:[armor({speed:'30 ft. / 20 ft.'})]};
+ assert.equal(sheetStats(normal).speed,30);
+ assert.equal(sheetStats({...normal,race:'Moomba'}).speed,40);
+ assert.equal(armorSpeedLimit(armor(),40,'medium'),30);
+ assert.equal(armorSpeedLimit(armor({speed:'20 ft.2 / 15 ft.2'}),20,'medium'),15);
+ const alternate={...normal,race:'Seto Lion',speed:30,rulesBuild:{lastValues:{speed:60}},speed_mod:5,items:[armor()]};
+ assert.equal(sheetStats(alternate).baseSpeed,60);
+ assert.equal(sheetStats(alternate).speed,45);
+ assert.equal(sheetStats({...normal,race:'Custom',speed:25,items:[]}).baseSpeed,25);
+ assert.equal(sheetStats({...normal,race:'Moomba',speed:35,alternateRacialTraits:[{name:'Custom movement'}],items:[]}).baseSpeed,35);
+});
+
+test('racial slowdown exemption still respects overload and ordinary checks retain their modifier',()=>{
+ const hero={...base,race:'Dwarf',str:10,ac_dodge:2,speed_mod:10,items:[armor(),{weight:80}]};
+ assert.equal(sheetStats(hero).speed,30);
+ const overloaded={...hero,items:[armor(),{weight:110}]};
+ const stats=sheetStats(overloaded);
+ assert.equal(stats.encumbrance.runMultiplier,0);
+ assert.equal(stats.dexAcModifier,0);
+ assert.equal(stats.dodgeAcBonus,0);
+ assert.equal(stats.speed,5);
+ assert.equal(stats.mods.dex,6);
+ assert.equal(sheetStats({...overloaded,items:[{weight:201}]}).speed,0);
+ assert.match(renderSpeedDetails(overloaded),/full-round action/);
+});
+
 test('armor Speed 30ft / 20ft columns use chosen base speed, not race size alone',()=>{
  const mail=armor();
  assert.equal(armorSpeedLimit(mail,30,'medium'),20);
@@ -104,8 +143,9 @@ test('Speed Mod is added AFTER armor or load restrictions and never changes save
  assert.equal(c.constrainedSpeed,20);
  assert.equal(c.speedMod,15);
  assert.equal(c.effectiveSpeed,35);
- const saved=mergeSheetData(hero,{action:'fields',fields:{speed:25,speed_mod:-7}});
- assert.equal(saved.speed,25);
+ const saved=mergeSheetData(hero,{action:'fields',fields:{speed_mod:-7}});
+ assert.equal(saved.speed,30);
+ assert.throws(()=>mergeSheetData(hero,{action:'fields',fields:{speed:25}}),/Base land speed/);
  assert.equal(saved.speed_mod,-7);
  assert.equal(carryingCapacity(saved).effectiveSpeed,13);
  assert.equal(saved.size_category,'Medium');

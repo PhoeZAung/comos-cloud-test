@@ -62,10 +62,11 @@ test('Identity shows land speed only and uses a single top Edit button',()=>{
 });
 test('All movement modes are mutable saved Identity fields and survive rule-build recompile',()=>{
  let sheet=compileBuild(fixture('ffd20:class:dancer',true));
- sheet=mergeSheetData(sheet,{action:'fields',fields:{speed:35,speed_burrow:10,speed_climb:15,speed_fly:50,speed_swim:25,speed_fly_maneuverability:'good'}});
- assert.deepEqual([sheet.speed,sheet.speed_burrow,sheet.speed_climb,sheet.speed_fly,sheet.speed_swim,sheet.speed_fly_maneuverability],[35,10,15,50,25,'good']);
+ sheet=mergeSheetData(sheet,{action:'fields',fields:{speed_mod:5,speed_burrow:10,speed_climb:15,speed_fly:50,speed_swim:25,speed_fly_maneuverability:'good'}});
+ assert.deepEqual([sheet.speed,sheet.speed_burrow,sheet.speed_climb,sheet.speed_fly,sheet.speed_swim,sheet.speed_fly_maneuverability],[30,10,15,50,25,'good']);
  const after=compileBuild(sheet.rulesBuild.input,sheet);
- assert.equal(after.speed,35,'manually edited Land Speed survives a rules recompile');
+ assert.equal(after.speed,30,'racial land speed is preserved on recompile');
+ assert.equal(after.speed_mod,5,'Speed Mod survives a rules recompile');
  assert.deepEqual([after.speed_burrow,after.speed_climb,after.speed_fly,after.speed_swim,after.speed_fly_maneuverability],[10,15,50,25,'good']);
  assert.doesNotMatch(renderSection({id:'x',name:'Aegyl',data:after},'overview'),/Burrow 10 ft|Climb 15 ft|Fly 50 ft|Swim 25 ft/);
  const cleared=mergeSheetData(after,{action:'fields',fields:{speed_fly:0,speed_fly_maneuverability:''}});

@@ -5,7 +5,7 @@ import {itemCategoryForItem,normalizeItemTagLabel} from './item-categories.mjs';
 export const ITEM_EDIT_FIELDS_BY_CATEGORY=Object.freeze({
   Weapon:[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Critical','crit'],['Range','range']],
   'Ranged Weapon':[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Critical','crit'],['Range','range'],['Ammunition','ammo']],
-  Armor:[['Armor Bonus','acBonus'],['Max Dex','maxDex'],['Check Penalty','checkPenalty'],['Spell Failure','spellFailure'],['Speed','speed']],
+  Armor:[['Armor Bonus','acBonus'],['Max Dex','maxDex'],['Check Penalty','checkPenalty'],['Spell Failure','spellFailure'],['Speed (30 ft. base / 20 ft. base)','speed']],
   Machine:[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['Mileage','mileage'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness'],['Attack/Damage','attackDmg'],['Critical','critical'],['Range','range'],['Damage Type','damageType'],['Aim','aim'],['Load','load']],
   'Alchemical Items':[['Tier','tier'],['Range','range'],['DC/Save','dcSave']]
 });
@@ -33,7 +33,7 @@ const legacyAliases={
  weight:['weightLb','weight_lb','weightlbs','bulk'],cl:['casterLevel','caster level'],
  dmg:['damage','damageDice','damage_dice','dmgM','dmgS','damageM','damageS','damage (m)','attackDmg'],crit:['critical','crit_range','critRange'],
  proficiency:['proficiency'],usageType:['usage','use'],ammo:['ammunition','capacity'],
- acBonus:['armorBonus','shieldBonus'],maxDex:['maxDexBonus'],checkPenalty:['armorCheckPenalty'],
+ acBonus:['armorBonus','shieldBonus','Armor/Shield Bonus'],maxDex:['maxDexBonus','maximumDexterityBonus','maximumDexBonus'],checkPenalty:['armorCheckPenalty'],
  spellFailure:['arcaneSpellFailure'],speed:['speedPenalty','speed30Ft','speed20Ft'],
  fullSpeed:['full speed'],passengersCrew:['passengers','crew'],acCmd:['ac/cmd'],critical:['crit'],
  damageType:['damage type'],dcSave:['saveDc','dc saves'],range:['rangeIncrement','range_increment'],special:['Special','Special Properties','specialProperties','properties']
@@ -61,8 +61,12 @@ export function inventoryItemValue(item={},key){
  };
  const catalog=item.sourceCatalog??item.catalog;
  const value=[item,item.raw,catalog,catalog?.raw].map(lookup).find(present)
-    ??[item.details,catalog?.details].map(lookupDetails).find(present);
- if(key==='weight'&&value!==undefined){const parsed=Number.parseFloat(String(value));return Number.isFinite(parsed)?parsed:value;}
+    ??[item.details,catalog?.details,item.attrs].map(lookupDetails).find(present);
+ if(key==='weight'&&value!==undefined){
+  const fraction=/^\s*(?:(\d+)\s+)?(\d+)\s*\/\s*(\d+)/.exec(String(value));
+  if(fraction&&Number(fraction[3])>0)return Number(fraction[1]||0)+Number(fraction[2])/Number(fraction[3]);
+  const parsed=Number.parseFloat(String(value));return Number.isFinite(parsed)?parsed:value;
+ }
  return value;
 }
 // An image URL is optional display metadata. Never block an item save because

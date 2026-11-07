@@ -215,7 +215,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  if(!isChaCaster(b))next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
  if(oldManaged)for(const key of ownedKeys){
-  if(key==='mp_max_spell_level')continue;
+  if(key==='mp_max_spell_level'||key==='speed')continue;
   const previousValue=oldManaged.lastValues?.[key];
   if(typeof previousValue==='number'&&typeof previous[key]==='number')next[key]+=previous[key]-previousValue;
   else if(previousValue!==undefined&&previous[key]!==previousValue)next[key]=previous[key];
