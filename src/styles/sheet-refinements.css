@@ -170,3 +170,23 @@
 .cs-rename-dialog .cs-field{display:grid;gap:6px}
 .cs-rename-dialog input[name=charName]{width:100%;min-height:42px;padding:8px 12px;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--text)}
 .cs-rename-dialog [data-rename-status]{min-height:1.4em;color:var(--muted);font-size:13px}
+
+/* Ability groups share the weapon cards' quiet borders and spacious fields. */
+.cs-ability-group{border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:16px;margin:16px 0;padding:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 8%,transparent),transparent)}
+.cs-ability-group h3,.cs-ability-ungrouped h3{margin:0;font-size:16px}
+.cs-ability-ungrouped{margin-top:20px}
+.cs-ability-dropzone{min-height:68px;padding:8px 0}
+.cs-group-drop-hint{margin:8px;color:var(--muted);font-size:12px;text-align:center;pointer-events:none}
+.cs-group-move{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:12px;color:var(--muted);padding:0 12px 10px}
+.cs-group-move select{max-width:190px;min-height:36px;border-radius:8px;padding:4px 8px;background:var(--panel,#161b30);color:inherit;border:1px solid #ffffff25}
+.cs-ability-editor{gap:18px}
+.cs-ability-editor .cs-editor-group{padding:18px;border:1px solid #ffffff20;border-radius:14px;background:#ffffff03;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.cs-ability-editor legend{padding:0 8px;color:var(--accent);font-weight:700}
+.cs-ability-editor .cs-ability-prose{grid-template-columns:1fr}
+.cs-ability-editor textarea{min-height:120px;line-height:1.6}
+.cs-entry-meta-groups.cs-weapon-detail-grid>section{border:1px solid #ffffff18;border-radius:12px;padding:16px;background:#ffffff03}
+.cs-entry-prose{line-height:1.7}
+@media(max-width:540px){.cs-ability-group{padding:10px}.cs-ability-editor .cs-editor-group{grid-template-columns:1fr;padding:12px}.cs-group-move select{max-width:160px}}
+
+.cs-ability-editor .cs-editor-group:has(>label:only-of-type)>label{grid-column:1/-1}
+.cs-entry-popup .cs-entry-calcs{border:1px solid #ffffff18;border-radius:12px;padding:16px;background:#ffffff03;margin-bottom:14px}

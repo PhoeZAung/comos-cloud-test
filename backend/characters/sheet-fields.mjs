@@ -1,3 +1,5 @@
+import {randomUUID} from 'node:crypto';
+import {abilityGroup,abilityCollections} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
@@ -25,7 +27,30 @@ function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.
 function text(v,max=12000,label='Text'){if(typeof v!=='string'||v.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v))bad(label+' is too long (limit '+max+' characters) or contains invalid characters.');return v;}
 export function mergeSheetData(original,change){
  const data=structuredClone(original);
- if(change.action==='fields'){
+ if(change.action==='abilityGroup'){
+  if(!abilityCollections.includes(change.collection))bad('Choose an ability category.');
+  data.abilityGroups??=[];
+  const groups=data.abilityGroups,group=groups.find(g=>g.id===change.id&&g.collection===change.collection);
+  if(change.mode==='move'){
+   const row=data[change.collection]?.[change.index];
+   if(!Number.isInteger(change.index)||!row||isLimitBreak(row)||gunbreakerAmmoAbilityCost(data,row)||row.sourceRuleId===MAGICKED_AMMO_ID)bad('This ability uses its own special pool.');
+   if(change.id!==''&&!group)bad('Group no longer exists.');
+   if(group)row.abilityGroupId=group.id;else delete row.abilityGroupId;
+  }else if(change.mode==='remove'){
+   if(!group)bad('Group no longer exists.');
+   data.abilityGroups=groups.filter(g=>g!==group);
+   for(const row of data[change.collection]||[])if(row.abilityGroupId===group.id)delete row.abilityGroupId;
+  }else if(['add','update'].includes(change.mode)){
+   if(change.mode==='update'&&!group)bad('Group no longer exists.');
+   if(change.mode==='add'&&groups.length>=100)bad('Maximum 100 groups.');
+   const f=change.fields;
+   if(!plain(f)||Object.keys(f).some(k=>!['name','u_curr','u_max','restoreOnLongRest'].includes(k)))bad('Invalid group fields.');
+   const name=text(f.name,120).trim(),max=numeric(f.u_max),current=numeric(f.u_curr);
+   if(!name||!Number.isInteger(max)||!Number.isInteger(current)||max<0||current<0||current>max||typeof f.restoreOnLongRest!=='boolean')bad('Enter a name and whole uses between zero and maximum.');
+   const fields={name,u_max:max,u_curr:current,restoreOnLongRest:f.restoreOnLongRest};
+   if(group)Object.assign(group,fields);else groups.push({id:randomUUID(),collection:change.collection,...fields});
+  }else bad('Invalid group action.');
+ }else if(change.action==='fields'){
   if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>90)bad('Invalid sheet fields.');
   for(const [key,value] of Object.entries(change.fields)){
    if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
@@ -65,6 +90,7 @@ export function mergeSheetData(original,change){
    }
    if(change.mode==='update'&&data.gunbreakerAmmo!==undefined&&rows[change.index].rulesOwned&&rows[change.index].sourceRuleId===MAGICKED_AMMO_ID&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Use the gun arm ammunition tracker to change these rounds.');
    if(change.mode==='update'&&isLimitBreak(rows[change.index])&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Limit Break usage is shared and calculated.');
+   if(change.mode==='update'&&abilityGroup(data,rows[change.index],change.collection)&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Edit usage on the shared ability group.');
    const safe={};
    for(const [key,value] of Object.entries(change.fields)){
    if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
@@ -142,13 +168,14 @@ export function mergeSheetData(original,change){
    row.u_curr=calc.currentUses-1;
   }else if(change.action==='useAbility'){
   const collection=change.collection||'activeAbilities';if(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection))bad('Invalid ability.');const row=data[collection]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');if(isLimitBreak(row)){spendLimitBreak(data);}else if(gunbreakerAmmoAbilityCost(data,row)){updateGunbreakerAmmo(data,{operation:'spend',rounds:gunbreakerAmmoAbilityCost(data,row)});}else{const calc=entryCalculations(row,data,collection);
-  if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');row.u_curr=calc.currentUses-1;}
+  if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');const pool=abilityGroup(data,row,collection)||row;pool.u_curr=calc.currentUses-1;}
  }else if(change.action==='spendMp'){
   const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
  }else if(change.action==='rest'){
   const current=sheetStats(data),level=totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1;
   if(data.limitBreakPool||['activeAbilities','passiveAbilities','racialAbilities','feats'].some(k=>data[k]?.some(isLimitBreak)))data.limitBreakPool={spent:0};const recovery=restRecovery(data);data.hp_curr=Math.min(current.hpMax,current.hp+recovery.hp);data.mp=Math.min(current.mpMax,Math.max(0,current.mp-Math.max(0,number(data.mp_temp)))+recovery.mp);data.mp_temp=0;
-  for(const collection of ['activeAbilities','passiveAbilities','racialAbilities','feats'])for(const row of data[collection]||[]){if(row.restoreOnLongRest===false||isLimitBreak(row))continue;const max=entryCalculations(row,data,collection).maxUses;if(max>0)row.u_curr=max;}
+  for(const collection of ['activeAbilities','passiveAbilities','racialAbilities','feats'])for(const row of data[collection]||[]){if(row.restoreOnLongRest===false||isLimitBreak(row))continue;if(abilityGroup(data,row,collection))continue;const max=entryCalculations(row,data,collection).maxUses;if(max>0)row.u_curr=max;}
+  for(const group of data.abilityGroups||[])if(group.restoreOnLongRest!==false)group.u_curr=group.u_max;
    // Weapon/ammunition uses are intentionally not restored by this action.
  }else bad('Invalid sheet action.');
  syncGunbreakerAmmo(data);

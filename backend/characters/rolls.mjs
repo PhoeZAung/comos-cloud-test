@@ -1,3 +1,4 @@
+import {abilityGroup} from '../../src/features/sheet/ability-groups.mjs';
 import {externalRollSource} from './external-rolls.mjs';
 import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
@@ -89,7 +90,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   if(level>0)updated=mergeSheetData(character.data,{action:'spendMp',amount:level});
  }
  const spendAbility=ability&&(isLimitBreak(row)&&mode!=='send'||mode==='use'||mode==='legacy'&&change.spendUse);
- if(spendAbility&&(gunbreakerAmmoAbilityCost(character.data,row)>0||isLimitBreak(row)||String(row.uses_formula||'').trim()||Number(row.u_max)>0)){updated=mergeSheetData(character.data,{action:'useAbility',collection:change.collection,index:change.index});roll.used=true;if(gunbreakerAmmoAbilityCost(character.data,row)>0)roll.remainingInfusedAmmo=updated.gunbreakerAmmo.infused;else roll.remainingUses=updated[change.collection][change.index].u_curr;}
+ if(spendAbility&&(abilityGroup(character.data,row,change.collection)||gunbreakerAmmoAbilityCost(character.data,row)>0||isLimitBreak(row)||String(row.uses_formula||'').trim()||Number(row.u_max)>0)){updated=mergeSheetData(character.data,{action:'useAbility',collection:change.collection,index:change.index});roll.used=true;if(gunbreakerAmmoAbilityCost(character.data,row)>0)roll.remainingInfusedAmmo=updated.gunbreakerAmmo.infused;else roll.remainingUses=entryCalculations(updated[change.collection][change.index],updated,change.collection).currentUses;}
  if(updated)roll.characterRevision=character.revision+1;
  db.exec('BEGIN IMMEDIATE');try{
   if(entry&&db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision!==change.revision)throw Object.assign(Error('This character changed. Load the latest sheet.'),{httpStatus:409});

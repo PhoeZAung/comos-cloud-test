@@ -1,3 +1,4 @@
+import {abilityGroup} from '../features/sheet/ability-groups.mjs';
 import {baseLandSpeed} from '../features/sheet/movement.mjs';
 import {actionTypes,actionType,damageTypes,selectedDamageTypes} from '../features/sheet/entry-options.mjs';
 import {mountHoldButton,confirmCharacterDelete,crumpleSheet} from './sheet-delete.mjs';
@@ -152,7 +153,7 @@ export function mountSheet(){
   const narrative=keys.filter(k=>['desc','effect','at_higher_lvls'].includes(k));
    const abilityEditor=['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection);
    if(abilityEditor){
-    const layouts=[['Identity',['name','lvl','school','type']],['Action & targeting',['action_type','attack_type','range','duration','target','saving_throw','spell_resist']],['Attack & rolls',['attack_misc','damage','dc_formula','casting_ability','caster_level','dc_misc','mp_cost']],['Uses & recovery',['uses_formula','u_max','u_curr','restoreOnLongRest']],['Reference',['link']]];
+    const layouts=[['Ability',['name','lvl','school','type']],['Action & targeting',['action_type','range','duration','target','saving_throw','spell_resist']],['Attack & damage',['attack_type','attack_misc','damage','dc_formula','casting_ability','caster_level','dc_misc','mp_cost']],['Uses & recovery',['uses_formula','u_max','u_curr','restoreOnLongRest']],['Reference',['link']]];
     const picked=new Set(layouts.flatMap(([,part])=>part));
     const remainder=keys.filter(k=>!picked.has(k)&&!narrative.includes(k));
     if(remainder.length)layouts.push(['Additional details',remainder]);
@@ -178,7 +179,8 @@ export function mountSheet(){
    else placeholder.replaceWith(row);
    row.classList.remove('cs-ability-dragging');row.style.removeProperty('left');row.style.removeProperty('top');row.style.removeProperty('width');row.style.removeProperty('height');
    if(cancel)handle?.setAttribute('aria-pressed','false');else{for(const chosen of root.querySelectorAll('.cs-ability-selected'))chosen.classList.remove('cs-ability-selected');row.classList.add('cs-ability-selected');handle?.setAttribute('aria-pressed','true');}
-   if(!cancel&&from!==to)moveAbility(collection,from,to);
+   if(!cancel&&current.groupId!==current.originalGroupId)void save({action:'abilityGroup',mode:'move',collection,index:from,id:current.groupId});
+   else if(!cancel&&from!==to)moveAbility(collection,from,to);
   }
   function beginAbilityDrag(event){
    const handle=event.target.closest?.('[data-ability-drag]');
@@ -192,18 +194,21 @@ export function mountSheet(){
    for(const chosen of root.querySelectorAll('[data-ability-drag][aria-pressed=true]'))chosen.setAttribute('aria-pressed','false');
    row.classList.add('cs-ability-dragging','cs-ability-selected');row.style.left=rect.left+'px';row.style.top=rect.top+'px';row.style.width=rect.width+'px';row.style.height=rect.height+'px';
    handle.setAttribute('aria-pressed','true');
-   dragState={id:event.pointerId,row,list,handle,placeholder,originalNext,collection,from,to:from,offsetY:event.clientY-rect.top};
+   dragState={originalGroupId:list.dataset.abilityGroup||'',groupId:list.dataset.abilityGroup||'',id:event.pointerId,row,list,handle,placeholder,originalNext,collection,from,to:from,offsetY:event.clientY-rect.top};
    event.preventDefault();
    try{handle.setPointerCapture(event.pointerId);}catch{}
   }
   function updateAbilityDrag(event){
    const drag=dragState;if(!drag||event.pointerId!==drag.id)return;
    drag.row.style.top=event.clientY-drag.offsetY+'px';
-   const others=[...drag.list.children].filter(node=>node.classList.contains('cs-entry')&&node!==drag.row);
+   const destination=[...root.querySelectorAll('[data-collection="'+drag.collection+'"] [data-ability-group]')].find(node=>{const r=node.getBoundingClientRect();return event.clientY>=r.top&&event.clientY<=r.bottom&&event.clientX>=r.left&&event.clientX<=r.right;});
+   const targetList=destination||drag.placeholder.parentElement;
+   drag.groupId=targetList.dataset.abilityGroup||'';
+   const others=[...targetList.children].filter(node=>node.classList.contains('cs-entry')&&node!==drag.row);
    const before=new Map(others.map(node=>[node,node.getBoundingClientRect().top]));
    const target=others.find(node=>event.clientY<node.getBoundingClientRect().top+node.getBoundingClientRect().height/2);
-   if(target)drag.list.insertBefore(drag.placeholder,target);else drag.list.append(drag.placeholder);
-   const visible=[...drag.list.children].filter(node=>node===drag.placeholder||others.includes(node));
+   if(target)targetList.insertBefore(drag.placeholder,target);else targetList.append(drag.placeholder);
+   const visible=[...targetList.children].filter(node=>node===drag.placeholder||others.includes(node));
    const pos=visible.indexOf(drag.placeholder),next=visible[pos+1];
    const targetIndex=next?Number(next.dataset.abilityIndex):null;
    drag.to=targetIndex===null?(others.length?Number(others.at(-1).dataset.abilityIndex):drag.from):(targetIndex>drag.from?targetIndex-1:targetIndex);
@@ -265,11 +270,17 @@ export function mountSheet(){
   for(const [name,key,fallback,total] of [['Melee','ar_melee','str',s.melee],['Ranged','ar_ranged','dex',s.ranged],['Touch attack','ar_touch','str',s.touchAttack],['Ranged touch','ar_ranged_touch','dex',s.rangedTouch]]){const stat=['str','dex'].includes(d[key+'_ability'])?d[key+'_ability']:fallback;formulas[name]=`BAB ${s.bab} + ${stat.toUpperCase()} ${mod(stat)} + size ${size} + adjustment ${n(key+'_temp')} = ${total}`;}
   root.querySelector('#cs-dialog-title').textContent=label+' calculation';root.querySelector('[data-dialog-fields]').innerHTML='<p class="cs-prose">'+e(formulas[label]||'Saved sheet value')+'</p><p class="cs-caption">Uses the saved sheet components. Class progression and conditional effects remain manual.</p>';root.querySelector('[data-dialog-status]').textContent='';root.querySelector('[data-sheet-form] button[type=submit]').hidden=true;dialog().showModal();
  }
+ function editAbilityGroup(collection,id){
+  const group=(character.data.abilityGroups||[]).find(g=>g.id===id);
+  openDialog(group?'Edit '+group.name:'Create ability group',['name','u_curr','u_max','restoreOnLongRest'],group||{name:'',u_curr:0,u_max:0,restoreOnLongRest:true},{action:'abilityGroup',mode:group?'update':'add',collection,id},{help:'Members share this usage pool. Set remaining and maximum uses. Deleting a group keeps its abilities.'});
+  if(group)root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button type="button" class="cs-delete" data-delete-ability-group="'+e(id)+'">Delete group</button>');
+ }
  function editEntry(key,index){
   const row=character.data[key]?.[index]||{};
   const keys=key==='skills'?['lvl','temp','cs',...(skillSupportsSpecialization(row.name)?['subName']:[])]:key==='items'?inventoryEditorKeys(itemCategoryForItem(row)):key==='weapons'?['name','attack_type','ability_mod','attack_misc','damage','extra_damage','damage_types','range','misfire','crit_range','crit_mult','u_curr','u_max','weight','amount','carried','desc']:key==='spells'?['name','lvl','school','type','attack_type','attack_misc','range','duration','target','saving_throw','spell_resist','damage','casting_ability','caster_level','dc_misc','mp_cost','link','desc','at_higher_lvls']:row.rulesOwned?['name','action_type','attack_type','damage','dc_formula','uses_formula','restoreOnLongRest','link','desc','effect','at_higher_lvls']:['name','action_type','attack_type','damage','dc_formula',...(row.uses_formula?['uses_formula']:[]),'u_max','u_curr','restoreOnLongRest','link','desc','effect','at_higher_lvls'];
   if(character.data.gunbreakerAmmo!==undefined&&row.rulesOwned&&row.sourceRuleId===MAGICKED_AMMO_ID)for(const k of ['uses_formula','restoreOnLongRest']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   if(row.limitBreak||/limit[\s-]*break/i.test(String(row.sourceRuleId||'')+' '+String(row.rulesName||row.name||'')))for(const k of ['uses_formula','restoreOnLongRest','u_curr','u_max']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
+  if(abilityGroup(character.data,row,key))for(const k of ['uses_formula','restoreOnLongRest','u_curr','u_max']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   const values={u_max:row.u_max??0,u_curr:row.u_curr??row.u_max??0,...row,action_type:actionType(row.action_type??row.type),damage_types:selectedDamageTypes(row.damage_types),sourceCategory:itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||'auto').toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
   openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='skills'?(skillSupportsSpecialization(row.name)?'Edit ranks, misc, class skill and specialization.':'Edit ranks, misc and class skill.'):''});
   if(index!==null&&key!=='skills')root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
@@ -405,6 +416,12 @@ export function mountSheet(){
    if(group==='identity')values.size_category=values.size_category||values.size||'Medium';
    openDialog(readable(group),groupFields[group],values,{action:'fields'},{help:''});return;
   }
+  if(button.matches('[data-add-ability-group]')){editAbilityGroup(button.dataset.addAbilityGroup);return;}
+  if(button.matches('[data-edit-ability-group],[data-delete-ability-group]')){
+   const id=button.dataset.editAbilityGroup||button.dataset.deleteAbilityGroup,g=(character.data.abilityGroups||[]).find(g=>g.id===id);if(!g)return;
+   if(button.hasAttribute('data-delete-ability-group')){if(confirm('Delete this group? Its abilities will stay in '+titles[g.collection]+'.'))void save({action:'abilityGroup',mode:'remove',collection:g.collection,id});}
+   else editAbilityGroup(g.collection,id);return;
+  }
   if(button.matches('[data-edit-entry]')){const [key,i]=button.dataset.editEntry.split(':');editEntry(key,Number(i));return;}
   if(button.matches('[data-add-entry]')){editEntry(button.dataset.addEntry,null);return;}
   if(button.matches('[data-remove-entry]')){const [key,i]=button.dataset.removeEntry.split(':');if(confirm('Delete this entry?'))void save({action:'entry',collection:key,index:Number(i),mode:'remove'});return;}
@@ -447,7 +464,8 @@ export function mountSheet(){
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
- root.addEventListener('change',event=>{if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
+ root.addEventListener('change',event=>{
+  if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
  root.addEventListener('input',event=>{
   if(event.target.matches('[data-owlbear-section-slider]')){const output=root.querySelector('[data-owlbear-nav-label]');if(output)output.textContent=['Favorites','Character','Combat','Skills','Inventory','Notes'][Number(event.target.value)]||'Character';return;}
    if(event.target.matches('[data-ammo-profile],[data-ammo-rounds]')){dirty=true;status('Choose an ammunition action to save.');return;}
@@ -462,6 +480,7 @@ export function mountSheet(){
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const key=event.target.dataset.resourceInput,value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(key!=='hp_temp'||value>=0)){pendingResourceFields[key]=value;resourceTimer=setTimeout(()=>{if(Object.keys(pendingResourceFields).length)void save({action:'fields',fields:{...pendingResourceFields}});},650);}}
  },{signal:control.signal});
  root.addEventListener('change',event=>{
+  if(event.target.matches('[data-move-ability]')){const [collection,index]=event.target.dataset.moveAbility.split(':');void save({action:'abilityGroup',mode:'move',collection,index:Number(index),id:event.target.value});return;}
   if(event.target.matches('[data-owlbear-section-slider]')){const tabs=['favorites','overview','combat','skills','items','notes'],target=tabs[Number(event.target.value)];if(target)root.querySelector('.cs-tabs[aria-label="Character sheet"] [data-sheet-tab="'+target+'"]')?.click();return;}
    if(event.target.matches('[data-sheet-portrait]')){const file=event.target.files?.[0];if(!file)return;if(busy||conflict){status('Save or refresh before changing the portrait.');return;}status('Preparing portrait…');void processPicture(file).then(portrait=>save({op:'wizard',step:'identity',fields:{charName:character.name,alignment:character.data.alignment||'',bio:character.data.bio||'',portrait}})).catch(err=>status(err.message));return;}
   if(event.target.matches('[data-sheet-background]')){void save({action:'fields',fields:{sheet_background_enabled:event.target.checked}});return;}
