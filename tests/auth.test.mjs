@@ -20,11 +20,13 @@ test('session lifecycle, identity isolation, revocation, CSRF and forged proof',
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  try {
   await assert.rejects(sessions.login('forged'));
-  age=301;await assert.rejects(sessions.login('valid'));age=-1;await assert.rejects(sessions.login('valid'));age=0;
+  age=301;await assert.rejects(sessions.login('valid'));age=-31;await assert.rejects(sessions.login('valid'));age=0;
   aud='other';await assert.rejects(sessions.login('valid'));aud='comos-test';
   assert.equal(db.prepare('SELECT count(*) n FROM users').get().n,0);
   const a=await sessions.login('valid');assert.equal(a.user.profileState,'incomplete');
-  assert.equal((await sessions.login('valid')).user.id,a.user.id);
+  for(const skew of [-1.5,-2,-30,0,300]){age=skew;assert.equal((await sessions.login('valid')).user.id,a.user.id);}
+  for(const invalid of [-30.001,300.001,NaN]){age=invalid;await assert.rejects(sessions.login('valid'),/Recent sign-in/);}
+  age=0;
   assert.equal((await sessions.restore(a.cookie)).user.id,a.user.id);
   subject='bob';assert.notEqual((await sessions.login('valid')).user.id,a.user.id);
   const base=`http://127.0.0.1:${server.address().port}/api/v1`;
@@ -33,7 +35,7 @@ test('session lifecycle, identity isolation, revocation, CSRF and forged proof',
   assert.equal((await request('/auth/session',post({idToken:'valid'},{Origin:'https://evil.example'}))).status,403);
   assert.equal((await request('/auth/session',post({idToken:'forged'}))).status,401);
   assert.equal((await request('/auth/session',post({idToken:'x'.repeat(19000)}))).status,400);
-  const login=await request('/auth/session',post({idToken:'valid'}));assert.equal(login.status,200);
+  age=-2;const login=await request('/auth/session',post({idToken:'valid'}));assert.equal(login.status,200);age=0;
   const header=login.headers.get('set-cookie');for(const part of ['HttpOnly','Secure','SameSite=Strict','Path=/'])assert.ok(header.includes(part));
   const Cookie=header.split(';')[0];
   assert.equal((await request('/auth/session',{headers:{Cookie}})).status,200);

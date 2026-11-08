@@ -25,7 +25,9 @@ export function createSessionService({ db, auth, projectId, now = () => Date.now
       const claims = await auth.verifyIdToken(token, true);
       const key = identity(claims);
       const age = now() / 1000 - claims.auth_time;
-      if (!Number.isFinite(age) || age < 0 || age > 300) throw new Error('Recent sign-in required.');
+      // Firebase has already verified this token. Allow small issuer/NAS clock
+      // differences without extending the five-minute recent-sign-in window.
+      if (!Number.isFinite(age) || age < -30 || age > 300) throw new Error('Recent sign-in required.');
       db.exec('BEGIN IMMEDIATE');
       let user;
       try {
