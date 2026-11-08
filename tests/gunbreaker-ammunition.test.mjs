@@ -1,3 +1,4 @@
+import {entryCalculations} from '../src/features/sheet/calculations.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
@@ -94,4 +95,24 @@ test('ability-use receipts spend shared infused ammo exactly once; description s
   db.prepare('UPDATE sheet_rolls SET created_at=0').run();const before=get().revision;await assert.rejects(()=>publishRoll({...args,character:get(),change:{...args.change,requestId:randomUUID(),revision:before}}),/Not enough infused/);assert.equal(get().revision,before);
   const brutal=get().data.activeAbilities.findIndex(r=>r.sourceRuleId===GUNBREAKER_ID+':feature:brutal-shell');assert(brutal>=0);const shell=await publishRoll({...args,character:get(),change:{...args.change,index:brutal,requestId:randomUUID(),revision:before}});assert.equal(shell.roll.remainingInfusedAmmo,0);assert.equal(get().data.gunbreakerAmmo.loaded,3);
  }finally{db.close();}
+});
+
+
+test('Doom Slayer Magicked Ammo stays grouped after saves and reloads without sharing or refilling its native ammunition',()=>{
+ let data=change(configure(fixture(5,true),gunbreakerAmmoProfiles(fixture(5,true))[0].name),'reload');
+ data=change(data,'spend',{rounds:1});
+ const loaded=data.gunbreakerAmmo.loaded,infused=data.gunbreakerAmmo.infused;
+ data=mergeSheetData(data,{action:'abilityGroup',collection:'activeAbilities',mode:'add',fields:{name:'Gun arm',u_curr:9,u_max:10,restoreOnLongRest:true}});
+ const id=data.abilityGroups[0].id;
+ let index=data.activeAbilities.findIndex(row=>row.sourceRuleId===MAGICKED_AMMO_ID);
+ data=mergeSheetData(data,{action:'placeAbility',collection:'activeAbilities',source:{index},before:null,groupId:id});
+ data=JSON.parse(JSON.stringify(data));
+ assert.equal(ammo(data).abilityGroupId,id);assert.equal(ammo(data).u_curr,infused);assert.equal(ammo(data).u_max,gunbreakerAmmoSummary(data).maximum);assert.equal(entryCalculations(ammo(data),data,'activeAbilities').currentUses,infused);
+ index=data.activeAbilities.findIndex(row=>row.sourceRuleId===MAGICKED_AMMO_ID);
+ data=mergeSheetData(data,{action:'useAbility',collection:'activeAbilities',index});
+ assert.equal(data.gunbreakerAmmo.infused,infused-1);assert.equal(data.gunbreakerAmmo.loaded,loaded-1);
+ assert.equal(data.abilityGroups[0].u_curr,9);assert.equal(ammo(data).abilityGroupId,id);
+ const html=renderSection({id:'hero',name:'Hero',data},'abilities',{ability:'activeAbilities'});assert.match(html,/data-ability-group=/);
+ data=mergeSheetData(data,{action:'abilityGroup',collection:'activeAbilities',mode:'move',index,id:''});
+ assert.equal(ammo(data).abilityGroupId,undefined);assert.equal(data.gunbreakerAmmo.infused,infused-1);
 });

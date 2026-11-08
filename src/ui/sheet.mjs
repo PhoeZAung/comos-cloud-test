@@ -169,7 +169,7 @@ export function mountSheet(){
   async function placeAbility(collection,source,before,groupId,focus=false){
    const focusIndex=source.index!==undefined&&groupId?(before?.index!==undefined?before.index-(before.index>source.index?1:0):(character.data[collection]||[]).length-1):source.index;
    const saved=await save({action:'placeAbility',collection,source,before,groupId});
-   if(!saved&&!closed){draw();status('Position was not saved. Refresh and try again.');}
+   if(!saved&&!closed){const reason=root.querySelector('[data-sheet-status]')?.textContent;draw();status(reason||'Position was not saved. Refresh and try again.');}
    if(saved&&focus){const selector=source.groupId?'[data-group-drag="'+source.groupId+'"]':'[data-ability-drag="'+collection+':'+focusIndex+'"]';root.querySelector(selector)?.focus();}
   }
   function clearAbilityDrag(cancel=false){

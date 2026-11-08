@@ -1,4 +1,4 @@
-import {abilityGroup} from './ability-groups.mjs';
+import {abilityUsageGroup} from './ability-groups.mjs';
 import {isLimitBreak,limitBreakState} from './limit-breaks.mjs';
 import {spellMpAmount} from './spell-mp.mjs';
 import {abilities,number,sheetStats} from './model.mjs';
@@ -27,7 +27,7 @@ export function entryCalculations(row,data,key){
  const dc=spell&&level!==null&&ctx[stat.toUpperCase()]!==undefined?10+level+s.mods[stat]+number(row.dc_misc):row.dc_formula?arithmetic(row.dc_formula,ctx):null;
  const mp=spell&&level!==null?spellMpAmount(row,level):null;
  let range=String(row.range||'');if(ctx.CL!==undefined){if(/^close\b/i.test(range))range=(25+5*Math.floor(ctx.CL/2))+' ft';else if(/^medium\b/i.test(range))range=(100+10*ctx.CL)+' ft';else if(/^long\b/i.test(range))range=(400+40*ctx.CL)+' ft';}
- const group=abilityGroup(data,row,key);
+ const group=abilityUsageGroup(data,row,key);
  const usage=group||row;
  const maxUses=group?group.u_max:row.uses_formula?Math.max(0,number(row.uses_min),arithmetic(row.uses_formula,ctx)):Math.max(0,number(row.u_max));
  const limit=isLimitBreak(row)?limitBreakState(data):null;

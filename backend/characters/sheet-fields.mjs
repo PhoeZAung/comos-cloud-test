@@ -1,5 +1,5 @@
 import {randomUUID} from 'node:crypto';
-import {abilityGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
+import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
@@ -47,8 +47,6 @@ export function mergeSheetData(original,change){
   const key=entry=>entry.group?'group:'+entry.group.id:'ability:'+entry.row.abilityLayoutId;
   const order=beforeLayout.map(key).filter(k=>k!==key(source));
   if(source.row){
-   const oldGroup=abilityGroup(data,source.row,collection)?.id||'';
-   if(destination!==oldGroup&&(gunbreakerAmmoAbilityCost(data,source.row)||source.row.sourceRuleId===MAGICKED_AMMO_ID))bad('This ability uses its own special pool.');
    if(destination)source.row.abilityGroupId=destination;else delete source.row.abilityGroupId;
    if(destination){
     rows.splice(rows.indexOf(source.row),1);
@@ -63,7 +61,7 @@ export function mergeSheetData(original,change){
   const groups=data.abilityGroups,group=groups.find(g=>g.id===change.id&&g.collection===change.collection);
   if(change.mode==='move'){
    const row=data[change.collection]?.[change.index];
-   if(!Number.isInteger(change.index)||!row||isLimitBreak(row)||gunbreakerAmmoAbilityCost(data,row)||row.sourceRuleId===MAGICKED_AMMO_ID)bad('This ability uses its own special pool.');
+   if(!Number.isInteger(change.index)||!row||isLimitBreak(row))bad('This ability uses its own special pool.');
    if(change.id!==''&&!group)bad('Group no longer exists.');
    if(group)row.abilityGroupId=group.id;else delete row.abilityGroupId;
   }else if(change.mode==='remove'){
@@ -198,7 +196,7 @@ export function mergeSheetData(original,change){
    row.u_curr=calc.currentUses-1;
   }else if(change.action==='useAbility'){
   const collection=change.collection||'activeAbilities';if(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection))bad('Invalid ability.');const row=data[collection]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');if(isLimitBreak(row)){spendLimitBreak(data);}else if(gunbreakerAmmoAbilityCost(data,row)){updateGunbreakerAmmo(data,{operation:'spend',rounds:gunbreakerAmmoAbilityCost(data,row)});}else{const calc=entryCalculations(row,data,collection);
-  if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');const pool=abilityGroup(data,row,collection)||row;pool.u_curr=calc.currentUses-1;}
+  if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');const pool=abilityUsageGroup(data,row,collection)||row;pool.u_curr=calc.currentUses-1;}
  }else if(change.action==='spendMp'){
   const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
  }else if(change.action==='rest'){

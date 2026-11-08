@@ -5,6 +5,19 @@ import {chromium} from 'playwright';
 import http from 'node:http';import fs from 'node:fs/promises';import assert from 'node:assert/strict';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url)).replace(/\/$/,'');const output=await fs.mkdtemp(path.join(os.tmpdir(),'cosmos-groups-')); let character={id:'test',name:'Ability workshop',revision:0,data:{activeAbilities:[{name:'Flame',rulesOwned:true,sourceRuleId:'ffd20:class:fixture:feature:flame',desc:'A focused burst of flame.',damage:'1d6',action_type:'Standard',u_max:3,u_curr:3},{name:'Frost',desc:'A wave of frost.',action_type:'Move'},{name:'Limit Break: Storm',limitBreak:true}],passiveAbilities:[],racialAbilities:[],feats:[],weapons:[],items:[]}};
+// Optional real Doom Slayer fixture reproduces the account-specific ammo rejection.
+if(process.env.COSMOS_DOOM_AMMO==='1'){
+ const {newBuild,compileBuild,previewBuild,choiceEvents,eligibleOptions}=await import('../src/features/characters/rules/build.mjs');
+ const {GUNBREAKER_ID,DOOM_SLAYER_ID}=await import('../src/features/characters/rules/martial-progression.mjs');
+ const {gunbreakerAmmoProfiles,MAGICKED_AMMO_ID}=await import('../src/features/characters/rules/gunbreaker-ammo.mjs');
+ const {fixedSkills}=await import('../src/features/sheet/skills.mjs');
+ const b=newBuild();Object.assign(b,{name:'Doom Slayer fixture',raceId:'ffd20:race:galka',classId:GUNBREAKER_ID,archetypeId:DOOM_SLAYER_ID,level:1,hpRolls:[10]});
+ for(let n=0;n<100;n++){const event=choiceEvents(b).find(e=>!b.choices[e.id]);if(!event)break;b.choices[event.id]=[eligibleOptions(b,event)[0].id];}
+ let ranks=previewBuild(b).skillBudget;b.skillRanks=fixedSkills.map(()=>{const rank=Math.min(1,ranks);ranks-=rank;return rank;});b.reviewed=true;
+ let data=compileBuild(b);data=mergeSheetData(data,{action:'gunbreakerAmmo',operation:'configure',profileId:gunbreakerAmmoProfiles(data)[0].id});data=mergeSheetData(data,{action:'gunbreakerAmmo',operation:'reload'});
+ const ammo=data.activeAbilities.find(row=>row.sourceRuleId===MAGICKED_AMMO_ID);
+ data.activeAbilities=[{...ammo,name:'Flame'},...character.data.activeAbilities.slice(1)];character.data=data;
+}
 const html=`<html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">${['tokens','themes','sheet-base','sheet','sheet-refinements'].map(x=>'<link rel="stylesheet" href="/src/styles/'+x+'.css">').join('')}</head><body data-page="sheet-abilities"><main></main><script type="module">import '/src/ui/mobile-viewport.mjs';window.EventSource=undefined;import {mountSheet} from '/src/ui/sheet.mjs';mountSheet();</script></body></html>`;
 const server=http.createServer(async(req,res)=>{try{let path=new URL(req.url,'http://local').pathname;if(path.startsWith('/api/')){if(req.method==='POST'){let body='';for await(const c of req)body+=c;let change=JSON.parse(body);assert.equal(change.revision,character.revision);character={...character,data:mergeSheetData(character.data,change),revision:character.revision+1};}res.setHeader('Content-Type','application/json');res.end(JSON.stringify({character}));return;}if(path==='/'){res.setHeader('Content-Type','text/html');res.end(html);return;}res.setHeader('Content-Type',path.endsWith('.mjs')?'text/javascript':path.endsWith('.css')?'text/css':'application/octet-stream');res.end(await fs.readFile(root+path));}catch(e){res.statusCode=400;res.end(JSON.stringify({message:e.message}));}});await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const browser=await chromium.launch({...(process.env.COSMOS_BROWSER_EXECUTABLE?{executablePath:process.env.COSMOS_BROWSER_EXECUTABLE}:{}),headless:true,args:['--no-sandbox']});
