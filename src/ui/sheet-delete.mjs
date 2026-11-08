@@ -1,4 +1,5 @@
-// Native Cosmos adaptations of the React Bits Hold Button / Paper Crumple ideas.
+import {loadSheetEffect} from './react-bits-loader.mjs';
+// Cosmos hold/confirmation controls with the React Bits PaperCrumple component.
 // See docs/THIRD-PARTY-UI.md for source references and license.
 export function mountHoldButton(button,onHold,{signal,duration=1400}={}){
  if(!button)return ()=>{};
@@ -36,41 +37,53 @@ export function confirmCharacterDelete({signal,name='this character'}={}){
  });
 }
 
-// Fold the currently visible sheet into a small paper bundle only after the
-// server confirms its archive. No screenshots, WebGL model, or remote assets.
-// Simulated fold mesh: a lightweight native adaptation of React Bits' PaperCrumple.
-// The sheet is only crumpled after its archive has been confirmed by the server.
-export async function crumpleSheet(sheet){
- if(!sheet)return;
+// Resolve only after folding and the upward exit. The caller archives afterward.
+const abortError=()=>new DOMException('Deletion cancelled.','AbortError');
+function waitFor(promise,signal,timeout=6000){
+ return new Promise((resolve,reject)=>{
+  let timer;const stop=()=>{clearTimeout(timer);signal?.removeEventListener('abort',abort);};
+  const abort=()=>{stop();reject(abortError());};
+  if(signal?.aborted){abort();return;}
+  signal?.addEventListener('abort',abort,{once:true});
+  timer=setTimeout(()=>{stop();reject(Error('Animation unavailable.'));},timeout);
+  promise.then(value=>{stop();resolve(value);},error=>{stop();reject(error);});
+ });
+}
+async function animate(element,frames,options,signal){
+ const animation=element.animate(frames,{...options,fill:'forwards'});
+ try{await waitFor(animation.finished,signal);}catch(error){animation.cancel();throw error;}
+}
+export async function crumpleSheet(sheet,{signal}={}){
+ if(!sheet)return ()=>{};
+ if(signal?.aborted)throw abortError();
+ const original=sheet.style.visibility,restore=()=>{sheet.style.visibility=original;};
  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-  try{await sheet.animate([{opacity:1},{opacity:0}],{duration:160,fill:'forwards'}).finished;}catch{}return;
+  const fade=sheet.animate([{opacity:1},{opacity:0}],{duration:160,fill:'forwards'});
+  try{await waitFor(fade.finished,signal);sheet.style.visibility='hidden';}finally{fade.cancel();}
+  return restore;
  }
- const bounds=sheet.getBoundingClientRect();
- const width=Math.max(1,bounds.width),height=Math.max(1,bounds.height);
  const overlay=document.createElement('div');overlay.className='cs-paper-crumple';overlay.setAttribute('aria-hidden','true');overlay.inert=true;
- const source=sheet.cloneNode(true);
- source.querySelectorAll('dialog').forEach(node=>node.remove());
- source.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
- source.classList.remove('cs-saving');
- const folds=[],columns=4,rows=4;
- for(let row=0;row<rows;row++)for(let col=0;col<columns;col++){
-  const pane=document.createElement('div');pane.className='cs-paper-fold';
-  pane.style.cssText='width:'+width+'px;height:'+height+'px;left:'+bounds.left+'px;top:'+bounds.top+'px;';
-  pane.style.clipPath='polygon('+(100*col/columns)+'% '+(100*row/rows)+'%,'+(100*(col+1)/columns)+'% '+(100*row/rows)+'%,'+(100*(col+1)/columns)+'% '+(100*(row+1)/rows)+'%,'+(100*col/columns)+'% '+(100*(row+1)/rows)+'%)';
-  const printed=source.cloneNode(true);printed.style.width=width+'px';printed.style.height=height+'px';printed.style.margin='0';pane.append(printed);overlay.append(pane);
-  const offsetX=(1.5-col)*width*.15,offsetY=(1.5-row)*height*.17,alternate=(row+col)%2?-1:1;
-  const rotation=alternate*(16+(col+row)%3*8);
-  const frames=[
-   {offset:0,transform:'translate3d(0,0,0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1)',filter:'brightness(1)',opacity:1},
-   {offset:.26,transform:'translate3d('+offsetX*.18+'px,'+offsetY*.18+'px,24px) rotateX('+rotation+'deg) rotateY('+(-rotation*1.2)+'deg) rotateZ('+alternate*2+'deg) scale(.97)',filter:'brightness('+(alternate>0?1.14:.8)+')',opacity:1},
-   {offset:.68,transform:'translate3d('+offsetX+'px,'+offsetY+'px,90px) rotateX('+rotation*3+'deg) rotateY('+(-rotation*3)+'deg) rotateZ('+alternate*22+'deg) scale(.31)',filter:'brightness('+(alternate>0?1.25:.45)+')',opacity:.96},
-   {offset:1,transform:'translate3d('+offsetX*.08+'px,'+offsetY*.08+height*.23+'px,-160px) rotateX('+rotation*4+'deg) rotateY('+rotation*5+'deg) rotateZ('+alternate*80+'deg) scale(.025)',opacity:0}
-  ];
-  folds.push({pane,frames});
- }
- const wad=document.createElement('div');wad.className='cs-paper-wad';wad.style.left=bounds.left+width/2+'px';wad.style.top=bounds.top+height/2+'px';overlay.append(wad);
- document.body.append(overlay);sheet.style.visibility='hidden';
- const easing='cubic-bezier(.25,.05,.4,1)',animations=folds.map(({pane,frames})=>pane.animate(frames,{duration:1050,easing,fill:'forwards'}).finished.catch(()=>{}));
- animations.push(wad.animate([{offset:0,opacity:0,transform:'translate(-50%,-50%) scale(.15) rotate(0deg)'},{offset:.55,opacity:0,transform:'translate(-50%,-50%) scale(.2) rotate(40deg)'},{offset:.76,opacity:1,transform:'translate(-50%,-50%) scale(1.05) rotate(175deg)'},{offset:1,opacity:0,transform:'translate(-50%,'+(height*.32)+'px) scale(.55) rotate(430deg)'}],{duration:1100,easing,fill:'forwards'}).finished.catch(()=>{}));
- try{await Promise.all(animations);}finally{overlay.remove();sheet.style.visibility='visible';}
+ const stage=document.createElement('div');stage.className='cs-paper-stage';overlay.append(stage);
+ let component;
+ try{
+  const effect=await waitFor(loadSheetEffect('paper'),signal);
+  const src=await waitFor(effect.sheetImage(sheet),signal);
+  document.body.append(overlay);overlay.dataset.phase='loading';
+  component=effect.mountPaperCrumple(stage,src);
+  try{
+   const controller=await waitFor(component.ready,signal);
+   sheet.style.visibility='hidden';overlay.dataset.phase='crumpling';
+   controller.crumple();await waitFor(component.folded,signal,4000);
+  }catch(error){
+   if(signal?.aborted)throw error;
+   component.dispose();component=null;stage.replaceChildren();
+   const paper=document.createElement('img');paper.src=src;paper.alt='';paper.className='cs-paper-fallback';stage.append(paper);
+   sheet.style.visibility='hidden';overlay.dataset.phase='crumpling';
+   await animate(paper,[{transform:'scale(1) rotate(0deg)',borderRadius:'0'},{transform:'scale(.22) rotate(24deg)',borderRadius:'38% 46% 33% 42%',filter:'contrast(1.25)'}],{duration:550,easing:'ease-in-out'},signal);
+  }
+  overlay.dataset.phase='throwing';
+  await animate(stage,[{transform:'translateY(0) rotate(0deg)',opacity:1},{transform:'translateY(-'+(innerHeight+560)+'px) rotate(-28deg)',opacity:1}],{duration:400,easing:'cubic-bezier(.5,0,.8,.5)'},signal);
+  overlay.dataset.phase='complete';return restore;
+ }catch(error){restore();throw error;}
+ finally{component?.dispose();overlay.remove();}
 }

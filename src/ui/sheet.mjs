@@ -211,9 +211,12 @@ export function mountSheet(){
   if(deletePending||busy||conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or discard unsaved changes before deleting this character.');return;}
   deletePending=true;if(!await confirmCharacterDelete({signal:control.signal,name:character.name})||closed){deletePending=false;return;}
   setBusy(true);status('Deleting character…');
-  try{const result=await request({op:'archive',confirmName:character.name});if(!result.archived)throw Error('The character could not be deleted.');
-   clearTimeout(timer);stream?.close();await crumpleSheet(root.querySelector('[data-sheet]'));closed=true;disposeHold();disposeNotesElectric();disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(resourceTimer);clearTimeout(remainingTimer);control.abort();location.assign('characters.html');
-  }catch(err){if(!closed)status(err.message);}finally{deletePending=false;if(!closed)setBusy(false);}
+  let restoreSheet;
+  try{restoreSheet=await crumpleSheet(root.querySelector('[data-sheet]'),{signal:control.signal});
+   if(closed||control.signal.aborted)return;
+   const result=await request({op:'archive',confirmName:character.name});if(!result.archived)throw Error('The character could not be deleted.');
+   clearTimeout(timer);stream?.close();closed=true;disposeHold();disposeNotesElectric();disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(resourceTimer);clearTimeout(remainingTimer);control.abort();location.assign('characters.html');
+  }catch(err){restoreSheet?.();if(!closed)status(err.message);}finally{deletePending=false;if(!closed)setBusy(false);}
  }
  function openEquipmentPicker(slot){
   if(busy||conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or refresh before changing equipment.');return;}

@@ -90,17 +90,16 @@ test('Discord shows arithmetic rather than formulas, or hides stats without affe
  }finally{db.close();}
 });
 
-test('only the initial delete control is held, note border resizes with note card',async()=>{
+test('confirmed deletion awaits the local React Bits effect; notes use the exact resizable electric component',async()=>{
  const root=await readFile(new URL('../src/ui/sheet-delete.mjs',import.meta.url),'utf8');
- const confirm=root.slice(root.indexOf('export function confirmCharacterDelete'),root.indexOf('// Simulated fold mesh'));
- assert.match(confirm,/data-delete-final/);
- assert.doesNotMatch(confirm,/mountHoldButton\(/);
- assert.match(root,/columns=4,rows=4/);
- const effect=await readFile(new URL('../src/ui/sheet-notes-electric.mjs',import.meta.url),'utf8');
- assert.match(effect,/ResizeObserver/);
- assert.match(effect,/getBoundingClientRect/);
- assert.match(effect,/cs-notes-electric/);
- const css=await readFile(new URL('../src/styles/sheet-effects.css',import.meta.url),'utf8');
- assert.match(css,/cs-note-electric-overlay/);
- assert.match(css,/cs-paper-wad/);
+ const confirm=root.slice(root.indexOf('export function confirmCharacterDelete'),root.indexOf('// Resolve only'));
+ assert.match(confirm,/data-delete-final/);assert.doesNotMatch(confirm,/mountHoldButton\(/);
+ const ui=await readFile(new URL('../src/ui/sheet.mjs',import.meta.url),'utf8');
+ const deletion=ui.slice(ui.indexOf('async function deleteCharacter'),ui.indexOf('function openEquipmentPicker'));
+ assert.ok(deletion.indexOf('await crumpleSheet')<deletion.indexOf("request({op:'archive'"));
+ assert.match(root,/overlay.dataset.phase='throwing'/);assert.match(root,/translateY\(-/);
+ const effect=await readFile(new URL('../src/components/react-bits/ElectricBorder.jsx',import.meta.url),'utf8');
+ assert.match(effect,/ResizeObserver/);assert.match(effect,/webgl2/);
+ const bridge=await readFile(new URL('../src/ui/sheet-notes-electric.mjs',import.meta.url),'utf8');
+ assert.match(bridge,/cs-notes-electric/);assert.match(bridge,/unmount\(\)/);
 });

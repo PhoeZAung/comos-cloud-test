@@ -1,22 +1,34 @@
 # Sheet interaction effects
 
-Cosmos uses lightweight native browser adaptations of the requested React Bits
-interactions, integrated with its existing non-React dialogs:
+PaperCrumple and ElectricBorder now use the actual React Bits JS-CSS components,
+with React mounted only inside the decorative effects. They are bundled locally
+with esbuild and loaded on demand; no CDN is contacted by the app.
 
-- [Star Border](https://reactbits.dev/animations/star-border): a traveling glow
-  around weapon/ability detail dialogs and editors, using a masked gradient.
-- [Hold Button](https://reactbits.dev/micro/hold-button): liquid-fill hold to
-  confirm, with early release, pointer cancellation and keyboard support.
-- [Paper Crumple](https://reactbits.dev/micro/paper-crumple): the visible sheet
-  folds into shaded paper panels after confirmed archival. This native DOM
-  adaptation avoids a new Three.js dependency and screenshot upload.
+Sources: https://reactbits.dev/r/PaperCrumple-JS-CSS.json and
+https://reactbits.dev/r/ElectricBorder-JS-CSS.json. The registry host was blocked
+in the development environment, so these exact registry JSON files were fetched
+from the official DavidHDev/react-bits repository's `public/r/` directory.
+Original file hashes and dependency metadata are recorded in
+`src/components/react-bits/provenance.json`. ElectricBorder is unchanged.
+PaperCrumple adds an optional `onReady` controller and a settled `crumpled` state
+notification so deletion can await the genuine mesh animation without simulated
+user input. All requested visual parameters are set in the integration wrappers.
 
+The wrappers live in `src/effects/react-bits/`. React, React DOM, Three.js and
+html-to-image are pinned in the lockfile. A local snapshot of the character sheet
+becomes the paper texture; nothing is uploaded. After the deliberate hold and
+confirmation, it crumples, exits upward, then the archive request is sent. A failed
+request restores the sheet. Cancellation prevents the request. Reduced motion
+uses a short fade; unavailable WebGL uses a compact image fold and upward exit.
+The notes preference mounts/unmounts ElectricBorder without replacing note inputs.
+Upstream observes resize, visibility and reduced motion; cleanup releases graphics
+resources and listeners. A static outline remains when WebGL is unavailable.
+
+The existing Star Border and Hold Button remain native Cosmos adaptations.
 Reference project: David Haz's [React Bits](https://github.com/DavidHDev/react-bits).
-The current MIT + Commons Clause license is preserved in
+The MIT + Commons Clause license is preserved in
 [licenses/React-Bits-LICENSE.md](licenses/React-Bits-LICENSE.md).
-These interactions are part of Cosmos, not a separately distributed UI kit.
-Reduced motion disables the traveling border and replaces crumpling with a
-brief fade. Hold confirmation still requires the full hold duration.
+These components are used as part of Cosmos, not a separately distributed UI kit.
 
 # Cosmos user removal
 

@@ -1,0 +1,22 @@
+{
+  "PaperCrumple": {
+    "registry": "https://reactbits.dev/r/PaperCrumple-JS-CSS.json",
+    "mirror": "https://raw.githubusercontent.com/DavidHDev/react-bits/main/public/r/PaperCrumple-JS-CSS.json",
+    "dependencies": [
+      "three@^0.180.0"
+    ],
+    "sha256": {
+      "PaperCrumple.css": "15eec4e299516a16c0506da7b0fe3689638c2eb05845626240f253108160e2a2",
+      "PaperCrumple.jsx": "179cb493b6d4b4725b4c1a5db592443c2b5710d8d427bc3a83cc0083c76a72bc"
+    }
+  },
+  "ElectricBorder": {
+    "registry": "https://reactbits.dev/r/ElectricBorder-JS-CSS.json",
+    "mirror": "https://raw.githubusercontent.com/DavidHDev/react-bits/main/public/r/ElectricBorder-JS-CSS.json",
+    "dependencies": [],
+    "sha256": {
+      "ElectricBorder.css": "3ac01db2b8d158c653c9f726c208326818b3b29c7187dc310064fe5a15310979",
+      "ElectricBorder.jsx": "451f5bc653ebea5250494bda4fbbb88f1d30365b146627f95d8954aeafbd78b2"
+    }
+  }
+}

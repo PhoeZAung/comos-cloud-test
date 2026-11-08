@@ -55,7 +55,7 @@ await writeFile(new URL('dist/assets/sheet-refinements.css',root),(await transfo
 await writeFile(new URL('dist/assets/sheet-effects.css',root),(await transform(await readFile(new URL('src/styles/sheet-effects.css',root),'utf8'),{loader:'css',minify:true,target:'es2022'})).code);
 console.log(`Built ${pages.length} Cosmos pages in isolated fixture preview mode.`);
 
-for (const file of ['sheet-delete.mjs','sheet-notes-electric.mjs','critical-effects-player.mjs','critical-frames.mjs','dice-3d.mjs','sheet-settings.mjs','critical-fx.mjs','dice-theme-picker.mjs','sheet-loading.mjs','feedback.mjs','shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','items.mjs','record-id.mjs','lore.mjs','lore-draft.mjs','lore-draft-controller.mjs','lore-compose.mjs','lore-entry.mjs','feed.mjs','compose.mjs','post-thread.mjs','directory.mjs','character-view.mjs','rules-wizard.mjs','sheet.mjs','sheet-entry.mjs','character-library.mjs','admin-icons.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
+for (const file of ['react-bits-loader.mjs','sheet-delete.mjs','sheet-notes-electric.mjs','critical-effects-player.mjs','critical-frames.mjs','dice-3d.mjs','sheet-settings.mjs','critical-fx.mjs','dice-theme-picker.mjs','sheet-loading.mjs','feedback.mjs','shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','items.mjs','record-id.mjs','lore.mjs','lore-draft.mjs','lore-draft-controller.mjs','lore-compose.mjs','lore-entry.mjs','feed.mjs','compose.mjs','post-thread.mjs','directory.mjs','character-view.mjs','rules-wizard.mjs','sheet.mjs','sheet-entry.mjs','character-library.mjs','admin-icons.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
 await writeFile(new URL('dist/assets/galaxy.mjs',root),await readFile(new URL('src/effects/galaxy.mjs',root)));
 
 await cp(new URL('src/account/',root),new URL('dist/account/',root),{recursive:true});
@@ -73,3 +73,8 @@ await buildDiceAssets();
 await buildCriticalEffects();
 await build({entryPoints:[fileURLToPath(new URL('src/ui/party-notes.mjs',root))],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:fileURLToPath(new URL('dist/assets/party-notes.mjs',root))});
 await writeFile(new URL('dist/assets/party-notes.LICENSE.txt',root),(await Promise.all(['yjs','lib0','isomorphic.js'].map(async name=>name+'\n'+await readFile(new URL('node_modules/'+name+'/LICENSE',root),'utf8')))).join('\n\n'));
+
+// React Bits effects are local, lazy-loaded islands; React stays out of normal sheet startup.
+await build({entryPoints:["electric","paper"].map(name=>fileURLToPath(new URL("src/effects/react-bits/"+name+".jsx",root))),bundle:true,splitting:true,format:"esm",platform:"browser",target:"es2022",jsx:"automatic",minify:true,define:{"process.env.NODE_ENV":"\"production\""},outdir:fileURLToPath(new URL("dist/assets/react-bits/",root))});
+
+await writeFile(new URL("dist/assets/react-bits/LICENSE.txt",root),await readFile(new URL("docs/licenses/React-Bits-LICENSE.md",root),"utf8")+"\n"+(await Promise.all(["react","react-dom","three","html-to-image"].map(async name=>name+"\n"+await readFile(new URL("node_modules/"+name+"/LICENSE",root),"utf8")))).join("\n\n"));

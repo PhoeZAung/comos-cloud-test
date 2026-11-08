@@ -33,7 +33,11 @@
     "@owlbear-rodeo/sdk": "3.1.0",
     "firebase": "13.1.0",
     "firebase-admin": "14.5.0",
+    "html-to-image": "1.11.13",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "sharp": "0.35.5",
+    "three": "0.180.0",
     "yjs": "13.6.33"
   },
   "overrides": {
