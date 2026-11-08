@@ -133,3 +133,13 @@ test('grouped ammo use receipts spend the group once and report group usage',asy
   assert.equal(saved.abilityGroups[0].u_curr,1);assert.deepEqual(saved.gunbreakerAmmo,native);
  }finally{db.close();}
 });
+
+test('wizard and Add abilities copy the complete extracted description and preserve personal edits',async()=>{
+ const {classCatalog}=await import('../src/features/characters/rules/class-catalog.mjs');
+ const {addRuleAbility}=await import('../src/features/characters/rules/ability-library.mjs');
+ const source=classCatalog.classes.find(c=>c.id===GUNBREAKER_ID).data.features.find(f=>f.id===MAGICKED_AMMO_ID);
+ const original=fixture();assert.equal(ammo(original).desc,source.progressionDescription);assert.equal(ammo(original).rulesDescription,source.progressionDescription);
+ const edited=structuredClone(original);ammo(edited).desc='My personal notes';const saved=compileBuild(build(),edited);assert.equal(ammo(saved).desc,'My personal notes');
+ const missing=structuredClone(original);missing.activeAbilities=missing.activeAbilities.filter(r=>r.sourceRuleId!==MAGICKED_AMMO_ID);
+ const restored=addRuleAbility(missing,MAGICKED_AMMO_ID);assert.equal(restored.desc,source.progressionDescription);
+});

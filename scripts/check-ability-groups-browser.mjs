@@ -42,6 +42,13 @@ try{
  const grip=name=>page.locator('[data-ability-drag="activeAbilities:'+index(name)+'"]');
  const flow=()=>page.locator('[data-ability-group=""]');
  await page.goto('http://127.0.0.1:'+server.address().port+'/?characterId=test');
+ assert.equal(await page.locator('.cs-ability-wheel .cs-ability-add-menu').count(),0);
+ const addBounds=await page.locator('.cs-ability-add-menu summary').boundingBox(),groupBounds=await page.locator('[data-add-ability-group]').boundingBox();
+ assert.ok(Math.abs(addBounds.y-groupBounds.y)<8,'Add ability and Add group are adjacent');
+ await page.locator('.cs-ability-add-menu summary').click();await page.locator('[data-rule-abilities]').click();
+ await page.getByRole('dialog',{name:'Race and class abilities'}).waitFor();await page.locator('[data-library-close]').click();
+ await page.locator('.cs-ability-add-menu summary').click();await page.locator('[data-add-manual-ability]').click();
+ await page.locator('[data-sheet-dialog][open]').waitFor();await page.keyboard.press('Escape');
  await page.locator('[data-add-ability-group]').click();
  await page.locator('[name=name]').fill('Elemental arts');await page.locator('[name=u_max]').fill('3');await page.locator('[name=u_curr]').fill('3');
  await page.locator('[data-sheet-form] button[type=submit]').click();await page.locator('[data-edit-ability-group]').waitFor();

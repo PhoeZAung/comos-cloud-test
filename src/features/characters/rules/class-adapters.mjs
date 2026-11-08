@@ -1,3 +1,4 @@
+import {classAbilityDescription} from './ability-description.mjs';
 import {seedRacialMovement} from '../../sheet/movement.mjs';
 import {isSheetFamily,sheetFamilyDefinition,sheetFamilyProfile} from './sheet-family-progression.mjs';
 import {isRedMage,redMageClass,redMageSpellRows,redMageDefinition,redMageHasSpells} from './red-mage-level-one.mjs';
@@ -175,8 +176,8 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  const grant=(f,where)=>{const old=previous[where]?.find(x=>x.sourceRuleId===f.id)||(['activeAbilities','passiveAbilities'].includes(where)?previous[where==='activeAbilities'?'passiveAbilities':'activeAbilities']?.find(x=>x.sourceRuleId===f.id):null);
   if(oldManaged?.ownedIds?.includes(f.id)&&!old)return;
   const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,
-   desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:f.description,
-   rulesName:f.name,rulesDescription:f.description,sourceRuleId:f.id,
+   desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:classAbilityDescription(f),
+   rulesName:f.name,rulesDescription:classAbilityDescription(f),sourceRuleId:f.id,
    sourceClass:name,rulesOwned:true,...(f.featureKind==='limit_break'||!isBard(b)&&['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
   if(isLevelOneClass(b)&&['Commander’s Aura','Battle Dance','Challenge'].includes(f.name)){const maximum=f.name==='Challenge'?1:Math.max(0,4+mod(p.scores.cha)),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;if(f.name!=='Challenge')row.uses_formula='4+{CHA}';}
   if(isBard(b)&&f.id.endsWith(':bardic-performance')){const maximum=4+mod(p.scores.cha),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.uses_formula='4+{CHA}';row.restoreOnLongRest=false;}

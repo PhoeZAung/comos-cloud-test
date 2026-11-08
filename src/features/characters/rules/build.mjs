@@ -1,3 +1,4 @@
+import {classAbilityDescription} from './ability-description.mjs';
 import {isSheetFamily,sheetFamilyEvents,sheetFamilyOptions,sheetFamilyCounter} from './sheet-family-progression.mjs';
 import {withBuildDefaults,sameBuildValue} from './build-compatibility.mjs';
 import {DOOM_SLAYER_ID,martialCounter,supportsMartialProgression,martialChoiceEvents,martialEligibleOptions} from './martial-progression.mjs';
@@ -493,7 +494,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  const rows={activeAbilities:[],passiveAbilities:[],racialAbilities:[],feats:[],spells:[]};
  function grant(f,key){const old=previous[key]?.find(r=>r.sourceRuleId===f.id);if(previousManaged?.ownedIds?.includes(f.id)&&!old)return;
   const action=f.actions?.[0],cost=action?.costs?.[0],pool=[...registry.class.resources,...p.race.resources].find(r=>r.id===cost?.resourceId||r.id===f.id.replace(':feature:',':resource:'));const maximum=pool?Math.max(0,calculated(pool.maximum,b)||0):0;
-  const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:f.description,rulesName:f.name,rulesDescription:f.description,sourceRuleId:f.id,sourceClass:'Black Mage',rulesOwned:true,...(f.featureKind==='limit_break'?{limitBreak:true}:{})};
+  const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:classAbilityDescription(f),rulesName:f.name,rulesDescription:classAbilityDescription(f),sourceRuleId:f.id,sourceClass:'Black Mage',rulesOwned:true,...(f.featureKind==='limit_break'?{limitBreak:true}:{})};
   if(pool){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;
    if(pool.maximum.kind==='formula'&&!/\b(?:min|max|floor|ceil)\b/.test(pool.maximum.expression)){row.uses_formula=pool.maximum.expression.replace(/\b(STR|DEX|CON|INT|WIS|CHA)_MOD\b/g,'{$1}').replaceAll('CLASS_LEVEL',String(b.level));row.uses_min=pool.maximum.minimum??0;}
   }
