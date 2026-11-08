@@ -1,0 +1,1589 @@
+{
+  "kind": "source_text",
+  "entries": [
+    {
+      "id": "ffd20:song:bard:boom",
+      "name": "Boom",
+      "level": 0,
+      "description": "A loud thundercrack is created next to the ear of your target. He instantly suffers 1 point of non-elemental damage. In addition, he must make a Fortitude save or suffer a –2 penalty to Concentration checks for 1d3 rounds because of the ringing in the ears.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/boom/",
+      "markdownSha256": "aabae1c4de2fd3afede49909f0a2fa78a3f7e196b103470357ca3e7fce9cef5d",
+      "archivedAt": "2026-10-29T16:42:23+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:detune",
+      "name": "Detune",
+      "level": 0,
+      "description": "While learning this handy jingle is not particularly encouraged at bardic colleges, it still seems to make the rounds among students. With it, you cause a single instrument within range to lose its tuning, giving Perform checks with it a –4 modifier. Re-tuning an instrument takes 1d4 rounds and usually creates a rather irate bard.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/detune/",
+      "markdownSha256": "fee312dd29ac09ba747e4ee30a688797b785f462e6fde049a3ff972d15a47f0b",
+      "archivedAt": "2026-10-29T16:43:10+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:ghostharp",
+      "name": "Ghostharp",
+      "level": 0,
+      "description": "You prepare an object that records and replays a song previously played or sung in its vicinity. When performed, the song searches a radius of 50 feet for the lingering notes of a tune played there within the last day. It records these notes and reverberations. At your verbal command, “Play,” the ghostharp replays the music. The tune repeats until you command it to stop, or until the song’s duration comes to an end. The ghostharp does not record conversations. Its imperfect replay can’t reproduce bardic music or other magical effects, nor can it perform bard songs.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/ghostharp/",
+      "markdownSha256": "b705f2b65a196aa61cd10bbfba2ab4aaa955922741929c66bdd9285df59f9203",
+      "archivedAt": "2026-10-29T16:46:36+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:ghost-sound",
+      "name": "Ghost Sound",
+      "level": 0,
+      "description": "*Ghost sound* allows you to create a volume of sound that rises, recedes, approaches, or remains at a fixed place. You choose what type of sound *ghost sound* creates when performing it and cannot thereafter change the sound’s basic character.\n\nThe volume of sound created depends on your level. You can produce as much noise as four normal humes per caster level (maximum 40 humes). Thus, talking, singing, shouting, walking, marching, or running sounds can be created. The noise a *ghost sound* spell produces can be virtually any type of sound within the volume limit. A horde of rats running and squeaking is about the same volume as eight humes running and shouting. A roaring lion is equal to the noise from 16 humes, while a roaring dragon is equal to the noise from 32 humes. Anyone who hears a *ghost sound*receives a Will save to disbelieve.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/ghost-sound/",
+      "markdownSha256": "dbd895ec2f14f1db85904717bd525cb6a45bf8d5001b2e43fd38ea380c64b7d7",
+      "archivedAt": "2026-10-29T16:46:22+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:giggle",
+      "name": "Giggle",
+      "level": 0,
+      "description": "The target suddenly finds something humorous enough to start giggling, and the laughter lasts for one full round. While the target can still move and attack normally, he is unable to speak, or use bardic abilities or cast spells that rely on verbalization, until he stops giggling.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/giggle/",
+      "markdownSha256": "12ca759e47900df77498d44df06b97a4dac7afd5a0085bf99f99420c17e40753",
+      "archivedAt": "2026-10-29T16:46:40+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:lullaby",
+      "name": "Lullaby",
+      "level": 0,
+      "description": "Any creature within the area that fails a Will save becomes drowsy and inattentive, taking a –5 penalty on Perception checks and a –2 penalty on Will saves against sleep effects while the *lullaby* is in effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/l/lullaby/",
+      "markdownSha256": "71cdab8e2d8882109d95b3f496dc91412cadaa6c60c0a4576af112aaf4ab0e6a",
+      "archivedAt": "2026-10-29T16:49:18+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:rebound-sound",
+      "name": "Rebound Sound",
+      "level": 0,
+      "description": "The bard plays a single tune of his instrument or holds a note with their voice, a small shockwave of sound bursting forth. This sound follows a straight path from the bard until it hits a solid surface and then rebounds back to the bard, the bard knows the exact distance between him and the object the sound hit. Rebound sound can penetrate liquids, finding the total depth of a body of water, or the bard can lower the power of the tune to stop if it would hit a liquid.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/rebound-sound/",
+      "markdownSha256": "17aeadea6baa85a530a89ca983c196077df2efbcb768983b81edbdb85b27c69e",
+      "archivedAt": "2026-10-29T16:50:24+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:songbird",
+      "name": "Songbird",
+      "level": 0,
+      "description": "You acquire an even greater charisma when you perform. Anyone who hears or views your performance becomes favorably inclined toward you. This song grants you a +1 competence bonus on your Charisma-based checks involving any one person who saw the performance.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/songbird/",
+      "markdownSha256": "02645896fe3371735f5e61764a684efd75120eba64fb07ee232e9db4cf808cf1",
+      "archivedAt": "2026-10-29T16:52:25+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:song-of-serenity",
+      "name": "Song of Serenity",
+      "level": 0,
+      "description": "You channel positive energy through your song, rejuvenating a fatigued target. The target may ignore the effects of fatigue while targeted by this song.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/song-of-serenity/",
+      "markdownSha256": "da53d3a303ac617930e4eea30701dd7024a4ccea0eb2385b0b2758de68963b69",
+      "archivedAt": "2026-10-29T16:52:15+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:stage-light",
+      "name": "Stage Light",
+      "level": 0,
+      "description": "This song summons up a small floating orb of light that follows the bard. This light floats just above the head of the bard and flies to follow them. The stage light sheds normal light in a 30-foot radius and cannot be put out via water.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/stage-light/",
+      "markdownSha256": "c4343b6e950e395e4b020a4bd9e0586014dcfba5b59fefd4761ffe91f215545a",
+      "archivedAt": "2026-10-29T16:52:48+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:summon-instrument",
+      "name": "Summon Instrument",
+      "level": 0,
+      "description": "This song summons one handheld musical instrument of your choice. This instrument appears in your hands or at your feet (your choice). The instrument is typical for its type. Only one instrument appears per performing, and it will play only for you. You can’t summon an instrument too large to be held in two hands. The summoned instrument disappears at the end of this song.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/summon-instrument/",
+      "markdownSha256": "18eefa466aa74457508a77080e10ce1cd90011113c8b13903431f9bf6709a7b6",
+      "archivedAt": "2026-10-29T16:53:02+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:adoration",
+      "name": "Adoration",
+      "level": 1,
+      "description": "The target of this spell is the subject of adoration by those whom it tries to affect with Diplomacy or during performance combat. If the target is out of combat, it receives a +2 morale bonus on all Diplomacy checks it makes to influence creatures. If the creature is engaged in performance combat the target gains a +2 morale bonus on all performance combat checks.",
+      "url": "https://finalfantasyd20.com/magic/spells/a/adoration/",
+      "markdownSha256": "b7d6e74206296c922e88a07439116159a326549ecf87efedafd26a2bb6f53858",
+      "archivedAt": "2026-10-29T16:41:04+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:alter-musical-instrument",
+      "name": "Alter Musical Instrument",
+      "level": 1,
+      "description": "You alter an instrument so it sounds like a different kind of instrument you are familiar with. The change could be minor (such as making a lute sound like a guitar) or major (making a keyboard sound like drums). All other aspects of the instrument—such as volume, pitch, and how it is played—are unchanged. For example, a piccolo made to sound like an organ is no louder than a normal piccolo, can produce only high notes in the piccolo range, and is a wind instrument.",
+      "url": "https://finalfantasyd20.com/magic/spells/a/alter-musical-instrument/",
+      "markdownSha256": "03aa155201e55cb10d0ef7fd2b519d59ee220ff831d9ce0866767364944d4afd",
+      "archivedAt": "2026-10-29T16:41:22+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:amplify",
+      "name": "Amplify",
+      "level": 1,
+      "description": "You cause an amplification of all sounds within the song’s area. This decreases the DC to hear those sounds by 20. Those creatures within the song’s area do not notice the increased amplification. Thus, anyone whose voice is amplified remains unaware of the increase in volume. The song can be centered on a creature, and the effect then radiates from the creature and moves as it moves. An unwilling creature can attempt a Will save to negate the song and can apply spell resistance, if any. Items in a creature’s possession receive the benefits of saves and spell resistance, but unattended objects and points in space do not.",
+      "url": "https://finalfantasyd20.com/magic/spells/a/amplify/",
+      "markdownSha256": "863419766d37f2f34813118f129bb08ff445565f3677b8e699d5b8c238dd81ca",
+      "archivedAt": "2026-10-29T16:41:27+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:armys-paeon",
+      "name": "Army’s Paeon",
+      "level": 1,
+      "description": "You play a soft-spoken song of healing, bestowing nearby allies with HP regeneration. Each round this song is in effect, the targets gain Fast Healing 2.",
+      "url": "https://finalfantasyd20.com/magic/spells/a/armys-paeon/",
+      "markdownSha256": "cbe712a7458882941ed3a5032fdf664f7dfe1db21c6068d3b8dbba7468b6bb8b",
+      "archivedAt": "2026-10-29T16:41:41+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:clarion-call",
+      "name": "Clarion Call",
+      "level": 1,
+      "description": "The subject of this song gains two benefits. First, the affected creature gains the ability to create a sound like the blast of a mighty horn or trumpet simply by miming the action of sounding one. Second, the subject can speak in a booming voice that carries easily over great distances, lowering the DC of any check to hear what is said by –15.",
+      "url": "https://finalfantasyd20.com/magic/spells/c/clarion-call/",
+      "markdownSha256": "337b5f948d244ff541e5ca9a6ac74554457e3e95660f9eed04ef1536793ee7b9",
+      "archivedAt": "2026-10-29T16:43:05+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:distort-speech",
+      "name": "Distort Speech",
+      "level": 1,
+      "description": "You distort a creature’s vocalizations. The voice of the affected target becomes warped and incomprehensible, causing them to have 50% spell failure when casting spells with a vocal component.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/distort-speech/",
+      "markdownSha256": "888a5ffd6cf59a00a939a95b50c7c8bbda490803b68f4b7fc827b7b4ae8490c7",
+      "archivedAt": "2026-10-29T16:43:38+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:elemental-carol",
+      "name": "Elemental Carol",
+      "level": 1,
+      "description": "You play a song of the elements, bestowing your allies with a resistance to elemental spells and effects. The bard chooses an element type: dark, earth, fire, ice, light, lightning, water, or wind. Each round this song is in effect, allies within 30 feet of the bard gain a +2 morale bonus to Saving Throws against the elemental (of the chosen type) spells and effects as well as an Elemental (of the chosen type) Resistance of 5.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-carol/",
+      "markdownSha256": "b316271d55552a1afb63a3a8db343fe15e7602b5e4faa4e2b869de0847d78f6e",
+      "archivedAt": "2026-10-29T16:44:11+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:elemental-threnody",
+      "name": "Elemental Threnody",
+      "level": 1,
+      "description": "You play an elemental song, crippling your enemies by lowering their resistance to elemental spells and effects. The bard chooses an element type: dark, earth, fire, ice, light, lightning, water, or wind. Each round this song is in effect, enemies within 30 feet of the bard suffer a –2 penalty to Saving Throws against Elemental (of the chosen type) spells and effects as well as reduces elemental (of the chosen type) resistance by –5.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-threnody/",
+      "markdownSha256": "a56bd94566f4afb5069a1039f58d60977baac33608342a6fce2336cc6a98aa68",
+      "archivedAt": "2026-10-29T16:44:25+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:fear-filled-tune",
+      "name": "Fear Filled Tune",
+      "level": 1,
+      "description": "The affected creature becomes [frightened](https://www.finalfantasyd20.com/magic/status-effects/#frightened).\n\nA [frightened](https://www.finalfantasyd20.com/magic/status-effects/#frightened) creature flees from the source of its fear as best it can. If unable to flee, it may fight. A [frightened](https://www.finalfantasyd20.com/magic/status-effects/#frightened) creature takes a –2 penalty on all attack rolls, saving throws, skill checks, and ability checks. A [frightened](https://www.finalfantasyd20.com/magic/status-effects/#frightened) creature can use special abilities, including spells, to flee; indeed, the creature must use such means if they are the only way to escape. If the subject succeeds on a Will save, it is [shaken](https://www.finalfantasyd20.com/magic/status-effects/#shaken) for 1 round.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fear-filled-tune/",
+      "markdownSha256": "421085f69252fe79a16924f5d4ba192b31b282417510a9d22f9dbd4acfa54267",
+      "archivedAt": "2026-10-29T16:44:48+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:feather-bar",
+      "name": "Feather Bar",
+      "level": 1,
+      "description": "Playing through a bar of beats you create a musical effect that causes an object to become lighter. The target’s weight decreases by half. If this song is cast on armor, the armor’s armor check penalty decreases by 1, though its categorization as light, medium, or heavy does not change.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/feather-bar/",
+      "markdownSha256": "87c5b38ad9422d5ded99451241664cb00204fea77df6ebf98cbdfd8806149c7c",
+      "archivedAt": "2026-10-29T16:44:58+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:focusing-chant",
+      "name": "Focusing Chant",
+      "level": 1,
+      "description": "You gain a +1 circumstance bonus on attack rolls, skill checks, and ability checks for the duration of the song.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/focusing-chant/",
+      "markdownSha256": "658e7ae498f76adc6eafd1229fff89cd90985197fc88577957d8c6d7929a72f0",
+      "archivedAt": "2026-10-29T16:45:07+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:foe-requiem",
+      "name": "Foe Requiem",
+      "level": 1,
+      "description": "You play a song of destruction. Each round this song is in effect, the targeted creature suffers non-elemental damage equal to the bard’s Charisma modifier. You may only have 1 Foe Requiem/Discord song in effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/foe-requiem/",
+      "markdownSha256": "e5eee5a93295767b0fb2866661199dc5c84d90d67a81cde4db0fc0cf5f90d68a",
+      "archivedAt": "2026-10-29T16:45:35+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:fortuitous-beat",
+      "name": "Fortuitous Beat",
+      "level": 1,
+      "description": "You play an invigorating song, fortifying nearby allies defenses. The targets receives a +2 morale bonus to Fortitude saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fortuitous-beat/",
+      "markdownSha256": "4e953be440c8e913fa8e850ac196b167efaef0c56ec4a53686acd60c18378738",
+      "archivedAt": "2026-10-29T16:45:54+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:hideous-laughter",
+      "name": "Hideous Laughter",
+      "level": 1,
+      "description": "This song afflicts the subject with uncontrollable laughter. It collapses into gales of manic laughter, falling prone. The subject can take no actions while laughing, but is not considered helpless. On the creature’s next turn, it may attempt a new saving throw to end the effect. This is a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) that does not provoke attacks of opportunity. If this save is successful, the effect ends. If not, the creature continues laughing for the entire duration. A creature with an Intelligence score of 2 or lower is not affected. A creature whose type is different from the bard’s receives a +4 bonus on its saving throw, because humor doesn’t “translate” well.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/hideous-laughter/",
+      "markdownSha256": "81c56dcb2acf134d00b702412f4e35838f02b320d35ed2b86e9fed3f619fedc0",
+      "archivedAt": "2026-10-29T16:47:55+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:insidious-rhythm",
+      "name": "Insidious Rhythm",
+      "level": 1,
+      "description": "The subject takes a –4 penalty on Intelligence-based skill checks and Concentration checks due to an endlessly recycling melody stuck in its mind. Whenever the subject attempts to cast, concentrate on, or direct a spell, it must succeed on a Concentration check (DC equal to *insidious rhythm’s* save DC + spell’s level) or fail at the attempt.",
+      "url": "https://finalfantasyd20.com/magic/spells/i/insidious-rhythm/",
+      "markdownSha256": "9f694115915a85a0a538ca25a989098612a769c933879690fb3bfb292985b76b",
+      "archivedAt": "2026-10-29T16:48:18+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:inspirational-boost",
+      "name": "Inspirational Boost",
+      "level": 1,
+      "description": "As you finish, the song’s chant allows you to segue easily into bolstering your allies. While this song is in effect, the bonuses granted by your inspire courage bardic music increases by 1. The effect lasts until your inspire courage effect ends or this song ends, whichever comes first. If you don’t begin to use your inspire courage ability before the beginning of your next turn, the song’s effect ends.",
+      "url": "https://finalfantasyd20.com/magic/spells/i/inspirational-boost/",
+      "markdownSha256": "fe2ddfd84db2e4710676d38946a0f89188ec5d157dbe51446eba741dbeb26538",
+      "archivedAt": "2026-10-29T16:48:22+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:joyful-noise",
+      "name": "Joyful Noise",
+      "level": 1,
+      "description": "You create sonic vibrations that negate any magical silencing effects within a 15-ft radius around you. Allies within the area of effect may ignore the effects of the [Silenced](https://www.finalfantasyd20.com/magic/status-effects/#silenced) status effect. While in the area, any silence effects continue their duration but are essentially disabled until the creature leaves the area.",
+      "url": "https://finalfantasyd20.com/magic/spells/j/joyful-noise/",
+      "markdownSha256": "6f9cf0849a18a678c44a4999b1c37557e78bf53624aed7b5a3cee34733957932",
+      "archivedAt": "2026-10-29T16:48:32+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:knights-minne",
+      "name": "Knight’s Minne",
+      "level": 1,
+      "description": "You play the song of the knight, enhancing nearby allies Armor Class to deflect attacks better. Each round this song is in effect, the targets gain a +2 deflection bonus to Armor Class.",
+      "url": "https://finalfantasyd20.com/magic/spells/k/knights-minne/",
+      "markdownSha256": "00d3e1c1516ec053d9e62c1f702991944a7d3f1e794c74779792fac0e62826e2",
+      "archivedAt": "2026-10-29T16:48:46+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:lions-song",
+      "name": "Lion’s Song",
+      "level": 1,
+      "description": "You instill courage in the subject, granting it a +4 [morale bonus](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Morale-Bonus) against [fear effects](https://www.d20pfsrd.com/gamemastering/other-rules/fear/) for 10 minutes. If the subject is under the influence of a fear effect when receiving the song, that effect is suppressed for the duration of the song.",
+      "url": "https://finalfantasyd20.com/magic/spells/l/lions-song/",
+      "markdownSha256": "220f014dfc59521ef4621bdefb218cc47b4564f65feab1c586af0f09566b352a",
+      "archivedAt": "2026-10-29T16:49:09+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:performers-wine",
+      "name": "Performer's Wine",
+      "level": 1,
+      "description": "This song turns non-magic liquids—including spoiled, rotten, diseased, poisonous, or otherwise contaminated drinks, tears, seawater, and similar fluids—into mead or wine of average quality. This song does not prevent subsequent natural decay or spoilage.\n\nUnholy water and similar liquids of significance are spoiled by performer’s wine, but the song has no effect on creatures of any type or on magical potions or alchemical items.  \nCreatures that drink the mead or wine created by this song become sharp-witted and clear-minded, gaining a +2 enhancement bonus on all Intelligence– and Wisdom-based skill checks. This increases to a +5 bonus at caster level 9th, and to +10 (the maximum) at caster level 15th.",
+      "url": "https://finalfantasyd20.com/magic/spells/p/performers-wine/",
+      "markdownSha256": "60d91ad4ff8575e807d2aefb4cffca1dcf36b666b22c83f2f0913050d847db3c",
+      "archivedAt": "2026-10-29T16:49:42+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:play-instrument",
+      "name": "Play Instrument",
+      "level": 1,
+      "description": "You may play one instrument of your choice as if you had 1 rank in the appropriate Perform skill. Instead of a conventional instrument, you may use an object as an improvised instrument, such as using a barrel as a drum or a bow as a harp, playing it as if it were crafted to make music.",
+      "url": "https://finalfantasyd20.com/magic/spells/p/play-instrument/",
+      "markdownSha256": "7da98ff127f45978eaadfc2fafdabfc122b761bab79bb8c4fefa18edb2cfad82",
+      "archivedAt": "2026-10-29T16:50:00+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:quick-etude",
+      "name": "Quick Etude",
+      "level": 1,
+      "description": "You play the song of fast reflexes, enhancing nearby allies Armor Class to dodge ranged attacks better. Each round this song is in effect, the targets gain a +2 dodge bonus to Armor Class against ranged attacks.",
+      "url": "https://finalfantasyd20.com/magic/spells/q/quick-etude/",
+      "markdownSha256": "1306c072fd0187c3dee61bfb19ebfadc44734997fad26d9db607f1a249b3f6fc",
+      "archivedAt": "2026-10-29T16:50:19+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:reflexive-strum",
+      "name": "Reflexive Strum",
+      "level": 1,
+      "description": "You play an invigorating song, fortifying nearby allies reflexes. The targets receive a +2 morale bonus to Reflex saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/reflexive-strum/",
+      "markdownSha256": "3bba839f6e49f27cdb535ae938634daaef8e54105bfc0d02aa2cfade681451ba",
+      "archivedAt": "2026-10-29T16:50:38+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:resonance-armor",
+      "name": "Resonance Armor",
+      "level": 1,
+      "description": "You play a short song that forms a semi-physical barrier of sound around your body, providing a +4 armor bonus to AC. Unlike mundane armor, resonance armor entails no armor check penalty, arcane spell failure chance, or speed reduction.\n\nSince resonance armor is made of soundwaves, [sonic](https://www.finalfantasyd20.com/magic/#sonic) based attacks and effects find it harder to affect you. Any sound-based attacks like that from a [tamer’s](https://www.finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tamer/) bell or another [bard’s](https://www.finalfantasyd20.com/classes/core-classes/bard/) [musical power](https://www.finalfantasyd20.com/classes/core-classes/bard/#musical-power) do not bypass this bonus to AC, the armor also grants you a +2 circumstance bonus to saving throws against [sonic](https://www.finalfantasyd20.com/magic/#sonic) effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/resonance-armor/",
+      "markdownSha256": "2dbdc1f66ec41b4704458298224175b70bf0f9f2304e220bf2df2536b1ff1ad6",
+      "archivedAt": "2026-10-29T16:50:42+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:saving-finale",
+      "name": "Saving Finale",
+      "level": 1,
+      "description": "With a flourish, you can immediately end a maintained 1st level or higher song when a creature fails a Saving Throw, allowing the subject to immediately reroll the failed Saving Throw with a bonus equal to the level of the song you ended – 1 (ex: ending a 2nd level song gives a saving throw bonus of +1).",
+      "url": "https://finalfantasyd20.com/magic/spells/s/saving-finale/",
+      "markdownSha256": "322788ac2e8f0c1de48afa028a454d271aa1dde4bc0a48497f35390771781b60",
+      "archivedAt": "2026-10-29T16:51:10+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sheepfoe-mambo",
+      "name": "Sheepfoe Mambo",
+      "level": 1,
+      "description": "You play a song of resistance, boosting your allies’ saving throws. Each round this song is in effect, allies within 30 feet of the bard gain a +1 morale bonus on saving throws.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sheepfoe-mambo/",
+      "markdownSha256": "733d38b1f44eee9796893ee420a6da5408a189c7c508dbdf8d428603315605ad",
+      "archivedAt": "2026-10-29T16:51:47+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:solid-note",
+      "name": "Solid Note",
+      "level": 1,
+      "description": "You give temporary physical form to a single musical note and can hang it, suspended, wherever you wish within range, allowing you to use it as hook, pulley, door blocker, or anything else your imagination desires. The exact appearance of the solid note depends on your melody. You can make it spiked or smooth, simple or convoluted, and with any color pattern you wish, however, it always has a size approximately equal to that of your outstretched hand.\n\nOnce created, the solid note resists all attempts to move it but instantly disappears if enough force or weight is brought to bear against it. The note has an effective Strength equal to 10 + your caster level. It cannot hold more weight than the equivalent of a heavy load for its Strength without disappearing. Any creature that wins an opposed Strength check against the note (by pushing open a door which the note is holding shut for example) also causes it to disappear.\n\nThe note can never deal actual harm to a creature and disappears if successfully attacked (AC 10 + your Charisma modifier) or overcome with a combat maneuver such as bull rush (CMD 2 + your base attack bonus + your Charisma modifier). Any creature obstructed by the solid note simply fails to budge it and loses that action for the round.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/solid-note/",
+      "markdownSha256": "dc3b93e879c051c03ab68b1987dfb37839b9ba15578a8932cda27951dc80c115",
+      "archivedAt": "2026-10-29T16:52:11+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:suit-of-the-dancer",
+      "name": "Suit of the Dancer",
+      "level": 1,
+      "description": "A strum of strings, a beat of drums, or a wave of symbols creates a wash of sound that clings onto your clothes to make them better suited to the situation.\n\nThis song allows you to replace your currently worn clothing with any stored in your Attire Space, with 1 performance you can exchange your current clothing with 1 outfit from your space. If you do not want to trade out an outfit, you can instead have the outfit appear neatly folded adjacently to the bard.\n\nStoring clothing into the bard’s Attire Space requires 1 performance of this song per outfit and it can hold a total weight of clothes equal to 10lbs per caster level.\n\nYou cannot use this song to affect any form of armor or wondrous items, unless the items are counted as clothing.\n\nAny clothes stored or changed out are cleaned as if affected by the [Magical Cleaning](https://www.finalfantasyd20.com/magic/spells/m/magical-cleaning/) cantrip.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/suit-of-the-dancer/",
+      "markdownSha256": "4b1e3b301a43230c08dc1f55e38e6d38453236ba615cb07e91d6f6be2c1c881a",
+      "archivedAt": "2026-10-29T16:52:57+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:toilsome-chant",
+      "name": "Toilsome Chant",
+      "level": 1,
+      "description": "You can perform this song as part of the action to begin an inspire competence bardic performance. The benefit of inspire competence persists for as long as is necessary to complete the target’s next skill check using the chosen skill, even if you cease your bardic performance.",
+      "url": "https://finalfantasyd20.com/magic/spells/t/toilsome-chant/",
+      "markdownSha256": "8b3f1cfd8b3213ec78006527613d6585e4b77293601a3fcb275a92593da102e0",
+      "archivedAt": "2026-10-29T16:53:25+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:willful-clash",
+      "name": "Willful Clash",
+      "level": 1,
+      "description": "You play an invigorating song, fortifying nearby allies will power. The targets receive a +2 morale bonus to Will saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/w/willful-clash/",
+      "markdownSha256": "8226698896386c595f204cad8cb21628429290175f730c999d950a005073b39e",
+      "archivedAt": "2026-10-29T16:54:35+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:allegro",
+      "name": "Allegro",
+      "level": 2,
+      "description": "This song allows you to act more swiftly while maintaining a bardic performance. You must already be maintaining a bardic performance before you can perform allegro. You gain the benefits of the spell haste for as long as you maintain that bardic performance. If you cease maintaining the bardic performance or it is interrupted, this song’s duration ends. As an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) while you are maintaining a bardic performance, you can dismiss allegro to reroll a Reflex save or Dexterity-based skill check. You must choose to reroll before the result of the original roll is known. You must take the result of the reroll, even if it’s worse than the original roll. Allegro dispels and is dispelled by slow.",
+      "url": "https://finalfantasyd20.com/magic/spells/a/allegro/",
+      "markdownSha256": "eb6d578887956facbf13081222f05126d99236618d2609b69cb0fe25103a50d2",
+      "archivedAt": "2026-10-29T16:41:13+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:ballad-of-the-hero",
+      "name": "Ballad of the Hero",
+      "level": 2,
+      "description": "**Note**: This song deals with hero points. See [Hero Points](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) for full details.\n\nPlaying a heroic ballad, your target is infused with the luck and fortune of heroes of old.\n\nThis song grants 1 [hero point](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) to the target. This [hero point](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) must be spent before the duration expires, or it is lost. The bonus [hero point](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) is spent before any other [hero points](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) the target might possess. The same target must wait until the end of the encounter or one minute before being affected again, whichever is longer.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/ballad-of-the-hero/",
+      "markdownSha256": "8a2fbe46ea620a058c0694859d904e5c1be5f5bf48fc8ca5f0f0e5b68e72f648",
+      "archivedAt": "2026-10-29T16:41:55+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:battle-hymn",
+      "name": "Battle Hymn",
+      "level": 2,
+      "description": "You wave your hand as if a conductor and hum an uplifting tune under your breath. As the energy of the song releases, you hear the air around you fill with the song you are humming, as if performed by a small troupe.\n\nThis song brings forth a stirring martial tune that inspires all creatures within the area who are friendly to you. These creatures may roll twice and take the higher result for all Will saves while under this effect once per round.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/battle-hymn/",
+      "markdownSha256": "2a721fe3d9769927c62dd77d15804e20300798118888f36a785927a4d534299e",
+      "archivedAt": "2026-10-29T16:41:59+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:blurring-melody",
+      "name": "Blurring Melody",
+      "level": 2,
+      "description": "You play a soft melody, blurring enemies’ vision. Each round this song is in effect, all enemies within 30 feet of the bard suffer the [Dimmed](https://www.finalfantasyd20.com/magic/status-effects/#dimmed) status effect.\n\nDimmed: A dark mask surrounds the creature's face, making it difficult to see clearly. Creatures that are inflicted with this status effect suffer a 20% fail chance on all checks and activities that rely on vision (such as reading and Perception checks to spot). The dimmed creature also treats all their enemies as if they had concealment (20% miss chance).\nLight spells and effects remove this status effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/blurring-melody/",
+      "markdownSha256": "fa1f7c2ecdd0099c3ce3b3973e8361a6764fc8ef69dd1bb1a82414b17f41664b",
+      "archivedAt": "2026-10-29T16:42:14+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:cacophonous-call",
+      "name": "Cacophonous Call",
+      "level": 2,
+      "description": "You fill your target’s mind with a blaring cacophony of discordant sounds, making it hard for the target to act and concentrate. The creature gains the [Nauseated](https://www.finalfantasyd20.com/magic/status-effects/#nauseated) status effect for the duration of the song if it fails its Will save.\n\nNauseated: Creatures with the nauseated condition experience stomach distress. Nauseated creatures are unable to attack, cast spells, concentrate on spells, or do anything else requiring attention. The only action such a character can take is a single move action per turn.",
+      "url": "https://finalfantasyd20.com/magic/spells/c/cacophonous-call/",
+      "markdownSha256": "4430c12870d86509f3df1828061f41f8855f0ff896a04f787b609fc3537d3bf6",
+      "archivedAt": "2026-10-29T16:42:37+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:cadence-defense",
+      "name": "Cadence Defense",
+      "level": 2,
+      "description": "Forming a harmonic configuration of cymbals and drums, you surround the creature in a defensive structure of instruments and sound.\n\nThe subject is surrounded by shifting obstacles, granting the subject [concealment](https://www.d20pfsrd.com/gamemastering/combat#TOC-Concealment) (20% miss chance). Though the subject is not harshly affected by the instruments as they move in a way that does not hinder them.\n\nA [see invisibility](https://www.finalfantasyd20.com/magic/spells/s/see-invisibility/) spell does not counteract this effect, but a [true seeing](https://www.finalfantasyd20.com/magic/spells/t/true-seeing/) spell does.\n\nOpponents that cannot see the subject ignore the song’s effect (though fighting an unseen opponent carries penalties of its own).",
+      "url": "https://finalfantasyd20.com/magic/spells/c/cadence-defense/",
+      "markdownSha256": "1c075f218d0c4c32b1625eb92e621673d5b8ae5f31d6c7e6d13505b88dee35d0",
+      "archivedAt": "2026-10-29T16:42:46+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:calm-emotions",
+      "name": "Calm Emotions",
+      "level": 2,
+      "description": "This song calms agitated creatures. You have no control over the affected creatures, but calm emotions can stop raging creatures from fighting or joyous ones from reveling. Creatures so affected cannot take violent actions (although they can defend themselves) or do anything destructive. Any aggressive action against or damage dealt to a calmed creature immediately breaks the song on all calmed creatures.\n\nThis song automatically suppresses (but does not dispel) any morale bonuses granted by spells such as [heroism](https://www.finalfantasyd20.com/magic/spells/h/heroism/), [hunter’s prelude](https://www.finalfantasyd20.com/magic/spells/h/hunters-prelude/), and [rage](https://www.finalfantasyd20.com/magic/spells/r/rage/), and also negates a [bard’s](https://www.finalfantasyd20.com/classes/core-classes/bard/) ability to [inspire courage](https://www.finalfantasyd20.com/classes/core-classes/bard/#inspire-courage) or a [berserker’s](https://www.finalfantasyd20.com/classes/base-classes/berserker/) [rage](https://www.finalfantasyd20.com/classes/base-classes/berserker/#rage) ability. It also suppresses any fear effects and removes the [antagonized](https://www.finalfantasyd20.com/magic/status-effects/#antagonized), [berserk](https://www.finalfantasyd20.com/magic/status-effects/#berserk) and [confused](https://www.finalfantasyd20.com/magic/status-effects/#confused) status effects from all targets. While the song lasts, a suppressed spell, condition, or effect has no effect. When the calm emotions song ends, the original spell or effect takes hold of the creature again, provided that its duration has not expired in the meantime.\n\n[Frenzied warriors](https://www.finalfantasyd20.com/classes/base-classes/berserker/archetypes/frenzied-warrior/) currently under frenzy affected by calm emotions can still make saves to end the frenzy.",
+      "url": "https://finalfantasyd20.com/magic/spells/c/calm-emotions/",
+      "markdownSha256": "f35e716be85087eb3bd87c69089e876813b0193f13add49090739151b2002b48",
+      "archivedAt": "2026-10-29T16:42:56+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:dexterous-etude",
+      "name": "Dexterous Etude",
+      "level": 2,
+      "description": "You play a song of agility, enhancing nearby allies’ Dexterity to great effect. Each round this song is in effect, the targets gains a +2 morale bonus to Dexterity.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/dexterous-etude/",
+      "markdownSha256": "b6c7c42c9a7115c2e5605b41bd85c01955506ea62d7ce78d2043e35027fdf9d8",
+      "archivedAt": "2026-10-29T16:43:24+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:dissonant-chant",
+      "name": "Dissonant Chant",
+      "level": 2,
+      "description": "You create a distracting and discordant chant. Affected creatures that attempt spellcasting or other activities that require concentration must make Concentration checks (DC equal to this spell’s DC + the level of the spell being cast). The DCs of activities that already require Concentration checks, such as casting defensively, increase by 4. Creatures within the area gain a +4 bonus on saving throws against language-dependent effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/dissonant-chant/",
+      "markdownSha256": "55473ab48153e9ae402026f1297d59878524ed3c61e703e48ea29fa8eb595eed",
+      "archivedAt": "2026-10-29T16:43:33+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:distracting-cacophony",
+      "name": "Distracting Cacophony",
+      "level": 2,
+      "description": "The air fills with loud and discordant noise, making concentration difficult. Casting a spell in this area of cacophony requires a concentration check (DC 15 + the level of the spell being cast). Any other concentration checks in the area have their DCs increased by 5. The DC of Perception checks involving hearing is likewise increased by 5.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/distracting-cacophony/",
+      "markdownSha256": "fd4ebb6da4a3d931a130327c000e55a7613358f13144c8486d7502966070507a",
+      "archivedAt": "2026-10-29T16:43:42+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:distressing-tone",
+      "name": "Distressing Tone",
+      "level": 2,
+      "description": "You create a powerful tone that vibrates living flesh. Targets must save or gain the [Sickened](https://www.finalfantasyd20.com/magic/status-effects/#sickened) status effect. Creatures that are immune to critical hits are immune to this song.\n\nSickened: The character takes a –2 penalty on all attack rolls, weapon damage rolls, saving throws, skill checks, and ability checks.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/distressing-tone/",
+      "markdownSha256": "e60717044f30a8c103f029caeb22ac9a14bb93ca4406a8b53e2da9a3181abf12",
+      "archivedAt": "2026-10-29T16:43:47+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:doubtful-backing-track",
+      "name": "Doubtful Backing Track",
+      "level": 2,
+      "description": "This backing track plants a seed of supernatural fear deep in a subject’s mind, causing self-doubt, stuttering, and evasiveness.\n\nAffected creatures have difficulty meeting anyone’s gaze and seem dishonest or guilty.\n\nThe target takes a –4 penalty on [Bluff](https://www.d20pfsrd.com/skills/bluff) and [Diplomacy](https://www.d20pfsrd.com/skills/diplomacy) checks to convince another of the truth of her words, and on [Diplomacy](https://www.d20pfsrd.com/skills/diplomacy) or [Intimidate](https://www.d20pfsrd.com/skills/intimidate) checks to influence another creature’s attitude.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/doubtful-backing-track/",
+      "markdownSha256": "214b74776168f231e6445b413e7deac3f84c86130ade0d33e47960364e520e26",
+      "archivedAt": "2026-10-29T16:43:52+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:enchanting-etude",
+      "name": "Enchanting Etude",
+      "level": 2,
+      "description": "You play a song of wit and charm, enhancing nearby allies’ Charisma to great effect. Each round this song is in effect, the targets gain a +2 morale bonus to Charisma.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/enchanting-etude/",
+      "markdownSha256": "d6e6f6f938a5a9ca64acd120d06dce159425d35ebc6ae92c81c529f6b4056bbe",
+      "archivedAt": "2026-10-29T16:44:39+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:find-audience",
+      "name": "Find Audience",
+      "level": 2,
+      "description": "With a loud strum or bash of your instrument you let out a wave of sound from your position in all directions, changing to an inaudible tone as it spreads outwards. When the sound finds a [settlement](https://www.d20pfsrd.com/gamemastering/other-rules/kingdom-building/settlements/) of Hamlet size or larger it pings the location back to the bard, letting them know the directions and distance to the grouping of people. If this song finds several settlements within its range it tells the bard the details for each one.\n\nFor every mile the song travels, the bard must spend 1 minute concentrating on the song, if they stop concentrating the song ends and does not travel its total range.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/find-audience/",
+      "markdownSha256": "c98f2aabb5f672ade2a08d049c9139bd7589218f9b0a39d0bc22168a90b22858",
+      "archivedAt": "2026-10-29T16:45:03+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:foe-lullaby",
+      "name": "Foe Lullaby",
+      "level": 2,
+      "description": "You play a soft lullaby, lulling enemies to sleep. Each round this song is in effect, you target an enemy within 30 feet of the bard to make a [Will save](https://www.d20pfsrd.com/Gamemastering/Combat/#Will) or suffer the [Sleep](https://www.finalfantasyd20.com/magic/status-effects/#sleep) status effect until the song ends, or they succeed a [Will save](https://www.d20pfsrd.com/Gamemastering/Combat/#Will) on a subsequent round. Creatures must have 6 HD or less to be affected by this song.\n\nSleep: This status effect causes the creature to fall into a magical slumber. They are considered unconscious and thereby helpless. Slapping or wounding awakens an affected creature, but normal noise does not. Awakening a creature is a standard action (an application of the aid another action).",
+      "url": "https://finalfantasyd20.com/magic/spells/f/foe-lullaby/",
+      "markdownSha256": "90cd28d04223837898c329299352df120c188c8124da57a9349ae61bf382baf9",
+      "archivedAt": "2026-10-29T16:45:21+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:fowl-aubade",
+      "name": "Fowl Aubade",
+      "level": 2,
+      "description": "You play an energetic song of wakefulness, boosting your allies’ resistance to sleep and charm spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +3 morale bonus on saving throws against sleep and charm spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fowl-aubade/",
+      "markdownSha256": "9759b1f5da499b0e269147bb81036d9adae49bc8575f53bb4ed4ce89d230e456",
+      "archivedAt": "2026-10-29T16:46:08+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:ghostbane-dirge",
+      "name": "Ghostbane Dirge",
+      "level": 2,
+      "description": "The target coalesces into a semi-physical form for a short period of time. While subject to the song, the incorporeal creature takes half damage (50%) from nonmagical attack forms, and full damage from magic weapons, spells, spell-like effects, and supernatural effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/ghostbane-dirge/",
+      "markdownSha256": "d34573d801369d1d7d1868e7fa9b1347e0cabb3ccb6a9d9aa77812fa8937b448",
+      "archivedAt": "2026-10-29T16:46:26+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:goblin-gavotte",
+      "name": "Goblin Gavotte",
+      "level": 2,
+      "description": "You play a rousing song of freedom, boosting your allies’ resistance to paralysis and petrify effects. Each round this song is in effect, allies within 30 feet of the bard gain a +3 morale bonus on saving throws against the Paralyzed, Petrification and Statue status effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/goblin-gavotte/",
+      "markdownSha256": "0e49071333eac6ee6cb4f89bad39ce37307629ed3a83dc02562ee7c4f6c4f551",
+      "archivedAt": "2026-10-29T16:46:54+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:harmonic-chorus",
+      "name": "Harmonic Chorus",
+      "level": 2,
+      "description": "Sweeping your arm as if presenting a gift to someone, you call out to the intended subject of your song. A mantle of sweet tones settles about your subject, whose face is now twisted in concentration. Harmonic chorus lets you improve the spellcasting ability of a spellcaster. For the duration of the song, the subject gains a +2 morale bonus to caster level and a +2 morale bonus on save DCs for all spells it casts.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/harmonic-chorus/",
+      "markdownSha256": "0d0db6055169f655ab80be6a5a2c1b6ec7179c74457c2ecc6654c8cb8a35f098",
+      "archivedAt": "2026-10-29T16:47:13+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:heartbeat-resonance",
+      "name": "Heartbeat Resonance",
+      "level": 2,
+      "description": "Rotating your hand over your chest, you find the tempo of your own heart whilst in a still-emotional state, comparing this to those around you allows the altered tempos of lying to be detected.\n\nThe bard can successfully identify when any creatures within 20ft tell a lie, hold back information, or otherwise have some form of ulterior motive. If the bard is using this song on a creature that lacks a heart they instead gain a +4 [circumstance bonus](https://www.d20pfsrd.com/basics-ability-scores/glossary/#:~:text=A%20circumstance%20bonus%20(or%20penalty,from%20essentially%20the%20same%20source.) on [sense motive](https://www.d20pfsrd.com/skills/sense-motive/) checks against them.\n\nIf no creatures saw the bard start to perform this song, then no one will know it is in effect unless they use [Detect Magic](https://www.finalfantasyd20.com/magic/spells/d/detect-magic/).",
+      "url": "https://finalfantasyd20.com/magic/spells/h/heartbeat-resonance/",
+      "markdownSha256": "61232362aaf0913a971db61a3084c9cfd43eb4a460c900f1b718178074155396",
+      "archivedAt": "2026-10-29T16:47:31+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:herb-pastoral",
+      "name": "Herb Pastoral",
+      "level": 2,
+      "description": "You play a song of cleansing, boosting your allies’ resistance to disease and poison spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +3 morale bonus on saving throws against disease and poison spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/herb-pastoral/",
+      "markdownSha256": "548e95e5cabb35e5180d2ba5c1ecf8932e8858503275f4d8280cfe9299066b96",
+      "archivedAt": "2026-10-29T16:47:45+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:hunters-prelude",
+      "name": "Hunter’s Prelude",
+      "level": 2,
+      "description": "You play the song of the hunter, granting allies a bonus to ranged weapon attack rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +2 morale bonus to ranged weapon attack rolls.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/hunters-prelude/",
+      "markdownSha256": "3f60d0d078563810b50ec332c316dac51a394c6c4abcc145800f54b54e649a41",
+      "archivedAt": "2026-10-29T16:48:13+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:learned-etude",
+      "name": "Learned Etude",
+      "level": 2,
+      "description": "You play a song of knowledge, enhancing nearby allies’ Intelligence to great effect. Each round this song is in effect, the targets gain a +2 morale bonus to Intelligence.",
+      "url": "https://finalfantasyd20.com/magic/spells/l/learned-etude/",
+      "markdownSha256": "9df63404b842e3bdf32fb8b57f9739c080122b7d2632e2331b3d295c3eefc96a",
+      "archivedAt": "2026-10-29T16:49:00+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:lively-step",
+      "name": "Lively Step",
+      "level": 2,
+      "description": "Once you perform this song, the speed of you and all allies within 30 feet of you increases by 10 feet. This does not stack with any effect that increases movement speed.",
+      "url": "https://finalfantasyd20.com/magic/spells/l/lively-step/",
+      "markdownSha256": "4200c9f75c72037092d33048067c3def660f2f12befc6bcbc538e021327f3449",
+      "archivedAt": "2026-10-29T16:49:14+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:painful-finale",
+      "name": "Painful Finale",
+      "level": 2,
+      "description": "With a flourish, you can immediately end a maintained 1st level or higher song to inflict shadow damage to a creature. This damage is equal to 1d6 per song level of the song you ended.",
+      "url": "https://finalfantasyd20.com/magic/spells/p/painful-finale/",
+      "markdownSha256": "34859fc770b23a72f793476d14e3cd8ad998b52e5bbd388d422b1f01ccf22eaf",
+      "archivedAt": "2026-10-29T16:49:37+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:piercing-shriek",
+      "name": "Piercing Shriek",
+      "level": 2,
+      "description": "You emit an ear-splitting shriek which can be heard only by the target of this song; all other observers merely see you screaming silently. The target suffers wracking pain from the scream, gaining the [Staggered](https://www.finalfantasyd20.com/magic/status-effects/#staggered) status effect. This song has no effect on deaf creatures and cannot penetrate an area of silence.\n\nStaggered: A staggered creature may take a single move action or standard action each round (but not both, nor can he take full-round actions). A staggered creature can still take free, swift, and immediate actions. A creature with nonlethal damage exactly equal to its current hit points gains the staggered condition.",
+      "url": "https://finalfantasyd20.com/magic/spells/p/piercing-shriek/",
+      "markdownSha256": "77ff18458f3945662bb520196e04966d8098844b2c996da0f6549d7cc8891aa2",
+      "archivedAt": "2026-10-29T16:49:51+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:revealing-aria",
+      "name": "Revealing Aria",
+      "level": 2,
+      "description": "You perform an aria, revealing all invisible and ethereal enemy creatures while they are within this song’s area of effect. Such creatures take the form of shapes of various translucency, allowing you to easily discern the difference between visible, invisible, and ethereal creatures.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/revealing-aria/",
+      "markdownSha256": "7646d6b098230fa6d1a08bbe61cd408113a9f09eb9a97f8771851c88c088b614",
+      "archivedAt": "2026-10-29T16:50:47+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:scops-operetta",
+      "name": "Scop’s Operetta",
+      "level": 2,
+      "description": "You play a song of sight and sound, boosting your allies’ resistance to silence/blind spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +3 morale bonus on saving throws against silence and blind spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/scops-operetta/",
+      "markdownSha256": "a65019fad19e9cda03de00c7bb45da4e21137e65a6a6bd1ca1864aca94caeb53",
+      "archivedAt": "2026-10-29T16:51:24+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:silent-verse",
+      "name": "Silent Verse",
+      "level": 2,
+      "description": "You play a soft verse, silencing an enemy. Each round this song is in effect, an enemy within 30 feet of the bard suffers the [Silenced](https://www.finalfantasyd20.com/magic/status-effects/#silenced) status effect.\n\nSilenced: This status effect causes the character to be unable to cast spells or perform songs. A silenced character cannot cast any spells nor perform any songs until he is cured of this status effect. Casters with the Silent Spell feat can bypass this status effect if used with spells.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/silent-verse/",
+      "markdownSha256": "2423b2c7de6f07191d1a81e60f16da7c6d6e45f82a4b0612a7fe7c6fef3be966",
+      "archivedAt": "2026-10-29T16:51:52+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sinewy-etude",
+      "name": "Sinewy Etude",
+      "level": 2,
+      "description": "You play a song of might, enhancing nearby allies’ Strength to great effect. Each round this song is in effect, the targets gain a +2 morale bonus to Strength.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sinewy-etude/",
+      "markdownSha256": "6414076cc1de99be71dc1dceb8dff675f9c51eab98711a3a1014a6c1bf5b9127",
+      "archivedAt": "2026-10-29T16:52:06+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:song-of-winter",
+      "name": "Song of Winter",
+      "level": 2,
+      "description": "A chilling melody from your instrument causes a miniature blizzard to roll in. Creatures caught within the area of effect when the song is cast, or end their turn within it, must make a Fortitude save or be affected by the [Frozen](https://www.finalfantasyd20.com/magic/status-effects/#frozen) status effect for the duration of the song.\n\nFrozen: Ice forms upon the creature’s legs and wings (if any), encasing them in solid ice. Creatures that are inflicted with this status effect are frozen to the spot, unable to move. Frozen airborne creatures are no longer able to hover and immediately fall to the floor, taking falling damage as normal. If a Frozen creature takes falling damage apply the damage to both the creature and the ice (after hardness reductions).\nThe ice has 10 AC, hardness equal to the spell level, and hit points equal to 3 x spell level (Blizzard III has hardness 3 with 9 HP); if broken, the creature is freed. Alternatively, they can break loose by spending 1 round and making a Strength check (DC 10 + SL) or an Escape Artist check (DC 15 + SL).\nFire spells and effects that deal fire damage can melt the ice and remove this status effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/song-of-winter/",
+      "markdownSha256": "59b6ebf8698432972bc3b357b8613c2224cc1abe48d508005cbf2755eb98ce77",
+      "archivedAt": "2026-10-29T16:52:20+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:spirited-etude",
+      "name": "Spirited Etude",
+      "level": 2,
+      "description": "You play a song of might, enhancing nearby allies’ Wisdom to great effect. Each round this song is in effect, the targets gain a +2 morale bonus to Wisdom.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/spirited-etude/",
+      "markdownSha256": "b111d5b178f2fd0a880d2610b151989082ab2c2f4dda63886622fb678b1a8854",
+      "archivedAt": "2026-10-29T16:52:39+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sword-madrigal",
+      "name": "Sword Madrigal",
+      "level": 2,
+      "description": "You play the song of precision, granting allies a bonus to melee weapon attack rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +2 morale bonus to Attack rolls with melee weapons.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sword-madrigal/",
+      "markdownSha256": "72e22ef833d4f90982da4fa17c930c375883887f4445ea9941836e2232324382",
+      "archivedAt": "2026-10-29T16:53:16+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:valor-minuet",
+      "name": "Valor Minuet",
+      "level": 2,
+      "description": "You play the song of valor, granting allies a bonus to weapon damage rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +2 morale bonus to weapon damage rolls.",
+      "url": "https://finalfantasyd20.com/magic/spells/v/valor-minuet/",
+      "markdownSha256": "eab98e65a889775d8e077e43d4f2d6942d7955dfb93a8d325678f5dce0b7a0f5",
+      "archivedAt": "2026-10-29T16:53:39+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:vivacious-etude",
+      "name": "Vivacious Etude",
+      "level": 2,
+      "description": "You play a song of fortitude, enhancing nearby allies’ Constitution to great effect. Each round this song is in effect, the targets gain a +2 morale bonus to Constitution.",
+      "url": "https://finalfantasyd20.com/magic/spells/v/vivacious-etude/",
+      "markdownSha256": "114ea14a15757f60e6e4e38a2e1a8a28cab85dc137654199d3cf5d7c45ef5c37",
+      "archivedAt": "2026-10-29T16:54:02+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:weapon-conductor",
+      "name": "Weapon Conductor",
+      "level": 2,
+      "description": "With a quick instruction via the use of music, you create a connection between weapon and master.\n\nFor the duration of the song, the target weapon acts as if it had the [returning](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/returning) weapon special ability.\n\nThis song can be used as the prerequisite for the [returning](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/returning) weapon special ability.",
+      "url": "https://finalfantasyd20.com/magic/spells/w/weapon-conductor/",
+      "markdownSha256": "5a14c7ada8a86cc98efe49ced2800e56e01265653a625a9ff3d702bb96c58729",
+      "archivedAt": "2026-10-29T16:54:21+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:advancing-march",
+      "name": "Advancing March",
+      "level": 3,
+      "description": "You play a rousing march song, inspiring your allies to move and attack faster. Each round this song is in effect, allies within 30 feet of the bard gain the [Hasted](https://www.finalfantasyd20.com/magic/status-effects/#hasted) status effect.\n\nHasted: This status effect grants the character a +1 bonus to Attack rolls, +1 bonus to Reflex saves, +30 foot movement, and an extra attack if the subject uses a full-attack option. Haste counters and dispels slow.",
+      "url": "https://finalfantasyd20.com/magic/spells/a/advancing-march/",
+      "markdownSha256": "dab6089b4b408203ea560deadfd848bae71d34e270708c6a2297c4e797c98a12",
+      "archivedAt": "2026-10-29T16:41:08+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:armys-paeon-ii",
+      "name": "Army’s Paeon II",
+      "level": 3,
+      "description": "You play a soft-spoken song of healing, bestowing nearby allies with HP regeneration. Each round this song is in effect, the targets gain Fast Healing 4.",
+      "url": "https://finalfantasyd20.com/magic/spells/a/armys-paeon-ii/",
+      "markdownSha256": "17ce98e4fe0da3a84f5771a398dec83460ed83c1f645a4252cd0efb18ceca5f9",
+      "archivedAt": "2026-10-29T16:41:32+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:battlefield-elegy",
+      "name": "Battlefield Elegy",
+      "level": 3,
+      "description": "You play a song of sadness and of lost battles, crippling your enemies by slowing them down. Each round this song is in effect, enemies within 30 feet of the bard suffer the [Slow](https://www.finalfantasyd20.com/magic/status-effects/#slow) status effect.\n\nSlow: This status effect causes the character to move and attack at a drastically slowed rate. A slowed creature can take only a single [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) or [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) each turn, but not both (nor may it take [full-round actions](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round)). Additionally, it takes a –1 penalty on attack rolls, AC, and Reflex saves. A slowed creature moves at half its normal speed (round down to the next 5-foot increment), which affects the creature’s jumping distance as normal for decreased speed. Multiple slow effects don’t stack. Slow counters and dispels [haste](https://www.finalfantasyd20.com/magic/spells/h/haste). This doesn't affect swift, immediate, or [free actions](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) a character can make.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/battlefield-elegy/",
+      "markdownSha256": "86606239c4d6ab4436e884a1655007ec7e982ad11cfd897a731ce0e4fb04a6ab",
+      "archivedAt": "2026-10-29T16:42:04+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:cadence-orchestra",
+      "name": "Cadence Orchestra",
+      "level": 3,
+      "description": "Making a grand performance, you forge several spectral instruments and musical notes into existence that copy the look of your target, creating shifting duplicates.\n\nThe creature benefits from a 50% miss chance as if it had total [concealment](https://www.d20pfsrd.com/gamemastering/combat#TOC-Concealment). Unlike actual total concealment, cadence orchestra does not prevent enemies from targeting the creature normally. [True seeing](https://www.finalfantasyd20.com/magic/spells/t/true-seeing/) reveals its true location and negates the miss chance.\n\nThis song does not require the bard to continue a performance, once it has been performed the effects persist for the duration listed or until it is dismissed.",
+      "url": "https://finalfantasyd20.com/magic/spells/c/cadence-orchestra/",
+      "markdownSha256": "9f3985e0374be112a502dc88e5f6aa54c5cb75303b494721f4e5c657506e8656",
+      "archivedAt": "2026-10-29T16:42:51+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:chemist-quartet",
+      "name": "Chemist Quartet",
+      "level": 3,
+      "description": "You create a song of formulae and ingredients, fixing the inconsistencies and flaws found within potions and alchemical substances. While under the effect of this song the targets may use the Bard’s Charisma modifier for alchemical items instead of the casting modifier set by the alchemical item. For example a Cure Potion would heal 1d6+6 if the Bard has a Charisma modifier of +5.",
+      "url": "https://finalfantasyd20.com/magic/spells/c/chemist-quartet/",
+      "markdownSha256": "655491304aa879b68321baf7d35b5c8f08d6ddfb8b0915d5ecc5889584970014",
+      "archivedAt": "2026-10-29T16:43:00+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:dirge-of-discord",
+      "name": "Dirge of Discord",
+      "level": 3,
+      "description": "Creatures affected by this song take a –4 penalty on attack rolls and Dexterity, a 50% reduction in their speed (to a minimum of 5 feet), and must make a Concentration check to cast any spell (DC equal to this spell’s DC + the level of the spell being cast).",
+      "url": "https://finalfantasyd20.com/magic/spells/d/dirge-of-discord/",
+      "markdownSha256": "a851d648cb81556a75da5779070611f48065742b24a84f4b1bca93a389c60a1c",
+      "archivedAt": "2026-10-29T16:43:28+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:draconic-theme-song",
+      "name": "Draconic Theme Song",
+      "level": 3,
+      "description": "You surround yourself with a palpable aura of draconic fear and dread.\n\nLiving creatures within this aura that are normally immune to [fear](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Fear) or [mind-affecting](https://www.d20pfsrd.com/magic#TOC-Magic-Descriptor-Mind-Affecting) abilities lose those immunities against your songs, [spell-like abilities](https://www.d20pfsrd.com/magic#TOC-Spell-Like-Abilities-Sp-), and [supernatural](https://www.d20pfsrd.com/magic#TOC-Supernatural-Abilities-Su-) abilities that create fear effects, as well as any [Intimidate](https://www.d20pfsrd.com/skills/intimidate) checks you attempt to demoralize foes.\n\nIf you have the [dark knight’s](https://www.finalfantasyd20.com/classes/base-classes/dark-knight/) [aura of cowardice](https://www.finalfantasyd20.com/classes/base-classes/dark-knight/#aura-of-cowardice) class feature, this spell instead changes the penalty imposed by aura of cowardice to –6 for its duration.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/draconic-theme-song/",
+      "markdownSha256": "dfc225824701a8279721ab82afcc6aedb80459af8680047612f148a4d3b54bb3",
+      "archivedAt": "2026-10-29T16:43:57+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:elemental-carol-ii",
+      "name": "Elemental Carol II",
+      "level": 3,
+      "description": "You play a song of the elements, bestowing your allies with a resistance to elemental spells and effects. The bard chooses an element type: dark, earth, fire, ice, light, lightning, water, or wind. Each round this song is in effect, allies within 30 feet of the bard gain a +4 morale bonus to Saving Throws against the elemental (of the chosen type) spells and effects as well as an Elemental (of the chosen type) Resistance of 10.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-carol-ii/",
+      "markdownSha256": "392b13f451a9f40773dc0edbf8ccbea7e26a53b19876f93f2697094a9766fc2f",
+      "archivedAt": "2026-10-29T16:44:01+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:elemental-threnody-ii",
+      "name": "Elemental Threnody II",
+      "level": 3,
+      "description": "You play an elemental song, crippling your enemies by lowering their resistance to elemental spells and effects. The bard chooses an element type: dark, earth, fire, ice, light, lightning, water, or wind. Each round this song is in effect, enemies within 30 feet of the bard suffer a –4 penalty to Saving Throws against Elemental (of the chosen type) spells and effects as well as reduces elemental (of the chosen type) resistance by –10.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-threnody-ii/",
+      "markdownSha256": "85352579e278d5e721d5268e438ab5e53a89de6fb44b8c095a1c38209ac8d83b",
+      "archivedAt": "2026-10-29T16:44:15+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:exquisite-accompaniment",
+      "name": "Exquisite Accompaniment",
+      "level": 3,
+      "description": "You create a phantom instrument, a glowing construct of magic in the form of a portable musical instrument of your choice. The instrument floats beside you, moving as you move (even if you teleport). It cannot be damaged, but can be dispelled. The instrument plays as you direct, and as long as it plays, you do not have to expend rounds of bardic performance from your daily allotment to maintain an effect. Activating a bardic performance or switching to a new effect still costs a round of your overall bardic performances per day.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/exquisite-accompaniment/",
+      "markdownSha256": "56f4d497d984b9def261bcf0cc61d1f750ee8b598432ca9644d15003f80c91c2",
+      "archivedAt": "2026-10-29T16:44:44+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:foe-discord",
+      "name": "Foe Discord",
+      "level": 3,
+      "description": "You play a song of destruction, damaging those within 30 feet with non-elemental damage. Each round this song is in effect, enemies within 30 feet of the bard suffer the bard’s Charisma modifier points of non-elemental damage. You may only have 1 Foe Requiem/Discord song in effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/foe-discord/",
+      "markdownSha256": "02e0bc167cac7e06e28bfe01986d7fed9c27262a068361f54fafe423c5d4c29d",
+      "archivedAt": "2026-10-29T16:45:16+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:foe-requiem-ii",
+      "name": "Foe Requiem II",
+      "level": 3,
+      "description": "You play a song of destruction. Each round this song is in effect, the targeted creature suffers non-elemental damage equal to double your Charisma modifier. You may only have 1 Foe Requiem/Discord song in effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/foe-requiem-ii/",
+      "markdownSha256": "79cbadcd78a625bd60c140759dc7f582991e62e81c881e46208d1456112a4c21",
+      "archivedAt": "2026-10-29T16:45:26+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:force-inverse",
+      "name": "Force Inverse",
+      "level": 3,
+      "description": "Playing a script of music akin to that of the whirs and sparks of machines you disrupt the [force fields](https://www.finalfantasyd20.com/bestiary/final-fantasy-universal-monster-rules/#force-field) of all enemies around you. Enemies that fail their fortitude save have their [force field](https://www.finalfantasyd20.com/bestiary/final-fantasy-universal-monster-rules/#force-field) lose their fast healing and instead take their fast healing + the bard’s Charisma modifier as damage to the [force field’s](https://www.finalfantasyd20.com/bestiary/final-fantasy-universal-monster-rules/#force-field) HP each round this song is in effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/force-inverse/",
+      "markdownSha256": "3f0170e88ceee119abe043b3e37b381db778a990a516a37b7128a46d836b5a85",
+      "archivedAt": "2026-10-29T16:45:40+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:fortuitous-beat-ii",
+      "name": "Fortuitous Beat II",
+      "level": 3,
+      "description": "You play an invigorating song, fortifying nearby allies defenses. The targets receives a +4 morale bonus to Fortitude saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fortuitous-beat-ii/",
+      "markdownSha256": "d37c9e1dce36925539dfcb56b383d571762faf63f21e88f3c7368b8225ae5ff1",
+      "archivedAt": "2026-10-29T16:45:44+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:guardians-ballad",
+      "name": "Guardian's Ballad",
+      "level": 3,
+      "description": "You create a ballad that protects your allies from greater harm.\n\nEach round this song is in effect, allies within 30 feet of the bard gain damage reduction 5/-.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/guardians-ballad/",
+      "markdownSha256": "3fd9201c1b2f92c27f72fb413e5ae4834beffc564563105a173f5fa083f5a8f5",
+      "archivedAt": "2026-10-29T16:47:08+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:harrowing-song-partner",
+      "name": "Harrowing Song Partner",
+      "level": 3,
+      "description": "You create a larger and far more menacing version of yourself that you can send forth, manipulate like a puppet, and use to interact with others. You can make the duplicate up to two size categories larger than you are and determine a theme as to how it alters your original appearance. However, this duplicate always retains some vestiges of your actual appearance. Creatures who already know you gain a +2 bonus on saving throws made to disbelieve this spell. Your duplicate has no actual substance, and you cannot use it to alter its surroundings or to attack or otherwise harm creatures it encounters. You can use the duplicate to speak, and interact verbally with creatures using the [Bluff](https://www.d20pfsrd.com/skills/bluff), [Diplomacy](https://www.d20pfsrd.com/skills/diplomacy), and [Intimidate](https://www.d20pfsrd.com/skills/intimidate) skills, and you gain a +2 [competence bonus](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Competence-Bonus) on [Intimidate](https://www.d20pfsrd.com/skills/intimidate) checks when using that skill through the duplicate.\n\nYou can see, hear, taste, and smell your duplicate’s surroundings as if you are actually present using your [Perception](https://www.d20pfsrd.com/skills/perception) skill. While you also remain aware of your own immediate surroundings when controlling your duplicate, controlling it does take a toll on your senses. You take a –4 penalty on [Perception](https://www.d20pfsrd.com/skills/perception) checks while you control your duplicate.\n\nThe duplicate moves under your mental command, and while you need not act out its movements, you must take a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to control your duplicate for 1 round (concentrating on the spell) or it winks out of existence. You can maintain control of your duplicate even if you have no line of sight or line of effect to it.\n\nThe duplicate immediately winks out of existence if it is hit by an attack or in the area of a damaging effect, or if it moves beyond the maximum range of the spell.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/harrowing-song-partner/",
+      "markdownSha256": "2674524c9afb44ae0fee8babc8530e7b6e583e4632d89e7b4b3daa6f99b8c8d2",
+      "archivedAt": "2026-10-29T16:47:17+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:haunting-choir",
+      "name": "Haunting Choir",
+      "level": 3,
+      "description": "You create a spectral choir and conduct its tortured, ghostly moans, deluding listeners into believing they are suffering the torments of the dead. The transparent singers occupy a 10-foot cube, but they are intangible and do not interfere with creatures in any physical way, nor can they be attacked. Enemy creatures within 30 feet of the choir experience wracking pain that causes them to take a –2 penalty on attack rolls, skill checks, and ability checks. Individuals who exit the area of effect take these penalties for an additional 2 rounds before the delusion wears off.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/haunting-choir/",
+      "markdownSha256": "f27cd1bbb0bb815f7d54779294da49dd552088ed5cdf9b8e3d42ac5e12278b0e",
+      "archivedAt": "2026-10-29T16:47:22+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:haunting-tune",
+      "name": "Haunting Tune",
+      "level": 3,
+      "description": "The effect wrapped within your music makes even the most hard-hearted quail. Targets that fail their saves are afflicted with the [Shaken](https://www.finalfantasyd20.com/magic/status-effects/#shaken) status effect.\n\nShaken: A shaken character takes a –2 penalty on attack rolls, saving throws, skill checks, and ability checks. Shaken is a less severe state of fear than frightened or panicked.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/haunting-tune/",
+      "markdownSha256": "bfdce74c4030c86849ff439de1583c72c5d14957f1ff80535c64b9a7db8351e5",
+      "archivedAt": "2026-10-29T16:47:27+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:knights-minne-ii",
+      "name": "Knight’s Minne II",
+      "level": 3,
+      "description": "You play the song of the knight, enhancing nearby allies’ Armor Class to deflect attacks better. Each round this song is in effect, the targets gain a +4 deflection bonus to Armor Class.",
+      "url": "https://finalfantasyd20.com/magic/spells/k/knights-minne-ii/",
+      "markdownSha256": "cebaaad8df92e13f7b8117055545eaab983af9af045538f36c860b6b98af8003",
+      "archivedAt": "2026-10-29T16:48:36+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:lifes-anthem",
+      "name": "Life’s Anthem",
+      "level": 3,
+      "description": "You fill yours and your allies’ ears with a soothing anthem to keep them in the fight for longer.\n\nAll living allies within the area of effect are healed for 1d6 points of damage per caster level (maximum 10d6).",
+      "url": "https://finalfantasyd20.com/magic/spells/l/lifes-anthem/",
+      "markdownSha256": "a4ec93ae2f0ca1e8c7a250d64d65cfa27e8f33e26afb029669f83a139acd37e8",
+      "archivedAt": "2026-10-29T16:49:04+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:nixies-lure",
+      "name": "Nixie’s Lure",
+      "level": 3,
+      "description": "This creates an unearthly and infectious song that seductively summons all who hear it.\n\nNixie’s lure affects a maximum of 24 Hit Dice of creatures. Creatures in the area who fail their saves are lured by the song and move toward you using the most direct means available. If the path leads them into a dangerous area such as through fire or off a cliff, the creatures each receive a second saving throw to end the effect before moving into peril. Creatures lured by the song can take no actions other than to defend themselves. A victim within 5 feet of you simply stands still and for the duration of the song remains [fascinated](https://www.finalfantasyd20.com/magic/status-effects/#fascinated).",
+      "url": "https://finalfantasyd20.com/magic/spells/n/nixies-lure/",
+      "markdownSha256": "17dd88a3389afe420965a07b0cba08916b014bdc07c139a9b7c827c85f72c5b3",
+      "archivedAt": "2026-10-29T16:49:32+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:pinning-nocturne",
+      "name": "Pinning Nocturne",
+      "level": 3,
+      "description": "This haunting ensemble disrupts the natural flow of magic in hostile casters. Enemies attempting to cast spells within 30 feet of you must attempt a will save. On a failure, the time required to cast their spells increases by 1 step (a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) becomes a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) becomes a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) become a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) becomes a 1 turn cast spell, and 1 turn cast spells become 2 turn cast spells). Affected casters may choose whether or not to pay the increased action cost; if not, they lose the original action and the associated spell.\n\nAdditionally, enemies receive a -4 penalty on concentration checks and caster level checks to overcome spell resistance while they remain within this song’s area of effect (no save).\n\n*This spell was submitted as a part of the SCC for December 2020 by MagnusXL.*",
+      "url": "https://finalfantasyd20.com/magic/spells/p/pinning-nocturne/",
+      "markdownSha256": "d903bbfd18da4b309f79b59e3ac69e1cd6a3d1d2ce546c7f730786c4c5fa6cfd",
+      "archivedAt": "2026-10-29T16:49:56+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:purging-finale",
+      "name": "Purging Finale",
+      "level": 3,
+      "description": "With a flourish, you can immediately end a maintained 1st level or higher song to cure a magical status effect with a spell level equal to or lower to the song you just ended from one creature. The caster can select which status effect they are removing from their target upon the time of casting.",
+      "url": "https://finalfantasyd20.com/magic/spells/p/purging-finale/",
+      "markdownSha256": "b698f30f438e143541c13c624ce800cc8f6d14a704c7a1b90a8f0093d0bb7845",
+      "archivedAt": "2026-10-29T16:50:05+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:quick-etude-ii",
+      "name": "Quick Etude II",
+      "level": 3,
+      "description": "You play the song of fast reflexes, enhancing nearby allies’ Armor Class to dodge ranged attacks better. Each round this song is in effect, the targets gain a +4 dodge bonus to Armor Class against ranged attacks.",
+      "url": "https://finalfantasyd20.com/magic/spells/q/quick-etude-ii/",
+      "markdownSha256": "8f911021eb8284f5606090f8db648525f5bec860d0216fd68148f682f5233cd7",
+      "archivedAt": "2026-10-29T16:50:10+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:reflexive-strum-ii",
+      "name": "Reflexive Strum II",
+      "level": 3,
+      "description": "You play an invigorating song, fortifying nearby allies reflexes. The targets receive a +4 morale bonus to Reflex saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/reflexive-strum-ii/",
+      "markdownSha256": "237ac203f6639ef1130ffd1a5c42806dc3d2397c01d6b123ae072d93ed152487",
+      "archivedAt": "2026-10-29T16:50:28+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:revitalizing-finale",
+      "name": "Revitalizing Finale",
+      "level": 3,
+      "description": "With a flourish, you can immediately end a maintained 1st level or higher song to heal all allies within 20 feet of you for 1d6 per song level of the song you just ended.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/revitalizing-finale/",
+      "markdownSha256": "d43f7b6ec0bafba9f35cd5893bb4aab33a6ee5cbb8bfe157d03c721f16c7ccc7",
+      "archivedAt": "2026-10-29T16:50:51+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:rhythm-of-quick-hands",
+      "name": "Rhythm of Quick Hands",
+      "level": 3,
+      "description": "Starting up a catchy tune with quick timing you cause a target to follow your rhythm. While under the effects of this song the targets gain use of the [Quick Draw](https://www.d20pfsrd.com/feats/combat-feats/quick-draw-combat/) feat and may also draw one alchemical item per round as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free).",
+      "url": "https://finalfantasyd20.com/magic/spells/r/rhythm-of-quick-hands/",
+      "markdownSha256": "7a7da3d5180178ef51ab5c0dfe159aac24ab0b99dc756d84158436b037f7106a",
+      "archivedAt": "2026-10-29T16:50:56+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:romeos-ballad",
+      "name": "Romeo's Ballad",
+      "level": 3,
+      "description": "You play a soft ballad, causing a creature to become immobilized. Each round this song is in effect, an creature within 30 feet of the bard suffers the [Immobilized](https://www.finalfantasyd20.com/magic/status-effects/#immobilized) status effect.\n\nImmobilized: This status effect causes the creature to be unable to move normally. An immobilized creature cannot move, but may do other actions (attack, cast, etc.) provided he can do those actions not requiring him to move and has no penalty to AC.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/romeos-ballad/",
+      "markdownSha256": "a00191f6f1d5d8484e3af92bf7baa07671617196b8d0848cb3feb99c47fda9b4",
+      "archivedAt": "2026-10-29T16:51:05+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:stage-fright",
+      "name": "Stage Fright",
+      "level": 3,
+      "description": "You fill your targets with the sudden fear of failure.\n\nA creature that fails its saving throw takes a –4 penalty on ability checks, skill checks, and any checks that require [concentration](https://www.d20pfsrd.com/magic#TOC-Concentration) (such as casting a spell in difficult circumstances or operating a complex device).",
+      "url": "https://finalfantasyd20.com/magic/spells/s/stage-fright/",
+      "markdownSha256": "6fe2b00587a49b6e1eadb485888203fc7c20c6f9655b9f45e9bfae7aa597b6e2",
+      "archivedAt": "2026-10-29T16:52:43+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sheepfoe-mambo-ii",
+      "name": "Sheepfoe Mambo II",
+      "level": 3,
+      "description": "You play a song of resistance, boosting your allies’ saving throws. Each round this song is in effect, allies within 30 feet of the bard gain a +2 morale bonus on saving throws.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sheepfoe-mambo-ii/",
+      "markdownSha256": "66e61dea84316687435ec046d83e29ec041f07180ef0bc6573550b875caeca35",
+      "archivedAt": "2026-10-29T16:51:38+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:weapon-conductor-mass",
+      "name": "Weapon Conductor, Mass",
+      "level": 3,
+      "description": "With a quick instruction via the use of music, you create a connection between weapons and masters.\n\nFor the duration of the song, the target weapons act as if they had the [returning](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/returning) weapon special ability, but the duration is split into 1-minute intervals among the targeted weapons.\n\nThis song can be used as the prerequisite for the [returning](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/returning) weapon special ability.",
+      "url": "https://finalfantasyd20.com/magic/spells/w/weapon-conductor-mass/",
+      "markdownSha256": "394a9c453e27de7b9c8cb2890901b4d1b3fb8f9e287bba15b3a957be2baf3ace",
+      "archivedAt": "2026-10-29T16:54:16+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:willful-clash-ii",
+      "name": "Willful Clash II",
+      "level": 3,
+      "description": "You play an invigorating song, fortifying nearby allies will power. The targets receive a +4 morale bonus to Will saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/w/willful-clash-ii/",
+      "markdownSha256": "69d86cb8ce061ca03181ee0ce7d262b2b805cfc68e9aa792cffc24438793f5e9",
+      "archivedAt": "2026-10-29T16:54:26+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:worst-fear-elegy",
+      "name": "Worst Fear Elegy",
+      "level": 3,
+      "description": "An invisible cone of terror causes each living creature in the area to become [panicked](https://www.finalfantasyd20.com/magic/status-effects/#panicked) unless it succeeds on a [Will](https://www.d20pfsrd.com/gamemastering/combat#TOC-Will) save. If cornered, a [panicked](https://www.finalfantasyd20.com/magic/status-effects/#panicked) creature begins [cowering](https://www.finalfantasyd20.com/magic/status-effects/#cowering). If the [Will](https://www.d20pfsrd.com/gamemastering/combat#TOC-Will) save succeeds, the creature is [shaken](https://www.finalfantasyd20.com/magic/status-effects/#shaken) for 1 round.",
+      "url": "https://finalfantasyd20.com/magic/spells/w/worst-fear-elegy/",
+      "markdownSha256": "b03f88e0b5f79c382a2deb5e9ff08efe088d0a55ede98758a9b70517e20dce86",
+      "archivedAt": "2026-10-29T16:54:40+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:ballad-of-the-hero-mass",
+      "name": "Ballad of the Hero, Mass",
+      "level": 4,
+      "description": "**Note**: This song deals with hero points. See [Hero Points](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) for full details.\n\nPlaying a heroic ballad, your targets are infused with the luck and fortune of heroes of old.\n\nSimilarly to [Ballad of the Hero](https://www.finalfantasyd20.com/magic/spells/b/ballad-of-the-hero/), this song grants 1 [hero point](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) to each of the targets. This [hero point](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) must be spent before the duration expires, or it is lost. The bonus [hero point](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) is spent before any other [hero points](https://www.finalfantasyd20.com/system-rules/optional-systems/hero-points/) the targets might possess. This does not stack with [Ballad of the Hero](https://www.finalfantasyd20.com/magic/spells/b/ballad-of-the-hero/). The same target must wait until the end of the encounter or one minute before being affected again, whichever is longer.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/ballad-of-the-hero-mass/",
+      "markdownSha256": "028866a1ce4c60f057ac00b37a19cf71b1e5131a96671657cebbaf2022cbd31f",
+      "archivedAt": "2026-10-29T16:41:50+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:blinding-melody",
+      "name": "Blinding Melody",
+      "level": 4,
+      "description": "You play a soft melody, blurring enemies’ vision. Each round this song is in effect, all enemies within 30 feet of the bard suffer the [Blinded](https://www.finalfantasyd20.com/magic/status-effects/#blinded) status effect.\n\nBlinded: The creature cannot see. It takes a –2 penalty to Armor Class, loses its Dexterity bonus to AC (if any), and takes a –4 penalty on most Strength– and Dexterity-based skill checks and on opposed Perception skill checks. All checks and activities that rely on vision (such as reading and Perception checks based on sight) automatically fail. All opponents are considered to have total concealment (50% miss chance) against the blinded character. Blind creatures must make a DC 10 Acrobatics skill check to move faster than half speed. Creatures that fail this check fall prone. Characters who remain blinded for a long time grow accustomed to these drawbacks and can overcome some of them.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/blinding-melody/",
+      "markdownSha256": "51382ee4ee4cb694da38eece49255ee36203df17b05e93d369c8b5e843aaae99",
+      "archivedAt": "2026-10-29T16:42:09+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:cacophonic-shield",
+      "name": "Cacophonic Shield",
+      "level": 4,
+      "description": "You create a barrier of sonic energy at a distance of 10 feet from yourself which follows your movement. Creatures on either side of the barrier hear it as a loud but harmless buzzing. Nonmagical sound does not cross the barrier. Supernatural or spell-based sounds or sonic effects penetrate the barrier only if the caster or originator of the effect succeeds on a caster level check (DC 11 + your caster level). A creature that crosses the barrier takes 1d6 points of non-elemental damage +1 point per caster level (maximum +20) and must make a Fortitude save or be [Deafened](https://www.finalfantasyd20.com/magic/status-effects/#deafened) for 1 minute. The sonic vibrations create a 20% miss chance for any missiles (including siege weapon attacks) crossing the barrier in either direction.\n\nDeafened: A deafened character cannot hear. He takes a –4 penalty on initiative checks, automatically fails Perception checks based on sound, takes a –4 penalty on opposed Perception checks, and has a 20% chance of spell failure when casting spells with verbal components. Characters who remain deafened for a long time grow accustomed to these drawbacks and can overcome some of them.",
+      "url": "https://finalfantasyd20.com/magic/spells/c/cacophonic-shield/",
+      "markdownSha256": "e3337a27d7ed57bca05083c7f3ce9580614a02004ffc028287ae9e59f3c0fc69",
+      "archivedAt": "2026-10-29T16:42:28+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:dexterous-etude-ii",
+      "name": "Dexterous Etude II",
+      "level": 4,
+      "description": "You play a song of agility, enhancing nearby allies’ Dexterity to great effect. Each round this song is in effect, the targets gains a +4 morale bonus to Dexterity.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/dexterous-etude-ii/",
+      "markdownSha256": "941495f85b8926498addd80f90c2db977a4119899d882cf0cf04b6c74bbe1dc1",
+      "archivedAt": "2026-10-29T16:43:14+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:enchanting-etude-ii",
+      "name": "Enchanting Etude II",
+      "level": 4,
+      "description": "You play a song of wit and charm, enhancing nearby allies’ Charisma to great effect. Each round this song is in effect, the targets gain a +4 morale bonus to Charisma.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/enchanting-etude-ii/",
+      "markdownSha256": "bdf287f773371eb345760e25717897e56353b13cb22239e1e2308fb9aeb41970",
+      "archivedAt": "2026-10-29T16:44:29+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:fowl-aubade-ii",
+      "name": "Fowl Aubade II",
+      "level": 4,
+      "description": "You play an energetic song of wakefulness, boosting your allies’ resistance to sleep and charm spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +6 morale bonus on saving throws against sleep and charm spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fowl-aubade-ii/",
+      "markdownSha256": "222c06ef7f626e14c48026c415329a339d75fe2a4c7707ce12b8af5583285a43",
+      "archivedAt": "2026-10-29T16:45:58+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:goblin-gavotte-ii",
+      "name": "Goblin Gavotte II",
+      "level": 4,
+      "description": "You play a rousing song of freedom, boosting your allies’ resistance to paralysis and petrify effects. Each round this song is in effect, allies within 30 feet of the bard gain a +6 morale bonus on saving throws against the Paralyzed, Petrification and Statue status effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/goblin-gavotte-ii/",
+      "markdownSha256": "4ea8a850e1f1be7dc95a594a7c3301d7c2c2c15bb03cd6b8669bed29252e9f9c",
+      "archivedAt": "2026-10-29T16:46:45+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:herb-pastoral-ii",
+      "name": "Herb Pastoral II",
+      "level": 4,
+      "description": "You play a song of cleansing, boosting your allies’ resistance to disease and poison spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +6 morale bonus on saving throws against disease and poison spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/herb-pastoral-ii/",
+      "markdownSha256": "c52d274fa8319fe8e268385cafcd373e0b070665e7dbf872d6370b09f10c4cb1",
+      "archivedAt": "2026-10-29T16:47:36+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:horde-lullaby",
+      "name": "Horde Lullaby",
+      "level": 4,
+      "description": "The song causes all enemies within 30 feet of the bard to receive the [Sleep](https://www.finalfantasyd20.com/magic/status-effects/#sleep) status effect, targets chosen by the bard when they use this song. The victims fall into a magical slumber, can only be woken with a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). The targets of this song must have a combined HD of 12 or less to be affected by this song.\n\nSleep: This status effect causes the creature to fall into a magical slumber. They are considered unconscious and thereby helpless. Slapping or wounding awakens an affected creature, but normal noise does not. Awakening a creature is a standard action (an application of the aid another action).",
+      "url": "https://finalfantasyd20.com/magic/spells/h/horde-lullaby/",
+      "markdownSha256": "62407d169e06b460927a3b482adf817cb4f2e80888fdb74b0e39bc7e6d70c710",
+      "archivedAt": "2026-10-29T16:47:59+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:hunters-prelude-ii",
+      "name": "Hunter’s Prelude II",
+      "level": 4,
+      "description": "You play the song of the hunter, granting allies a bonus to ranged weapon attack rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +4 morale bonus to ranged weapon attack rolls.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/hunters-prelude-ii/",
+      "markdownSha256": "36fa6d5e95d38c82c8183ba3b2e7063a2bd7ea16b1437c0dd0079c8936e08b45",
+      "archivedAt": "2026-10-29T16:48:04+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:learned-etude-ii",
+      "name": "Learned Etude II",
+      "level": 4,
+      "description": "You play a song of knowledge, enhancing nearby allies’ Intelligence to great effect. Each round this song is in effect, the targets gain a +4 morale bonus to Intelligence.",
+      "url": "https://finalfantasyd20.com/magic/spells/l/learned-etude-ii/",
+      "markdownSha256": "e5a0ce6d45597876334c7c22f6a95f77eb36a357544296cb34faf99707513cac",
+      "archivedAt": "2026-10-29T16:48:50+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:magic-verse",
+      "name": "Magic Verse",
+      "level": 4,
+      "description": "You play a song of disruption, stripping an opponent of magical effects cast upon him. Each round this song is in effect, an enemy within 30 feet of the bard is affected by a [Dispel](https://www.finalfantasyd20.com/magic/spells/d/dispel/) spell.",
+      "url": "https://finalfantasyd20.com/magic/spells/m/magic-verse/",
+      "markdownSha256": "70aba1f056db0b25a6dce2e857a41d669c70dfad0cef0f9be201e0bd927861dd",
+      "archivedAt": "2026-10-29T16:49:23+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:scops-operetta-ii",
+      "name": "Scop’s Operetta II",
+      "level": 4,
+      "description": "You play a song of sight and sound, boosting your allies’ resistance to silence/blind spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +6 morale bonus on saving throws against silence and blind spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/scops-operetta-ii/",
+      "markdownSha256": "684c76bfeef1c6e570ea1707a7160822da0767fe4acc25388f27cbe09b5eb825",
+      "archivedAt": "2026-10-29T16:51:15+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sentinels-scherzo",
+      "name": "Sentinel's Scherzo",
+      "level": 4,
+      "description": "You play a whimsical yet vigorous tune that shields your allies. Each round this song is in effect, allies within 30 feet that would take more than 75% of their current hit points from a single source of damage (after all other sources of damage reduction and resistances are taken into account) have that damage reduced by an amount equal to your caster level + your charisma modifier. Creatures can only benefit from Sentinel’s Scherzo once per round.\n\n*This spell was submitted as a part of the SCC for November 2020 by MagnusXL.*",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sentinels-scherzo/",
+      "markdownSha256": "7f344c2f3c2d3e88b69a10ece7a985df9373478683fa5f8444fe1852949e6902",
+      "archivedAt": "2026-10-29T16:51:29+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sinewy-etude-ii",
+      "name": "Sinewy Etude II",
+      "level": 4,
+      "description": "You play a song of might, enhancing nearby allies’ Strength to great effect. Each round this song is in effect, the targets gain a +4 morale bonus to Strength.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sinewy-etude-ii/",
+      "markdownSha256": "ee92cba0a519d127ac72bfb839bf9819638fe50cb8239cd078a02b42f7f424ca",
+      "archivedAt": "2026-10-29T16:51:57+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:spirited-etude-ii",
+      "name": "Spirited Etude II",
+      "level": 4,
+      "description": "You play a song of might, enhancing nearby allies’ Wisdom to great effect. Each round this song is in effect, the targets gain a +4 morale bonus to Wisdom.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/spirited-etude-ii/",
+      "markdownSha256": "d56940cd9274719e0197e977930cd05d11dd500e698a69e2573e5c28dc2fd971",
+      "archivedAt": "2026-10-29T16:52:29+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sword-madrigal-ii",
+      "name": "Sword Madrigal II",
+      "level": 4,
+      "description": "You play the song of precision, granting allies a bonus to melee weapon attack rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +4 morale bonus to Attack rolls with melee weapons.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sword-madrigal-ii/",
+      "markdownSha256": "fe1505f65530692123ed21052a2031d2421b18ccdacbd2033b784e072c313bdf",
+      "archivedAt": "2026-10-29T16:53:07+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:toad-song",
+      "name": "Toad Song",
+      "level": 4,
+      "description": "You play an icky song full of bog-like tones that fill the target with the powers of an amphibious being.\n\nThe target of this song must make a Fortitude save or receive the [Frog](https://www.finalfantasyd20.com/magic/status-effects/#frog) status effect. The victim is polymorphed into a frog temporarily, unable to cast spells or attack, but can defend itself.\n\nIf the song succeeds, the subject must also make a Will save. If this second save fails, the creature loses its extraordinary, supernatural, and spell-like abilities, loses its ability to cast spells (if it had the ability), and gains the alignment, special abilities, and Intelligence, Wisdom, and Charisma scores of a frog in place of its own. It still retains its class and level (or HD), as well as all benefits deriving therefrom (such as base attack bonus, base save bonuses, and hit points). It retains any class features (other than spellcasting) that aren’t extraordinary, supernatural, or spell-like abilities.\n\nFrog: This status effect causes the character to be turned into a frog. The character retains his hit points but his size becomes tiny and he is unable to do anything for the duration other than hop around.",
+      "url": "https://finalfantasyd20.com/magic/spells/t/toad-song/",
+      "markdownSha256": "74ac44e3f5826403a8830e081eb35f9644fbdf15708fb7bbe013d5963369e416",
+      "archivedAt": "2026-10-29T16:53:20+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:valor-minuet-ii",
+      "name": "Valor Minuet II",
+      "level": 4,
+      "description": "You play the song of valor, granting allies a bonus to weapon damage rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +4 morale bonus to weapon damage rolls.",
+      "url": "https://finalfantasyd20.com/magic/spells/v/valor-minuet-ii/",
+      "markdownSha256": "f16921eeb2e5f14d78dac68125e8c679de47925426fd3f66314f03077d3b1193",
+      "archivedAt": "2026-10-29T16:53:30+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:vigilant-rest",
+      "name": "Vigilant Rest",
+      "level": 4,
+      "description": "While the target of this song is asleep, she retains some of her normal powers of perception. While she tunes out harmless sounds such as the crackling of the campfire, crickets, or light breezes, she does not take the normal +10 modifier to the DC of [Perception](https://www.d20pfsrd.com/skills/perception) checks she attempts while asleep.\n\nIf the target detects a threat or unexplained noise while sleeping, she can wake immediately and stand up from her sleeping position as a [[free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free)](https://www.d20pfsrd.com/gamemastering/combat#TOC-Free-Actions).\n\nIf the target is roused but returns to sleep during the song’s duration, she falls asleep immediately and does not count as having her sleep interrupted, even if she engaged in combat while she was awake.",
+      "url": "https://finalfantasyd20.com/magic/spells/v/vigilant-rest/",
+      "markdownSha256": "ed72865b12e2321877c4affadd3ee4121ff3749fab15c927a11a40776357204e",
+      "archivedAt": "2026-10-29T16:53:44+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:virtuoso-performance",
+      "name": "Virtuoso Performance",
+      "level": 4,
+      "description": "While this song is active, you may start a second bardic performance while maintaining another. When this song ends, one of the performances ends immediately (your choice). Virtuoso performance does not stack with any other method of maintaining simultaneous bardic performances.",
+      "url": "https://finalfantasyd20.com/magic/spells/v/virtuoso-performance/",
+      "markdownSha256": "56e61563e1539020eb5f10ecb7c58d46245e4bc76f6cb27e7c8a004b230c0c58",
+      "archivedAt": "2026-10-29T16:53:49+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:vivacious-etude-ii",
+      "name": "Vivacious Etude II",
+      "level": 4,
+      "description": "You play a song of fortitude, enhancing nearby allies’ Constitution to great effect. Each round this song is in effect, the targets gain a +4 morale bonus to Constitution.",
+      "url": "https://finalfantasyd20.com/magic/spells/v/vivacious-etude-ii/",
+      "markdownSha256": "a21fa01828e8743d17cf215c8c2f30cd7964a94d07727e27b11ff617b359803c",
+      "archivedAt": "2026-10-29T16:53:53+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:wall-of-sound",
+      "name": "Wall of Sound",
+      "level": 4,
+      "description": "A translucent barrier of pure sound springs into existence. This wall is silent except for a faint hum, but bursts with discordant noise when touched by an object or creature. The wall deflects arrows, bolts, loose debris, and Small or smaller flying creatures like a wind wall spell, except these things rebound harmlessly rather than being directed upward. The burst of discordant noise deals 2d4 points of non-elemental damage to creatures within 10 feet of the triggering object or creature; touching or passing through the wall deals 2d6 points of non-elemental damage + 1 point of non-elemental damage per caster level (maximum +20). If you place the wall so that it appears where creatures are, each creature takes damage as if passing through the wall. A silence spell suppresses the wall within its area, but the wall reappears when the silence ends.",
+      "url": "https://finalfantasyd20.com/magic/spells/w/wall-of-sound/",
+      "markdownSha256": "9c892d500973f96d54cd93713cf5f393798958fd690610572bfa839f14688d6f",
+      "archivedAt": "2026-10-29T16:54:07+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:armys-paeon-iii",
+      "name": "Army’s Paeon III",
+      "level": 5,
+      "description": "You play a soft-spoken song of healing, bestowing nearby allies with HP regeneration. Each round this song is in effect, the targets gain Fast Healing 6.",
+      "url": "https://finalfantasyd20.com/magic/spells/a/armys-paeon-iii/",
+      "markdownSha256": "8766b36681e97fa39d150746fd6910fd570f24885c1a985b7d22d23357ffea44",
+      "archivedAt": "2026-10-29T16:41:36+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:baleful-dirge",
+      "name": "Baleful Dirge",
+      "level": 5,
+      "description": "Your song draws the energies of death and destruction down on your enemies. Each round, any enemy in the area takes 2 points of Strength and Dexterity damage. Subjects can attempt a Fortitude save each round to negate the damage, but a successful save does not prevent damage in future rounds.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/baleful-dirge/",
+      "markdownSha256": "ba88de5b93dbd1ab246ca656adedff71938894145be6c1b41a2714a8ab74bb56",
+      "archivedAt": "2026-10-29T16:41:45+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:body-harmonic",
+      "name": "Body Harmonic",
+      "level": 5,
+      "description": "You cause the targeted creature’s body begins to vibrate loudly and painfully in harmony. Each round, the victim takes 1d10 points of damage to one ability score. You must select a different ability score each round, and cannot damage any one ability score more than once every 5 rounds. The creature can attempt a Will saving throw each round to negate that round’s effect. While the subject is under the effect of body harmonic, its body whines and hums discordantly. The victim takes a –20 penalty on Stealth checks.",
+      "url": "https://finalfantasyd20.com/magic/spells/b/body-harmonic/",
+      "markdownSha256": "94331d3979b904d1de8ae518285382d98427dc895427d17e61136821b358d9c2",
+      "archivedAt": "2026-10-29T16:42:18+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:cacophonous-call-mass",
+      "name": "Cacophonous Call, Mass",
+      "level": 5,
+      "description": "You fill your targets’ minds with a blaring cacophony of discordant sounds, making it hard for the targets to act and concentrate. The creatures gains the [Nauseated](https://www.finalfantasyd20.com/magic/status-effects/#nauseated) status effect for the duration of the song if it fails its Will save.\n\nNauseated: Creatures with the nauseated condition experience stomach distress. Nauseated creatures are unable to attack, cast spells, concentrate on spells, or do anything else requiring attention. The only action such a character can take is a single move action per turn.",
+      "url": "https://finalfantasyd20.com/magic/spells/c/cacophonous-call-mass/",
+      "markdownSha256": "8024b82ba66fe65f336c8868b30e67b0bc9cc5b944b878f9658db7b4c54c52f7",
+      "archivedAt": "2026-10-29T16:42:32+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:cacophony-of-truth",
+      "name": "Cacophony of Truth",
+      "level": 5,
+      "description": "You unleash a torrent of sounds into the mind of your target, forcing the words to spill from their lips but only the ones you truly wish to hear.\n\nIf the target fails their Will save they cannot tell any form of lie and when asked a question must provide a truthful answer to the bard. When the target is asked a question they do not know the answer to they will state as such.\n\nThis is a painful experience if the target tries to resist, most would attribute it to torture and is often looked down on by society. For every round they try to resist they take nonlethal damage equal to the bard’s caster level.",
+      "url": "https://finalfantasyd20.com/magic/spells/c/cacophony-of-truth/",
+      "markdownSha256": "f1a81d42c6a2cc1133007a176b12c640e2404b7e41f3e84832b10f94e806a539",
+      "archivedAt": "2026-10-29T16:42:42+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:elemental-carol-iii",
+      "name": "Elemental Carol III",
+      "level": 5,
+      "description": "You play a song of the elements, bestowing your allies with a resistance to elemental spells and effects. The bard chooses an element type: dark, earth, fire, ice, light, lightning, water, or wind. Each round this song is in effect, allies within 30 feet of the bard gain a +6 morale bonus to Saving Throws against the elemental (of the chosen type) spells and effects as well as an Elemental (of the chosen type) Resistance of 15.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-carol-iii/",
+      "markdownSha256": "781637f3ccbbf645029dee1784b02632c7106bf2daba0371a384c131937b4c66",
+      "archivedAt": "2026-10-29T16:44:06+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:elemental-threnody-iii",
+      "name": "Elemental Threnody III",
+      "level": 5,
+      "description": "You play an elemental song, crippling your enemies by lowering their resistance to elemental spells and effects. The bard chooses an element type: dark, earth, fire, ice, light, lightning, water, or wind. Each round this song is in effect, enemies within 30 feet of the bard suffer a –6 penalty to Saving Throws against Elemental (of the chosen type) spells and effects as well as reduces elemental (of the chosen type) resistance by –15.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-threnody-iii/",
+      "markdownSha256": "14383143820f957ceb1075a74eac428951e945fa793f58c361c87677d12b0744",
+      "archivedAt": "2026-10-29T16:44:20+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:feather-bar-mass",
+      "name": "Feather Bar, Mass",
+      "level": 5,
+      "description": "Playing through a bar of beats you create a musical effect that causes objects to become lighter. Unlike feather bar, you can affect a number of objects equal to half your [caster level](https://www.d20pfsrd.com/magic#TOC-Caster-Level). The target’s weight decreases by half. If this song is cast on armor, the armor’s armor check penalty decreases by 1, though its categorization as light, medium, or heavy does not change.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/feather-bar-mass/",
+      "markdownSha256": "08c1c97b7ec2d858dd4015988debec7514ffeec3bd44f41eab66136147aec30e",
+      "archivedAt": "2026-10-29T16:44:53+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:foe-requiem-iii",
+      "name": "Foe Requiem III",
+      "level": 5,
+      "description": "You play a song of destruction. Each round this song is in effect, the targeted creature suffers non-elemental damage equal to triple your Charisma modifier. You may only have 1 Foe Requiem/Discord song in effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/foe-requiem-iii/",
+      "markdownSha256": "a7b8015bd1bc46abcaae4238cfa9ef2a92434ddff54946ebc7f65a5a774a3554",
+      "archivedAt": "2026-10-29T16:45:30+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:fortuitous-beat-iii",
+      "name": "Fortuitous Beat III",
+      "level": 5,
+      "description": "You play an invigorating song, fortifying nearby allies defenses. The targets receive a +6 morale bonus to Fortitude saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fortuitous-beat-iii/",
+      "markdownSha256": "df108aa32094bc9e0073536353182a47dc35e77907b42e683b1cc524fbc86d7b",
+      "archivedAt": "2026-10-29T16:45:49+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:frozen-note",
+      "name": "Frozen Note",
+      "level": 5,
+      "description": "You produce and sustain a single perfect musical note that holds nearby creatures, friend as well as foe, utterly spellbound until you stop singing. Affected creatures are both paralyzed and oblivious to their surroundings so long as you maintain the note.\n\nMaintaining this note requires your absolute attention; if you take damage or take any other action, including moving from your current square, the song instantly ends. Creatures that succeed in their initial Saving Throw must make a new one for each round they spend within the area of the song until they fail and become captivated. Creatures with 4 or more Hit Dice greater than your caster level are not affected by this song. However, those with 4 or more Hit Dice less than your caster level do not receive a Saving Throw to resist it. The note is so clear and flawless that less than extraordinary attempts to avoid hearing it merely grant targets a bonus on their saving throws. Targets get a +2 circumstance bonus on their Saving Throw for each barrier between your voice and their ears. This includes such things as a creature stopping up its ears with wax, closing all windows and doors in a nearby building, or even crawling into a barrel and pulling down the top.\n\nIf a target that had previously made its Saving Throw loses the benefit of one or more of its barriers it must immediately make a new Saving Throw. Similarly, any target that had previously failed its Saving Throw gets a new save each time it gains the protection of a barrier.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/frozen-note/",
+      "markdownSha256": "8da47e6305ed430a7a0200c4fdb9efb2ef2bef6de7d0bf76c938967c86f9de9f",
+      "archivedAt": "2026-10-29T16:46:12+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:fugue",
+      "name": "Fugue",
+      "level": 5,
+      "description": "Creatures that fail their save become affected by the haunting fugue in semi-random ways. On each affected creature’s turn (as long as it remains in the affected area), you make a Perform check. The check result determines how the victim’s mind and body are affected by the song. You can select any of the effects for which your Perform check equals or exceeds the required DC.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fugue/",
+      "markdownSha256": "7d6f40e8d5a3fc2f7bf73988e8ee05c0853d63d817098ea1be6bbd21e02ba771",
+      "archivedAt": "2026-10-29T16:46:17+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:ghostbane-lament",
+      "name": "Ghostbane Lament",
+      "level": 5,
+      "description": "The targets coalesce into a semi-physical form for a short period of time. While subject to the song, the incorporeal creature takes half damage (50%) from nonmagical attack forms, and full damage from magic weapons, spells, spell-like effects, and supernatural effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/ghostbane-lament/",
+      "markdownSha256": "54a7dbd47014f8cbc337cf3df5d1bc012555b7018d35fb522e68bc2a508ba43f",
+      "archivedAt": "2026-10-29T16:46:31+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:irresistible-dance",
+      "name": "Irresistible Dance",
+      "level": 5,
+      "description": "The subject feels an undeniable urge to dance and begins doing so, complete with foot shuffling and tapping. The song effect makes it impossible for the subject to do anything other than caper and prance in place. The effect imposes a -4 penalty to Armor Class and a -10 penalty on Reflex saves, and it negates any Armor Class bonus granted by a shield the target holds. The dancing subject provokes attacks of opportunity each round on its turn. A successful [Will](https://www.d20pfsrd.com/gamemastering/combat#TOC-Will) save reduces the duration of this effect to 1 round.",
+      "url": "https://finalfantasyd20.com/magic/spells/i/irresistible-dance/",
+      "markdownSha256": "ba1eeb5b660f0c8d3b318d172cc180ca35e7499c15445000d1bebcda86dcc25a",
+      "archivedAt": "2026-10-29T16:48:27+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:knights-minne-iii",
+      "name": "Knight’s Minne III",
+      "level": 5,
+      "description": "You play the song of the knight, enhancing nearby allies Armor Class to deflect attacks better. Each round this song is in effect, the targets gain a +6 deflection bonus to Armor Class.",
+      "url": "https://finalfantasyd20.com/magic/spells/k/knights-minne-iii/",
+      "markdownSha256": "75bc8530ff3390d2d248f5c18c0a6f7363a8cd402926aa944e9dc6d8097e6c47",
+      "archivedAt": "2026-10-29T16:48:41+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:music-of-the-spheres",
+      "name": "Music of the Spheres",
+      "level": 5,
+      "description": "With this song, one can amplify the underlying music of the spheres in the song’s area of effect to infuse yourself and all creatures within 20 feet of you, friend and foe alike. All creatures that begin their turn within the area of this song’s effect gain fast healing 5, resistance 10 to all elemental types, and a +3 sacred bonus on all saving throws against poison and disease. Any creature that enters the area of effect does not gain the benefits of the music of the spheres until it begins its turn in that area.",
+      "url": "https://finalfantasyd20.com/magic/spells/m/music-of-the-spheres/",
+      "markdownSha256": "cebea7db15c7c6f8daf13fb21becddc2c8551750bba1e544572d1def9716dd38",
+      "archivedAt": "2026-10-29T16:49:28+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:pied-piping",
+      "name": "Pied Piping",
+      "level": 5,
+      "description": "You call forth a melody so compelling and attractive that creatures belonging to a group with a specific, identifiable physical trait (such as type, subtype, age, gender, or hair color) find it almost impossible not to approach and follow you. You choose the nature of the creatures you seek to attract when you perform this song and, once you make this choice, cannot alter it. You can only use physical traits to determine your audience. You can never use social and other more voluntary criteria (such as alignment, religion, nationality, or class) to select targets for this spell.\n\nEligible creatures must make a Saving Throw each round spent within the area of the song and, once they fail, approach you at their normal movement speed and stand as close to you as possible without actually entering an occupied square. If you move, they do their best to maintain their proximity to you and follow. Affected creatures can take no actions other than listening to your music and following you if you move. Those entering the area while the song is in effect must also successfully save or be compelled to come to you.\n\nThe attractive power of the song does not cause affected creatures to put themselves in jeopardy and they have enough presence of mind to avoid or negotiate around obstacles and other perilous hazards. If unable to approach or follow you without endangering themselves, they simply wait, swaying to the music, until you pass out of range, at which point they regain their senses. If circumstances change once you move out of range, making it possible for affected creatures to resume their attempts to get near you they do so, and, if they manage to return to within the area of the song before it wears off, the song continues as normal.\n\nIf attacked, affected creatures can take defensive measures, even going so far as to avoid existing threats by moving out of the area of the song, but cannot make attacks themselves or take any other actions until the effects of the song wear off.",
+      "url": "https://finalfantasyd20.com/magic/spells/p/pied-piping/",
+      "markdownSha256": "90b9154f1b741760e0b42a27b9d1a42f65ae45430e3fce12b76cba9ee16b92ff",
+      "archivedAt": "2026-10-29T16:49:46+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:quick-etude-iii",
+      "name": "Quick Etude III",
+      "level": 5,
+      "description": "You play the song of fast reflexes, enhancing nearby allies Armor Class to dodge ranged attacks better. Each round this song is in effect, the targets gain a +6 dodge bonus to Armor Class against ranged attacks.",
+      "url": "https://finalfantasyd20.com/magic/spells/q/quick-etude-iii/",
+      "markdownSha256": "2c2cd3a295f1ad38969fac2b771688afdb1ea133924c538858b0489d50582ac9",
+      "archivedAt": "2026-10-29T16:50:14+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:reflexive-strum-iii",
+      "name": "Reflexive Strum III",
+      "level": 5,
+      "description": "You play an invigorating song, fortifying nearby allies reflexes. The targets receive a +6 morale bonus to Reflex saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/reflexive-strum-iii/",
+      "markdownSha256": "481152bccb251e2b7c92823666b8efbdd2e359f3005da182494b8755447f7d6a",
+      "archivedAt": "2026-10-29T16:50:33+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:shadowbard",
+      "name": "Shadowbard",
+      "level": 5,
+      "description": "You conjure up a quasi-real phantom singer that is visible as a shifting, shadowy duplicate of yourself. The singer follows you automatically, moving as you move even if you teleport. The singer cannot be damaged, but can be dispelled. When a shadowbard comes into being, it immediately begins a bardic performance of your choice—it has access to all of the bardic performances that you do. It continues that bardic performance until you direct it as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) to switch to a different performance. Rounds spent by a shadowbard creating a bardic performance do not decrease the number of rounds you can use your own bardic performance, nor can a shadowbard’s bardic performance be used to trigger songs that require you to begin or cease a bardic performance.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/shadowbard/",
+      "markdownSha256": "0d130a1cbb77bd3410d612385e92245275e01afa9853224e7a4feb39d99b93c5",
+      "archivedAt": "2026-10-29T16:51:33+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sheepfoe-mambo-iii",
+      "name": "Sheepfoe Mambo III",
+      "level": 5,
+      "description": "You play a song of resistance, boosting your allies’ saving throws. Each round this song is in effect, allies within 30 feet of the bard gain a +3 morale bonus on saving throws.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sheepfoe-mambo-iii/",
+      "markdownSha256": "35f849c2a8f385ff63600cad999a370dd26aa5163fdef25648720f44c278bd2a",
+      "archivedAt": "2026-10-29T16:51:43+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:stunning-finale",
+      "name": "Stunning Finale",
+      "level": 5,
+      "description": "With a flourish, you can immediately end a maintained 1st level or higher song to inflict a number of creatures equal to the song level of the song you ended with the [Stunned](https://www.finalfantasyd20.com/magic/status-effects/#stunned) status effect .\n\nStunned: A stunned creature drops everything held, can’t take actions, takes a –2 penalty to AC, and loses its Dexterity bonus to AC (if any). Attackers receive a +4 bonus on attack rolls to perform combat maneuvers against a stunned opponent.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/stunning-finale/",
+      "markdownSha256": "40e68163f2ef1d17932f2391f7aa2d03124c469690d24ee2862dce6172ef9e79",
+      "archivedAt": "2026-10-29T16:52:53+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:wardens-paean",
+      "name": "Warden’s Paean",
+      "level": 5,
+      "description": "This poetic melody removes a negative magical status effect from one creature as per the spell [Esuna](https://www.finalfantasyd20.com/magic/spells/e/esuna/) for every round this song is active.\n\n*This spell was submitted as a part of the SCC for February 2021 by MagnusXL.*",
+      "url": "https://finalfantasyd20.com/magic/spells/w/wardens-paean/",
+      "markdownSha256": "7481277b592fadb7412b46238d46cad2d8839bde111d9a24548c6efe8bffbe43",
+      "archivedAt": "2026-10-29T16:54:12+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:willful-clash-iii",
+      "name": "Willful Clash III",
+      "level": 5,
+      "description": "You play an invigorating song, fortifying nearby allies will power. The targets receive a +6 morale bonus to Will saves.",
+      "url": "https://finalfantasyd20.com/magic/spells/w/willful-clash-iii/",
+      "markdownSha256": "3e1a749b1552a391fbd24d5b70941d8ad409f5242d424d6b2ba5bacbcfa19fd9",
+      "archivedAt": "2026-10-29T16:54:30+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:alluring-air",
+      "name": "Alluring Air",
+      "level": 6,
+      "description": "You play a soft melody, causing nearby enemies to be confused. Each round this song is in effect, enemies within 30 feet of the bard suffers the [Confused](https://www.finalfantasyd20.com/magic/status-effects/#confused) status effect.\n\nConfused: This status effect causes the character to do random actions. A confused character’s actions are determined by rolling percentage at the beginning of his turn: 01–25 act normally, 26–50 do nothing but babble incoherently, 51–75 deal 1d8 points of damage + Str modifier to self with item in hand, 76–100 attack nearest creature (for this purpose, a familiar counts as part of the subject’s self). A confused character that can’t carry out the indicated action does nothing but babble incoherently. Attackers are not at any special advantage when attacking a confused character. Any confused character that is attacked automatically attacks its attackers on its next turn, as long as it is still confused when its turn comes. A confused character does not make attacks of opportunity against any creature that is not already devoted to attacking (either because of its recent action or because it has just been attacked).",
+      "url": "https://finalfantasyd20.com/magic/spells/a/alluring-air/",
+      "markdownSha256": "85d5f6b584eeccbf9f992539b4e8b398fdda250e0ed4e4650b62db565b2150a5",
+      "archivedAt": "2026-10-29T16:41:18+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:dexterous-etude-iii",
+      "name": "Dexterous Etude III",
+      "level": 6,
+      "description": "You play a song of agility, enhancing nearby allies’ Dexterity to great effect. Each round this song is in effect, the targets gain a +6 morale bonus to Dexterity.",
+      "url": "https://finalfantasyd20.com/magic/spells/d/dexterous-etude-iii/",
+      "markdownSha256": "f18a7b751607d3fd5ec43a68018f67e191e5f3250187a8926f1eb7e7b86f4957",
+      "archivedAt": "2026-10-29T16:43:19+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:enchanting-etude-iii",
+      "name": "Enchanting Etude III",
+      "level": 6,
+      "description": "You play a song of wit and charm, enhancing nearby allies’ Charisma to great effect. Each round this song is in effect, the targets gain a +6 morale bonus to Charisma.",
+      "url": "https://finalfantasyd20.com/magic/spells/e/enchanting-etude-iii/",
+      "markdownSha256": "8f86818bc17f83e4bb7926d16690b120d63c856273394d91f63565073c16c92c",
+      "archivedAt": "2026-10-29T16:44:34+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:foe-discord-ii",
+      "name": "Foe Discord II",
+      "level": 6,
+      "description": "You play a song of destruction, damaging those within 30 feet with non-elemental damage. Each round this song is in effect, enemies within 30 feet of you suffer double your Charisma modifier points of non-elemental damage. You may only have 1 Foe Requiem/Discord song in effect.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/foe-discord-ii/",
+      "markdownSha256": "54bee4f5661ac3fba5cb1e4e7dc24a9eb4e9eb91b0bd7337a43231a97aab41c0",
+      "archivedAt": "2026-10-29T16:45:12+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:fowl-aubade-iii",
+      "name": "Fowl Aubade III",
+      "level": 6,
+      "description": "You play an energetic song of wakefulness, boosting your allies’ resistance to sleep and charm spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +9 morale bonus on saving throws against sleep and charm spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fowl-aubade-iii/",
+      "markdownSha256": "e2a8dd8b493831fa857878383f8185cd71fe41a406de3bc4dc6b14f7b03b1a4a",
+      "archivedAt": "2026-10-29T16:46:03+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:goblin-gavotte-iii",
+      "name": "Goblin Gavotte III",
+      "level": 6,
+      "description": "You play a rousing song of freedom, boosting your allies’ resistance to paralysis and petrify effects. Each round this song is in effect, allies within 30 feet of the bard gain a +9 morale bonus on saving throws against the Paralyzed, Petrification and Statue status effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/g/goblin-gavotte-iii/",
+      "markdownSha256": "abaa350e3880804f9ce9313f8af4e18c97ba74cba8b3429943f45b5397b0f162",
+      "archivedAt": "2026-10-29T16:46:50+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:goddesss-hymnus",
+      "name": "Goddess's Hymnus",
+      "level": 6,
+      "description": "You play a divine hymn venerating your cause. Allied creatures within 30 feet of you gain the [Reraise](https://www.finalfantasyd20.com/magic/status-effects/#reraise) status effect. Once one ally has been revived by this effect the song ends. The reraise status also applies to you, though all bard songs and performances expire when you fall unconscious as normal.\n\n*This spell was submitted as a part of the SCC for January 2021 by MagnusXL.*",
+      "url": "https://finalfantasyd20.com/magic/spells/g/goddesss-hymnus/",
+      "markdownSha256": "fd55f24be932432db6f934e628ca1a6901a185acf7feeb2b3f5d7ec8a784cd87",
+      "archivedAt": "2026-10-29T16:46:59+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:grand-finale",
+      "name": "Grand Finale",
+      "level": 6,
+      "description": "With the grandest of flourishes, you can immediately end all 1st level or higher songs you are currently maintaining to a wider area while prolonging its effects. The range of all the songs that you have ended as part of Grand Finale are doubled, and their effects persist for a duration equal to 1 + your Charisma modifier without you having to maintain them. Song effects on creatures behave as if they are continually within the song’s range (ex: forcing a save on a creature for every round until they fail or the song duration ends).",
+      "url": "https://finalfantasyd20.com/magic/spells/g/grand-finale/",
+      "markdownSha256": "df7c264bfaa927b79f93d2db10425da908ffc7fadd4c2eed00d0ae7158147e84",
+      "archivedAt": "2026-10-29T16:47:04+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:herb-pastoral-iii",
+      "name": "Herb Pastoral III",
+      "level": 6,
+      "description": "You play a song of cleansing, boosting your allies’ resistance to disease and poison spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +9 morale bonus on saving throws against disease and poison spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/herb-pastoral-iii/",
+      "markdownSha256": "79888b39144559af39a56d54a3e6343b9be94937c9abdab22055cb9d384a5590",
+      "archivedAt": "2026-10-29T16:47:41+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:heros-rime",
+      "name": "Hero's Rime",
+      "level": 6,
+      "description": "You play a song echoing the heroes of eld, channeling their power into nearby allies. Each round this song is in effect, allies within 30 feet of the bard gain a +2 morale bonus to each ability score.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/heros-rime/",
+      "markdownSha256": "9a09b11611d15667e4555511410abbc9a2acbca797fc3eee94b0f1e1b825790b",
+      "archivedAt": "2026-10-29T16:47:50+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:hunters-prelude-iii",
+      "name": "Hunter’s Prelude III",
+      "level": 6,
+      "description": "You play the song of the hunter, granting allies a bonus to ranged weapon attack rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +6 morale bonus to ranged weapon attack rolls.",
+      "url": "https://finalfantasyd20.com/magic/spells/h/hunters-prelude-iii/",
+      "markdownSha256": "68a08ae1b055daa109921a228e8fd4aab3e9617e03a9407d46c1edf46cedf844",
+      "archivedAt": "2026-10-29T16:48:08+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:learned-etude-iii",
+      "name": "Learned Etude III",
+      "level": 6,
+      "description": "You play a song of knowledge, enhancing nearby allies’ Intelligence to great effect. Each round this song is in effect, the targets gain a +6 morale bonus to Intelligence.",
+      "url": "https://finalfantasyd20.com/magic/spells/l/learned-etude-iii/",
+      "markdownSha256": "92ad38161ba7c9100c2e89f16533ce2c46f1bb730790810ccf44fc6758d89ced",
+      "archivedAt": "2026-10-29T16:48:55+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:romeos-ballad-ii",
+      "name": "Romeo's Ballad II",
+      "level": 6,
+      "description": "You perform a romantic song, causing an enemy to be stopped in its tracks. Each round this song is in effect, an enemy within 30 feet of the bard suffers the [Stop](https://www.finalfantasyd20.com/magic/status-effects/#stop) status effect. \n\nStop: The victim is unable to move and act (is helpless) for the duration of the spell or until cured.",
+      "url": "https://finalfantasyd20.com/magic/spells/r/romeos-ballad-ii/",
+      "markdownSha256": "07d51e5a75cc629d538dc6495dbbc49ffd222bea44e59bbac9f9bcee00c9303b",
+      "archivedAt": "2026-10-29T16:51:01+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:scops-operetta-iii",
+      "name": "Scop’s Operetta III",
+      "level": 6,
+      "description": "You play a song of sight and sound, boosting your allies’ resistance to silence/blind spells and effects. Each round this song is in effect, allies within 30 feet of the bard gain a +9 morale bonus on saving throws against silence and blind spells and effects.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/scops-operetta-iii/",
+      "markdownSha256": "1eb76e3ffa9f70d904fc7fa6f42704430daf21bace5fde7f9b9304bebd5760af",
+      "archivedAt": "2026-10-29T16:51:19+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sinewy-etude-iii",
+      "name": "Sinewy Etude III",
+      "level": 6,
+      "description": "You play a song of might, enhancing nearby allies’ Strength to great effect. Each round this song is in effect, the targets gain a +6 morale bonus to Strength.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sinewy-etude-iii/",
+      "markdownSha256": "63f5f13a619c16e3ea7c419e9243b60beb0cbe5a3bb992cc00b70502e3b9f4b0",
+      "archivedAt": "2026-10-29T16:52:01+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:spirited-etude-iii",
+      "name": "Spirited Etude III",
+      "level": 6,
+      "description": "You play a song of might, enhancing nearby allies’ Wisdom to great effect. Each round this song is in effect, the targets gain a +6 morale bonus to Wisdom.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/spirited-etude-iii/",
+      "markdownSha256": "2d7da26f15309c2486ed9c8b8c7f462fd97b5062919f5c55620d012a2ac2b771",
+      "archivedAt": "2026-10-29T16:52:34+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:sword-madrigal-iii",
+      "name": "Sword Madrigal III",
+      "level": 6,
+      "description": "You play the song of precision, granting allies a bonus to melee weapon attack rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +6 morale bonus to Attack rolls with melee weapons.",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sword-madrigal-iii/",
+      "markdownSha256": "c94ae00615b1026dfa2063afbfbac2952f2763b99a6d5abd3a106fc8bf63c229",
+      "archivedAt": "2026-10-29T16:53:11+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:valor-minuet-iii",
+      "name": "Valor Minuet III",
+      "level": 6,
+      "description": "You play the song of valor, granting allies a bonus to weapon damage rolls. Each round this song is in effect, allies within 30 feet of the bard gain a +6 morale bonus to weapon damage rolls.",
+      "url": "https://finalfantasyd20.com/magic/spells/v/valor-minuet-iii/",
+      "markdownSha256": "5053d3abbbc3b0700e170fbd37f57674432532af007ceeadf6ba09d9c90f07d1",
+      "archivedAt": "2026-10-29T16:53:34+00:00"
+    },
+    {
+      "id": "ffd20:song:bard:vivacious-etude-iii",
+      "name": "Vivacious Etude III",
+      "level": 6,
+      "description": "You play a song of fortitude, enhancing nearby allies’ Constitution to great effect. Each round this song is in effect, the targets gain a +6 morale bonus to Constitution.",
+      "url": "https://finalfantasyd20.com/magic/spells/v/vivacious-etude-iii/",
+      "markdownSha256": "a52a1f2a271f9810ed1fe965eac44308aa7b1127f0626b59fd3bb2b4594fbcda",
+      "archivedAt": "2026-10-29T16:53:58+00:00"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {generateFirstCoreManual} from './generate-first-core-manual.mjs';
 import {buildDiceAssets} from './build-dice.mjs';
 import {buildCriticalEffects} from './build-critical-effects.mjs';
 import {build,transform} from 'esbuild';
@@ -19,6 +20,7 @@ await generateRaceCatalog();
 await generateArcherPreview();
 await generateClassCatalog();
 await generateBardCatalog();
+await generateFirstCoreManual();
 
 const root = new URL('../', import.meta.url);
 const files = (await readdir(new URL('src/pages/', root))).filter(name => name.endsWith('.mjs')).sort();
@@ -55,7 +57,7 @@ await writeFile(new URL('dist/assets/sheet-refinements.css',root),(await transfo
 await writeFile(new URL('dist/assets/sheet-effects.css',root),(await transform(await readFile(new URL('src/styles/sheet-effects.css',root),'utf8'),{loader:'css',minify:true,target:'es2022'})).code);
 console.log(`Built ${pages.length} Cosmos pages in isolated fixture preview mode.`);
 
-for (const file of ['admin-sheets.mjs','mobile-viewport.mjs','react-bits-loader.mjs','sheet-delete.mjs','sheet-notes-electric.mjs','critical-effects-player.mjs','critical-frames.mjs','dice-3d.mjs','sheet-settings.mjs','critical-fx.mjs','dice-theme-picker.mjs','sheet-loading.mjs','feedback.mjs','shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','items.mjs','record-id.mjs','lore.mjs','lore-draft.mjs','lore-draft-controller.mjs','lore-compose.mjs','lore-entry.mjs','feed.mjs','compose.mjs','post-thread.mjs','directory.mjs','character-view.mjs','rules-wizard.mjs','sheet.mjs','sheet-entry.mjs','character-library.mjs','admin-icons.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
+for (const file of ['ability-library.mjs','admin-sheets.mjs','mobile-viewport.mjs','react-bits-loader.mjs','sheet-delete.mjs','sheet-notes-electric.mjs','critical-effects-player.mjs','critical-frames.mjs','dice-3d.mjs','sheet-settings.mjs','critical-fx.mjs','dice-theme-picker.mjs','sheet-loading.mjs','feedback.mjs','shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','items.mjs','record-id.mjs','lore.mjs','lore-draft.mjs','lore-draft-controller.mjs','lore-compose.mjs','lore-entry.mjs','feed.mjs','compose.mjs','post-thread.mjs','directory.mjs','character-view.mjs','rules-wizard.mjs','sheet.mjs','sheet-entry.mjs','character-library.mjs','admin-icons.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
 await writeFile(new URL('dist/assets/galaxy.mjs',root),await readFile(new URL('src/effects/galaxy.mjs',root)));
 
 await cp(new URL('src/account/',root),new URL('dist/account/',root),{recursive:true});

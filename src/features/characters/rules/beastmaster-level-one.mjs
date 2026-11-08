@@ -30,8 +30,8 @@ export function beastmasterFeatures(b){
  const companion=startingCompanion(b),link=beastmasterClass.data.companion.linkDescription;
  return beastmasterClass.features.filter(f=>f.atLevel===1&&(!f.requiresCompanion||companion)).map(f=>{
   if(f.id.endsWith(':animal-companion'))return {...f,name:companion?'Animal Companion — '+companion.name:f.name,
-   description:companion?statsText(companion.startingStatistics)+'\n\n'+companion.startingRules+'\n\n'+training+'\n\nLink: '+link+'\n\nOfficial companion source: '+source:noCompanionDescription};
-  if(f.id.endsWith(':animal-focus'))return {...f,description:'Level 1: one minute per day for your own limited focus, spent in one-minute increments. Spend one counter use per minute. Apply focus effects manually; do not add them as permanent ability-score or skill bonuses. A companion’s ongoing focus is separate from this counter.\n\n'+f.description};
+   sheetNotes:companion?statsText(companion.startingStatistics)+'\n\n'+companion.startingRules+'\n\n'+training+'\n\nLink: '+link+'\n\nOfficial companion source: '+source:noCompanionDescription};
+  if(f.id.endsWith(':animal-focus'))return {...f,sheetNotes:'Level 1: one minute per day for your own limited focus, spent in one-minute increments. Spend one counter use per minute. Apply focus effects manually; do not add them as permanent ability-score or skill bonuses. A companion’s ongoing focus is separate from this counter.'};
   return f;
  });
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 204,
+  "revision": 255,
   "schedule": [
     "class",
     "race",
@@ -57,14 +57,20 @@
     },
     "ffd20:class:archer": {
       "state": "live_partial",
-      "stage": "partial-live-support",
-      "cursor": "Existing live adapter retained.",
-      "nextAction": "Reconcile remaining source coverage and manual mechanics.",
-      "scope": "Existing live class path; choice/conditional limits and full source review remain.",
-      "note": "A partial milestone, not full import completion or independent approval.",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Complete guided 1–20 class choices and all archetype adapters from the restored archive; keep this user-requested family batch ahead of unrelated queue items.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Base Archer wizard remains 1–20.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
-        "rules/classes/README.md"
-      ]
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.065Z"
     },
     "ffd20:class:black-mage": {
       "state": "live_partial",
@@ -148,26 +154,20 @@
     },
     "ffd20:class:bard": {
       "state": "live_partial",
-      "stage": "deployed",
-      "cursor": "Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.",
-      "nextAction": "After baseline imports, review level-2 talents and Versatile Performance, later progression, orchestration rolls and remaining 135 song pages.",
-      "scope": "New single-class level-1 Bard creation/editing. Starting song entitlement frozen at creation. Combat, maintained songs and performance effects are manual; higher levels and archetypes disabled.",
-      "note": "Source review remains needs_review. Public deployment verified without claiming real-user provider login.",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Complete guided 1–20 class choices and all archetype adapters from the restored archive; keep this user-requested family batch ahead of unrelated queue items.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Base Bard wizard remains level 1.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
-        "rules/classes/README.md",
-        "docs/extraction/bard-batch-02.md",
-        "docs/extraction/bard-level-one-import.md",
-        "docs/extraction/bard-level-one-browser-validation.json",
-        "https://github.com/PhoeZAung/comos-cloud-test/pull/5",
-        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41021739898",
-        "docs/extraction/bard-level-one-deployment-validation.json",
-        "https://github.com/PhoeZAung/comos-cloud-test/pull/6",
-        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41022762945",
-        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41022907293"
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
       ],
-      "updatedAt": "2026-10-30T07:57:21.057Z"
+      "updatedAt": "2026-11-08T16:47:13.084Z"
     },
     "ffd20:race:elvaan": {
       "state": "live_partial",
@@ -250,21 +250,20 @@
     },
     "ffd20:class:beastmaster": {
       "state": "live_partial",
-      "stage": "deployed",
-      "cursor": "Bounded first-level Beastmaster adapter merged and live; seven public runtime assets match the tested cloud build",
-      "nextAction": "Later milestones: companion combat/training and replacement handling, source conflict resolution, higher-level feature and choice mappings, archetypes and independent full review",
-      "scope": "New level-1 creation/editing with eleven ordinary starter companions or none. Basic class stats, Nature Sense and daily counters supported. Companion HP/training/combat and focus effects manual; later starters/gated species, replacement in wizard, progression, multiclassing and archetypes guarded.",
-      "note": "PR #11 merged as 9b418395e5dce710f71705d2fd271c6c0fa80ac6. Branch CI 41078098996 and main CI 41078217137 passed; all 326 tests and cloud build pass. Seven deployed asset hashes match, health 200/database ready. Browser QA used fixture authentication; real-user provider acceptance remains.",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Complete guided 1–20 class choices and all archetype adapters from the restored archive; keep this user-requested family batch ahead of unrelated queue items.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Base Beastmaster wizard remains level 1.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
-        "docs/extraction/beastmaster-source-batch.md",
-        "docs/extraction/beastmaster-companions-source-batch.md",
-        "docs/extraction/beastmaster-level-one-import.md",
-        "docs/extraction/beastmaster-browser-validation.json",
-        "docs/extraction/beastmaster-deployment-validation.json"
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
       ],
-      "updatedAt": "2026-10-30T15:12:58.286Z"
+      "updatedAt": "2026-11-08T16:47:13.097Z"
     },
     "ffd20:race:hume": {
       "state": "live_partial",
@@ -2067,6 +2066,822 @@
         "tests/sheet-family-progression.test.mjs"
       ],
       "updatedAt": "2026-10-31T18:48:03.304Z"
+    },
+    "ffd20:archetype:archer:ambusher": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.110Z"
+    },
+    "ffd20:archetype:archer:arcane-archer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.126Z"
+    },
+    "ffd20:archetype:archer:battlefield-minstrel": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.142Z"
+    },
+    "ffd20:archetype:archer:dwarven-crossbowyer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.153Z"
+    },
+    "ffd20:archetype:archer:hawkeye": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.166Z"
+    },
+    "ffd20:archetype:archer:hunter": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.180Z"
+    },
+    "ffd20:archetype:archer:heaven-piercer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.192Z"
+    },
+    "ffd20:archetype:archer:serpent-archer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.201Z"
+    },
+    "ffd20:archetype:archer:skirmisher": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.212Z"
+    },
+    "ffd20:archetype:archer:sniper": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.222Z"
+    },
+    "ffd20:archetype:archer:tech-bow-specialist": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.231Z"
+    },
+    "ffd20:archetype:archer:yabbleshammy-archer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.240Z"
+    },
+    "ffd20:archetype:archer:zen-archer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.248Z"
+    },
+    "ffd20:archetype:archer:blackarrow": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.259Z"
+    },
+    "ffd20:archetype:archer:bowgunner": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.269Z"
+    },
+    "ffd20:archetype:bard:agent-of-inquiry": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.280Z"
+    },
+    "ffd20:archetype:bard:cacophonist": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.289Z"
+    },
+    "ffd20:archetype:bard:clown": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.300Z"
+    },
+    "ffd20:archetype:bard:dragon-herald": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.316Z"
+    },
+    "ffd20:archetype:bard:guitarist": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.325Z"
+    },
+    "ffd20:archetype:bard:juggler": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.336Z"
+    },
+    "ffd20:archetype:bard:marshal": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.346Z"
+    },
+    "ffd20:archetype:bard:mediator": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.357Z"
+    },
+    "ffd20:archetype:bard:orator": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.365Z"
+    },
+    "ffd20:archetype:bard:pied-piper": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.376Z"
+    },
+    "ffd20:archetype:bard:prankster": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.389Z"
+    },
+    "ffd20:archetype:bard:princess": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.403Z"
+    },
+    "ffd20:archetype:bard:rocker": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.412Z"
+    },
+    "ffd20:archetype:bard:skald": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.423Z"
+    },
+    "ffd20:archetype:bard:songhealer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.433Z"
+    },
+    "ffd20:archetype:bard:songstress": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.446Z"
+    },
+    "ffd20:archetype:bard:storyteller": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.456Z"
+    },
+    "ffd20:archetype:bard:watersinger": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.465Z"
+    },
+    "ffd20:archetype:bard:abhorsen": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.475Z"
+    },
+    "ffd20:archetype:bard:dragonkin": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.485Z"
+    },
+    "ffd20:archetype:bard:rearguard": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.495Z"
+    },
+    "ffd20:archetype:beastmaster:feral-gnasher": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.505Z"
+    },
+    "ffd20:archetype:beastmaster:fiend-trainer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.513Z"
+    },
+    "ffd20:archetype:beastmaster:keeper-of-the-grove": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.523Z"
+    },
+    "ffd20:archetype:beastmaster:mimic-warrior": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.531Z"
+    },
+    "ffd20:archetype:beastmaster:natural-striker": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.543Z"
+    },
+    "ffd20:archetype:beastmaster:pack-bonded-hunter": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.559Z"
+    },
+    "ffd20:archetype:beastmaster:primal-hunter": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.568Z"
+    },
+    "ffd20:archetype:beastmaster:ranger": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.577Z"
+    },
+    "ffd20:archetype:beastmaster:slayer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.586Z"
+    },
+    "ffd20:archetype:beastmaster:tamer": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.596Z"
+    },
+    "ffd20:archetype:beastmaster:tree-guardian": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.606Z"
+    },
+    "ffd20:archetype:beastmaster:wild-shadow": {
+      "state": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "nextAction": "Verify exact canonical replacements, profile and choice mappings, then implement and test its wizard save/level-up adapter.",
+      "scope": "Manual source cards with full text, prerequisites and replacement instructions; choices, counters and effects are edited by the player. Automatic archetype replacement and progression adapters are not enabled.",
+      "note": "User chose manual effects for now. Source import is a separate milestone, not full automatic class/archetype completion or independent rule approval. Source restored from extractor transfer/potato-local commit c68a4c7ce8542be2be26f16eb78ff7424ff65c7b. Natural Savagery uses the class table by user choice.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/first-three-core-manual-import.md",
+        "docs/extraction/first-three-core-source-audit.json",
+        "tests/first-core-manual.test.mjs",
+        "scripts/check-first-core-manual-browser.mjs"
+      ],
+      "updatedAt": "2026-11-08T16:47:13.617Z"
     }
   },
   "history": [
@@ -3896,6 +4711,465 @@
       "stage": "local-family-validated",
       "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
       "time": "2026-10-31T18:48:03.304Z"
+    },
+    {
+      "revision": 205,
+      "itemId": "ffd20:class:archer",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.065Z"
+    },
+    {
+      "revision": 206,
+      "itemId": "ffd20:class:bard",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.084Z"
+    },
+    {
+      "revision": 207,
+      "itemId": "ffd20:class:beastmaster",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.097Z"
+    },
+    {
+      "revision": 208,
+      "itemId": "ffd20:archetype:archer:ambusher",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.110Z"
+    },
+    {
+      "revision": 209,
+      "itemId": "ffd20:archetype:archer:arcane-archer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.126Z"
+    },
+    {
+      "revision": 210,
+      "itemId": "ffd20:archetype:archer:battlefield-minstrel",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.142Z"
+    },
+    {
+      "revision": 211,
+      "itemId": "ffd20:archetype:archer:dwarven-crossbowyer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.153Z"
+    },
+    {
+      "revision": 212,
+      "itemId": "ffd20:archetype:archer:hawkeye",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.166Z"
+    },
+    {
+      "revision": 213,
+      "itemId": "ffd20:archetype:archer:hunter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.180Z"
+    },
+    {
+      "revision": 214,
+      "itemId": "ffd20:archetype:archer:heaven-piercer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.192Z"
+    },
+    {
+      "revision": 215,
+      "itemId": "ffd20:archetype:archer:serpent-archer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.201Z"
+    },
+    {
+      "revision": 216,
+      "itemId": "ffd20:archetype:archer:skirmisher",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.212Z"
+    },
+    {
+      "revision": 217,
+      "itemId": "ffd20:archetype:archer:sniper",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.222Z"
+    },
+    {
+      "revision": 218,
+      "itemId": "ffd20:archetype:archer:tech-bow-specialist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.231Z"
+    },
+    {
+      "revision": 219,
+      "itemId": "ffd20:archetype:archer:yabbleshammy-archer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.240Z"
+    },
+    {
+      "revision": 220,
+      "itemId": "ffd20:archetype:archer:zen-archer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.248Z"
+    },
+    {
+      "revision": 221,
+      "itemId": "ffd20:archetype:archer:blackarrow",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.259Z"
+    },
+    {
+      "revision": 222,
+      "itemId": "ffd20:archetype:archer:bowgunner",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.269Z"
+    },
+    {
+      "revision": 223,
+      "itemId": "ffd20:archetype:bard:agent-of-inquiry",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.280Z"
+    },
+    {
+      "revision": 224,
+      "itemId": "ffd20:archetype:bard:cacophonist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.289Z"
+    },
+    {
+      "revision": 225,
+      "itemId": "ffd20:archetype:bard:clown",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.300Z"
+    },
+    {
+      "revision": 226,
+      "itemId": "ffd20:archetype:bard:dragon-herald",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.316Z"
+    },
+    {
+      "revision": 227,
+      "itemId": "ffd20:archetype:bard:guitarist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.325Z"
+    },
+    {
+      "revision": 228,
+      "itemId": "ffd20:archetype:bard:juggler",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.336Z"
+    },
+    {
+      "revision": 229,
+      "itemId": "ffd20:archetype:bard:marshal",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.346Z"
+    },
+    {
+      "revision": 230,
+      "itemId": "ffd20:archetype:bard:mediator",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.357Z"
+    },
+    {
+      "revision": 231,
+      "itemId": "ffd20:archetype:bard:orator",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.365Z"
+    },
+    {
+      "revision": 232,
+      "itemId": "ffd20:archetype:bard:pied-piper",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.376Z"
+    },
+    {
+      "revision": 233,
+      "itemId": "ffd20:archetype:bard:prankster",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.389Z"
+    },
+    {
+      "revision": 234,
+      "itemId": "ffd20:archetype:bard:princess",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.403Z"
+    },
+    {
+      "revision": 235,
+      "itemId": "ffd20:archetype:bard:rocker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.412Z"
+    },
+    {
+      "revision": 236,
+      "itemId": "ffd20:archetype:bard:skald",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.423Z"
+    },
+    {
+      "revision": 237,
+      "itemId": "ffd20:archetype:bard:songhealer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.433Z"
+    },
+    {
+      "revision": 238,
+      "itemId": "ffd20:archetype:bard:songstress",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.446Z"
+    },
+    {
+      "revision": 239,
+      "itemId": "ffd20:archetype:bard:storyteller",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.456Z"
+    },
+    {
+      "revision": 240,
+      "itemId": "ffd20:archetype:bard:watersinger",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.465Z"
+    },
+    {
+      "revision": 241,
+      "itemId": "ffd20:archetype:bard:abhorsen",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.475Z"
+    },
+    {
+      "revision": 242,
+      "itemId": "ffd20:archetype:bard:dragonkin",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.485Z"
+    },
+    {
+      "revision": 243,
+      "itemId": "ffd20:archetype:bard:rearguard",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.495Z"
+    },
+    {
+      "revision": 244,
+      "itemId": "ffd20:archetype:beastmaster:feral-gnasher",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.505Z"
+    },
+    {
+      "revision": 245,
+      "itemId": "ffd20:archetype:beastmaster:fiend-trainer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.513Z"
+    },
+    {
+      "revision": 246,
+      "itemId": "ffd20:archetype:beastmaster:keeper-of-the-grove",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.523Z"
+    },
+    {
+      "revision": 247,
+      "itemId": "ffd20:archetype:beastmaster:mimic-warrior",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.531Z"
+    },
+    {
+      "revision": 248,
+      "itemId": "ffd20:archetype:beastmaster:natural-striker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.543Z"
+    },
+    {
+      "revision": 249,
+      "itemId": "ffd20:archetype:beastmaster:pack-bonded-hunter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.559Z"
+    },
+    {
+      "revision": 250,
+      "itemId": "ffd20:archetype:beastmaster:primal-hunter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.568Z"
+    },
+    {
+      "revision": 251,
+      "itemId": "ffd20:archetype:beastmaster:ranger",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.577Z"
+    },
+    {
+      "revision": 252,
+      "itemId": "ffd20:archetype:beastmaster:slayer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.586Z"
+    },
+    {
+      "revision": 253,
+      "itemId": "ffd20:archetype:beastmaster:tamer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.596Z"
+    },
+    {
+      "revision": 254,
+      "itemId": "ffd20:archetype:beastmaster:tree-guardian",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.606Z"
+    },
+    {
+      "revision": 255,
+      "itemId": "ffd20:archetype:beastmaster:wild-shadow",
+      "from": "queued",
+      "to": "queued",
+      "stage": "manual-source-import-ready",
+      "cursor": "Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete.",
+      "time": "2026-11-08T16:47:13.617Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

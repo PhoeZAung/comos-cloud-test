@@ -550,7 +550,9 @@
             "section": "Class Features",
             "locator": "6049"
           }
-        ]
+        ],
+        "progressionDescription": "Archers are proficient with all simple weapons and all weapons from the bow and crossbow weapon groups. Archers are proficient with light armor, but not with any type of shields.",
+        "sourceTextHash": "5cc13c75ef8e901d96be4566dcbf07b84b8e600978de7fc64b71ebfd00510a0e"
       },
       {
         "id": "ffd20:class:archer:feature:limit-breaks",
@@ -566,7 +568,9 @@
             "section": "Class Features",
             "locator": "6052"
           }
-        ]
+        ],
+        "progressionDescription": "At 1st level, the archer receives the Limit Breaks (Shell Piercer and Trueshot Arrow).\n\n*Shell Piercer ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the archer to strike through any armor. For a duration of 1 round + 1 round per four archer levels after 1st, the first arrow that an archer fires per round goes against touch AC rather than normal AC. For every four archer levels after 1st, the archer treats another arrow he fires against touch AC. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n*Trueshot Arrow ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the archer to enhance his Targeted Shots. For a duration of 1 round + 1 round per four archer levels after 1st, the first Targeted Shot that hits per round counts as a confirmed critical Targeted Shot with a +1 competence bonus to the save DC plus an additional +1 competence bonus per four archer levels after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "sourceTextHash": "a1b2f5719b9bb23e8ac038a19dffece04a76c9e329396c9a95ef8e0603c77983"
       },
       {
         "id": "ffd20:class:archer:feature:shell-piercer",
@@ -582,7 +586,9 @@
             "section": "Class Features",
             "locator": "6053"
           }
-        ]
+        ],
+        "progressionDescription": "*Shell Piercer ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the archer to strike through any armor. For a duration of 1 round + 1 round per four archer levels after 1st, the first arrow that an archer fires per round goes against touch AC rather than normal AC. For every four archer levels after 1st, the archer treats another arrow he fires against touch AC. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "sourceTextHash": "f0a57bb0ce6d4ff96d5b8a40385284d76b7e015605d98653e3ae041c2b7806cf"
       },
       {
         "id": "ffd20:class:archer:feature:trueshot-arrow",
@@ -598,7 +604,9 @@
             "section": "Class Features",
             "locator": "6054"
           }
-        ]
+        ],
+        "progressionDescription": "*Trueshot Arrow ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the archer to enhance his Targeted Shots. For a duration of 1 round + 1 round per four archer levels after 1st, the first Targeted Shot that hits per round counts as a confirmed critical Targeted Shot with a +1 competence bonus to the save DC plus an additional +1 competence bonus per four archer levels after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n### Archer Training ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nStarting at 1st level, an archer counts his total archer levels as base attack bonus for the purpose of qualifying for feats.\n\n### Archery Style ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAt 1st level, the archer gains one of the following feats as a bonus feat: [Deadly Aim](http://www.d20pfsrd.com/feats/combat-feats/deadly-aim-combat), [Far Shot](http://www.d20pfsrd.com/feats/combat-feats/far-shot-combat-final), [Focused Shot](http://www.d20pfsrd.com/feats/combat-feats/focused-shot-combat), [Point Blank Shot](http://www.d20pfsrd.com/feats/combat-feats/point-blank-shot-combat-final), [Precise Shot](http://www.d20pfsrd.com/feats/combat-feats/precise-shot-combat-final/), [Rapid Reload](http://www.d20pfsrd.com/feats/combat-feats/rapid-reload-combat), and [Rapid Shot](http://www.d20pfsrd.com/feats/combat-feats/rapid-shot-combat-final), even if he does not have the normal prerequisites for that feat. The benefits of this ability apply only when he wears light or no armor. He loses all benefits of this ability when wearing medium or heavy armor.\n\n### Aim ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAlso at 1st level, an archer can aim at an opponent he can see as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). The archer then gains a +1 insight bonus on Bluff, Knowledge, Perception, Sense Motive, and Survival checks attempted against that opponent, and a +1 insight bonus on bow and crossbow attack and damage rolls against it. An archer can only maintain these bonuses against one opponent at a time; these bonuses remain in effect until either the opponent is dead or the archer aims at a new target.\n\nAt 5th, 10th, 15th, and 20th levels, the bonuses on bow and crossbow attack rolls, damage rolls, and skill checks against an aimed target increase by 1. In addition, at each such interval, the archer is able to maintain these bonuses against an additional aimed target at the same time. The archer may discard this connection to an aimed target as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), allowing him to aim at another target in its place.\n\nAt 7th level, an archer can aim at an opponent as a move or [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n### Hawkeye ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAt 2nd level, an archer gains a +1 bonus on Perception checks, and the range increment for any bow or crossbow he uses increases by 5 feet. These bonuses increase by +1 and 5 additional feet for every 3 levels beyond 2nd.\n\n### Archery Talents ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAs an archer gains experience, he learns a number of talents that aid him against his foes. Starting at 2nd level, an archer gains one archery talent. He gains an additional archery talent for every 2 levels of archer attained after 2nd level. Unless otherwise stated, an archer cannot select an individual talent more than once. Talents marked with an asterisk(\\*) cannot be combined with other asterisked talents, and each of these talents can only be used once per round each.\n\n* A complete list of archery talents can be found here: [Archery Talents](http://finalfantasyd20.com/classes/core-classes/archer/archery-talents/)\n\n### Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAt 3rd level and higher, an archer can avoid even magical and unusual attacks with great agility. If he makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, he instead takes no damage. Evasion can be used only if the archer is wearing light armor. A helpless archer does not gain the benefit of evasion.\n\n### Agile Archer ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nStarting at 3rd level, when making a ranged attack an archer may add his Dexterity modifier (this bonus is halved if he has a level in another non-prestige class and this is not his favored class) to the damage roll while using a bow or crossbow. If an effect or item would allow an archer to use his Strength for ranged weapon damage rolls, he instead uses Dexterity, but it doesn’t stack. For example, an archer using a composite longbow can decide to use his STR modifier up to the rating of the bow, or use all of his DEX modifier to damage regardless of the composite bow’s rating.\n\nAn archer still takes the [penalty to damage](https://www.d20pfsrd.com/BASICS-ABILITY-SCORES/ability-scores/#Strength_Str) from having a STR modifier lower than 0 made with non-composite bows, as well as the -2 penalty on attacks rolls and damage penalty when having a STR modifier lower than the [composite](https://www.d20pfsrd.com/equipment/weapons/weapon-descriptions/longbow-composite) value of a composite bow.\n\n### Expert Archer ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAt 4th level, an archer gains a +1 bonus on ranged attack and damage rolls with bows and crossbows. This bonus increases by +1 for every four levels beyond 4th.\n\n### Improved Archery Style ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAt 5th level, an archer’s aptitude in his archery improves. He gains one of the following feats as a bonus feat or a feat from the previous ability: [Crossbow Mastery](http://www.d20pfsrd.com/feats/combat-feats/crossbow-mastery-combat), [Expert Sniper](https://www.d20pfsrd.com/feats/combat-feats/expert-sniper-combat/), [Improved Precise Shot](https://www.d20pfsrd.com/feats/combat-feats/improved-precise-shot-combat-final/), [Parting Shot](http://www.d20pfsrd.com/feats/combat-feats/parting-shot-combat), and [Manyshot](http://www.d20pfsrd.com/feats/combat-feats/manyshot-combat-final), even if he does not have the normal prerequisites for that feat. As before, the benefits of this ability apply only when he wears light or no armor. He loses all benefits of this ability when wearing medium or heavy armor.\n\n### Targeted Shot ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAt 5th level, while using aim at a target, the archer can attempt to strike a specific body part on an aimed target within the first range increment of his bow and crossbow, to cause various effects.\n\nThe archer must declare his intention to attempt a Targeted Shot and designate the specific target and body part before the attack roll is made. The archer then makes ranged attacks as normal (can make multiple Targeted Shots as his number of attacks allowed). A successful attack deals weapon damage normally and causes debilitating secondary effects. Conditions and penalties incurred by Targeted Shot last for 24 hours, or until the creature is successfully treated with a DC 15 Heal check, or until it receives the benefit of a [*restora*](https://www.finalfantasyd20.com/magic/spells/r/restora) spell or equivalent effect.\n\nIf damage reduction completely negates the damage from a Targeted Shot, the Targeted Shot has no effect. If hit-point damage does get through, the Targeted Shot has normal effects. Creatures immune to [critical hits](https://www.d20pfsrd.com/gamemastering/Combat/#TOC-Critical-Hits) are immune to the effects of a Targeted Shot. Multiple successful Targeted Shots against the same body part or body parts of a single creature are not cumulative.\n\nThis feature does not interact with the optional system [Called Shots of Pathfinder](https://www.d20pfsrd.com/gamemastering/other-rules/called-shots/), feats and bonuses to that system do not work with his feature.",
+        "sourceTextHash": "465e3e77990b3c062296015a6d7270a3269943d36584e7909d665e8adfbb61aa"
       },
       {
         "id": "ffd20:class:archer:feature:archer-training",
@@ -614,7 +622,9 @@
             "section": "Class Features",
             "locator": "6057"
           }
-        ]
+        ],
+        "progressionDescription": "Starting at 1st level, an archer counts his total archer levels as base attack bonus for the purpose of qualifying for feats.",
+        "sourceTextHash": "119222a21fd03dd5ee177385fa34d11db8f10aae1963939823bcec64858c72c9"
       },
       {
         "id": "ffd20:class:archer:feature:archery-style",
@@ -630,7 +640,9 @@
             "section": "Class Features",
             "locator": "6059"
           }
-        ]
+        ],
+        "progressionDescription": "At 1st level, the archer gains one of the following feats as a bonus feat: [Deadly Aim](http://www.d20pfsrd.com/feats/combat-feats/deadly-aim-combat), [Far Shot](http://www.d20pfsrd.com/feats/combat-feats/far-shot-combat-final), [Focused Shot](http://www.d20pfsrd.com/feats/combat-feats/focused-shot-combat), [Point Blank Shot](http://www.d20pfsrd.com/feats/combat-feats/point-blank-shot-combat-final), [Precise Shot](http://www.d20pfsrd.com/feats/combat-feats/precise-shot-combat-final/), [Rapid Reload](http://www.d20pfsrd.com/feats/combat-feats/rapid-reload-combat), and [Rapid Shot](http://www.d20pfsrd.com/feats/combat-feats/rapid-shot-combat-final), even if he does not have the normal prerequisites for that feat. The benefits of this ability apply only when he wears light or no armor. He loses all benefits of this ability when wearing medium or heavy armor.",
+        "sourceTextHash": "c8d6169658b24be4f4e6bbce61db14cb85c9a614bcd845b16940fbd2042b692a"
       },
       {
         "id": "ffd20:class:archer:feature:aim",
@@ -646,7 +658,9 @@
             "section": "Class Features",
             "locator": "6062"
           }
-        ]
+        ],
+        "progressionDescription": "Also at 1st level, an archer can aim at an opponent he can see as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). The archer then gains a +1 insight bonus on Bluff, Knowledge, Perception, Sense Motive, and Survival checks attempted against that opponent, and a +1 insight bonus on bow and crossbow attack and damage rolls against it. An archer can only maintain these bonuses against one opponent at a time; these bonuses remain in effect until either the opponent is dead or the archer aims at a new target.\n\nAt 5th, 10th, 15th, and 20th levels, the bonuses on bow and crossbow attack rolls, damage rolls, and skill checks against an aimed target increase by 1. In addition, at each such interval, the archer is able to maintain these bonuses against an additional aimed target at the same time. The archer may discard this connection to an aimed target as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), allowing him to aim at another target in its place.\n\nAt 7th level, an archer can aim at an opponent as a move or [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "sourceTextHash": "8c5c5a0a444a73ce3d0afc6072ac9011fa2863fa10364368cc3fe655e9271cfb"
       },
       {
         "id": "ffd20:class:archer:feature:hawkeye",
@@ -662,7 +676,9 @@
             "section": "Class Features",
             "locator": "6067"
           }
-        ]
+        ],
+        "progressionDescription": "At 2nd level, an archer gains a +1 bonus on Perception checks, and the range increment for any bow or crossbow he uses increases by 5 feet. These bonuses increase by +1 and 5 additional feet for every 3 levels beyond 2nd.",
+        "sourceTextHash": "d694bc439f2c2fae2ee7e811c67bf6e054292ddb75736fc21523ee7097498e7e"
       },
       {
         "id": "ffd20:class:archer:feature:archery-talents",
@@ -678,7 +694,9 @@
             "section": "Class Features",
             "locator": "6069"
           }
-        ]
+        ],
+        "progressionDescription": "As an archer gains experience, he learns a number of talents that aid him against his foes. Starting at 2nd level, an archer gains one archery talent. He gains an additional archery talent for every 2 levels of archer attained after 2nd level. Unless otherwise stated, an archer cannot select an individual talent more than once. Talents marked with an asterisk(\\*) cannot be combined with other asterisked talents, and each of these talents can only be used once per round each.\n\n* A complete list of archery talents can be found here: [Archery Talents](http://finalfantasyd20.com/classes/core-classes/archer/archery-talents/)",
+        "sourceTextHash": "c7588b6617f21076aad5ed15bbeed8dc042c6bec44579159fd938d361414be31"
       },
       {
         "id": "ffd20:class:archer:feature:agile-archer",
@@ -694,7 +712,9 @@
             "section": "Class Features",
             "locator": "6075"
           }
-        ]
+        ],
+        "progressionDescription": "Starting at 3rd level, when making a ranged attack an archer may add his Dexterity modifier (this bonus is halved if he has a level in another non-prestige class and this is not his favored class) to the damage roll while using a bow or crossbow. If an effect or item would allow an archer to use his Strength for ranged weapon damage rolls, he instead uses Dexterity, but it doesn’t stack. For example, an archer using a composite longbow can decide to use his STR modifier up to the rating of the bow, or use all of his DEX modifier to damage regardless of the composite bow’s rating.\n\nAn archer still takes the [penalty to damage](https://www.d20pfsrd.com/BASICS-ABILITY-SCORES/ability-scores/#Strength_Str) from having a STR modifier lower than 0 made with non-composite bows, as well as the -2 penalty on attacks rolls and damage penalty when having a STR modifier lower than the [composite](https://www.d20pfsrd.com/equipment/weapons/weapon-descriptions/longbow-composite) value of a composite bow.",
+        "sourceTextHash": "f3cb8de9ad497ac6bed8872ff5334ef2d6dd2a2c78afb26d4de5dc9d603eff26"
       },
       {
         "id": "ffd20:class:archer:feature:evasion",
@@ -710,7 +730,9 @@
             "section": "Class Features",
             "locator": "6073"
           }
-        ]
+        ],
+        "progressionDescription": "At 3rd level and higher, an archer can avoid even magical and unusual attacks with great agility. If he makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, he instead takes no damage. Evasion can be used only if the archer is wearing light armor. A helpless archer does not gain the benefit of evasion.\n\nAt 11th level, the archer’s evasion ability improves. This works like *evasion*, except that while the archer still takes no damage on a successful Reflex saving throw against attacks, he henceforth takes only half damage on a failed save. A helpless archer does not gain the benefit of improved evasion.",
+        "sourceTextHash": "ab665efdd460a57021d7288b3dc60cc4c65859e869f973ed4ea52eae427078f5"
       },
       {
         "id": "ffd20:class:archer:feature:expert-archer",
@@ -726,7 +748,9 @@
             "section": "Class Features",
             "locator": "6080"
           }
-        ]
+        ],
+        "progressionDescription": "At 4th level, an archer gains a +1 bonus on ranged attack and damage rolls with bows and crossbows. This bonus increases by +1 for every four levels beyond 4th.",
+        "sourceTextHash": "4525fd311aec725d937e0f74630fa965ef60d5a025d16c3d4fd52031e9ebee5e"
       },
       {
         "id": "ffd20:class:archer:feature:improved-archery-style",
@@ -742,7 +766,9 @@
             "section": "Class Features",
             "locator": "6082"
           }
-        ]
+        ],
+        "progressionDescription": "At 5th level, an archer’s aptitude in his archery improves. He gains one of the following feats as a bonus feat or a feat from the previous ability: [Crossbow Mastery](http://www.d20pfsrd.com/feats/combat-feats/crossbow-mastery-combat), [Expert Sniper](https://www.d20pfsrd.com/feats/combat-feats/expert-sniper-combat/), [Improved Precise Shot](https://www.d20pfsrd.com/feats/combat-feats/improved-precise-shot-combat-final/), [Parting Shot](http://www.d20pfsrd.com/feats/combat-feats/parting-shot-combat), and [Manyshot](http://www.d20pfsrd.com/feats/combat-feats/manyshot-combat-final), even if he does not have the normal prerequisites for that feat. As before, the benefits of this ability apply only when he wears light or no armor. He loses all benefits of this ability when wearing medium or heavy armor.",
+        "sourceTextHash": "a57d4f984e31877d1689862280464abec860a6b04497ebe3079d6099ebae7546"
       },
       {
         "id": "ffd20:class:archer:feature:targeted-shot",
@@ -758,7 +784,9 @@
             "section": "Class Features",
             "locator": "6086"
           }
-        ]
+        ],
+        "progressionDescription": "At 5th level, while using aim at a target, the archer can attempt to strike a specific body part on an aimed target within the first range increment of his bow and crossbow, to cause various effects.\n\nThe archer must declare his intention to attempt a Targeted Shot and designate the specific target and body part before the attack roll is made. The archer then makes ranged attacks as normal (can make multiple Targeted Shots as his number of attacks allowed). A successful attack deals weapon damage normally and causes debilitating secondary effects. Conditions and penalties incurred by Targeted Shot last for 24 hours, or until the creature is successfully treated with a DC 15 Heal check, or until it receives the benefit of a [*restora*](https://www.finalfantasyd20.com/magic/spells/r/restora) spell or equivalent effect.\n\nIf damage reduction completely negates the damage from a Targeted Shot, the Targeted Shot has no effect. If hit-point damage does get through, the Targeted Shot has normal effects. Creatures immune to [critical hits](https://www.d20pfsrd.com/gamemastering/Combat/#TOC-Critical-Hits) are immune to the effects of a Targeted Shot. Multiple successful Targeted Shots against the same body part or body parts of a single creature are not cumulative.\n\nThis feature does not interact with the optional system [Called Shots of Pathfinder](https://www.d20pfsrd.com/gamemastering/other-rules/called-shots/), feats and bonuses to that system do not work with his feature.\n\n* **Arm (-2):** Arms are the manipulating limbs of a creature, including tentacles. Wings are also considered to be arms for purposes of a Targeted Shot. Targeted Shots to the arm suffer a –2 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to an arm deals no additional damage, but for 1d4 rounds, any attack rolls, ability checks, or skill checks made using the wounded arm take a –2 penalty. A flying creature shot in the wing must make a Fly check (DC 10 + damage dealt) to avoid descending involuntarily.\n  + **Critical Targeted Shot:** A critical hit to the arm deals 1d4 points of Dexterity damage and 1d4 points of Strength damage. A successful Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) halves the ability damage (minimum 1 point to each attribute). The target also suffers the effects of a Targeted Shot to the arm for 1d4 minutes.\n* **Chest (-2):** Targeted Shots to the chest are aimed at the well-protected center of mass of a creature. Targeted Shots to the chest suffer a –2 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to the chest deals no additional damage, but any skill checks caused by the hit (such as an Acrobatics check while balancing or a Climb check while climbing) take a –2 penalty.\n  + **Critical Targeted Shot:** A critical hit to the chest deals 1d4 points of Constitution damage and [fatigues](https://www.finalfantasyd20.com/magic/status-effects/#fatigued) the target. A successful Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) (made after the Constitution damage is applied) negates the [fatigue](https://www.finalfantasyd20.com/magic/status-effects/#fatigued). The creature also suffers the effects of a Targeted Shot to the chest.\n* **Ear (-10):** Ears are the organs used to hear. Creatures without visible ears generally aren’t susceptible to Targeted Shots to that location. Targeted Shots to the ear suffer a –10 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to the ear deafens that ear for 1 round, and imposes a –2 penalty on Perception checks. A creature that loses hearing in all ears is [deafened](https://www.finalfantasyd20.com/magic/status-effects/#deafened) until hearing is returned by way of the [*restora*](https://www.finalfantasyd20.com/magic/spells/r/restora) spell or a similar effect.\n  + **Critical Targeted Shot:** A critical hit to the ear deafens that ear for 2d6 minutes and leaves the target [staggered](https://www.finalfantasyd20.com/magic/status-effects/#staggered) for 1 round. The target also suffers the effects of a Targeted Shot to the ear for that duration.\n* **Eye (-10):** Eyes include whatever organs a creature uses to see. Generally, a creature can’t be blinded until it has lost all vision in all of its eyes. Creatures with five or more eyes take no penalties from Targeted Shots to their eyes until they’re blinded in enough eyes to bring them down a single functional eye, but can still be blinded in that eye by a critical hit. Targeted Shots to the eye suffer a –10 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to the eye gives all of the target’s foes concealment against its attacks for 1 round and gives it a –2 penalty on Perception checks. If the creature only has one functional eye prior to the Targeted Shot, it is [blinded](https://www.finalfantasyd20.com/magic/status-effects/#blinded) for 1 round instead.\n  + **Critical Targeted Shot:** A critical hit to the eye costs the target’s sight in that eye for 1d4 minutes. The target also suffers the effects of a Targeted Shot to the eye for that duration.\n* **Hand (-5):** Hands include most extremities used for fine manipulation. Targeted Shots to the hand suffer a –5 penalty to attack rolls.\n  + **Targeted Shot:** For 1d4 rounds, any attack rolls, damage rolls, ability checks, or skill checks made using the wounded hand take a –2 penalty, including attack and damage rolls with two-handed weapons. In addition, the target takes a –4 penalty to its CMD to resist disarm attempts, and drops its weapon (if any) on an attack roll result of a natural 1.\n  + **Critical Targeted Shot:** A critical hit to the hand deals 1d4 points of Dexterity damage. In addition, the target drops anything it is holding in that hand unless it succeeds at a Reflex save (DC 10 + half of the archer’s level + his Dexterity modifier). Items held in two hands aren’t dropped, but the target still loses its grip with the injured hand. The target also suffers the effects of a Targeted Shot to the hand for 1d4 minutes.\n* **Head (-5):** Targeted Shots to the head suffer a –5 penalty to attack rolls, as most creatures show some skill at dodging attacks aimed at their faces. Some creatures lack a proper head altogether. Creatures with multiple heads must be hit by Targeted Shots to all their heads in a single round to suffer ill effects, and even then, only suffer the least effect that is inflicted on any single head.\n  + **Targeted Shot:** A Targeted Shot to the head leaves the target [sickened](https://www.finalfantasyd20.com/magic/status-effects/#sickened) for 1d4 rounds.\n  + **Critical Targeted Shot:** A critical hit to the head deals 1d6 points of Intelligence, Wisdom, or Charisma damage (randomly determine which) and [staggers](https://www.finalfantasyd20.com/magic/status-effects/#staggered) the target for 1d4 rounds. A successful Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) prevents the target from being [staggered](https://www.finalfantasyd20.com/magic/status-effects/#staggered). The target also suffers the effects of a Targeted Shot to the head for 1d4 minutes.\n* **Heart (-10):** A Targeted Shot to the heart represents an attempt at a killing blow. If the hit isn’t a critical hit, the attempt fails and is just a normal hit. A Targeted Shot to the heart can be used for any small, likely fatal location on a creature, such as the only weakness on an unimaginably ancient red dragon. Targeted Shots to the heart suffer a –10 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to the heart is just a normal hit with no extra effect.\n  + **Critical Targeted Shot:** A critical hit to the heart pierces the organ, causing [exhaustion](https://www.finalfantasyd20.com/magic/status-effects/#exhausted) and 1d4 points of Constitution [bleed damage](https://www.finalfantasyd20.com/magic/status-effects/#bleed). A successful Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) reduces this to [fatigue](https://www.finalfantasyd20.com/magic/status-effects/#fatigued) and 1 point of Constitution [bleed damage](https://www.finalfantasyd20.com/magic/status-effects/#bleed). In either case, stopping the bleeding requires either regeneration (spell or special ability), magic healing that heals as many points of damage (from one or more sources) as the original blow dealt, or a successful DC 20 Heal check that takes 1d4 rounds to complete.\n* **Leg (-2):** Legs are the ambulatory limbs of a creature. Targeted Shots to the leg have no special effect on creatures with five or more legs. Targeted Shots to the leg suffer a –2 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to a leg lowers the target creature’s speed by 10 feet for 1d4 rounds if it has two or fewer legs, and by 5 feet if it has three or four legs. In either case, the creature’s speed cannot be reduced below 5 feet per round. Targeted Shots to the leg have no effect on creatures with five or more legs. Hitting the same leg more than once has no extra effect, but the speed penalty for hits on different legs stack. Additionally, any skill or ability checks involving movement (such as Acrobatics or Swim checks) take a –2 penalty for 1d4 rounds.\n  + **Critical Targeted Shot:** A critical hit to the leg deals 1d4 points of Dexterity damage and knocks the target prone. A successful Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) keeps the creature from falling prone. The creature also suffers the effects of a Targeted Shot to the leg for 1d4 minutes.\n* **Foot (-5):** Targeted Shots to the foot aim to take away the target’s ability to charge at their foes. Targeted Shots to the foot suffer a –5 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to the foot stops the target being able to charge or run for 1d4 rounds.\n  + **Critical Targeted Shot:** A critical hit to the foot deals 1d4 points of Dexterity damage and causes the target to become [Immobilized](https://www.finalfantasyd20.com/magic/status-effects/#immobilized), a Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) to negate the status effect. The creature also suffers the effects of a Targeted Shot to the foot for 1d4 minutes.\n* **Neck (-10):** The neck makes for a difficult but rewarding target. Injuries to the neck keep a creature from speaking easily, and if blood vessels or the windpipe are damaged, such injuries rapidly lead to death. Creatures that lack vulnerable heads generally can’t be attacked in the neck either. Targeted Shots to the neck suffer a –10 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to the neck makes speaking above a hoarse whisper impossible for 1 round. Spells have a 20% chance of failing outright, as do attempts to activate command-word items (although for magic items, the use of the item is not wasted).\n  + **Critical Targeted Shot:** A critical hit to the neck deals 1d6 points of [bleed damage](https://www.finalfantasyd20.com/magic/status-effects/#bleed). In addition, the target must succeed at a Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) or suffer a crushed windpipe and be unable to breathe or speak, possibly suffocating. A crushed windpipe can be repaired by magical healing (from one or more sources) that heals as many hit points of damage as the original hit dealt, or by a DC 25 Heal check to open up a hole into the windpipe. The latter check deals 2d6 hit points of damage, and leaves the creature still unable to speak. If target makes its saving throw, it still suffers the effects of a Targeted Shot to the neck for 1d4 minutes.\n* **Vitals (-5):** The vitals correspond to the abdomen on a humanoid: critical organs not well-protected by bone. Attacks on the vitals can also include dastardly “low blows.” Vitals for non-humanoid creatures can include nearly any location that is relatively hard to hit, poorly protected, and debilitating if struck. Targeted Shots to the vitals suffer a –5 penalty to attack rolls.\n  + **Targeted Shot:** A Targeted Shot to the vitals leaves the target [sickened](https://www.finalfantasyd20.com/magic/status-effects/#sickened) for 1d4 rounds. A successful Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) reduces this duration to 1 round. While [sickened](https://www.finalfantasyd20.com/magic/status-effects/#sickened) from the blow, the target cannot run or charge.\n  + **Critical Targeted Shot:** A critical hit deals 1d4 points of Constitution damage. In addition, the target is [nauseated](https://www.finalfantasyd20.com/magic/status-effects/#nauseated) for 1d4 rounds and [sickened](https://www.finalfantasyd20.com/magic/status-effects/#sickened) for 1d6 minutes. A successful Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) negates the [nauseated](https://www.finalfantasyd20.com/magic/status-effects/#nauseated) condition. While the target is [sickened](https://www.finalfantasyd20.com/magic/status-effects/#sickened) from the blow, it cannot run or charge.",
+        "sourceTextHash": "51fb78df68ec66ba1f1d6bb2c67d9e73629e679b9d3c6c1b1ae333dc1cec2b81"
       },
       {
         "id": "ffd20:class:archer:feature:fast-movement",
@@ -774,7 +802,9 @@
             "section": "Class Features",
             "locator": "6129"
           }
-        ]
+        ],
+        "progressionDescription": "At 6th level, when not firing or reloading, archer can quickly change position. When wearing light or no armor and carrying no more than a light load, his base move speed increases by 10 feet. This bonus increases by 10 feet for every three archer levels after 6th level.",
+        "sourceTextHash": "cd7f70d419b568c0d7789948829b11075145508eecdda2b640755325d6ded677"
       },
       {
         "id": "ffd20:class:archer:feature:uncanny-dodge",
@@ -790,7 +820,9 @@
             "section": "Class Features",
             "locator": "6131"
           }
-        ]
+        ],
+        "progressionDescription": "Starting at 7th level, an archer can react to danger before his senses would normally allow him to do so. He cannot be caught flat-footed, nor does he lose his Dexterity bonus to AC if the attacker is invisible. He still loses his Dexterity bonus to AC if immobilized. An archer with this ability can still lose his Dexterity bonus to AC if an opponent successfully uses the feint action against him. If an archer already has uncanny dodge from a different class, he automatically gains improved uncanny dodge (see below) instead.\n\nAn archer of 17th level or higher can no longer be flanked. This defense denies an enemy the ability to gain a bonus on attack rolls by flanking him, unless the attacker has at least four more character levels than the archer does.",
+        "sourceTextHash": "3fe73d9a702848093166634b5a255915c06d2e4d3e1abf00b3fe3bc71c72b292"
       },
       {
         "id": "ffd20:class:archer:feature:quick-shot",
@@ -806,7 +838,9 @@
             "section": "Class Features",
             "locator": "6135"
           }
-        ]
+        ],
+        "progressionDescription": "Also at 7th level, whenever an archer makes a full attack with a bow or crossbow, he can make one additional ranged attack. This attack is at the archer’s highest base attack bonus, but each attack in the round (including the extra one) takes a –2 penalty. This ability stacks with Rapid Shot feat.",
+        "sourceTextHash": "15f3a035bb5adb79cfb2d04ca6c27180219372bad553a29b269aa99fc0fc52b5"
       },
       {
         "id": "ffd20:class:archer:feature:heavy-pull",
@@ -822,7 +856,9 @@
             "section": "Class Features",
             "locator": "6138"
           }
-        ]
+        ],
+        "progressionDescription": "At 8th level, the archer can pull on a bowstring or taut their crossbow in such a way that they can deal considerably more damage than others who are less talented with ranged weapons. An archer treats any bow or crossbow as 1 size category larger when calculating damage. This does not stack with any similar abilities.",
+        "sourceTextHash": "ef00e84fa1ae426b208483fa6252676ad553ff012b3e306771ce6386d103e8f7"
       },
       {
         "id": "ffd20:class:archer:feature:safe-shot",
@@ -838,7 +874,9 @@
             "section": "Class Features",
             "locator": "6141"
           }
-        ]
+        ],
+        "progressionDescription": "Beginning at 9th level, the archer no longer provokes attacks of opportunity when making a ranged attack with his bow or crossbow. When making other ranged attacks, such as throwing a dagger, the archer provokes as normal.",
+        "sourceTextHash": "3d5c064d94c4142d39d392079d4f422522604b0ddefb1b68ab0693f04c118250"
       },
       {
         "id": "ffd20:class:archer:feature:archery-style-mastery",
@@ -854,7 +892,9 @@
             "section": "Class Features",
             "locator": "6143"
           }
-        ]
+        ],
+        "progressionDescription": "At 10th level, an archer’s aptitude in his archery improves again. He gains one of the following feats as a bonus feat or a feat from the previous two abilities: [Master Sniper](https://www.d20pfsrd.com/feats/combat-feats/master-sniper-combat/), [Pinpoint Targeting](http://www.d20pfsrd.com/feats/combat-feats/pinpoint-targeting-combat-final) and [Shot on the Run](http://www.d20pfsrd.com/feats/combat-feats/shot-on-the-run-combat-final), even if he does not have the normal prerequisites for that feat. As before, the benefits of this ability apply only when he wears light or no armor. He loses all benefits of this ability when wearing medium or heavy armor.",
+        "sourceTextHash": "9e0d98319231cb26001da4db7c6dd66af12be3655f304d27764f6f95bff864d3"
       },
       {
         "id": "ffd20:class:archer:feature:ranged-cleave",
@@ -870,7 +910,9 @@
             "section": "Class Features",
             "locator": "6146"
           }
-        ]
+        ],
+        "progressionDescription": "A bow in the hands of an 11th-level archer becomes a weapon capable of shots with incredible power and precision. Whenever an archer deals enough damage to a creature with a bow or crossbow to drop the creature below 0 hit points, the archer receives a second attack against another creature within half the weapon’s range increment of the first target. If the second target is dropped below 0 hit points by the attack, the archer may take a third attack against another creature within one-quarter of the weapon’s range increment from the second target, and so on – the maximum distance between potential targets halving each time a target is successfully dropped.",
+        "sourceTextHash": "db68fbd4c64b94351d3c2087966ebb05b399e6a601d8c089924ad4a1f2e6c03e"
       },
       {
         "id": "ffd20:class:archer:feature:take-aim",
@@ -886,7 +928,9 @@
             "section": "Class Features",
             "locator": "6153"
           }
-        ]
+        ],
+        "progressionDescription": "At 13th level, whenever the archer uses the aim ability, he can double the bonuses. He can use this ability a number of times per day equal to his Dexterity modifier.",
+        "sourceTextHash": "aa445daecc419ade3bb9f6b3dd162885171868f1528f2acd58945b250b06a16b"
       },
       {
         "id": "ffd20:class:archer:feature:evasive-archer",
@@ -902,7 +946,9 @@
             "section": "Class Features",
             "locator": "6157"
           }
-        ]
+        ],
+        "progressionDescription": "Also at 13th level, an archer gains a +2 dodge bonus to AC against ranged attacks. This bonus increases to +4 at 17th level.",
+        "sourceTextHash": "ecc3fc471f0772cd076ade51293539ca6eb92518b21d9ec098aef0b02548ceb2"
       },
       {
         "id": "ffd20:class:archer:feature:critical-aim",
@@ -918,7 +964,9 @@
             "section": "Class Features",
             "locator": "6160"
           }
-        ]
+        ],
+        "progressionDescription": "At 14th level, the archer’s aim becomes a precise deadliness. The critical threat range of all bows and crossbows in the hands of the archer is increased by 1. At 18th level, this increases by 1 again. This increase stacks with Improved Critical or Keen effects but applies after.",
+        "sourceTextHash": "6e46f8d58bf83e42fe247a5d653bf3aff3ca4aa4bfe3be003851d8dcf6194e48"
       },
       {
         "id": "ffd20:class:archer:feature:racking-critical",
@@ -934,7 +982,9 @@
             "section": "Class Features",
             "locator": "6163"
           }
-        ]
+        ],
+        "progressionDescription": "At 15th level, when an archer confirms a [critical hit](https://www.d20pfsrd.com/gamemastering/Combat/#TOC-Critical-Hits) with a bow or crossbow, the creature suffers such racking pain that its defenses are lowered temporarily. All cases of DR and hardness on that creature may be ignored by the archer and his allies until the start of the archer’s next turn.",
+        "sourceTextHash": "67d85928a123e806b7754edea027dd19cedcce0474dc7e6234f52885946b3f45"
       },
       {
         "id": "ffd20:class:archer:feature:volley",
@@ -950,7 +1000,9 @@
             "section": "Class Features",
             "locator": "6166"
           }
-        ]
+        ],
+        "progressionDescription": "At 17th level, as a full-round action, an archer can make a single bow or crossbow attack at his highest base attack bonus against any number of creatures in a 30-foot-radius burst, making separate attack and damage rolls for each creature.",
+        "sourceTextHash": "5104e7edeaf55284076ea35862893e4e5b8675057d8e95ed5a61200190a3d9f3"
       },
       {
         "id": "ffd20:class:archer:feature:ranged-defense",
@@ -966,7 +1018,9 @@
             "section": "Class Features",
             "locator": "6172"
           }
-        ]
+        ],
+        "progressionDescription": "At 19th level, an archer gains DR 5/- against ranged attacks. In addition, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), he can catch an arrow or bolt fired at him and shoot it at any target he chooses.",
+        "sourceTextHash": "72bed2d11bf580a591fe941ec0a6a658c1026c2f08b54b67e442bdc26aa5769a"
       },
       {
         "id": "ffd20:class:archer:feature:aim-mastery",
@@ -982,7 +1036,9 @@
             "section": "Class Features",
             "locator": "6174"
           }
-        ]
+        ],
+        "progressionDescription": "At 19th level, the archer becomes a master at capturing or killing his aimed targets. As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), he can make a single bow or crossbow attack against an aimed target at his full base attack bonus, choosing one of the following effects: kill, knock unconscious for 1d4 hours, or paralyze for 2d6 rounds. If the attack succeeds, the target takes damage normally and must succeed at a Fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier) or suffer the additional effect. Whether or not the target succeeds, it cannot be targeted by this ability again (by any archer) for 24 hours.",
+        "sourceTextHash": "92341354c3df570bda1571028e1c953c7c96bbe4575e4b6d44afe281e9713a22"
       },
       {
         "id": "ffd20:class:archer:feature:master-archer",
@@ -998,7 +1054,9 @@
             "section": "Class Features",
             "locator": "6178"
           }
-        ]
+        ],
+        "progressionDescription": "At 20th level, an archer’s skill with archery becomes legendary. Any attacks made with any bow or crossbow that the archer wields automatically confirm all critical threats and have their damage multiplier increased by 1 (×2 becomes ×3, for example). In addition, he cannot be disarmed while wielding any bow or crossbow.",
+        "sourceTextHash": "9f1bb0b08081f5996e238ec81b01953080729e795058c572a1c2194aae7fc076"
       }
     ],
     "upgrades": [
@@ -2435,5 +2493,10 @@
       "learningMode": "none"
     },
     "limitBreakScaling": "1 + floor((ARCHER_LEVEL - 1)/4)"
+  },
+  "sourceTextProvenance": {
+    "url": "https://finalfantasyd20.com/classes/core-classes/archer/",
+    "markdownSha256": "aef551f65047b65f81b0ee21ac803c4ec34e8377198e6bf407e0c146119fd079",
+    "archivedAt": "2026-10-29T16:37:26+00:00"
   }
 }

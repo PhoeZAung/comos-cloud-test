@@ -561,7 +561,9 @@
             "section": "Class Features",
             "locator": "6047"
           }
-        ]
+        ],
+        "progressionDescription": "A bard is proficient with all simple weapons and harp bows. Bards are proficient with light armor but not with any shields.\n\nBecause the somatic components required for bard songs are relatively simple, a bard can perform songs while wearing light armor without incurring the normal song failure chance. However, like mages, a bard wearing medium or heavy armor or using a shield incurs a chance of song failure.",
+        "sourceTextHash": "afa05df879bcd980db6a40d0e0e01af00651fb3aef77ecc7e21598745e2265c0"
       },
       {
         "id": "ffd20:class:bard:feature:limit-breaks",
@@ -577,7 +579,9 @@
             "section": "Class Features",
             "locator": "6052"
           }
-        ]
+        ],
+        "progressionDescription": "At 1st level, the bard receives the Limit Breaks (Siren’s Song and Soul Voice).\n\n*Siren’s Song ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break causes the bard’s music to pierce almost any barrier. For a duration of 1 round + 1 round per four bard levels after 1st, any effect that would block or warp sounds such as [deafened](https://www.finalfantasyd20.com/magic/status-effects/#deafened) or [silenced](https://www.finalfantasyd20.com/magic/status-effects/#silenced), and effects such as [distort speech](https://www.finalfantasyd20.com/magic/spells/d/distort-speech/), is ignored for songs and bardic performance. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n*Soul Voice ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the bard to be able to perform songs with perfect efficiency. For a duration of 1 round + 1 round per four bard levels after 1st, the bard can select one song each round started and performed during the limit break that has all variables and effects maximized and doubled. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "sourceTextHash": "963bd9b1a34c556d5e142ea8013add296aa9aac899ac7dbe4c295f92b7559b37"
       },
       {
         "id": "ffd20:class:bard:feature:sirens-song",
@@ -596,7 +600,9 @@
         ],
         "initialState": {
           "durationRounds": 1
-        }
+        },
+        "progressionDescription": "*Siren’s Song ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break causes the bard’s music to pierce almost any barrier. For a duration of 1 round + 1 round per four bard levels after 1st, any effect that would block or warp sounds such as [deafened](https://www.finalfantasyd20.com/magic/status-effects/#deafened) or [silenced](https://www.finalfantasyd20.com/magic/status-effects/#silenced), and effects such as [distort speech](https://www.finalfantasyd20.com/magic/spells/d/distort-speech/), is ignored for songs and bardic performance. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "sourceTextHash": "b8ab0061f45ad87094d824199430bf93c889a84ec81064517163defa3082ef18"
       },
       {
         "id": "ffd20:class:bard:feature:soul-voice",
@@ -615,7 +621,9 @@
         ],
         "initialState": {
           "durationRounds": 1
-        }
+        },
+        "progressionDescription": "*Soul Voice ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the bard to be able to perform songs with perfect efficiency. For a duration of 1 round + 1 round per four bard levels after 1st, the bard can select one song each round started and performed during the limit break that has all variables and effects maximized and doubled. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n### Songs\n\nA bard performs songs which are drawn from the [bard song list](https://www.finalfantasyd20.com/magic/spells-by-class/bard/). A bard begins play with 3 1st level bard songs of his choice. The bard also selects a number of additional 1st-level songs equal to his Charisma modifier to add to his list of songs. Each time a character attains a new bard level, he gains two songs of his choice to add to his list of songs. The two free songs must be of song levels he can perform. But like mages, the bard can also purchase orchestration rolls to learn songs.\n\nTo learn or perform a song, a bard must have a Charisma score equal to at least 10 + the song level (Cha 11 for 1st-level songs, Cha 12 for 2nd-level songs, and so forth). The Difficulty Class for a saving throw against a bard’s song is 10 + the song’s level + the bard’s Charisma modifier. In addition, a bard gains additional MP for having a high attribute (Charisma—see [**Table: Bonus MP per Day (by Spell Level)**](https://www.finalfantasyd20.com/magic/mp-system/#table-bonus-mp-per-day-by-spell-level)).\n\nSongs are functionally categorized into two types: normal songs and maintained songs. Normal songs largely behave the same as spells, whilst maintained songs require the bard to actively maintain them (a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free)) every round to keep their effects. Maintained songs effects end immediately if the bard is rendered helpless (ie: knocked unconscious or paralyzed), or otherwise prevented from taking a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) to maintain it each round. A bard may only have one maintained song active at a time, with maintained songs possessing vastly different traits than that of normal songs. They are as follows:\n\n* The bard may perform normal songs while maintained songs are active. Any normal song that requires concentration to maintain still allows the bard to continue his maintained songs, but does not allow the bard to start a new song until he ends that song.\n* Creatures must be within the song’s range for the bard to maintain its effects. If a creature affected by a song leaves its range, the effect persists until the start of their next turn.\n* If a maintained song only targets a certain number of creatures, the bard may switch the target(s) of his maintained song once at the beginning his turn (provided that they are within the song’s range), immediately ending the song’s effects on the previous target(s).\n* Any song that is maintained in which forces a saving throw on a creature does so every round (while within range) until the creature fails their saving throw that applies that song’s effect; all subsequent rounds then maintain that effect on the creature for the song’s duration or until dismissed.\n* If a creature is targeted by a maintained song and possesses spell resistance, a caster level check is imposed on the bard for every round until the bard passes, at which point all subsequent rounds do not require a caster level check for that song.\n\nStarting a new song provokes an attack of opportunity and requires concentration checks as if they were spells.\n\n### Jingles\n\nBards learn a number of jingles, or 0-level songs. These songs do not require the Perform skill like any other song, nor do they take up a song slot, but they do not consume MP and may be used again. Bards begin with 2 jingles and gain an additional jingle every four levels after 1st level.\n\n### Musical Power ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\nStarting at 1st level, a bard can empower and use any musical instrument or performance skill as a weapon.\n\nUsing his ranks in the associated performance skill (perform (strings) for a harp) in place of his Base Attack Bonus, the bard can, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), make a ranged touch attack against a foe within 25 feet + 5 feet per two bard levels. This attack deals non-elemental damage equal to 1d4 + his Charisma modifier.\n\nAny instrument wielded by the bard can be enchanted as if it was a ranged weapon, applying any enhancement/enchantment onto this attack. If he does not use an instrument, in the case of Perform (Act), (Comedy), (Dance), (Oratory), (Sing), etc., he does not gain any bonuses on musical power.\n\nRolling a natural 1 with an instrument causes it to gain the broken condition, receiving a -2 penalty on attack rolls and halving the bard’s skill bonus to Perform checks with that instrument. With an hour’s worth of work, a bard can repair a single instrument with the broken condition.\n\n### Bardic Performance ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\nA bard is trained to use the Perform skill to create magical effects on those around him, including himself if desired. He can use this ability for a number of rounds per day equal to 4 + his Charisma modifier. At each level after 1st a bard can use bardic performance for 2 additional rounds per day. Each round, the bard can produce any one of the types of bardic performance that he has mastered, as indicated by his level.\n\nStarting a bardic performance is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), but it can be maintained each round as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). Songs and a bardic performance may be maintained at the same time. Changing a bardic performance from one effect to another requires the bard to stop the previous performance and start a new one as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). A bardic performance cannot be disrupted, but it ends immediately if the bard is killed, paralyzed, stunned, knocked unconscious, or otherwise prevented from taking a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) to maintain it each round. A bard cannot have more than one bardic performance in effect at one time.\n\nAt 7th level, a bard can start a bardic performance as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) instead of a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). At 13th level, a bard can start a bardic performance as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nEach bardic performance has audible components, visual components, or both.\n\nIf a bardic performance has audible components, the targets must be able to hear the bard for the performance to have any effect, and such performances are language dependent. A deaf bard has a 20% chance to fail when attempting to use a bardic performance with an audible component. If he fails this check, the attempt still counts against his daily limit. Deaf creatures are immune to bardic performances with audible components.\n\nIf a bardic performance has a visual component, the targets must have line of sight to the bard for the performance to have any effect. A blind bard has a 50% chance to fail when attempting to use a bardic performance with a visual component. If he fails this check, the attempt still counts against his daily limit. Blind creatures are immune to bardic performances with visual components.",
+        "sourceTextHash": "204fc12ce1ed68caa01813391ab24a682222ff42cd2e7b6e55818046c59a0ed8"
       },
       {
         "id": "ffd20:class:bard:feature:songs",
@@ -631,7 +639,9 @@
             "section": "Class Features",
             "locator": "6058"
           }
-        ]
+        ],
+        "progressionDescription": "A bard performs songs which are drawn from the [bard song list](https://www.finalfantasyd20.com/magic/spells-by-class/bard/). A bard begins play with 3 1st level bard songs of his choice. The bard also selects a number of additional 1st-level songs equal to his Charisma modifier to add to his list of songs. Each time a character attains a new bard level, he gains two songs of his choice to add to his list of songs. The two free songs must be of song levels he can perform. But like mages, the bard can also purchase orchestration rolls to learn songs.\n\nTo learn or perform a song, a bard must have a Charisma score equal to at least 10 + the song level (Cha 11 for 1st-level songs, Cha 12 for 2nd-level songs, and so forth). The Difficulty Class for a saving throw against a bard’s song is 10 + the song’s level + the bard’s Charisma modifier. In addition, a bard gains additional MP for having a high attribute (Charisma—see [**Table: Bonus MP per Day (by Spell Level)**](https://www.finalfantasyd20.com/magic/mp-system/#table-bonus-mp-per-day-by-spell-level)).\n\nSongs are functionally categorized into two types: normal songs and maintained songs. Normal songs largely behave the same as spells, whilst maintained songs require the bard to actively maintain them (a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free)) every round to keep their effects. Maintained songs effects end immediately if the bard is rendered helpless (ie: knocked unconscious or paralyzed), or otherwise prevented from taking a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) to maintain it each round. A bard may only have one maintained song active at a time, with maintained songs possessing vastly different traits than that of normal songs. They are as follows:\n\n* The bard may perform normal songs while maintained songs are active. Any normal song that requires concentration to maintain still allows the bard to continue his maintained songs, but does not allow the bard to start a new song until he ends that song.\n* Creatures must be within the song’s range for the bard to maintain its effects. If a creature affected by a song leaves its range, the effect persists until the start of their next turn.\n* If a maintained song only targets a certain number of creatures, the bard may switch the target(s) of his maintained song once at the beginning his turn (provided that they are within the song’s range), immediately ending the song’s effects on the previous target(s).\n* Any song that is maintained in which forces a saving throw on a creature does so every round (while within range) until the creature fails their saving throw that applies that song’s effect; all subsequent rounds then maintain that effect on the creature for the song’s duration or until dismissed.\n* If a creature is targeted by a maintained song and possesses spell resistance, a caster level check is imposed on the bard for every round until the bard passes, at which point all subsequent rounds do not require a caster level check for that song.\n\nStarting a new song provokes an attack of opportunity and requires concentration checks as if they were spells.",
+        "sourceTextHash": "556f6b0ff2492fdbc094395e18aa4d69b12af4e94ed92549fd13b55ad05ece34"
       },
       {
         "id": "ffd20:class:bard:feature:jingles",
@@ -650,7 +660,9 @@
         ],
         "initialState": {
           "knownJinglesBase": 2
-        }
+        },
+        "progressionDescription": "Bards learn a number of jingles, or 0-level songs. These songs do not require the Perform skill like any other song, nor do they take up a song slot, but they do not consume MP and may be used again. Bards begin with 2 jingles and gain an additional jingle every four levels after 1st level.",
+        "sourceTextHash": "5e6d1559e7dc398d2e71c726aaffd4841a9e5f42f3848ca147d81d8141854448"
       },
       {
         "id": "ffd20:class:bard:feature:musical-power",
@@ -666,7 +678,9 @@
             "section": "Class Features",
             "locator": "6073"
           }
-        ]
+        ],
+        "progressionDescription": "Starting at 1st level, a bard can empower and use any musical instrument or performance skill as a weapon.\n\nUsing his ranks in the associated performance skill (perform (strings) for a harp) in place of his Base Attack Bonus, the bard can, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), make a ranged touch attack against a foe within 25 feet + 5 feet per two bard levels. This attack deals non-elemental damage equal to 1d4 + his Charisma modifier.\n\nAny instrument wielded by the bard can be enchanted as if it was a ranged weapon, applying any enhancement/enchantment onto this attack. If he does not use an instrument, in the case of Perform (Act), (Comedy), (Dance), (Oratory), (Sing), etc., he does not gain any bonuses on musical power.\n\nRolling a natural 1 with an instrument causes it to gain the broken condition, receiving a -2 penalty on attack rolls and halving the bard’s skill bonus to Perform checks with that instrument. With an hour’s worth of work, a bard can repair a single instrument with the broken condition.",
+        "sourceTextHash": "ea2e6c84384df8917366691145da4cfb88e8f5fbff48d17562be08e2ee18bd85"
       },
       {
         "id": "ffd20:class:bard:feature:bardic-performance",
@@ -685,7 +699,9 @@
         ],
         "initialState": {
           "startAction": "standard"
-        }
+        },
+        "progressionDescription": "A bard is trained to use the Perform skill to create magical effects on those around him, including himself if desired. He can use this ability for a number of rounds per day equal to 4 + his Charisma modifier. At each level after 1st a bard can use bardic performance for 2 additional rounds per day. Each round, the bard can produce any one of the types of bardic performance that he has mastered, as indicated by his level.\n\nStarting a bardic performance is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), but it can be maintained each round as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). Songs and a bardic performance may be maintained at the same time. Changing a bardic performance from one effect to another requires the bard to stop the previous performance and start a new one as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). A bardic performance cannot be disrupted, but it ends immediately if the bard is killed, paralyzed, stunned, knocked unconscious, or otherwise prevented from taking a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) to maintain it each round. A bard cannot have more than one bardic performance in effect at one time.\n\nAt 7th level, a bard can start a bardic performance as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) instead of a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). At 13th level, a bard can start a bardic performance as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nEach bardic performance has audible components, visual components, or both.\n\nIf a bardic performance has audible components, the targets must be able to hear the bard for the performance to have any effect, and such performances are language dependent. A deaf bard has a 20% chance to fail when attempting to use a bardic performance with an audible component. If he fails this check, the attempt still counts against his daily limit. Deaf creatures are immune to bardic performances with audible components.\n\nIf a bardic performance has a visual component, the targets must have line of sight to the bard for the performance to have any effect. A blind bard has a 50% chance to fail when attempting to use a bardic performance with a visual component. If he fails this check, the attempt still counts against his daily limit. Blind creatures are immune to bardic performances with visual components.\n\n**List of Bardic Performances:**\n\n*Countersong ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* At 1st level, a bard learns to counter magic effects that depend on sound (but not spells that have verbal components.) Each round of the countersong he makes a Perform (keyboard, percussion, wind, string, or sing) skill check. Any creature within 30 feet of the bard (including the bard himself) that is affected by a magical effect with the [sonic](https://www.finalfantasyd20.com/magic/#sonic) or [language-dependent](https://www.finalfantasyd20.com/magic/#language-dependent) descriptor may use the bard’s Perform check result in place of its saving throw if, after the saving throw is rolled, the Perform check result proves to be higher. If a creature within range of the countersong is already under the effect of a non-instantaneous sonic or language-dependent magical attack, it gains another saving throw against the effect each round it hears the countersong, but it must use the bard’s Perform skill check result for the save. Countersong does not work on effects that don’t allow saves. Countersong relies on audible components.\n\n*Distraction ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* At 1st level, a bard can use his performance to counter magic effects that depend on sight. Each round of the Distraction, he makes a Perform (act, comedy, dance, or oratory) skill check. Any creature within 30 feet of the bard (including the bard himself) that is affected by an illusion magical attack may use the bard’s Perform check result in place of its saving throw if, after the saving throw is rolled, the Perform check result proves to be higher. If a creature within range of the Distraction is already under the effect of a non-instantaneous illusion magical attack, it gains another saving throw against the effect each round it sees the Distraction, but it must use the bard’s Perform check result for the save. Distraction does not work on effects that don’t allow saves. Distraction relies on visual components.\n\n*Fascinate ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* At 1st level, a bard can use his performance to cause one or more creatures to become fascinated with him. Each creature to be fascinated must be within 90 feet, able to see and hear the bard, and capable of paying attention to him. The bard must also be able to see the creatures affected. The Distraction of a nearby combat or other dangers prevents the ability from working. For every three levels a bard has attained beyond 1st, he can target one additional creature with this ability. Each creature within range receives a Will save (DC 10 + half the bard’s level + his Charisma modifier) to negate the effect. If a creature’s saving throw succeeds, the bard cannot attempt to fascinate that creature again for 24 hours. If its saving throw fails, the creature sits quietly and observes the performance for as long as the bard continues to maintain it. While fascinated, a target takes a –4 penalty on skill checks made as reactions, such as Perception checks. Any potential threat to the target allows the target to make a new saving throw against the effect. Any obvious threat, such as someone drawing a weapon, casting a spell, or aiming a weapon at the target, automatically breaks the effect. Fascinate is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) ability. Fascinate relies on audible and visual components in order to function.\n\n*Inspire Courage ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A 1st level bard can use his performance to inspire courage in his allies (including himself), bolstering them against fear and improving their combat abilities. To be affected, an ally must be able to perceive the bard’s performance. An affected ally receives a +1 morale bonus on saving throws against charm and fear effects and a +1 competence bonus on attack and weapon damage rolls. At 5th level, and every six bard levels thereafter, this bonus increases by +1, to a maximum of +4 at 17th level. Inspire courage is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) ability. Inspire courage can use audible or visual components. The bard must choose which component to use when starting his performance.\n\n*Inspire Competence ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 3rd level or higher can use his performance to help an ally succeed at a task. The ally must be within 30 feet and able to see and hear the bard. The ally gets a +2 competence bonus on skill checks with a particular skill as long as he continues to hear the bard’s performance. This bonus increases by +1 for every four levels the bard has attained beyond 3rd (+3 at 7th, +4 at 11th, +5 at 15th, and +6 at 19th). Certain uses of this ability are infeasible, such as Stealth, and may be disallowed at the GM’s discretion. A bard can’t inspire competence in himself. Inspire competence relies on audible components.\n\n*Suggestion ([Sp](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#spell-like)):* A bard of 6th level or higher can use his performance to make a [*suggestion*](https://www.finalfantasyd20.com/magic/spells/s/suggestion/) (as per the spell) to a creature that he has already fascinated (see above). Using this ability does not disrupt the fascinate effect, but it does require a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to activate (in addition to the [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) to continue the fascinate effect). A bard can use this ability more than once against an individual creature during an individual performance. A Will saving throw (DC 10 + half of the bard’s level + his Charisma modifier) negates the effect. This ability affects only a single creature (but see mass suggestion, below). Suggestion is an enfeebling (compulsion), mind-affecting, language-dependent ability and relies on audible components.\n\n*Dirge of Doom ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 8th level or higher can use his performance to foster a sense of growing dread in his enemies, causing them to take become shaken. To be affected, an enemy must be within 30 feet and able to see and hear the bard’s performance. The effect persists for as long as the enemy is within 30 feet and the bard continues the performance. The performance cannot cause a creature to become frightened or panicked, even if the targets are already shaken from another effect. Dirge of doom is a mind-affecting fear effect, and it relies on audible and visual components.\n\n*Inspire Greatness ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 9th level or higher can use his performance to inspire greatness in himself or a single willing ally within 30 feet, granting extra fighting capability. For every three levels a bard attains beyond 9th, he can target one additional ally while using this performance (up to a maximum of four at 18th level). To inspire greatness, all of the targets must be able to see and hear the bard. A creature inspired with greatness gains 2 bonus Hit Dice (d10s), the commensurate number of temporary hit points (apply the target’s Constitution modifier, if any, to these bonus Hit Dice), a +2 competence bonus on attack rolls, and a +1 competence bonus on Fortitude saves. The bonus Hit Dice count as regular Hit Dice for determining the effect of spells that are Hit Dice dependent. Inspire greatness is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) ability and it relies on audible and visual components.\n\n*Soothing Performance ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 12th level or higher can use his performance to create an effect equivalent to the *cura* spell, using the bard’s level as the caster level. In addition, this performance removes the fatigued, sickened, and shaken condition from all those affected. Using this ability requires 4 continuous performance, and the targets must be able to see and hear the bard throughout the performance. Soothing performance relies on audible and visual components.\n\n*Frightening Tune ([Sp](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#spell-like)):* A bard of 14th level or higher can use his performance to cause fear in his enemies. To be affected, an enemy must be able to hear the bard perform and be within 30 feet. Each enemy within range receives a Will save (DC 10 + half of the bard’s level + his Charisma modifier) to negate the effect. If the save succeeds, the creature is immune to this ability for 24 hours. If the save fails, the target becomes frightened and flees for as long as the target can hear the bard’s performance. Frightening tune relies on audible components. This is a [fear](https://www.finalfantasyd20.com/magic/#fear) effect.\n\n*Inspire Heroics ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 15th level or higher can inspire tremendous heroism in himself or a single ally within 30 feet. For every three bard levels the character attains beyond 15th, he can inspire heroics in one additional creature. To inspire heroics, all of the targets must be able to see and hear the bard. Inspired creatures gain a +4 morale bonus on saving throws and a +4 dodge bonus to AC. The effect lasts for as long as the targets are able to witness the performance. Inspire heroics is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) ability that relies on audible and visual components.\n\n*Adoring Fan ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* At 17th level, the bard can use his performance to convert even the toughest audience. To be affected, a target must be able to see and hear the bard perform for 1 full round and be within 30 feet. The target can attempt a Will save (DC 10 + half the bard’s level + his Charisma modifier) to negate the effect. If a creature succeeds at the saving throw, the bard cannot use this ability on that creature again for 24 hours. On a failure, the creature is dominated (as [dominate monster](https://www.finalfantasyd20.com/magic/spells/d/dominate-monster)) for as long as the bard keeps playing and is charmed (as [charm monster](https://www.finalfantasyd20.com/magic/spells/c/charm-monster/)) for 1d4 hours thereafter. Adoring fan is a mind-affecting, compulsion effect that relies on audible and visual components.\n\n*Funeral Ballad ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* Once per day, a bard of 18th level or higher can use his performance to create an effect equivalent to Arise on a dead creature, using the bard’s level as the caster level. Using this ability requires 10 rounds of continuous performance, and the target must be within 10 feet of the bard for the entire performance. Funeral ballad relies on audible and visual components.\n\n*Deadly Performance ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 20th level or higher can use his performance to cause one enemy to die from joy or sorrow. To be affected, the target must be able to see and hear the bard perform for 1 full round and be within 30 feet. The target receives a Will save (DC 10 + half of the bard’s level + his Charisma modifier) to negate the effect. If a creature’s saving throw succeeds, the target is dazed for 1d4 rounds, and the bard cannot use deadly performance on that creature again for 24 hours. If a creature’s saving throw fails, it dies. Deadly performance is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) death effect that relies on audible and visual components.",
+        "sourceTextHash": "26a22e02e34b82a17cc244c38ef837c98a17b819dfbc4188359b23337eb2f795"
       },
       {
         "id": "ffd20:class:bard:feature:countersong",
@@ -701,7 +717,9 @@
             "section": "Class Features",
             "locator": "6092"
           }
-        ]
+        ],
+        "progressionDescription": "*Countersong ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* At 1st level, a bard learns to counter magic effects that depend on sound (but not spells that have verbal components.) Each round of the countersong he makes a Perform (keyboard, percussion, wind, string, or sing) skill check. Any creature within 30 feet of the bard (including the bard himself) that is affected by a magical effect with the [sonic](https://www.finalfantasyd20.com/magic/#sonic) or [language-dependent](https://www.finalfantasyd20.com/magic/#language-dependent) descriptor may use the bard’s Perform check result in place of its saving throw if, after the saving throw is rolled, the Perform check result proves to be higher. If a creature within range of the countersong is already under the effect of a non-instantaneous sonic or language-dependent magical attack, it gains another saving throw against the effect each round it hears the countersong, but it must use the bard’s Perform skill check result for the save. Countersong does not work on effects that don’t allow saves. Countersong relies on audible components.",
+        "sourceTextHash": "56899a589b5b61bce05cb94122f69b7f71847e4e5aaab8e052a79d8ff46a517f"
       },
       {
         "id": "ffd20:class:bard:feature:distraction",
@@ -717,7 +735,9 @@
             "section": "Class Features",
             "locator": "6095"
           }
-        ]
+        ],
+        "progressionDescription": "*Distraction ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* At 1st level, a bard can use his performance to counter magic effects that depend on sight. Each round of the Distraction, he makes a Perform (act, comedy, dance, or oratory) skill check. Any creature within 30 feet of the bard (including the bard himself) that is affected by an illusion magical attack may use the bard’s Perform check result in place of its saving throw if, after the saving throw is rolled, the Perform check result proves to be higher. If a creature within range of the Distraction is already under the effect of a non-instantaneous illusion magical attack, it gains another saving throw against the effect each round it sees the Distraction, but it must use the bard’s Perform check result for the save. Distraction does not work on effects that don’t allow saves. Distraction relies on visual components.",
+        "sourceTextHash": "3b1c7424927ddb8feb008ac1ea72b4064272e5d754f383f342408d0432601d7a"
       },
       {
         "id": "ffd20:class:bard:feature:fascinate",
@@ -736,7 +756,9 @@
         ],
         "initialState": {
           "targets": 1
-        }
+        },
+        "progressionDescription": "*Fascinate ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* At 1st level, a bard can use his performance to cause one or more creatures to become fascinated with him. Each creature to be fascinated must be within 90 feet, able to see and hear the bard, and capable of paying attention to him. The bard must also be able to see the creatures affected. The Distraction of a nearby combat or other dangers prevents the ability from working. For every three levels a bard has attained beyond 1st, he can target one additional creature with this ability. Each creature within range receives a Will save (DC 10 + half the bard’s level + his Charisma modifier) to negate the effect. If a creature’s saving throw succeeds, the bard cannot attempt to fascinate that creature again for 24 hours. If its saving throw fails, the creature sits quietly and observes the performance for as long as the bard continues to maintain it. While fascinated, a target takes a –4 penalty on skill checks made as reactions, such as Perception checks. Any potential threat to the target allows the target to make a new saving throw against the effect. Any obvious threat, such as someone drawing a weapon, casting a spell, or aiming a weapon at the target, automatically breaks the effect. Fascinate is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) ability. Fascinate relies on audible and visual components in order to function.",
+        "sourceTextHash": "10d80540e663736c99c93de9df580836451231088abe60a432a57b0d28eefd1d"
       },
       {
         "id": "ffd20:class:bard:feature:inspire-courage",
@@ -755,7 +777,9 @@
         ],
         "initialState": {
           "bonus": 1
-        }
+        },
+        "progressionDescription": "*Inspire Courage ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A 1st level bard can use his performance to inspire courage in his allies (including himself), bolstering them against fear and improving their combat abilities. To be affected, an ally must be able to perceive the bard’s performance. An affected ally receives a +1 morale bonus on saving throws against charm and fear effects and a +1 competence bonus on attack and weapon damage rolls. At 5th level, and every six bard levels thereafter, this bonus increases by +1, to a maximum of +4 at 17th level. Inspire courage is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) ability. Inspire courage can use audible or visual components. The bard must choose which component to use when starting his performance.",
+        "sourceTextHash": "abe18b449267eeb70aaa2b6a1f8bc06b17c0d7411fba39cf0204db44b161a8c1"
       },
       {
         "id": "ffd20:class:bard:feature:versatile-performance",
@@ -774,7 +798,9 @@
         ],
         "initialState": {
           "selectionSlots": 1
-        }
+        },
+        "progressionDescription": "At 2nd level, a bard can choose one type of Perform skill. He can use his bonus in that skill in place of his bonus in associated skills. When substituting in this way, the bard uses his total Perform skill bonus, including class skill bonus, in place of its associated skill’s bonus, whether or not he has ranks in that skill or if it is a class skill.\n\nThe types of Perform and their associated skills are: Act (Bluff, Disguise), Comedy (Bluff, Intimidate), Dance (Acrobatics, Fly), Keyboard Instruments (Diplomacy, Intimidate), Oratory (Diplomacy, Sense Motive), Percussion (Handle Animal, Intimidate), Sing (Bluff, Sense Motive), String (Bluff, Diplomacy), and Wind (Diplomacy, Handle Animal).\n\nAt 6th level, and every four bard levels thereafter, the bard can select either an additional type of Perform to substitute or one of the following Advanced Versatile Performances:\n\n* **Bard Feat:** The bard gains a bard feat. He must meet the feat’s prerequisites, and if a prerequisite requires ranks in a Perform skill they must be the same Perform skill that the bard has chosen with Versatile Performance.\n* **Expanded Versatility ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The bard chooses one Perform skill that he has already selected with versatile performance. He adds one of the following skills to the list of skills that are associated with the chosen Perform skill for the purpose of the versatile performance ability: Bluff, Diplomacy, Disguise, Escape Artist, Handle Animal, Intimidate, Sense Motive, or Use Magic Device. This option can be selected multiple times, but no skill can be associated with the same Perform skill more than once.\n* **Martial Performance ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The bard chooses one weapon belonging to a warrior weapon group that is associated with a Perform skill he has selected with versatile performance (see below). He gains proficiency with this weapon. If the bard is already proficient with this weapon or later becomes proficient with it, he gains Weapon Focus with that weapon as a bonus feat instead. In addition, the bard’s effective warrior level is equal to half his bard level for the purpose of qualifying for feats that specifically select weapons from those Perform skills’ associated fighter weapon groups. The types of Perform skills and their associated fighter weapon groups are: Act (close, double), Comedy (flails, thrown), Dance (monk, spears), Keyboard Instruments (hammers, siege engines), Oratory (heavy blades, light blades), Percussion (close, hammers), Sing (close, natural), String (axes, bows), and Wind (monk, thrown).\n* **Masterpiece:** The bard gains a [bardic masterpiece](https://www.finalfantasyd20.com/feats/bard-feats/) feat. He must meet the masterpiece’s prerequisites, and the masterpiece must list ranks in a Perform skill that the bard has chosen with versatile performance as a prerequisite. This option can be selected multiple times.",
+        "sourceTextHash": "1a8922f2777b3c6db6a7fc5e4669d3cfbc674db889654eae825f8bf76c82ff6a"
       },
       {
         "id": "ffd20:class:bard:feature:well-versed",
@@ -790,7 +816,9 @@
             "section": "Class Features",
             "locator": "6122"
           }
-        ]
+        ],
+        "progressionDescription": "At 2nd level, the bard becomes resistant to the bardic performance of others, and to sonic effects in general. The bard gains a +4 bonus on saving throws made against bardic performance, [sonic](https://www.finalfantasyd20.com/magic/#sonic), and [language-dependent](https://www.finalfantasyd20.com/magic/#language-dependent) effects.",
+        "sourceTextHash": "9a8ca776bfda6ce4be979315d8771376d51fd3f614b648431dbacb15db08d4b0"
       },
       {
         "id": "ffd20:class:bard:feature:song-talents",
@@ -809,7 +837,9 @@
         ],
         "initialState": {
           "talentSelections": 1
-        }
+        },
+        "progressionDescription": "As a bard gains experience, he learns a number of talents that assist him in manipulating his songs and class features. At 2nd level and every two levels thereafter, a bard gains one song talent. A bard cannot select an individual talent more than once. Talents marked with an asterisk add effects to a bard’s song-performing ability. Only one of these talents can be applied to an individual song and the decision must be made before the song is performed.\n\n* A complete list of song talents can be found here: [Song Talents](https://www.finalfantasyd20.com/classes/core-classes/bard/song-talents/)",
+        "sourceTextHash": "6d94dbf8285c0caaead6deab5c383a95574476ac431707af363b8e94e0fdc207"
       },
       {
         "id": "ffd20:class:bard:feature:inspire-competence",
@@ -828,7 +858,9 @@
         ],
         "initialState": {
           "bonus": 2
-        }
+        },
+        "progressionDescription": "*Inspire Competence ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 3rd level or higher can use his performance to help an ally succeed at a task. The ally must be within 30 feet and able to see and hear the bard. The ally gets a +2 competence bonus on skill checks with a particular skill as long as he continues to hear the bard’s performance. This bonus increases by +1 for every four levels the bard has attained beyond 3rd (+3 at 7th, +4 at 11th, +5 at 15th, and +6 at 19th). Certain uses of this ability are infeasible, such as Stealth, and may be disallowed at the GM’s discretion. A bard can’t inspire competence in himself. Inspire competence relies on audible components.",
+        "sourceTextHash": "2c58dd3339f0067cce993156e7c1c8d200316be8d22c135e8d59548d85077169"
       },
       {
         "id": "ffd20:class:bard:feature:inspiration",
@@ -847,7 +879,9 @@
         ],
         "initialState": {
           "temporaryHpDice": 1
-        }
+        },
+        "progressionDescription": "During battle, the bard exhorts his comrades with words of courage and determination. At 3rd level, this inspiration affects all allies within a 30-foot radius centered on the bard, and bestows 1d6 temporary hit points, plus 1d6 additional points for every two bard levels beyond 3rd (2d6 at 5th, 3d6 at 7th, and so on) These temporary hit points last until the battle ends, or until they are removed through damage. A bard may inspire a number of times per day equal to 3 + his Charisma modifier. This is a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) and does not provoke an attack of opportunity. The bard can choose whether or not to include himself in this effect. This is a [language-dependent](https://www.finalfantasyd20.com/magic/#language-dependent) ability.",
+        "sourceTextHash": "35f448dd8491e68de71272589538c9f90706ed53a601fce8d59d3e8f8cc96d35"
       },
       {
         "id": "ffd20:class:bard:feature:medley",
@@ -866,7 +900,9 @@
         ],
         "initialState": {
           "simultaneousSongs": 2
-        }
+        },
+        "progressionDescription": "Starting at 4th level, a bard can perform a medley, allowing him to maintain two maintained songs at once. For every four levels thereafter, he may maintain an additional song, up to five at once at 16th level. A Perform skill check is needed for each additional song (DC 15 + double the song’s level), with a +4 to the Perform DC for each song after the second, up to a max of +12 for a five-song medley. The bard loses the song if he fails his respective Perform skill check.\n\nAdditionally, all equivalent level or lower songs that are part of the medley have their durations refreshed on a successful Perform skill check using this feature. Once a bard achieves the maximum allotment of songs allowed by Medley, the bard may substitute any songs currently in effect with a new song on a successful Perform skill check using this feature. The bard may start these songs in subsequent rounds, but not in the same round.",
+        "sourceTextHash": "ca74f4d0546defbc9ac5e4fff4a14aa3f1860be92afd73523e77cc431d71ab1a"
       },
       {
         "id": "ffd20:class:bard:feature:wide-audience",
@@ -887,7 +923,9 @@
           "radiusFeet": 30,
           "coneFeet": 60,
           "extraTargets": 0
-        }
+        },
+        "progressionDescription": "Also at 4th level, a bard can choose to affect a 60-foot cone instead of a 30-foot radius with songs that affect an area. In addition, for every four levels beyond 4th, the area of such songs is increased by 10 feet (radius) or 20 feet (cone). If the song instead affects multiple creatures, it affects one additional creature than normal for every four levels beyond 4th. This does not affect songs that affect only a single creature.",
+        "sourceTextHash": "32cc9f7a2517946ef04aed80ddf0ef55acec53bb6571c5182a013f84256512a8"
       },
       {
         "id": "ffd20:class:bard:feature:clear-mind",
@@ -906,7 +944,9 @@
         ],
         "initialState": {
           "mpPerHour": 1
-        }
+        },
+        "progressionDescription": "At 5th level, a bard can regain his MP quicker. The bard must be relaxed and must be free from overt distractions, such as combat raging nearby or other loud noises. For example, he could be riding in the back of a carriage and benefit from this ability. The bard does not gain this recovery if he is asleep or unconscious. The bard regains 1 MP per hour. This increases by 1 for every five bard levels after 5th.",
+        "sourceTextHash": "c201994e41ec2fc3b7f8faf22b488a8f423d0cddfdf64e469c7dcb7157bd363b"
       },
       {
         "id": "ffd20:class:bard:feature:suggestion",
@@ -922,7 +962,9 @@
             "section": "Class Features",
             "locator": "6104"
           }
-        ]
+        ],
+        "progressionDescription": "*Suggestion ([Sp](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#spell-like)):* A bard of 6th level or higher can use his performance to make a [*suggestion*](https://www.finalfantasyd20.com/magic/spells/s/suggestion/) (as per the spell) to a creature that he has already fascinated (see above). Using this ability does not disrupt the fascinate effect, but it does require a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to activate (in addition to the [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) to continue the fascinate effect). A bard can use this ability more than once against an individual creature during an individual performance. A Will saving throw (DC 10 + half of the bard’s level + his Charisma modifier) negates the effect. This ability affects only a single creature (but see mass suggestion, below). Suggestion is an enfeebling (compulsion), mind-affecting, language-dependent ability and relies on audible components.",
+        "sourceTextHash": "837f3450cffa0507aa088ec21c85bb8779c38dcb0a62990e4dbe84399139b46c"
       },
       {
         "id": "ffd20:class:bard:feature:skilled-performer",
@@ -941,7 +983,9 @@
         ],
         "initialState": {
           "performBonusPoints": 5
-        }
+        },
+        "progressionDescription": "The rattling nerves and jitteriness is long gone, replaced by a calm serenity that allows the bard to play his best music. He gains 5 bonus skill points to any Perform skill at 7th level; this value increases to 10 at 13th level and 15 at 19th level. The bard may distribute the skill points however he wants among his Perform skills.",
+        "sourceTextHash": "c9683904cbee533ea97efd25d940bc79966566c96157e66f501db0778682e7ab"
       },
       {
         "id": "ffd20:class:bard:feature:dirge-of-doom",
@@ -957,7 +1001,9 @@
             "section": "Class Features",
             "locator": "6106"
           }
-        ]
+        ],
+        "progressionDescription": "*Dirge of Doom ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 8th level or higher can use his performance to foster a sense of growing dread in his enemies, causing them to take become shaken. To be affected, an enemy must be within 30 feet and able to see and hear the bard’s performance. The effect persists for as long as the enemy is within 30 feet and the bard continues the performance. The performance cannot cause a creature to become frightened or panicked, even if the targets are already shaken from another effect. Dirge of doom is a mind-affecting fear effect, and it relies on audible and visual components.",
+        "sourceTextHash": "cfa2255493c087924b14820c7202491d6e6b01a662e55986009e9c23ad190f65"
       },
       {
         "id": "ffd20:class:bard:feature:inspire-greatness",
@@ -976,7 +1022,9 @@
         ],
         "initialState": {
           "targets": 1
-        }
+        },
+        "progressionDescription": "*Inspire Greatness ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 9th level or higher can use his performance to inspire greatness in himself or a single willing ally within 30 feet, granting extra fighting capability. For every three levels a bard attains beyond 9th, he can target one additional ally while using this performance (up to a maximum of four at 18th level). To inspire greatness, all of the targets must be able to see and hear the bard. A creature inspired with greatness gains 2 bonus Hit Dice (d10s), the commensurate number of temporary hit points (apply the target’s Constitution modifier, if any, to these bonus Hit Dice), a +2 competence bonus on attack rolls, and a +1 competence bonus on Fortitude saves. The bonus Hit Dice count as regular Hit Dice for determining the effect of spells that are Hit Dice dependent. Inspire greatness is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) ability and it relies on audible and visual components.",
+        "sourceTextHash": "fea6656e4007a9fa01091b55cf714197dea5a3119c8bd7ce39e9027b32f15417"
       },
       {
         "id": "ffd20:class:bard:feature:soothing-performance",
@@ -992,7 +1040,9 @@
             "section": "Class Features",
             "locator": "6111"
           }
-        ]
+        ],
+        "progressionDescription": "*Soothing Performance ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 12th level or higher can use his performance to create an effect equivalent to the *cura* spell, using the bard’s level as the caster level. In addition, this performance removes the fatigued, sickened, and shaken condition from all those affected. Using this ability requires 4 continuous performance, and the targets must be able to see and hear the bard throughout the performance. Soothing performance relies on audible and visual components.",
+        "sourceTextHash": "224ec37de7a46566c7c21b98d7dac0893e7260661392e7d0bee0e04771f143cc"
       },
       {
         "id": "ffd20:class:bard:feature:advanced-song-talents",
@@ -1008,7 +1058,9 @@
             "section": "Class Features",
             "locator": "6155"
           }
-        ]
+        ],
+        "progressionDescription": "At 12th, and every two levels thereafter, a bard learns further talents to assist him in manipulating his songs and class features. He may choose one of the following advanced song talents in place of a song talent. Talents marked with an asterisk add effects to a bard’s song-performing ability. Only one of these talents can be applied to an individual song and the decision must be made before the song is performed.\n\n* A complete list of advanced song talents can be found here: [Advanced Song Talents](https://www.finalfantasyd20.com/classes/core-classes/bard/song-talents/)",
+        "sourceTextHash": "605bce8d2910ce3c2f142189b9d3b9b2329c0ff3d014f75736e47594c5da117d"
       },
       {
         "id": "ffd20:class:bard:feature:cant-stop-my-performance",
@@ -1024,7 +1076,9 @@
             "section": "Class Features",
             "locator": "6158"
           }
-        ]
+        ],
+        "progressionDescription": "At 13th level, a bard becomes immune to all silence and blind spells and effects.",
+        "sourceTextHash": "9bf040f02061cb5537d04deb6a42215ee0560ed77fb3fa79e869870a7995b3bb"
       },
       {
         "id": "ffd20:class:bard:feature:frightening-tune",
@@ -1040,7 +1094,9 @@
             "section": "Class Features",
             "locator": "6113"
           }
-        ]
+        ],
+        "progressionDescription": "*Frightening Tune ([Sp](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#spell-like)):* A bard of 14th level or higher can use his performance to cause fear in his enemies. To be affected, an enemy must be able to hear the bard perform and be within 30 feet. Each enemy within range receives a Will save (DC 10 + half of the bard’s level + his Charisma modifier) to negate the effect. If the save succeeds, the creature is immune to this ability for 24 hours. If the save fails, the target becomes frightened and flees for as long as the target can hear the bard’s performance. Frightening tune relies on audible components. This is a [fear](https://www.finalfantasyd20.com/magic/#fear) effect.",
+        "sourceTextHash": "190034e7f710eb9c3921eb85c43f8328b723eed796bf05e10ee0ba556e7b3bba"
       },
       {
         "id": "ffd20:class:bard:feature:inspire-heroics",
@@ -1059,7 +1115,9 @@
         ],
         "initialState": {
           "targets": 1
-        }
+        },
+        "progressionDescription": "*Inspire Heroics ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 15th level or higher can inspire tremendous heroism in himself or a single ally within 30 feet. For every three bard levels the character attains beyond 15th, he can inspire heroics in one additional creature. To inspire heroics, all of the targets must be able to see and hear the bard. Inspired creatures gain a +4 morale bonus on saving throws and a +4 dodge bonus to AC. The effect lasts for as long as the targets are able to witness the performance. Inspire heroics is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) ability that relies on audible and visual components.",
+        "sourceTextHash": "7252904ed7af6ca0f606476dd1a1a41efcc91dc20cea86abeecf6564b04c591d"
       },
       {
         "id": "ffd20:class:bard:feature:unstoppable-performance",
@@ -1075,7 +1133,9 @@
             "section": "Class Features",
             "locator": "6162"
           }
-        ]
+        ],
+        "progressionDescription": "At 16th level, a bard can affect deaf and blind creatures with his bardic performances without penalty.",
+        "sourceTextHash": "9b2bfb99d193d1eff1500fd639f2bca5bf9f483d910616ef314bcb62859dbc8f"
       },
       {
         "id": "ffd20:class:bard:feature:adoring-fan",
@@ -1091,7 +1151,9 @@
             "section": "Class Features",
             "locator": "6117"
           }
-        ]
+        ],
+        "progressionDescription": "*Adoring Fan ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* At 17th level, the bard can use his performance to convert even the toughest audience. To be affected, a target must be able to see and hear the bard perform for 1 full round and be within 30 feet. The target can attempt a Will save (DC 10 + half the bard’s level + his Charisma modifier) to negate the effect. If a creature succeeds at the saving throw, the bard cannot use this ability on that creature again for 24 hours. On a failure, the creature is dominated (as [dominate monster](https://www.finalfantasyd20.com/magic/spells/d/dominate-monster)) for as long as the bard keeps playing and is charmed (as [charm monster](https://www.finalfantasyd20.com/magic/spells/c/charm-monster/)) for 1d4 hours thereafter. Adoring fan is a mind-affecting, compulsion effect that relies on audible and visual components.",
+        "sourceTextHash": "bce354525434046dea6713d830afe969ef7c876b637f58c85c452bd494080b95"
       },
       {
         "id": "ffd20:class:bard:feature:1-mp-song",
@@ -1107,7 +1169,9 @@
             "section": "Class Features",
             "locator": "6165"
           }
-        ]
+        ],
+        "progressionDescription": "At 17th level, three times per day, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), a bard can reduce the cost of his next song to 1 MP. This MP reduction is applied after any metasong cost increases. Additional metasong cannot be applied after this cost reduction.",
+        "sourceTextHash": "5ae81b4bff47d7dc8a190680913267784940e31b63090032c9882db601a62a18"
       },
       {
         "id": "ffd20:class:bard:feature:funeral-ballad",
@@ -1123,7 +1187,9 @@
             "section": "Class Features",
             "locator": "6119"
           }
-        ]
+        ],
+        "progressionDescription": "*Funeral Ballad ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* Once per day, a bard of 18th level or higher can use his performance to create an effect equivalent to Arise on a dead creature, using the bard’s level as the caster level. Using this ability requires 10 rounds of continuous performance, and the target must be within 10 feet of the bard for the entire performance. Funeral ballad relies on audible and visual components.",
+        "sourceTextHash": "3534f427b8cb3fd6fce9e56a9d45112ef1790347fc251efab24c7952e4d9a1ff"
       },
       {
         "id": "ffd20:class:bard:feature:deadly-performance",
@@ -1139,7 +1205,9 @@
             "section": "Class Features",
             "locator": "6120"
           }
-        ]
+        ],
+        "progressionDescription": "*Deadly Performance ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A bard of 20th level or higher can use his performance to cause one enemy to die from joy or sorrow. To be affected, the target must be able to see and hear the bard perform for 1 full round and be within 30 feet. The target receives a Will save (DC 10 + half of the bard’s level + his Charisma modifier) to negate the effect. If a creature’s saving throw succeeds, the target is dazed for 1d4 rounds, and the bard cannot use deadly performance on that creature again for 24 hours. If a creature’s saving throw fails, it dies. Deadly performance is a [mind-affecting](https://www.finalfantasyd20.com/magic/#mind-affecting) death effect that relies on audible and visual components.\n\n### Well-Versed ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAt 2nd level, the bard becomes resistant to the bardic performance of others, and to sonic effects in general. The bard gains a +4 bonus on saving throws made against bardic performance, [sonic](https://www.finalfantasyd20.com/magic/#sonic), and [language-dependent](https://www.finalfantasyd20.com/magic/#language-dependent) effects.\n\n### Versatile Performance ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nAt 2nd level, a bard can choose one type of Perform skill. He can use his bonus in that skill in place of his bonus in associated skills. When substituting in this way, the bard uses his total Perform skill bonus, including class skill bonus, in place of its associated skill’s bonus, whether or not he has ranks in that skill or if it is a class skill.\n\nThe types of Perform and their associated skills are: Act (Bluff, Disguise), Comedy (Bluff, Intimidate), Dance (Acrobatics, Fly), Keyboard Instruments (Diplomacy, Intimidate), Oratory (Diplomacy, Sense Motive), Percussion (Handle Animal, Intimidate), Sing (Bluff, Sense Motive), String (Bluff, Diplomacy), and Wind (Diplomacy, Handle Animal).\n\nAt 6th level, and every four bard levels thereafter, the bard can select either an additional type of Perform to substitute or one of the following Advanced Versatile Performances:",
+        "sourceTextHash": "5e9e6a8786509d03d93ab9aa4c9afdd4d28e4ae1e3d600450c52509366dc5610"
       },
       {
         "id": "ffd20:class:bard:feature:master-bard",
@@ -1155,7 +1223,9 @@
             "section": "Class Features",
             "locator": "6168"
           }
-        ]
+        ],
+        "progressionDescription": "At 20th level, a bard becomes a master of the bardic arts. The DCs of all songs and bardic performances are increased by 2. In addition, once per day, a bard can perform up to five songs at once as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), provided that they are part of a Medley. This action does not impose a Perform skill check.",
+        "sourceTextHash": "8801babf0600af82024f5051632e55036be2484211eb59beda519953d4d6b01e"
       }
     ],
     "upgrades": [
@@ -3538,5 +3608,10 @@
     "supportedLevels": [
       1
     ]
+  },
+  "sourceTextProvenance": {
+    "url": "https://finalfantasyd20.com/classes/core-classes/bard/",
+    "markdownSha256": "4affe9cdca2208db47bfaa9b1bd6e72c90662f9e4a499b0b3f056e38e6f13020",
+    "archivedAt": "2026-10-29T16:38:58+00:00"
   }
 }

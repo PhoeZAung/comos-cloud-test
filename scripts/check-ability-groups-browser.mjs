@@ -46,7 +46,7 @@ try{
  const addBounds=await page.locator('.cs-ability-add-menu summary').boundingBox(),groupBounds=await page.locator('[data-add-ability-group]').boundingBox();
  assert.ok(Math.abs(addBounds.y-groupBounds.y)<8,'Add ability and Add group are adjacent');
  await page.locator('.cs-ability-add-menu summary').click();await page.locator('[data-rule-abilities]').click();
- await page.getByRole('dialog',{name:'Race and class abilities'}).waitFor();await page.locator('[data-library-close]').click();
+ await page.getByRole('dialog',{name:'Add abilities',exact:true}).waitFor();await page.locator('[data-library-close]').click();
  await page.locator('.cs-ability-add-menu summary').click();await page.locator('[data-add-manual-ability]').click();
  await page.locator('[data-sheet-dialog][open]').waitFor();await page.keyboard.press('Escape');
  await page.locator('[data-add-ability-group]').click();

@@ -25,7 +25,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Free-action Perception reroll; must take new result.",
+      "description": "As a free action, the archer may reroll any Perception check, but the result of the reroll must be accepted, even if it is worse.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -43,7 +43,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Act as initiative 20 in surprise round, but only one bow/crossbow attack action; normal initiative thereafter.",
+      "description": "An archer with this talent may treat his initiative roll as a 20 for a surprise round, regardless of his initiative, but he may only take an [attack action](https://www.d20pfsrd.com/gamemastering/Combat/#TOC-Action-Types) with a bow or crossbow. His normal initiative roll is used in subsequent rounds. If two or more characters possess this talent, their initiative determines the order in which they act, but they all go before any other creature. If an archer is prevented from acting in the surprise round, this talent has no effect.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -61,7 +61,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "+1 ranged attack vs targets at least two sizes smaller; ranged attacks deal full damage to objects.",
+      "description": "An archer gains a +1 bonus on ranged attack rolls against creatures or objects two or more size categories smaller than him. The archer’s ranged attacks also deal full damage to objects instead of half damage.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -79,7 +79,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "While seeing a living aimed target, know its remaining hit points.",
+      "description": "While able to see an aimed target, an archer with this talent knows exactly how many hit points his opponent has remaining. This only works against living targets.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -97,7 +97,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Move up to double speed as move action without Stealth movement penalty; 3 + DEX mod uses/day.",
+      "description": "The archer can move up to twice his speed as a move action. The archer does not take any penalty on Stealth skill checks for movement during this move. This move provokes attacks of opportunity as normal (assuming enemies know he’s there). An archer can use this talent a number of times per day equal to 3 + his Dexterity modifier.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -115,7 +115,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "After 1 minute preparing natural foliage gain +4 Stealth matching the surroundings until disrupted.",
+      "description": "An archer with this talent can craft simple but effective camouflage from the surrounding foliage. The archer needs 1 minute to prepare the camouflage, but once he does, it is effective for the rest of the day or until the archer fails a saving throw against an area-effect spell that deals earth, fire, ice, lightning, water, or wind damage, whichever comes first. The archer gains a +4 bonus on Stealth checks while within terrain that matches the foliage used to make the camouflage. This ability cannot be used in areas without natural foliage.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -133,7 +133,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Gain Point Blank Shot or Far Shot/Precise Shot if already known.",
+      "description": "The archer gains Point Blank Shot as a bonus feat. If the archer already has Point Blank Shot, he can choose either Far Shot or Precise Shot instead.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -151,7 +151,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Gain one combat feat; this talent may only be selected once.",
+      "description": "An archer that selects this talent gains a bonus combat feat (see Feats). This talent may be selected only once.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -169,7 +169,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Choose one bow/crossbow; critical threat 19–20 and multiplier x2. At Archer 12 becomes 18–20; extra BAB damage after a crit on attack action.",
+      "description": "The archer may select 1 bow or crossbow with which the he is proficient, treating that weapon as though its critical threat range was 19-20 (unless it would be higher) and its critical multiplier as though it was x2 (even if it would normally be higher). In addition, when the archer confirms a critical hit with the chosen weapon while using the [attack action](https://www.d20pfsrd.com/gamemastering/Combat/#TOC-Action-Types) he deals additional damage equal to his base attack bonus; this additional damage is applied after other modifiers and is not multiplied by the critical hit. At 12th level, the chosen weapon’s critical threat range is instead treated as 18-20.  The archer still benefits from Critical Aim at 14th and Master Archer at 20th.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -187,7 +187,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Swift action: bow/crossbow attacks do not provoke until next turn.",
+      "description": "The archer can use this talent as a swift action. Until the start of his next turn, his ranged attacks do not provoke attacks of opportunity.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -205,7 +205,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Once per encounter add Aim bonus to CMD and ranged-target-specific dodge AC; Take Aim doubles it.",
+      "description": "An archer that selects this talent can select one aimed target per encounter and add his aimed target bonus to his CMD and as a dodge bonus to AC when attacked by his aimed target. This is also doubled by Take Aim at 13th.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -223,7 +223,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Reroll initiative once per day, must accept new result.",
+      "description": "Once per day as a free action, the archer may choose to reroll any Initiative check, but the result of the reroll must be accepted, even if it is worse.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -241,7 +241,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "No Survival tracking penalty at full movement speed.",
+      "description": "The archer takes no penalty on Survival checks made to follow tracks while moving his normal speed.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -259,7 +259,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "In surprise round, a ranged attack against surprised target allows free action Aim.",
+      "description": "During a surprise round, if the archer makes a ranged attack against a target that is surprised, he can Aim at the target as a free action.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -279,7 +279,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Move away from designated opponent without provoking their opportunity attack; brief +10 speed.",
+      "description": "As a move action, the archer can designate a single opponent and move up to his movement speed away from that opponent; this movement does not provoke Attacks of Opportunity from that opponent, though it might provoke as normal for all other opponents. In addition, his movement speed increases additionally by 10 feet until the end of his next turn.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -299,7 +299,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "If a Targeted Shot deals at least half of target HP and 40 damage, double its effects and duration.",
+      "description": "An archer with this talent that makes a targeted shot that deals half the creature’s hit points of damage (minimum 40) doubles the targeted shot’s effects and duration.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -320,7 +320,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "On deflecting an arrow, redirect it to another target within 30 ft.",
+      "description": "Whenever an archer successfully deflects an attack with his intercept arrow talent, he can redirect the attack against a target within 30 feet, using the intercepted attack’s attack roll against the new target’s AC.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -338,7 +338,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Ignore usual penalty shooting prone targets; +2 damage vs prone targets.",
+      "description": "The archer's ranged attacks ignore the penalty for attacking prone targets and deal 2 extra damage against them.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -356,7 +356,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Swift-action automatic confirmation of a ranged critical threat.",
+      "description": "As a swift action, when the archer rolls a critical threat, he may automatically confirm it.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -374,7 +374,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Use Stealth even when observed.",
+      "description": "An archer with this talent can use the Stealth skill even while being observed.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -392,7 +392,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Once/encounter swift designated target; on ranged hit gain +half Archer level damage vs that target.",
+      "description": "Once per encounter as a swift action, the archer may designate an opponent. For the rest of the encounter, when he succeeds on a ranged attack against that opponent, he gains a bonus on damage equal to half his archer level.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -410,7 +410,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Reduce Targeted Shot attack penalty by 2.",
+      "description": "While making a targeted shot, an archer with this talent reduces the penalty to attack rolls by 2.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -430,7 +430,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Forgo full-attack shot to intercept before next turn as immediate action.",
+      "description": "When the archer takes a full-attack action with a ranged weapon, he can choose to forgo one of his attacks. If he does so, he can use his intercept arrow talent as an immediate action instead of a readied action at any time before his next turn. His attack roll to intercept uses the same bonuses as the attack he chose to forgo during his previous action.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -448,7 +448,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Ready a bow/crossbow attack to deflect incoming ranged weapon attack within 30 ft by opposed attack roll.",
+      "description": "An archer can ready a ranged attack to deflect a ranged weapon attack against him or an ally within 30 feet. To deflect the attack, the archer makes an attack with a ranged weapon. If his attack roll is greater than the attacking opponent’s roll, the opponent’s initial attack automatically misses. For each size category the attacking creature is larger than the archer, he takes a –4 penalty on his attack roll. The archer must declare the use of this talent after the attack is announced, but before the roll is made. Unusually massive ranged weapons, such as boulders or ballista bolts, and ranged attacks by firearms or generated by natural attacks or spell effects can’t be deflected.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -466,7 +466,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "+10 speed in light/no armor; add +10 to natural fly/climb/swim modes.",
+      "description": "An archer with this talent increases his movement speed by 10 feet if he is wearing light armor or no armor. If he has a natural Fly, Climb, or Swim Speed, it increases by 10 feet as well.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -484,7 +484,7 @@
       "additionalPrerequisite": "Shot on the Run feat",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "With Shot on the Run feat: move half speed before ranged full-attack, under armor/load restrictions.",
+      "description": "Whenever the archer uses a full-round action to full-attack with a ranged weapon, he may move up to half his speed as a free action before the first attack is made. This can provoke attacks of opportunity normally. The benefits of this ability apply only when he wears light or no armor. He loses all benefits of this ability when wearing medium or heavy armor, or carrying a medium or heavy load.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -504,7 +504,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Opportunity attack when designated Hunter's Target withdraws.",
+      "description": "Once per turn, whenever an opponent whom the archer selected for his Hunter's Target attempts to withdraw (whether from the archer or an ally), he can make an Attack of Opportunity against that target.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -522,7 +522,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Standard action: shoot along weapon range increment, attack every creature in line; only first gets a confirmed crit.",
+      "description": "The archer may use this talent as a standard action to make a single ranged attack at his full attack bonus with his bow or crossbow. Instead of attacking a specific target, the projectile affects all creatures in a single line, originating from the archer and going out a distance equal to the range increment of the weapon he uses. This attack applies to each target in the line, hitting each target whose AC he beats with his attack roll and dealing normal damage (plus the effects of any special properties on the projectile). If a critical hit is confirmed, the archer critically hits only the first target struck in the line.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -542,7 +542,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Once/encounter after first round change initiative to current+5.",
+      "description": "Once per encounter, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) at any time after the first round (that is, the first full round after the surprise Round, if one occurs), the archer can set his Initiative Count to his current Initiative +5 for the rest of the encounter.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -560,7 +560,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Once/encounter add aimed-target bonus to saving throws vs attacks by that target; Take Aim doubles.",
+      "description": "An archer that selects this talent can select one aimed target per encounter and add his aimed target bonus as an insight bonus to all saving throws that he makes when targeted by an attack or ability used by his aimed target. This is also doubled by Take Aim at 13th.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -578,7 +578,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Immediate action reroll missed ranged attack with -5 penalty.",
+      "description": "When he misses with a ranged attack, the archer may reroll his attack at a –5 penalty. Using this ability is an immediate action.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -596,7 +596,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "On ranged miss redirect to another enemy within 20 feet of original target.",
+      "description": "The archer’s incredible skill with bows or crossbows means that even failure is success. Whenever the archer misses his target with a ranged attack, he may redirect the attack to an enemy within 20 feet of his target. He makes an attack roll against the new target, and if successful, hits as if he had targeted them in the first place. The archer may use this ability as often as he misses, but once he hits a creature with a redirected attack, he cannot target it again this way until the beginning of his next turn.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -614,7 +614,7 @@
       "additionalPrerequisite": "Precise Shot feat",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Requires Precise Shot feat; grant nearby allies Precise Shot against the struck target for 1 round.",
+      "description": "When an archer hits a creature with a ranged attack, he grants his allies within 10 feet of her the benefit of the Precise Shot feat against that target until the start of his next turn. His allies must remain within 10 feet of him, and must be able both to see and hear the archer to gain this benefit.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -632,7 +632,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "+5 Acrobatics in narrow-surface or loose-ground movement conditions.",
+      "description": "The archer gains a +5 bonus on Acrobatics checks to move on narrow surfaces and loose or uneven ground.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -650,7 +650,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Full-round shot up to third range increment, target flat-footed, ignore DR unless target has Uncanny Dodge.",
+      "description": "An archer can use a full-round action to make an attack against an opponent who is up to three range increments away. The opponent is treated as flat-footed against this attack. This attack bypasses any damage reduction the target might have. If the target has uncanny dodge, it retains its damage reduction against this attack.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -670,7 +670,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Once/encounter swift move up to speed.",
+      "description": "Once per encounter, the archer can use a swift action to move up to his movement speed.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -688,7 +688,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Swift 5-foot move without provoking or consuming normal 5-foot step.",
+      "description": "The archer can move 5 feet as a swift action. This movement does not provoke attacks of opportunity and does not count as a 5-foot step.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -709,7 +709,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Once/encounter each: Blurring Burst (+2 Reflex), Sudden Assault (charge), Weaving Stride (conditional +2 AC per AoO).",
+      "description": "The archer is skilled at maneuvering on the battlefield thanks to his experience surviving in dangerous places. He can use each of the following actions once per encounter:    • Blurring Burst: As a move action, the archer moves up to his movement speed, and gains a +2 bonus to his Reflex save until the end of the encounter.  • Sudden Assault: The archer makes a Charge attack against an enemy within range as a standard action. He takes no penalty to his AC for this attack.  • Weaving Stride: The archer moves up to his movement speed as a move action. He gains a cumulative +2 dodge bonus to his AC for each Attack of Opportunity made against him during this movement. This bonus lasts until the beginning of his next turn.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -727,7 +727,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Threaten first range increment for flanking only, not opportunity attacks; not adjacent.",
+      "description": "An archer with this talent is so deadly with his bow or crossbow, he may flank targets. He threatens an area up to the first range increment, but not adjacent. This only applies for flanking a target and does not allow for attacks of opportunity. When combining with [Snap Shot](https://www.d20pfsrd.com/feats/combat-feats/snap-shot-combat/), or similar effects, you do not gain the ability to AoO within your first range increment. Both the archer and the ally he is flanking with gain the flanking bonus.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -745,7 +745,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "When wholly above enemy ignore range penalties and low cover lacking height.",
+      "description": "The archer uses higher ground to his advantage on his projectile attacks. Whenever the archer has his entire body completely above the body of his enemy, he can ignore all penalties for attacking beyond the first range increment. In addition, he may ignore cover or partial cover that does not extend upward to his position.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -765,7 +765,7 @@
       "additionalPrerequisite": "",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Once/encounter swift ignore one visible target's DR for the rest of turn.",
+      "description": "Once per encounter, the archer can use a swift action to ignore the Damage Reduction of a single target within his line of sight for the rest of his turn.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -785,7 +785,7 @@
       "additionalPrerequisite": "Evasion class feature",
       "asterisk": false,
       "repeatLimit": 1,
-      "description": "Requires Evasion class feature; when Evasion avoids damage, immediate Stealth at -20 plus +1 per avoided damage die.",
+      "description": "When the archer successfully uses evasion or improved evasion to avoid taking damage, he can attempt to hide as an immediate action. The archer attempts a Stealth check with a –20 penalty, but gains a +1 bonus on his check for every die of damage the avoided attack would have dealt. The archer can attempt this check even while being observed, as long as he has cover or concealment or an ability that allows him to use the Stealth skill while being observed without cover or concealment.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -803,7 +803,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "On ranged hit grant allies +2 circumstance attack versus struck target until next turn.",
+      "description": "The archer can use this talent as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) when he hits a creature with a ranged attack. Each of the archer’s allies other than himself gain a +2 circumstance bonus on their attack rolls against that creature until the beginning of the archer’s next turn.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -821,7 +821,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "On bow/crossbow hit impose -2 enemy attack for one round.",
+      "description": "The archer can use this talent as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) when he hits with a bow or crossbow attack. The target of the attack takes a –2 penalty on all attack rolls for 1 round.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -839,7 +839,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "On hit halve enemy land speed 1 min if Fort DC 10 + half Archer level + DEX mod fails.",
+      "description": "The archer can use this talent as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) when he hits with a bow or crossbow attack. The land speed of the target of the attack is reduced by 1/2 for 1 minute if they fail a fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier).",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -857,7 +857,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "Ignore concealment penalty but not total concealment.",
+      "description": "The archer takes no penalty on his attack roll when attacking a target with Concealment (but not Total Concealment).",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -875,7 +875,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "Two arrows/bolts at two targets from one attack action with -2 penalty; target separation scales with BAB.",
+      "description": "Whenever the archer makes an [attack action](https://www.d20pfsrd.com/gamemastering/Combat/#TOC-Action-Types) with a bow or crossbow, he can load two arrows/bolts and fire them as part of the same attack. When making an [attack action](https://www.d20pfsrd.com/gamemastering/Combat/#TOC-Action-Types) in this fashion, his attack suffers a -2 penalty, but can target two adjacent creatures. For every four points of base attack bonus he possesses, the targets may be +5 ft. away from each other and still be viable targets, so long as their distance from each other is not greater than the distance from him to either of them.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -893,7 +893,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "Immediate ranged shot when initiative rolled, if holding loaded weapon.",
+      "description": "Whenever the archer rolls initiative, he can also make a single attack with a ranged weapon as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate). He can use this ability only if he has a weapon in hand and it is loaded (if applicable). If more than one character has this talent, their initiative check results determine the order in which they make their attacks. After these attacks are resolved, the round proceeds as normal.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -914,7 +914,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "On hit enemy becomes entangled for one round unless Fort save succeeds.",
+      "description": "The archer can use this ranged attack as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) when he makes a bow or crossbow attack. If the attack hits, the target is [entangled](https://www.finalfantasyd20.com/magic/status-effects/#entangled) for 1 round if they fail a fortitude save (DC 10 + half of the archer’s level + his Dexterity modifier).",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -932,7 +932,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "Learn disarm/feint/sunder shots at level 6; extra trick every four levels; bull rush/grapple/trip options from level 14.",
+      "description": "An archer with this talent can choose one of the following actions: disarm, feint, or sunder. He can perform this action with a bow or crossbow against any target within 30 feet, with a –4 penalty to his attack roll. Every four levels beyond 6th, he may choose an additional trick shot to learn. These maneuvers use up arrows as normal. At 14th level, he may also choose from the following actions: bull rush, grapple, trip. A target grappled by an arrow or bolt can break free by destroying the archer’s arrow or bolt (hardness 5, hit points 1, break DC 13) or with an Escape Artist or Strength check (against the archer’s –4 penalty)",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -950,7 +950,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "Use bow/crossbow attack at -4 vs two adjacent opponents; separate damage and crit confirms.",
+      "description": "An archer with this talent can use a bow or crossbow to attack two opponents adjacent to each other at once by taking a -4 penalty on the attack roll. The attack may hit either, both, or neither opponent depending on the roll and the Armor Class of each opponent. Damage for each opponent is resolved separately. If the attack roll results in the threat of a critical hit, roll to confirm each critical hit separately. This talent can be used on any bow or crossbow attack, including a full attack action.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -968,7 +968,7 @@
       "additionalPrerequisite": "",
       "asterisk": true,
       "repeatLimit": 1,
-      "description": "Ranged touch attack versus same/larger target but forfeit ability modifier damage bonus.",
+      "description": "The archer can use this talent as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) whenever they attack with a bow or crossbow against a target of his size or larger, the character can make a ranged touch attack instead of a normal attack. If the attack hits, the archer does not apply any ability modifier bonus to the damage.",
       "automation": "manual",
       "sourceRefs": [
         {
@@ -978,5 +978,10 @@
         }
       ]
     }
-  ]
+  ],
+  "sourceTextProvenance": {
+    "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+    "markdownSha256": "190ad171a7771cfb0b6464c400206ff5f16e48eb162c4f47a6e5ac6aeaf2a346",
+    "archivedAt": "2026-10-29T16:37:31+00:00"
+  }
 }

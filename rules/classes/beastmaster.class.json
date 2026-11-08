@@ -530,7 +530,9 @@
             "section": "Animal Companion",
             "locator": "animal-companion"
           }
-        ]
+        ],
+        "progressionDescription": "A beastmaster may begin play with any of the animals listed [here](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Animal-Choices) or [here](https://www.finalfantasyd20.com/classes/core-classes/beastmaster/animal-companions/). This animal is a loyal companion that accompanies the beastmaster on his adventures. (Details on how animal companions work can found be [here](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/)).\n\nUnlike normal animals of its kind, an animal companion’s Hit Dice, abilities, skills, and feats advance as the beastmaster advances in level. If a character receives an animal companion from more than one source, his effective beastmaster levels stack for the purposes of determining the statistics and abilities of the companion. Most animal companions increase in size when their beastmaster reaches 4th or 7th level, depending on the companion. If a beastmaster releases his companion from service, he may gain a new one by performing a ceremony requiring 24 uninterrupted hours of prayer in the environment where the new companion typically lives. This ceremony can also replace an animal companion that has perished.",
+        "sourceTextHash": "c76865272fade1395690e0a6b1f7a5898aa77ce7609d9c6496ce3fd02f23405b"
       },
       {
         "id": "ffd20:class:beastmaster:feature:wild-empathy",
@@ -546,7 +548,9 @@
             "section": "Wild Empathy",
             "locator": "wild-empathy"
           }
-        ]
+        ],
+        "progressionDescription": "A beastmaster can use body language, vocalizations and demeanor to improve the attitude of any creature of the animal, magical beast or vermin types. This ability functions just like a Diplomacy check made to improve a humanoid’s attitude towards a character. Typically, domesticated creatures have a starting attitude of indifferent and wild creatures begin as unfriendly. Magical beasts may only be influenced by a beastmaster’s wild empathy if the creature’s Intelligence score is 5 or less, and the beastmaster suffers a –4 penalty on any attempts to do so. The beastmaster rolls 1d20 + his beastmaster level + his Charisma modifier to determine the wild empathy check result.\n\nTo use wild empathy, the beastmaster and the creature must be able to study each other, which mean they must be within 30 feet of one another. A standard attempt to make a wild empathy check requires 1 minute, but as with influencing people, circumstances may require that the process take more or less time.",
+        "sourceTextHash": "e2cbf82d67e66f0d03ee0ff88bb23a3481db57695e396f355d4ac869b83892cd"
       },
       {
         "id": "ffd20:class:beastmaster:feature:animal-focus",
@@ -568,7 +572,9 @@
           "companionFocusSlots": 1,
           "minutesPerClassLevel": 1,
           "minimumSpendMinutes": 1
-        }
+        },
+        "progressionDescription": "At 1st level, a beastmaster can take on the aspect of an animal as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). He must select one type of animal to emulate, gaining a bonus or special ability based on the type of animal emulated and his beastmaster level. The beastmaster can use this ability for a number of minutes per day equal to his beastmaster level. This duration does not need to be consecutive, but must be spent in 1-minute increments. The beastmaster can emulate only one animal at a time.\n\nThe beastmaster can also apply one of these aspects to his animal companion. Unlike with the beastmaster himself, there is no duration on the animal aspect applied to his animal companion. An aspect applied in this way does not count against the beastmaster’s minutes of duration per day—it remains in effect until the beastmaster changes it. The companion’s aspect can be the same aspect the beastmaster has taken on or a different one. The beastmaster can select or change the animal foci on both himself and his animal companion as part of the same [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nIf the beastmaster’s animal companion is dead, the beastmaster can apply his companion’s animal focus to himself instead of his animal companion. This is in addition to the normal one he can choose, and (as with a companion’s focus) remains in effect until the beastmaster changes it instead of counting against his minutes per day.\n\nAt 20th level, each day when the beastmaster rests, he chooses one animal focus to be active on himself for the entire day. This focus is in addition to using his animal focus class ability (including the additional focus ability he is able to use on himself if his animal companion is dead).\n\n* **Bat:** The creature gains darkvision to a range of 60 feet. At 8th level, the range increases by 30 feet. At 15th level, the creature also gains blindsense to a range of 10 feet.\n* **Bear:** The creature gains a +2 morale bonus to Constitution. This bonus increases to +4 at 8th level and +6 at 15th level.\n* **Bull:** The creature gains a +2 morale bonus to Strength. This bonus increases to +4 at 8th level and +6 at 15th level.\n* **Chocobo:** The creature gains a 5-foot morale bonus to its base land speed. This bonus increases to 10 feet at 8th level and 20 feet at 15th level.\n* **Falcon:** The creature gains a +4 competence bonus on Perception checks. This bonus increases to +6 at 8th level and +8 at 15th level.\n* **Frog:** The creature gains a +4 competence bonus on Swim checks and on Acrobatics checks to jump. These bonuses increase to +6 at 8th level and +8 at 15th level.\n* **Monkey:** The creature gains a +4 competence bonus on Climb checks. This bonus increases to +6 at 8th level and +8 at 15th level.\n* **Mouse:** The creature gains [evasion](https://www.finalfantasyd20.com/classes/core-classes/thief/#evasion), as the thief class feature. At 12th level, this increases to improved evasion, as the [thief advanced talent](https://www.finalfantasyd20.com/classes/core-classes/thief/thief-talents/#thief-advanced-talents).\n* **Owl:** The creature gains a +4 competence bonus on Stealth checks. This bonus increases to +6 at 8th level and +8 at 15th level.\n* **Snake:** The creature gains a +2 bonus on attack rolls when making attacks of opportunity and a +2 dodge bonus to AC against attacks of opportunity. These bonuses increase to +4 at 8th level and +6 at 15th level.\n* **Tiger:** The creature gains a +2 morale bonus to Dexterity. This bonus increases to +4 at 8th level and +6 at 15th level.\n* **Wolf:** The creature gains [Improved Trip](https://www.d20pfsrd.com/feats/combat-feats/improved-trip-combat) feat. At 12th level, the creature also gains [Greater Trip](https://www.d20pfsrd.com/feats/combat-feats/greater-trip-combat/) feat.",
+        "sourceTextHash": "11e6aedfafd6a5b8557db089e036e63612660eee1e577205c35149cf409b823c"
       },
       {
         "id": "ffd20:class:beastmaster:feature:nature-sense",
@@ -588,7 +594,9 @@
         "initialState": {
           "knowledgeNatureBonus": 2,
           "survivalBonus": 2
-        }
+        },
+        "progressionDescription": "Also, at 1st level, a beastmaster gains a +2 bonus on Knowledge (nature) and Survival checks.",
+        "sourceTextHash": "b15342bcc20a74a4b201532280c6c27c49f812b1a95b477e7d596398cdc793d7"
       },
       {
         "id": "ffd20:class:beastmaster:feature:bestial-defense",
@@ -609,7 +617,9 @@
             "section": "Limit Breaks",
             "locator": "bestial-defense"
           }
-        ]
+        ],
+        "progressionDescription": "*Bestial Defense ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break throws the beastmaster and his animal companions to go into a bestial defense. For the duration of 1 round + 1 round per four beastmaster levels after 1st, the beastmaster and his animal companion are granted a +2 dodge bonus to AC and damage reduction of 2/- plus an additional 2 per four beastmaster levels after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "sourceTextHash": "53d45f6e605ad589ce4a5c04d30110bfd2204a37abb1b5fc653d6e87ffe2aa0c"
       },
       {
         "id": "ffd20:class:beastmaster:feature:bestial-fury",
@@ -631,7 +641,9 @@
             "section": "Limit Breaks",
             "locator": "bestial-fury"
           }
-        ]
+        ],
+        "progressionDescription": "*Bestial Fury ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break causes the beastmaster and his animal companions to go into a bestial fury. For the duration of 1 round + 1 round per four beastmaster levels after 1st, the beastmaster and his companion are granted a +2 circumstance bonus to Strength and Constitution plus an additional +2 circumstance bonus to Strength and Constitution per four beastmaster levels after 1st. In addition, the beastmaster and his companion are also granted an extra attack at their highest base attack bonus if they make a full attack. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n### Animal Companion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA beastmaster may begin play with any of the animals listed [here](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Animal-Choices) or [here](https://www.finalfantasyd20.com/classes/core-classes/beastmaster/animal-companions/). This animal is a loyal companion that accompanies the beastmaster on his adventures. (Details on how animal companions work can found be [here](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/)).\n\nUnlike normal animals of its kind, an animal companion’s Hit Dice, abilities, skills, and feats advance as the beastmaster advances in level. If a character receives an animal companion from more than one source, his effective beastmaster levels stack for the purposes of determining the statistics and abilities of the companion. Most animal companions increase in size when their beastmaster reaches 4th or 7th level, depending on the companion. If a beastmaster releases his companion from service, he may gain a new one by performing a ceremony requiring 24 uninterrupted hours of prayer in the environment where the new companion typically lives. This ceremony can also replace an animal companion that has perished.\n\n## Table: Animal Companion Base Statistics\n\n| Class Level | HD | BAB | Fort | Ref | Will | Skills | Feats | Natural Armor Bonus | Str/Dex Bonus | Bonus Tricks | Special |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 1st | 2 | +2 | +3 | +3 | +0 | 2 | 1 | +0 | +0 | 1 | Link, share senses |\n| 2nd | 3 | +3 | +3 | +3 | +1 | 3 | 2 | +0 | +0 | 1 | — |\n| 3rd | 3 | +3 | +3 | +3 | +1 | 3 | 2 | +2 | +1 | 2 | Evasion |\n| 4th | 4 | +4 | +4 | +4 | +1 | 4 | 2 | +2 | +1 | 2 | Ability score increase |\n| 5th | 5 | +5 | +4 | +4 | +1 | 5 | 3 | +2 | +1 | 2 | Magic Attacks |\n| 6th | 6 | +6 | +5 | +5 | +2 | 6 | 3 | +4 | +2 | 3 | Devotion |\n| 7th | 6 | +6 | +5 | +5 | +2 | 6 | 3 | +4 | +2 | 3 | — |\n| 8th | 7 | +7 | +5 | +5 | +2 | 7 | 4 | +4 | +2 | 3 | — |\n| 9th | 8 | +8 | +6 | +6 | +2 | 8 | 4 | +6 | +3 | 4 | Ability score increase, Multiattack |\n| 10th | 9 | +9 | +6 | +6 | +3 | 9 | 5 | +6 | +3 | 4 | — |\n| 11th | 9 | +9 | +6 | +6 | +3 | 9 | 5 | +6 | +3 | 4 | — |\n| 12th | 10 | +10 | +7 | +7 | +3 | 10 | 5 | +8 | +4 | 5 | — |\n| 13th | 11 | +11 | +7 | +7 | +3 | 11 | 6 | +8 | +4 | 5 | — |\n| 14th | 12 | +12 | +8 | +8 | +4 | 12 | 6 | +8 | +4 | 5 | Ability score increase |\n| 15th | 12 | +12 | +8 | +8 | +4 | 12 | 6 | +10 | +5 | 6 | Improved evasion |\n| 16th | 13 | +13 | +8 | +8 | +4 | 13 | 7 | +10 | +5 | 6 | — |\n| 17th | 14 | +14 | +9 | +9 | +4 | 14 | 7 | +10 | +5 | 6 | — |\n| 18th | 15 | +15 | +9 | +9 | +5 | 15 | 8 | +12 | +6 | 7 | Blood Bond |\n| 19th | 15 | +15 | +9 | +9 | +5 | 15 | 8 | +12 | +6 | 7 | — |\n| 20th | 16 | +16 | +10 | +10 | +5 | 16 | 8 | +12 | +6 | 7 | Ability score increase |",
+        "sourceTextHash": "d4c8fbed58156e3ea152d545d82bda1c791297fec1bbd7826c2c875c79266f0b"
       },
       {
         "id": "ffd20:class:beastmaster:feature:shared-senses",
@@ -648,7 +660,9 @@
             "section": "Animal Companion Base Statistics",
             "locator": "shared-senses"
           }
-        ]
+        ],
+        "progressionDescription": "* *Shared Senses ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* When within 30 feet of their animal companion, the beastmaster can select one of its senses as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to gain for 1 minute. If the beastmaster already has the same sense, he increases his by half of what his companion has. The beastmaster can share its companion’s senses a number of times per day equal to his Wisdom modifier.",
+        "sourceTextHash": "377ec4bd138bfbca3263d69c7c96b06d0dc5bd8bc32cfd68a83c35cb7834ede1"
       }
     ],
     "upgrades": [],
@@ -3782,8 +3796,17 @@
           17,
           20
         ],
-        "resolution": "unresolved",
-        "automation": "none"
+        "resolution": "class_table_user_selected",
+        "automation": "none",
+        "effectiveIncrementLevels": [
+          5,
+          8,
+          11,
+          14,
+          17,
+          20
+        ],
+        "resolutionNote": "User chose the class table on 2026-11-08; retain the conflicting source prose verbatim. Conditional bonuses remain manual."
       },
       {
         "name": "All-day focus",
@@ -3867,5 +3890,10 @@
         "status": "not-integrated"
       }
     ]
+  },
+  "sourceTextProvenance": {
+    "url": "https://finalfantasyd20.com/classes/core-classes/beastmaster/",
+    "markdownSha256": "d4894de3601afd50252bddef1e1d03803384395bb0ab80e710a9d641faf4a363",
+    "archivedAt": "2026-10-29T16:54:48+00:00"
   }
 }

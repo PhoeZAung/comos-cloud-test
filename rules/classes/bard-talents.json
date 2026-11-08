@@ -25,7 +25,7 @@
     {
       "id": "ffd20:class:bard:talent:attract-minion",
       "name": "Attract Minion",
-      "description": "Gain a minion at three-quarter Bard level; additional selections grant more minions.",
+      "description": "The bard attracts a loyal Minion. The minion is a character with a NPC class level equal to three-quarters of the bard's level (levels in bard only), rounded down. The bard may select this talent multiple times; each time he selects this talent, he gains another minion. Normally, he can have only one minion with him at a time. Any other minions the bard has are assumed to be looking after his various interests. If he loses a minion, he can send for another minion if he has one (although normal travel time still applies).",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 10,
@@ -46,7 +46,7 @@
     {
       "id": "ffd20:class:bard:talent:bard-training",
       "name": "Bard Training",
-      "description": "Choose an eligible item creation or metasong feat; each repeat requires a different feat.",
+      "description": "The bard may select an item creation or metasong feat. The bard must still meet all prerequisites for a bonus feat, including caster level minimums. This talent may be taken more than once. Each time, a different feat must be selected.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 10,
@@ -67,7 +67,7 @@
     {
       "id": "ffd20:class:bard:talent:bardic-inspiration",
       "name": "Bardic Inspiration",
-      "description": "Swiftly grant one ally a scaling inspiration die; usage limited by Charisma.",
+      "description": "The bard can inspire others through stirring words or music. To do so, he uses a swift action on his turn to choose one creature other than himself within 60 feet of him who can hear him. That creature gains one Bardic Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Bardic Inspiration die, but must decide before the GM says whether the roll succeeds or fails. Once the Bardic Inspiration die is rolled, it is lost. A creature can have only one Bardic Inspiration die at a time. The bard can use this feature a number of times per day equal to his Charisma modifier (a minimum of once). His Bardic Inspiration die changes when he reaches certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -138,7 +138,7 @@
     {
       "id": "ffd20:class:bard:talent:beloved",
       "name": "Beloved",
-      "description": "Three once-per-encounter ally protection or reaction maneuvers.",
+      "description": "The bard's allies hold him in such esteem that when he is threatened or injured, he can encouraged them to action. He can use each of the following actions once per encounter:    • Guardian: The bard chooses one ally as a swift action. As long as he remains within 30 feet of the ally, he gains a +2 bonus to his AC until the start of his next turn.  • Reprisal: The bard makes a single melee or ranged attack against any target within his range as a standard action. If his attack roll succeeds and if that target attacks the bard before the end of his next turn, one ally within 30 feet can make an attack against that target as an immediate action.  • To Me!: The bard spends a swift action. Whenever he takes any damage before the beginning of his next turn, each ally within line of sight can move 10 feet as an immediate action. This movement does not provoke Attacks of Opportunity.",
       "minimumLevel": 4,
       "tier": "normal",
       "repeatLimit": 1,
@@ -159,7 +159,7 @@
     {
       "id": "ffd20:class:bard:talent:bodyguard-i",
       "name": "Bodyguard I",
-      "description": "Redirect an adjacent incoming attack to a minion.",
+      "description": "Whenever the bard is adjacent to a minion gained with the Attract Minion talent, once per turn as an immediate action to being attacked, he can redirect the attack against that minion. Compare the attack roll to the minion's AC and resolve the attack as normal.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -182,7 +182,7 @@
     {
       "id": "ffd20:class:bard:talent:bodyguard-ii",
       "name": "Bodyguard II",
-      "description": "Redirected minion gains half Bard level to AC for that attack.",
+      "description": "When the bard redirects an attack to a minion using the Bodyguard I talent, that minion's AC gains a bonus equal to half his bard level.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -206,7 +206,7 @@
     {
       "id": "ffd20:class:bard:talent:bodyguard-iii",
       "name": "Bodyguard III",
-      "description": "Redirected minion may immediately counterattack its attacker.",
+      "description": "When the bard redirects an attack to a minion using the Bodyguard I talent, that minion can make an immediate melee or ranged attack against his attacker, if the attacker is within range.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -231,7 +231,7 @@
     {
       "id": "ffd20:class:bard:talent:born-leader",
       "name": "Born Leader",
-      "description": "Once per encounter grant line-of-sight allies +1 insight on attacks.",
+      "description": "Once per encounter, as a swift action, the bard grants all allies within his line of sight a +1 insight bonus on attack rolls. This effect lasts for as long as they remain within line of sight of him. An ally loses this bonus immediately if line of sight is broken or the bard is unconscious or dead.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -252,7 +252,7 @@
     {
       "id": "ffd20:class:bard:talent:commander-field-presence",
       "name": "Commander Field Presence",
-      "description": "Once-per-encounter attacks can grant AC, attack/damage, or movement to allies.",
+      "description": "The bard excels at leading others into battle, issuing quick commands, demonstrating a gift for strategy, decimating his enemies, and impressing his peers. He can use each of the following actions once per encounter as a standard action:    • Hold the Line!: The bard makes a single melee or ranged attack against any target within his range. If his attack hits, all allies within 30 feet of him gain a +2 morale bonus to their AC until the end of his next turn.  • Lead the Assault: The bard makes a single melee or ranged attack against any target within his range. If his attack hits, all allies within 30 feet of him gain a +2 morale bonus to their attack rolls and damage rolls until the end of his next turn.  • Turn the Tide: The bard makes a single melee or ranged attack against any target within his range. If he successfully damages the target, a number of allies equal to his Charisma modifier (minimum 1) can immediately move up to half their movement speed as a free action.",
       "minimumLevel": 4,
       "tier": "normal",
       "repeatLimit": 1,
@@ -273,7 +273,7 @@
     {
       "id": "ffd20:class:bard:talent:concentrate",
       "name": "Concentrate",
-      "description": "Once daily reroll concentration with +4; must use second result.",
+      "description": "The bard can reroll any concentration check he has just made with a +4 bonus. He must use this ability after the roll is made, but before the roll’s outcome is determined. The bard must take the second roll, even if it is worse. The bard can use this ability once per day.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -294,7 +294,7 @@
     {
       "id": "ffd20:class:bard:talent:contingency-plan",
       "name": "Contingency Plan",
-      "description": "Once per encounter move as an immediate response to a failed roll.",
+      "description": "Once per encounter, if the bard fails an attack roll, a skill check, or the use of a talent that requires an opposed check, he can move up to his movement speed as an immediate action.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -315,7 +315,7 @@
     {
       "id": "ffd20:class:bard:talent:coordinate",
       "name": "Coordinate",
-      "description": "Standard action improve allies' Aid Another bonus by +1 per selection, maximum +5.",
+      "description": "A bard with this talent has a knack for getting people to work together. When he uses this talent as a standard action, all allies within his line of sight are granted an additional +1 bonus when they use the Aid Another action until the start of his next turn. The bard may select this talent multiple times; each time he does, the bonus granted by the coordinate ability increases by 1 (To a maximum of +5).",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 5,
@@ -340,7 +340,7 @@
     {
       "id": "ffd20:class:bard:talent:creative-destruction",
       "name": "Creative Destruction",
-      "description": "Damage-dealing song grants temporary HP based on song damage dice.",
+      "description": "The bard has learned how to use destructive energy to empower himself. When he performs a song that deals damage, he gains a number of temporary hit points equal to the total number of dice used to determine the damage caused by the song. Temporary hit points gained from this talent disappear after 1 hour.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -362,7 +362,7 @@
     {
       "id": "ffd20:class:bard:talent:dazzling-song",
       "name": "Dazzling Song",
-      "description": "A song modifier dazzles targets that fail the save; limited uses.",
+      "description": "As a free action, the bard adds an element of bright energy to a song he is performing. Any target that fails its save against the song is dazzled for 1 round per level of the song. The bard may use this ability a number of times per day equal to 3 + his Charisma modifier.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -384,7 +384,7 @@
     {
       "id": "ffd20:class:bard:talent:defensive-feedback",
       "name": "Defensive Feedback",
-      "description": "A song modifier reflects part of damage prevented by resistance.",
+      "description": "Rather than dissipate damaging energy, the bard can redirect some of it back to its source. When an enhancing song the bard performs prevents damage (with damage reduction or elemental resistance), if the attacking creature is within 30 feet of the protected creature, the foe takes 1d6 points of damage for every 10 points of damage prevented.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -406,7 +406,7 @@
     {
       "id": "ffd20:class:bard:talent:distant-command",
       "name": "Distant Command",
-      "description": "Born Leader benefits persist despite broken line of sight.",
+      "description": "Any ally who gains the benefit of the bard's Born Leader talent does not lose the benefit if their line of sight to him is broken.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -429,7 +429,7 @@
     {
       "id": "ffd20:class:bard:talent:empowered-song",
       "name": "Empowered Song",
-      "description": "Apply Empower Song free once per day.",
+      "description": "The bard can perform one song per day as if it were modified by the Empower Song feat. This does not increase the MP cost or the level of the song.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -450,7 +450,7 @@
     {
       "id": "ffd20:class:bard:talent:extended-song",
       "name": "Extended Song",
-      "description": "Apply Extended Song free to two songs daily.",
+      "description": "The bard can perform two songs per day as if they were modified by the Extended Song feat. This does not increase the MP cost or the level of the song.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -471,7 +471,7 @@
     {
       "id": "ffd20:class:bard:talent:harmonic-song",
       "name": "Harmonic Song",
-      "description": "Cast a song while maintaining performance without spending a round.",
+      "description": "Whenever the bard performs a 1st or higher level song while he is maintaining a bardic performance, he can maintain the bardic performance for that round without expending one of his rounds of performance for the day. In addition, he can switch from one bardic performance to another as a swift action when he performs a song while maintaining a bardic performance.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -494,7 +494,7 @@
     {
       "id": "ffd20:class:bard:talent:ignite-fervor",
       "name": "Ignite Fervor",
-      "description": "After hitting, grant one ally conditional damage on their next attack.",
+      "description": "Whenever the bard hits an opponent with a melee or ranged attack, as a swift action, he can choose to give one ally within his line of sight a bonus to damage on his next attack equal to half their character level. Once their fervor has been ignited, the affected ally doesn't need to remain within line of sight of the bard; if their next attack misses, they lose the bonus to damage granted by this talent. The bard can't Ignite Fervor on himself.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -515,7 +515,7 @@
     {
       "id": "ffd20:class:bard:talent:improved-inspiration",
       "name": "Improved Inspiration",
-      "description": "Inspiration class feature temporary HP increases by Charisma modifier.",
+      "description": "The bard’s inspiration class feature improves, gaining additional temporary hit points equal to his Charisma modifier",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -538,7 +538,7 @@
     {
       "id": "ffd20:class:bard:talent:improved-musical-power",
       "name": "Improved Musical Power",
-      "description": "Gain an extra Musical Power attack in a full attack at -5.",
+      "description": "The bard is able to produce an additional musical power attack at a -5 penalty as part of a full-attack.",
       "minimumLevel": 6,
       "tier": "normal",
       "repeatLimit": 1,
@@ -561,7 +561,7 @@
     {
       "id": "ffd20:class:bard:talent:inspire-haste",
       "name": "Inspire Haste",
-      "description": "A nearby ally can make a normally standard-action skill check as a move action.",
+      "description": "As a swift action, the bard can encourage one of his allies within line of sight to make haste with a skill check. On that ally's next turn, that ally can make a skill check that normally requires a standard action, as a move action instead.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -582,7 +582,7 @@
     {
       "id": "ffd20:class:bard:talent:quick-inspiration",
       "name": "Quick Inspiration",
-      "description": "Use the Inspiration class feature as a swift action.",
+      "description": "The bard can use his inspiration class feature as a swift action instead.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -605,7 +605,7 @@
     {
       "id": "ffd20:class:bard:talent:rally",
       "name": "Rally",
-      "description": "Once per encounter grant injured allies situational morale saves and damage.",
+      "description": "Once per encounter, the bard can rally his allies and bring them back from the edge of defeat. As a swift action, any allies within his line of sight who have less than half their total hit points remaining gain a +2 morale bonus to their Reflex and Will save, and a +2 bonus to all damage rolls for the remainder of the encounter.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -626,7 +626,7 @@
     {
       "id": "ffd20:class:bard:talent:reactionary-attack",
       "name": "Reactionary Attack",
-      "description": "Once per encounter let an ally counterattack as a reaction.",
+      "description": "Once per encounter, as an immediate action to an attack made against the bard or an ally, he can direct an ally within 30 feet to make an immediate attack as an immediate action against the attacking enemy. The ally the bard chooses must be capable of making an attack against the target.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -647,7 +647,7 @@
     {
       "id": "ffd20:class:bard:talent:song-guard",
       "name": "Song Guard",
-      "description": "Full-round song yields temporary deflection AC equal to song level.",
+      "description": "Whenever the bard performs a song, he may instead perform it as a full round action. The bard channels some of the energy of the song into a defensive shield around him, giving him a deflection bonus to his AC equal to the level of the song being performed. This bonus lasts until the beginning of the bard’s next turn.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -669,7 +669,7 @@
     {
       "id": "ffd20:class:bard:talent:song-performance",
       "name": "Song Performance",
-      "description": "Reduce Medley's Perform DC penalty by 2 per extra song.",
+      "description": "The bard becomes more adept at performing multiple maintained songs at once, reducing the Perform DC by 2 per additional song.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -692,7 +692,7 @@
     {
       "id": "ffd20:class:bard:talent:troubadour",
       "name": "Troubadour",
-      "description": "A song modifier doubles next song duration, three uses daily.",
+      "description": "As a swift action, the bard can double the duration of the next song the bard performs. The bard can use this ability three times per day.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -714,7 +714,7 @@
     {
       "id": "ffd20:class:bard:talent:trust",
       "name": "Trust",
-      "description": "Give an ally an additional move or standard action next turn.",
+      "description": "The bard can give up his standard action to give one ally within his line of sight an extra standard action or move action on their next turn, to do with as they please. The ally does not lose the action if line of sight is later broken.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -738,7 +738,7 @@
     {
       "id": "ffd20:class:bard:talent:unwavering-ally",
       "name": "Unwavering Ally",
-      "description": "Swiftly protect one ally from flat-footed and lost DEX AC.",
+      "description": "Once per turn, as a swift action, the bard can designate one ally within his line of sight who can hear and understand him. Until the start of the bard's next turn, that ally becomes immune to all effects that render the ally flat-footed or that deny the ally a Dexterity bonus to his or her AC.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -759,7 +759,7 @@
     {
       "id": "ffd20:class:bard:talent:wealth-of-allies",
       "name": "Wealth of Allies",
-      "description": "Replace a lost minion after 24 hours.",
+      "description": "Whenever one of the bard's minions is killed, he or she is replaced by another minion of the same level. This replacement occurs 24 hours later.",
       "minimumLevel": 2,
       "tier": "normal",
       "repeatLimit": 1,
@@ -782,7 +782,7 @@
     {
       "id": "ffd20:class:bard:talent:advanced-inspiration",
       "name": "Advanced Inspiration",
-      "description": "Add Bard level to Inspiration class feature temporary HP.",
+      "description": "The bard also adds his bard level to the number of temporary hit points granted by the inspiration ability.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -807,7 +807,7 @@
     {
       "id": "ffd20:class:bard:talent:advanced-musical-power",
       "name": "Advanced Musical Power",
-      "description": "Add a third Musical Power attack at -10 during a full attack.",
+      "description": "The bard is able to produce a third musical power attack at a -10 penalty as part of a full-attack.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -832,7 +832,7 @@
     {
       "id": "ffd20:class:bard:talent:attract-superior-minion",
       "name": "Attract Superior Minion",
-      "description": "Gain a stronger minion whose NPC level equals Bard level.",
+      "description": "The bard attracts a particularly skilled and powerful minion. The minion is a character with a NPC class level equal to the bard's level (levels in bard only). This talent otherwise functions as the Attract Minion talent.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -855,7 +855,7 @@
     {
       "id": "ffd20:class:bard:talent:encore",
       "name": "Encore",
-      "description": "Sustain the previous performance without spending an additional performance round.",
+      "description": "A good performer caters to his audience. The bard can maintain a bardic performance from the previous round without using up another round of his daily allotment of bardic performances. A bard can use encore a number of times per day equal to his Charisma modifier.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -876,7 +876,7 @@
     {
       "id": "ffd20:class:bard:talent:energetic-recharge",
       "name": "Energetic Recharge",
-      "description": "Once daily convert some incoming elemental damage into MP.",
+      "description": "Once per day, as an immediate action, when the bard would take damage from earth, fire, ice, lightning, water, or wind damage, he can convert the damage into MP, at a rate of 1 MP per 10 damage. He suffers none of the converted damage, but may not gain more than half his caster level in MP. For example, if a 14th level bard suffers 80 points of ice damage, he may convert up to 70 points of that damage into 7 MP. He takes the remaining 10 points of ice damage as normal.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -897,7 +897,7 @@
     {
       "id": "ffd20:class:bard:talent:improved-competence",
       "name": "Improved Competence",
-      "description": "Add half Charisma modifier to Inspire Competence while active.",
+      "description": "The bard adds half his Charisma modifier to the bonuses provided by the inspire competence ability.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -920,7 +920,7 @@
     {
       "id": "ffd20:class:bard:talent:improved-courage",
       "name": "Improved Courage",
-      "description": "Add +2 to active Inspire Courage bonuses.",
+      "description": "The bard adds +2 to the bonuses provided by the inspire courage ability.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -943,7 +943,7 @@
     {
       "id": "ffd20:class:bard:talent:maximized-song",
       "name": "Maximized Song",
-      "description": "Apply free Maximize Song to one song each day.",
+      "description": "The bard can perform one song per day as if it were modified by the Maximize Song feat. This does not increase the MP cost or the level of the song.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -964,7 +964,7 @@
     {
       "id": "ffd20:class:bard:talent:quickened-song",
       "name": "Quickened Song",
-      "description": "Apply free Quicken Song to one song each day.",
+      "description": "The bard can perform one song per day as if it were modified by the Quicken Song feat. This does not increase the MP cost or the level of the song.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -985,7 +985,7 @@
     {
       "id": "ffd20:class:bard:talent:song-focus",
       "name": "Song Focus",
-      "description": "Song modifier concentrates area effect on one target and improves save DC.",
+      "description": "When the bard performs a song with an area, as a free action he may choose to focus the entire might of the song on a single target. The song’s save DC is increased by +2, but only one target is affected by the song. He may do this a number of times per day equal to 3 + his Charisma modifier on a single target within that area.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -1006,7 +1006,7 @@
     {
       "id": "ffd20:class:bard:talent:twinperform",
       "name": "Twinperform",
-      "description": "Song modifier combines two qualifying songs into one standard action daily.",
+      "description": "Once per day, the bard may perform two songs as a standard action, but the combined MP cost cannot exceed his caster level. The two songs must have the same casting time and if they have a target, the targets for the songs may be different.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -1027,7 +1027,7 @@
     {
       "id": "ffd20:class:bard:talent:uncanny-defense",
       "name": "Uncanny Defense",
-      "description": "Once daily add half Bard level to AC and saves for one round.",
+      "description": "Once per day, as a free action, the bard can add half his bard level to all his AC and saving throws for one round. He must declare that he is using this talent at the beginning of his turn. The benefits last until the beginning of his next turn.",
       "minimumLevel": 12,
       "tier": "advanced",
       "repeatLimit": 1,
@@ -1045,5 +1045,10 @@
         }
       ]
     }
-  ]
+  ],
+  "sourceTextProvenance": {
+    "url": "https://finalfantasyd20.com/classes/core-classes/bard/song-talents/",
+    "markdownSha256": "f40b2d837f5a018567409a8b7577725bedeb5fd9157dcb2dc8ccc5903b747cdf",
+    "archivedAt": "2026-10-29T16:40:53+00:00"
+  }
 }

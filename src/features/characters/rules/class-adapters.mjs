@@ -98,7 +98,7 @@ export function archerPreview(b,{scores,race,racial,hpRolls,carriedLevels=0}){
   ref:view.row.ref+Number(b.carry?.ref||0),will:view.row.will+Number(b.carry?.will||0),
   baseMp,bonusMp:bonus,mp:baseMp+bonus,spellLevel:0,
   skillPerLevel:Math.max(1,6+mod(scores.int))};
- const features=view.features.map(f=>({...f,currentLevel:b.level,description:archerCurrentDescription({...f,currentLevel:b.level})}));
+ const features=view.features.map(f=>({...f,currentLevel:b.level,description:archerCurrentDescription({...f,currentLevel:b.level}),sheetNotes:archerCurrentDescription({...f,currentLevel:b.level}).slice(f.description.length).trim()}));
  const selections=archerChoiceEvents(b).filter(e=>eventPool(e).endsWith(':archery-talents'))
   .flatMap(e=>b.choices?.[e.id]||[]);
  for(const id of uniq(selections)){const t=archer.data.talents.find(t=>t.id===id);if(t)features.push({id,name:t.name,description:t.description,activation:'passive',featureKind:'class_feature',automation:'manual'});}

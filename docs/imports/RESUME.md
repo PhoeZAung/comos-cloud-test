@@ -1,5 +1,29 @@
 # Resume the class and race import queue
 
+Paused by user on 2026-11-08 to conserve Codex usage. Resume from this checkpoint;
+do not repeat source restoration or completed validation. Last checks: 738 tests
+passed, cloud build passed, and local source-import and ability-group browser
+checks passed. Production deployment remains the user’s action.
+
+Current cloud checkpoint (2026-11-08): the user requested Archer, Bard and
+Beastmaster with all 48 archetypes, and chose manual effects before later
+automation. Their complete source sections are now usable through the sheet's
+Manual source import library. See
+[the exact scope and remaining guided integration](../extraction/first-three-core-manual-import.md).
+This does not complete the original guided 1–20 class/archetype work: base Archer
+still supports 1–20; Bard and Beastmaster's automatic wizards still support
+level 1. Keep this requested batch ahead of unrelated races when continuing.
+
+The source archive is available: extractor branch `transfer/potato-local`,
+commit `c68a4c7ce8542be2be26f16eb78ff7424ff65c7b`, was verified and its readable
+pages restored to `/workspace/.source-cache/ffd20/cache/pages`. Do not repeat the
+earlier missing-source question or run the archived installer.
+
+For this cloud chat, the user's standing authorization is direct normal pushes
+to latest `main`, followed by exact-SHA verification and a pinned QNAP deployment
+block. It supersedes older local-only/feature-branch notes below. Deployment and
+real-account acceptance testing remain the user's actions.
+
 Latest class release: PR #39, b4c63eb, is live with 449 integrated tests and
 verified Railway/public-asset evidence. See docs/extraction/class-release-publication.md.
 This chat owns classes/archetypes and uses the isolated classes/red-mage

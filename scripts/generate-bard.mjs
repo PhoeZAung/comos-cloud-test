@@ -6,6 +6,7 @@ import {validateBardSongMechanics} from '../src/features/characters/rules/song-m
 const root=new URL('../',import.meta.url);
 export async function generateBardCatalog(){
  const read=async path=>JSON.parse(await readFile(new URL(path,root),'utf8'));
+ const fullText=await read('rules/classes/bard-full-text.json');
  const catalog=await read('rules/classes/bard-songs.json'),jingles=await read('rules/classes/bard-jingle-mechanics.json'),songs=await read('rules/classes/bard-song-mechanics.json');
  validateBardSongCatalog(catalog);validateBardJingleMechanics(jingles,catalog);validateBardSongMechanics(songs,catalog);
  const data=catalog.songs.filter(s=>s.level<=1).map(s=>{
@@ -13,7 +14,7 @@ export async function generateBardCatalog(){
   return {id:s.id,name:s.name,level:s.level,kind:s.kind,usageMode:s.usageMode,mpCost:m.mpCost,school:m.school,range:m.range,
    target:typeof m.targeting==='string'?m.targeting:Object.entries(m.targeting).map(([k,v])=>k+': '+v).join('; '),
    duration:m.duration,save:m.savingThrow,spellResistance:m.spellResistance,castingTime:m.castingTime,
-   description:[m.castingTime+'; '+m.mpCost+' MP.',m.mechanicsSummary,
+   description:fullText.entries.find(entry=>entry.id===s.id)?.description||[m.castingTime+'; '+m.mpCost+' MP.',m.mechanicsSummary,
     'Target: '+(typeof m.targeting==='string'?m.targeting:Object.entries(m.targeting).map(([k,v])=>k+': '+v).join('; '))+'.',
     'Range: '+m.range+'. Duration: '+m.duration+'.','Save: '+m.savingThrow+'. Spell resistance: '+m.spellResistance+'.',
     m.scaling?.length?'Scaling: '+m.scaling.map(x=>x.parameter+' = '+x.expression).join('; ')+'.':'',

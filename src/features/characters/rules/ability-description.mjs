@@ -16,5 +16,6 @@ export function classAbilityDescription(feature){
  }
  // Without an archived full-text companion, keep existing runtime detail intact.
  // The audit records those entries for source-archive review rather than inventing text.
- return descriptions.get(feature.id)||feature.progressionDescription||feature.description||'';
+ const text=descriptions.get(feature.id)||feature.progressionDescription||feature.description||'';
+ return text+(feature.sheetNotes?'\n\nSheet notes:\n'+feature.sheetNotes:'');
 }

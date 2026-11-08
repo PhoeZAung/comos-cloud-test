@@ -43,64 +43,64 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Ambusher](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/ambusher/) | queued · source-review | Start of source review |
-| [Arcane Archer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/arcane-archer/) | queued · source-review | Start of source review |
-| [Battlefield Minstrel](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/battlefield-minstrel/) | queued · source-review | Start of source review |
-| [Dwarven Crossbowyer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/dwarven-crossbowyer/) | queued · source-review | Start of source review |
-| [Hawkeye](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/hawkeye/) | queued · source-review | Start of source review |
-| [Hunter](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/hunter/) | queued · source-review | Start of source review |
-| [Heaven Piercer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/heaven-piercer/) | queued · source-review | Start of source review |
-| [Serpent Archer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/serpent-archer/) | queued · source-review | Start of source review |
-| [Skirmisher](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/skirmisher/) | queued · source-review | Start of source review |
-| [Sniper](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/sniper/) | queued · source-review | Start of source review |
-| [Tech Bow Specialist](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/tech-bow-specialist/) | queued · source-review | Start of source review |
-| [Yabbleshammy Archer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/yabbleshammy-archer/) | queued · source-review | Start of source review |
-| [Zen Archer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/zen-archer/) | queued · source-review | Start of source review |
-| [Blackarrow](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/blackarrow/) | queued · source-review | Start of source review |
-| [Bowgunner](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/bowgunner/) | queued · source-review | Start of source review |
+| [Ambusher](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/ambusher/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Arcane Archer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/arcane-archer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Battlefield Minstrel](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/battlefield-minstrel/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Dwarven Crossbowyer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/dwarven-crossbowyer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Hawkeye](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/hawkeye/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Hunter](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/hunter/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Heaven Piercer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/heaven-piercer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Serpent Archer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/serpent-archer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Skirmisher](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/skirmisher/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Sniper](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/sniper/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Tech Bow Specialist](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/tech-bow-specialist/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Yabbleshammy Archer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/yabbleshammy-archer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Zen Archer](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/zen-archer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Blackarrow](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/blackarrow/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Bowgunner](https://finalfantasyd20.com/classes/core-classes/archer/archetypes/bowgunner/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
 
 ## Bard (21)
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Agent of Inquiry](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/agent-of-inquiry/) | queued · source-review | Start of source review |
-| [Cacophonist](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/cacophonist/) | queued · source-review | Start of source review |
-| [Clown](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/clown/) | queued · source-review | Start of source review |
-| [Dragon Herald](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/dragon-herald/) | queued · source-review | Start of source review |
-| [Guitarist](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/guitarist/) | queued · source-review | Start of source review |
-| [Juggler](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/juggler/) | queued · source-review | Start of source review |
-| [Marshal](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/marshal/) | queued · source-review | Start of source review |
-| [Mediator](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/mediator/) | queued · source-review | Start of source review |
-| [Orator](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/orator/) | queued · source-review | Start of source review |
-| [Pied Piper](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/pied-piper/) | queued · source-review | Start of source review |
-| [Prankster](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/prankster/) | queued · source-review | Start of source review |
-| [Princess](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/princess/) | queued · source-review | Start of source review |
-| [Rocker](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/rocker/) | queued · source-review | Start of source review |
-| [Skald](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/skald/) | queued · source-review | Start of source review |
-| [Songhealer](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/songhealer/) | queued · source-review | Start of source review |
-| [Songstress](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/songstress/) | queued · source-review | Start of source review |
-| [Storyteller](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/storyteller/) | queued · source-review | Start of source review |
-| [Watersinger](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/watersinger/) | queued · source-review | Start of source review |
-| [Abhorsen](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/abhorsen/) | queued · source-review | Start of source review |
-| [Dragonkin](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/dragonkin/) | queued · source-review | Start of source review |
-| [Rearguard](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/rearguard/) | queued · source-review | Start of source review |
+| [Agent of Inquiry](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/agent-of-inquiry/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Cacophonist](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/cacophonist/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Clown](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/clown/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Dragon Herald](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/dragon-herald/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Guitarist](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/guitarist/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Juggler](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/juggler/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Marshal](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/marshal/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Mediator](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/mediator/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Orator](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/orator/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Pied Piper](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/pied-piper/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Prankster](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/prankster/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Princess](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/princess/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Rocker](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/rocker/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Skald](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/skald/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Songhealer](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/songhealer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Songstress](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/songstress/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Storyteller](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/storyteller/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Watersinger](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/watersinger/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Abhorsen](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/abhorsen/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Dragonkin](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/dragonkin/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Rearguard](https://finalfantasyd20.com/classes/core-classes/bard/archetypes/rearguard/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
 
 ## Beastmaster (12)
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Feral Gnasher](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/feral-gnasher/) | queued · source-review | Start of source review |
-| [Fiend Trainer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/fiend-trainer/) | queued · source-review | Start of source review |
-| [Keeper of the Grove](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/keeper-of-the-grove/) | queued · source-review | Start of source review |
-| [Mimic Warrior](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/mimic-warrior/) | queued · source-review | Start of source review |
-| [Natural Striker](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/natural-striker/) | queued · source-review | Start of source review |
-| [Pack-Bonded Hunter](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/pack-bonded-hunter/) | queued · source-review | Start of source review |
-| [Primal Hunter](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/primal-hunter/) | queued · source-review | Start of source review |
-| [Ranger](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/ranger/) | queued · source-review | Start of source review |
-| [Slayer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/slayer/) | queued · source-review | Start of source review |
-| [Tamer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tamer/) | queued · source-review | Start of source review |
-| [Tree Guardian](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tree-guardian/) | queued · source-review | Start of source review |
-| [Wild Shadow](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/wild-shadow/) | queued · source-review | Start of source review |
+| [Feral Gnasher](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/feral-gnasher/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Fiend Trainer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/fiend-trainer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Keeper of the Grove](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/keeper-of-the-grove/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Mimic Warrior](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/mimic-warrior/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Natural Striker](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/natural-striker/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Pack-Bonded Hunter](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/pack-bonded-hunter/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Primal Hunter](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/primal-hunter/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Ranger](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/ranger/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Slayer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/slayer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Tamer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tamer/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Tree Guardian](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tree-guardian/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
+| [Wild Shadow](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/wild-shadow/) | queued · manual-source-import-ready | Full archived source is available in the sheet manual import library. Guided class/archetype integration remains incomplete. |
 
 ## Black Mage (20)
 

@@ -3,6 +3,7 @@ import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '.
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
+import {addManualSourceAbilities} from '../../src/features/characters/rules/manual-source-library.mjs';
 import {isLimitBreak,syncLimitBreaks,spendLimitBreak} from '../../src/features/sheet/limit-breaks.mjs';
 import {restRecovery} from '../../src/features/sheet/recovery.mjs';
 import {skillBudget} from '../../src/features/sheet/skill-budget.mjs';
@@ -95,6 +96,8 @@ export function mergeSheetData(original,change){
   if(Object.hasOwn(change.fields,'mp_curr')&&!Object.hasOwn(change.fields,'mp')){if(data.mp_curr<0)bad('MP cannot be negative.');data.mp_temp=Math.min(Math.max(0,number(data.mp_temp)),data.mp_curr);data.mp=data.mp_curr-data.mp_temp;}
  }else if(change.action==='gunbreakerAmmo'){
   updateGunbreakerAmmo(data,change);
+ }else if(change.action==='addManualSourceAbilities'){
+  addManualSourceAbilities(data,change.picks);
  }else if(change.action==='addRuleAbility'){
   if(typeof change.ruleId!=='string'||change.ruleId.length>250)bad('Choose an ability.');addRuleAbility(data,change.ruleId);
  }else if(change.action==='reorderAbility'){
@@ -137,7 +140,7 @@ export function mergeSheetData(original,change){
       if(safe.link){try{const url=new URL(safe.link);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)bad('Link must be an http or https URL.');}
        catch{bad('Link must be a valid http or https URL.');}}
      }
-     else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=change.collection==='items'&&key==='desc'?normalizeInventoryText(value,key):text(value,key==='name'?120:12000,key==='desc'?'Description':key);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
+     else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=change.collection==='items'&&key==='desc'?normalizeInventoryText(value,key):text(value,key==='name'?120:key==='desc'&&['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(change.collection)?100000:12000,key==='desc'?'Description':key);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
     else if(entryNumber.includes(key)){if(['mp_cost','caster_level'].includes(key)&&value===''){safe[key]='';continue;}safe[key]=numeric(value);if(['u_curr','u_max'].includes(key)&&(!Number.isInteger(safe[key])||safe[key]<0))bad('Uses must be nonnegative whole numbers.');if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
     else if(key==='two_handed'&&['items','weapons'].includes(change.collection)&&typeof value==='boolean')safe[key]=value;
     else if(['equipped','cs','restoreOnLongRest','favorite','carried'].includes(key)&&typeof value==='boolean')safe[key]=value;

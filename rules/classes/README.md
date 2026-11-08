@@ -1,5 +1,12 @@
 # COSMOS CLASS EXTRACTION TEMPLATE — v1
 
+November 8 manual source batch: Archer, Bard and Beastmaster, including all 48
+archetypes, are available through **Abilities → Add abilities → Manual source
+import**. Full source text, tables, talents, companions and all Bard song levels
+are copied without summaries. This does not extend the existing automatic wizard
+level guards or enable automatic archetype replacements. See
+[scope, source provenance and remaining work](../../docs/extraction/first-three-core-manual-import.md).
+
 Purpose: make every new FFd20 class (and its many archetypes) extractable as reviewed source data, without rewriting the wizard manually.
 
 The resumable class/race/archetype work list is in [docs/imports/QUEUE.md](../../docs/imports/QUEUE.md).
