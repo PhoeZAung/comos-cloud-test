@@ -199,7 +199,7 @@ export function mountSheet(){
    const drag=dragState;if(!drag||event.pointerId!==drag.id)return;
    drag.moved=true;drag.row.style.top=event.clientY-drag.offsetY+'px';
    const lists=[...root.querySelectorAll('[data-collection="'+drag.collection+'"] [data-ability-group]')].reverse();
-   const destination=lists.find(node=>!drag.row.contains(node)&&(!drag.source.groupId||node.dataset.abilityGroup==='')&&(()=>{const r=node.getBoundingClientRect();return event.clientY>=r.top&&event.clientY<=r.bottom&&event.clientX>=r.left&&event.clientX<=r.right;})());
+   const destination=lists.find(node=>!drag.row.contains(node)&&(!drag.source.groupId||node.dataset.abilityGroup==='')&&(()=>{const r=(node.dataset.abilityGroup?node.closest('[data-ability-group-card]'):node).getBoundingClientRect();return event.clientY>=r.top&&event.clientY<=r.bottom&&event.clientX>=r.left&&event.clientX<=r.right;})());
    const targetList=destination||drag.placeholder.parentElement;
    const others=abilityChildren(targetList).filter(node=>node!==drag.row);
    const target=others.find(node=>{const r=node.getBoundingClientRect();return event.clientY<r.top+r.height/2;});

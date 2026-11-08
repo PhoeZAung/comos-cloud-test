@@ -1,3 +1,4 @@
+void import('./mobile-viewport.mjs').catch(()=>{});
 // Load optional sheet modules behind an error boundary: a missing build asset
 // must not leave the server-rendered loading animation running forever.
 let dispose,disposeEffects,leaving=false;

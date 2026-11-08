@@ -1,1 +1,7 @@
 :root{color-scheme:dark;--bg:#090b14;--surface:#131725;--line:#30364d;--text:#f0f1fa;--muted:#afb6ce;--accent:#c9b7ff;--radius:14px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);background:var(--bg)}
+
+/* App gestures scroll without browser zoom; 16px controls avoid iOS focus zoom. */
+html,body{touch-action:pan-x pan-y}
+@media(hover:none),(pointer:coarse){
+ input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea,[contenteditable=true]{font-size:16px!important}
+}

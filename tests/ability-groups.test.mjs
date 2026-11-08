@@ -73,3 +73,14 @@ test('groups and standalone abilities share a stable order without changing grou
  assert.throws(()=>mergeSheetData(d,{action:'placeAbility',collection,source:{index:999},before:null,groupId:''}));
  assert.throws(()=>mergeSheetData(d,{action:'placeAbility',collection,source:{groupId:id},before:{groupId:id},groupId:''}));
 });
+
+
+test('pre-made rule abilities can join shared pools without losing their rule identity',()=>{
+ let d=grouped(),id=d.abilityGroups[0].id;
+ d.activeAbilities[1]={name:'Pre-made',sourceRuleId:'ffd20:class:fixture:feature:premade',rulesOwned:true,uses_formula:'3',u_curr:2,u_max:3};
+ d=mergeSheetData(d,{action:'placeAbility',collection,source:{index:1},before:null,groupId:id});
+ const row=d.activeAbilities.find(r=>r.sourceRuleId==='ffd20:class:fixture:feature:premade');
+ assert.equal(row.abilityGroupId,id);assert.equal(row.rulesOwned,true);assert.equal(row.uses_formula,'3');
+ assert.equal(entryCalculations(row,d,collection).currentUses,2);
+ const html=collectionBlock(collection,d,'Pre-made');assert.match(html,/data-ability-drag/);
+});

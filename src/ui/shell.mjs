@@ -1,3 +1,4 @@
+import './mobile-viewport.mjs';
 import { createRouter } from './router.mjs';
 import { refreshSession, setSessionUser, sessionUser } from './session.mjs';
 let cleanup=()=>{};

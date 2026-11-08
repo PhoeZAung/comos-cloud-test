@@ -4,8 +4,8 @@ import os from 'node:os';import path from 'node:path';
 import {chromium} from 'playwright';
 import http from 'node:http';import fs from 'node:fs/promises';import assert from 'node:assert/strict';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
-const root=fileURLToPath(new URL('../',import.meta.url)).replace(/\/$/,'');const output=await fs.mkdtemp(path.join(os.tmpdir(),'cosmos-groups-')); let character={id:'test',name:'Ability workshop',revision:0,data:{activeAbilities:[{name:'Flame',desc:'A focused burst of flame.',damage:'1d6',action_type:'Standard',u_max:3,u_curr:3},{name:'Frost',desc:'A wave of frost.',action_type:'Move'}],passiveAbilities:[],racialAbilities:[],feats:[],weapons:[],items:[]}};
-const html=`<html><head><meta name="viewport" content="width=device-width,initial-scale=1">${['tokens','themes','sheet-base','sheet','sheet-refinements'].map(x=>'<link rel="stylesheet" href="/src/styles/'+x+'.css">').join('')}</head><body data-page="sheet-abilities"><main></main><script type="module">window.EventSource=undefined;import {mountSheet} from '/src/ui/sheet.mjs';mountSheet();</script></body></html>`;
+const root=fileURLToPath(new URL('../',import.meta.url)).replace(/\/$/,'');const output=await fs.mkdtemp(path.join(os.tmpdir(),'cosmos-groups-')); let character={id:'test',name:'Ability workshop',revision:0,data:{activeAbilities:[{name:'Flame',rulesOwned:true,sourceRuleId:'ffd20:class:fixture:feature:flame',desc:'A focused burst of flame.',damage:'1d6',action_type:'Standard',u_max:3,u_curr:3},{name:'Frost',desc:'A wave of frost.',action_type:'Move'},{name:'Limit Break: Storm',limitBreak:true}],passiveAbilities:[],racialAbilities:[],feats:[],weapons:[],items:[]}};
+const html=`<html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">${['tokens','themes','sheet-base','sheet','sheet-refinements'].map(x=>'<link rel="stylesheet" href="/src/styles/'+x+'.css">').join('')}</head><body data-page="sheet-abilities"><main></main><script type="module">import '/src/ui/mobile-viewport.mjs';window.EventSource=undefined;import {mountSheet} from '/src/ui/sheet.mjs';mountSheet();</script></body></html>`;
 const server=http.createServer(async(req,res)=>{try{let path=new URL(req.url,'http://local').pathname;if(path.startsWith('/api/')){if(req.method==='POST'){let body='';for await(const c of req)body+=c;let change=JSON.parse(body);assert.equal(change.revision,character.revision);character={...character,data:mergeSheetData(character.data,change),revision:character.revision+1};}res.setHeader('Content-Type','application/json');res.end(JSON.stringify({character}));return;}if(path==='/'){res.setHeader('Content-Type','text/html');res.end(html);return;}res.setHeader('Content-Type',path.endsWith('.mjs')?'text/javascript':path.endsWith('.css')?'text/css':'application/octet-stream');res.end(await fs.readFile(root+path));}catch(e){res.statusCode=400;res.end(JSON.stringify({message:e.message}));}});await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const browser=await chromium.launch({...(process.env.COSMOS_BROWSER_EXECUTABLE?{executablePath:process.env.COSMOS_BROWSER_EXECUTABLE}:{}),headless:true,args:['--no-sandbox']});
 try{
@@ -36,10 +36,13 @@ try{
  assert.equal(await page.locator('[data-move-ability]').count(),0);
  assert.equal(await page.getByRole('heading',{name:'Ungrouped',exact:true}).count(),0);
  assert.equal(await page.locator('[data-edit-ability-group]').innerText(),'');
- await drag(grip('Flame'),zone());
+ const search=page.locator('[data-sheet-search]');
+ await search.fill('Flame');
+ await drag(grip('Flame'),page.locator('[data-ability-group-card="'+id+'"] .cs-group-header'),{touch:true});
+ await search.fill('');
  assert.equal(character.data.activeAbilities[index('Flame')].abilityGroupId,id);
  await page.locator('[data-edit-entry="activeAbilities:'+index('Flame')+'"]').click();
- assert.equal(await page.locator('[data-sheet-form] [name=u_curr]').count(),0);
+ assert.equal(await page.locator('[data-sheet-form] [name=u_curr]').count(),0);assert.equal(await page.locator('[data-sheet-form] [name=uses_formula]').count(),0);
  await page.screenshot({path:path.join(output,'ability-editor.png')});await page.keyboard.press('Escape');
  await page.locator('[data-entry-preview="activeAbilities:'+index('Flame')+'"]').click();
  await page.screenshot({path:path.join(output,'ability-preview.png')});await page.locator('[data-entry-popup-close]').click();
@@ -61,10 +64,16 @@ try{
  await page.screenshot({path:path.join(output,'ability-groups.png')});
  await page.setViewportSize({width:390,height:844});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+ assert.ok(await page.evaluate(()=>document.querySelector('[data-sheet-search]').getBoundingClientRect().top<document.querySelector('.cs-limit-breaks').getBoundingClientRect().top));
+ assert.ok(await page.locator('.cs-limit-breaks').evaluate(el=>parseFloat(getComputedStyle(el).paddingTop)<=6));
+ await page.locator('[data-sheet-search]').focus();
+ assert.equal(await page.locator('[data-sheet-search]').evaluate(el=>getComputedStyle(el).fontSize),'16px');
+ assert.equal(await page.evaluate(()=>visualViewport.scale),1);
+ assert.equal(await page.evaluate(()=>{const event=new Event('gesturestart',{cancelable:true});document.dispatchEvent(event);return event.defaultPrevented;}),true);
  await page.screenshot({path:path.join(output,'ability-groups-mobile.png')});
  await page.locator('[data-edit-ability-group]').click();await page.locator('[data-delete-ability-group]').click();
  await page.waitForFunction(()=>!document.querySelector('[data-edit-ability-group]'));
- assert.equal(character.data.activeAbilities.length,2);assert.equal(character.data.abilityGroups.length,0);
+ assert.equal(character.data.activeAbilities.length,3);assert.equal(character.data.abilityGroups.length,0);
  assert.deepEqual(errors,[]);
  console.log('Browser passed: compact cards, icon edit, no move menus, touch group drag, individual drag in/out, mixed order after reload, keyboard, mobile layout and deletion. Screenshots: '+output);
 }finally{await browser.close();server.close();}

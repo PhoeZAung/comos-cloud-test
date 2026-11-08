@@ -37,7 +37,7 @@ test('active, passive, racial and feat lists present drag handles; other section
  assert.match(html,/Drag to reorder, or press arrow keys/);
  assert.doesNotMatch(collectionBlock('weapons',data),/data-ability-drag/);
  assert.doesNotMatch(renderSection(character,'favorites'),/data-ability-drag/);
- assert.doesNotMatch(collectionBlock('activeAbilities',data,'Al'),/data-ability-drag/);
+ assert.match(collectionBlock('activeAbilities',data,'Al'),/data-ability-drag/);
 });
 
 test('an explicit empty action shows no icon, even with a legacy type',()=>{
