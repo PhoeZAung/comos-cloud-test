@@ -210,3 +210,6 @@
 .cs-limit-breaks .cs-entry-preview small{font-size:11px;margin-top:2px}
 .cs-limit-breaks .cs-entry-heading{gap:5px;align-items:center}
 .cs-limit-breaks .cs-entry-name-edit,.cs-limit-breaks .cs-action-type{margin:3px 0}
+
+.cs-sheet>.cs-ability-wheel{isolation:isolate;z-index:0}
+.cs-sheet>.cs-tabs{z-index:3}

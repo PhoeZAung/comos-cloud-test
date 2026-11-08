@@ -54,6 +54,7 @@ try{
  await drag(grip('Flame'),page.locator('[data-ability-group-card="'+id+'"] .cs-group-header'),{touch:true});
  await search.fill('');
  assert.equal(character.data.activeAbilities[index('Flame')].abilityGroupId,id);
+ assert.equal(await page.locator('.cs-ability-group .cs-entry .cs-usage-count').count(),0);
  await page.locator('[data-edit-entry="activeAbilities:'+index('Flame')+'"]').click();
  assert.equal(await page.locator('[data-sheet-form] [name=u_curr]').count(),0);assert.equal(await page.locator('[data-sheet-form] [name=uses_formula]').count(),0);
  await page.screenshot({path:path.join(output,'ability-editor.png')});await page.keyboard.press('Escape');
@@ -83,6 +84,11 @@ try{
  assert.equal(await page.locator('[data-sheet-search]').evaluate(el=>getComputedStyle(el).fontSize),'16px');
  assert.equal(await page.evaluate(()=>visualViewport.scale),1);
  assert.equal(await page.evaluate(()=>{const event=new Event('gesturestart',{cancelable:true});document.dispatchEvent(event);return event.defaultPrevented;}),true);
+ const hit=await page.evaluate(()=>{
+  document.querySelector('.cs-ability-add-menu').open=true;
+  const tab=document.querySelector('[data-sheet-tab="combat"]'),r=tab.getBoundingClientRect();
+  return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest('[data-sheet-tab]')?.dataset.sheetTab;
+ });assert.equal(hit,'combat');
  await page.screenshot({path:path.join(output,'ability-groups-mobile.png')});
  await page.locator('[data-edit-ability-group]').click();await page.locator('[data-delete-ability-group]').click();
  await page.waitForFunction(()=>!document.querySelector('[data-edit-ability-group]'));

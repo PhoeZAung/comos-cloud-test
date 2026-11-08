@@ -1,0 +1,1 @@
+export default {id:'admin-sheets',title:'Group sheets · Cosmos',bodyClass:'admin',layout:'app',activeMain:'characters',section:'admin',content:'<section class="page-heading"><h1>Group sheets</h1><a class="button" href="admin-parties.html">Parties</a></section><section data-admin-sheets><p role="status">Loading sheets…</p></section>'};

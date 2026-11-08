@@ -98,7 +98,7 @@ test('ability-use receipts spend shared infused ammo exactly once; description s
 });
 
 
-test('Doom Slayer Magicked Ammo stays grouped after saves and reloads without sharing or refilling its native ammunition',()=>{
+test('Doom Slayer Magicked Ammo uses one group pool when grouped and its native ammunition when outside',()=>{
  let data=change(configure(fixture(5,true),gunbreakerAmmoProfiles(fixture(5,true))[0].name),'reload');
  data=change(data,'spend',{rounds:1});
  const loaded=data.gunbreakerAmmo.loaded,infused=data.gunbreakerAmmo.infused;
@@ -107,12 +107,29 @@ test('Doom Slayer Magicked Ammo stays grouped after saves and reloads without sh
  let index=data.activeAbilities.findIndex(row=>row.sourceRuleId===MAGICKED_AMMO_ID);
  data=mergeSheetData(data,{action:'placeAbility',collection:'activeAbilities',source:{index},before:null,groupId:id});
  data=JSON.parse(JSON.stringify(data));
- assert.equal(ammo(data).abilityGroupId,id);assert.equal(ammo(data).u_curr,infused);assert.equal(ammo(data).u_max,gunbreakerAmmoSummary(data).maximum);assert.equal(entryCalculations(ammo(data),data,'activeAbilities').currentUses,infused);
+ assert.equal(ammo(data).abilityGroupId,id);assert.equal(ammo(data).u_curr,infused);assert.equal(ammo(data).u_max,gunbreakerAmmoSummary(data).maximum);assert.equal(entryCalculations(ammo(data),data,'activeAbilities').currentUses,9);
  index=data.activeAbilities.findIndex(row=>row.sourceRuleId===MAGICKED_AMMO_ID);
  data=mergeSheetData(data,{action:'useAbility',collection:'activeAbilities',index});
- assert.equal(data.gunbreakerAmmo.infused,infused-1);assert.equal(data.gunbreakerAmmo.loaded,loaded-1);
- assert.equal(data.abilityGroups[0].u_curr,9);assert.equal(ammo(data).abilityGroupId,id);
+ assert.equal(data.gunbreakerAmmo.infused,infused);assert.equal(data.gunbreakerAmmo.loaded,loaded);
+ assert.equal(data.abilityGroups[0].u_curr,8);assert.equal(ammo(data).abilityGroupId,id);
  const html=renderSection({id:'hero',name:'Hero',data},'abilities',{ability:'activeAbilities'});assert.match(html,/data-ability-group=/);
  data=mergeSheetData(data,{action:'abilityGroup',collection:'activeAbilities',mode:'move',index,id:''});
- assert.equal(ammo(data).abilityGroupId,undefined);assert.equal(data.gunbreakerAmmo.infused,infused-1);
+ assert.equal(ammo(data).abilityGroupId,undefined);assert.equal(data.gunbreakerAmmo.infused,infused);
+ data=mergeSheetData(data,{action:'useAbility',collection:'activeAbilities',index});assert.equal(data.gunbreakerAmmo.infused,infused-1);
+});
+
+test('grouped ammo use receipts spend the group once and report group usage',async()=>{
+ const db=await openDatabase(':memory:');try{
+  const owner=createUserRepository(db).create({displayName:'Grouped ammo'}),created=createCharacterLibraryService(db).createBuild(owner.id,{build:build(),requestId:randomUUID()});
+  let data=change(configure(created.data,'Gunblade (Standard)'),'reload');
+  const native=structuredClone(data.gunbreakerAmmo);
+  data=mergeSheetData(data,{action:'abilityGroup',mode:'add',collection:'activeAbilities',fields:{name:'Shared pool',u_curr:2,u_max:2,restoreOnLongRest:false}});
+  data=mergeSheetData(data,{action:'placeAbility',collection:'activeAbilities',source:{index:data.activeAbilities.findIndex(r=>r.sourceRuleId===MAGICKED_AMMO_ID)},before:null,groupId:data.abilityGroups[0].id});
+  db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify(data),created.id);
+  const args={db,userId:owner.id,character:{...created,data},origin:'https://fixture.local',change:{kind:'ability',collection:'activeAbilities',mode:'use',spendUse:true,index:data.activeAbilities.findIndex(r=>r.sourceRuleId===MAGICKED_AMMO_ID),requestId:randomUUID(),discord:false,revision:created.revision}};
+  const result=await publishRoll(args);assert.equal(result.roll.remainingUses,1);assert.equal(result.roll.remainingInfusedAmmo,undefined);
+  assert.deepEqual(await publishRoll(args),result);
+  const saved=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(created.id).data_json);
+  assert.equal(saved.abilityGroups[0].u_curr,1);assert.deepEqual(saved.gunbreakerAmmo,native);
+ }finally{db.close();}
 });

@@ -1,4 +1,3 @@
-import {MAGICKED_AMMO_ID,gunbreakerAmmoAbilityCost} from '../characters/rules/gunbreaker-ammo.mjs';
 import {isLimitBreak} from './limit-breaks.mjs';
 export const abilityCollections=['activeAbilities','passiveAbilities','racialAbilities','feats'];
 export function abilityGroup(data,row,collection){
@@ -15,8 +14,7 @@ export function abilityLayout(data,collection){
  return [...ordered,...entries.filter(entry=>byKey.has(entry.key))];
 }
 
-// Group membership organizes the list. Class ammunition keeps its authoritative pool.
+// Every grouped ability spends from the group pool.
 export function abilityUsageGroup(data,row,collection){
- if(row?.rulesOwned&&(row.sourceRuleId===MAGICKED_AMMO_ID||gunbreakerAmmoAbilityCost(data,row)))return null;
  return abilityGroup(data,row,collection);
 }
