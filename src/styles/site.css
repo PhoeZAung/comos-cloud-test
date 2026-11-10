@@ -136,4 +136,22 @@ header .install-control{margin-right:0;margin-left:auto}header .install-control+
 .admin-sheet-card iframe{display:block;width:100%;height:85vh;min-height:540px;border:0}
 .directory-user>summary .icon-button{margin-left:auto;flex:none;vertical-align:middle}
 
-.npc-directory-toolbar,.npc-directory-search{display:flex;align-items:center;gap:12px;margin:12px 0}.npc-directory-toolbar{justify-content:space-between}.npc-directory-toolbar h1{margin:0}.npc-directory-search input{flex:1;min-width:0}.npc-create-dialog{width:min(600px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto}.npc-create-dialog form,.npc-create-dialog label{display:grid;gap:8px}.npc-create-dialog form{gap:14px}.npc-create-dialog input,.npc-create-dialog textarea{width:100%;min-width:0}.npc-create-dialog textarea{resize:vertical}[data-npc-error]{color:#f5a6b3}
+.npc-directory-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0}
+.npc-directory-toolbar h1{margin:0}
+.npc-directory-search{position:relative;width:min(100%,34rem);margin:16px 0}
+.npc-directory-search svg{position:absolute;top:50%;left:14px;width:18px;height:18px;transform:translateY(-50%);fill:none;stroke:var(--muted);stroke-width:1.8;stroke-linecap:round;pointer-events:none}
+.npc-directory-search input[type=search]{width:100%;min-height:44px;padding-inline:42px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);font:inherit}
+.npc-directory-search input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.npc-directory-search input::-webkit-search-cancel-button{display:none}
+.npc-directory-search button{position:absolute;top:2px;right:2px;width:40px;height:40px;padding:0;border:0;border-radius:8px;background:transparent;color:var(--muted);font-size:24px;line-height:1;cursor:pointer}
+.npc-directory-search button:hover{color:var(--text);background:var(--line)}
+.npc-create-dialog{width:min(600px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto}
+.npc-create-dialog form,.npc-create-dialog label{display:grid;gap:8px}
+.npc-create-dialog form{gap:14px}
+.npc-create-dialog input:not([type=file]),.npc-create-dialog textarea{width:100%;min-width:0}
+.npc-create-dialog textarea{resize:vertical}
+.npc-create-dialog .npc-note-drop{position:relative;justify-items:center;gap:4px;padding:16px;border:1px dashed var(--line);border-radius:10px;background:var(--surface);text-align:center;cursor:pointer}
+.npc-note-drop:hover,.npc-note-drop:focus-within,.npc-note-drop.is-dragging{border-color:var(--accent);outline:1px solid var(--accent);outline-offset:2px}
+.npc-note-drop span{color:var(--muted);font-size:.875rem;overflow-wrap:anywhere}
+.npc-note-drop [data-npc-filename]:empty{display:none}
+[data-npc-error]{color:#f5a6b3}
