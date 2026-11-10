@@ -39,13 +39,13 @@ export function skillTotal(row,d){
 }
 export const attackTypes={melee:'Melee',ranged:'Ranged',touch:'Touch attack',ranged_touch:'Ranged touch',cmb:'CMB'};
 export function attackType(value){const key=String(value||'melee').trim().toLowerCase().replace(/[ -]+/g,'_');return key==='touch_attack'?'touch':Object.hasOwn(attackTypes,key)?key:'melee';}
-export function weaponAttackParts(row,d){
+export function weaponAttackParts(row,d,{npc=false}={}){
  const s=sheetStats(d),type=attackType(row.attack_type),prefix={melee:'ar_melee',ranged:'ar_ranged',touch:'ar_touch',ranged_touch:'ar_ranged_touch'}[type];
  const base={melee:s.melee,ranged:s.ranged,touch:s.touchAttack,ranged_touch:s.rangedTouch,cmb:s.cmb}[type];
  const defaultAbility=prefix&&abilities.includes(d[prefix+'_ability'])?d[prefix+'_ability']:['ranged','ranged_touch'].includes(type)?'dex':'str';
  const saved=String(row.ability_mod||row.mod||'auto').toLowerCase(),ability=abilities.includes(saved)?saved:defaultAbility;
  const replacement=s.mods[ability]-s.mods[defaultAbility],misc=number(row.attack_misc);
- return {type,base,ability,replacement,misc,total:base+replacement+misc};
+ return {type,base,ability,replacement,misc,total:npc&&Number.isFinite(row.npcAttackBonus)?row.npcAttackBonus:base+replacement+misc};
 }
 export function weaponAttack(row,d){return weaponAttackParts(row,d).total;}
 

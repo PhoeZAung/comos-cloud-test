@@ -1,6 +1,6 @@
 // Reuse saved authoritative receipts. No new roll, resource change or delivery.
-export function rollHistory(db,userId){
- const rows=db.prepare('SELECT r.id,r.label,r.result_json,r.created_at,c.name FROM sheet_rolls r JOIN characters c ON c.id=r.character_id WHERE r.user_id=? AND c.owner_id=? ORDER BY r.created_at DESC,r.id DESC LIMIT 100').all(userId,userId);
+export function rollHistory(db,userId,{admin=false}={}){
+ const rows=db.prepare("SELECT r.id,r.label,r.result_json,r.created_at,c.name FROM sheet_rolls r JOIN characters c ON c.id=r.character_id WHERE r.user_id=? AND ((c.kind='player' AND c.owner_id=?) OR (c.kind='npc' AND ?=1)) ORDER BY r.created_at DESC,r.id DESC LIMIT 100").all(userId,userId,Number(admin));
  return rows.flatMap(row=>{
   let roll;try{roll=JSON.parse(row.result_json);}catch{return [];}
   if(roll.descriptionOnly)return [];

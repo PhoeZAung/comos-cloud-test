@@ -6,7 +6,7 @@ const maxState=512*1024,maxText=24000;
 export function createPartyNotesRoutes({db,sessions,adminUids,origin}){
  const admins=new Set(adminUids),listeners=new Map(),counts=new Map();
  const read=db.prepare('SELECT state,revision FROM party_notes WHERE tag_id=?');
- const membership=db.prepare("SELECT t.id,t.name FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id JOIN characters c ON c.id=l.character_id WHERE t.id=? AND t.kind='party' AND c.id=? AND c.archived=0 AND (?=1 OR c.owner_id=?)");
+ const membership=db.prepare("SELECT t.id,t.name FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id JOIN characters c ON c.id=l.character_id WHERE t.id=? AND t.kind='party' AND c.id=? AND c.archived=0 AND c.kind='player' AND (?=1 OR c.owner_id=?)");
  const allowed=(session,tagId,characterId)=>membership.get(tagId,characterId,Number(session.admin),session.user.id);
  const snapshot=id=>{const row=read.get(id);return {update:Buffer.from(row?.state||[0,0]).toString('base64'),revision:row?.revision||0};};
  return async(req,res,path,send)=>{

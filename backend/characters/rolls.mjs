@@ -23,8 +23,8 @@ export function criticalResult(row,attack,damage,expression,roll=serverRoll){
  const result={...profile,threat};if(threat){result.confirmation=roll(expression);if(damage)result.damage={...damage,expression:profile.multiplier+' × ('+damage.expression+')',rolls:[],bonus:0,total:damage.total*profile.multiplier,breakdown:(damage.breakdown||[]).map(part=>({...part,total:part.total*profile.multiplier}))};}
  return result;
 }
-export function weaponRoll(row,data,roll=serverRoll){
- const p=weaponAttackParts(row,data),expression='1d20'+(p.total>=0?'+':'')+p.total,attack=roll(expression),ctx=context(data,row);let damage=null,damageError='';
+export function weaponRoll(row,data,roll=serverRoll,options){
+ const p=weaponAttackParts(row,data,options),expression='1d20'+(p.total>=0?'+':'')+p.total,attack=roll(expression),ctx=context(data,row);let damage=null,damageError='';
  if(row.damage||row.dmg){try{const formula=damageExpression(String(row.damage||row.dmg),ctx);diceTerms(formula);damage=roll(formula);}catch(error){damageError=error.message;}}
  const critical=p.type==='cmb'?{...criticalProfile(row),threat:false}:criticalResult(row,attack,damage,expression,roll);
  if(critical.threat&&!damage)critical.damageError=damageError;
@@ -72,7 +72,8 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   if(weaponUsage&&(row.uses_formula||weaponUsage.maxUses>0)&&(!Number.isInteger(weaponUsage.currentUses)||weaponUsage.currentUses<1))throw Error('No weapon uses remaining.');
   const external=change.owlbearRolls===undefined?null:externalRollSource(change.owlbearRolls);
  const diceRoll=external?expression=>external.roll(expression):serverRoll;
- const weaponDice=external?(row,data)=>weaponRoll(row,data,diceRoll):makeWeaponRoll;
+ const npc=character.kind==='npc';
+ const weaponDice=external?(row,data)=>weaponRoll(row,data,diceRoll,{npc}):npc?(row,data)=>makeWeaponRoll(row,data,diceRoll,{npc}):makeWeaponRoll;
  const spellDice=external?(row,data)=>spellRoll(row,data,diceRoll):makeSpellRoll;
  const abilityDice=external?(row,data,key)=>abilityRoll(row,data,key,diceRoll):makeAbilityRoll;
  let updated=null;

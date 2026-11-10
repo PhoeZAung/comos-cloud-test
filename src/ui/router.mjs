@@ -1,4 +1,4 @@
-export const routeNames = ['index','home','lore','lore-compose','characters','account','admin','admin-parties','admin-tags','admin-items','admin-groups','post','compose','lore-entry','create-source','create-identity','create-race','create-class','signin','signup'];
+export const routeNames = ['index','home','lore','lore-compose','characters','account','admin','admin-parties','admin-npcs','admin-tags','admin-items','admin-groups','post','compose','lore-entry','create-source','create-identity','create-race','create-class','signin','signup'];
 export function routeId(url, base) {
   if (url.origin !== base.origin || !url.pathname.startsWith(base.pathname)) return null;
   const file = url.pathname.slice(base.pathname.length);

@@ -12,7 +12,7 @@ export function createCharactersService(db){
  }
  function list({q='',cursor='',archived=false}={}){
   if(typeof q!=='string'||q.length>80||(cursor&&!validId(cursor))||typeof archived!=='boolean')throw invalid('Invalid character search.');
-  const rows=db.prepare('SELECT c.*,u.display_name AS owner_name FROM characters c JOIN users u ON u.id=c.owner_id WHERE c.archived=? AND c.id>? AND instr(lower(c.name),lower(?))>0 ORDER BY c.id LIMIT 21').all(Number(archived),cursor,q);
+  const rows=db.prepare('SELECT c.*,u.display_name AS owner_name FROM characters c JOIN users u ON u.id=c.owner_id WHERE c.archived=? AND c.kind=\'player\' AND c.id>? AND instr(lower(c.name),lower(?))>0 ORDER BY c.id LIMIT 21').all(Number(archived),cursor,q);
   return {characters:rows.slice(0,20).map(record),nextCursor:rows.length>20?rows[19].id:null};
  }
  function save(data){

@@ -1,6 +1,7 @@
 import {randomBytes} from 'node:crypto';
 import {Readable} from 'node:stream';
 import {adminSession,adminJson} from './admin-requests.mjs';
+import {npcDirectoryPath} from '../characters/npcs.mjs';
 import {rollHistory} from '../characters/roll-history.mjs';
 // Session credentials remain on the server. Grants are scoped, memory-only and
 // disappear on server restart; every use revalidates the original login session.
@@ -30,14 +31,14 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
    if(body.method==='capabilities'){send(200,{status:200,data:{admin:session.admin,scope:grant.scope}});return true;}
    if(body.method==='roll-history'){
     if(grant.scope!=='sheet')throw Error('Connect your Cosmos character sheets.');
-    send(200,{status:200,data:{rolls:rollHistory(db,session.user.id)}});return true;
+    send(200,{status:200,data:{rolls:rollHistory(db,session.user.id,{admin:session.admin})}});return true;
    }
    if(body.method==='party-stats'){
     if(grant.scope!=='sheet'&&!session.admin)throw Error('Connect your Cosmos character sheets.');
     const value=body.value||{},stats=value.stats,keys=['hp','mp'];
     if(!/^[0-9a-f-]{36}$/i.test(value.id||'')||!Number.isSafeInteger(value.revision)||!stats||Array.isArray(stats)||Object.keys(stats).length===0||Object.keys(stats).some(k=>!keys.includes(k)||!Number.isFinite(stats[k])||Math.abs(stats[k])>=1e7)||stats.mp!==undefined&&stats.mp<0)throw Error('Invalid character stats.');
-    const row=db.prepare('SELECT c.archived,c.owner_id,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.id),data=row?JSON.parse(row.data_json):null;
-    if(!data||row.archived||data.owlbearStatusVisible!==true)throw Error('This character is not shared with the tracker.');
+    const row=db.prepare('SELECT c.archived,c.kind,c.owner_id,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.id),data=row?JSON.parse(row.data_json):null;
+    if(!data||row.archived||row.kind==='npc'||data.owlbearStatusVisible!==true)throw Error('This character is not shared with the tracker.');
     if(!session.admin&&row.owner_id!==session.user.id)throw Error('You can only edit your own shared characters.');
     const fields={};if(stats.hp!==undefined)fields.hp_curr=stats.hp;if(stats.mp!==undefined)fields.mp_curr=stats.mp;
     target='/api/v1/character-records/'+value.id;method='POST';payload={op:'sheet',action:'fields',fields,revision:value.revision};
@@ -45,18 +46,21 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
     if(!session.admin)throw Error('Administrator access required.');
     if(body.method==='party-status')target='/api/v1/admin/owlbear-status';
     else if(body.method==='party-portrait'&&/^[0-9a-f-]{36}$/i.test(body.value?.id||''))target='/api/v1/admin/owlbear-portrait?characterId='+encodeURIComponent(body.value.id);
+   }else if(body.method==='npc-list'){
+    if(!session.admin)throw Error('Administrator access required.');
+    target=npcDirectoryPath+'?'+new URLSearchParams({cursor:body.value?.cursor||''});
    }else if(body.method==='list')target='/api/v1/my/characters'+(body.value?.cursor?'?cursor='+encodeURIComponent(body.value.cursor):'');
    else if(body.method==='api'){
     const value=body.value||{},url=new URL(value.path,origin);method=value.method;payload=value.body;
     if(url.origin!==origin||!['GET','POST'].includes(method))throw Error('Unsupported request.');
     const match=/^\/api\/v1\/character-records\/([0-9a-f-]{36})$/i.exec(url.pathname);
     if(match){
-     const row=db.prepare('SELECT owner_id,archived FROM characters WHERE id=?').get(match[1]);
-     if(!row||row.archived||row.owner_id!==grant.userId)throw Error('This character does not belong to you.');
-     if([...url.searchParams.keys()].some(k=>k!=='revision')||method==='POST'&&!['sheet','roll'].includes(payload?.op))throw Error('Unsupported sheet operation.');
+     const row=db.prepare('SELECT owner_id,archived,kind FROM characters WHERE id=?').get(match[1]);
+     if(!row||row.archived||(row.kind==='npc'?!session.admin:row.owner_id!==grant.userId))throw Error('This sheet is unavailable.');
+     if([...url.searchParams.keys()].some(k=>k!=='revision')||method==='POST'&&!['sheet','roll',...(row.kind==='npc'?['edit']:[])].includes(payload?.op))throw Error('Unsupported sheet operation.');
     }else if(/^\/api\/v1\/party-notes\/[0-9a-f-]{36}$/i.test(url.pathname)){
-     const row=db.prepare('SELECT owner_id,archived FROM characters WHERE id=?').get(url.searchParams.get('characterId')||'');
-     if(!row||row.archived||row.owner_id!==grant.userId||[...url.searchParams.keys()].some(key=>!['characterId','revision'].includes(key)))throw Error('Unsupported party notes.');
+     const row=db.prepare('SELECT owner_id,archived,kind FROM characters WHERE id=?').get(url.searchParams.get('characterId')||'');
+     if(!row||row.archived||row.kind==='npc'||row.owner_id!==grant.userId||[...url.searchParams.keys()].some(key=>!['characterId','revision'].includes(key)))throw Error('Unsupported party notes.');
     }else if(url.pathname==='/api/v1/auth/session'&&method==='GET'&&!url.search){}
     else if(url.pathname==='/api/v1/account'&&!url.search){if(method==='POST'&&(!payload?.preferences||Object.keys(payload).some(k=>!['revision','preferences'].includes(k))))throw Error('Unsupported account operation.');}
     else throw Error('Unsupported request.');

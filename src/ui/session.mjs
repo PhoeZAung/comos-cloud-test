@@ -6,9 +6,9 @@ let accessUserId=null,accessGeneration=0,adminAccess=false;
 function showAdmin(){
  for(const link of document.querySelectorAll('[data-admin-entry]'))link.hidden=!adminAccess;
  const key='cosmos:character-home:'+sessionUser?.id,page=document.body.dataset.page;let destination='characters';
- try{if(adminAccess&&['admin','admin-parties','characters'].includes(page))sessionStorage.setItem(key,page);destination=adminAccess?sessionStorage.getItem(key)||'characters':'characters';}catch{}
- if(!['admin','admin-parties'].includes(destination))destination='characters';
- for(const link of document.querySelectorAll('.main-nav a'))if(link.textContent.trim()==='Characters'){link.setAttribute('href',destination+'.html');if(['characters','admin','admin-parties','admin-items','admin-tags'].includes(page))link.setAttribute('aria-current','page');}
+ try{if(adminAccess&&['admin','admin-parties','admin-npcs','characters'].includes(page))sessionStorage.setItem(key,page);destination=adminAccess?sessionStorage.getItem(key)||'characters':'characters';}catch{}
+ if(!['admin','admin-parties','admin-npcs'].includes(destination))destination='characters';
+ for(const link of document.querySelectorAll('.main-nav a'))if(link.textContent.trim()==='Characters'){link.setAttribute('href',destination+'.html');if(['characters','admin','admin-parties','admin-npcs','admin-items','admin-tags'].includes(page))link.setAttribute('aria-current','page');}
 }
 
 function refreshAccess(user){

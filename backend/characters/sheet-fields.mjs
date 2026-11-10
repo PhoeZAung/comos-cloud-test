@@ -1,4 +1,5 @@
 import {randomUUID} from 'node:crypto';
+import {npcStatLabels,npcTextLabels} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
@@ -26,8 +27,26 @@ const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(
 const bad=message=>{throw Error(message);};
 function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.isFinite(Number(v))||Math.abs(Number(v))>100000000)bad('Enter a valid number.');return Number(v);}
 function text(v,max=12000,label='Text'){if(typeof v!=='string'||v.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v))bad(label+' is too long (limit '+max+' characters) or contains invalid characters.');return v;}
-export function mergeSheetData(original,change){
+export function mergeSheetData(original,change,{npc=false}={}){
  const data=structuredClone(original);
+ if(change.action==='npcStats'){
+  if(!npc||!plain(change.fields)||Object.keys(change.fields).some(key=>!Object.hasOwn(npcStatLabels,key)))bad('Invalid NPC stats.');
+  data.npcStats??={};
+  for(const [key,value] of Object.entries(change.fields)){
+   if(value===''){delete data.npcStats[key];if(abilities.includes(key))delete data[key];continue;}
+   const score=numeric(value);
+   if(Math.abs(score)>100000||key!=='cr'&&!Number.isInteger(score))bad('Enter a valid '+npcStatLabels[key]+' value.');
+   data.npcStats[key]=score;
+   if(abilities.includes(key))data[key]=score;
+  }
+  return data;
+ }
+ if(change.action==='npcText'){
+  if(!npc||!plain(change.fields)||Object.keys(change.fields).some(key=>!Object.hasOwn(npcTextLabels,key)))bad('Invalid NPC details.');
+  data.npcText??={};
+  for(const [key,value] of Object.entries(change.fields))data.npcText[key]=text(value,4000,npcTextLabels[key]);
+  return data;
+ }
  if(change.action==='placeAbility'){
   const collection=change.collection;
   if(!abilityCollections.includes(collection))bad('Choose an ability category.');
@@ -107,7 +126,7 @@ export function mergeSheetData(original,change){
    if(!Array.isArray(rows)||change.from<0||change.from>=rows.length||change.to<0||change.to>=rows.length||isLimitBreak(rows[change.from]))bad('Cannot reorder this ability.');
    const [entry]=rows.splice(change.from,1);rows.splice(change.to,0,entry);
   }else if(change.action==='entry'){
-  if(!collections.includes(change.collection)||!['add','update','remove'].includes(change.mode))bad('Invalid sheet entry.');
+  if(!(collections.includes(change.collection)||npc&&change.collection==='npcSkills')||!['add','update','remove'].includes(change.mode))bad('Invalid sheet entry.');
   const rows=change.collection==='skills'?sheetSkills(data):Array.isArray(data[change.collection])?data[change.collection]:[];
   if(change.collection==='skills'){if(change.mode!=='update'||Object.keys(change.fields||{}).some(k=>!['lvl','temp','cs','subName','favorite'].includes(k)))bad('Skills are fixed. Edit ranks, class skill, misc or specialization.');data.skills=sheetSkills(data);}
   if(change.mode!=='add'&&(!Number.isInteger(change.index)||change.index<0||change.index>=rows.length))bad('Entry no longer exists.');
@@ -128,7 +147,11 @@ export function mergeSheetData(original,change){
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
     if(key==='damage_types'&&change.collection==='weapons'){if(!Array.isArray(value)||value.length>damageTypes.length||value.some(v=>!damageTypes.includes(v)))bad('Choose valid damage types.');safe[key]=[...new Set(value)];}
     else if(key==='action_type'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');safe[key]=value;}
-    else if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
+    else if(npc&&(key==='npcAttackBonus'&&change.collection==='weapons'||key==='bonus'&&change.collection==='npcSkills')){
+     const bonus=numeric(value);
+     if(!Number.isInteger(bonus)||Math.abs(bonus)>100000)bad('Enter a whole roll bonus.');
+     safe[key]=bonus;
+    }else if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
     else if(key==='weight'&&['items','weapons'].includes(change.collection)){
       const weight=typeof value==='number'?value:typeof value==='string'&&value.trim()?Number.parseFloat(value):0;
       if(Number.isFinite(weight)&&weight>=0&&weight<=1000000)safe.weight=weight;

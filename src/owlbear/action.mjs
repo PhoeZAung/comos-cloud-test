@@ -7,13 +7,15 @@ import {localChannel} from './local-channel.mjs';
 import {mountPanel} from './panel.mjs';
 import {publicReceipt} from '../features/room-rolls.mjs';
 const status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]'),frame=document.querySelector('iframe'),dice=dicePlus(OBR);
+const npcList=document.querySelector('[data-npc-characters]'),npcGroup=document.querySelector('[data-npc-group]');
 let popup,nonce,connection,sheetConnection,sheetNonce,activeCharacterId,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
 let disposeSize,trackerBus,grantToken='';const audiences=new Map(),names=new Map();
+let showNpcs=false,activeNpc=false,loadGeneration=0;
 const panel=mountPanel(document.querySelector('main'),{history:()=>connection.call('roll-history')});
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID(),openTab=document.querySelector('[data-open-sheet-tab]');
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function say(message){status.textContent=message;}
-function back(){frame.hidden=true;list.hidden=false;document.querySelector('[data-back]').hidden=true;openTab.hidden=true;activeCharacterId=null;sheetConnection?.close();sheetConnection=null;sheetNonce=null;frame.removeAttribute('src');}
+function back(){frame.hidden=true;list.hidden=false;npcGroup.hidden=!showNpcs||!npcList.children.length;document.querySelector('[data-back]').hidden=true;openTab.hidden=true;activeCharacterId=null;activeNpc=false;sheetConnection?.close();sheetConnection=null;sheetNonce=null;frame.removeAttribute('src');}
 async function sheetRequest(method,value){
  if(!connection)throw Error('Reconnect Cosmos.');
  if(method==='roll-context'){if(typeof value?.requestId!=='string')throw Error('Invalid roll.');if(audiences.size>=100)audiences.delete(audiences.keys().next().value);audiences.set(value.requestId,document.querySelector('[data-roll-audience]').value);return {};}
@@ -23,8 +25,13 @@ async function sheetRequest(method,value){
 }
 async function load(){
  if(!connection)throw Error('Connect your Cosmos account first.');
- const characters=await connection.call('list');for(const character of characters)names.set(character.id,character.name);
- list.innerHTML=characters.map(c=>'<button class="character-card" data-character="'+esc(c.id)+'"><span class="character-photo">'+(typeof c.portraitUrl==='string'&&/^data:image\/(png|jpeg|webp);base64,/i.test(c.portraitUrl)?'<img src="'+esc(c.portraitUrl)+'" alt="">':'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="13" r="8"/><path d="M5 38v-5a15 15 0 0130 0v5Z"/></svg>')+'</span><strong>'+esc(c.name)+'</strong><span aria-hidden="true">›</span></button>').join('')||'<p>No characters.</p>';
+ const current=connection,turn=++loadGeneration;
+ const [characters,npcs]=await Promise.all([current.call('list'),showNpcs?current.call('npc-list'):[]]);
+ if(current!==connection||turn!==loadGeneration)return;
+ for(const character of [...characters,...npcs])names.set(character.id,character.name);
+ const card=c=>'<button class="character-card" data-character="'+esc(c.id)+'"><span class="character-photo">'+(typeof c.portraitUrl==='string'&&/^data:image\/(png|jpeg|webp);base64,/i.test(c.portraitUrl)?'<img src="'+esc(c.portraitUrl)+'" alt="">':'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="13" r="8"/><path d="M5 38v-5a15 15 0 0130 0v5Z"/></svg>')+'</span><strong>'+esc(c.name)+'</strong><span aria-hidden="true">›</span></button>';
+ list.innerHTML=characters.map(card).join('')||'<p>No characters.</p>';
+ npcList.innerHTML=showNpcs?npcs.map(card).join(''):'';npcGroup.hidden=!showNpcs||!npcs.length||!frame.hidden;
  say('Connected');panel.connected(true);document.querySelector('[data-connect]').hidden=true;
 }
 OBR.onReady(async()=>{
@@ -32,6 +39,11 @@ OBR.onReady(async()=>{
  trackerBus=await localChannel(OBR,data=>{
   if(data?.type==='grant'&&data.token!==grantToken){grantToken=data.token;panel.connected(false);connection?.close();connection=connectGrant(data.token);void load().catch(error=>say(error.message));}
   if(data?.type==='state'){
+   if(showNpcs!==(data.admin===true)){
+    showNpcs=data.admin===true;
+    if(!showNpcs){npcList.replaceChildren();npcGroup.hidden=true;if(activeNpc)back();}
+    if(connection)void load().catch(error=>say(error.message));
+   }
    panel.admin(data.admin===true);document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
    for(const key of ['party','initiative'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout[key];
    for(const key of ['partyDock','initiativeDock'])document.querySelector('[data-layout="'+key+'"]').value=data.layout[key];
@@ -64,14 +76,17 @@ window.addEventListener('message',event=>{
  }
  if((fromFrame||fromTab)&&event.data?.type==='cosmos:back'){back();if(fromTab){tabConnection?.close();tabConnection=null;tabCharacterId=null;}}
 });
-list.onclick=event=>{
+function openSheet(event){
  const button=event.target.closest('[data-character]');if(!button)return;
+ activeNpc=event.currentTarget===npcList;
+ if(activeNpc&&!showNpcs)return;
  activeCharacterId=button.dataset.character;sheetConnection?.close();sheetConnection=null;
  sheetNonce=crypto.randomUUID();frame.src=new URL('sheet.html?characterId='+encodeURIComponent(activeCharacterId)+'#'+sheetNonce,location.href).href;
- list.hidden=true;frame.hidden=false;document.querySelector('[data-back]').hidden=false;openTab.hidden=false;
+ list.hidden=true;npcGroup.hidden=true;frame.hidden=false;document.querySelector('[data-back]').hidden=false;openTab.hidden=false;
  document.querySelector('.panel-options').open=false;
  say('Connected');
-};
+}
+list.onclick=npcList.onclick=openSheet;
 openTab.onclick=()=>{
  if(!activeCharacterId)return;
  if(tabWindow&&!tabWindow.closed&&tabCharacterId===activeCharacterId){tabWindow.focus();return;}

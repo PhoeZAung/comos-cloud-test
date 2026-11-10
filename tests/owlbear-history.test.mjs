@@ -7,8 +7,8 @@ import {createOwlbearRoutes} from '../backend/auth/owlbear.mjs';
 import {adminMenu} from '../src/owlbear/admin-menu.mjs';
 
 function fixture(){
- const db=new DatabaseSync(':memory:');db.exec('CREATE TABLE characters(id TEXT PRIMARY KEY,owner_id TEXT,name TEXT);CREATE TABLE sheet_rolls(id TEXT PRIMARY KEY,user_id TEXT,character_id TEXT,label TEXT,result_json TEXT,created_at INTEGER)');
- db.prepare('INSERT INTO characters VALUES(?,?,?)').run('ca','a','Astra');db.prepare('INSERT INTO characters VALUES(?,?,?)').run('cb','b','Secret NPC');
+ const db=new DatabaseSync(':memory:');db.exec('CREATE TABLE characters(id TEXT PRIMARY KEY,owner_id TEXT,name TEXT,kind TEXT DEFAULT \"player\");CREATE TABLE sheet_rolls(id TEXT PRIMARY KEY,user_id TEXT,character_id TEXT,label TEXT,result_json TEXT,created_at INTEGER)');
+ db.prepare('INSERT INTO characters(id,owner_id,name) VALUES(?,?,?)').run('ca','a','Astra');db.prepare('INSERT INTO characters(id,owner_id,name) VALUES(?,?,?)').run('cb','b','Secret NPC');
  const add=(id,user,character,result,time=1)=>db.prepare('INSERT INTO sheet_rolls VALUES(?,?,?,?,?,?)').run(id,user,character,'Sword',JSON.stringify(result),time);
  return {db,add};
 }

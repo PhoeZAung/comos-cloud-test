@@ -48,7 +48,7 @@ export function parseCharacterImport(input){
 const portraitFrom=data=>{for(const key of ['portrait','portraitUrl','characterImage','image','img','avatar']){const v=data[key];if(validPortrait(v))return v;}return null;};
 export function createCharacterLibraryService(db){
   const loreAccess=createLoreAccess(db);
-  const page=db.prepare('SELECT c.id,c.name,c.created_at AS createdAt,c.updated_at AS updatedAt,d.data_json AS dataJson FROM characters c LEFT JOIN character_details d ON d.character_id=c.id WHERE c.owner_id=? AND c.archived=0 AND c.id>? ORDER BY c.id LIMIT 41');
+  const page=db.prepare('SELECT c.id,c.name,c.created_at AS createdAt,c.updated_at AS updatedAt,d.data_json AS dataJson FROM characters c LEFT JOIN character_details d ON d.character_id=c.id WHERE c.owner_id=? AND c.archived=0 AND c.kind=\'player\' AND c.id>? ORDER BY c.id LIMIT 41');
   const tags=db.prepare('SELECT t.name FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id WHERE l.character_id=? ORDER BY t.name');
   const namedTag=db.prepare('SELECT id FROM character_tags WHERE name=? COLLATE NOCASE');
   // Only active characters owned by this Firebase-session user grant Lore tag choices.

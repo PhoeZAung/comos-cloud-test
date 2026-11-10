@@ -10,7 +10,7 @@ export function characterPortrait(data){
  return '';
 }
 export function statusRoster(db){
- const rows=db.prepare("SELECT c.id,c.name,c.revision,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.archived=0 AND json_extract(d.data_json,'$.owlbearStatusVisible')=1 ORDER BY lower(c.name),c.id LIMIT ?").all(STATUS_LIMIT+1);
+ const rows=db.prepare("SELECT c.id,c.name,c.revision,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.archived=0 AND c.kind='player' AND json_extract(d.data_json,'$.owlbearStatusVisible')=1 ORDER BY lower(c.name),c.id LIMIT ?").all(STATUS_LIMIT+1);
  if(rows.length>STATUS_LIMIT)throw Error('Choose up to '+STATUS_LIMIT+' characters for the Owlbear status overlay.');
  return rows.map(row=>{
   const data=JSON.parse(row.data_json),stats=sheetStats(data),portrait=characterPortrait(data);

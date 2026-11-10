@@ -42,10 +42,10 @@ test('Gun Arm setup is hidden, and Limit Breaks appear only in Active',()=>{
 
 test('Owlbear owner may update own shared HP and MP, never other players or unshared characters',async()=>{
  const db=new DatabaseSync(':memory:');
- db.exec('CREATE TABLE characters(id TEXT PRIMARY KEY,owner_id TEXT,archived INTEGER);CREATE TABLE character_details(character_id TEXT PRIMARY KEY,data_json TEXT)');
+ db.exec('CREATE TABLE characters(id TEXT PRIMARY KEY,owner_id TEXT,archived INTEGER,kind TEXT DEFAULT \"player\");CREATE TABLE character_details(character_id TEXT PRIMARY KEY,data_json TEXT)');
  const first=randomUUID(),second=randomUUID(),hidden=randomUUID();
  for(const [id,owner,shared] of [[first,'a',true],[second,'b',true],[hidden,'a',false]]){
-  db.prepare('INSERT INTO characters VALUES(?,?,0)').run(id,owner);
+  db.prepare('INSERT INTO characters(id,owner_id,archived) VALUES(?,?,0)').run(id,owner);
   db.prepare('INSERT INTO character_details VALUES(?,?)').run(id,JSON.stringify({owlbearStatusVisible:shared}));
  }
  const origin='https://cosmos.test',calls=[];

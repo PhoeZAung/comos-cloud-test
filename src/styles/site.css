@@ -135,3 +135,5 @@ header .install-control{margin-right:0;margin-left:auto}header .install-control+
 .admin-sheet-card h2{font-size:16px;margin:0;padding:10px 14px}
 .admin-sheet-card iframe{display:block;width:100%;height:85vh;min-height:540px;border:0}
 .directory-user>summary .icon-button{margin-left:auto;flex:none;vertical-align:middle}
+
+.npc-directory-toolbar,.npc-directory-search{display:flex;align-items:center;gap:12px;margin:12px 0}.npc-directory-toolbar{justify-content:space-between}.npc-directory-toolbar h1{margin:0}.npc-directory-search input{flex:1;min-width:0}.npc-create-dialog{width:min(600px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto}.npc-create-dialog form,.npc-create-dialog label{display:grid;gap:8px}.npc-create-dialog form{gap:14px}.npc-create-dialog input,.npc-create-dialog textarea{width:100%;min-width:0}.npc-create-dialog textarea{resize:vertical}[data-npc-error]{color:#f5a6b3}

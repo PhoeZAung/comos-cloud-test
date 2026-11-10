@@ -29,7 +29,7 @@ export function createPublicPartyRoutes(db){
     if(!timer){timer=setInterval(refresh,1000);timer.unref?.();}return true;
    }
    const id=path.slice((base+'/portrait/').length);if(!/^[0-9a-f-]{36}$/i.test(id)){send(404,{error:'not_found'});return true;}
-   const row=db.prepare('SELECT d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=? AND c.archived=0').get(id),data=row?JSON.parse(row.data_json):null;
+   const row=db.prepare('SELECT d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=? AND c.archived=0 AND c.kind=\'player\'').get(id),data=row?JSON.parse(row.data_json):null;
    const portrait=data?.owlbearStatusVisible===true?characterPortrait(data):'';
    const hash=portrait?createHash('sha256').update(portrait).digest('hex'):'';
    if(!portrait||new URL(req.url,'http://localhost').searchParams.get('v')!==hash){send(404,{error:'not_found'});return true;}

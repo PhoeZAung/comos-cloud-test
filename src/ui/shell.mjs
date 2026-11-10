@@ -17,6 +17,7 @@ async function mountPage() {
   if(id==='post'){const {mountPostThread}=await import('./post-thread.mjs');if(generation===routeGeneration)cleanup=mountPostThread({fixture:!live});}
   if(id==='compose'){const {mountCompose}=await import('./compose.mjs');if(generation===routeGeneration)cleanup=mountCompose({fixture:!live});}
   if(id==='admin-items'){const {mountItems}=await import('./items.mjs');if(generation===routeGeneration)cleanup=mountItems({fixture:!live});}
+  if(id==='admin-npcs'){const {mountNpcDirectory}=await import('./npc-directory.mjs');if(generation===routeGeneration)cleanup=mountNpcDirectory();}
   if(id==='admin-tags'){const {mountTags}=await import('./directory.mjs');if(generation===routeGeneration)cleanup=mountTags();}
   if(id.startsWith('sheet')){const {mountSheet}=await import('./sheet.mjs');if(generation===routeGeneration)cleanup=mountSheet();}
   if(id.startsWith('create-')){const {mountRulesWizard}=await import('./rules-wizard.mjs');if(generation===routeGeneration)cleanup=mountRulesWizard();}

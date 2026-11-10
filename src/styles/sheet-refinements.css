@@ -234,3 +234,5 @@
 .cs-source-table table{border-collapse:collapse;font-size:13px}
 .cs-source-table :is(th,td){padding:6px 10px;border:1px solid var(--line);text-align:left;vertical-align:top;min-width:70px}
 @media(max-width:520px){.cs-library-add-fields{grid-template-columns:minmax(0,1fr)}}
+
+.cs-npc-sheet{display:grid;gap:16px}.cs-npc-sheet .cs-metrics{margin-bottom:14px}.cs-npc-sheet .cs-metric span{overflow-wrap:anywhere}.cs-npc-sheet .cs-pairs dd{overflow-wrap:anywhere;white-space:pre-line}.cs-npc-sheet .cs-skill{grid-template-columns:minmax(0,1fr) auto}.cs-npc-sheet .cs-skill-roll{min-width:0}

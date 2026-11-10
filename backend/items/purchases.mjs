@@ -7,10 +7,10 @@ export function createPurchaseService(db,items){
  const summary=row=>{const d=JSON.parse(row.data_json||'{}'),units=balance(d);return {id:row.id,name:row.name,ownerName:row.owner_name,revision:row.revision,gil:units===null?null:units/100};};
  function characters({q='',cursor=''}={}){
   if(typeof q!=='string'||q.length>80||cursor&&!uuid(cursor))throw fail('Invalid character search.');
-  const rows=db.prepare('SELECT c.*,u.display_name AS owner_name,d.data_json FROM characters c JOIN users u ON u.id=c.owner_id LEFT JOIN character_details d ON d.character_id=c.id WHERE c.archived=0 AND c.id>? AND (instr(lower(c.name),lower(?))>0 OR instr(lower(u.display_name),lower(?))>0) ORDER BY c.id LIMIT 21').all(cursor,q,q);
+  const rows=db.prepare('SELECT c.*,u.display_name AS owner_name,d.data_json FROM characters c JOIN users u ON u.id=c.owner_id LEFT JOIN character_details d ON d.character_id=c.id WHERE c.archived=0 AND c.kind=\'player\' AND c.id>? AND (instr(lower(c.name),lower(?))>0 OR instr(lower(u.display_name),lower(?))>0) ORDER BY c.id LIMIT 21').all(cursor,q,q);
   return {characters:rows.slice(0,20).map(summary),nextCursor:rows.length>20?rows[19].id:null};
  }
- const character=id=>{if(!uuid(id))throw fail('Choose a character.');const row=db.prepare('SELECT c.*,u.display_name AS owner_name,d.data_json FROM characters c JOIN users u ON u.id=c.owner_id LEFT JOIN character_details d ON d.character_id=c.id WHERE c.id=? AND c.archived=0').get(id);if(!row)throw fail('Character unavailable.',404);return summary(row);};
+ const character=id=>{if(!uuid(id))throw fail('Choose a character.');const row=db.prepare('SELECT c.*,u.display_name AS owner_name,d.data_json FROM characters c JOIN users u ON u.id=c.owner_id LEFT JOIN character_details d ON d.character_id=c.id WHERE c.id=? AND c.archived=0 AND c.kind=\'player\'').get(id);if(!row)throw fail('Character unavailable.',404);return summary(row);};
  function purchase(userId,change){
   const fields=['op','requestId','characterId','itemId','quantity','revision','itemRevision'];
   if(!change||Object.keys(change).some(k=>!fields.includes(k))||change.op!=='buy'||!uuid(change.requestId)||!uuid(change.characterId)||!uuid(change.itemId)||!Number.isInteger(change.quantity)||change.quantity<1||change.quantity>999||!Number.isSafeInteger(change.revision)||change.revision<1||!Number.isSafeInteger(change.itemRevision)||change.itemRevision<1)throw fail('Choose an item, character and quantity of 1–999.');
@@ -18,7 +18,7 @@ export function createPurchaseService(db,items){
   db.exec('BEGIN IMMEDIATE');try{
    const existing=db.prepare('SELECT * FROM item_purchases WHERE request_id=?').get(change.requestId);
    if(existing){if(existing.user_id!==userId||existing.fingerprint!==fingerprint)throw fail('This purchase ID was already used.',409);db.exec('COMMIT');return JSON.parse(existing.receipt_json);}
-   const c=db.prepare('SELECT * FROM characters WHERE id=? AND archived=0').get(change.characterId);
+   const c=db.prepare('SELECT * FROM characters WHERE id=? AND archived=0 AND kind=\'player\'').get(change.characterId);
    if(!c)throw fail('Character unavailable.',404);if(c.revision!==change.revision)throw fail('Character changed. Recheck its gil before buying.',409);
    const item=items.get(change.itemId);if(!item||item.archived)throw fail('Item unavailable.',404);if(item.revision!==change.itemRevision)throw fail('Item or price changed. Reopen it before buying.',409);
    if(item.priceGil===null)throw fail('Set a fixed gil price before buying this item.');
