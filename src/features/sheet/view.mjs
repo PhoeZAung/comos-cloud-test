@@ -8,7 +8,7 @@ import {renderCategoryTiles,inventoryCategoryCounts,visibleInventoryCategory} fr
 import {entryCalculations,damageExpression,diceTerms,maximumSpellLevel} from './calculations.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol} from './item-categories.mjs';
 import {skillBudget} from './skill-budget.mjs';
-import {spellLevel as levelOf} from './calculations.mjs';
+import {spellLevel as levelOf,weaponDamageFormulas} from './calculations.mjs';
 import {sheetSkills,skillSupportsSpecialization} from './skills.mjs';
 
 import {abilities,number,signed,sheetStats,skillTotal,weaponAttack,weaponAttackParts,attackTypes} from './model.mjs';
@@ -189,9 +189,11 @@ function entry(key,row,index,d,{reorder=false,npc=false}={}){
 export function entryDetail(row,data={},key='',{npc=false}={}){
  if(key==='weapons'){
   const parts=weaponAttackParts(row,data,{npc}),usage=entryCalculations(row,data,key);
+  let damageDetails,damageError;
+  try{damageDetails=weaponDamageFormulas(row,data);}catch(error){damageError=error.message;}
   const pairs=values=>'<dl class="cs-pairs">'+values.filter(([,v])=>v!==undefined&&v!=='').map(([title,value])=>'<div><dt>'+e(title)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>';
   const group=(title,values)=>'<section><h3>'+title+'</h3>'+pairs(values)+'</section>';
-  return '<div class="cs-weapon-detail-grid">'+group('Attack Roll',[['Attack type',attackTypes[parts.type]],['Ability Mod',npc?'':parts.ability.toUpperCase()],['Attack bonus',signed(parts.total)],['Range',row.range],['Misfire',row.misfire]])+group('Damage',[['Dice Roll',row.damage||row.dmg],['Extra damage',row.extra_damage],['Critical range',row.crit_range],['Critical multiplier',row.crit_mult],['Damage Type',Array.isArray(row.damage_types)?row.damage_types.join(' · '):'']])+group('Usage',[['Uses',usage.currentUses],['Max Usage',usage.maxUses]])+'</div>'+(row.desc?'<div class="cs-entry-prose"><section><h3>Description</h3><div class="cs-prose">'+formatSheetText(row.desc)+'</div></section></div>':'');
+  return '<div class="cs-weapon-detail-grid">'+group('Attack Roll',[['Attack type',attackTypes[parts.type]],['Ability Mod',npc?'':parts.ability.toUpperCase()],['Attack bonus',signed(parts.total)],['Range',row.range],['Misfire',row.misfire]])+group('Damage',[['Damage formula',row.damage||row.dmg],['Damage Ability',damageDetails?.ability?damageDetails.ability.toUpperCase()+' '+signed(damageDetails.abilityBonus):''],['Extra damage',row.extra_damage],['Rolls',damageDetails?.normal],['Formula error',damageError],['Critical range',row.crit_range],['Critical multiplier',row.crit_mult],['Damage Type',Array.isArray(row.damage_types)?row.damage_types.join(' · '):'']])+group('Usage',[['Uses',usage.currentUses],['Max Usage',usage.maxUses]])+'</div>'+(row.desc?'<div class="cs-entry-prose"><section><h3>Description</h3><div class="cs-prose">'+formatSheetText(row.desc)+'</div></section></div>':'');
  }
 
  let calc='';if(key==='weapons'){const p=weaponAttackParts(row,data);calc='<section class="cs-entry-calcs"><dl class="cs-pairs"><div><dt>'+attackTypes[p.type]+' attack</dt><dd>'+signed(p.base)+' + Ability Mod adjustment '+signed(p.replacement)+' + weapon misc '+signed(p.misc)+' = '+signed(p.total)+'</dd></div></dl><p class="cs-caption">One roll includes attack and damage. Critical threats include confirmation and damage if confirmed.</p></section>';}if(['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(key))calc=calculationDetails(row,data,key);

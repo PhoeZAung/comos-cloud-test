@@ -12,7 +12,7 @@ import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
 import {updateManagedStats} from '../../src/features/characters/managed-stats.mjs';
 import {sheetSkills,skillSupportsSpecialization} from '../../src/features/sheet/skills.mjs';
 import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields,inventoryFieldLabel,usableItemImageUrl,normalizeInventoryText} from '../../src/features/sheet/inventory-fields.mjs';
-import {entryCalculations} from '../../src/features/sheet/calculations.mjs';
+import {entryCalculations,weaponDamageAbilities,weaponDamageStyles} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
 import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
 import {isEquipmentSlot,equipmentRows,occupiesSlot} from '../../src/features/sheet/equipment.mjs';
@@ -146,7 +146,13 @@ export function mergeSheetData(original,change,{npc=false}={}){
    if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
     if(key==='damage_types'&&change.collection==='weapons'){if(!Array.isArray(value)||value.length>damageTypes.length||value.some(v=>!damageTypes.includes(v)))bad('Choose valid damage types.');safe[key]=[...new Set(value)];}
-    else if(key==='action_type'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');safe[key]=value;}
+    else if(change.collection==='weapons'&&!npc&&key==='damage_ability'){
+     if(!weaponDamageAbilities.includes(value))bad('Choose a damage ability.');
+     safe[key]=value;
+    }else if(change.collection==='weapons'&&!npc&&key==='damage_style'){
+     if(typeof value!=='string'||!Object.hasOwn(weaponDamageStyles,value))bad('Choose a weapon damage style.');
+     safe[key]=value;
+    }else if(key==='action_type'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');safe[key]=value;}
     else if(key==='spell_failure'&&change.collection==='spells'){
      if(value==='')safe[key]='';
      else{const chance=numeric(value);if(!Number.isInteger(chance)||chance<0||chance>100)bad('Spell failure must be a whole percentage from 0 to 100.');safe[key]=chance;}

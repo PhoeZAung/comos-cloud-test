@@ -1,7 +1,7 @@
 import {abilityUsageGroup} from './ability-groups.mjs';
 import {isLimitBreak,limitBreakState} from './limit-breaks.mjs';
 import {spellMpAmount} from './spell-mp.mjs';
-import {abilities,number,sheetStats} from './model.mjs';
+import {abilities,attackType,number,sheetStats} from './model.mjs';
 import {characterClasses,totalClassLevel} from '../characters/ffd20.mjs';
 // Bounded arithmetic parser, never JavaScript evaluation. All fractional results floor.
 export function arithmetic(source,values={}){
@@ -67,6 +67,15 @@ export function criticalProfile(row){
  return {minimum,multiplier};
 }
 
+export const weaponDamageAbilities=['auto','none',...abilities];
+export const weaponDamageStyles={
+ standard:'Standard',
+ thrown:'Thrown or sling',
+ two_handed:'Two-handed melee',
+ off_hand:'Off-hand melee',
+ bow:'Bow (STR penalty only in Automatic mode)'
+};
+
 export function weaponDamageFormulas(row,data,multiplier){
  const ctx=context(data,row),strength=ctx.STR;
  if(strength!==undefined){
@@ -74,8 +83,19 @@ export function weaponDamageFormulas(row,data,multiplier){
   ctx.STR_OFF_HAND=strength>0?Math.floor(strength/2):strength;
  }
  const resolve=value=>String(value||'').trim()?damageExpression(String(value),ctx).trim():'';
- const base=resolve(row.damage||row.dmg),extra=resolve(row.extra_damage);
  const join=(base,extra)=>base&&extra?base+(extra.startsWith('-')?' - '+extra.slice(1).trimStart():' + '+extra.replace(/^\+\s*/,'')):base||extra;
+ const melee=attackType(row.attack_type)==='melee';
+ const style=Object.hasOwn(weaponDamageStyles,row.damage_style)?row.damage_style:row.two_handed&&melee?'two_handed':'standard';
+ const autoStrength=style!=='standard'||melee;
+ const ability=row.damage_ability==='auto'?(autoStrength?'str':null):abilities.includes(row.damage_ability)?row.damage_ability:null;
+ let abilityBonus=ability?ctx[ability.toUpperCase()]??0:0;
+ if(ability==='str'){
+  if(style==='two_handed')abilityBonus=ctx.STR_TWO_HANDED??0;
+  else if(style==='off_hand')abilityBonus=ctx.STR_OFF_HAND??0;
+  else if(style==='bow'&&row.damage_ability==='auto')abilityBonus=Math.min(0,abilityBonus);
+ }
+ const formula=resolve(row.damage||row.dmg),extra=resolve(row.extra_damage);
+ const base=formula&&abilityBonus?join(formula,String(abilityBonus)):formula;
  const normal=join(base,extra);
  if(normal)diceTerms(normal);
  let critical='';
@@ -88,8 +108,8 @@ export function weaponDamageFormulas(row,data,multiplier){
   }).join(' ');
  }
  const criticalFormula=multiplier?join(critical,extra):'';
- if(criticalFormula){try{diceTerms(criticalFormula);}catch(error){return {normal,critical:'',criticalError:error.message};}}
- return {normal,critical:criticalFormula};
+ if(criticalFormula){try{diceTerms(criticalFormula);}catch(error){return {normal,critical:'',criticalError:error.message,ability,abilityBonus};}}
+ return {normal,critical:criticalFormula,ability,abilityBonus};
 }
 
 export function maximumSpellLevel(data){

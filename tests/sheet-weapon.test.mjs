@@ -2,10 +2,11 @@ import test from 'node:test';import assert from 'node:assert/strict';import {ran
 import {weaponAttackParts,weaponAttack,attackType,sheetStats} from '../src/features/sheet/model.mjs';
 import {weaponRoll,criticalProfile,publishRoll,serverRoll} from '../backend/characters/rolls.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';import {formatRoll} from '../src/ui/sheet.mjs';
-import {renderSection,renderSheetFrame} from '../src/features/sheet/view.mjs';
+import {entryDetail,renderSection,renderSheetFrame} from '../src/features/sheet/view.mjs';
 import {openDatabase} from '../backend/db/database.mjs';import {createUserRepository} from '../backend/repositories/users.mjs';import {createCharactersService} from '../backend/characters/service.mjs';
 import {externalRollSource} from '../backend/characters/external-rolls.mjs';
 import {requestSheetDice} from '../src/owlbear/rolls.mjs';
+import {weaponDamageFormulas} from '../src/features/sheet/calculations.mjs';
 const data={str:18,dex:14,con:12,bab:4,bab_temp:1,ar_melee_temp:2,ar_ranged_temp:3,ar_touch_temp:4,ar_ranged_touch_temp:5,cmb_temp:1,hp_curr:20,hp_max:30,mp:8,mp_class:10,speed:30,proficiencies:'Simple weapons',weapons:[{name:'Flaming sword',attack_type:'melee',ability_mod:'auto',attack_misc:1,damage:'1d8+4',extra_damage:'1d6 fire',crit_range:'19-20',crit_mult:'x3'}]};
 function seeded(sequence){
  return expression=>{
@@ -32,7 +33,7 @@ test('critical parsing and damage failures never invent or execute rules',()=>{
  assert.ok(serverRoll('1d20+12').total>=13);
 });
 test('weapon damage uses the saved damage formula, independently of the attack ability, including in Dice+',async()=>{
- const row={...data.weapons[0],ability_mod:'dex',damage:'1d8 + {STR_TWO_HANDED}',extra_damage:'1d6 fire'};
+ const row={...data.weapons[0],ability_mod:'dex',damage:'1d8',damage_ability:'auto',damage_style:'two_handed',extra_damage:'1d6 fire'};
  const character={data:{...data,weapons:[row]}},change={kind:'weapon',index:0};
  const pending=[[[19]],[[3],[2]],[[12]],[[4,5,6],[3]]],requested=[];
  const responses=await requestSheetDice(character,change,async notation=>{
@@ -46,6 +47,34 @@ test('weapon damage uses the saved damage formula, independently of the attack a
  assert.equal(result.damage.total,11);
  assert.equal(result.critical.damage.total,36);
  assert.equal(result.critical.damage.breakdown.at(-1).type,'fire');
+});
+test('damage ability defaults by weapon style, can be overridden, and preserves existing formulas',()=>{
+ const automatic={damage:'1d8',damage_ability:'auto'};
+ const cases=[
+  [{...automatic,attack_type:'melee'},'1d8 + 4'],
+  [{...automatic,attack_type:'ranged'},'1d8'],
+  [{...automatic,attack_type:'ranged_touch'},'1d8'],
+  [{...automatic,attack_type:'ranged',damage_style:'thrown'},'1d8 + 4'],
+  [{...automatic,attack_type:'melee',damage_style:'off_hand'},'1d8 + 2'],
+  [{...automatic,attack_type:'melee',two_handed:true},'1d8 + 6'],
+  [{...automatic,attack_type:'ranged',two_handed:true},'1d8'],
+  [{...automatic,attack_type:'ranged',damage_style:'bow'},'1d8'],
+  [{...automatic,ability_mod:'str',damage_ability:'dex'},'1d8 + 2'],
+  [{...automatic,damage_ability:'none'},'1d8'],
+  [{attack_type:'melee',damage:'1d8+{STR_TWO_HANDED}'},'1d8+6'],
+  [{attack_type:'melee',damage:'1d8+4'},'1d8+4']
+ ];
+ for(const [row,formula] of cases)assert.equal(weaponDamageFormulas(row,data).normal,formula);
+ const weak={...data,str:8};
+ assert.equal(weaponDamageFormulas({...automatic,attack_type:'ranged',damage_style:'bow'},weak).normal,'1d8 - 1');
+ assert.equal(weaponDamageFormulas({...automatic,damage_style:'off_hand'},weak).normal,'1d8 - 1');
+ const base={...data,weapons:[{name:'Sword',damage:'1d8',attack_type:'melee',ability_mod:'str'}]};
+ const save=fields=>mergeSheetData(base,{action:'entry',collection:'weapons',mode:'update',index:0,fields});
+ const edited=save({damage_ability:'dex',damage_style:'standard'});
+ assert.equal(weaponAttack(edited.weapons[0],edited),weaponAttack(base.weapons[0],base));
+ assert.match(entryDetail(edited.weapons[0],edited,'weapons'),/Damage Ability<\/dt><dd>DEX \+2.*1d8 \+ 2/);
+ assert.throws(()=>save({damage_ability:'speed'}),/Choose a damage ability/);
+ assert.throws(()=>save({damage_style:'unknown'}),/Choose a weapon damage style/);
 });
 test('HP and MP favorites persist, retain live controls and leave BAB out of combat',()=>{
  const favorite=mergeSheetData(data,{action:'fields',fields:{hp_favorite:true,mp_favorite:true}});assert.equal(favorite.hp_favorite,true);assert.equal(mergeSheetData(favorite,{action:'fields',fields:{hp_favorite:false}}).hp_favorite,false);assert.throws(()=>mergeSheetData(data,{action:'fields',fields:{hp_favorite:'true'}}));
