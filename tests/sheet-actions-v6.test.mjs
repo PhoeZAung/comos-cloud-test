@@ -2,6 +2,23 @@ import test from 'node:test';import assert from 'node:assert/strict';import {ran
 import {openDatabase} from '../backend/db/database.mjs';import {createUserRepository} from '../backend/repositories/users.mjs';import {createCharactersService} from '../backend/characters/service.mjs';
 import {publishRoll,entryReceipt,weaponRoll} from '../backend/characters/rolls.mjs';import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';import {renderSection,renderSheetFrame,entryDetail} from '../src/features/sheet/view.mjs';
 const data={str:16,dex:14,int:16,bab:2,classes:[{name:'Black Mage',level:3}],hp_max:20,hp_curr:20,mp:6,mp_temp:2,mp_class:10,spells:[{name:'Flare',lvl:2,damage:'1d6+{INT}',attack_type:'ranged_touch',desc:'Complete spell description.'},{name:'Ward',lvl:1,desc:'Complete ward.'},{name:'Light',lvl:0,desc:'A cantrip.'}],activeAbilities:[{name:'Burst',uses_formula:'{INT}+1',u_curr:3,damage:'1d6',desc:'Complete burst.'}],racialAbilities:[{name:'Legacy',uses_formula:'{LEVEL}',u_curr:2,desc:'A racial power.'}]};
+test('a failed armor check spends MP once and suppresses the spell effect',async()=>{
+ const s=await setup();
+ try{
+  const spells=data.spells.map((spell,i)=>i===1?{...spell,spell_failure:25}:spell);
+  s.db.prepare('UPDATE character_details SET data_json=?').run(JSON.stringify({...data,spells}));
+  const change={kind:'spell',mode:'use',index:1,revision:1,requestId:randomUUID(),owlbearRolls:[{expression:'1d100',faces:[25]}]};
+  const result=await s.perform(change);
+  assert.equal(result.roll.spellFailure.failed,true);
+  assert.equal(result.roll.mpSpent,1);
+  assert.equal(s.get().data.mp_temp,1);
+  assert.match(s.contents[0],/Armor spell failure: 25 vs 25% — failed/);
+  assert.doesNotMatch(s.contents[0],/Complete ward/);
+  assert.deepEqual(await s.perform(change),result);
+  assert.equal(s.get().revision,2);
+  assert.equal(s.contents.length,1);
+ }finally{s.db.close();}
+});
 async function setup(){const db=await openDatabase(':memory:'),user=createUserRepository(db).create({displayName:'Tester'}),id=randomUUID();createCharactersService(db).save({op:'save',id,revision:0,name:'Tester',ownerId:user.id,sources:[]});db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(id,JSON.stringify(data));let contents=[];const get=()=>({id,name:'Tester',revision:db.prepare('SELECT revision FROM characters WHERE id=?').get(id).revision,data:JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json)});const perform=(change)=>publishRoll({db,userId:user.id,character:get(),origin:'https://example.test',change:{requestId:randomUUID(),discord:true,revision:get().revision,...change},sendFetch:async(url,opts)=>{contents.push(JSON.parse(opts.body).content);return{ok:true};}});const cooldown=()=>db.prepare('UPDATE sheet_rolls SET created_at=0').run();return{db,get,perform,cooldown,contents};}
 test('spell dice/use spends level-based MP once; description sends spend nothing',async()=>{const s=await setup();try{const id=randomUUID(),change={kind:'spell',mode:'use',index:0,revision:1,requestId:id};const r=await s.perform(change);assert.equal(r.roll.mpSpent,2);assert.equal(s.get().data.mp,6);assert.equal(s.get().data.mp_temp,0);assert.match(s.contents[0],/Attack Roll:|Dice Roll:/);assert.doesNotMatch(s.contents[0],/Complete spell/);assert.deepEqual(await s.perform(change),r);assert.equal(s.get().revision,2);assert.equal(s.contents.length,1);s.cooldown();await s.perform({kind:'spell',mode:'send',index:1});assert.equal(s.get().revision,2);assert.match(s.contents.at(-1),/Complete ward/);s.cooldown();const ward=await s.perform({kind:'spell',mode:'use',index:1});assert.equal(ward.roll.mpSpent,1);assert.equal(s.get().data.mp,5);assert.match(s.contents.at(-1),/Complete ward/);s.cooldown();await s.perform({kind:'spell',mode:'use',index:2});assert.equal(s.get().data.mp,5);assert.equal(s.get().revision,3);}finally{s.db.close();}});
 test('no MP or invalid dice prevents resource changes and receipt insertion',async()=>{const s=await setup();try{s.db.prepare('UPDATE character_details SET data_json=?').run(JSON.stringify({...data,mp:0,mp_temp:0}));await assert.rejects(()=>s.perform({kind:'spell',mode:'use',index:0}),/Not enough MP/);assert.equal(s.get().revision,1);assert.equal(s.contents.length,0);assert.equal(s.db.prepare('SELECT count(*) n FROM sheet_rolls').get().n,0);s.db.prepare('UPDATE character_details SET data_json=?').run(JSON.stringify({...data,spells:[{...data.spells[0],damage:'bad formula'}]}));await assert.rejects(()=>s.perform({kind:'spell',mode:'use',index:0}),/dice|Damage|Invalid|supported/);assert.equal(s.get().data.mp,6);assert.equal(s.get().revision,1);}finally{s.db.close();}});

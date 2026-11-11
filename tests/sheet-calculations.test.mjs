@@ -2,7 +2,8 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {arithmetic,entryCalculations,damageExpression,diceTerms} from '../src/features/sheet/calculations.mjs';
 import {sheetSkills,fixedSkills} from '../src/features/sheet/skills.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
-import {serverRoll} from '../backend/characters/rolls.mjs';
+import {serverRoll,spellRoll} from '../backend/characters/rolls.mjs';
+import {skillTotal} from '../src/features/sheet/model.mjs';
 import {renderSection,renderSheetFrame,entryDetail} from '../src/features/sheet/view.mjs';
 const d={classes:[{name:'Black Mage',level:6}],int:18,dex:14,str:10,spell_dc_base:'int',bab:3,ar_ranged_touch_temp:1,mp:8,mp_temp:2,mp_class:10,mp_bonus:3,mp_max_spell_level:3,spells:[{name:'Fire',lvl:'2',attack_type:'ranged_touch',damage:'{CL}d6 + {INT}',range:'Close'}],activeAbilities:[{name:'Power',u_curr:2,u_max:3,uses_formula:'{INT}+{CL}/2',dc_formula:'10 + {LEVEL}/2 + {INT}'}]};
 test('spell and ability calculations use modifiers, matched caster levels and explicit formulas',()=>{
@@ -19,6 +20,27 @@ test('bounded arithmetic and typed damage reject executable or excessive express
 test('casting preserves MP, while active ability use spends a use and preserves data',()=>{
  const cast=mergeSheetData(d,{action:'cast',index:0});assert.deepEqual(cast,d);assert.deepEqual(mergeSheetData({...d,mp:0,mp_temp:0},{action:'cast',index:0}),{...d,mp:0,mp_temp:0});assert.deepEqual(cast.spells,d.spells);
  const use=mergeSheetData(d,{action:'useAbility',index:0});assert.equal(use.activeAbilities[0].u_curr,1);assert.equal(mergeSheetData(use,{action:'rest'}).activeAbilities[0].u_curr,7);assert.throws(()=>mergeSheetData({...d,activeAbilities:[{...d.activeAbilities[0],u_curr:0}]},{action:'useAbility',index:0}),/No uses/);
+});
+test('armor spell failure checks equipped gear, respects class and manual exceptions, and stops a failed effect',()=>{
+ const light={sourceCategory:'Armor',type:'Light Armor',name:'Leather',spellFailure:'15%',equipped:true};
+ const shield={sourceCategory:'Armor',type:'Light Shield',name:'Light Shield',spellFailure:'5%',equipped:true};
+ const data={...d,items:[light,shield,{...light,equipped:false}]},row=d.spells[0];
+ assert.equal(entryCalculations(row,data,'spells').spellFailure,20);
+ assert.equal(entryCalculations(row,{...data,classes:[{name:'Bard',level:4}]},'spells').spellFailure,5);
+ assert.equal(entryCalculations(row,{...data,classes:[{name:'Red Mage',level:1}]},'spells').spellFailure,0);
+ assert.equal(entryCalculations({...row,spell_failure:0},data,'spells').spellFailure,0);
+ const calls=[];
+ const roll=spellRoll(row,data,expression=>{calls.push(expression);return {expression,rolls:[20],total:20};});
+ assert.deepEqual(calls,['1d100']);
+ assert.deepEqual(roll.spellFailure,{chance:20,roll:20,failed:true});
+ assert.equal(roll.attack,undefined);
+ assert.equal(roll.damage,undefined);
+});
+test('manual sheets apply Fly and Stealth size adjustments independently of racial bonuses',()=>{
+ const data={dex:12,size_category:'Small'};
+ assert.equal(skillTotal({name:'Fly',stat:'dex'},data),3);
+ assert.equal(skillTotal({name:'Stealth',stat:'dex'},data),5);
+ assert.equal(skillTotal({name:'Stealth',stat:'dex',temp:2,rulesBonus:2},data),7);
 });
 test('fixed skills materialize for new sheets, preserve imported records and cannot be added, deleted or renamed',()=>{
  const original={...d,skills:[{name:'Spellcraft',stat:'int',lvl:2,cs:true,temp:1,legacy:'keep'}]};const rows=sheetSkills(original);assert.equal(rows.length,fixedSkills.length);assert.equal(rows[0].legacy,'keep');assert.equal(sheetSkills({skills:rows}).length,rows.length);

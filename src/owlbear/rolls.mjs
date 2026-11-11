@@ -1,4 +1,4 @@
-import {diceTerms,damageExpression,entryCalculations,context} from '../features/sheet/calculations.mjs';
+import {diceTerms,damageExpression,entryCalculations,armorSpellFailure,criticalProfile,weaponDamageFormulas} from '../features/sheet/calculations.mjs';
 import {weaponAttackParts} from '../features/sheet/model.mjs';
 
 // Build only the same simple formulas that the Cosmos backend supports.
@@ -21,14 +21,21 @@ export async function requestSheetDice(character,change,requestRoll){
  if(!change.kind){await roll(change.expression);return responses;}
  const key=change.kind==='weapon'?'weapons':change.kind==='spell'?'spells':change.collection,row=data[key]?.[change.index];
  if(!row)throw Error('Entry unavailable. Reload your sheet.');
- if(change.mode==='send'||change.mode==='use'&&change.kind!=='weapon'&&!String(row.damage||row.dmg||'').trim())return [];
- let attackExpression,ctx;
- if(change.kind==='weapon'){const p=weaponAttackParts(row,data,{npc:character.kind==='npc'});attackExpression='1d20'+(p.total>=0?'+':'')+p.total;ctx=context(data,row);}
- else{const c=entryCalculations(row,data,key);ctx=c.ctx;if(c.attack)attackExpression='1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus;}
+ if(change.mode==='send')return [];
+ const weapon=change.kind==='weapon',hasDamage=Boolean(String(row.damage||row.dmg||'').trim());
+ if(change.kind==='spell'){
+  const chance=armorSpellFailure(data,row);
+  if(chance>0){const [face]=await roll('1d100');if(face<=chance)return responses;}
+ }
+ if(change.mode==='use'&&!weapon&&!hasDamage)return responses;
+ const calculation=weapon?weaponAttackParts(row,data,{npc:character.kind==='npc'}):entryCalculations(row,data,key);
+ const bonus=weapon?calculation.total:calculation.attack?.bonus;
+ const attackExpression=bonus===undefined?null:'1d20'+(bonus>=0?'+':'')+bonus;
  const attack=attackExpression?await roll(attackExpression):null;
- if(row.damage||row.dmg)await roll(damageExpression(String(row.damage||row.dmg),ctx));
- const minimum=Number(/^(\d{1,2})(?:\s*-\s*20)?$/.exec(String(row.crit_range||'20').replace(/[–—]/g,'-'))?.[1]);
- const cmb=change.kind==='weapon'?weaponAttackParts(row,data,{npc:character.kind==='npc'}).type==='cmb':entryCalculations(row,data,key).attack?.mode==='cmb';
- if(attack&&!cmb&&attack[0]!==1&&attack[0]>=minimum)await roll(attackExpression);
+ const profile=criticalProfile(row),cmb=weapon?calculation.type==='cmb':calculation.attack?.mode==='cmb';
+ const threat=attack&&!cmb&&attack[0]!==1&&attack[0]>=profile.minimum;
+ const formulas=weapon?weaponDamageFormulas(row,data,threat?profile.multiplier:0):{normal:hasDamage?damageExpression(String(row.damage||row.dmg),calculation.ctx):''};
+ if(formulas.normal)await roll(formulas.normal);
+ if(threat){await roll(attackExpression);if(formulas.critical)await roll(formulas.critical);}
  return responses;
 }
