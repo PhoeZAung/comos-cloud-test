@@ -1,5 +1,5 @@
 import {diceTerms} from '../sheet/calculations.mjs';
-import {parseDr,parseSr} from '../../owlbear/pathfinder-defenses.mjs';
+import {parseDr,parseSr} from '../sheet/pathfinder-defenses.mjs';
 
 export const npcStatLabels={
  cr:'CR',initiative:'Initiative',ac:'AC',touch:'Touch AC',flat:'Flat-footed AC',
