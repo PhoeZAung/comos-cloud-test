@@ -17,7 +17,7 @@ async function start(){
   const canEditParty=id=>Boolean(grant&&(allowed()||editableIds.has(id)));
  const rows=()=>battleRows(items,party);
  const history=await roomHistory(OBR,(rolls,{remote,row})=>{bus?.send({type:'room-rolls',rolls});if(remote&&row)void OBR.notification.show((row.character+' · '+row.parts.map(part=>part.label+' '+part.total).join(' · ')).slice(0,220),'INFO').catch(()=>{});});
- const publish=()=>{void syncMenu();const battle=battleForViewer(rows(),gm),turn=turnForViewer(scene[TURN],battle,gm);focus.update(ready?items:[],ready?(turn.id||battle[0]?.id):null);bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});};
+ const publish=()=>{void syncMenu();const battle=battleForViewer(rows(),gm),turn=turnForViewer(scene[TURN],battle,gm);focus.update(ready?items:[],ready?(turn.id===null?null:(turn.id||battle[0]?.id)):null);bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});};
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
