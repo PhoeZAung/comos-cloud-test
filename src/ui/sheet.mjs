@@ -225,6 +225,7 @@ function mountCharacterSheet(tabs,switchTo){
  }
  function renderEntryFields(keys,values,collection){
   if(collection==='npcStats')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field"><span>${npcStatLabels[key]}</span><input name="${key}" type="number" step="${key==='cr'?'any':'1'}" value="${e(values[key]??'')}"></label>`).join('')+'</div>';
+  if(collection==='npcHealth')return '<div class="cs-form-grid">'+keys.map(key=>'<label class="cs-field"><span>'+e(readable(key))+'</span><input type="number" name="'+key+'" step="1" value="'+e(values[key]??'')+'" placeholder="Not set"></label>').join('')+'</div>';
   if(collection==='npcText')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field cs-field-wide"><span>${npcTextLabels[key]}</span><textarea name="${key}" rows="2" maxlength="4000">${e(values[key]??'')}</textarea></label>`).join('')+'</div>';
   const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{weapon:collection==='weapons',item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
   if(collection==='items'){
@@ -596,7 +597,7 @@ function mountCharacterSheet(tabs,switchTo){
      openDialog(selection?.title||(kind==='npcStats'?'NPC stats':'Stat block details'),
       selection?.keys||Object.keys(labels),character.data[kind]||{},{action:kind,collection:kind});return;
     }
-    if(group==='npcHealth'){openDialog('NPC HP',['hp_curr','hp_max','hp_temp'],character.data,{action:'fields'});return;}
+    if(group==='npcHealth'){openDialog('NPC HP',['hp_curr','hp_max','hp_temp'],character.data,{action:'fields',collection:'npcHealth'});return;}
    }
    const values={...character.data},s=sheetStats(values);if(group==='resources'){values.mp_curr=s.mp;values.mp_class=values.mp_class??s.mpMax;values.mp_bonus=values.mp_bonus??0;}if(group==='currency')values.currency_gil=values.currency_gil??values.gil??0;
    if(group==='attack')for(const key of ['ar_ranged_ability','ar_ranged_touch_ability'])values[key]||='dex';
@@ -647,7 +648,7 @@ function mountCharacterSheet(tabs,switchTo){
    }
    if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
-  const fields={};for(const key of dialogState.keys){if(key==='damage_types'){fields[key]=new FormData(event.target).getAll(key);continue;}const node=event.target.elements[key];if(dialogState.change.action==='npcStats'||dialogState.change.action==='npcText'){fields[key]=node.value;continue;}if(['caster_level','mp_cost','spell_failure','save_dc_override','attack_bonus_override'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
+  const fields={};for(const key of dialogState.keys){if(key==='damage_types'){fields[key]=new FormData(event.target).getAll(key);continue;}const node=event.target.elements[key];if(dialogState.change.action==='npcStats'||dialogState.change.action==='npcText'){fields[key]=node.value;continue;}if(dialogState.change.collection==='npcHealth'){fields[key]=node.value===''?null:Number(node.value);continue;}if(['caster_level','mp_cost','spell_failure','save_dc_override','attack_bonus_override'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
