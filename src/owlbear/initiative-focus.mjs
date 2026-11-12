@@ -3,8 +3,8 @@ const KEY='com.cosmos.character-sheets/initiative-highlight';
 // The local outlines never change the shared scene or take over a player's
 // selection. Every player sees the turn marker; hover is per viewer.
 export function initiativeFocus(OBR,buildShape){
- let items=[],active=null,hovered=null,rendered='',ids=[],closed=false,running=false,again=false;
- const visible=id=>items.find(item=>item.id===id&&item.visible!==false&&item.type==='IMAGE'&&item.layer==='CHARACTER');
+ let items=[],active=null,hovered=null,rendered='',ids=[],closed=false,running=false,again=false,showHidden=false;
+ const visible=id=>items.find(item=>item.id===id&&(showHidden||item.visible!==false)&&item.type==='IMAGE'&&item.layer==='CHARACTER');
  async function bounds(id){
   if(!visible(id))return null;
   const box=await OBR.scene.items.getItemBounds([id]);
@@ -51,6 +51,7 @@ export function initiativeFocus(OBR,buildShape){
   finally{running=false;}
  }
  return {
+  setShowHidden(value){const next=value===true;if(showHidden===next)return;showHidden=next;rendered='';if(hovered&&!visible(hovered))hovered=null;void draw();},
   update(nextItems,activeId){items=nextItems;active=activeId&&visible(activeId)?activeId:null;if(hovered&&!visible(hovered))hovered=null;void draw();},
   hover(id){hovered=id&&visible(id)?id:null;void draw();},
   async locate(id){
