@@ -10,19 +10,32 @@ import {publicReceipt} from '../features/room-rolls.mjs';
 
 const root=document.querySelector('main'),status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]');
 const roster=document.querySelector('[data-character-roster]'),prompt=document.querySelector('[data-connect-prompt]');
-const frames=document.querySelector('[data-sheet-frames]'),picker=document.querySelector('[data-sheet-picker]'),choices=document.querySelector('[data-sheet-choices]');
+const frames=document.querySelector('[data-sheet-frames]'),picker=document.querySelector('[data-sheet-picker]'),choices=document.querySelector('[data-sheet-choices]'),pickerSearch=document.querySelector('[data-sheet-search]'),pickerStatus=document.querySelector('[data-sheet-search-status]');
 const npcList=document.querySelector('[data-npc-characters]'),npcGroup=document.querySelector('[data-npc-group]'),dice=dicePlus(OBR);
 const openSheets=new Map(),names=new Map(),audiences=new Map();
 const backButton=document.querySelector('[data-back]'),addSheet=document.querySelector('[data-add-sheet]'),openTab=document.querySelector('[data-open-sheet-tab]');
 let popup,nonce,connection,activeCharacterId=null,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
-let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,characterRequest=null,npcRequest=null,characters=[],npcs=[];
+let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,characterRequest=null,npcRequest=null,characters=[],npcs=[],pickerCandidates=[];
 const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheetTab:id=>showSheet(id),onCloseSheet:id=>closeSheet(id),onView:()=>{backButton.hidden=true;addSheet.hidden=true;openTab.hidden=true;}});
 const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command));
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID();
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function say(message){status.textContent=message;}
+function saveScroll(id){
+ const sheet=openSheets.get(id);
+ if(!sheet)return;
+ try{sheet.scrollY=sheet.iframe.contentWindow?.scrollY??sheet.scrollY??0;}catch{}
+}
+function restoreScroll(sheet){
+ if(!sheet)return;
+ requestAnimationFrame(()=>{
+  if(activeCharacterId!==sheet.id||sheet.iframe.hidden)return;
+  try{sheet.iframe.contentWindow?.scrollTo(0,sheet.scrollY||0);}catch{}
+ });
+}
 function showRoster(){
+ saveScroll(activeCharacterId);
  activeCharacterId=null;
  roster.hidden=false;frames.hidden=true;
  for(const sheet of openSheets.values())sheet.iframe.hidden=true;
@@ -32,10 +45,12 @@ function showRoster(){
 function showSheet(id){
  const chosen=id?openSheets.get(id):null;
  if(!chosen){showRoster();return;}
+ if(activeCharacterId!==id)saveScroll(activeCharacterId);
  activeCharacterId=id;
  roster.hidden=true;frames.hidden=false;
  for(const sheet of openSheets.values())sheet.iframe.hidden=sheet!==chosen;
  backButton.hidden=false;addSheet.hidden=false;openTab.hidden=false;
+ restoreScroll(chosen);
 }
 function syncSheetTabs(){
  panel.syncSheets([...openSheets.values()].map(sheet=>({id:sheet.id,name:sheet.name})));
@@ -62,19 +77,20 @@ function openSheet(id,npc=false){
   const iframe=document.createElement('iframe'),nonce=crypto.randomUUID();
   iframe.title=(names.get(id)||'Character')+' sheet';iframe.hidden=true;
   frames.append(iframe);
-  openSheets.set(id,{id,name:names.get(id)||'Character',npc,iframe,nonce,connection:null});
+  openSheets.set(id,{id,name:names.get(id)||'Character',npc,iframe,nonce,scrollY:0,connection:null});
   iframe.src=new URL('sheet.html?characterId='+encodeURIComponent(id)+'#'+nonce,location.href).href;
  }
  syncSheetTabs();
  panel.select([...openSheets.keys()].indexOf(id)===0?'character':'sheet:'+id);
  say('Connected');
 }
-function openPicker(){
- if(!connection||!activeCharacterId)return;
- const available=[...characters.map(c=>({...c,npc:false})),...(showNpcs?npcs.map(c=>({...c,npc:true})):[])].filter(c=>!openSheets.has(c.id));
+function renderSheetChoices(){
+ const query=pickerSearch.value.trim().toLocaleLowerCase();
+ const filtered=pickerCandidates.filter(c=>c.name.toLocaleLowerCase().includes(query));
  choices.replaceChildren();
- if(!available.length){const note=document.createElement('p');note.textContent='No other characters available.';choices.append(note);}
- for(const character of available){
+ pickerStatus.textContent=filtered.length+' of '+pickerCandidates.length+' available sheets';
+ if(!filtered.length){const note=document.createElement('p');note.textContent=query?'No matching characters.':'No other characters available.';choices.append(note);}
+ for(const character of filtered){
   const button=document.createElement('button');
   button.type='button';button.dataset.pickSheet=character.id;
   button.className='character-card';
@@ -83,17 +99,25 @@ function openPicker(){
   if(character.npc){const kind=document.createElement('small');kind.textContent='NPC';button.append(kind);}
   choices.append(button);
  }
- picker.showModal();
 }
+function openPicker(){
+ if(!connection||!activeCharacterId)return;
+ pickerCandidates=[
+  ...characters.map(c=>({...c,npc:false})),
+  ...(showNpcs?npcs.map(c=>({...c,npc:true})):[])
+ ].filter(c=>!openSheets.has(c.id));
+ pickerSearch.value='';
+ renderSheetChoices();
+ picker.showModal();pickerSearch.focus();
+}
+pickerSearch.addEventListener('input',renderSheetChoices);
+picker.addEventListener('close',()=>{pickerCandidates=[];pickerSearch.value='';choices.replaceChildren();});
 choices.addEventListener('click',event=>{
  const button=event.target.closest('[data-pick-sheet]');if(!button)return;
- const id=button.dataset.pickSheet;
- const character=characters.find(c=>c.id===id);
- const npc=showNpcs?npcs.find(c=>c.id===id):null;
- if(!character&&!npc)return;
- picker.close();openSheet(id,!character&&!!npc);
+ const item=pickerCandidates.find(c=>c.id===button.dataset.pickSheet);
+ if(!item||item.npc&&!showNpcs)return;
+ picker.close();openSheet(item.id,item.npc);
 });
-
 async function sheetRequest(method,value){
  if(!connection)throw Error('Reconnect Cosmos.');
  if(method==='roll-context'){
@@ -175,6 +199,7 @@ OBR.onReady(async()=>{
    if(showNpcs!==(data.admin===true)){
     showNpcs=data.admin===true;
     if(!showNpcs){
+     if(picker.open)picker.close();
      for(const sheet of [...openSheets.values()])if(sheet.npc)closeSheet(sheet.id);
      npcs=[];npcList.replaceChildren();npcGroup.hidden=true;
     }
