@@ -67,10 +67,10 @@ export function parseNpcStatBlock(markdown=''){
   if(/^Source:\s*/i.test(line))source=line.replace(/^Source:\s*/i,'');
   if(abilityList){
    const ability=/^\s*-\s+\*\*(.+?)\*\*:?\s+(.+)/.exec(raw);
-   if(ability&&activeAbilities.length<100)activeAbilities.push({name:ability[1].replace(/:$/,'').slice(0,120),desc:clean(ability[2]).slice(0,12000),...( /\\((?:Sp|SL)\\)/i.test(ability[1])?{ability_kind:'sp'}:/\\(Su\\)/i.test(ability[1])?{ability_kind:'su'}:/\\(Ex\\)/i.test(ability[1])?{ability_kind:'ex'}:{} )});
+   if(ability&&activeAbilities.length<100)activeAbilities.push({name:ability[1].replace(/:$/,'').slice(0,120),desc:clean(ability[2]).slice(0,12000),...( /\((?:Sp|SL)\)/i.test(ability[1])?{ability_kind:'sp'}:/\(Su\)/i.test(ability[1])?{ability_kind:'su'}:/\(Ex\)/i.test(ability[1])?{ability_kind:'ex'}:{} )});
   }
   const table=/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|/.exec(line);
-  const inline=/^(Init(?:iative)?|AC|HP|Fort|Ref|Will|Speed|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Defensive Abilities|Special Attacks|DR|SR|Resist|Immune|Weaknesses|Caster Level|CL)\\s*:?\\s+(.+)$/i.exec(line);
+  const inline=/^(Init(?:iative)?|AC|HP|Fort|Ref|Will|Speed|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Defensive Abilities|Special Attacks|DR|SR|Resist|Immune|Weaknesses|Caster Level|CL)\s*:?\s+(.+)$/i.exec(line);
   const row=table||inline;
   if(row&&!rows.has(row[1].toLowerCase()))rows.set(row[1].toLowerCase(),row[2]);
  }
