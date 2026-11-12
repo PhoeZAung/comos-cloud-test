@@ -1,4 +1,5 @@
 import {resourceEditor,defenses} from './tracker-view.mjs';
+import {combatEventVerdict} from '../features/sheet/combat-verdict.mjs';
 
 // Shared initiative UI for the extension tab and legacy standalone view.
 // State and permissions always come from the Owlbear background controller.
@@ -69,7 +70,7 @@ export function mountInitiative(view,send){
    if(event.kind==='end'){
     headline.textContent='Battle ended';details.textContent='Battle '+event.battle;
    }else{
-    headline.textContent=event.actor+' → '+event.target;
+    headline.textContent=(combatEventVerdict(event)||'RESULT')+' · '+event.actor+' → '+event.target;
     details.textContent='Round '+event.round+' · '+(event.action||event.source||'Action')+
       ' · '+(event.kind==='heal'?'Healed':event.kind==='temp_hp'?'Temp HP':'Damage')+
       ' '+(event.applied??0)+(event.hit===false?' ('+(event.reason||'missed')+')':'')+(event.critical?' · Critical':'')+
