@@ -1,4 +1,5 @@
 import {abilityGroup} from '../../src/features/sheet/ability-groups.mjs';
+import {abilityKinds} from '../../src/owlbear/pathfinder-defenses.mjs';
 import {effectType} from '../../src/features/sheet/effect-types.mjs';
 import {externalRollSource} from './external-rolls.mjs';
 import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
@@ -100,6 +101,19 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  else if(ability)roll=abilityDice(row,character.data,change.collection);
  else roll=diceRoll(expression);
  if(ability||spell)roll.effectType=effectType(row);
+ if(entry){
+  const calc=weapon?null:entryCalculations(row,character.data,spell?'spells':change.collection);
+  const rawCl=calc?.ctx?.CL??character.data?.npcStats?.casterLevel;
+  const rawKind=ability?row.ability_kind:'other';
+  roll.resolution={
+   abilityKind:weapon?'weapon':spell?'spell':Object.hasOwn(abilityKinds,rawKind)?rawKind:'other',
+   srApplies:!/^no\\b/i.test(String(row.spell_resist||'').trim()),
+   casterLevel:Number.isInteger(rawCl)&&rawCl>0?rawCl:null,
+   srBonus:Number.isFinite(row.sr_bonus)?row.sr_bonus:0,
+   drBypass:String(row.dr_bypass||'').split(/[,;]/).map(x=>x.trim()).filter(Boolean).slice(0,12),
+   damageTypes:Array.isArray(row.damage_types)?row.damage_types.slice(0,20):[]
+  };
+ }
  if(external){external.finish();roll.provider='owlbear-dice-plus';}
  if(mode==='use'&&roll.damageError)throw Error(roll.damageError);
  if(weapon&&mode==='use'&&(row.uses_formula||weaponUsage.maxUses>0)){
