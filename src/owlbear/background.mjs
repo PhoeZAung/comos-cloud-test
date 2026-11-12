@@ -5,17 +5,19 @@ import {roomHistory} from './room-history.mjs';
 import {connection} from './connection.mjs';
 import {publicPartyClient} from './public-party-client.mjs';
 import {dockedPanels} from './docking.mjs';
+import {initiativeFocus} from './initiative-focus.mjs';
+import {uniqueNpcForToken,npcBattleStats} from './npc-battle.mjs';
 import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,tokenName,normalizeName} from './battle-state.mjs';
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative';
 async function start(){
  let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
- const popovers=new Map(),bars=new Map(),commits=new Map();let syncMenu=()=>Promise.resolve();
+ const popovers=new Map(),bars=new Map(),commits=new Map(),focus=initiativeFocus(OBR);let syncMenu=()=>Promise.resolve(),npcDirectory=null,npcDirectoryAt=0;
  const error=e=>void OBR.notification.show(e.message||String(e),'ERROR');
  const allowed=()=>gm&&admin;
   const canEditParty=id=>Boolean(grant&&(allowed()||editableIds.has(id)));
  const rows=()=>battleRows(items,party);
  const history=await roomHistory(OBR,(rolls,{remote,row})=>{bus?.send({type:'room-rolls',rolls});if(remote&&row)void OBR.notification.show((row.character+' · '+row.parts.map(part=>part.label+' '+part.total).join(' · ')).slice(0,220),'INFO').catch(()=>{});});
- const publish=()=>{void syncMenu();bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle:rows().filter(row=>gm||row.visible),turn:scene[TURN]||{},layout:layoutFrom(room),ready});};
+ const publish=()=>{void syncMenu();const battle=rows().filter(row=>gm||row.visible),turn=scene[TURN]||{};focus.update(ready?items:[],ready?(turn.id||battle[0]?.id):null);bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});};
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
@@ -61,7 +63,23 @@ async function start(){
  }
  async function setGrant(value){
   if(typeof value!=='string'||!/^[a-f0-9]{64}$/.test(value))return;
-  const candidate=connection(value),capabilities=await candidate.call('capabilities');grant?.close();grant=candidate;token=value;admin=capabilities.admin===true;editableIds=new Set();if(capabilities.scope==='sheet'){const owned=await candidate.call('list');editableIds=new Set(owned.map(row=>row.id));}commits.clear();publish();bus.send({type:'grant',token});
+  const candidate=connection(value),capabilities=await candidate.call('capabilities');grant?.close();grant=candidate;token=value;admin=capabilities.admin===true;npcDirectory=null;npcDirectoryAt=0;editableIds=new Set();if(capabilities.scope==='sheet'){const owned=await candidate.call('list');editableIds=new Set(owned.map(row=>row.id));}commits.clear();publish();bus.send({type:'grant',token});
+ }
+ async function npcStatsForToken(name){
+  if(!allowed()||!grant)return null;
+  const current=grant;
+  if(!npcDirectory||Date.now()-npcDirectoryAt>30000){
+   npcDirectory=current.call('npc-list').catch(error=>{if(grant===current)npcDirectory=null;throw error;});
+   npcDirectoryAt=Date.now();
+  }
+  const all=await npcDirectory;
+  if(grant!==current||!allowed())throw Error('NPC access changed. Reconnect Cosmos.');
+  const npc=uniqueNpcForToken(name,all);
+  if(!npc)return null;
+  const response=await current.call('api',{method:'GET',path:'/api/v1/character-records/'+npc.id});
+  if(grant!==current||!allowed())throw Error('NPC access changed. Reconnect Cosmos.');
+  if(response.status!==200||response.data?.character?.id!==npc.id)throw Error('Could not read matching NPC sheet.');
+  return npcBattleStats(response.data.character);
  }
  async function siteStats(id,revision,stats){
   if(!canEditParty(id))throw Error('Connect your Cosmos account to edit your own character.');
@@ -95,17 +113,18 @@ async function start(){
    const sorted=rows();if(!sorted.length)return;const turn=scene[TURN]||{},index=Math.max(0,sorted.findIndex(row=>row.id===turn.id));let next=index,round=Math.max(1,Number(turn.round)||1);
    if(d.direction===-1){next=(index-1+sorted.length)%sorted.length;if(index===0)round=Math.max(1,round-1);}
    else{next=(index+1)%sorted.length;if(next===0)round++;}
-   const value={id:sorted[next].id,round};await OBR.scene.setMetadata({[TURN]:value});scene={...scene,[TURN]:value};schedule();return;
+   const value={id:sorted[next].id,round};await OBR.scene.setMetadata({[TURN]:value});scene={...scene,[TURN]:value};schedule();await focus.locate(value.id);return;
   }
   if(d.type==='add'){
    const item=items.find(item=>item.id===d.id);if(!item||item.type!=='IMAGE'||item.layer!=='CHARACTER')throw Error('Select a character token.');
    if(item.metadata?.[BATTLE]?.enabled)return;
    if(rows().length>=100)throw Error('This scene already has 100 combatants.');
    const matches=party.filter(row=>normalizeName(row.name)===normalizeName(tokenName(item))),site=matches.length===1?matches[0]:null;
-   if(!site&&!d.stats){bus.send({type:'setup',id:item.id,name:tokenName(item)});await OBR.popover.open({id:PREFIX+'/setup',url:new URL('/owlbear/battle-add.html?id='+encodeURIComponent(item.id)+'&name='+encodeURIComponent(tokenName(item)),location.origin).href,width:280,height:320});return;}
-   const stats=site||d.stats,trackHp=!!site||stats.hp!==null&&stats.hp!==undefined&&stats.hp>0;
+   const npc=!site&&!d.stats?await npcStatsForToken(tokenName(item)):null;
+   if(!site&&!npc&&!d.stats){bus.send({type:'setup',id:item.id,name:tokenName(item)});await OBR.popover.open({id:PREFIX+'/setup',url:new URL('/owlbear/battle-add.html?id='+encodeURIComponent(item.id)+'&name='+encodeURIComponent(tokenName(item)),location.origin).href,width:280,height:320});return;}
+   const stats=site||npc||d.stats,trackHp=!!site||stats.hp!==null&&stats.hp!==undefined&&stats.hp>0;
    if(['mp','ac',...(trackHp?['hp']:[])].some(key=>!Number.isFinite(stats[key])||Math.abs(stats[key])>=1e7)||stats.initiative!==undefined&&(!Number.isFinite(stats.initiative)||Math.abs(stats.initiative)>9999)||!site&&(stats.mp<0||stats.hp!==null&&stats.hp!==undefined&&(!Number.isFinite(stats.hp)||stats.hp<0)))throw Error('Enter valid starting stats, or leave HP blank.');
-   const data={enabled:true,siteId:site?.id||null,trackHp,hp:trackHp?stats.hp:0,hpMax:trackHp?stats.hp:0,mp:stats.mp,mpMax:stats.mp,ac:stats.ac,touch:site?.touch??stats.ac,flat:site?.flat??stats.ac,cmd:site?.cmd??10,initiative:stats.initiative||0,order:Date.now()};
+   const data={enabled:true,siteId:site?.id||null,...(npc?{npcId:npc.npcId,hpRoll:npc.hpRoll}:{}),trackHp,hp:trackHp?stats.hp:0,hpMax:trackHp?stats.hp:0,mp:stats.mp,mpMax:stats.mp,ac:stats.ac,touch:stats.touch??stats.ac,flat:stats.flat??stats.ac,cmd:stats.cmd??10,initiative:stats.initiative||0,order:Date.now()};
    await OBR.scene.items.updateItems([item.id],drafts=>{for(const draft of drafts)draft.metadata[BATTLE]=data;});await OBR.popover.close(PREFIX+'/setup');return;
   }
   if(d.type==='remove'){
@@ -117,6 +136,7 @@ async function start(){
  bus=await localChannel(OBR,d=>{
   if(d?.type==='hello'){publish();bus.send({type:'room-rolls',rolls:history.rows()});if(token)bus.send({type:'grant',token});void refreshAccess();return;}
   if(d?.type==='roll-receipt'){void history.publish(d.entry,d.target).catch(error);return;}
+  if(d?.type==='highlight'){const row=rows().find(row=>row.id===d.id&&(gm||row.visible));focus.hover(ready&&row?row.id:null);return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
   if(!['layout','stats','initiative','turn','add','remove'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
@@ -146,6 +166,6 @@ async function start(){
  await syncMenu();
  // Close widgets left by the retired standalone Party extension in this browser.
  await Promise.allSettled([INIT,'com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
- publish();window.addEventListener('pagehide',()=>{stopped=true;history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();clearTimeout(timer);},{once:true});
+ publish();window.addEventListener('pagehide',()=>{stopped=true;history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();void focus.close();clearTimeout(timer);},{once:true});
 }
 OBR.onReady(()=>void start().catch(e=>console.error('Cosmos:',e)));
