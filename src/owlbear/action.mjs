@@ -150,7 +150,8 @@ async function applyCombatRequest(request){
   roomId:OBR.room.id,...request,
   targetHp:request.targetSheetId?target.hp:npc.hp,
   targetHpMax:request.targetSheetId?target.hpMax:npc.hpMax,
-  targetHpTemp:request.targetSheetId?target.hpTemp:npc.hpTemp||0
+  targetHpTemp:request.targetSheetId?target.hpTemp:npc.hpTemp||0,
+  targetNpcId:request.targetSheetId?null:npc.npcId||null
  });
  let event=applied.event;
  if(applied.needsNpcUpdate){
