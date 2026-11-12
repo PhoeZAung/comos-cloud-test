@@ -321,3 +321,34 @@ reach, morale, tactics specified in a stat block, or GM intent, so use it as an
 optional suggestion. To clear the red ring, disable the toggle or advance to a
 non-NPC turn. Existing NPCs retrieve Intelligence from their saved sheets when
 possible; they do not have to be removed and re-added.
+
+## Targeted combat rolls (initiative-only)
+
+Abilities and spells now have a **Effect type** control under Edit → Advanced
+Settings → Attack & damage: **None**, **Damage**, **Healing**, or **Temporary HP**.
+The existing **Dice Roll** formula is used as the numeric amount for the
+configured effect. Legacy entries retain their previous behavior until an
+effect type is explicitly saved; editing a legacy entry with a damage formula
+suggests **Damage**. Use **None** for buffs and dice rolls that should not
+target a combatant.
+
+In Owlbear, weapon attacks and spells/abilities with an explicitly saved HP
+effect type follow a targeted flow when combatants are in initiative:
+
+1. The acting sheet must belong to the current initiative token (a linked
+   player character or an admin-opened saved NPC). A different turn is blocked.
+2. Select **one** combatant token in the Owlbear scene.
+3. Attacks must target an opposing combatant. Healing and Temporary HP must
+   target a linked party token. Then click the weapon / spell / ability roll
+   from the acting sheet. A normal/out-of-combat roll continues as before.
+4. On a completed roll Cosmos compares any attack roll against regular AC,
+   touch AC, or CMD as appropriate, displays **Hit**/**Miss**, and deselects
+   only the selected target. A failed roll keeps the selection for retry.
+
+The first stage intentionally **does not apply target HP**: damage, healing and
+temporary HP are calculated as rolls and remain subject to GM adjustment.
+This avoids unauthorized editing of other players' sheets and avoids
+incorrectly stacking temporary HP from repeated identical sources. Reactions,
+saving throws, non-targeted abilities and ordinary checks remain possible
+outside the current character's turn. The GM should still handle cover,
+range, line-of-sight, saves, resistance, immunity, and special effects.

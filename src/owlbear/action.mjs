@@ -7,12 +7,14 @@ import {localChannel} from './local-channel.mjs';
 import {mountPanel} from './panel.mjs';
 import {mountInitiative} from './initiative-view.mjs';
 import {publicReceipt} from '../features/room-rolls.mjs';
+import {resolveCombatTarget} from './combat-target.mjs';
 
 const root=document.querySelector('main'),status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]');
 const roster=document.querySelector('[data-character-roster]'),prompt=document.querySelector('[data-connect-prompt]');
 const frames=document.querySelector('[data-sheet-frames]'),picker=document.querySelector('[data-sheet-picker]'),choices=document.querySelector('[data-sheet-choices]'),pickerSearch=document.querySelector('[data-sheet-search]'),pickerStatus=document.querySelector('[data-sheet-search-status]');
 const npcList=document.querySelector('[data-npc-characters]'),npcGroup=document.querySelector('[data-npc-group]'),dice=dicePlus(OBR);
-const openSheets=new Map(),names=new Map(),audiences=new Map();
+const openSheets=new Map(),names=new Map(),audiences=new Map(),combatPending=new Map();
+let latestBattle=[],latestTurn={},latestReady=false,latestAdmin=false;
 let popup,nonce,connection,activeCharacterId=null,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
 let autoConnecting=false,pendingExistingGrant=null,autoAttemptAt=0,autoAttemptGeneration=0;
 let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,characterRequest=null,npcRequest=null,characters=[],npcs=[],pickerCandidates=[];
@@ -128,6 +130,25 @@ choices.addEventListener('click',event=>{
 });
 async function sheetRequest(method,value){
  if(!connection)throw Error('Reconnect Cosmos.');
+ if(method==='combat-context'){
+  if(typeof value?.requestId!=='string'||typeof value.characterId!=='string'||!['weapon','spell','ability'].includes(value.kind)||!value.row||typeof value.row!=='object')throw Error('Invalid combat action.');
+  if(!characters.some(c=>c.id===value.characterId)&&!(latestAdmin&&npcs.some(c=>c.id===value.characterId)))throw Error('This character is not available to your Cosmos account.');
+  const selection=await OBR.player.getSelection();
+  const target=resolveCombatTarget({characterId:value.characterId,kind:value.kind,row:value.row,battle:latestBattle,turn:latestTurn,selection:selection||[],ready:latestReady,admin:latestAdmin});
+  if(target){
+   if(combatPending.size>=100)combatPending.clear();
+   combatPending.set(value.requestId,{...target,at:Date.now()});
+  }
+  return target;
+ }
+ if(method==='combat-complete'){
+  const pending=combatPending.get(value?.requestId);
+  if(!pending||pending.targetId!==value.targetId||Date.now()-pending.at>120000)return {cleared:false};
+  combatPending.delete(value.requestId);
+  const selection=await OBR.player.getSelection();
+  if((selection||[]).includes(pending.targetId)){await OBR.player.deselect([pending.targetId]);return {cleared:true};}
+  return {cleared:false};
+ }
  if(method==='roll-context'){
   if(typeof value?.requestId!=='string')throw Error('Invalid roll.');
   if(audiences.size>=100)audiences.delete(audiences.keys().next().value);
@@ -206,7 +227,7 @@ function attachGrant(token,{notifyBackground=false}={}){
  grantToken=token;connection?.close();connection=null;
  characterRequest=null;npcRequest=null;
  panel.connected(false);resetSheets();
- connection=connectGrant(token);panel.select('character');
+ connection=connectGrant(token);combatPending.clear();panel.select('character');
  if(notifyBackground)trackerBus?.send({type:'grant-set',token});
  void load().catch(error=>say(error.message));
 }
@@ -250,6 +271,7 @@ OBR.onReady(async()=>{
    else attachGrant(data.token);
   }
   if(data?.type==='state'){
+   latestBattle=Array.isArray(data.battle)?data.battle:[];latestTurn=data.turn||{};latestReady=data.ready===true;latestAdmin=data.admin===true;
    if(showNpcs!==(data.admin===true)){
     showNpcs=data.admin===true;
     if(!showNpcs){

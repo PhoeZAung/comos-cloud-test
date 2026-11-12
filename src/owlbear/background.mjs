@@ -45,9 +45,12 @@ async function start(){
   const target=ready&&allowed()&&recommendEnabled&&active?.isNpc?
    recommendTarget({attacker:active,battle:visible,items,intelligence:npcIntelligence(npcId),grid}):null;
   focus.recommend(target?.id||null);
+  // NPC record IDs are visible only to an authenticated GM, for matching
+  // their opened Cosmos sheet to the acting Owlbear token.
+  const viewerBattle=allowed()?battle.map(row=>row.isNpc?{...row,npcId:items.find(item=>item.id===row.id)?.metadata?.[BATTLE]?.npcId||null}:row):battle;
   bus?.send({type:'state',admin:allowed(),gm,recommendTarget:allowed()&&recommendEnabled,
    editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),
-   connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});
+   connected:!!grant,feed,party,battle:viewerBattle,turn,layout:layoutFrom(room),ready});
  };
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){

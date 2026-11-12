@@ -204,7 +204,7 @@ export function entryDetail(row,data={},key='',{npc=false}={}){
  }
 
  let calc='';if(key==='weapons'){const p=weaponAttackParts(row,data);calc='<section class="cs-entry-calcs"><dl class="cs-pairs"><div><dt>'+attackTypes[p.type]+' attack</dt><dd>'+signed(p.base)+' + Ability Mod adjustment '+signed(p.replacement)+' + weapon misc '+signed(p.misc)+' = '+signed(p.total)+'</dd></div></dl><p class="cs-caption">One roll includes attack and damage. Critical threats include confirmation and damage if confirmed.</p></section>';}if(['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(key))calc=calculationDetails(row,data,key);
- const labels={effect:'Effect',damage_types:'Damage Type',misfire:'Misfire',action_type:'Action type',sourceCategory:'Item Tag / Shop Category',damage:'Dice Roll',dmg:'Dice Roll',extra_damage:'Extra damage (not multiplied)',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',school:'School',spell_resist:'Spell resistance',attack_type:'Attack',type:'Type',uses:'Uses',crit_range:'Critical range',crit_mult:'Critical multiplier',acBonus:'Armor bonus',checkPenalty:'Check penalty',cost:'Cost',slot:'Slots',at_higher_lvls:'At higher levels'};
+ const labels={effect:'Effect',effect_type:'HP effect',damage_types:'Damage Type',misfire:'Misfire',action_type:'Action type',sourceCategory:'Item Tag / Shop Category',damage:'Dice Roll',dmg:'Dice Roll',extra_damage:'Extra damage (not multiplied)',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',school:'School',spell_resist:'Spell resistance',attack_type:'Attack',type:'Type',uses:'Uses',crit_range:'Critical range',crit_mult:'Critical multiplier',acBonus:'Armor bonus',checkPenalty:'Check penalty',cost:'Cost',slot:'Slots',at_higher_lvls:'At higher levels'};
  const dice=String(row.damage||row.dmg||'');const rollable=/^\s*\d{1,2}d\d{1,4}(?:\s*[+-]\s*\d{1,6})?\s*$/i.test(dice);
  const prose=weaponOrAbility(key)?'<div class="cs-entry-prose">'+[['Description',row.desc],['Effect',row.effect],['At higher levels',row.at_higher_lvls]].filter(([,v])=>v).map(([title,text])=>'<section><h3>'+title+'</h3><div class="cs-prose">'+formatSheetText(text)+'</div></section>').join('')+'</div>':'<div class="cs-prose">'+formatSheetText(row.desc||'No description.')+'</div>';
 
@@ -220,7 +220,7 @@ export function entryDetail(row,data={},key='',{npc=false}={}){
     const entries=available.filter(([k])=>keys.includes(k));
     return entries.length?'<section class="cs-entry-detail-group"><h3>'+title+'</h3><dl class="cs-pairs">'+entries.map(([k,label])=>'<div><dt>'+e(label)+'</dt><dd>'+e(k==='action_type'&&!previewRow[k]?'None':Array.isArray(previewRow[k])?previewRow[k].join(' · '):previewRow[k])+'</dd></div>').join('')+'</dl></section>':'';
   };
-  const priority=['action_type','attack_type','range','duration','target','saving_throw','school','spell_resist','type'];
+  const priority=['action_type','effect_type','attack_type','range','duration','target','saving_throw','school','spell_resist','type'];
   const rolls=['damage','dmg','extra_damage','misfire','crit_range','crit_mult','uses'];
   const other=available.map(([k])=>k).filter(k=>!priority.includes(k)&&!rolls.includes(k));
   const categories=['spells',...abilityTabs].includes(key);

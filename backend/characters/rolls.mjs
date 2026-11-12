@@ -1,4 +1,5 @@
 import {abilityGroup} from '../../src/features/sheet/ability-groups.mjs';
+import {effectType} from '../../src/features/sheet/effect-types.mjs';
 import {externalRollSource} from './external-rolls.mjs';
 import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
@@ -60,7 +61,7 @@ function diceLine(r,{typed=false}={}){
  const elements=typed?damageTypeLine(r):'';
  return calculation+(elements?' — '+elements:'');
 }
-export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push('Dice Roll: '+diceLine(r.damage,{typed:true}));if(r.critical?.threat){lines.push('Critical threat');lines.push('Confirmation: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Damage if confirmed: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
+export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push((r.effectType==='heal'?'Healing':r.effectType==='temp_hp'?'Temporary HP':'Dice Roll')+': '+diceLine(r.damage,{typed:true}));if(r.critical?.threat){lines.push('Critical threat');lines.push('Confirmation: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Damage if confirmed: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
 export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch,makeWeaponRoll=weaponRoll,makeSpellRoll=spellRoll,makeAbilityRoll=abilityRoll}){
  const weapon=change.kind==='weapon',spell=change.kind==='spell',ability=change.kind==='ability',entry=weapon||spell||ability;
  if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.discord!=='boolean'||(change.discordStats!==undefined&&typeof change.discordStats!=='boolean')||(change.kind!==undefined&&!entry))throw Error('Invalid roll.');
@@ -98,6 +99,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  else if(spell)roll=spellDice(row,character.data);
  else if(ability)roll=abilityDice(row,character.data,change.collection);
  else roll=diceRoll(expression);
+ if(ability||spell)roll.effectType=effectType(row);
  if(external){external.finish();roll.provider='owlbear-dice-plus';}
  if(mode==='use'&&roll.damageError)throw Error(roll.damageError);
  if(weapon&&mode==='use'&&(row.uses_formula||weaponUsage.maxUses>0)){
