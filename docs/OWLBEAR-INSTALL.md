@@ -296,3 +296,28 @@ origins remain allowed.
 
 Build and syntax checks only; no automated tests, browser room exercise, Dice+
 roll tests, or multi-client live validation, as requested. No database migration.
+
+## Initiative target recommendations (GM-only)
+
+The Owlbear extension has **Character**, **Initiative**, and **Settings** tabs.
+The former **Admin** display controls now live inside **Settings**, above Roll
+history, and remain visible only to a connected Cosmos administrator who is the
+Owlbear GM.
+
+In Settings → Admin, enable **Recommend target**. During the turn of a saved
+Cosmos NPC added to battle, Cosmos draws a **red outline** around one suggested
+living, linked party token. The active combatant's gold outline and hover
+outline remain separate. Red outlines are local to the GM's Owlbear session,
+do not select tokens, do not reveal the target to players, and never roll or
+attack automatically. The toggle is remembered locally in that browser.
+
+Recommendations use NPC Intelligence from the saved NPC stat block and party
+HP, maximum HP, AC, MP availability, and map distance. Mindless creatures tend
+to favor nearby party members; smarter foes may favor weakened or easier-to-hit
+characters. Unlinked tokens, hidden tokens, other NPCs, downed characters and
+absent party sheets cannot be recommended. Unknown Intelligence defaults to a
+balanced heuristic. The system cannot know line of sight, cover, obstacles,
+reach, morale, tactics specified in a stat block, or GM intent, so use it as an
+optional suggestion. To clear the red ring, disable the toggle or advance to a
+non-NPC turn. Existing NPCs retrieve Intelligence from their saved sheets when
+possible; they do not have to be removed and re-added.
