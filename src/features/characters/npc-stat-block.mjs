@@ -1,14 +1,16 @@
 import {diceTerms} from '../sheet/calculations.mjs';
+import {parseDr,parseSr} from '../../owlbear/pathfinder-defenses.mjs';
 
 export const npcStatLabels={
  cr:'CR',initiative:'Initiative',ac:'AC',touch:'Touch AC',flat:'Flat-footed AC',
  fort:'Fortitude',ref:'Reflex',will:'Will',speed:'Land speed (ft)',
- bab:'Base attack bonus',cmb:'CMB',cmd:'CMD',
+ bab:'Base attack bonus',cmb:'CMB',cmd:'CMD',dr:'Damage reduction (DR)',sr:'Spell resistance (SR)',casterLevel:'Caster level (CL)',
  str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma'
 };
 export const npcTextLabels={
  summary:'Identity',senses:'Senses',languages:'Languages',defenses:'Defensive abilities',
  specialAttacks:'Special attacks',qualities:'Special qualities',gear:'Gear',feats:'Feats',
+ drBypass:'DR bypass (e.g. silver and good)',energyResistances:'Energy resistances (e.g. fire 10)',immunities:'Immunities',vulnerabilities:'Vulnerabilities',
  hpDetail:'Hit dice',acDetail:'AC breakdown',saveDetail:'Save modifiers',
  maneuverDetail:'Maneuver modifiers',movementDetail:'Movement',attackDetail:'Printed attacks',
  skillDetail:'Printed skills',source:'Source'
@@ -68,7 +70,7 @@ export function parseNpcStatBlock(markdown=''){
    if(ability&&activeAbilities.length<100)activeAbilities.push({name:ability[1].replace(/:$/,'').slice(0,120),desc:clean(ability[2]).slice(0,12000)});
   }
   const table=/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|/.exec(line);
-  const inline=/^(Init(?:iative)?|AC|HP|Fort|Ref|Will|Speed|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Defensive Abilities|Special Attacks)\s*:?\s+(.+)$/i.exec(line);
+  const inline=/^(Init(?:iative)?|AC|HP|Fort|Ref|Will|Speed|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Defensive Abilities|Special Attacks|DR|SR|Resist|Immune|Weaknesses|Caster Level|CL)\\s*:?\\s+(.+)$/i.exec(line);
   const row=table||inline;
   if(row&&!rows.has(row[1].toLowerCase()))rows.set(row[1].toLowerCase(),row[2]);
  }
@@ -79,15 +81,22 @@ export function parseNpcStatBlock(markdown=''){
   touch:namedValue(ac,'touch'),flat:namedValue(ac,'flat[- ]footed'),fort:valueAtStart(saves),
   ref:valueAtStart(get('ref'))??namedValue(saves,'Ref'),will:valueAtStart(get('will'))??namedValue(saves,'Will'),
   speed:valueAtStart(get('speed')),bab:valueAtStart(bab),cmb:valueAtStart(get('cmb'))??namedValue(bab,'CMB'),
-  cmd:valueAtStart(get('cmd'))??namedValue(bab,'CMD'),str:valueAtStart(scores)
+  cmd:valueAtStart(get('cmd'))??namedValue(bab,'CMD'),str:valueAtStart(scores),
+  casterLevel:valueAtStart(get('cl'))??valueAtStart(get('caster level'))
  };
  for(const key of ['dex','con','int','wis','cha'])values[key]=valueAtStart(get(key))??namedValue(scores,key);
+ const defensiveText=[get('defensive abilities'),get('dr'),get('sr')].filter(Boolean).join('; ');
+ const importedDr=parseDr(get('dr')||defensiveText);
+ const importedSr=parseSr(get('sr')?'SR '+get('sr'):defensiveText);
+ if(importedDr)values.dr=importedDr.amount;
+ if(importedSr!==null)values.sr=importedSr;
  for(const [key,value] of Object.entries(values))if(value!==null)npcStats[key]=value;
  const npcText={};
  const details={summary,source,senses:get('senses')||/\bSenses\s+(.+)/i.exec(init)?.[1],languages:get('languages'),
   defenses:get('defensive abilities'),specialAttacks:get('special attacks'),qualities:get('sq'),gear:get('gear'),feats:get('feats'),
   hpDetail:hp,acDetail:ac,saveDetail:[saves,get('ref'),get('will')].filter(Boolean).join('; '),maneuverDetail:[bab,get('cmb'),get('cmd')].filter(Boolean).join('; '),
-  movementDetail:get('speed'),attackDetail:[get('melee'),get('ranged')].filter(Boolean).join('; '),skillDetail:get('skills')};
+  movementDetail:get('speed'),attackDetail:[get('melee'),get('ranged')].filter(Boolean).join('; '),skillDetail:get('skills'),
+  drBypass:importedDr?.bypass,energyResistances:get('resist'),immunities:get('immune'),vulnerabilities:get('weaknesses')};
  for(const [key,value] of Object.entries(details))if(value)npcText[key]=value.slice(0,4000);
  const skillText=[...splitEntries(get('skills'))];
  const perception=/\bPerception\s+[+-]\d+/i.exec(init)?.[0];
