@@ -67,14 +67,17 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21)}={}){
   let ac=targetNpc?value.targetAc:null,defense=value.defense;
   check(['ac','touch','cmd'].includes(defense),'Invalid target defense.');
   if(!targetNpc)ac=targetStats[defense];
-  check(Number.isFinite(ac)&&ac>=0&&ac<=100000,'Target armor class is unavailable.');
-  const initial=computeCombatEffect(roll,{defense,ac});
   let profile={dr:0,drBypass:'',sr:0,energyResistances:'',immunities:'',vulnerabilities:''};
   if(targetNpc&&validId(value.targetNpcId)){
    const saved=db.prepare('SELECT c.kind,c.archived,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.targetNpcId);
    if(!saved||saved.kind!=='npc'||saved.archived)throw Error('The linked NPC defense record is unavailable.');
-   profile=defenseProfile(JSON.parse(saved.data_json),{npc:true});
+   const npcData=JSON.parse(saved.data_json);
+   profile=defenseProfile(npcData,{npc:true});
+   const npcDefense=npcData.npcStats?.[defense];
+   if(Number.isFinite(npcDefense))ac=npcDefense;
   }else if(!targetNpc)profile=defenseProfile(targetData);
+  check(Number.isFinite(ac)&&ac>=0&&ac<=100000,'Target armor class is unavailable.');
+  const initial=computeCombatEffect(roll,{defense,ac});
   const srRelevant=initial.hit&&['spell','sp'].includes(roll.resolution?.abilityKind)&&
     roll.resolution?.srApplies!==false&&profile.sr>0;
   const result=resolveDefenses(roll,initial,profile,{srRoll:srRelevant?rollSr():null});
