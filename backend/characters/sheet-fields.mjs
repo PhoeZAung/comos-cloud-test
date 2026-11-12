@@ -2,6 +2,7 @@ import {randomUUID} from 'node:crypto';
 import {npcStatLabels,npcTextLabels} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
+import {abilityKinds,srModes} from '../../src/owlbear/pathfinder-defenses.mjs';
 import {effectTypes} from '../../src/features/sheet/effect-types.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
@@ -22,8 +23,8 @@ const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
 const textFields=['languages','senses','resistances','proficiencies','favored_class_options','notesArea'];
 const enumFields={uncanny_dodge:['auto','on','off'],size_category:sizes,capacity_body_type:['biped','quadruped'],speed_fly_maneuverability:['','clumsy','poor','average','good','perfect'],spell_dc_base:abilities,ar_melee_ability:abilities,ar_ranged_ability:abilities,ar_touch_ability:abilities,ar_ranged_touch_ability:abilities};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
-const entryText=['name','desc','effect','misfire','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage'];
-const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level','mp_cost'];
+const entryText=['name','desc','effect','misfire','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
+const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level','mp_cost','sr_bonus'];
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 const bad=message=>{throw Error(message);};
 function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.isFinite(Number(v))||Math.abs(Number(v))>100000000)bad('Enter a valid number.');return Number(v);}
@@ -146,7 +147,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
    for(const [key,value] of Object.entries(change.fields)){
    if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
-    if(key==='damage_types'&&change.collection==='weapons'){if(!Array.isArray(value)||value.length>damageTypes.length||value.some(v=>!damageTypes.includes(v)))bad('Choose valid damage types.');safe[key]=[...new Set(value)];}
+    if(key==='damage_types'&&['weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(!Array.isArray(value)||value.length>damageTypes.length||value.some(v=>!damageTypes.includes(v)))bad('Choose valid damage types.');safe[key]=[...new Set(value)];}
     else if(change.collection==='weapons'&&!npc&&key==='damage_ability'){
      if(!weaponDamageAbilities.includes(value))bad('Choose a damage ability.');
      safe[key]=value;
@@ -154,6 +155,10 @@ export function mergeSheetData(original,change,{npc=false}={}){
      if(typeof value!=='string'||!Object.hasOwn(weaponDamageStyles,value))bad('Choose a weapon damage style.');
      safe[key]=value;
     }else if(key==='action_type'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');safe[key]=value;}
+    else if(key==='ability_kind'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+     if(typeof value!=='string'||!Object.hasOwn(abilityKinds,value))bad('Choose a valid spell-like, supernatural or extraordinary ability category.');
+     safe[key]=value;
+    }
     else if(key==='effect_type'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      if(typeof value!=='string'||!Object.hasOwn(effectTypes,value))bad('Choose a valid HP effect type.');
      safe[key]=value;
