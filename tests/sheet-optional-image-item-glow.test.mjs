@@ -46,7 +46,7 @@ test('imported raw image metadata never requires a matching valid inventory imag
 test('item preview has the same moving glow and single scroll container as ability preview',async()=>{
  const html=renderSheetFrame({id:'hero',name:'Hero',data:{items:[]}},'items');
  assert.match(html,/<dialog class="cs-dialog cs-item-description-dialog cs-star-border"[^>]*><div class="cs-item-description-scroll">/);
- assert.match(html,/<div class="cs-inventory-item-special" data-item-special hidden><\/div><\/div><\/dialog>/);
+ assert.match(html,/<div class="cs-inventory-item-special" data-item-special hidden><\/div><div class="cs-item-popup-actions">/);
  const css=await readFile(new URL('../src/styles/sheet-refinements.css',import.meta.url),'utf8');
  assert.match(css,/\.cs-dialog\.cs-item-description-dialog\.cs-star-border\{padding:0;overflow:visible/);
  assert.match(css,/\.cs-item-description-dialog>\.cs-item-description-scroll\{[^}]*overflow-y:auto/);

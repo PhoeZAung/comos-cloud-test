@@ -284,7 +284,21 @@ function mountCharacterSheet(tabs,switchTo){
   if(!item)return;
   const popup=itemDescriptionDialog();if(!popup)return;
   popup.querySelector('[data-item-description-title]').textContent=String(item.name||'Unnamed');
-  const facts=inventoryItemDetails(item);popup.querySelector('[data-item-details]').innerHTML=facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>':'';
+  // Show the current saved quantity and original cost at the top of item details.
+  popup.querySelector('[data-item-qty]').textContent=String(inventoryItemValue(item,'amount')??1);
+  popup.querySelector('[data-item-amount]').textContent=normalizeInventoryText(inventoryItemValue(item,'cost'),'cost')||'—';
+  const favorite=popup.querySelector('[data-item-popup-favorite]');
+  favorite.dataset.favorite=collection+':'+index;
+  favorite.setAttribute('aria-pressed',String(item.favorite===true));
+  favorite.textContent=item.favorite===true?'★ Favorited':'☆ Favorite';
+  const edit=popup.querySelector('[data-item-popup-edit]');
+  edit.dataset.editEntry=collection+':'+index;
+  edit.setAttribute('aria-label','Edit '+String(item.name||'Unnamed'));
+  const remove=popup.querySelector('[data-item-popup-remove]');
+  remove.dataset.removeEntry=collection+':'+index;
+  remove.setAttribute('aria-label','Remove '+String(item.name||'Unnamed')+' from inventory');
+  const facts=inventoryItemDetails(item).filter(([label])=>label!=='Cost');
+  popup.querySelector('[data-item-details]').innerHTML=facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>':'';
   popup.querySelector('[data-item-description-text]').innerHTML=formatSheetText(String(item.desc||item.description||'').trim()||'No description.');
   const special=popup.querySelector('[data-item-special]');special.hidden=!String(item.special||'').trim();special.innerHTML=item.special?'<h3>Special</h3><p>'+e(item.special)+'</p>':'';
   popup.showModal();
@@ -365,6 +379,7 @@ function mountCharacterSheet(tabs,switchTo){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
+   if(button.closest('[data-item-description-dialog]')&&button.matches('[data-edit-entry],[data-remove-entry],[data-favorite]'))itemDescriptionDialog()?.close();
    if(button.matches('[data-add-sheet]')){
     if(!canOpenTabs()||openPicker())return;
     openCharacterPicker(root,{signal:control.signal,hasTab:tabs.has,onSelect:async next=>{

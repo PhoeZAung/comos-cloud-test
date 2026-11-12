@@ -9,7 +9,7 @@ test('original shop categories remain distinct, normalize aliases and honor expl
  const next=mergeSheetData(data,{action:'entry',collection:'items',index:1,mode:'update',fields:{sourceCategory:'Magic Items'}});assert.equal(next.items[1].tags,'Armor');assert.equal(itemCategoryForItem(next.items[1]),'Magic Items');assert.throws(()=>mergeSheetData(data,{action:'entry',collection:'items',index:1,mode:'update',fields:{sourceCategory:'Admin'}}));assert.equal(data.items[1].sourceCategory,undefined);
 });
 test('inventory category filters retain original row indices and show tags in the live layout',()=>{
- const html=renderSection({id:'sample',name:'Mage',data},'items',{itemView:'inventory',itemTag:'Armor'});assert.match(html,/aria-label="Inventory categories"/);assert.match(html,/data-edit-entry="items:1"/);assert.doesNotMatch(html,/data-edit-entry="items:0"/);assert.match(html,/cs-item-tag-icon/);assert.match(html,/Plate/);assert.doesNotMatch(html,/>Rope</);
+ const html=renderSection({id:'sample',name:'Mage',data},'items',{itemView:'inventory',itemTag:'Armor'});assert.match(html,/aria-label="Inventory categories"/);assert.match(html,/data-item-description="items:1"/);assert.doesNotMatch(html,/data-item-description="items:0"/);assert.match(html,/cs-inventory-icon/);assert.match(html,/Plate/);assert.doesNotMatch(html,/>Rope</);
 });
 test('unused skill points use class levels and INT modifiers, deduplicate favored choices and retain overspending',()=>{
  const b=skillBudget(data);assert.equal(b.classBudget,16);assert.equal(b.favoredSkill,1);assert.equal(b.totalBudget,17);assert.equal(b.ranks,2);assert.equal(b.unused,15);assert.equal(b.rows[0].intMod,4);
