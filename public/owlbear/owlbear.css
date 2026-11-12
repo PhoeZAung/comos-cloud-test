@@ -97,3 +97,7 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 .sheet-picker-search{display:flex;flex-direction:column;gap:4px;font-size:11px;color:#cab7e5;margin:0 0 8px}
 .sheet-picker-search input{width:100%;padding:9px;border:1px solid #83669e;border-radius:8px;background:#11121e;color:#f4edff;font-size:12px}
 [data-sheet-search-status]{font-size:11px;color:#b9a5d1;margin:4px 0 9px}
+
+.sheet-picker-search-row{display:flex;align-items:flex-end;gap:6px;margin-bottom:8px}
+.sheet-picker-search-row .sheet-picker-search{flex:1 1 0;min-width:0;margin-bottom:0}
+.sheet-picker-search-row [data-sheet-search-go]{flex:0 0 auto;min-height:35px;padding:7px 10px}
