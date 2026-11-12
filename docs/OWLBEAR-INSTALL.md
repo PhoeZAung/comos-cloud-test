@@ -468,3 +468,47 @@ multiple targets/saves or non-HP partial effects, spell durations, and
 special race/class/FFD20 exceptions. These remain GM-managed. Setting
 validation toggles to ON can provide extra review, but does not replace
 those exceptional rules.
+
+## Manual combat numbers, complete NPC fields and hit/miss indicators (v1.7.3)
+
+**NPC sheet**: All named NPC numeric fields appear under Defense & Saves,
+Attacks & Casting, Movement & Recovery, and Challenge & Ability Scores.
+DR, SR, AC, touch, flat-footed, Fort/Ref/Will, CMD, caster level, spell
+penetration, spell DC, movement speeds, perception, reach and additional
+numeric values can be manually entered. Creature details include resistances,
+immunities, vulnerabilities, alignment, type, special-save exceptions and
+related notes. **Unset entries display an em dash** and are stored as
+`null`, *not* as zero. All imported NPCs have explicit empty fields; older NPC
+records are normalized when loaded and on their next edit. A missing save,
+AC, or SR cannot be assumed to be a successful check. Enter required AC,
+HP and saves before expecting automatic initiative/combat resolution.
+
+**Existing spell and ability editors**: Optional **Save DC override** and
+**Total attack bonus override** fields take precedence over calculated values.
+Leave blank to calculate from a configured DC formula, spell level, casting
+ability, and modifiers. The existing `dc_misc`, `attack_misc`, caster level,
+spell penetration, saving throw type/result and damage fields remain
+available. NPC caster level and default spell DC are fallback values when
+the individual entry has no override/formula. You can also set a custom DC
+formula on spell entries. These values are shown in the existing entry details,
+including whether the result is calculated or manually specified.
+
+**Weapons**: Existing normal attack and damage calculations, damage types,
+DR bypass, weapon enhancement and NPC printed attack bonus remain intact.
+A special on-hit save type, description and manual DC can now be recorded
+for poison or a similar effect, **but this is GM-managed metadata** and never
+negates ordinary weapon damage automatically. Do not model a poison rider
+by cancelling the physical attack's HP damage.
+
+**After a roll**: Targeted combat rolls show an immediately recognizable
+**HIT** or **MISS** banner after the dice finish (or after the Owlbear Dice+
+result is available). Spell failures, successful negating saves and resisted
+spells show different results. A HIT with 0 effective damage is still HIT, not
+MISS. The battle history prefixes each resolved combat action with the same
+outcome. This does not announce a hit before the dice have resolved, and
+does not apply HP on miss.
+
+Not yet automated: unusual PF1/FFD20 status effects and duration tracking,
+multi-target area spells, cover and line of sight, condition immunity,
+regeneration, evasion, special saving throw riders from weapons, or
+homebrew exceptions. Those require GM review before automatically adjusting HP.

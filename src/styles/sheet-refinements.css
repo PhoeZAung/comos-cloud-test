@@ -372,3 +372,26 @@
  .cs-ability-prose-card{padding:10px}
 }
 @media(prefers-reduced-motion:reduce){.cs-ability-advanced>summary:after{transition:none}}
+
+/* Existing sheet: post-roll combat result is never shown before the dice resolve. */
+.cs-roll-result[data-combat-result]{border-width:2px;white-space:pre-line}
+.cs-combat-indicator{display:block;width:fit-content;max-width:100%;margin:0 auto 9px;padding:6px 18px;border-radius:9px;font-size:clamp(18px,3vw,26px);font-weight:900;letter-spacing:.11em;line-height:1.25;text-align:center}
+.cs-combat-indicator-hit{background:#163f32;color:#aaffd6;border:2px solid #4bbd91}
+.cs-combat-indicator-miss{background:#4e222a;color:#ffe3e8;border:2px solid #f38c9a}
+.cs-combat-indicator-resisted{background:#342e55;color:#e7e3ff;border:2px solid #afa3ff}
+.cs-combat-indicator-pending{background:#503d1f;color:#fff2ca;border:2px solid #dfbd6a}
+.cs-roll-result[data-combat-result="miss"]{border-color:#f38c9a}
+.cs-roll-result[data-combat-result="hit"]{border-color:#4bbd91}
+.cs-roll-result[data-combat-result="resisted"]{border-color:#afa3ff}
+.cs-roll-result[data-combat-result="pending"]{border-color:#dfbd6a}
+/* NPC template: unknown is displayed as an unset stat, never as zero. */
+.cs-npc-sheet .cs-metric-unset,.cs-npc-sheet .cs-score-unset{opacity:.72;border-style:dashed}
+.cs-npc-sheet .cs-metric-unset strong,.cs-npc-sheet .cs-score-unset strong{color:var(--muted)}
+.cs-npc-detail-groups{display:grid;gap:12px}
+.cs-npc-details{position:relative}
+.cs-npc-details>details>summary{cursor:pointer;font-size:15px;font-weight:700;padding:2px 36px 10px 0}
+.cs-npc-details>details[open]>summary{margin-bottom:10px;border-bottom:1px solid var(--line)}
+.cs-npc-details>.cs-icon{position:absolute;right:14px;top:12px}
+.cs-npc-details .cs-pairs{margin:0;display:grid;gap:8px}
+.cs-npc-details .cs-pairs>div{margin:0}
+.cs-npc-empty{color:var(--muted);font-style:italic}

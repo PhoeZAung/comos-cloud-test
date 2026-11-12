@@ -1,5 +1,5 @@
 import {randomUUID} from 'node:crypto';
-import {npcStatLabels,npcTextLabels} from '../../src/features/characters/npc-stat-block.mjs';
+import {npcStatLabels,npcTextLabels,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {abilityKinds,srModes} from '../../src/features/sheet/pathfinder-defenses.mjs';
@@ -25,18 +25,18 @@ const textFields=['languages','senses','resistances','proficiencies','favored_cl
 const enumFields={uncanny_dodge:['auto','on','off'],size_category:sizes,capacity_body_type:['biped','quadruped'],speed_fly_maneuverability:['','clumsy','poor','average','good','perfect'],spell_dc_base:abilities,ar_melee_ability:abilities,ar_ranged_ability:abilities,ar_touch_ability:abilities,ar_ranged_touch_ability:abilities};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
 const entryText=['name','desc','effect','misfire','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
-const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level','mp_cost','sr_bonus'];
+const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level','mp_cost','sr_bonus','save_dc_override','attack_bonus_override'];
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 const bad=message=>{throw Error(message);};
 function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.isFinite(Number(v))||Math.abs(Number(v))>100000000)bad('Enter a valid number.');return Number(v);}
 function text(v,max=12000,label='Text'){if(typeof v!=='string'||v.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v))bad(label+' is too long (limit '+max+' characters) or contains invalid characters.');return v;}
 export function mergeSheetData(original,change,{npc=false}={}){
- const data=structuredClone(original);
+ const data=npc?normalizeNpcSheet(structuredClone(original)):structuredClone(original);
  if(change.action==='npcStats'){
   if(!npc||!plain(change.fields)||Object.keys(change.fields).some(key=>!Object.hasOwn(npcStatLabels,key)))bad('Invalid NPC stats.');
   data.npcStats??={};
   for(const [key,value] of Object.entries(change.fields)){
-   if(value===''){delete data.npcStats[key];if(abilities.includes(key))delete data[key];continue;}
+   if(value===''||value===null){data.npcStats[key]=null;if(abilities.includes(key))delete data[key];continue;}
    const score=numeric(value);
    if(Math.abs(score)>100000||key!=='cr'&&!Number.isInteger(score))bad('Enter a valid '+npcStatLabels[key]+' value.');
    data.npcStats[key]=score;
@@ -47,7 +47,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
  if(change.action==='npcText'){
   if(!npc||!plain(change.fields)||Object.keys(change.fields).some(key=>!Object.hasOwn(npcTextLabels,key)))bad('Invalid NPC details.');
   data.npcText??={};
-  for(const [key,value] of Object.entries(change.fields))data.npcText[key]=text(value,4000,npcTextLabels[key]);
+  for(const [key,value] of Object.entries(change.fields))data.npcText[key]=value===null||value===''?null:text(value,4000,npcTextLabels[key]);
   return data;
  }
  if(change.action==='placeAbility'){
@@ -107,7 +107,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
    if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
    if(key==='speed')bad('Base land speed is calculated from the race. Edit Speed Mod instead.');
-   if(numericFields.includes(key)){data[key]=numeric(value);if(['speed_burrow','speed_climb','speed_fly','speed_swim'].includes(key)&&(!Number.isInteger(data[key])||data[key]<0||data[key]>10000))bad('Movement speeds must be whole numbers from 0 to 10,000 feet.');if(['currency_gil','currency_moogle','slot_cap'].includes(key)&&(!Number.isSafeInteger(data[key])||data[key]<(key==='slot_cap'?1:0)))bad('Currency and capacity must be nonnegative whole numbers; capacity must be at least 1.');if(key==='speed_mod'&&(!Number.isInteger(data[key])||Math.abs(data[key])>10000))bad('Speed Mod must be a whole number within -10,000 to +10,000 feet.');if(key==='capacity_modifier'&&Math.abs(data[key])>1000000)bad('Capacity modifier must be between -1,000,000 and +1,000,000 lb.');if(key==='hp_temp')data[key]=Math.max(0,data[key]);if(abilities.includes(key)&&(data[key]<0||data[key]>999))bad('Ability score must be 0–999.');}
+   if(numericFields.includes(key)){if(npc&&['hp_curr','hp_max','hp_temp','mp_curr','mp_max'].includes(key)&&(value===null||value==='')){data[key]=null;continue;}data[key]=numeric(value);if(['speed_burrow','speed_climb','speed_fly','speed_swim'].includes(key)&&(!Number.isInteger(data[key])||data[key]<0||data[key]>10000))bad('Movement speeds must be whole numbers from 0 to 10,000 feet.');if(['currency_gil','currency_moogle','slot_cap'].includes(key)&&(!Number.isSafeInteger(data[key])||data[key]<(key==='slot_cap'?1:0)))bad('Currency and capacity must be nonnegative whole numbers; capacity must be at least 1.');if(key==='speed_mod'&&(!Number.isInteger(data[key])||Math.abs(data[key])>10000))bad('Speed Mod must be a whole number within -10,000 to +10,000 feet.');if(key==='capacity_modifier'&&Math.abs(data[key])>1000000)bad('Capacity modifier must be between -1,000,000 and +1,000,000 lb.');if(key==='hp_temp')data[key]=Math.max(0,data[key]);if(abilities.includes(key)&&(data[key]<0||data[key]>999))bad('Ability score must be 0–999.');}
    else if(booleanFields.includes(key)&&typeof value==='boolean')data[key]=value;
    else if(textFields.includes(key))data[key]=text(value);
    else if(Object.hasOwn(enumFields,key)&&enumFields[key].includes(value))data[key]=value;
@@ -160,11 +160,11 @@ export function mergeSheetData(original,change,{npc=false}={}){
      if(typeof value!=='string'||!Object.hasOwn(abilityKinds,value))bad('Choose a valid spell-like, supernatural or extraordinary ability category.');
      safe[key]=value;
     }
-    else if(key==='save_type'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+    else if(key==='save_type'&&['weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      if(typeof value!=='string'||!Object.hasOwn(saveTypes,value))bad('Choose a valid Fortitude, Reflex or Will save.');
      safe[key]=value;
     }
-    else if(key==='save_success'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+    else if(key==='save_success'&&['weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      if(typeof value!=='string'||!Object.hasOwn(saveOutcomes,value))bad('Choose a valid saving throw success result.');
      safe[key]=value;
     }
@@ -196,7 +196,11 @@ export function mergeSheetData(original,change,{npc=false}={}){
        catch{bad('Link must be a valid http or https URL.');}}
      }
      else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=change.collection==='items'&&key==='desc'?normalizeInventoryText(value,key):text(value,key==='name'?120:key==='desc'&&['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(change.collection)?100000:12000,key==='desc'?'Description':key);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
-    else if(entryNumber.includes(key)){if(['mp_cost','caster_level'].includes(key)&&value===''){safe[key]='';continue;}safe[key]=numeric(value);if(['u_curr','u_max'].includes(key)&&(!Number.isInteger(safe[key])||safe[key]<0))bad('Uses must be nonnegative whole numbers.');if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
+    else if(entryNumber.includes(key)){if(['mp_cost','caster_level','save_dc_override','attack_bonus_override'].includes(key)&&(value===''||value===null)){safe[key]='';continue;}
+    if(key==='attack_bonus_override'&&!['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection))bad('Only spells and abilities can override attack bonus.');
+    safe[key]=numeric(value);
+    if(key==='save_dc_override'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>100000))bad('Save DC must be a positive whole number.');
+    if(key==='attack_bonus_override'&&(!Number.isInteger(safe[key])||Math.abs(safe[key])>100000))bad('Total attack bonus must be a whole number.');if(['u_curr','u_max'].includes(key)&&(!Number.isInteger(safe[key])||safe[key]<0))bad('Uses must be nonnegative whole numbers.');if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
     else if(key==='two_handed'&&['items','weapons'].includes(change.collection)&&typeof value==='boolean')safe[key]=value;
     else if(['equipped','cs','restoreOnLongRest','favorite','carried'].includes(key)&&typeof value==='boolean')safe[key]=value;
     else if(key==='ability_mod'&&change.collection==='weapons'&&['auto','none'].includes(value))safe[key]=value;
