@@ -584,6 +584,8 @@ function mountCharacterSheet(tabs,switchTo){
  root.addEventListener('change',event=>{
   if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
  root.addEventListener('input',event=>{
+   // Shopping dialog inputs do not represent unsaved character edits.
+   if(event.target.closest('.cs-picker,.cs-catalog-preview'))return;
   if(event.target.matches('[data-owlbear-section-slider]')){const output=root.querySelector('[data-owlbear-nav-label]');if(output)output.textContent=['Favorites','Character','Combat','Skills','Inventory','Notes'][Number(event.target.value)]||'Character';return;}
    if(event.target.matches('[data-ammo-profile],[data-ammo-rounds]')){dirty=true;status('Choose an ammunition action to save.');return;}
   if(event.target.matches('[data-equip-search]')){
