@@ -5,7 +5,7 @@ import {openDatabase} from '../backend/db/database.mjs';
 import {createUserRepository} from '../backend/repositories/users.mjs';
 import {createCharactersService} from '../backend/characters/service.mjs';
 import {publishRoll} from '../backend/characters/rolls.mjs';
-import {sheetSkills} from '../src/features/sheet/skills.mjs';
+import {sheetSkills,skillCanRoll} from '../src/features/sheet/skills.mjs';
 import {readFile} from 'node:fs/promises';
 
 test('authoritative roll endpoint rejects zero-rank skills, recomputes ranks, and replays receipts once',async()=>{
@@ -24,6 +24,10 @@ test('authoritative roll endpoint rejects zero-rank skills, recomputes ranks, an
   assert.equal(db.prepare('SELECT count(*) n FROM sheet_rolls').get().n,0);
   data.skills[computers].lvl=1;
   db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify(data));
+  assert.equal(computers,46,'legacy skill indices must not move');
+  assert.equal(character().data.skills[computers].lvl,1,'stored skill rank should be present');
+  assert.equal(sheetSkills(character().data)[computers].lvl,1,'normalized skill must keep saved ranks');
+  assert.equal(skillCanRoll(sheetSkills(character().data)[computers]),true,'one rank should unlock skill');
   const result=await action(rollReq);
   assert.equal(result.roll.kind,'skill');
   assert.equal(result.roll.skillName,'Computers');
