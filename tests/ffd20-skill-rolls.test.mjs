@@ -23,7 +23,7 @@ test('authoritative roll endpoint rejects zero-rank skills, recomputes ranks, an
   await assert.rejects(action(rollReq),/Trained only/);
   assert.equal(db.prepare('SELECT count(*) n FROM sheet_rolls').get().n,0);
   data.skills[computers].lvl=1;
-  db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify(data));
+  db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify(data),id);
   assert.equal(computers,46,'legacy skill indices must not move');
   assert.equal(character().data.skills[computers].lvl,1,'stored skill rank should be present');
   assert.equal(sheetSkills(character().data)[computers].lvl,1,'normalized skill must keep saved ranks');
@@ -37,7 +37,7 @@ test('authoritative roll endpoint rejects zero-rank skills, recomputes ranks, an
   assert.equal(db.prepare('SELECT count(*) n FROM sheet_rolls').get().n,1);
   db.prepare('UPDATE sheet_rolls SET created_at=0').run();
   data.skills[computers].lvl=0;
-  db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify(data));
+  db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify(data),id);
   await assert.rejects(action({...rollReq,requestId:randomUUID()}),/Trained only/);
   assert.equal(db.prepare('SELECT count(*) n FROM sheet_rolls').get().n,1);
  }finally{db.close();}
