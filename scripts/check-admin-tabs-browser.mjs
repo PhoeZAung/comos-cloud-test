@@ -43,7 +43,7 @@ try{
  await page.locator('[data-admin-sheet-tab]').first().click();
  assert.equal(await page.locator('iframe:visible').count(),1);
  assert.equal(await page.locator('iframe').count(),2,'visited sheets stay mounted');
- assert.ok(await page.evaluate(()=>document.querySelectorAll('iframe')[0].contentWindow.scrollY)>=330,'switching back preserves the iframe scroll');
+ await page.waitForFunction(()=>document.querySelectorAll('iframe')[0]?.contentWindow?.scrollY>=330,null,{timeout:5000});
  await page.locator('[data-admin-sheet-tab]').nth(2).focus();
  await page.keyboard.press('Home');
  assert.equal(await page.locator('[data-admin-sheet-tab]').first().getAttribute('aria-selected'),'true');
