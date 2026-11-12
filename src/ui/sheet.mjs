@@ -156,7 +156,7 @@ function mountCharacterSheet(tabs,switchTo){
  if(canOpenTabs()){
   tabs.add(character);
   root.querySelector('[data-sheet]').insertAdjacentHTML('afterbegin',tabs.render(id));
-  const strip=root.querySelector('.cs-sheet-tab-list'),active=strip.querySelector('.is-active');
+  const strip=root.querySelector('.cs-sheet-tab-list'),active=strip?.querySelector('.is-active');
   if(active)strip.scrollLeft=active.getBoundingClientRect().left-strip.getBoundingClientRect().left;
  }
  root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);disposeNotesElectric=mountNotesElectric(root);disposeHold=mountHoldButton(root.querySelector('[data-delete-character]'),()=>void deleteCharacter(),{signal:control.signal});syncWeapons();const notesRoot=root.querySelector('[data-party-notes]');if(notesRoot)void import('./party-notes.mjs').then(module=>{if(!closed&&notesTicket===notesGeneration&&notesRoot.isConnected)disposePartyNotes=module.mountPartyNotes(notesRoot,{characterId:id,tagId:notesRoot.dataset.partyNotes});}).catch(()=>{if(notesRoot.isConnected)notesRoot.querySelector('[role=status]').textContent='Could not open party notes.';});document.title=character.name+' · Cosmos';dirty=false;}
