@@ -1,4 +1,4 @@
-import OBR,{buildLine,buildLabel} from '@owlbear-rodeo/sdk';
+import OBR,{buildLine,buildLabel,buildShape} from '@owlbear-rodeo/sdk';
 import {localChannel} from './local-channel.mjs';
 import {adminMenu} from './admin-menu.mjs';
 import {roomHistory} from './room-history.mjs';
@@ -11,7 +11,7 @@ import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,tokenName,normalizeName} fr
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative';
 async function start(){
  let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
- const popovers=new Map(),bars=new Map(),commits=new Map(),focus=initiativeFocus(OBR);let syncMenu=()=>Promise.resolve(),npcDirectory=null,npcDirectoryAt=0;
+ const popovers=new Map(),bars=new Map(),commits=new Map(),focus=initiativeFocus(OBR,buildShape);let syncMenu=()=>Promise.resolve(),npcDirectory=null,npcDirectoryAt=0;
  const error=e=>void OBR.notification.show(e.message||String(e),'ERROR');
  const allowed=()=>gm&&admin;
   const canEditParty=id=>Boolean(grant&&(allowed()||editableIds.has(id)));
