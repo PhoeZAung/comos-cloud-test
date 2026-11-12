@@ -37,5 +37,9 @@ test('weapon edit form shows live Attack and Damage modifier previews for automa
  assert.match(source,/weaponDamageFormulas\(\{\.\.\.row,damage:'1d4',extra_damage:''\},character\.data\)/);
  assert.match(source,/event\.target\.closest\('\.cs-weapon-editor'\)/);
  assert.match(source,/attack_type\],\[name=ability_mod\],\[name=damage_ability\],\[name=damage_style\]/);
- assert.match(source,/row\.damage_ability\?\?\(index===null\?'auto':'none'\)/,'new weapons auto-calculate, legacy manual formulas remain intact');
+ assert.match(source,/values\.damage_ability=row\.damage_ability\?\?\(index===null\?weaponDefaultAbilities\(values\.attack_type,character\.data\)\.damage:'none'\)/,'new weapons show STR/None by attack type, while legacy formulas remain Formula only');
+ assert.match(source,/values\.crit_range=row\.crit_range\|\|'20'/);
+ assert.match(source,/values\.crit_mult=row\.crit_mult\|\|'x2'/);
+ assert.match(source,/event\.target\.dataset\.userOverride='true'/);
+ assert.match(source,/event\.target\.name==='attack_type'/);
 });
