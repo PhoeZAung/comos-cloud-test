@@ -4,3 +4,8 @@
 .battle-setup{padding:14px;background:#221c30;min-height:100dvh}.battle-setup h1{font-size:16px;margin:0 0 12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.battle-setup label{display:flex;align-items:center;justify-content:space-between;margin:5px 0}.battle-setup input{width:120px;height:29px}.battle-setup p{font-size:11px;color:#ffbbcb;margin:8px 0}.battle-setup button{width:100%;margin-top:8px;min-height:32px}
 
 .party-health{height:4px;border-radius:3px;background:#803d53;overflow:hidden;margin:1px 0 2px}.party-health span{display:block;height:100%;background:#73df9a;border-radius:3px;transition:width .18s ease}.party-person:has(.party-health:not([hidden])) .party-values button{min-height:21px}.party-health[hidden]{display:none}
+
+/* Player-owned shared HP is editable from the Party HUD, without granting access to other sheets. */
+.party-values button.editable{cursor:pointer;text-decoration:underline dotted #d9b8ff88;text-underline-offset:3px}
+.party-values button.editable:hover,.party-values button.editable:focus-visible{color:#fff;background:#5b436855;border-radius:4px}
+.party-values button:disabled{cursor:default;text-decoration:none}

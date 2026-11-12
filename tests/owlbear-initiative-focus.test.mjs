@@ -22,7 +22,8 @@ test('initiative focus locates tokens without changing selection and adds local 
  const focus=initiativeFocus(OBR,makeShape);
  focus.update([item],'token-1');
  await new Promise(resolve=>setTimeout(resolve,25));
- assert.equal(added.length,1);assert.equal(added[0].type,'SHAPE');
+ assert.equal(added.length,1);assert.equal(added[0].type,'SHAPE');assert.equal(added[0].shapeType,'RECTANGLE');
+ assert.deepEqual(added[0].position,{x:97,y:197});assert.equal(added[0].width,66);assert.equal(added[0].height,66);
  assert.equal(added[0].metadata['com.cosmos.character-sheets/initiative-highlight'].kind,'turn');
  assert.equal(await focus.locate('token-1'),true);
  assert.deepEqual(moves[0].center,{x:130,y:230});
