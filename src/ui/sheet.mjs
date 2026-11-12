@@ -573,9 +573,13 @@ function mountCharacterSheet(tabs,switchTo){
   if(button.matches('[data-edit-stats]')){
    const group=button.dataset.editStats;
    if(character.kind==='npc'){
-    if(group==='npcStats'||group==='npcText'){
-     const labels=group==='npcStats'?npcStatLabels:npcTextLabels;
-     openDialog(group==='npcStats'?'NPC stats':'Stat block details',Object.keys(labels),character.data[group]||{},{action:group,collection:group});return;
+    if(group==='npcStats'||group==='npcText'||group.startsWith('npcStats:')||group.startsWith('npcText:')){
+     const [kind,rawIndex]=group.split(':'),groups=kind==='npcStats'?npcStatGroups:npcTextGroups;
+     const index=rawIndex===undefined?null:Number(rawIndex);
+     if(index!==null&&(!Number.isInteger(index)||index<0||index>=groups.length))return;
+     const labels=kind==='npcStats'?npcStatLabels:npcTextLabels,selection=index===null?null:groups[index];
+     openDialog(selection?.title||(kind==='npcStats'?'NPC stats':'Stat block details'),
+      selection?.keys||Object.keys(labels),character.data[kind]||{},{action:kind,collection:kind});return;
     }
     if(group==='npcHealth'){openDialog('NPC HP',['hp_curr','hp_max','hp_temp'],character.data,{action:'fields'});return;}
    }
