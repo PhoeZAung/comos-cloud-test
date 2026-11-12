@@ -83,7 +83,7 @@ try{
  await page.locator('[data-panel-tab="sheet:character-2"]').click();
  await page.locator('[data-panel-tab="character"]').click();
  assert.equal(await page.evaluate(()=>document.querySelectorAll('iframe')[0].contentWindow.location.search.includes('section=items')),true);
- await page.waitForFunction(()=>document.querySelectorAll('iframe')[0]?.contentWindow?.scrollY>=390,{timeout:5000});
+ await page.waitForFunction(()=>document.querySelectorAll('iframe')[0]?.contentWindow?.scrollY>=390,null,{timeout:5000});
  checks.push('switching sheets restores the previous scroll position and internal section tab');
  await page.locator('[data-panel-tab="sheet:character-2"]').click();await page.locator('[data-close-extension-sheet="character-2"]').click();assert.equal(await page.locator('iframe').count(),1);assert.equal(await page.locator('[data-panel-tab^="sheet:"]').count(),0);assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Character');checks.push('Add Sheet beside popout uses named main tabs, switching preserves iframes, and single sheet hides extra tabs');
  const requestId=await page.evaluate(()=>crypto.randomUUID());await page.evaluate(async requestId=>{const sheet=document.querySelector('iframe').contentWindow;await sheet.call('roll-context',{requestId});await sheet.call('dice',{requestId,notation:'1d20+5'});},requestId);
