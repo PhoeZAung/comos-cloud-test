@@ -30,5 +30,5 @@ test('roll results clearly label healing, temporary HP, and unapplied combat eff
  assert.match(formatRoll('Ability',{...roll,effectType:'heal'}),/Healing: 9/);
  assert.match(formatRoll('Ability',{...roll,effectType:'temp_hp'}),/Temporary HP: 9/);
  assert.match(formatRoll('Ability',{...roll,effectType:'damage'}),/Dice Roll: 9/);
- assert.match(formatRoll('Ability',{...roll,effectType:'heal'}),/HP not automatically changed/);
+ assert.match(formatRoll('Ability',{...roll,effectType:'heal'}),/HP not updated/);
 });

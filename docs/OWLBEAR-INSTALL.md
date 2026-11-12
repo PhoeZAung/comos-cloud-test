@@ -345,10 +345,33 @@ effect type follow a targeted flow when combatants are in initiative:
    touch AC, or CMD as appropriate, displays **Hit**/**Miss**, and deselects
    only the selected target. A failed roll keeps the selection for retry.
 
-The first stage intentionally **does not apply target HP**: damage, healing and
-temporary HP are calculated as rolls and remain subject to GM adjustment.
-This avoids unauthorized editing of other players' sheets and avoids
-incorrectly stacking temporary HP from repeated identical sources. Reactions,
-saving throws, non-targeted abilities and ordinary checks remain possible
-outside the current character's turn. The GM should still handle cover,
-range, line-of-sight, saves, resistance, immunity, and special effects.
+In v1.7.0, a completed targeted combat roll applies HP effects to the selected
+combatant. Linked party sheets update through a dedicated, roll-backed Cosmos
+endpoint, including cross-owner changes. Saved NPC combatants update their
+Owlbear token metadata. Damage consumes temporary HP first, healing caps at
+maximum HP, and new temporary HP conservatively replaces a smaller pool rather
+than stacking blindly. Duplicate roll IDs cannot apply twice. Ordinary dice
+rolls and unconfigured abilities remain unchanged.
+
+Two **Settings → Admin → GM approval** toggles are available: **Validate weapon
+damage** and **Validate ability & spell effects**. Both are OFF by default.
+When enabled, the action is rolled and queued for GM review in the Initiative
+tab; the GM can **Approve** or **Reject**. Only approved requests apply HP.
+The GM can approve their own NPC/PC rolls without a separate confirmation.
+These are an optional table-management workflow; Owlbear room permissions and
+Cosmos account permissions still govern who can use the extension.
+
+The Initiative tab now shows **Combat history** with acting character, target,
+round, action, effective HP change, misses and critical confirmation. History
+is saved on the Cosmos server per Owlbear room and remains visible after a
+battle ends. The GM's **End Battle** button removes *all* characters and NPCs
+from the current scene's initiative, resets the turn, clears pending GM
+approvals, and restores **Add to battle** on those tokens. It does not reset
+character HP or erase previous combat history.
+
+Limitations: line of sight, cover, range, damage reduction and resistance,
+saving throws, creature immunities and special PF1e effects still need GM
+attention. Temporary HP uses a conservative nonstacking rule until a
+source-aware effect/expiration tracker is implemented. GM validation is an
+approval workflow, not proof against malicious users with unrestricted scene
+editing or clients invoking unrelated APIs.

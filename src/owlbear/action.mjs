@@ -8,13 +8,17 @@ import {mountPanel} from './panel.mjs';
 import {mountInitiative} from './initiative-view.mjs';
 import {publicReceipt} from '../features/room-rolls.mjs';
 import {resolveCombatTarget} from './combat-target.mjs';
+import {COMBAT_CHANNEL} from './combat-effects.mjs';
+import {applyNpcTokenReceipt} from './combat-npc.mjs';
+import {BATTLE} from './battle-state.mjs';
 
 const root=document.querySelector('main'),status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]');
 const roster=document.querySelector('[data-character-roster]'),prompt=document.querySelector('[data-connect-prompt]');
 const frames=document.querySelector('[data-sheet-frames]'),picker=document.querySelector('[data-sheet-picker]'),choices=document.querySelector('[data-sheet-choices]'),pickerSearch=document.querySelector('[data-sheet-search]'),pickerStatus=document.querySelector('[data-sheet-search-status]');
 const npcList=document.querySelector('[data-npc-characters]'),npcGroup=document.querySelector('[data-npc-group]'),dice=dicePlus(OBR);
 const openSheets=new Map(),names=new Map(),audiences=new Map(),combatPending=new Map();
-let latestBattle=[],latestTurn={},latestReady=false,latestAdmin=false;
+let latestBattle=[],latestTurn={},latestReady=false,latestAdmin=false,latestValidation={weapon:false,ability:false};
+let combatHistoryTimer=null;
 let popup,nonce,connection,activeCharacterId=null,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
 let autoConnecting=false,pendingExistingGrant=null,autoAttemptAt=0,autoAttemptGeneration=0;
 let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,characterRequest=null,npcRequest=null,characters=[],npcs=[],pickerCandidates=[];
@@ -128,6 +132,38 @@ choices.addEventListener('click',event=>{
  if(!item||item.npc&&!showNpcs)return;
  picker.close();openSheet(item.id,item.npc);
 });
+async function refreshCombatHistory(){
+ if(!connection||!available)return;
+ try{
+  const result=await connection.call('combat-history',{roomId:OBR.room.id});
+  initiativeView.history(result.events||[]);
+ }catch(error){console.debug('Combat history unavailable:',error.message);}
+}
+async function applyCombatRequest(request){
+ if(!connection)throw Error('Reconnect Cosmos.');
+ const target=latestBattle.find(row=>row.id===request.targetTokenId);
+ if(!target)throw Error('The selected combatant left battle.');
+ const item=request.targetSheetId?null:(await OBR.scene.items.getItems()).find(i=>i.id===request.targetTokenId);
+ const npc=item?.metadata?.[BATTLE];
+ if(!request.targetSheetId&&npc?.enabled!==true)throw Error('The NPC target is no longer in battle.');
+ const applied=await connection.call('combat-apply',{
+  roomId:OBR.room.id,...request,
+  targetHp:request.targetSheetId?target.hp:npc.hp,
+  targetHpMax:request.targetSheetId?target.hpMax:npc.hpMax,
+  targetHpTemp:request.targetSheetId?target.hpTemp:npc.hpTemp||0
+ });
+ let event=applied.event;
+ if(applied.needsNpcUpdate){
+  const outcome=await applyNpcTokenReceipt(OBR,{tokenId:request.targetTokenId,receiptId:request.requestId,effect:event});
+  event=await connection.call('combat-finalize',{roomId:OBR.room.id,requestId:request.requestId,
+   before:outcome.before||event.before,after:outcome.after||event.after});
+ }
+ void refreshCombatHistory();
+ return event;
+}
+function approvalRequest(request,forceReview=false){
+ return OBR.broadcast.sendMessage(COMBAT_CHANNEL,{type:'request',request:{...request,forceReview}},{destination:'REMOTE'});
+}
 async function sheetRequest(method,value){
  if(!connection)throw Error('Reconnect Cosmos.');
  if(method==='combat-context'){
@@ -137,17 +173,45 @@ async function sheetRequest(method,value){
   const target=resolveCombatTarget({characterId:value.characterId,kind:value.kind,row:value.row,battle:latestBattle,turn:latestTurn,selection:selection||[],ready:latestReady,admin:latestAdmin});
   if(target){
    if(combatPending.size>=100)combatPending.clear();
-   combatPending.set(value.requestId,{...target,at:Date.now()});
+   combatPending.set(value.requestId,{...target,actorSheetId:value.characterId,source:value.kind,round:Math.max(1,Number(latestTurn.round)||1),at:Date.now()});
   }
   return target;
  }
  if(method==='combat-complete'){
   const pending=combatPending.get(value?.requestId);
   if(!pending||pending.targetId!==value.targetId||Date.now()-pending.at>120000)return {cleared:false};
+  const target=latestBattle.find(row=>row.id===pending.targetId);
+  if(!target)throw Error('Target left battle before the action could be resolved.');
+  const actor=latestBattle.find(row=>row.id===pending.actorId);
+  const request={
+   requestId:value.requestId,actorSheetId:pending.actorSheetId,source:pending.source,kind:pending.kind,
+   gmOnly:latestAdmin&&(actor?.visible===false||target.visible===false),
+   actorTokenId:pending.actorId,targetTokenId:pending.targetId,
+   targetSheetId:target.siteId||null,targetName:target.name,
+   targetAc:pending.ac,defense:pending.defense,round:pending.round
+  };
+  const approval=latestValidation[pending.source==='weapon'?'weapon':'ability']&&!latestAdmin;
+  let result;
+  if(approval){
+   await approvalRequest(request);
+   result={status:'pending',applied:false};
+  }else{
+   try{
+    const event=await applyCombatRequest(request);
+    result={status:event.status,applied:true,event};
+   }catch(error){
+    // A player may be unable to change NPC tokens when Owlbear's Owner Only
+    // permission is enabled. Let the GM finish that already-recorded receipt.
+    if(!latestAdmin&&!target.siteId){
+     await approvalRequest(request,true);
+     result={status:'pending',applied:false,reason:'GM must apply this NPC effect'};
+    }else throw error;
+   }
+  }
   combatPending.delete(value.requestId);
   const selection=await OBR.player.getSelection();
-  if((selection||[]).includes(pending.targetId)){await OBR.player.deselect([pending.targetId]);return {cleared:true};}
-  return {cleared:false};
+  if((selection||[]).includes(pending.targetId))await OBR.player.deselect([pending.targetId]);
+  return {...result,cleared:true};
  }
  if(method==='roll-context'){
   if(typeof value?.requestId!=='string')throw Error('Invalid roll.');
@@ -227,7 +291,7 @@ function attachGrant(token,{notifyBackground=false}={}){
  grantToken=token;connection?.close();connection=null;
  characterRequest=null;npcRequest=null;
  panel.connected(false);resetSheets();
- connection=connectGrant(token);combatPending.clear();panel.select('character');
+ connection=connectGrant(token);combatPending.clear();void refreshCombatHistory();panel.select('character');
  if(notifyBackground)trackerBus?.send({type:'grant-set',token});
  void load().catch(error=>say(error.message));
 }
@@ -271,7 +335,7 @@ OBR.onReady(async()=>{
    else attachGrant(data.token);
   }
   if(data?.type==='state'){
-   latestBattle=Array.isArray(data.battle)?data.battle:[];latestTurn=data.turn||{};latestReady=data.ready===true;latestAdmin=data.admin===true;
+   latestBattle=Array.isArray(data.battle)?data.battle:[];latestTurn=data.turn||{};latestReady=data.ready===true;latestAdmin=data.admin===true;latestValidation=data.validation||{weapon:false,ability:false};
    if(showNpcs!==(data.admin===true)){
     showNpcs=data.admin===true;
     if(!showNpcs){
@@ -283,22 +347,29 @@ OBR.onReady(async()=>{
    }
    panel.admin(data.admin===true);initiativeView.state(data);
    document.querySelector('[data-recommend-target]').checked=data.recommendTarget===true;
+   for(const key of ['weapon','ability'])document.querySelector('[data-combat-validation="'+key+'"]').checked=data.validation?.[key]===true;
    document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
    for(const key of ['party','initiative','npcHp'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout?.[key]===true;
    document.querySelector('[data-layout="partyDock"]').value=data.layout.partyDock;
    document.querySelector('[data-tracker-status]').textContent=data.feed==='Live'?'Connected':data.feed;
   }
   if(data?.type==='room-rolls')panel.shared(data.rolls);
+  if(data?.type==='combat-refresh')void refreshCombatHistory();
+  if(data?.type==='combat-decision'){
+   say(data.approved?'GM approved combat effect.':'GM rejected combat effect.');void refreshCombatHistory();
+  }
   if(data?.type==='result'){
    const handled=initiativeView.result(data);
    if(data.error&&!handled)say(data.error);
   }
  });
  void autoConnect();
+ combatHistoryTimer=setInterval(()=>void refreshCombatHistory(),7000);
  trackerBus.send({type:'hello'});
  document.querySelector('[data-admin-controls]').onchange=event=>{
   const node=event.target,key=node.dataset.layout;
-  if(node.matches('[data-recommend-target]'))trackerBus.send({type:'recommend-setting',enabled:node.checked,requestId:crypto.randomUUID()});
+  if(node.matches('[data-combat-validation]'))trackerBus.send({type:'combat-validation',key:node.dataset.combatValidation,enabled:node.checked,requestId:crypto.randomUUID()});
+  else if(node.matches('[data-recommend-target]'))trackerBus.send({type:'recommend-setting',enabled:node.checked,requestId:crypto.randomUUID()});
   else if(key)trackerBus.send({type:'layout',key,value:node.type==='checkbox'?node.checked:node.value,requestId:crypto.randomUUID()});
  };
 });
@@ -345,7 +416,7 @@ window.addEventListener('message',event=>{
  }
 });
 window.addEventListener('pagehide',()=>{
- disposeSize?.();panel.close();initiativeView.close();trackerBus?.close();connection?.close();
+ clearInterval(combatHistoryTimer);disposeSize?.();panel.close();initiativeView.close();trackerBus?.close();connection?.close();
  for(const sheet of openSheets.values())sheet.connection?.close();
  tabConnection?.close();
 },{once:true});

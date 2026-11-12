@@ -4,7 +4,7 @@ import {resourceEditor,defenses} from './tracker-view.mjs';
 // State and permissions always come from the Owlbear background controller.
 export function mountInitiative(view,send){
  const root=view.querySelector('tbody'),cards=new Map();
- let state={battle:[],party:[],turn:{},admin:false};
+ let state={battle:[],party:[],turn:{},admin:false,approvals:[]},events=[];
  const edits=resourceEditor(()=>state,value=>send(value));
  function render(){
   const active=new Set(),visible=Array.isArray(state.battle)?state.battle:[],turn=state.turn?.id===undefined?visible[0]?.id:state.turn.id;
@@ -51,7 +51,45 @@ export function mountInitiative(view,send){
   view.querySelector('[data-round]').textContent='Round '+Math.max(1,Number(state.turn?.round)||1);
   view.querySelector('[data-empty]').hidden=!!visible.length;
   for(const button of view.querySelectorAll('[data-turn]')){button.hidden=!state.admin;button.disabled=!visible.length;}
+  const end=view.querySelector('[data-end-battle]');end.hidden=!state.admin||!visible.length;end.disabled=!visible.length;
+  const approvals=view.querySelector('[data-combat-approvals]'),list=view.querySelector('[data-combat-approval-list]');
+  approvals.hidden=!state.admin||!state.approvals?.length;
+  list.replaceChildren();
+  if(state.admin)for(const request of state.approvals||[]){
+   const line=document.createElement('div'),description=document.createElement('p');
+   line.className='combat-approval-row';description.textContent=request.actorName+' → '+request.targetName+' · '+request.kind;
+   const approve=document.createElement('button'),reject=document.createElement('button');
+   approve.type='button';approve.textContent='Approve';approve.dataset.approveCombat=request.requestId;
+   reject.type='button';reject.textContent='Reject';reject.dataset.rejectCombat=request.requestId;
+   line.append(description,approve,reject);list.append(line);
+  }
+  const eventList=view.querySelector('[data-combat-events]');eventList.replaceChildren();
+  for(const event of events){
+   const li=document.createElement('li'),headline=document.createElement('strong'),details=document.createElement('small');
+   if(event.kind==='end'){
+    headline.textContent='Battle ended';details.textContent='Battle '+event.battle;
+   }else{
+    headline.textContent=event.actor+' → '+event.target;
+    details.textContent='Round '+event.round+' · '+(event.action||event.source||'Action')+
+      ' · '+(event.kind==='heal'?'Healed':event.kind==='temp_hp'?'Temp HP':'Damage')+
+      ' '+(event.applied??0)+(event.hit===false?' (missed)':'')+(event.critical?' · Critical':'');
+   }
+   li.append(headline,details);eventList.append(li);
+  }
+  view.querySelector('[data-combat-empty]').hidden=events.length>0;
  }
+ const decisionClick=event=>{
+  const end=event.target.closest('[data-end-battle]');
+  if(end&&state.admin&&state.battle?.length){
+   if(confirm('End this battle? All combatants will leave initiative, but combat history will be kept.'))
+    send({type:'end-battle',requestId:crypto.randomUUID()});
+   return;
+  }
+  if(!state.admin)return;
+  const approve=event.target.closest('[data-approve-combat]'),reject=event.target.closest('[data-reject-combat]');
+  const id=approve?.dataset.approveCombat||reject?.dataset.rejectCombat;
+  if(id)send({type:'combat-decision',id,approve:!!approve,requestId:crypto.randomUUID()});
+ };
  const turnClick=event=>{
   const button=event.target.closest('[data-turn]');
   if(!button||!view.contains(button)||!state.admin||button.disabled)return;
@@ -63,11 +101,13 @@ export function mountInitiative(view,send){
   for(const button of root.querySelectorAll('.battle-ac'))button.setAttribute('aria-expanded','false');
  };
  view.querySelector('footer').addEventListener('click',turnClick);
+ view.addEventListener('click',decisionClick);
  view.querySelector('.battle-scroll').addEventListener('scroll',scroll);
  render();
  return {
   state(next){state=next;edits.confirm(next);render();},
+  history(value){events=Array.isArray(value)?value.slice(0,120):[];render();},
   result(data){const handled=edits.result(data);render();return handled;},
-  close(){edits.close();view.querySelector('footer').removeEventListener('click',turnClick);view.querySelector('.battle-scroll').removeEventListener('scroll',scroll);}
+  close(){edits.close();view.removeEventListener('click',decisionClick);view.querySelector('footer').removeEventListener('click',turnClick);view.querySelector('.battle-scroll').removeEventListener('scroll',scroll);}
  };
 }
