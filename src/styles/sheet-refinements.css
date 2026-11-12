@@ -395,3 +395,15 @@
 .cs-npc-details .cs-pairs{margin:0;display:grid;gap:8px}
 .cs-npc-details .cs-pairs>div{margin:0}
 .cs-npc-empty{color:var(--muted);font-style:italic}
+
+
+/* FFD20 trained-only skills: do not disable the row, favorites, or rank editor. */
+.cs-skill-untrained{background:color-mix(in srgb,var(--surface) 90%,#777 10%);border-radius:.45rem}
+.cs-skill-untrained .cs-skill-roll:disabled{opacity:1!important;cursor:not-allowed!important;color:var(--muted);filter:grayscale(1)}
+.cs-skill-untrained .cs-skill-roll:disabled>span:first-child{opacity:.65}
+.cs-skill-untrained .cs-skill-roll:disabled strong{color:var(--muted);opacity:.6}
+.cs-skill-untrained .cs-skill-roll:disabled .cs-d20-symbol{opacity:.23;filter:grayscale(1)}
+.cs-skill-untrained .cs-skill-roll:disabled:hover{background:transparent}
+.cs-skill-training-note{display:block!important;margin-top:3px;color:var(--muted);font-size:.72rem;letter-spacing:.015em}
+.cs-skill-untrained [data-edit-entry]{opacity:1;filter:none;cursor:pointer;color:var(--accent)}
+.cs-skill-untrained .cs-favorite{opacity:1}
