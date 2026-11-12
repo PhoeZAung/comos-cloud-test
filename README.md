@@ -1,6 +1,6 @@
 # Live Cosmos source
 
-The active site at https://feisty-freedom-production-304e.up.railway.app deploys from **PhoeZAung/comos-cloud-test**, branch **main**. **PhoeZAung/Mount-Aetheria** is the separate legacy reference repository; changes merged there do not appear on Cosmos automatically. See [docs/SHEET-PORT.md](docs/SHEET-PORT.md) for the transferred sheet features.
+**Production Cosmos is hosted on QNAP**, with GitHub **PhoeZAung/comos-cloud-test**, branch **main**, as its source. **Publishing is manual through Termius + Tailscale**, using the commit-pinned QNAP deployment script; GitHub Actions only verifies tests. See [QNAP manual publishing](docs/QNAP_PHONE_DEPLOY.md) before claiming a release is live. The Railway URL and related setup file document an earlier test environment, not the QNAP production release process. **PhoeZAung/Mount-Aetheria** is a separate legacy reference repository; merges there do not appear automatically on Cosmos. See [docs/SHEET-PORT.md](docs/SHEET-PORT.md) for transferred sheet features.
 
 Race definitions now live individually in [rules/races](rules/races), and the normal site build generates their runtime adapter. The first current-source mechanical pass is Dwarf; Elvaan is next. See [extraction progress](docs/EXTRACTION_PROGRESS.json) and [Dwarf coverage and remaining manual rules](docs/extraction/dwarf-coverage.md). Existing paraphrases remain flagged for independent/full-text review.
 
