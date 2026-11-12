@@ -24,11 +24,12 @@ export function createSheetTabs(){
    return id===active?(keys[index-1]??keys[index+1]):active;
   },
   render(active){
-   const close=sheets.size>1;
+   if(sheets.size<=1)return '';
+   const close=true;
    return '<nav class="cs-sheet-tabs" aria-label="Open character sheets"><div class="cs-sheet-tab-list">'+[...sheets].map(([id,name])=>
     '<div class="cs-sheet-tab'+(id===active?' is-active':'')+'"><button type="button" data-switch-sheet="'+escape(id)+'"'+(id===active?' aria-current="page"':'')+' title="'+escape(name)+'">'+escape(name)+'</button>'+
     (close?'<button type="button" class="cs-sheet-tab-close" data-close-sheet="'+escape(id)+'" aria-label="Close '+escape(name)+'">×</button>':'')+'</div>'
-   ).join('')+'</div><button class="cs-icon cs-sheet-tab-add" type="button" data-add-sheet aria-label="Open another character sheet" title="Open another character sheet">+</button></nav>';
+   ).join('')+'</div></nav>';
   }
  };
 }
