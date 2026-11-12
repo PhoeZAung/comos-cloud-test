@@ -51,6 +51,9 @@ jobs:
       - name: Exercise admin group sheet tabs in Chromium
         if: github.event_name == 'pull_request'
         run: node scripts/check-admin-tabs-browser.mjs
+      - name: Exercise manual ability and weapon modifier editors in Chromium
+        if: github.event_name == 'pull_request'
+        run: node scripts/check-ability-weapon-editor-browser.mjs
       - name: Exercise two-step item catalog preview in Chromium
         if: github.event_name == 'pull_request'
         run: node scripts/check-catalog-shop-browser.mjs
