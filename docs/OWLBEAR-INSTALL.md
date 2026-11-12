@@ -102,11 +102,33 @@ viewer and attached to token motion. Bars disappear when the toggle is off or
 a token leaves battle. No MP bar is
 placed over tokens. Local item updates are batched and unchanged bars are skipped.
 
+## Character tab and multiple sheets
+
+The disconnected Character tab shows **Connect Cosmos account** instead of a
+blank list. After connection, the extension selects Character and loads the
+player's character roster (plus the NPC roster only for verified GMs). Account
+connection has moved out of Settings; the extra **Refresh characters** and
+**Open Cosmos** controls have been removed.
+
+Player and NPC cards live in the same vertically scrollable roster; narrowing
+or shortening the extension does not compress player cards underneath NPCs.
+
+When a sheet is open, the **+ Add sheet** button is beside **Open sheet window**
+in the small top toolbar. Choosing another sheet keeps the first iframe alive,
+with its scroll position, and adds the second sheet as a named top-level tab
+alongside Character, Admin (authorized only), Initiative, and Settings.
+For two or more open sheets, each sheet's tab uses its character's name.
+At one open sheet, the main tab stays labelled Character and no extra sheet
+tabs or close controls appear. The × controls can close individual tabs;
+**← Characters** returns to the roster without closing loaded sheets.
+The old tab bar and + button inside the embedded character sheet are hidden
+in Owlbear only, not on standalone Cosmos sheets.
+
 ## Sheets, permissions, and Dice+
 
-The existing character selector, Add another character sheet (+), resize handle,
-separate sheet window, and Dice+ roll visibility remain. Add another character
-only fetches available sheets when clicked; it is not an automatic load request. The Check Dice+ diagnostic button is absent. Actual sheet
+The existing character selector, resize handle, separate sheet window, and
+Dice+ roll visibility remain. Add another sheet uses the already-fetched roster;
+it does not preload unopened sheets. The Check Dice+ diagnostic button is absent. Actual sheet
 rolls still use Dice+ faces, with server validation of formulas/modifiers/resources
 and no duplicate Cosmos dice animation.
 
