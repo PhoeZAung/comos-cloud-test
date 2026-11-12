@@ -135,7 +135,7 @@ test('inventory is first, inline values edit, and equipped items are identified'
  assert.match(frame,/data-edit-stats="capacity"/);
  assert.match(frame,/cs-capacity-meter/);
  assert.match(frame,/cs-capacity-value/);
- assert.match(frame,/cs-entry is-equipped/);
+ assert.match(frame,/cs-entry cs-inventory-row is-equipped/);
  assert.doesNotMatch(frame,/Edit currency &amp; capacity/);
  assert.throws(()=>mergeSheetData(char.data,{action:'fields',fields:{slot_cap:0}}),/capacity/);
 });
