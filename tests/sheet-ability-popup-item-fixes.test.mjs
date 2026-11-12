@@ -4,15 +4,20 @@ import {readFile} from 'node:fs/promises';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {renderSheetFrame,entryDetail,actionIcon} from '../src/features/sheet/view.mjs';
 
-test('Add ability remains centered in category wheel and is not fixed to the viewport',async()=>{
- const css=await readFile(new URL('../src/styles/sheet-refinements.css',import.meta.url),'utf8');
- const original=await readFile(new URL('../src/styles/sheet.css',import.meta.url),'utf8');
- assert.match(original,/\.cs-ability-wheel \.cs-ability-add-menu\{position:absolute;left:50%;top:50%/);
- assert.doesNotMatch(css,/\.cs-ability-wheel \.cs-ability-add-menu\{position:fixed/);
- assert.doesNotMatch(css,/\.cs-ability-wheel \.cs-ability-add-options\{left:auto;right:0/);
- const frame=renderSheetFrame({id:'hero',name:'Hero',data:{}},'abilities');
- assert.match(frame,/<details class="cs-ability-add-menu">/);
- assert.match(frame,/<summary aria-label="Add an ability"/);
+test('Ability + and Group controls appear above Limit Break, and + opens manual directly',async()=>{
+ const frame=renderSheetFrame({id:'hero',name:'Hero',kind:'player',owned:true,data:{
+  activeAbilities:[{name:'Limit Break',limitBreak:true,desc:'Limit'}],
+  feats:[],passiveAbilities:[],racialAbilities:[]
+ }},'abilities',{ability:'activeAbilities'});
+ assert.match(frame,/<button[^>]*data-add-manual-ability[^>]*>\+<\/button>/);
+ assert.match(frame,/data-add-ability-group="activeAbilities"/);
+ assert.doesNotMatch(frame,/<summary aria-label="Add an ability"/);
+ assert.doesNotMatch(frame,/\+ Ability<\/summary>/);
+ assert.ok(frame.indexOf('data-add-manual-ability')<frame.indexOf('cs-limit-breaks'),'Ability controls must be above Limit Break');
+ const code=await readFile(new URL('../src/ui/sheet.mjs',import.meta.url),'utf8');
+ assert.match(code,/if\(button\.matches\('\[data-add-manual-ability\]'\)\)/);
+ assert.match(code,/editEntry\(ability,null\)/);
+ assert.match(code,/data-editor-premade/);
 });
 
 test('Long popup scrolls inside a stable, glowing outer dialog instead of clipping the star border',async()=>{
