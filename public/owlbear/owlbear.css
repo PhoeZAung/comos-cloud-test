@@ -59,3 +59,36 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 /* Initiative token locator. Hovering or focusing a name outlines its map token. */
 .initiative-tab .battle-name{cursor:crosshair;border-radius:4px;outline-offset:-2px}
 .initiative-tab .battle-name:hover,.initiative-tab .battle-name:focus-visible{color:#5cecff;text-decoration:underline;text-underline-offset:3px}
+
+
+/* Space-efficient Character roster and multi-sheet tabbing. */
+.character-panel,.character-roster,.character-roster [data-npc-group],.character-card{min-width:0}
+.character-roster{display:flex;flex:1 1 0;flex-direction:column;min-height:0;gap:12px;overflow-y:auto;overscroll-behavior:contain;padding-right:2px}
+.character-roster .character-grid{display:flex;flex:0 0 auto;flex-direction:column;gap:8px;min-height:auto;overflow:visible}
+.character-roster [data-npc-group]{flex:0 0 auto;min-height:auto}
+.character-roster [data-npc-group] h2{font-size:14px;margin:0 0 8px}
+.character-roster .character-card{width:100%;grid-template-columns:48px minmax(0,1fr) 16px}
+.character-roster .character-card strong{min-width:0;overflow-wrap:anywhere}
+.connect-prompt{display:flex;justify-content:center;align-items:center;padding:14px 8px}
+.connect-prompt .primary{min-height:42px}
+.sheet-frames{display:flex;flex:1 1 0;min-height:0;min-width:0}
+.sheet-frames iframe{flex:1 1 0;display:block;width:100%;height:100%;min-height:0;min-width:0}
+.cosmos-tabs{min-width:0;overflow-x:auto;scrollbar-width:thin;scroll-padding-inline:8px;gap:2px}
+.cosmos-tabs button[data-panel-tab]{flex:0 0 auto;max-width:135px;min-width:53px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:8px 5px}
+.cosmos-tabs .extension-sheet-close{flex:0 0 22px;min-width:22px;width:22px;max-width:22px;padding:5px 0;background:transparent;border-color:transparent;color:#c4b5d8;font-size:17px}
+.cosmos-tabs .extension-sheet-close:hover{color:#fff;border-color:#75608e}
+.extension-sheet-picker{width:min(92vw,390px);max-height:min(75dvh,570px);overflow:auto;background:#15182a;color:#eef0fb;border:1px solid #75608e;border-radius:12px;padding:16px}
+.extension-sheet-picker::backdrop{background:#050611b0}
+.extension-sheet-picker h2{font-size:16px;margin:0 0 12px}
+.sheet-picker-list{display:flex;flex-direction:column;gap:7px;max-height:54dvh;overflow:auto;margin-bottom:12px}
+.sheet-picker-list .character-card{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:46px;padding:9px 12px}
+.sheet-picker-list .character-card strong{min-width:0;overflow-wrap:anywhere}
+.sheet-picker-list p{font-size:12px}
+.extension-sheet-picker form{display:flex;justify-content:flex-end}
+@media (max-width:320px){
+ .character-roster .character-card{grid-template-columns:38px minmax(0,1fr) 12px;gap:7px;padding:7px;min-height:53px}
+ .character-roster .character-photo{width:38px;height:38px}
+ .cosmos-title img{width:25px;height:25px}
+ .extension-panel{padding-inline:7px}
+ .cosmos-tabs button[data-panel-tab]{min-width:47px;max-width:115px;font-size:10px}
+}

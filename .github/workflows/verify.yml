@@ -42,3 +42,10 @@ jobs:
           PY
       - name: Verify cloud deployment build
         run: npm run build:cloud
+      - name: Install browser for Owlbear panel smoke test
+        if: github.event_name == 'pull_request'
+        run: npx playwright install --with-deps chromium
+      - name: Exercise Owlbear action panel in Chromium
+        if: github.event_name == 'pull_request'
+        run: node scripts/check-owlbear-panel-browser.mjs
+
