@@ -25,14 +25,14 @@ function say(message){status.textContent=message;}
 function saveScroll(id){
  const sheet=openSheets.get(id);
  if(!sheet)return;
- try{sheet.scrollY=sheet.iframe.contentWindow?.scrollY??sheet.scrollY??0;}catch{}
+ try{sheet.scrollY=sheet.iframe.contentWindow?.scrollY??sheet.scrollY??0;sheet.iframe.dataset.savedScroll=String(sheet.scrollY);}catch{}
 }
 function restoreScroll(sheet){
  if(!sheet)return;
  // Wait for the hidden iframe to re-enter layout before scrolling.
  requestAnimationFrame(()=>requestAnimationFrame(()=>{
   if(activeCharacterId!==sheet.id||sheet.iframe.dataset.sheetInactive==='true')return;
-  try{sheet.iframe.contentWindow?.scrollTo(0,sheet.scrollY||0);}catch{}
+  try{sheet.iframe.dataset.restoreTarget=String(sheet.scrollY||0);sheet.iframe.contentWindow?.scrollTo(0,sheet.scrollY||0);sheet.iframe.dataset.restoreActual=String(sheet.iframe.contentWindow?.scrollY);}catch{}
  }));
 }
 function showRoster(){
