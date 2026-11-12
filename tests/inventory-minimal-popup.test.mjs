@@ -27,7 +27,7 @@ test('compact inventory escapes catalog names and quantity when constructing the
  assert.match(html,/&lt;svg/);
 });
 
-test('item dialog has top Qty and Amount, with item actions after details',()=>{
+test('item dialog has top Qty and Amount, with item actions after details',async()=>{
  const html=renderSheetFrame({id:'hero',name:'Hero',kind:'player',data:{items:[]}},'items');
  const dialog=html.match(/<dialog class="cs-dialog cs-item-description-dialog[\s\S]+?<\/dialog>/)?.[0]||'';
  assert.ok(dialog.includes('data-item-qty'));
