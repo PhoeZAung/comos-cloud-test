@@ -1,5 +1,5 @@
 import {abilityGroup} from '../../src/features/sheet/ability-groups.mjs';
-import {abilityKinds} from '../../src/owlbear/pathfinder-defenses.mjs';
+import {abilityKinds} from '../../src/features/sheet/pathfinder-defenses.mjs';
 import {effectType} from '../../src/features/sheet/effect-types.mjs';
 import {externalRollSource} from './external-rolls.mjs';
 import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
