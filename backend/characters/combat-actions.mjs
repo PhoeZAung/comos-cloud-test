@@ -1,4 +1,5 @@
-import {randomUUID} from 'node:crypto';
+import {randomUUID,randomInt} from 'node:crypto';
+import {defenseProfile,resolveDefenses} from '../../src/owlbear/pathfinder-defenses.mjs';
 import {sheetStats} from '../../src/features/sheet/model.mjs';
 import {computeCombatEffect,applyCombatHp} from '../../src/owlbear/combat-effects.mjs';
 
@@ -19,7 +20,7 @@ function init(db){
  CREATE INDEX IF NOT EXISTS idx_cosmos_combat_room_history
   ON cosmos_combat_events(room_id,created_at DESC);`);
 }
-export function createCombatActions(db){
+export function createCombatActions(db,{rollSr=()=>randomInt(1,21)}={}){
  init(db);
  const room=id=>{check(validRoom(id),'Invalid Owlbear room.');db.prepare('INSERT OR IGNORE INTO cosmos_combat_rooms(room_id) VALUES(?)').run(id);return db.prepare('SELECT * FROM cosmos_combat_rooms WHERE room_id=?').get(id);};
  const getSettings=id=>{const r=room(id);return {weapon:r.weapon_validation===1,ability:r.ability_validation===1};};
@@ -67,7 +68,16 @@ export function createCombatActions(db){
   check(['ac','touch','cmd'].includes(defense),'Invalid target defense.');
   if(!targetNpc)ac=targetStats[defense];
   check(Number.isFinite(ac)&&ac>=0&&ac<=100000,'Target armor class is unavailable.');
-  const result=computeCombatEffect(roll,{defense,ac});
+  const initial=computeCombatEffect(roll,{defense,ac});
+  let profile={dr:0,drBypass:'',sr:0,energyResistances:'',immunities:'',vulnerabilities:''};
+  if(targetNpc&&validId(value.targetNpcId)){
+   const saved=db.prepare('SELECT c.kind,c.archived,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.targetNpcId);
+   if(!saved||saved.kind!=='npc'||saved.archived)throw Error('The linked NPC defense record is unavailable.');
+   profile=defenseProfile(JSON.parse(saved.data_json),{npc:true});
+  }else if(!targetNpc)profile=defenseProfile(targetData);
+  const srRelevant=initial.hit&&['spell','sp'].includes(roll.resolution?.abilityKind)&&
+    roll.resolution?.srApplies!==false&&profile.sr>0;
+  const result=resolveDefenses(roll,initial,profile,{srRoll:srRelevant?rollSr():null});
   if(result.kind==='heal'||result.kind==='temp_hp')check(!targetNpc,'Healing requires a party character.');
   const beforeNpc=Number(value.targetHp),maxNpc=Number(value.targetHpMax),tempNpc=Number(value.targetHpTemp||0);
   if(targetNpc)check([beforeNpc,maxNpc,tempNpc].every(Number.isFinite)&&maxNpc>=0&&Math.abs(beforeNpc)<=1000000&&maxNpc<=1000000&&tempNpc>=0&&tempNpc<=1000000,'NPC health is unavailable.');
@@ -77,6 +87,7 @@ export function createCombatActions(db){
    kind:result.kind,source:roll.kind,action:safeName(receipt.label),gmOnly:value.gmOnly===true,
    roll:Math.max(0,Number(roll.damage?.total)||0),
    amount:result.amount,critical:result.critical,hit:result.hit,reason:result.reason,
+   mitigation:result.mitigation||[],
    defense,ac:targetNpc?null:ac,time:Date.now()};
   db.exec('BEGIN IMMEDIATE');
   try{
