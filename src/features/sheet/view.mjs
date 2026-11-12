@@ -9,7 +9,7 @@ import {entryCalculations,damageExpression,diceTerms,maximumSpellLevel} from './
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol} from './item-categories.mjs';
 import {skillBudget} from './skill-budget.mjs';
 import {spellLevel as levelOf,weaponDamageFormulas} from './calculations.mjs';
-import {sheetSkills,skillSupportsSpecialization} from './skills.mjs';
+import {sheetSkills,skillSupportsSpecialization,skillRequiresTraining,skillCanRoll,skillDisplayName} from './skills.mjs';
 
 import {abilities,number,signed,sheetStats,skillTotal,weaponAttack,weaponAttackParts,attackTypes} from './model.mjs';
 import {formatSheetText,safeSheetLink} from './rich-text.mjs';
@@ -110,7 +110,7 @@ export function renderSection(character,section,{ability='activeAbilities',comba
  if(section==='favorites'){
   const groups=['items','weapons','activeAbilities','passiveAbilities','racialAbilities','feats','spells'].map(key=>{const entries=(Array.isArray(d[key])?d[key]:[]).map((row,index)=>({row,index})).filter(({row})=>row.favorite===true&&!isLimitBreak(row));return entries.length?'<section class="cs-collection"><h2>'+titles[key]+'</h2><div class="cs-entry-list">'+entries.map(({row,index})=>entry(key,row,index,d)).join('')+'</div></section>':'';}).join('');
   const boxes=d.favorite_boxes||[];const extra=(boxes.some(k=>['ability-scores','identity','proficiencies','bio'].includes(k))?renderSection(character,'overview',{onlyBoxes:boxes}):'')+['skills','inventory','equipment','notes'].filter(k=>boxes.includes(k)).map(k=>renderSection(character,k==='inventory'||k==='equipment'?'items':k,{itemView:k==='inventory'?'inventory':'equip'})).join('')+(boxes.includes('offense')?card('Offense','<div class="cs-metrics">'+[['Initiative',s.initiative],['Melee',s.melee],['Ranged',s.ranged],['Touch attack',s.touchAttack],['Ranged touch',s.rangedTouch],['CMB',s.cmb]].map(([k,v])=>metric(k,v,{roll:true})).join('')+'</div>'+collectionBlock('weapons',d)):'')+(boxes.includes('defense')?card('Defense','<div class="cs-metrics">'+[['AC',s.ac],['Touch',s.touch],['Flat-footed',s.flat],['CMD',s.cmd]].map(([k,v])=>metric(k,v)).join('')+'</div>'):'')+(boxes.includes('saving-throws')?card('Saving throws','<div class="cs-metrics">'+metric('Fortitude',s.fort,{roll:true})+metric('Reflex',s.ref,{roll:true})+metric('Will',s.will,{roll:true})+'</div>'):'')+(boxes.includes('resistances')?card('Resistances','<p class="cs-prose">'+e(d.resistances||'—')+'</p>'):'');
-  const skillFavorites=sheetSkills(d).map((row,index)=>({row,index})).filter(({row})=>row.favorite).map(({row,index})=>'<div class="cs-skill"><button type="button" class="cs-skill-roll" data-roll="'+e(row.name)+'" data-bonus="'+skillTotal(row,d)+'">'+e(row.name)+' '+signed(skillTotal(row,d))+icons.dice+'</button><button type="button" class="cs-favorite" data-favorite="skills:'+index+'" aria-label="Unfavorite '+e(row.name)+'" aria-pressed="true">'+icons.favorites+'</button></div>').join('');
+  const skillFavorites=sheetSkills(d).map((row,index)=>({row,index})).filter(({row})=>row.favorite).map(({row,index})=>skillRow(row,index,d,{favoriteOnly:true})).join('');
   const resources=[...(d.hp_favorite?[resource('HP',s.hp,s.hpMax,'hp_curr',s.hpTemp,true)]:[]),...(d.mp_favorite?[resource('MP',s.mp,s.mpMax,'mp_curr',undefined,true)]:[])].join('');
   return '<h2>Favorites</h2>'+(resources?'<div class="cs-resources">'+resources+'</div>':'')+extra+skillFavorites+(groups||(!resources&&!extra&&!skillFavorites?'<p class="cs-caption">Star HP, MP, a weapon, spell or ability to keep it here.</p>':''));
  }
@@ -242,8 +242,22 @@ export function entryDetail(row,data={},key='',{npc=false}={}){
     calc+(rollable&&!calc?'<button class="button cs-dice-button" type="button" data-damage-roll="'+e(dice)+'" data-damage-label="'+e(row.name||'Damage')+'">'+icons.dice+' Roll '+e(dice)+'</button>':'')+
     grouped+prose+(Array.isArray(row.attrs)?'<dl class="cs-pairs">'+row.attrs.map(a=>'<div><dt>'+e(a.name)+'</dt><dd>'+e(a.val)+'</dd></div>').join('')+'</dl>':'');
 }
+function skillRow(row,index,d,{favoriteOnly=false}={}){
+ const name=skillDisplayName(row),locked=skillRequiresTraining(row)&&!skillCanRoll(row);
+ const label=locked?'Trained only: add at least 1 skill rank before rolling '+name:'Roll '+name;
+ const status=locked?'<small class="cs-skill-training-note">🔒 Trained only · 1 rank required</small>':'';
+ const rankText='<small>'+e(String(row.stat||'').toUpperCase())+' · '+number(row.lvl??row.ranks)+' ranks'+(row.cs?' · class':'')+'</small>';
+ return '<div class="cs-skill'+(locked?' cs-skill-untrained':'')+'"'+(locked?' data-training-locked="true" title="'+e(label)+'"':'')+'>'+
+  '<button type="button" class="cs-skill-roll" data-skill-index="'+index+'" aria-label="'+e(label)+'"'+(locked?' disabled aria-disabled="true"':'')+'>'+
+   '<span>'+e(name)+(favoriteOnly?'':rankText)+status+'</span><strong>'+signed(skillTotal(row,d))+'</strong>'+icons.dice+'</button>'+
+   '<button type="button" class="cs-favorite" data-favorite="skills:'+index+'" aria-label="'+e(row.favorite?'Unfavorite ':'Favorite ')+e(name)+'" aria-pressed="'+(row.favorite===true)+'">'+icons.favorites+'</button>'+
+   '<button type="button" class="cs-icon" data-edit-entry="skills:'+index+'" aria-label="Edit '+e(name)+' ranks and modifiers" title="Edit skill ranks">✎</button></div>';
+}
 export function renderSkillRows(d,query=''){
- return '<div class="cs-skills">'+sheetSkills(d).map((row,index)=>({row,index})).filter(({row})=>(row.name+' '+(skillSupportsSpecialization(row.name)?row.subName||'':'')).toLowerCase().includes(query.toLowerCase())).map(({row,index})=>`<div class="cs-skill"><button type="button" class="cs-skill-roll" data-roll="${e(row.name)}" data-bonus="${skillTotal(row,d)}"><span>${e(row.name)}${skillSupportsSpecialization(row.name)&&row.subName?' ('+e(row.subName)+')':''}<small>${e(String(row.stat||'').toUpperCase())} · ${number(row.lvl??row.ranks)} ranks${row.cs?' · class':''}</small></span><strong>${signed(skillTotal(row,d))}</strong>${icons.dice}</button><button type="button" class="cs-favorite" data-favorite="skills:${index}" aria-label="Favorite ${e(row.name)}" aria-pressed="${row.favorite===true}">${icons.favorites}</button><button type="button" class="cs-icon" data-edit-entry="skills:${index}" aria-label="Edit ${e(row.name)}">✎</button></div>`).join('')+'</div>';
+ return '<div class="cs-skills">'+sheetSkills(d).map((row,index)=>({row,index}))
+  .filter(({row})=>skillDisplayName(row).toLowerCase().includes(query.toLowerCase()))
+  .sort((a,b)=>skillDisplayName(a.row).localeCompare(skillDisplayName(b.row),undefined,{sensitivity:'base'}))
+  .map(({row,index})=>skillRow(row,index,d)).join('')+'</div>';
 }
 
 function calculationDetails(row,data,key){
