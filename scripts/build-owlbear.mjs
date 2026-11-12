@@ -16,7 +16,7 @@ export async function buildOwlbear(output,origin){
  const head='<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><link rel="icon" href="/owlbear/icon.svg"><link rel="stylesheet" href="/owlbear/owlbear.css">';
  await writeFile(directory+'/index.html',`<!doctype html><html lang="en"><head>${head}<title>Cosmos · Owlbear</title><script type="module" src="/owlbear/action.js"></script></head><body>
  <main class="extension-panel"><h1 class="cosmos-title"><img src="/owlbear/icon.svg" alt="">Cosmos</h1>
- <div class="extension-tools"><button data-back hidden>← Characters</button><button class="sheet-window-button" data-add-sheet hidden aria-label="Open another character sheet" title="Open another character sheet">+</button><button class="sheet-window-button" data-open-sheet-tab hidden aria-label="Open sheet in a separate window" title="Open sheet window"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14M10 3H3v18h18v-7"/></svg></button></div>
+ 
  <nav class="cosmos-tabs" role="tablist" aria-label="Cosmos">
  <button role="tab" id="tab-character" aria-controls="panel-character" data-panel-tab="character" aria-selected="true">Character</button>
  <button role="tab" id="tab-admin" aria-controls="panel-admin" data-panel-tab="admin" aria-selected="false" tabindex="-1" hidden>Admin</button>
@@ -35,7 +35,7 @@ export async function buildOwlbear(output,origin){
  let sheet=await readFile(output+'/sheet.html','utf8');
  sheet=sheet.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,'').replace(/\b(href|src)="(?!https?:|\/|#)([^"]+)"/g,'$1="/$2"').replace('<body ','<body data-owlbear-sheet="true" ').replace('</head>','<link rel="stylesheet" href="/owlbear/sheet.css"><script type="module" src="/owlbear/sheet.js"></script></head>');
  await writeFile(directory+'/sheet.html',sheet);
- await writeFile(directory+'/sheet.css','body[data-owlbear-sheet]{min-width:0}body[data-owlbear-sheet] [data-sheet-popout],body[data-owlbear-sheet] [data-delete-character],body[data-owlbear-sheet] .cs-sheet-tabs{display:none!important}');
+ await writeFile(directory+'/sheet.css','body[data-owlbear-sheet]{min-width:0}body[data-owlbear-sheet] [data-delete-character],body[data-owlbear-sheet] .cs-sheet-tabs{display:none!important}');
  await mkdir(directory+'/party',{recursive:true});
  const partyHead='<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><link rel="icon" href="/owlbear/party-icon.svg"><link rel="stylesheet" href="/owlbear/party.css">';
  await writeFile(directory+'/background.html','<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Cosmos background</title><script type="module" src="/owlbear/background.js"></script></head><body></body></html>');
