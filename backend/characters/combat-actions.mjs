@@ -33,9 +33,10 @@ export function createCombatActions(db){
   room(id);
   return db.prepare('SELECT event_json FROM cosmos_combat_events WHERE room_id=? AND status=? ORDER BY created_at DESC,id DESC LIMIT 120').all(id,'applied').map(row=>{
    const event=JSON.parse(row.event_json);
+   if(!admin&&event.gmOnly)return null;
    if(!admin&&event.targetNpc){delete event.before;delete event.after;}
    return event;
-  });
+  }).filter(Boolean);
  }
  function effectRow(id){const result=db.prepare('SELECT * FROM cosmos_combat_events WHERE id=?').get(id);return result?{...JSON.parse(result.event_json),status:result.status}:null;}
  function apply(id,userId,isAdmin,value){
@@ -73,7 +74,8 @@ export function createCombatActions(db){
   const sourceName=safeName(source.name),targetName=safeName(target?.name||value.targetName);
   const base={id:value.requestId,roomId:id,battle:r.battle,round:value.round,actorId:receipt.character_id,actorTokenId:value.actorTokenId,actor:sourceName,
    targetTokenId:value.targetTokenId,targetId:target?.id||null,target:targetName,targetNpc,
-   kind:result.kind,source:roll.kind,action:safeName(receipt.label),roll:Math.max(0,Number(roll.damage?.total)||0),
+   kind:result.kind,source:roll.kind,action:safeName(receipt.label),gmOnly:value.gmOnly===true,
+   roll:Math.max(0,Number(roll.damage?.total)||0),
    amount:result.amount,critical:result.critical,hit:result.hit,reason:result.reason,
    defense,ac:targetNpc?null:ac,time:Date.now()};
   db.exec('BEGIN IMMEDIATE');
