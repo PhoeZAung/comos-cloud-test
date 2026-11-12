@@ -22,8 +22,8 @@ test('weapons track maximum and current uses; manual abilities retain user-enter
  assert.throws(()=>mergeSheetData(manual,{action:'entry',collection:'activeAbilities',mode:'update',index:0,fields:{u_curr:5}}),/maximum uses|between 0/);
  const frame=renderSheetFrame({id:randomUUID(),name:'Tester',data:manual},'abilities');
  assert.match(frame,/data-add-manual-ability/);
- assert.match(frame,/data-rule-abilities/);
- assert.match(frame,/cs-ability-add-menu/);
+ assert.doesNotMatch(frame,/data-rule-abilities|cs-ability-add-menu/);
+ assert.match(frame,/data-editor-premade/);
  assert.doesNotMatch(entryDetail(manual.activeAbilities[0],manual,'activeAbilities'),/data-edit-entry/);
 });
 
