@@ -16,7 +16,7 @@ const openSheets=new Map(),names=new Map(),audiences=new Map();
 const backButton=document.querySelector('[data-back]'),addSheet=document.querySelector('[data-add-sheet]'),openTab=document.querySelector('[data-open-sheet-tab]');
 let popup,nonce,connection,activeCharacterId=null,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
 let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,characterRequest=null,npcRequest=null,characters=[],npcs=[],pickerCandidates=[];
-const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheetTab:id=>showSheet(id),onCloseSheet:id=>closeSheet(id),onView:()=>{backButton.hidden=true;addSheet.hidden=true;openTab.hidden=true;}});
+const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheetTab:id=>showSheet(id),onCloseSheet:id=>closeSheet(id),onView:()=>{saveScroll(activeCharacterId);backButton.hidden=true;addSheet.hidden=true;openTab.hidden=true;}});
 const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command));
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID();
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
