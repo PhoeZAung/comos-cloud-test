@@ -20,7 +20,8 @@ test('healing and temporary HP require the healer’s turn and a linked party ta
   const pick=resolveCombatTarget({characterId:'mage-sheet',kind:'ability',row:{effect_type,damage:'1d8+3'},battle,turn,selection,ready:true});
   assert.equal(pick.kind,effect_type);assert.equal(pick.targetId,fighter.id);
  }
- assert.throws(()=>resolveCombatTarget({characterId:'mage-sheet',kind:'ability',row:{effect_type:'heal'},battle,turn,selection:[enemy.id],ready:true}),/linked party/);
+ assert.throws(()=>resolveCombatTarget({characterId:'mage-sheet',kind:'ability',row:{effect_type:'heal',damage:'1d8'},battle,turn,selection:[enemy.id],ready:true}),/linked party/);
+ assert.throws(()=>resolveCombatTarget({characterId:'mage-sheet',kind:'ability',row:{effect_type:'temp_hp'},battle,turn,selection,ready:true}),/Dice Roll formula/);
 });
 test('blocking out-of-turn combat, missing links, wrong/multiple targets and allies',()=>{
  assert.throws(()=>choose({turn:{id:white.id}}),/initiative turn/);
