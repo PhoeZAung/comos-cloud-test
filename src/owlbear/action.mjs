@@ -182,8 +182,10 @@ async function sheetRequest(method,value){
   if(!pending||pending.targetId!==value.targetId||Date.now()-pending.at>120000)return {cleared:false};
   const target=latestBattle.find(row=>row.id===pending.targetId);
   if(!target)throw Error('Target left battle before the action could be resolved.');
+  const actor=latestBattle.find(row=>row.id===pending.actorId);
   const request={
    requestId:value.requestId,actorSheetId:pending.actorSheetId,source:pending.source,kind:pending.kind,
+   gmOnly:latestAdmin&&(actor?.visible===false||target.visible===false),
    actorTokenId:pending.actorId,targetTokenId:pending.targetId,
    targetSheetId:target.siteId||null,targetName:target.name,
    targetAc:pending.ac,defense:pending.defense,round:pending.round
