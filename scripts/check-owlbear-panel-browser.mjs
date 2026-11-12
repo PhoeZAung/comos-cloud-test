@@ -9,10 +9,16 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 const output=await mkdtemp(path.join(tmpdir(),'cosmos-owlbear-panel-'));
 const stubs={
- '@owlbear-rodeo/sdk':`export default {onReady:callback=>{window.testReady=callback();},action:{setIcon:async()=>{}},player:{getSelection:async()=>window.selectedTokens||[],deselect:async ids=>{window.unselectedTargets.push(...ids);window.selectedTokens=(window.selectedTokens||[]).filter(id=>!ids.includes(id));}}};`,
+ '@owlbear-rodeo/sdk':`export default {onReady:callback=>{window.testReady=callback();},action:{setIcon:async()=>{}},room:{id:'synthetic-room'},
+ scene:{items:{getItems:async()=>window.sceneItems||[],updateItems:async(ids,update)=>{const found=(window.sceneItems||[]).filter(i=>ids.includes(i.id));update(found);}}},
+ broadcast:{sendMessage:async()=>{}},player:{getSelection:async()=>window.selectedTokens||[],deselect:async ids=>{window.unselectedTargets.push(...ids);window.selectedTokens=(window.selectedTokens||[]).filter(id=>!ids.includes(id));}}};`,
  './panel-size.mjs':`export async function panelSize(){}`,
  './local-channel.mjs':`export async function localChannel(OBR,receive){window.deliver=receive;return {send(value){if(value.type==='hello')receive(window.roomState);if(value.type==='roll-receipt')window.receipts.push(value);if(['turn','initiative','stats','highlight','locate','recommend-setting'].includes(value.type))window.commands.push(value);},close(){}};}`,
- './connection.mjs':`export function connection(){return {close(){},async call(method){if(method==='list'){window.listCalls++;return [{id:'character-1',name:'Astra'},{id:'character-2',name:'Nyx'}];}if(method==='npc-list')return [{id:'npc-1',name:'A very long NPC name that should scroll rather than squeeze characters'}];if(method==='roll-history'){window.historyCalls++;return {rolls:window.rollRows};}if(method==='api')return {status:200,data:{roll:{total:22,expression:'1d20+5',rolls:[17]}}};throw Error('Unexpected account request');}};}`,
+ './connection.mjs':`export function connection(){return {close(){},async call(method){if(method==='list'){window.listCalls++;return [{id:'character-1',name:'Astra'},{id:'character-2',name:'Nyx'}];}if(method==='npc-list')return [{id:'npc-1',name:'A very long NPC name that should scroll rather than squeeze characters'}];if(method==='roll-history'){window.historyCalls++;return {rolls:window.rollRows};}
+ if(method==='combat-history')return {events:[]};
+ if(method==='combat-apply')return {event:{kind:'damage',amount:4,hit:true,before:{hp:10,hpMax:12,hpTemp:0},after:{hp:6,hpMax:12,hpTemp:0},status:'pending'},needsNpcUpdate:true};
+ if(method==='combat-finalize')return {kind:'damage',applied:4,status:'applied',after:{hp:6,hpMax:12,hpTemp:0}};
+ if(method==='api')return {status:200,data:{roll:{total:22,expression:'1d20+5',rolls:[17]}}};throw Error('Unexpected account request');}};}`,
  './dice-plus.mjs':`export function dicePlus(){return {ready:async()=>{},roll:async(notation,target)=>{window.diceTargets.push(target);return {groups:[{diceType:'d20',dice:[{value:17}]}]};}};}`
 };
 const bundle=await build({entryPoints:['src/owlbear/action.mjs'],bundle:true,format:'esm',write:false,plugins:[{name:'synthetic-room',setup(builder){builder.onResolve({filter:/.*/},args=>Object.hasOwn(stubs,args.path)?{path:args.path,namespace:'synthetic'}:null);builder.onLoad({filter:/.*/,namespace:'synthetic'},args=>({contents:stubs[args.path],loader:'js'}));}}]});
@@ -27,7 +33,9 @@ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const browser=await chromium.launch({headless:true,...(process.platform==='win32'?{channel:'msedge'}:{})}),checks=[],errors=[];
 try{
  const page=await browser.newPage({viewport:{width:390,height:640}});page.on('pageerror',error=>errors.push(error.message));
- await page.addInitScript(()=>{window.historyCalls=0;window.listCalls=0;window.receipts=[];window.diceTargets=[];window.commands=[];window.selectedTokens=[];window.unselectedTargets=[];window.roomState={type:'state',admin:false,feed:'Live',layout:{party:false,initiative:false,partyDock:'top',initiativeDock:'left'}};window.rollRows=[{id:'roll-1',character:'Astra',label:'<img src=x onerror=alert(1)>',time:Date.now(),parts:[{label:'Attack',total:27,expression:'1d20+7',faces:[20]},{label:'Damage',total:8,expression:'2d6',faces:[3,5]}]}];});
+ await page.addInitScript(()=>{window.historyCalls=0;window.listCalls=0;window.receipts=[];window.diceTargets=[];window.commands=[];window.selectedTokens=[];window.unselectedTargets=[];
+ window.sceneItems=[{id:'goblin-token',metadata:{'com.cosmos.character-sheets/battle':{enabled:true,hp:10,hpMax:12,hpTemp:0}}}];
+ window.roomState={type:'state',admin:false,feed:'Live',layout:{party:false,initiative:false,partyDock:'top',initiativeDock:'left'}};window.rollRows=[{id:'roll-1',character:'Astra',label:'<img src=x onerror=alert(1)>',time:Date.now(),parts:[{label:'Attack',total:27,expression:'1d20+7',faces:[20]},{label:'Damage',total:8,expression:'2d6',faces:[3,5]}]}];});
  await page.goto('http://127.0.0.1:'+server.address().port+'/owlbear/index.html');await page.evaluate(()=>window.testReady);
  assert.equal(await page.locator('[data-panel-tab="admin"]').count(),0);assert.equal(await page.locator('[data-admin-settings]').isVisible(),false);checks.push('player never sees GM Admin settings');
  assert.deepEqual(await page.locator('[data-panel-tab]').allTextContents(),['Character','Initiative','Settings']);checks.push('three ordered tabs with Admin moved into Settings');
@@ -144,6 +152,7 @@ try{
  await page.evaluate(async requestId=>document.querySelector('iframe').contentWindow.call('combat-complete',{requestId,targetId:'goblin-token'}),actionId);
  assert.deepEqual(await page.evaluate(()=>window.unselectedTargets),['goblin-token']);
  assert.deepEqual(await page.evaluate(()=>window.selectedTokens),[]);
+ assert.equal(await page.evaluate(()=>window.sceneItems[0].metadata['com.cosmos.character-sheets/battle'].hp),6);
  await page.evaluate(()=>{window.selectedTokens=['goblin-token'];window.deliver({...window.roomState,ready:true,battle:[
   {id:'actor-token',siteId:'character-1',isNpc:false,available:true,visible:true},
   {id:'goblin-token',isNpc:true,siteId:null,available:true,visible:true,ac:16}
