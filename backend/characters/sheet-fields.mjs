@@ -4,6 +4,7 @@ import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '.
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {abilityKinds,srModes} from '../../src/features/sheet/pathfinder-defenses.mjs';
 import {effectTypes} from '../../src/features/sheet/effect-types.mjs';
+import {saveTypes,saveOutcomes} from '../../src/features/sheet/save-rules.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
 import {addManualSourceAbilities} from '../../src/features/characters/rules/manual-source-library.mjs';
@@ -23,7 +24,7 @@ const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
 const textFields=['languages','senses','resistances','proficiencies','favored_class_options','notesArea'];
 const enumFields={uncanny_dodge:['auto','on','off'],size_category:sizes,capacity_body_type:['biped','quadruped'],speed_fly_maneuverability:['','clumsy','poor','average','good','perfect'],spell_dc_base:abilities,ar_melee_ability:abilities,ar_ranged_ability:abilities,ar_touch_ability:abilities,ar_ranged_touch_ability:abilities};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
-const entryText=['name','desc','effect','misfire','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
+const entryText=['name','desc','effect','misfire','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
 const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level','mp_cost','sr_bonus'];
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 const bad=message=>{throw Error(message);};
@@ -135,7 +136,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
   if(change.collection==='skills'&&Object.hasOwn(change.fields||{},'subName')&&!skillSupportsSpecialization(rows[change.index]?.name))bad('Only Craft, Profession and Perform can have a specialization.');
   if(change.mode==='remove')rows.splice(change.index,1);
   else{
-   if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>30)bad('Invalid entry fields.');
+   if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>36)bad('Invalid entry fields.');
    if(change.collection==='items'){
     const currentCategory=change.fields.sourceCategory??rows[change.index]?.sourceCategory??'Misc',allowed=new Set([...inventoryEditorKeys(currentCategory),'favorite','equipped']);
     if(Object.keys(change.fields).some(key=>!allowed.has(key)))bad('That field is not available for this inventory tag.');
@@ -158,6 +159,17 @@ export function mergeSheetData(original,change,{npc=false}={}){
     else if(key==='ability_kind'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      if(typeof value!=='string'||!Object.hasOwn(abilityKinds,value))bad('Choose a valid spell-like, supernatural or extraordinary ability category.');
      safe[key]=value;
+    }
+    else if(key==='save_type'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+     if(typeof value!=='string'||!Object.hasOwn(saveTypes,value))bad('Choose a valid Fortitude, Reflex or Will save.');
+     safe[key]=value;
+    }
+    else if(key==='save_success'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+     if(typeof value!=='string'||!Object.hasOwn(saveOutcomes,value))bad('Choose a valid saving throw success result.');
+     safe[key]=value;
+    }
+    else if(key==='save_success_damage'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+     safe[key]=text(value,300,'Alternate save damage dice');
     }
     else if(key==='effect_type'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      if(typeof value!=='string'||!Object.hasOwn(effectTypes,value))bad('Choose a valid HP effect type.');
