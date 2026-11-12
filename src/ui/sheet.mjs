@@ -18,7 +18,7 @@ import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCateg
 import {spellLevel,damageTypeLine,weaponDamageAbilities,weaponDamageStyles,weaponDamageFormulas} from '../features/sheet/calculations.mjs';
 import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,usableItemImageUrl,normalizeInventoryText} from '../features/sheet/inventory-fields.mjs';
 import {skillSupportsSpecialization} from '../features/sheet/skills.mjs';
-import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts} from '../features/sheet/model.mjs';
+import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
 import {applyRichFormat,formatSheetText} from '../features/sheet/rich-text.mjs';
 import {escape as e,sections,renderCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
 import {isEquipmentSlot,equippedInSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
@@ -51,11 +51,11 @@ function field(key,value,{weapon=false,item=false,longDescription=false}={}){
  if(key==='crit_range'||key==='crit_mult'){const choices=key==='crit_range'?Array.from({length:20},(_,i)=>i===0?'20':(20-i)+'-20'):['x2','x3','x4','x5'];const normalized=String(value||'').replace(/[–—]/g,'-').replace('×','x');return '<label class="cs-field"><span>'+readable(key)+'</span><select name="'+key+'"><option value=""'+(!normalized?' selected':'')+'>Select</option>'+choices.map(v=>'<option value="'+v+'"'+(normalized===v?' selected':'')+'>'+v+'</option>').join('')+'</select></label>';}
  const label=item?inventoryFieldLabel(key):weapon&&key==='damage'?'Damage formula':readable(key);
  if(key==='damage_ability'||key==='damage_style'){
-  const options=key==='damage_ability'?Object.fromEntries(weaponDamageAbilities.map(ability=>[ability,ability==='auto'?'Automatic (attack type & style)':ability==='none'?'Formula only':readable(ability)])):weaponDamageStyles;
+  const options=key==='damage_ability'?Object.fromEntries(weaponDamageAbilities.map(ability=>[ability,ability==='auto'?'Automatic (attack type & style)':ability==='none'?'None (no ability bonus)':readable(ability)])):weaponDamageStyles;
   return '<label class="cs-field"><span>'+label+'</span><select name="'+key+'">'+Object.entries(options).map(([option,title])=>'<option value="'+option+'"'+(value===option?' selected':'')+'>'+title+'</option>').join('')+'</select></label>';
  }
- const opts=key==='attack_type'?(weapon?Object.keys(attackTypes):['none',...Object.keys(attackTypes)]):key==='ability_mod'&&weapon?['auto',...abilities]:key==='size_category'?sizes:key==='stat'||key==='ability_mod'||key==='spell_dc_base'||key==='casting_ability'?abilities:key.startsWith('ar_')&&key.endsWith('_ability')?abilities:null;
- if(opts)return `<label class="cs-field"><span>${label}</span><select name="${key}">${opts.map(opt=>'<option value="'+opt+'"'+(opt===String(value||opts[0])?' selected':'')+'>'+(key==='attack_type'?(attackTypes[opt]||'None'):opt==='auto'?'Automatic (attack type)':abilities.includes(opt)?opt.toUpperCase():opt)+'</option>').join('')}</select></label>`;
+ const opts=key==='attack_type'?(weapon?Object.keys(attackTypes):['none',...Object.keys(attackTypes)]):key==='ability_mod'&&weapon?['auto','none',...abilities]:key==='size_category'?sizes:key==='stat'||key==='ability_mod'||key==='spell_dc_base'||key==='casting_ability'?abilities:key.startsWith('ar_')&&key.endsWith('_ability')?abilities:null;
+ if(opts)return `<label class="cs-field"><span>${label}</span><select name="${key}">${opts.map(opt=>'<option value="'+opt+'"'+(opt===String(value||opts[0])?' selected':'')+'>'+(key==='attack_type'?(attackTypes[opt]||'None'):opt==='auto'?'Automatic (attack type)':opt==='none'?'None (no ability bonus)':abilities.includes(opt)?opt.toUpperCase():opt)+'</option>').join('')}</select></label>`;
  if(boolKeys.has(key))return `<label class="cs-checkbox"><input type="checkbox" name="${key}" ${value?'checked':''}><span>${label}</span></label>`;
  if(['desc','effect','at_higher_lvls'].includes(key))return richEditor(key,item&&key==='desc'?normalizeInventoryText(value,key):value,label,longDescription&&key==='desc'?100000:item&&key==='desc'?30000:12000);
   if(['resistances','proficiencies','favored_class_options','special'].includes(key))return `<label class="cs-field cs-field-wide"><span>${label}</span><textarea name="${key}" rows="5" maxlength="${item&&key==='special'?30000:12000}">${e(item&&key==='special'?normalizeInventoryText(value,key):value||'')}</textarea></label>`;
@@ -198,9 +198,9 @@ function mountCharacterSheet(tabs,switchTo){
    ability_mod:value('ability_mod')||'auto',attack_misc:Number(value('attack_misc')||0),
    damage_ability:value('damage_ability')||'auto',damage_style:value('damage_style')||'standard'};
   try{
-   const info=weaponAttackParts(row,character.data),stat=sheetStats(character.data).mods[info.ability];
+   const info=weaponAttackParts(row,character.data),stat=info.ability==='none'?0:sheetStats(character.data).mods[info.ability];
    const signed=n=>(n>=0?'+':'')+n;
-   attack.textContent=(row.ability_mod==='auto'?'Automatic':'Override')+': '+info.ability.toUpperCase()+' '+signed(stat)+' → '+attackTypes[info.type]+' attack '+signed(info.total);
+   attack.textContent=(row.ability_mod==='auto'?'Automatic':row.ability_mod==='none'?'No ability modifier':'Selected')+': '+info.ability.toUpperCase()+' '+signed(stat)+' → '+attackTypes[info.type]+' attack '+signed(info.total);
    const effect=weaponDamageFormulas({...row,damage:'1d4',extra_damage:''},character.data);
    damage.textContent=(row.damage_ability==='auto'?'Automatic':'Override')+': '+(effect.ability?effect.ability.toUpperCase()+' '+signed(effect.abilityBonus):'No ability bonus')+' to damage'+(row.damage_style==='thrown'?' (thrown/sling)':row.damage_style==='two_handed'?' (two-handed)':row.damage_style==='off_hand'?' (off-hand)':row.damage_style==='bow'?' (bow)':'');
   }catch(error){attack.textContent='Ability preview unavailable.';damage.textContent=error.message;}
@@ -355,12 +355,13 @@ function mountCharacterSheet(tabs,switchTo){
   if(character.data.gunbreakerAmmo!==undefined&&row.rulesOwned&&row.sourceRuleId===MAGICKED_AMMO_ID)for(const k of ['uses_formula','restoreOnLongRest']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   if(isLimitBreak(row))for(const k of ['uses_formula','restoreOnLongRest','u_curr','u_max']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   if(abilityGroup(character.data,row,key))for(const k of ['uses_formula','restoreOnLongRest','u_curr','u_max']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
-  const values={u_max:row.u_max??0,u_curr:row.u_curr??row.u_max??0,...row,action_type:actionType(row.action_type??row.type),damage_types:selectedDamageTypes(row.damage_types),sourceCategory:itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||'auto').toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
+  const values={u_max:row.u_max??0,u_curr:row.u_curr??row.u_max??0,...row,action_type:actionType(row.action_type??row.type),damage_types:selectedDamageTypes(row.damage_types),sourceCategory:itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||(key==='weapons'&&index===null?weaponDefaultAbilities(row.attack_type||'melee',character.data).attack:'auto')).toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
   if(key==='weapons'&&!npcWeapon){
-   values.damage_ability=row.damage_ability??(index===null?'auto':'none');
+   values.damage_ability=row.damage_ability??(index===null?weaponDefaultAbilities(values.attack_type,character.data).damage:'none');
    values.damage_style=row.damage_style??(row.two_handed&&values.attack_type==='melee'?'two_handed':'standard');
+   values.crit_range=row.crit_range||'20';values.crit_mult=row.crit_mult||'x2';
   }
-  openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='weapons'&&!npcWeapon?'Attack Type selects the automatic attack ability: STR for melee/touch, DEX for ranged/ranged touch. Damage Automatic uses STR for melee (and thrown/sling) and no ability bonus for ordinary ranged attacks. Use Damage Style for two-handed, off-hand, or bow rules; choose Formula only if the damage dice formula already includes a bonus. Manual overrides remain available.':key==='skills'?(skillSupportsSpecialization(row.name)?'Edit ranks, misc, class skill and specialization.':'Edit ranks, misc and class skill.'):''});
+  openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='weapons'&&!npcWeapon?'Melee starts with STR for attack and damage; ranged starts with DEX attack and no damage ability. Switching Attack Type updates these defaults unless you choose a manual override. None disables the extra ability modifier. Natural 20 is a critical threat (confirmation roll), with a default 20 / x2 critical profile. Attack Type otherwise selects the automatic attack ability: STR for melee/touch, DEX for ranged/ranged touch. Damage Automatic uses STR for melee (and thrown/sling) and no ability bonus for ordinary ranged attacks. Use Damage Style for two-handed, off-hand, or bow rules; choose Formula only if the damage dice formula already includes a bonus. Manual overrides remain available.':key==='skills'?(skillSupportsSpecialization(row.name)?'Edit ranks, misc, class skill and specialization.':'Edit ranks, misc and class skill.'):''});
   if(index!==null&&key!=='skills')root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
  }
  async function roll(label,expression,weaponIndex,spellIndex,abilityEntry,mode='use'){
@@ -619,7 +620,18 @@ function mountCharacterSheet(tabs,switchTo){
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const key=event.target.dataset.resourceInput,value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(key!=='hp_temp'||value>=0)){pendingResourceFields[key]=value;resourceTimer=setTimeout(()=>{if(Object.keys(pendingResourceFields).length)void save({action:'fields',fields:{...pendingResourceFields}});},650);}}
  },{signal:control.signal});
  root.addEventListener('change',event=>{
-   if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=attack_type],[name=ability_mod],[name=damage_ability],[name=damage_style],[name=attack_misc]')){updateWeaponEditorPreview();return;}
+   if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=attack_type],[name=ability_mod],[name=damage_ability],[name=damage_style],[name=attack_misc]')){
+    if(event.target.name==='attack_type'&&dialogState?.change?.mode==='add'&&dialogState?.change?.collection==='weapons'){
+     const prev=event.target.dataset.lastAttackType||'melee';
+     const prior=weaponDefaultAbilities(prev,character.data),next=weaponDefaultAbilities(event.target.value,character.data);
+     for(const [field,oldStat,newStat] of [['ability_mod',prior.attack,next.attack],['damage_ability',prior.damage,next.damage]]){
+      const select=root.querySelector('[data-sheet-form] [name='+field+']');
+      if(select&&select.dataset.userOverride!=='true'&&select.value===oldStat)select.value=newStat;
+     }
+     event.target.dataset.lastAttackType=event.target.value;
+    }else if(['ability_mod','damage_ability'].includes(event.target.name))event.target.dataset.userOverride='true';
+    updateWeaponEditorPreview();return;
+   }
   if(event.target.matches('[data-owlbear-section-slider]')){const tabs=['favorites','overview','combat','skills','items','notes'],target=tabs[Number(event.target.value)];if(target)root.querySelector('.cs-tabs[aria-label="Character sheet"] [data-sheet-tab="'+target+'"]')?.click();return;}
    if(event.target.matches('[data-sheet-portrait]')){const file=event.target.files?.[0];if(!file)return;if(busy||conflict){status('Save or refresh before changing the portrait.');return;}status('Preparing portrait…');void processPicture(file).then(portrait=>save({op:'wizard',step:'identity',fields:{charName:character.name,alignment:character.data.alignment||'',bio:character.data.bio||'',portrait}})).catch(err=>status(err.message));return;}
   if(event.target.matches('[data-sheet-background]')){void save({action:'fields',fields:{sheet_background_enabled:event.target.checked}});return;}
