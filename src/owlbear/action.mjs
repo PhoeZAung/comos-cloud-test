@@ -189,6 +189,15 @@ function openSheetWindow(id){
  if(!tabWindow){tabCharacterId=null;say('Allow the sheet popup, then click the pop-out icon again.');return;}
  tabCharacterId=id;tabWindow.focus();say('Connected');
 }
+// Same-origin embedded sheets can open a window during the original click gesture.
+// A delayed postMessage can lose transient user activation and trigger popup blockers.
+window.cosmosOpenSheetWindow=sourceNonce=>{
+ const sheet=[...openSheets.values()].find(s=>s.nonce===sourceNonce&&s.id===activeCharacterId);
+ if(!sheet||!connection)return false;
+ openSheetWindow(sheet.id);
+ return true;
+};
+
 
 OBR.onReady(async()=>{
  available=true;say('Connect your Cosmos account to load your characters.');
