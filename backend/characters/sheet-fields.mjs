@@ -2,7 +2,7 @@ import {randomUUID} from 'node:crypto';
 import {npcStatLabels,npcTextLabels} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
-import {abilityKinds,srModes} from '../../src/owlbear/pathfinder-defenses.mjs';
+import {abilityKinds,srModes} from '../../src/features/sheet/pathfinder-defenses.mjs';
 import {effectTypes} from '../../src/features/sheet/effect-types.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
