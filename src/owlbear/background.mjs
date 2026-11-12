@@ -7,13 +7,15 @@ import {publicPartyClient} from './public-party-client.mjs';
 import {dockedPanels} from './docking.mjs';
 import {initiativeFocus} from './initiative-focus.mjs';
 import {recommendTarget} from './target-recommendation.mjs';
+import {COMBAT_CHANNEL,VALIDATION,validationFrom} from './combat-effects.mjs';
+import {applyNpcTokenReceipt} from './combat-npc.mjs';
 import {uniqueNpcForToken,npcBattleStats,rollNpcInitiative} from './npc-battle.mjs';
 import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,battleForViewer,battleHpForViewer,turnForViewer,tokenName,normalizeName} from './battle-state.mjs';
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative',RECOMMEND_SETTING=PREFIX+'/recommend-target';
 async function start(){
  let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
  let recommendEnabled=false;try{recommendEnabled=localStorage.getItem(RECOMMEND_SETTING)==='true';}catch{}
- const npcIntCache=new Map();
+ const npcIntCache=new Map(),approvals=new Map();
  const popovers=new Map(),bars=new Map(),commits=new Map(),focus=initiativeFocus(OBR,buildShape);focus.setShowHidden(gm);let syncMenu=()=>Promise.resolve(),npcDirectory=null,npcDirectoryAt=0;
  const error=e=>void OBR.notification.show(e.message||String(e),'ERROR');
  const allowed=()=>gm&&admin;
@@ -49,6 +51,7 @@ async function start(){
   // their opened Cosmos sheet to the acting Owlbear token.
   const viewerBattle=allowed()?battle.map(row=>row.isNpc?{...row,npcId:items.find(item=>item.id===row.id)?.metadata?.[BATTLE]?.npcId||null}:row):battle;
   bus?.send({type:'state',admin:allowed(),gm,recommendTarget:allowed()&&recommendEnabled,
+   validation:validationFrom(room),approvals:allowed()?[...approvals.values()].map(({requestId,actorName,targetName,kind,at})=>({requestId,actorName,targetName,kind,at})):[],
    editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),
    connected:!!grant,feed,party,battle:viewerBattle,turn,layout:layoutFrom(room),ready});
  };
@@ -120,9 +123,56 @@ async function start(){
   const last=commits.get(id),expected=last&&revision===last.from?last.to:revision;
   const result=await grant.call('party-stats',{id,revision:expected,stats});commits.set(id,{from:last&&revision===last.from?last.from:revision,to:result.revision});return result;
  }
+ async function applyReceipt(request){
+  if(!grant)throw Error('Connect your Cosmos account before resolving combat.');
+  const actor=rows().find(row=>row.id===request.actorTokenId);
+  const target=rows().find(row=>row.id===request.targetTokenId);
+  if(!actor||!target||!actor.available||!target.available)throw Error('Combatants are no longer in battle.');
+  const actorSheetId=actor.isNpc?items.find(item=>item.id===actor.id)?.metadata?.[BATTLE]?.npcId:actor.siteId;
+  if(actorSheetId!==request.actorSheetId)throw Error('The actor token no longer matches its character.');
+  const payload={
+   roomId:OBR.room.id,requestId:request.requestId,actorSheetId,actorTokenId:actor.id,
+   targetTokenId:target.id,targetSheetId:target.siteId||null,targetName:target.name,
+   targetAc:target[request.defense],targetHp:target.hp,targetHpMax:target.hpMax,targetHpTemp:target.hpTemp??0,
+   defense:request.defense,round:request.round
+  };
+  const response=await grant.call('combat-apply',payload);
+  let event=response.event;
+  if(response.needsNpcUpdate){
+   const result=await applyNpcTokenReceipt(OBR,{tokenId:target.id,receiptId:request.requestId,effect:event});
+   event=await grant.call('combat-finalize',{roomId:OBR.room.id,requestId:request.requestId,
+    before:result.before||event.before,after:result.after||event.after});
+  }
+  schedule();bus?.send({type:'combat-refresh'});
+  return event;
+ }
  async function command(d){
   if(d.type!=='stats'&&!allowed())throw Error('Connect a Cosmos administrator account as GM.');
   if(d.epoch!==undefined&&d.epoch!==epoch)throw Error('The scene changed. Try again in this scene.');
+  if(d.type==='combat-validation'){
+   if(!['weapon','ability'].includes(d.key)||typeof d.enabled!=='boolean')throw Error('Choose a valid validation setting.');
+   const settings={...validationFrom(room),[d.key]:d.enabled};
+   await grant.call('combat-settings',{roomId:OBR.room.id,settings});
+   await OBR.room.setMetadata({[VALIDATION]:settings});room={...room,[VALIDATION]:settings};schedule();return;
+  }
+  if(d.type==='combat-decision'){
+   const request=approvals.get(d.id);
+   if(!request)throw Error('This approval request has expired or was already handled.');
+   approvals.delete(d.id);
+   if(d.approve===true){
+    try{await applyReceipt(request);void OBR.broadcast.sendMessage(COMBAT_CHANNEL,{type:'decision',requestId:d.id,approved:true},{destination:'REMOTE'}).catch(()=>{});}
+    catch(error){approvals.set(d.id,request);throw error;}
+   }else void OBR.broadcast.sendMessage(COMBAT_CHANNEL,{type:'decision',requestId:d.id,approved:false},{destination:'REMOTE'}).catch(()=>{});
+   schedule();return;
+  }
+  if(d.type==='end-battle'){
+   const all=rows();if(!all.length)throw Error('There is no active battle to end.');
+   await OBR.scene.items.updateItems(all.map(row=>row.id),drafts=>{for(const item of drafts)delete item.metadata[BATTLE];});
+   const cleared={id:null,round:1};await OBR.scene.setMetadata({[TURN]:cleared});scene={...scene,[TURN]:cleared};
+   approvals.clear();
+   await grant.call('combat-end',{roomId:OBR.room.id});
+   schedule();bus?.send({type:'combat-refresh'});return;
+  }
   if(d.type==='recommend-setting'){
    if(typeof d.enabled!=='boolean')throw Error('Choose whether to recommend a target.');
    recommendEnabled=d.enabled;
@@ -184,12 +234,34 @@ async function start(){
   // Center only this viewer's camera. Players cannot locate GM-hidden combatants.
   if(d?.type==='locate'){const row=ready?battleForViewer(rows(),gm).find(row=>row.id===d.id):null;if(row)void focus.locate(row.id).catch(error=>console.warn('Initiative locate:',error.message));return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
-  if(!['layout','recommend-setting','stats','initiative','turn','add','remove'].includes(d?.type))return;
+  if(!['layout','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
  });
  async function refreshAccess(){const current=grant;if(!current)return;try{const cap=await current.call('capabilities'),owned=cap.scope==='sheet'?await current.call('list'):[];if(grant!==current)return;admin=cap.admin===true;editableIds=new Set(owned.map(row=>row.id));publish();}catch{if(grant!==current)return;admin=false;editableIds.clear();publish();}}
  const accessTimer=setInterval(()=>void refreshAccess(),30000);
  const stop=publicPartyClient(snapshot=>{party=snapshot.characters;schedule();},status=>{feed=status;publish();});
+ const stopApprovals=OBR.broadcast.onMessage(COMBAT_CHANNEL,event=>{
+  const d=event.data;
+  if(d?.type==='decision'){
+   bus?.send({type:'combat-decision',requestId:d.requestId,approved:d.approved===true});return;
+  }
+  if(!allowed()||d?.type!=='request'||typeof d?.request?.requestId!=='string')return;
+  const request=d.request;
+  if(!/^[0-9a-f-]{36}$/i.test(request.requestId)||!['weapon','ability','spell'].includes(request.source)||
+    !['damage','heal','temp_hp'].includes(request.kind)||!['ac','touch','cmd'].includes(request.defense)||
+    typeof request.actorSheetId!=='string'||typeof request.actorTokenId!=='string'||typeof request.targetTokenId!=='string'||
+    request.actorTokenId.length>128||request.targetTokenId.length>128||
+    !Number.isInteger(request.round)||request.round<1)return;
+  const wanted=request.source==='weapon'?'weapon':'ability';
+  if(!validationFrom(room)[wanted]&&!request.forceReview)return;
+  const actual=rows(),actor=actual.find(row=>row.id===request.actorTokenId),target=actual.find(row=>row.id===request.targetTokenId);
+  if(!actor||!target||!actor.available||!target.available)return;
+  const sheetId=actor.isNpc?items.find(item=>item.id===actor.id)?.metadata?.[BATTLE]?.npcId:actor.siteId;
+  if(sheetId!==request.actorSheetId)return;
+  if(approvals.size>=40)approvals.delete(approvals.keys().next().value);
+  approvals.set(request.requestId,{...request,actorName:actor.name,targetName:target.name,at:Date.now()});
+  schedule();
+ });
  room=await OBR.room.getMetadata();OBR.room.onMetadataChange(value=>{room=value;schedule();});
  async function loadScene(){
   const current=++epoch;ready=false;bars.clear();items=[];scene={};schedule();void OBR.popover.close(PREFIX+'/setup').catch(()=>{});
@@ -212,6 +284,6 @@ async function start(){
  await syncMenu();
  // Close widgets left by the retired standalone Party extension in this browser.
  await Promise.allSettled([INIT,'com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
- publish();window.addEventListener('pagehide',()=>{stopped=true;history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();void focus.close();clearTimeout(timer);},{once:true});
+ publish();window.addEventListener('pagehide',()=>{stopped=true;stopApprovals();history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();void focus.close();clearTimeout(timer);},{once:true});
 }
 OBR.onReady(()=>void start().catch(e=>console.error('Cosmos:',e)));
