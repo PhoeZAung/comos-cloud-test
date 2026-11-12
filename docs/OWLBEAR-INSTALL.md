@@ -418,3 +418,53 @@ indirect effects, vulnerability multipliers, ongoing DOT, specific creature
 exceptions, weapon-property thresholds, and special homebrew FFD20 mechanics
 still require GM adjudication. Do not assume every spell, or every spell-like
 ability, automatically allows SR.
+
+## Existing spell and ability saving throws (v1.7.2)
+
+The **Saving throw** section inside the existing spell and ability editors has
+three structured fields beside the original descriptive `Saving Throw` text:
+
+- **Saving throw**: None, Fortitude, Reflex or Will.
+- **On successful save**: GM resolves, Negates, Half or Alternate damage.
+- **Damage dice if save succeeds**: optional formula for Alternate damage, such
+  as `3d6 + {CL}`.
+
+Cosmos keeps its existing spell DC and per-ability `Save DC formula`. A spell
+that allows a save must have a usable DC, and the target must have a saved
+Fortitude, Reflex or Will bonus. A verified server-side d20 roll is compared to
+the DC; a natural 1 fails and natural 20 succeeds. Saving throw results are
+recorded in the existing Combat History and shown in spell roll receipts.
+
+**Example — Slay Living (PF1)**: configure Effect Type **Damage**, main dice
+`12d6 + {CL}`, **Fortitude**, **Alternate damage**, and successful save dice
+`3d6 + {CL}`. Because this spell requires a *melee touch attack*, configure
+its Attack Type as **Touch** and respect any target SR. A successful Fortitude
+save deals the alternate damage, not zero or half damage; spell-specific
+immunity and unusual effects still require GM adjudication.
+
+For normal damaging spells such as Fireball, **Reflex + Half** reduces damage
+(round down) *before* energy resistance. **Negates** means no HP effect on a
+successful save. **GM resolves** means that unusual partial effects, multiple
+saving throw effects, status conditions or complex wording are not
+automatically applied.
+
+Existing descriptive save text (e.g. `Fortitude partial`) **is not silently
+converted**: saving throws require a structured selection and outcome. When
+the description mentions a save but the structured Save Type is still None,
+automatic HP application stops with an explanation rather than doing full
+damage. Legacy spells with no saving throw remain unchanged. Missing NPC
+Fortitude/Reflex/Will, missing DC, unknown settings, and missing Alternate
+damage formula similarly stop automatic application. Player saving throws use
+the calculated values from their existing Cosmos sheets.
+
+Spell resistance still resolves first; saves resolve only when SR is
+overcome. DR and elemental resistance apply to the post-save damage. Existing
+GM approval toggles and initiative turn checks remain unchanged. An action's
+saved receipt ID prevents repeated rolls from re-rolling SR or saves.
+
+**Not automated by this update**: death immunities, evasion, improved
+evasion, saving throws against ongoing poisons and statuses, spells with
+multiple targets/saves or non-HP partial effects, spell durations, and
+special race/class/FFD20 exceptions. These remain GM-managed. Setting
+validation toggles to ON can provide extra review, but does not replace
+those exceptional rules.
