@@ -1,4 +1,5 @@
 import {resourceEditor,defenses} from './tracker-view.mjs';
+import {initiativeLinkStatus} from './initiative-link.mjs';
 import {combatEventVerdict} from '../features/sheet/combat-verdict.mjs';
 
 // Shared initiative UI for the extension tab and legacy standalone view.
@@ -13,7 +14,7 @@ export function mountInitiative(view,send){
    active.add(row.id);let card=cards.get(row.id);
    if(!card){
     const node=document.createElement('tr');
-    node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"><button type="button" class="battle-locate"><span class="battle-locate-label"></span><svg class="battle-hidden-eye" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M3 3l18 18"/><path d="M10.7 10.7a2 2 0 002.6 2.6"/><path d="M9.9 5.4A11 11 0 0112 5c4.6 0 8 3 10 7a15.8 15.8 0 01-3.4 4.3"/><path d="M6.2 6.2A16.8 16.8 0 002 12c2 4 5.5 7 10 7a10.6 10.6 0 005.1-1.3"/></svg></button></td><td><button data-key="hp" class="battle-resource hp"></button></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
+    node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"><button type="button" class="battle-locate"><span class="battle-link-indicator" aria-hidden="true"></span><span class="battle-locate-label"></span><svg class="battle-hidden-eye" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M3 3l18 18"/><path d="M10.7 10.7a2 2 0 002.6 2.6"/><path d="M9.9 5.4A11 11 0 0112 5c4.6 0 8 3 10 7a15.8 15.8 0 01-3.4 4.3"/><path d="M6.2 6.2A16.8 16.8 0 002 12c2 4 5.5 7 10 7a10.6 10.6 0 005.1-1.3"/></svg></button></td><td><button data-key="hp" class="battle-resource hp"></button></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
     card={node,input:node.querySelector('input')};cards.set(row.id,card);
     const name=node.querySelector('.battle-locate');name.setAttribute('aria-label','Center camera on '+row.name);name.title='Center camera on '+row.name;name.onclick=()=>send({type:'locate',id:row.id});
     name.onpointerenter=()=>send({type:'highlight',id:row.id});
@@ -35,9 +36,12 @@ export function mountInitiative(view,send){
    }
    if(root.children[index]!==card.node)root.insertBefore(card.node,root.children[index]||null);
    card.node.classList.toggle('current-turn',row.id===turn);card.node.classList.toggle('unavailable',!row.available);
+   const linkStatus=initiativeLinkStatus(row);card.node.dataset.linkStatus=linkStatus.kind;
    if(document.activeElement!==card.input)card.input.value=row.initiative;
    card.input.disabled=!state.admin;card.input.setAttribute('aria-label',row.name+' initiative');
-   const locateButton=card.node.querySelector('.battle-locate');locateButton.querySelector('.battle-locate-label').textContent=row.name;const hidden=row.visible===false&&state.gm===true;locateButton.querySelector('.battle-hidden-eye').hidden=!hidden;locateButton.setAttribute('aria-label','Center camera on '+row.name+(hidden?' (hidden from players)':''));locateButton.title=hidden?'Hidden from players · center camera on '+row.name:'Center camera on '+row.name;
+   const locateButton=card.node.querySelector('.battle-locate');locateButton.querySelector('.battle-locate-label').textContent=row.name;const hidden=row.visible===false&&state.gm===true;locateButton.querySelector('.battle-hidden-eye').hidden=!hidden;locateButton.setAttribute('aria-label','Center camera on '+row.name+(hidden?' (hidden from players)':''));locateButton.title=(hidden?'Hidden from players · ':'')+'Center camera on '+row.name+' · '+linkStatus.label;
+   locateButton.setAttribute('aria-label','Center camera on '+row.name+' · '+linkStatus.label);
+   const indicator=locateButton.querySelector('.battle-link-indicator');indicator.title=linkStatus.label;indicator.dataset.linkStatus=linkStatus.kind;
    for(const key of ['hp','mp']){
     const button=card[key],untracked=key==='hp'&&(!row.trackHp||row.hp===null);
     button.textContent=untracked?'—':String(row[key]);
