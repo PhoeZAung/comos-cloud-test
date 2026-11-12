@@ -139,6 +139,40 @@ the sheet titlebar. The sheet-tab strip appears only after opening a second
 sheet. Admin → group/party sheet viewing uses named tabs instead of opening all
 member sheets side by side; only visited tabs load an iframe.
 
+## Multiple-sheet tabs and weapon stat previews
+
+When a second character sheet is opened in the Owlbear extension, both
+characters appear as connected Cosmos-themed violet tab chips with their
+close controls integrated into the same surface, rather than mixed old-style
+buttons. Closing back to one sheet restores the standard Character tab.
+
+In the player Weapon editor, **Attack Type** controls the default attack
+ability: melee/touch usually use STR, ranged/ranged touch use DEX, or the
+character's saved global attack ability override. Selecting **Automatic
+(attack type)** applies that rule; choosing a specific ability remains
+possible for feats or special weapons.
+
+**Damage Ability** defaults to **Automatic (attack type & style)** for new
+weapons: standard melee uses STR, ordinary ranged uses no ability bonus,
+thrown/sling uses STR, two-handed melee uses 1.5× positive STR, off-hand
+melee uses half positive STR, and bows apply STR penalties as appropriate.
+Attack ability and damage ability are independent: weapon finesse, for
+example, can use DEX to attack while still using STR for damage. Both
+effective abilities and bonuses update in live explanatory summaries as
+the user edits Attack Type, Damage Style, or ability overrides.
+
+Existing weapons with no saved damage-ability setting keep **Formula only**
+on edit to avoid silently adding a second bonus to legacy dice formulas.
+Users can switch to Automatic if their dice formula excludes the ability
+bonus. NPC weapons keep their existing printed attack-bonus workflow.
+
+Conditional feats and special modifiers still require the corresponding
+manual ability override or entered bonus; the editor does not infer every
+feat or equipment rule automatically.
+
+These interface defaults do not imply that every ffd20 class and weapon
+uses exactly the same modifier rule.
+
 ## Extension tabs, camera focus and hidden combatants
 
 Extension navigation uses the Cosmos constellation theme, including a clear
