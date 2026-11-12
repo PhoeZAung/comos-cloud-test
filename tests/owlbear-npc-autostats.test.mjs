@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseNpcStatBlock} from '../src/features/characters/npc-stat-block.mjs';
-import {uniqueNpcForToken,npcHpDice,rollNpcHp,npcBattleStats} from '../src/owlbear/npc-battle.mjs';
+import {uniqueNpcForToken,npcHpDice,rollNpcHp,npcBattleStats,rollNpcInitiative} from '../src/owlbear/npc-battle.mjs';
 
 const imported=[
  '# Iron Warden',
@@ -49,4 +49,13 @@ test('NPC HP formulas are bounded and never interpret non-HP dice',()=>{
  assert.equal(npcHpDice('99 (1d1+0)'),null);
  assert.equal(rollNpcHp(npcHpDice('2 (1d4-20)'),()=>1).hp,1);
  assert.throws(()=>rollNpcHp(npcHpDice('7 (2d6)'),()=>99),/Invalid NPC HP die/);
+});
+
+test('matched NPC initiative is rolled as d20 plus saved Init modifier, not just the modifier',()=>{
+ const npc=character('npc-2'),stats=npcBattleStats(npc,()=>4);
+ assert.equal(stats.initiative,3,'sheet Init remains a modifier');
+ assert.deepEqual(rollNpcInitiative(stats.initiative,()=>15),{d20:15,bonus:3,total:18});
+ assert.deepEqual(rollNpcInitiative(-2,()=>1),{d20:1,bonus:-2,total:-1});
+ assert.throws(()=>rollNpcInitiative(3,()=>21),/Invalid NPC initiative die/);
+ assert.throws(()=>rollNpcInitiative(10000,()=>10),/Invalid NPC initiative modifier/);
 });
