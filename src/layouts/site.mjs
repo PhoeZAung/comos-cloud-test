@@ -1,5 +1,5 @@
 import {sheetLoading} from '../ui/sheet-loading.mjs';
-import {party,player,item,npc} from '../ui/admin-icons.mjs';
+import {party,player,npc} from '../ui/admin-icons.mjs';
 import { previewPolicy } from '../preview/policy.mjs';
 
 export const brand = 'Cosmos';
@@ -8,7 +8,7 @@ const navigation = {
   main: [['home', 'Home'], ['lore', 'Lore'], ['characters', 'Characters']],
   public: [['signin', 'Sign in'], ['signup', 'Sign up']],
   wizard: [['create-identity', 'Identity'], ['create-race', 'Race'], ['create-class', 'Class & level']],
-  admin: [['admin', 'Players'], ['admin-parties', 'Parties'], ['admin-npcs', 'NPCs'], ['admin-items', 'Item controls']],
+  admin: [['admin', 'Players'], ['admin-parties', 'Parties'], ['admin-npcs', 'NPCs']],
   sheet: [['sheet', 'Overview'], ['sheet-inventory', 'Inventory'], ['sheet-abilities', 'Abilities'], ['sheet-shop', 'Shop']],
 };
 
@@ -16,7 +16,7 @@ const labels = { wizard: 'Character creation', admin: 'Admin panel', sheet: 'Cha
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 
 function nav(kind, current, className, label) {
-  return `<nav class="${className}" aria-label="${label}">${navigation[kind].map(([id, text]) => `<a href="${id}.html"${id === current ? ' aria-current="page"' : ''}${kind==='admin'?' title="'+escape(text)+'"':''}>${kind==='admin'?(id==='admin'?player:id==='admin-parties'?party:id==='admin-npcs'?npc:item):escape(text)}${kind==='admin'?'<span class="sr-only">'+escape(text)+'</span>':''}</a>`).join('')}</nav>`;
+  return `<nav class="${className}" aria-label="${label}">${navigation[kind].map(([id, text]) => `<a href="${id}.html"${id === current ? ' aria-current="page"' : ''}${kind==='admin'?' title="'+escape(text)+'"':''}>${kind==='admin'?(id==='admin'?player:id==='admin-parties'?party:npc):escape(text)}${kind==='admin'?'<span class="sr-only">'+escape(text)+'</span>':''}</a>`).join('')}</nav>`;
 }
 
 const back = '<a class="back" href="characters.html">← Characters</a>';
