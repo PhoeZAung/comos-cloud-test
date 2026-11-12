@@ -1,4 +1,5 @@
 import {npcDirectory,npcDirectoryPath} from './npcs.mjs';
+import {normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
 import {createPublicPartyRoutes} from './public-party.mjs';
 import {sheetSkills} from '../../src/features/sheet/skills.mjs';
 import {publishRoll} from './rolls.mjs';
@@ -78,7 +79,8 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin,items}){
    if(req.method==='GET'&&url.searchParams.get('revision')===String(c.revision)){send(200,{unchanged:true,revision:c.revision});return true;}
    let data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');
    const npc=c.kind==='npc';
-   if(!npc)data.skills=sheetSkills(data);
+   if(npc)data=normalizeNpcSheet(data);
+   else data.skills=sheetSkills(data);
    if(req.method==='POST'){
     const change=await adminJson(req,230000);
     if(npc&&(!['sheet','roll','edit','archive','wizard'].includes(change.op)||change.op==='wizard'&&change.step!=='identity'))throw Error('This action is only available for player characters.');
