@@ -25,14 +25,20 @@ export function initiativeFocus(OBR,buildShape){
     if(ids.length){await OBR.scene.local.deleteItems(ids);ids=[];}
     if(closed)return;
     const shapes=[];
-    for(const [id,color,pad] of [[active,'#ffd66d',8],[hovered,'#5cecff',16]]){
+    for(const [id,color] of [[active,'#ffd66d'],[hovered,'#5cecff']]){
      if(!id||!visible(id))continue;
      const box=await bounds(id);
      if(!box||closed)continue;
-     const margin=Math.max(pad,Math.min(box.width,box.height)*.12);
-     shapes.push(buildShape().shapeType('CIRCLE')
-      .width(box.width+margin*2).height(box.height+margin*2)
-      .position({x:box.min.x-margin,y:box.min.y-margin})
+     // Outline the token's actual scene bounds, not a detached circle.
+     // A shallow margin hugs transparent PNG tokens more closely and is
+     // centered using the exact Owlbear item bounds, including scale/rotation.
+     const margin=Math.max(3,Math.min(10,Math.min(box.width,box.height)*.035));
+     const width=box.width+margin*2,height=box.height+margin*2;
+     const cx=box.center?.x??(box.min.x+box.max.x)/2;
+     const cy=box.center?.y??(box.min.y+box.max.y)/2;
+     shapes.push(buildShape().shapeType('RECTANGLE')
+      .width(width).height(height)
+      .position({x:cx-width/2,y:cy-height/2})
       .layer('CHARACTER').zIndex((visible(id)?.zIndex||0)+100)
       .fillOpacity(0).strokeColor(color).strokeOpacity(1).strokeWidth(5)
       .disableHit(true).locked(true).disableAutoZIndex(true)
