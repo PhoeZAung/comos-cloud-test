@@ -183,6 +183,7 @@ function mountCharacterSheet(tabs,switchTo){
  function openDialog(title,keys,values,change,{help=''}={}){
   if(busy||conflict){status(conflict?'Refresh to load the latest sheet before editing.':'Saving…');return;}
   root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;dialogState={keys,change,values:{...values}};dialog().classList.add('cs-star-border');dialog().dataset.editor=change.collection||'';root.querySelector('#cs-dialog-title').textContent=title;
+  root.querySelector('[data-editor-premade]').hidden=!abilityTabs.includes(change.collection);
   root.querySelector('[data-dialog-fields]').innerHTML=keys===groupFields.identity?renderIdentityEditor(values):(help?'<p class="cs-caption">'+e(help)+'</p>':'')+renderEntryFields(keys,values,change.collection);
   updateWeaponEditorPreview();
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
@@ -218,12 +219,22 @@ function mountCharacterSheet(tabs,switchTo){
   const narrative=keys.filter(k=>['desc','effect','at_higher_lvls'].includes(k));
    const abilityEditor=['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection);
    if(abilityEditor){
-    const layouts=[['Ability',['name','lvl','school','type']],['Action & targeting',['action_type','range','duration','target','saving_throw','spell_resist']],['Attack & damage',['attack_type','attack_misc','damage','dc_formula','casting_ability','caster_level','dc_misc','mp_cost','spell_failure']],['Uses & recovery',['uses_formula','u_max','u_curr','restoreOnLongRest']],['Reference',['link']]];
-    const picked=new Set(layouts.flatMap(([,part])=>part));
-    const remainder=keys.filter(k=>!picked.has(k)&&!narrative.includes(k));
+    const narrative=['desc','effect','at_higher_lvls'].filter(k=>keys.includes(k));
+    const layouts=[['Ability details',['lvl','school','type']],['Action & targeting',['action_type','range','duration','target','saving_throw','spell_resist']],['Attack & damage',['attack_type','attack_misc','damage','dc_formula','casting_ability','caster_level','dc_misc','mp_cost','spell_failure']],['Uses & recovery',['uses_formula','u_max','u_curr','restoreOnLongRest']],['Reference',['link']]];
+    const picked=new Set(['name',...layouts.flatMap(([,part])=>part),...narrative]);
+    const remainder=keys.filter(k=>!picked.has(k));
     if(remainder.length)layouts.push(['Additional details',remainder]);
-    const groups=layouts.map(([label,part])=>{const visible=part.filter(k=>keys.includes(k));return visible.length?'<fieldset class="cs-editor-group cs-ability-field-group"><legend>'+label+'</legend>'+visible.map(render).join('')+'</fieldset>':'';}).join('');
-    return '<div class="cs-form-grid cs-ability-editor">'+groups+(narrative.length?'<fieldset class="cs-editor-group cs-ability-prose"><legend>Description & effects</legend>'+narrative.map(render).join('')+'</fieldset>':'')+'</div>';
+    const groups=layouts.map(([label,part])=>{
+     const visible=part.filter(k=>keys.includes(k));
+     return visible.length?'<fieldset class="cs-editor-group cs-ability-field-group"><legend>'+label+'</legend>'+visible.map(render).join('')+'</fieldset>':'';
+    }).join('');
+    if(abilityTabs.includes(collection)){
+     return '<div class="cs-form-grid cs-ability-editor cs-manual-ability-editor">'+render('name')+
+      '<details class="cs-ability-advanced"><summary>Advanced Settings</summary><div class="cs-ability-advanced-grid">'+groups+'</div></details>'+
+      '<div class="cs-ability-prose cs-ability-prose-sections">'+narrative.map(k=>'<section class="cs-ability-prose-card">'+render(k)+'</section>').join('')+'</div></div>';
+    }
+    return '<div class="cs-form-grid cs-ability-editor">'+render('name')+groups+
+     (narrative.length?'<fieldset class="cs-editor-group cs-ability-prose"><legend>Description & effects</legend>'+narrative.map(render).join('')+'</fieldset>':'')+'</div>';
    }
    return '<div class="cs-form-grid">'+keys.filter(k=>!['u_max','u_curr','desc','effect','at_higher_lvls'].includes(k)).map(render).join('')+(keys.includes('u_curr')?'<fieldset class="cs-editor-group cs-usage-fields"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>':'')+(narrative.length?'<div class="cs-ability-prose">'+narrative.map(render).join('')+'</div>':'')+'</div>';
  }
@@ -488,7 +499,12 @@ function mountCharacterSheet(tabs,switchTo){
    }
    if(button.matches('[data-remove-damage-type]')){const type=button.dataset.removeDamageType;button.closest('.cs-damage-tag').remove();for(const option of root.querySelector('[data-add-damage-type]').options)if(option.value===type)option.disabled=false;dirty=true;return;}
   if(button.matches('[data-level-up],[data-open-rest]')){const modal=document.createElement('dialog');modal.className='cs-dialog cs-quick-action';modal.setAttribute('aria-label',button.hasAttribute('data-level-up')?'Level up':'Rest');modal.innerHTML=button.hasAttribute('data-level-up')?'<a class="button primary" href="create-identity.html?characterId='+encodeURIComponent(button.dataset.levelUp)+'&levelUp=1">Level up</a>':'<button class="button primary" type="button" data-confirm-rest>Rest</button>';modal.addEventListener('click',event=>{if(event.target===modal)modal.close();if(event.target.closest('[data-confirm-rest]')){modal.close();void save({action:'rest'});}});modal.addEventListener('close',()=>modal.remove(),{once:true});document.body.append(modal);modal.showModal();return;}
-  if(button.matches('[data-rule-abilities]')){button.closest('details')?.removeAttribute('open');void openRuleAbilities();return;}
+  if(button.matches('[data-editor-premade]')){
+    if(!abilityTabs.includes(dialogState?.change?.collection))return;
+    if(dirty&&!confirm('Discard unsaved manual ability edits and browse premade abilities?'))return;
+    dialog().close();dirty=false;void openRuleAbilities();return;
+   }
+   if(button.matches('[data-rule-abilities]')){button.closest('details')?.removeAttribute('open');void openRuleAbilities();return;}
    if(button.matches('[data-add-manual-ability]')){button.closest('details')?.removeAttribute('open');editEntry(ability,null);return;}
   if(button.matches('[data-accessory-open]')){const panel=root.querySelector('.cs-accessory-panel');panel.open=!panel.open;button.setAttribute('aria-expanded',String(panel.open));if(panel.open)panel.scrollIntoView({block:'nearest'});return;}
 
