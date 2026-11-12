@@ -39,6 +39,7 @@ export function normalizeNpcSheet(data={}){
  const oldStats=data?.npcStats&&typeof data.npcStats==='object'&&!Array.isArray(data.npcStats)?data.npcStats:{};
  const oldText=data?.npcText&&typeof data.npcText==='object'&&!Array.isArray(data.npcText)?data.npcText:{};
  return {...data,
+  ...Object.fromEntries(['hp_curr','hp_max','hp_temp','mp_curr','mp_max'].map(key=>[key,Number.isFinite(data?.[key])?data[key]:null])),
   npcStats:Object.fromEntries(npcNumericKeys.map(key=>[key,Number.isFinite(oldStats[key])?oldStats[key]:null])),
   npcText:Object.fromEntries(npcTextKeys.map(key=>[key,typeof oldText[key]==='string'&&oldText[key].trim()?oldText[key]:null]))
  };
@@ -98,7 +99,7 @@ export function parseNpcStatBlock(markdown=''){
    if(ability&&activeAbilities.length<100)activeAbilities.push({name:ability[1].replace(/:$/,'').slice(0,120),desc:clean(ability[2]).slice(0,12000),...( /\((?:Sp|SL)\)/i.test(ability[1])?{ability_kind:'sp'}:/\(Su\)/i.test(ability[1])?{ability_kind:'su'}:/\(Ex\)/i.test(ability[1])?{ability_kind:'ex'}:{} )});
   }
   const table=/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|/.exec(line);
-  const inline=/^(Init(?:iative)?|AC|HP|Fort|Ref|Will|Speed|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Defensive Abilities|Special Attacks|DR|SR|Resist|Immune|Weaknesses|Caster Level|CL)\s*:?\s+(.+)$/i.exec(line);
+  const inline=/^(Init(?:iative)?|AC|HP|Fort|Ref|Will|Speed|Space|Reach|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Defensive Abilities|Special Attacks|DR|SR|Resist|Immune|Weaknesses|Caster Level|CL|Spell DC|Perception)\s*:?\s+(.+)$/i.exec(line);
   const row=table||inline;
   if(row&&!rows.has(row[1].toLowerCase()))rows.set(row[1].toLowerCase(),row[2]);
  }
@@ -110,7 +111,14 @@ export function parseNpcStatBlock(markdown=''){
   ref:valueAtStart(get('ref'))??namedValue(saves,'Ref'),will:valueAtStart(get('will'))??namedValue(saves,'Will'),
   speed:valueAtStart(get('speed')),bab:valueAtStart(bab),cmb:valueAtStart(get('cmb'))??namedValue(bab,'CMB'),
   cmd:valueAtStart(get('cmd'))??namedValue(bab,'CMD'),str:valueAtStart(scores),
-  casterLevel:valueAtStart(get('cl'))??valueAtStart(get('caster level'))
+  casterLevel:valueAtStart(get('cl'))??valueAtStart(get('caster level')),
+  spellDC:valueAtStart(get('spell dc')),
+  perception:valueAtStart(get('perception'))??namedValue(init,'Perception')??namedValue(get('senses'),'Perception'),
+  reach:valueAtStart(get('reach'))??namedValue(get('space'),'Reach'),
+  flySpeed:namedValue(get('speed'),'fly'),swimSpeed:namedValue(get('speed'),'swim'),
+  climbSpeed:namedValue(get('speed'),'climb'),burrowSpeed:namedValue(get('speed'),'burrow'),
+  fastHealing:namedValue(get('defensive abilities'),'fast healing'),
+  regeneration:namedValue(get('defensive abilities'),'regeneration')
  };
  for(const key of ['dex','con','int','wis','cha'])values[key]=valueAtStart(get(key))??namedValue(scores,key);
  const defensiveText=[get('defensive abilities'),get('dr'),get('sr')].filter(Boolean).join('; ');
