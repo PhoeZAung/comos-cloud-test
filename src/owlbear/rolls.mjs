@@ -1,3 +1,5 @@
+import {sheetSkills,skillCanRoll} from '../features/sheet/skills.mjs';
+import {skillTotal} from '../features/sheet/model.mjs';
 import {diceTerms,damageExpression,entryCalculations,armorSpellFailure,criticalProfile,weaponDamageFormulas} from '../features/sheet/calculations.mjs';
 import {weaponAttackParts} from '../features/sheet/model.mjs';
 
@@ -19,6 +21,13 @@ export async function requestSheetDice(character,change,requestRoll){
   responses.push({expression,faces});return faces;
  }
  if(!change.kind){await roll(change.expression);return responses;}
+ if(change.kind==='skill'){
+  const row=sheetSkills(data)[change.index];
+  if(!row||!skillCanRoll(row))throw Error('Trained only: assign 1 rank before rolling this skill.');
+  const bonus=skillTotal(row,data);
+  await roll('1d20'+(bonus>=0?'+':'')+bonus);
+  return responses;
+ }
  const key=change.kind==='weapon'?'weapons':change.kind==='spell'?'spells':change.collection,row=data[key]?.[change.index];
  if(!row)throw Error('Entry unavailable. Reload your sheet.');
  if(change.mode==='send')return [];
