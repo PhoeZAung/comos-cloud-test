@@ -1,6 +1,6 @@
 const modules=new Map();
 export function loadSheetEffect(name){
- if(!['electric','paper'].includes(name))throw Error('Unknown sheet effect.');
+ if(!['electric','paper','laser'].includes(name))throw Error('Unknown sheet effect.');
  if(!modules.has(name)){
   // Local, prebuilt assets; no runtime registry or CDN request.
   const base=new URL('./react-bits/'+name,import.meta.url);

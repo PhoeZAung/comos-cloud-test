@@ -55,3 +55,6 @@ jobs:
         if: github.event_name == 'pull_request'
         run: node scripts/check-catalog-shop-browser.mjs
 
+      - name: Exercise LaserFlow and ready Limit Break borders in Chromium
+        if: github.event_name == 'pull_request'
+        run: node scripts/check-laser-limit-browser.mjs

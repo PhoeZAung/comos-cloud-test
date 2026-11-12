@@ -77,6 +77,6 @@ await build({entryPoints:[fileURLToPath(new URL('src/ui/party-notes.mjs',root))]
 await writeFile(new URL('dist/assets/party-notes.LICENSE.txt',root),(await Promise.all(['yjs','lib0','isomorphic.js'].map(async name=>name+'\n'+await readFile(new URL('node_modules/'+name+'/LICENSE',root),'utf8')))).join('\n\n'));
 
 // React Bits effects are local, lazy-loaded islands; React stays out of normal sheet startup.
-await build({entryPoints:["electric","paper"].map(name=>fileURLToPath(new URL("src/effects/react-bits/"+name+".jsx",root))),bundle:true,splitting:true,format:"esm",platform:"browser",target:"es2022",jsx:"automatic",minify:true,define:{"process.env.NODE_ENV":"\"production\""},outdir:fileURLToPath(new URL("dist/assets/react-bits/",root))});
+await build({entryPoints:["electric","paper","laser"].map(name=>fileURLToPath(new URL("src/effects/react-bits/"+name+".jsx",root))),bundle:true,splitting:true,format:"esm",platform:"browser",target:"es2022",jsx:"automatic",minify:true,define:{"process.env.NODE_ENV":"\"production\""},outdir:fileURLToPath(new URL("dist/assets/react-bits/",root))});
 
 await writeFile(new URL("dist/assets/react-bits/LICENSE.txt",root),await readFile(new URL("docs/licenses/React-Bits-LICENSE.md",root),"utf8")+"\n"+(await Promise.all(["react","react-dom","three","html-to-image"].map(async name=>name+"\n"+await readFile(new URL("node_modules/"+name+"/LICENSE",root),"utf8")))).join("\n\n"));

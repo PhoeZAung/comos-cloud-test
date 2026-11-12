@@ -1,11 +1,20 @@
+import {loadSheetEffect} from './react-bits-loader.mjs';
 import {preferences,themes} from './preferences.mjs';
 export function setupEffects(){
  const target=document.querySelector('[data-galaxy]');if(!target)return ()=>{};
  const sheet=document.body.dataset.layout==='sheet',reduced=matchMedia('(prefers-reduced-motion: reduce)'),coarse=matchMedia('(pointer: coarse)').matches;
- const control=new AbortController(),splashRoot=document.createElement('div'),laserRoot=document.createElement('div');splashRoot.className='splash-effect';splashRoot.setAttribute('aria-hidden','true');document.body.append(splashRoot);laserRoot.className='laser-flow';laserRoot.setAttribute('aria-hidden','true');laserRoot.hidden=true;laserRoot.innerHTML='<span class="laser-flow-beam"></span><span class="laser-flow-core"></span><span class="laser-flow-impact"></span><span class="laser-flow-mist"></span>';document.body.append(laserRoot);
- let settings={...preferences},galaxyDispose,splashDispose,lastKey='',generation=0,closed=false,idle,timer,laserStyles;
+ const control=new AbortController(),splashRoot=document.createElement('div'),laserRoot=document.createElement('div');splashRoot.className='splash-effect';splashRoot.setAttribute('aria-hidden','true');document.body.append(splashRoot);laserRoot.className='laser-flow';laserRoot.setAttribute('aria-hidden','true');laserRoot.hidden=true;document.body.append(laserRoot);
+ let settings={...preferences},galaxyDispose,splashDispose,lastKey='',generation=0,closed=false,idle,timer,laserDispose,laserGeneration=0;
+ async function syncLaser(){
+  const ticket=++laserGeneration;laserDispose?.();laserDispose=null;laserRoot.replaceChildren();
+  laserRoot.hidden=!settings.laserFlow||reduced.matches;
+  if(laserRoot.hidden)return;
+  try{const {mountLaserFlow}=await loadSheetEffect('laser');if(closed||ticket!==laserGeneration)return;laserDispose=mountLaserFlow(laserRoot);}
+  catch{if(!closed&&ticket===laserGeneration)laserRoot.hidden=true;}
+ }
+ let laserKey='';
  async function render(){
-  if(closed)return;const key=JSON.stringify([settings.theme,settings.effectColors,settings.pauseStars,settings.splashCursor,settings.laserFlow,reduced.matches]);laserRoot.hidden=!settings.laserFlow||reduced.matches;if(!laserRoot.hidden&&!laserStyles){laserStyles=document.createElement('link');laserStyles.rel='stylesheet';laserStyles.href='assets/laser-flow.css';document.head.append(laserStyles);}if(key===lastKey)return;lastKey=key;
+  if(closed)return;const key=JSON.stringify([settings.theme,settings.effectColors,settings.pauseStars,settings.splashCursor,settings.laserFlow,reduced.matches]);const nextLaserKey=JSON.stringify([settings.laserFlow,reduced.matches]);if(nextLaserKey!==laserKey){laserKey=nextLaserKey;void syncLaser();}if(key===lastKey)return;lastKey=key;
   const ticket=++generation;galaxyDispose?.();galaxyDispose=null;splashDispose?.();splashDispose=null;splashRoot.replaceChildren();
   const palette=settings.effectColors?themes[settings.theme].colors:undefined;
   try{const {createGalaxy}=await import('./galaxy.mjs');if(closed||ticket!==generation)return;galaxyDispose=createGalaxy(target,{density:1,glowIntensity:.3,flareIntensity:1,starSpeed:.5,starColors:palette,mouseRepulsion:true,clickWarp:!settings.pauseStars,mouseInteraction:!settings.pauseStars,intro:false,disableAnimation:settings.pauseStars||reduced.matches,dpr:sheet||coarse?0.75:1,layers:sheet||coarse?2:4});}catch{target.dataset.galaxyState='unavailable';target.replaceChildren();}
@@ -17,6 +26,6 @@ export function setupEffects(){
  reduced.addEventListener('change',()=>void render(),{signal:control.signal});
  document.addEventListener('comos:preferences',event=>{settings={...event.detail};void render();},{signal:control.signal});
  if('requestIdleCallback' in window)idle=requestIdleCallback(()=>void render(),{timeout:1500});else timer=setTimeout(()=>void render(),250);
- const dispose=()=>{if(closed)return;closed=true;generation++;control.abort();if(idle!==undefined)cancelIdleCallback(idle);clearTimeout(timer);galaxyDispose?.();splashDispose?.();splashRoot.remove();laserRoot.remove();laserStyles?.remove();};
+ const dispose=()=>{if(closed)return;closed=true;generation++;control.abort();if(idle!==undefined)cancelIdleCallback(idle);clearTimeout(timer);galaxyDispose?.();splashDispose?.();laserGeneration++;laserDispose?.();splashRoot.remove();laserRoot.remove();};
  window.addEventListener('pagehide',dispose,{once:true,signal:control.signal});return dispose;
 }
