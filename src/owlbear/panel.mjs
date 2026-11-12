@@ -40,7 +40,8 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
     group.append(button,close);
     return group;
    };
-   first.replaceWith(wrap(first,sheets[0],{initial:true}));
+   const position=document.createComment('First Cosmos sheet tab');first.replaceWith(position);
+   position.replaceWith(wrap(first,sheets[0],{initial:true}));
    for(const sheet of sheets.slice(1)){
     const button=document.createElement('button');button.type='button';button.setAttribute('role','tab');
     button.dataset.panelTab='sheet:'+sheet.id;button.setAttribute('aria-controls','panel-character');
