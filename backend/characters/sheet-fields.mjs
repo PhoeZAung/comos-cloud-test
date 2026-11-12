@@ -1,5 +1,5 @@
 import {randomUUID} from 'node:crypto';
-import {npcStatLabels,npcTextLabels} from '../../src/features/characters/npc-stat-block.mjs';
+import {npcStatLabels,npcTextLabels,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {abilityKinds,srModes} from '../../src/features/sheet/pathfinder-defenses.mjs';
@@ -31,12 +31,12 @@ const bad=message=>{throw Error(message);};
 function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.isFinite(Number(v))||Math.abs(Number(v))>100000000)bad('Enter a valid number.');return Number(v);}
 function text(v,max=12000,label='Text'){if(typeof v!=='string'||v.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v))bad(label+' is too long (limit '+max+' characters) or contains invalid characters.');return v;}
 export function mergeSheetData(original,change,{npc=false}={}){
- const data=structuredClone(original);
+ const data=npc?normalizeNpcSheet(structuredClone(original)):structuredClone(original);
  if(change.action==='npcStats'){
   if(!npc||!plain(change.fields)||Object.keys(change.fields).some(key=>!Object.hasOwn(npcStatLabels,key)))bad('Invalid NPC stats.');
   data.npcStats??={};
   for(const [key,value] of Object.entries(change.fields)){
-   if(value===''){delete data.npcStats[key];if(abilities.includes(key))delete data[key];continue;}
+   if(value===''||value===null){data.npcStats[key]=null;if(abilities.includes(key))delete data[key];continue;}
    const score=numeric(value);
    if(Math.abs(score)>100000||key!=='cr'&&!Number.isInteger(score))bad('Enter a valid '+npcStatLabels[key]+' value.');
    data.npcStats[key]=score;
@@ -47,7 +47,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
  if(change.action==='npcText'){
   if(!npc||!plain(change.fields)||Object.keys(change.fields).some(key=>!Object.hasOwn(npcTextLabels,key)))bad('Invalid NPC details.');
   data.npcText??={};
-  for(const [key,value] of Object.entries(change.fields))data.npcText[key]=text(value,4000,npcTextLabels[key]);
+  for(const [key,value] of Object.entries(change.fields))data.npcText[key]=value===null||value===''?null:text(value,4000,npcTextLabels[key]);
   return data;
  }
  if(change.action==='placeAbility'){
