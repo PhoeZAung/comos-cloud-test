@@ -10,9 +10,13 @@ The existing Laser Flow preference lazy-loads the local `laser` effect bundle.
 It uses beamPosition 0.6, color #3847ff, intensity 1.8, flare 1.5, spread 1.5,
 spill 1, fog 0.2, dust 1.6, revealRadius 220 and revealOpacity 0.6.
 The reveal image is the existing Cosmos universe artwork instead of the sample
-`/your-ui.png`. The surface reference uses the supplied percentage geometry
-with a transparent surface to preserve the existing page background. The stage
-fills the viewport, matching Cosmos's previous global Laser Flow setting.
+`/your-ui.png`. On character sheets, the surface reference follows the actual Favorites/Character/
+Combat navigation bar. The beam hits that bar at 60% of its width and spills down
+both sides of the sheet content. The sheet uses spread 2.5 so the light reaches
+both edges. Resize, nested scrolling and tab redraws update the geometry; after
+the bar scrolls above the viewport the side barrier continues from the top edge.
+Pages without visible sheet tabs retain the supplied percentage geometry and
+spread 1.5. The reference surface stays transparent and the stage fills the viewport.
 Disabling the preference, enabling reduced motion, or leaving the page unmounts
 the effect. The overlay does not capture pointer input.
 
