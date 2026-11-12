@@ -10,7 +10,7 @@ test('catalog preview uses safe full descriptions and source item metadata befor
  assert.doesNotMatch(html,/<script>|<img/);
  assert.match(html,/Item details/);
  assert.match(html,/Weight/);
- assert.match(html,/1 lb/);
+ assert.match(html,/<dt>Weight \(lb\)<\/dt><dd>1<\/dd>/);
 });
 
 test('catalog purchase totals use fixed exact prices and never estimate ambiguous prices',()=>{
