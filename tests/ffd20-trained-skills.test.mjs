@@ -53,7 +53,7 @@ test('grey out dice and entire locked skill control while leaving Edit and Favor
  assert.match(html,/data-skill-index="1"/);
  const saved=mergeSheetData(d,{action:'entry',collection:'skills',mode:'update',index:0,fields:{lvl:1}});
  assert.equal(skillCanRoll(sheetSkills(saved)[0]),true);
- assert.equal(skillTotal(saved.skills[0],saved),7,'rank plus misc bonus is retained');
+ assert.equal(skillTotal(saved.skills[0],saved),10,'rank +1, misc +6, class skill +3 are retained');
  const newHtml=renderSkillRows(saved);
  assert.doesNotMatch(newHtml.slice(newHtml.indexOf('Computers'),newHtml.indexOf('Craft (Alchemy)')+1),/trained only · 1 rank required/i);
 });
