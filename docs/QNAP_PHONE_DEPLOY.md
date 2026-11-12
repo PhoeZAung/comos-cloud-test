@@ -1,77 +1,96 @@
-# Cosmos: approve-and-publish from a phone
+# Cosmos production: publish manually to QNAP from Termius
 
-The live site is hosted on QNAP, NOT Railway. The workflow is **manual only**
-(`workflow_dispatch`). Pushing or merging code never triggers deployment.
+**This is the production deployment procedure. Do not use GitHub Actions,
+Railway, or a push-to-deploy workflow to publish production Cosmos.**
 
-## Installed in the GitHub repository
+The production website is hosted on a QNAP NAS and exposed through Tailscale:
+https://cosmos-web.burmese-barbel.ts.net
 
-- `.github/workflows/deploy-qnap.yml`: Node 24 tests, tracked-source package,
-  Tailscale v4 connection, signed SSH transfer.
-- `scripts/deploy-qnap.sh`: QNAP-side receiver. Must be installed on the NAS
-  before the workflow can be used; changing this repo file does not automatically
-  update the locally installed receiver.
+Source of truth: GitHub **PhoeZAung/comos-cloud-test**, branch **main**.
+QNAP directory: **/share/Service/Container/Cosmos**.
+Running app container: **cosmos-app** (image **cosmos:staging**).
+The separate **cosmos-tailscale** container should remain running.
 
-## One-time prerequisites
+## The already-working deployment method
 
-1. Tailscale policy: create `tag:cosmos-ci` with a suitable `tagOwners` entry.
-   Add a grant from `tag:cosmos-ci` to the NAS Tailscale node on `tcp:22`.
-   Inspect existing broad grants/ACLs too: grants are additive, not deny rules.
-2. Create Tailscale OAuth client with **Auth Keys: Write** and assigned tag
-   `tag:cosmos-ci`.
-3. Set GitHub Actions repository secrets (never commit their values):
-   `TS_OAUTH_CLIENT_ID`, `TS_OAUTH_SECRET`,
-   `COSMOS_DEPLOY_SSH_KEY`, and `COSMOS_QNAP_KNOWN_HOSTS`.
-4. On NAS over Tailscale SSH, install `scripts/deploy-qnap.sh` as
-   `/share/Service/Container/Cosmos/deploy-from-github.sh` and `chmod 700`.
-   You can fetch only that file using the existing Alpine Git container:
-   
-   ```sh
-   BASE=/share/Service/Container/Cosmos
-   docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp \
-     -v "$BASE/app:/git" -w /git alpine/git:latest fetch --depth 1 origin main
-   docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp \
-     -v "$BASE/app:/git" -w /git alpine/git:latest \
-     show FETCH_HEAD:scripts/deploy-qnap.sh > "$BASE/deploy-from-github.sh"
-   chmod 700 "$BASE/deploy-from-github.sh"
-   ```
+The user successfully deployed with the **existing QNAP-local** script
+**/share/Service/Container/Cosmos/publish-cosmos-qnap.sh** on November 11, 2026.
+That script is also versioned as **scripts/publish-cosmos-qnap.sh** in this repo,
+but editing the GitHub copy does not update the installed QNAP copy.
 
-5. Set up a **dedicated** Ed25519 SSH deployment key. Append to the QNAP
-   account's `~/.ssh/authorized_keys` a line beginning with:
-   
-   ```
-   restrict,command="/bin/sh /share/Service/Container/Cosmos/deploy-from-github.sh" ssh-ed25519 AAAA... cosmos-github-deploy
-   ```
-   
-   Replace the public key placeholder with the actual key; do not copy private
-   key material into the repository or a chat. Confirm QNAP's actual home
-   directory and SSH public-key support before editing `authorized_keys`.
-   Put the matching private key **only** into the GitHub Actions secret
-   `COSMOS_DEPLOY_SSH_KEY`.
-6. Record the NAS SSH **host public key**, formatted as a `known_hosts` line
-   for `100.120.3.104`, in `COSMOS_QNAP_KNOWN_HOSTS`. Confirm the host-key
-   fingerprint by a trusted channel, rather than blindly accepting SSH keys.
+1. GPT implements changes in GitHub and merges an approved, tested PR to **main**.
+   A merge alone is NOT a QNAP deployment.
+2. Identify the exact **40-character** latest main commit SHA after the merge.
+   Confirm the intended release and any database-migration implications.
+3. On a phone/computer, connect to the QNAP with **Termius via Tailscale**.
+4. Paste the **real** merged SHA (not the placeholder) in this command:
 
-## Publish
+~~~sh
+cd /share/Service/Container/Cosmos
+sh ./publish-cosmos-qnap.sh <FULL_40_CHARACTER_MAIN_COMMIT_SHA>
+~~~
 
-From GitHub (works on phone): **Actions → Publish Cosmos to QNAP →
-Run workflow → main → Run workflow**.
+5. Do not interrupt the script or rerun it blindly on an error. It downloads
+   that exact commit from GitHub, builds a candidate image, tests database
+   migrations on a copy, creates/verifies a backup, captures a final database
+   snapshot, recreates **only cosmos-app**, checks /api/v1/health, and attempts
+   code/database rollback if activation fails.
+6. The script should print **COSMOS RELEASE IS LIVE: <SHA>**. Verify:
 
-The workflow only deploys from `main`; it does not accept a branch name as
-user input. The deployment receiver accepts the exact 40-character commit SHA
-and a compressed `git archive` over SSH standard input, so it does not require
-Git on the NAS.
+~~~sh
+cat /share/Service/Container/Cosmos/current-code-sha
+docker ps --filter name=cosmos-app
+docker logs --tail 30 cosmos-app
+~~~
 
-The script builds a candidate image first; if it builds successfully, it calls
-`backup-cosmos.sh`, switches the `cosmos:staging` tag, recreates **only**
-`cosmos-app`, and checks `/api/v1/health`. On failure it attempts to restore
-the previous **image**. It does **not** roll back SQLite schema migrations.
-Never deploy incompatible database migrations without a separate migration plan.
+7. Open the live site, hard-refresh, and test the relevant feature with a
+   signed-in account. Container health is not sufficient for browser acceptance.
 
-## Safety
+## Optional one-command launcher (install ONCE on QNAP)
 
-- No port forwarding, no myQNAPcloud publishing, and no public NAS SSH.
-- Tailscale Funnel is for the public Cosmos WEBSITE, not the management plane.
-- Preserve `/share/Service/Container/Cosmos/data`, `secrets`, and `backups`.
-- A GitHub Actions secret with an SSH key is sensitive: only manually dispatch
-  reviewed commits on `main`. Prefer GitHub branch protection for AI edits.
-- HBS 3 remains the off-NAS backup; periodically verify restores.
+**scripts/publish-latest-qnap.sh** is an optional Termius helper. It queries the
+current GitHub main SHA, displays it, requires the user to type **DEPLOY**, then
+calls the existing tested, commit-pinned NAS publisher. It does not use GitHub
+Actions or trigger on a push, and does not change the deployment's backup logic.
+
+On the QNAP, install or refresh this launcher, inspect it, then invoke it:
+
+~~~sh
+cd /share/Service/Container/Cosmos
+curl -fsSL https://raw.githubusercontent.com/PhoeZAung/comos-cloud-test/main/scripts/publish-latest-qnap.sh -o publish-cosmos
+chmod 700 publish-cosmos
+cat publish-cosmos
+sh ./publish-cosmos
+~~~
+
+If the launcher has not been installed, use the exact-SHA command above instead.
+Neither a GitHub commit nor this documentation installs a launcher onto QNAP.
+
+## Guardrails for future GPT work
+
+- **Never** claim code is published to QNAP just because GitHub main was updated,
+  tests passed, or a cloud preview was deployed. Require a successful NAS script
+  output and, when possible, the recorded current-code-sha and live check.
+- Use the existing manual QNAP script; **do not recreate GitHub Actions deployment**
+  or ask to run obsolete SSH-receiver workflows. Keep the GitHub verify workflow
+  for **tests/builds only**.
+- Keep QNAP **data/**, **secrets/**, **backups/**, **.env**, compose.yaml, mounted
+  volumes and the running Tailscale container intact. Do not replace the
+  database or force-copy a new app tree over the existing installation.
+- The local NAS script is authoritative for production behavior. Review planned
+  schema migrations: backup/rollback is defensive, but a migration can still
+  require specific recovery steps.
+- Avoid exposing QNAP SSH to the public internet or pasting private SSH keys,
+  OAuth secrets, Firebase service-account JSON, or .env contents into chat.
+- Older Railway instructions in CLOUD-SETUP.md are a historical test setup,
+  not permission to publish production. Owlbear has separate deployment files;
+  do not delete them as part of Cosmos cleanup.
+
+## Retired GitHub deployment path
+
+The nonworking **.github/workflows/deploy-qnap.yml** and
+**.github/workflows/test-qnap-ssh.yml** workflows, plus the obsolete
+**scripts/deploy-qnap.sh** forced-command receiver source, were removed from
+this repository. Any older copy of deploy-from-github.sh, SSH authorized_keys
+restriction, or GitHub Actions secrets already installed on the NAS/GitHub
+remain separate and are NOT removed by this repository change.
