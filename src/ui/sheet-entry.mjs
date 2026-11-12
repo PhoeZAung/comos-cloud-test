@@ -4,10 +4,11 @@ void import('./mobile-viewport.mjs').catch(()=>{});
 let dispose,disposeEffects,leaving=false;
 window.addEventListener('pagehide',()=>{leaving=true;dispose?.();disposeEffects?.();},{once:true});
 window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
-void Promise.all([import('./sheet.mjs'),import('./preferences.mjs')]).then(([sheet,prefs])=>{
+void import('./sheet.mjs').then(sheet=>{
  if(leaving)return;dispose=sheet.mountSheet();
  void import('./effects.mjs').then(module=>{if(!leaving)disposeEffects=module.setupEffects();}).catch(()=>{});
- void fetch('/api/v1/auth/session',{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(15000)}).then(async response=>{if(response.ok&&!leaving)prefs.applyPreferences((await response.json()).user?.preferences);}).catch(()=>{});
+ // Preferences and session hydration must not delay mounting the actual sheet.
+ void import('./preferences.mjs').then(prefs=>fetch('/api/v1/auth/session',{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(15000)}).then(async response=>{if(response.ok&&!leaving)prefs.applyPreferences((await response.json()).user?.preferences);})).catch(()=>{});
 }).catch(()=>{
  if(leaving)return;const root=document.querySelector('main');if(!root)return;
  root.innerHTML='<section role="alert"><h1>Could not open the character sheet</h1><p>A sheet file could not load. Reload to try again.</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="characters.html">Characters</a></section>';
