@@ -11,7 +11,7 @@ export function mountAdminSheets(){
   if(!current)return;
   if(selected&&selected!==id){
    const prev=[...root.querySelectorAll('[data-admin-sheet-panel]')].find(panel=>panel.dataset.adminSheetPanel===selected);
-   try{offsets.set(selected,prev?.querySelector('iframe')?.contentWindow?.scrollY||0);}catch{}
+   try{const y=prev?.querySelector('iframe')?.contentWindow?.scrollY;if(Number.isFinite(y)&&(y>0||!offsets.has(selected)))offsets.set(selected,y);}catch{}
   }
   selected=id;
   for(const button of tabs){
@@ -30,6 +30,11 @@ export function mountAdminSheets(){
      frame.src='sheet.html?'+new URLSearchParams({characterId:id,compact:'1'});
      frame.loading='eager';
      panel.append(frame);
+     frame.addEventListener('load',()=>{
+      try{frame.contentWindow?.addEventListener('scroll',()=>{
+       if(selected===id&&Number.isFinite(frame.contentWindow.scrollY))offsets.set(id,frame.contentWindow.scrollY);
+      },{passive:true});}catch{}
+     });
     }else requestAnimationFrame(()=>requestAnimationFrame(()=>{
      if(selected===id)try{frame.contentWindow?.scrollTo(0,offsets.get(id)||0);}catch{}
     }));
