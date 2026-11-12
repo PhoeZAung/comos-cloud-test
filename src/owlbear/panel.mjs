@@ -21,15 +21,31 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
  }
  function syncSheets(next){
   sheets=next.map(item=>({id:item.id,name:item.name}));
-  for(const button of root.querySelectorAll('[data-extension-sheet-tab]'))button.remove();
+  // Keep the permanent Character button stable, but place each open sheet's
+  // tab and close control inside the same styled chip.
+  const oldFirst=root.querySelector('[data-first-sheet-tab-group]');
+  if(oldFirst)oldFirst.replaceWith(first);
+  first.classList.remove('cosmos-sheet-tab-button');
+  for(const group of root.querySelectorAll('[data-extension-sheet-tab]'))group.remove();
   first.textContent=sheets.length>1?sheets[0].name:'Character';
   first.title=sheets.length>1?sheets[0].name:'Character';
   if(sheets.length>1){
-   for(const [index,sheet] of sheets.entries()){
-    if(index){
-     const button=document.createElement('button');button.type='button';button.setAttribute('role','tab');button.dataset.panelTab='sheet:'+sheet.id;button.dataset.extensionSheetTab='true';button.setAttribute('aria-controls','panel-character');button.id='tab-sheet-'+sheet.id;button.title=sheet.name;button.textContent=sheet.name;adminButton.before(button);
-    }
-    const close=document.createElement('button');close.type='button';close.dataset.extensionSheetTab='true';close.dataset.closeExtensionSheet=sheet.id;close.className='extension-sheet-close';close.title='Close '+sheet.name;close.setAttribute('aria-label','Close '+sheet.name);close.textContent='×';if(index===0)first.after(close);else adminButton.before(close);
+   const wrap=(button,sheet,{initial=false}={})=>{
+    const group=document.createElement('span');group.className='cosmos-sheet-tab-group';
+    if(initial)group.dataset.firstSheetTabGroup='true';else group.dataset.extensionSheetTab='true';
+    button.classList.add('cosmos-sheet-tab-button');
+    const close=document.createElement('button');close.type='button';
+    close.dataset.closeExtensionSheet=sheet.id;close.className='extension-sheet-close';
+    close.title='Close '+sheet.name;close.setAttribute('aria-label','Close '+sheet.name);close.textContent='×';
+    group.append(button,close);
+    return group;
+   };
+   first.replaceWith(wrap(first,sheets[0],{initial:true}));
+   for(const sheet of sheets.slice(1)){
+    const button=document.createElement('button');button.type='button';button.setAttribute('role','tab');
+    button.dataset.panelTab='sheet:'+sheet.id;button.setAttribute('aria-controls','panel-character');
+    button.id='tab-sheet-'+sheet.id;button.title=sheet.name;button.textContent=sheet.name;
+    adminButton.before(wrap(button,sheet));
    }
   }
   if(selected.startsWith('sheet:')&&(!sheets.some(sheet=>sheet.id===selected.slice(6))||selected.slice(6)===sheets[0]?.id))select('character');
