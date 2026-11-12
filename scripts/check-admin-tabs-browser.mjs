@@ -28,20 +28,22 @@ try{
  const page=await browser.newPage();
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:'+server.address().port+'/?partyTagId=group-1');
- await page.waitForSelector('iframe');
+ await page.waitForFunction(()=>document.querySelector('iframe')?.contentDocument?.body?.textContent.includes('Sheet'));
  assert.equal(await page.locator('[data-admin-sheet-tab]').count(),3);
  assert.equal(await page.locator('iframe').count(),1);
  assert.equal(iframeLoads,1);
  assert.equal(await page.locator('img').count(),0,'untrusted sheet names stay escaped');
+ await page.evaluate(()=>document.querySelector('iframe').contentWindow.scrollTo(0,350));
  await page.locator('[data-admin-sheet-tab]').nth(1).click();
  await page.waitForFunction(()=>document.querySelectorAll('iframe').length===2);
  assert.equal(await page.locator('iframe:visible').count(),1);
  const section=await page.locator('[data-admin-sheet-tab]').nth(1).getAttribute('aria-selected');
  assert.equal(section,'true');
- await page.evaluate(()=>document.querySelectorAll('iframe')[0].contentWindow.scrollTo(0,350));
+
  await page.locator('[data-admin-sheet-tab]').first().click();
  assert.equal(await page.locator('iframe:visible').count(),1);
  assert.equal(await page.locator('iframe').count(),2,'visited sheets stay mounted');
+ assert.ok(await page.evaluate(()=>document.querySelectorAll('iframe')[0].contentWindow.scrollY)>=330,'switching back preserves the iframe scroll');
  await page.locator('[data-admin-sheet-tab]').nth(2).focus();
  await page.keyboard.press('Home');
  assert.equal(await page.locator('[data-admin-sheet-tab]').first().getAttribute('aria-selected'),'true');
