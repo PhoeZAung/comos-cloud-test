@@ -107,7 +107,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   const rawKind=ability?row.ability_kind:'other';
   roll.resolution={
    abilityKind:weapon?'weapon':spell?'spell':Object.hasOwn(abilityKinds,rawKind)?rawKind:'other',
-   srApplies:!/^no\\b/i.test(String(row.spell_resist||'').trim()),
+   srApplies:!/^no\b/i.test(String(row.spell_resist||'').trim()),
    casterLevel:Number.isInteger(rawCl)&&rawCl>0?rawCl:null,
    srBonus:Number.isFinite(row.sr_bonus)?row.sr_bonus:0,
    drBypass:String(row.dr_bypass||'').split(/[,;]/).map(x=>x.trim()).filter(Boolean).slice(0,12),
