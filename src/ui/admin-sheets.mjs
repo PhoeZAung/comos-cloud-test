@@ -4,10 +4,15 @@ export function mountAdminSheets(){
  const root=document.querySelector('[data-admin-sheets]'),controller=new AbortController();
  const params=new URL(location.href).searchParams,party=params.get('partyTagId'),owner=params.get('ownerId');
  let selected=null;
+ const offsets=new Map();
  function select(id){
   const tabs=[...root.querySelectorAll('[data-admin-sheet-tab]')];
   const current=tabs.find(tab=>tab.dataset.adminSheetTab===id);
   if(!current)return;
+  if(selected&&selected!==id){
+   const prev=[...root.querySelectorAll('[data-admin-sheet-panel]')].find(panel=>panel.dataset.adminSheetPanel===selected);
+   try{offsets.set(selected,prev?.querySelector('iframe')?.contentWindow?.scrollY||0);}catch{}
+  }
   selected=id;
   for(const button of tabs){
    const active=button===current;
@@ -17,12 +22,17 @@ export function mountAdminSheets(){
   for(const panel of root.querySelectorAll('[data-admin-sheet-panel]')){
    const active=panel.dataset.adminSheetPanel===id;
    panel.hidden=!active;
-   if(active&&!panel.querySelector('iframe')){
-    const frame=document.createElement('iframe');
-    frame.title=panel.dataset.sheetName+' character sheet';
-    frame.src='sheet.html?'+new URLSearchParams({characterId:id,compact:'1'});
-    frame.loading='eager';
-    panel.append(frame);
+   if(active){
+    let frame=panel.querySelector('iframe');
+    if(!frame){
+     frame=document.createElement('iframe');
+     frame.title=panel.dataset.sheetName+' character sheet';
+     frame.src='sheet.html?'+new URLSearchParams({characterId:id,compact:'1'});
+     frame.loading='eager';
+     panel.append(frame);
+    }else requestAnimationFrame(()=>requestAnimationFrame(()=>{
+     if(selected===id)try{frame.contentWindow?.scrollTo(0,offsets.get(id)||0);}catch{}
+    }));
    }
   }
  }
