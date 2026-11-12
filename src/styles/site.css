@@ -155,3 +155,14 @@ header .install-control{margin-right:0;margin-left:auto}header .install-control+
 .npc-note-drop span{color:var(--muted);font-size:.875rem;overflow-wrap:anywhere}
 .npc-note-drop [data-npc-filename]:empty{display:none}
 [data-npc-error]{color:#f5a6b3}
+
+
+/* Open a group as named sheet tabs rather than simultaneous squeezed iframes. */
+.admin-sheet-tabs{display:flex;gap:6px;overflow-x:auto;max-width:100%;padding:4px 2px 9px;border-bottom:1px solid var(--line);scrollbar-width:thin}
+.admin-sheet-tabs button{flex:0 0 auto;max-width:220px;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px 9px 4px 4px;padding:10px 13px;cursor:pointer}
+.admin-sheet-tabs button[aria-selected=true]{border-color:var(--accent,var(--line));font-weight:700;background:var(--card-bg)}
+.admin-sheet-panel{min-width:0;max-width:100%;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.admin-sheet-panel-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:8px 13px}
+.admin-sheet-panel-header strong{font-size:15px;overflow-wrap:anywhere}
+.admin-sheet-panel iframe{display:block;width:100%;height:min(85vh,900px);min-height:520px;border:0}
+@media(max-width:600px){.admin-sheet-tabs button{max-width:145px;padding:9px}.admin-sheet-panel iframe{min-height:500px}}
