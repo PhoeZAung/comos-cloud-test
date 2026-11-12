@@ -27,9 +27,9 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
   if(oldFirst)oldFirst.replaceWith(first);
   first.classList.remove('cosmos-sheet-tab-button');
   for(const group of root.querySelectorAll('[data-extension-sheet-tab]'))group.remove();
-  first.textContent=sheets.length>1?sheets[0].name:'Character';
-  first.title=sheets.length>1?sheets[0].name:'Character';
-  if(sheets.length>1){
+  first.textContent=sheets.length?sheets[0].name:'Character';
+  first.title=sheets.length?sheets[0].name:'Character';
+  if(sheets.length){
    const wrap=(button,sheet,{initial=false}={})=>{
     const group=document.createElement('span');group.className='cosmos-sheet-tab-group';
     if(initial)group.dataset.firstSheetTabGroup='true';else group.dataset.extensionSheetTab='true';
