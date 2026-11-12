@@ -269,3 +269,25 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 .cosmos-admin-settings .cosmos-panel-note{font-size:11px;line-height:1.45;color:#bdb0d0}
 .cosmos-admin-settings [data-recommend-target]{accent-color:#f25a73}
 .cosmos-admin-settings[hidden]{display:none!important}
+
+/* Compact GM combat approvals, live combat log and end-battle action. */
+.cosmos-combat-validation{display:grid;gap:8px;border:1px solid #806a9d80;border-radius:9px;padding:10px;margin:12px 0}
+.cosmos-combat-validation legend{font-weight:700;font-size:12px;color:#dac6f7;padding:0 4px}
+.cosmos-combat-validation label{display:flex;align-items:center;gap:9px;font-size:12px}
+.cosmos-combat-validation input{accent-color:#dd8af5}
+.combat-end-row{display:flex;justify-content:end;margin:8px 0}
+.combat-end-button{border:1px solid #dd758f!important;color:#ffe3eb!important;background:#50273c!important;border-radius:7px;padding:7px 11px}
+.combat-end-button:hover{background:#803046!important}
+.combat-approvals,.combat-history{border:1px solid #665277;border-radius:10px;padding:10px;margin:10px 0;background:#161725}
+.combat-approvals h2,.combat-history summary{font-size:13px;font-weight:700;color:#e7d4fa;margin:0 0 8px}
+.combat-approval-row{padding:8px 0;border-top:1px solid #76638555}
+.combat-approval-row p{font-size:12px;margin:0 0 7px;overflow-wrap:anywhere}
+.combat-approval-row button{margin-right:7px;padding:5px 10px;font-size:12px}
+.combat-approval-row [data-approve-combat]{background:#315e4c;border-color:#459c7d;color:#e5fff1}
+.combat-approval-row [data-reject-combat]{background:#5e3343;border-color:#9d5669;color:#ffeaf0}
+.combat-history ol{list-style:none;margin:0;padding:0;max-height:260px;overflow-y:auto}
+.combat-history li{padding:8px 0;border-bottom:1px solid #6b597641;display:grid;gap:3px}
+.combat-history li strong{font-size:12px;overflow-wrap:anywhere}
+.combat-history li small{font-size:11px;color:#bfb1cb;overflow-wrap:anywhere}
+.combat-history [data-combat-empty]{font-size:11px;color:#b7a5c7}
+.combat-approvals[hidden],.combat-end-button[hidden]{display:none!important}
