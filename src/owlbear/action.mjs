@@ -111,6 +111,7 @@ function openPicker(){
  picker.showModal();pickerSearch.focus();
 }
 pickerSearch.addEventListener('input',renderSheetChoices);
+document.querySelector('[data-sheet-search-go]').onclick=renderSheetChoices;
 picker.addEventListener('close',()=>{pickerCandidates=[];pickerSearch.value='';choices.replaceChildren();});
 choices.addEventListener('click',event=>{
  const button=event.target.closest('[data-pick-sheet]');if(!button)return;
