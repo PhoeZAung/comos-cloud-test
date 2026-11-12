@@ -264,7 +264,7 @@ async function start(){
  });
  room=await OBR.room.getMetadata();OBR.room.onMetadataChange(value=>{room=value;schedule();});
  async function loadScene(){
-  const current=++epoch;ready=false;bars.clear();items=[];scene={};schedule();void OBR.popover.close(PREFIX+'/setup').catch(()=>{});
+  const current=++epoch;ready=false;bars.clear();approvals.clear();items=[];scene={};schedule();void OBR.popover.close(PREFIX+'/setup').catch(()=>{});
   const loaded=await OBR.scene.isReady();if(current!==epoch)return;
   if(loaded){const result=await Promise.all([OBR.scene.items.getItems(),OBR.scene.getMetadata(),OBR.scene.grid.getDpi()]);if(current!==epoch)return;[items,scene,grid]=result;
    const obsolete=await OBR.scene.local.getItems(item=>!!item.metadata[BAR]||!!item.metadata['com.cosmos.party-status/token-resource']);if(current!==epoch)return;if(obsolete.length)await OBR.scene.local.deleteItems(obsolete.map(item=>item.id));
