@@ -45,6 +45,12 @@ test('initiative focus locates tokens without changing selection and adds local 
  assert.equal(moves.length,2);
  focus.setShowHidden(false);
  assert.equal(await focus.locate('hidden-token'),false);
+ // A recommendation is red and local-only; it does not change selection.
+ focus.update([item],'token-1');
+ focus.recommend('token-1');
+ await new Promise(resolve=>setTimeout(resolve,25));
+ assert.ok(added.some(shape=>shape.metadata['com.cosmos.character-sheets/initiative-highlight'].kind==='recommend'&&shape.strokeColor==='#ff475d'));
+ focus.recommend(null);
  focus.update([],null);
  await new Promise(resolve=>setTimeout(resolve,25));
  await focus.close();

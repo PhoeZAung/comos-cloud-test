@@ -260,6 +260,7 @@ OBR.onReady(async()=>{
     if(connection)void load().catch(error=>say(error.message));
    }
    panel.admin(data.admin===true);initiativeView.state(data);
+   document.querySelector('[data-recommend-target]').checked=data.recommendTarget===true;
    document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
    for(const key of ['party','initiative','npcHp'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout?.[key]===true;
    document.querySelector('[data-layout="partyDock"]').value=data.layout.partyDock;
@@ -275,7 +276,8 @@ OBR.onReady(async()=>{
  trackerBus.send({type:'hello'});
  document.querySelector('[data-admin-controls]').onchange=event=>{
   const node=event.target,key=node.dataset.layout;
-  if(key)trackerBus.send({type:'layout',key,value:node.type==='checkbox'?node.checked:node.value,requestId:crypto.randomUUID()});
+  if(node.matches('[data-recommend-target]'))trackerBus.send({type:'recommend-setting',enabled:node.checked,requestId:crypto.randomUUID()});
+  else if(key)trackerBus.send({type:'layout',key,value:node.type==='checkbox'?node.checked:node.value,requestId:crypto.randomUUID()});
  };
 });
 document.querySelector('[data-connect]').onclick=()=>{

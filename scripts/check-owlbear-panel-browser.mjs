@@ -11,7 +11,7 @@ const output=await mkdtemp(path.join(tmpdir(),'cosmos-owlbear-panel-'));
 const stubs={
  '@owlbear-rodeo/sdk':`export default {onReady:callback=>{window.testReady=callback();},action:{setIcon:async()=>{}}};`,
  './panel-size.mjs':`export async function panelSize(){}`,
- './local-channel.mjs':`export async function localChannel(OBR,receive){window.deliver=receive;return {send(value){if(value.type==='hello')receive(window.roomState);if(value.type==='roll-receipt')window.receipts.push(value);if(['turn','initiative','stats','highlight','locate'].includes(value.type))window.commands.push(value);},close(){}};}`,
+ './local-channel.mjs':`export async function localChannel(OBR,receive){window.deliver=receive;return {send(value){if(value.type==='hello')receive(window.roomState);if(value.type==='roll-receipt')window.receipts.push(value);if(['turn','initiative','stats','highlight','locate','recommend-setting'].includes(value.type))window.commands.push(value);},close(){}};}`,
  './connection.mjs':`export function connection(){return {close(){},async call(method){if(method==='list'){window.listCalls++;return [{id:'character-1',name:'Astra'},{id:'character-2',name:'Nyx'}];}if(method==='npc-list')return [{id:'npc-1',name:'A very long NPC name that should scroll rather than squeeze characters'}];if(method==='roll-history'){window.historyCalls++;return {rolls:window.rollRows};}if(method==='api')return {status:200,data:{roll:{total:22,expression:'1d20+5',rolls:[17]}}};throw Error('Unexpected account request');}};}`,
  './dice-plus.mjs':`export function dicePlus(){return {ready:async()=>{},roll:async(notation,target)=>{window.diceTargets.push(target);return {groups:[{diceType:'d20',dice:[{value:17}]}]};}};}`
 };
@@ -29,8 +29,8 @@ try{
  const page=await browser.newPage({viewport:{width:390,height:640}});page.on('pageerror',error=>errors.push(error.message));
  await page.addInitScript(()=>{window.historyCalls=0;window.listCalls=0;window.receipts=[];window.diceTargets=[];window.commands=[];window.roomState={type:'state',admin:false,feed:'Live',layout:{party:false,initiative:false,partyDock:'top',initiativeDock:'left'}};window.rollRows=[{id:'roll-1',character:'Astra',label:'<img src=x onerror=alert(1)>',time:Date.now(),parts:[{label:'Attack',total:27,expression:'1d20+7',faces:[20]},{label:'Damage',total:8,expression:'2d6',faces:[3,5]}]}];});
  await page.goto('http://127.0.0.1:'+server.address().port+'/owlbear/index.html');await page.evaluate(()=>window.testReady);
- assert.equal(await page.locator('[data-panel-tab="admin"]').isVisible(),false);assert.equal(await page.locator('[data-admin-controls]').isVisible(),false);checks.push('player never sees Admin tab or display controls');
- assert.deepEqual(await page.locator('[data-panel-tab]').allTextContents(),['Character','Admin','Initiative','Settings']);checks.push('four ordered tabs with no Roll or Account header');
+ assert.equal(await page.locator('[data-panel-tab="admin"]').count(),0);assert.equal(await page.locator('[data-admin-settings]').isVisible(),false);checks.push('player never sees GM Admin settings');
+ assert.deepEqual(await page.locator('[data-panel-tab]').allTextContents(),['Character','Initiative','Settings']);checks.push('three ordered tabs with Admin moved into Settings');
   const navTheme=await page.locator('.cosmos-tabs').evaluate(node=>({background:getComputedStyle(node).backgroundImage,radius:getComputedStyle(node).borderRadius,selected:getComputedStyle(node.querySelector('[aria-selected=true]')).backgroundImage}));
   assert.match(navTheme.background,/linear-gradient/);assert.match(navTheme.selected,/linear-gradient/);checks.push('Cosmos-themed tab gradients and active state are rendered');
  assert.equal(await page.locator('[data-connect]').isVisible(),true);assert.equal(await page.locator('[data-connect]').count(),1);await page.locator('[data-panel-tab="settings"]').click();assert.equal(await page.locator('[data-connect]').isVisible(),false);assert.equal(await page.locator('[data-refresh]').count(),0);assert.equal(await page.locator('a[href="/"]').count(),0);await page.locator('[data-panel-tab="character"]').click();checks.push('Connect only on Character before authentication; no Refresh or Open Cosmos');
@@ -43,7 +43,7 @@ try{
  await page.evaluate(()=>window.deliver({type:'grant',token:'a'.repeat(64)}));await page.waitForFunction(()=>document.querySelector('[data-connect-prompt]')?.hidden===true);assert.equal(await page.locator('[data-panel-tab="character"]').getAttribute('aria-selected'),'true');await page.locator('[data-panel-tab="settings"]').click();await page.waitForSelector('.roll-history li');checks.push('successful connection returns to Character and hides Connect');
  assert.equal(await page.locator('.history-result strong').first().textContent(),'Attack 27');assert.equal(await page.locator('.history-result strong').nth(1).textContent(),'Damage 8');assert.equal(await page.locator('.roll-history img').count(),0);checks.push('connected history renders original totals/faces and escapes user labels');
  await page.evaluate(()=>{window.rollRows=[{...window.rollRows[0],id:'roll-2',label:'Saving throw',parts:[{label:'Roll',total:17,expression:'1d20+3',faces:[14]}]},...window.rollRows];});await page.locator('[data-refresh-history]').click();await page.waitForFunction(()=>document.querySelectorAll('.roll-history li').length===3);checks.push('refresh adds newest saved roll without rolling again');
- await page.evaluate(()=>window.deliver({...window.roomState,admin:true}));await page.locator('[data-panel-tab="admin"]').click();assert.equal(await page.locator('[data-admin-controls]').isVisible(),true);checks.push('verified admin can open display controls');
+ await page.evaluate(()=>window.deliver({...window.roomState,admin:true}));await page.locator('[data-panel-tab="settings"]').click();assert.equal(await page.locator('[data-admin-controls]').isVisible(),true);assert.equal(await page.locator('[data-admin-settings]').isVisible(),true);assert.equal(await page.locator('[data-recommend-target]').isVisible(),true);await page.locator('[data-recommend-target]').check();assert.equal((await page.evaluate(()=>window.commands)).at(-1).type,'recommend-setting');checks.push('verified admin can configure target recommendations within Settings');
  assert.equal(await page.evaluate(()=>window.listCalls),1);checks.push('admin state does not duplicate the character roster request');
  await page.locator('[data-panel-tab="character"]').click();
  await page.waitForSelector('[data-npc-group] [data-character]');
@@ -60,7 +60,7 @@ try{
  assert.ok(Math.abs(rosterBounds.playerWidth-rosterBounds.npcWidth)<3,'player and NPC cards must share full width');
  assert.ok(rosterBounds.playerHeight>=53,'character cards stay legible in compact viewport');
  await page.setViewportSize({width:390,height:640});
- await page.locator('[data-panel-tab="admin"]').click();
+ await page.locator('[data-panel-tab="settings"]').click();
  checks.push('compact roster scrolls both characters and NPCs at equal width');
 
  await page.locator('[data-panel-tab="character"]').click();
@@ -90,16 +90,16 @@ try{
  await single.locator('.extension-sheet-close').click();
  assert.equal(await page.locator('.cosmos-sheet-tab-group').count(),0);
  assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Character');
- await page.locator('[data-panel-tab="admin"]').click();
+ await page.locator('[data-panel-tab="settings"]').click();
  checks.push('admin-only NPC is searchable; search filters unmatched names');
 
 
  await page.evaluate(()=>window.deliver({...window.roomState,admin:true,battle:[{id:'token-1',name:'Goblin',initiative:13,hp:17,hpMax:20,mp:4,mpMax:6,ac:14,touch:12,flat:11,cmd:17,trackHp:true,available:true}],turn:{id:'token-1',round:2}}));
  await page.locator('[data-panel-tab="initiative"]').click();assert.equal(await page.locator('.initiative-input').isEnabled(),true);await page.locator('[data-turn="1"]').click();assert.equal((await page.evaluate(()=>window.commands)).at(-1).type,'turn');checks.push('authorized GM can change initiative and send turn commands');
- await page.locator('[data-panel-tab="admin"]').click();
- await page.evaluate(()=>window.deliver(window.roomState));assert.equal(await page.locator('[data-panel-tab="admin"]').isVisible(),false);assert.equal(await page.locator('[data-admin-controls]').isVisible(),false);assert.equal(await page.locator('[data-panel-tab="character"]').getAttribute('aria-selected'),'true');checks.push('revoked admin immediately loses controls and returns to Character');assert.equal(await page.locator('[data-npc-characters] [data-character]').count(),0);
+ await page.locator('[data-panel-tab="settings"]').click();
+ await page.evaluate(()=>window.deliver(window.roomState));assert.equal(await page.locator('[data-admin-settings]').isVisible(),false);assert.equal(await page.locator('[data-admin-controls]').isVisible(),false);assert.equal(await page.locator('[data-panel-tab="settings"]').getAttribute('aria-selected'),'true');checks.push('revoked admin immediately loses privileged settings while retaining regular Settings');assert.equal(await page.locator('[data-npc-characters] [data-character]').count(),0);
  assert.equal(await page.locator('[data-turn="1"]').isVisible(),false);checks.push('role revocation disables initiative controls');
- await page.locator('[data-panel-tab="character"]').focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator('[data-panel-tab="initiative"]').getAttribute('aria-selected'),'true');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);checks.push('phone layout and keyboard tabs skip hidden Admin');
+ await page.locator('[data-panel-tab="character"]').focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator('[data-panel-tab="initiative"]').getAttribute('aria-selected'),'true');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);checks.push('phone layout and keyboard navigation across three tabs');
  await page.locator('[data-panel-tab="character"]').click();await page.locator('[data-character]').first().click();await page.waitForFunction(()=>typeof document.querySelector('iframe')?.contentWindow.call==='function');
  assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Astra');assert.equal(await page.locator('.cosmos-sheet-tab-group').count(),1);assert.equal(await page.frameLocator('iframe[data-sheet-inactive="false"]').locator('[data-add-sheet]').isVisible(),true);assert.equal(await page.frameLocator('iframe[data-sheet-inactive="false"]').locator('[data-sheet-popout]').isVisible(),true);assert.equal(await page.locator('[data-panel-tab^="sheet:"]').count(),0);
  await page.frameLocator('iframe[data-sheet-inactive="false"]').locator('[data-add-sheet]').click();assert.equal(await page.locator('[data-pick-sheet="npc-1"]').count(),0);await page.locator('[data-sheet-search]').fill('Nyx');assert.equal(await page.locator('[data-pick-sheet="character-2"]').isVisible(),true);await page.locator('[data-pick-sheet="character-2"]').click();await page.waitForFunction(()=>document.querySelectorAll('iframe').length===2);await page.waitForFunction(()=>typeof document.querySelectorAll('iframe')[1]?.contentWindow.call==='function');

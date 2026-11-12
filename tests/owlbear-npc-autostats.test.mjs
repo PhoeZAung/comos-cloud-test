@@ -11,7 +11,8 @@ const imported=[
  '| **AC** | 24, touch 14, flat-footed 21 |',
  '| **hp** | 94 (11d10+33) |',
  '| **CMD** | 28 |',
- '| **Str** | 16 |'
+ '| **Str** | 16 |',
+ '| **Int** | 14 |'
 ].join('\n');
 const character=id=>({id,name:'Iron Warden',kind:'npc',data:parseNpcStatBlock(imported).data});
 
@@ -32,6 +33,7 @@ test('NPC starting HP is rolled from the printed formula once; saves exact total
  assert.deepEqual([stats.ac,stats.touch,stats.flat,stats.cmd,stats.initiative],[24,14,21,28,3]);
  assert.equal(stats.mp,0);assert.equal(stats.npcId,'npc-1');
  assert.equal(stats.trackHp,true);
+ assert.equal(stats.intelligence,14);
 });
 
 test('NPCs without dice use their printed HP; incomplete sheets use manual entry',()=>{

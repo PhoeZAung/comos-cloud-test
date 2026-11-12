@@ -3,7 +3,7 @@ const KEY='com.cosmos.character-sheets/initiative-highlight';
 // The local outlines never change the shared scene or take over a player's
 // selection. Every player sees the turn marker; hover is per viewer.
 export function initiativeFocus(OBR,buildShape){
- let items=[],active=null,hovered=null,rendered='',ids=[],closed=false,running=false,again=false,showHidden=false;
+ let items=[],active=null,hovered=null,recommended=null,rendered='',ids=[],closed=false,running=false,again=false,showHidden=false;
  const visible=id=>items.find(item=>item.id===id&&(showHidden||item.visible!==false)&&item.type==='IMAGE'&&item.layer==='CHARACTER');
  async function bounds(id){
   if(!visible(id))return null;
@@ -11,7 +11,7 @@ export function initiativeFocus(OBR,buildShape){
   return box&&Number.isFinite(box.width)&&Number.isFinite(box.height)&&box.width>0&&box.height>0?box:null;
  }
  function signature(){
-  return JSON.stringify([active,hovered,...[active,hovered].map(id=>{
+  return JSON.stringify([active,hovered,recommended,...[active,hovered,recommended].map(id=>{
    const item=visible(id);return item?[id,item.position,item.rotation,item.scale,item.image?.width,item.image?.height,item.lastModified]:null;
   })]);
  }
@@ -25,7 +25,7 @@ export function initiativeFocus(OBR,buildShape){
     if(ids.length){await OBR.scene.local.deleteItems(ids);ids=[];}
     if(closed)return;
     const shapes=[];
-    for(const [id,color] of [[active,'#ffd66d'],[hovered,'#5cecff']]){
+    for(const [id,color,kind] of [[active,'#ffd66d','turn'],[hovered,'#5cecff','hover'],[recommended,'#ff475d','recommend']]){
      if(!id||!visible(id))continue;
      const box=await bounds(id);
      if(!box||closed)continue;
@@ -42,7 +42,7 @@ export function initiativeFocus(OBR,buildShape){
       .layer('CHARACTER').zIndex((visible(id)?.zIndex||0)+100)
       .fillOpacity(0).strokeColor(color).strokeOpacity(1).strokeWidth(5)
       .disableHit(true).locked(true).disableAutoZIndex(true)
-      .metadata({[KEY]:{tokenId:id,kind:id===hovered?'hover':'turn'}}).build());
+      .metadata({[KEY]:{tokenId:id,kind}}).build());
     }
     if(shapes.length&&!closed){await OBR.scene.local.addItems(shapes);ids=shapes.map(x=>x.id);}
     rendered=wanted;
@@ -52,7 +52,8 @@ export function initiativeFocus(OBR,buildShape){
  }
  return {
   setShowHidden(value){const next=value===true;if(showHidden===next)return;showHidden=next;rendered='';if(hovered&&!visible(hovered))hovered=null;void draw();},
-  update(nextItems,activeId){items=nextItems;active=activeId&&visible(activeId)?activeId:null;if(hovered&&!visible(hovered))hovered=null;void draw();},
+  update(nextItems,activeId){items=nextItems;active=activeId&&visible(activeId)?activeId:null;if(hovered&&!visible(hovered))hovered=null;if(recommended&&!visible(recommended))recommended=null;void draw();},
+  recommend(id){recommended=id&&visible(id)?id:null;void draw();},
   hover(id){hovered=id&&visible(id)?id:null;void draw();},
   async locate(id){
    const box=await bounds(id);if(!box)return false;
@@ -63,6 +64,6 @@ export function initiativeFocus(OBR,buildShape){
    await OBR.viewport.animateToBounds(expanded);
    return true;
   },
-  async close(){closed=true;hovered=null;active=null;if(ids.length)await OBR.scene.local.deleteItems(ids);ids=[];}
+  async close(){closed=true;hovered=null;active=null;recommended=null;if(ids.length)await OBR.scene.local.deleteItems(ids);ids=[];}
  };
 }

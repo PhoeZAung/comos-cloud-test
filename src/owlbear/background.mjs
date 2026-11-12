@@ -6,18 +6,49 @@ import {connection} from './connection.mjs';
 import {publicPartyClient} from './public-party-client.mjs';
 import {dockedPanels} from './docking.mjs';
 import {initiativeFocus} from './initiative-focus.mjs';
+import {recommendTarget} from './target-recommendation.mjs';
 import {uniqueNpcForToken,npcBattleStats,rollNpcInitiative} from './npc-battle.mjs';
 import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,battleForViewer,battleHpForViewer,turnForViewer,tokenName,normalizeName} from './battle-state.mjs';
-const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative';
+const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative',RECOMMEND_SETTING=PREFIX+'/recommend-target';
 async function start(){
  let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
+ let recommendEnabled=false;try{recommendEnabled=localStorage.getItem(RECOMMEND_SETTING)==='true';}catch{}
+ const npcIntCache=new Map();
  const popovers=new Map(),bars=new Map(),commits=new Map(),focus=initiativeFocus(OBR,buildShape);focus.setShowHidden(gm);let syncMenu=()=>Promise.resolve(),npcDirectory=null,npcDirectoryAt=0;
  const error=e=>void OBR.notification.show(e.message||String(e),'ERROR');
  const allowed=()=>gm&&admin;
   const canEditParty=id=>Boolean(grant&&(allowed()||editableIds.has(id)));
  const rows=()=>battleRows(items,party);
+ // Intelligence stays in GM memory, never in the shared token metadata.
+ function npcIntelligence(id){
+  if(typeof id!=='string'||!(/^[0-9a-f-]{36}$/i.test(id))||!allowed()||!grant)return null;
+  if(npcIntCache.has(id))return npcIntCache.get(id);
+  const current=grant;
+  npcIntCache.set(id,null); // One in-flight request per NPC.
+  void current.call('api',{method:'GET',path:'/api/v1/character-records/'+id}).then(response=>{
+   if(grant!==current)return;
+   const character=response.status===200?response.data?.character:null;
+   const value=character?.kind==='npc'?(character.data?.npcStats?.int??character.data?.int):null;
+   npcIntCache.set(id,Number.isFinite(value)?value:null);
+   schedule();
+  }).catch(()=>{if(grant===current)npcIntCache.set(id,null);});
+  return null;
+ }
  const history=await roomHistory(OBR,(rolls,{remote,row})=>{bus?.send({type:'room-rolls',rolls});if(remote&&row)void OBR.notification.show((row.character+' · '+row.parts.map(part=>part.label+' '+part.total).join(' · ')).slice(0,220),'INFO').catch(()=>{});});
- const publish=()=>{void syncMenu();const visible=battleForViewer(rows(),gm),battle=battleHpForViewer(visible,{gm,npcHp:layoutFrom(room).npcHp}),turn=turnForViewer(scene[TURN],battle,gm);focus.update(ready?items:[],ready?(turn.id===null?null:(turn.id||battle[0]?.id)):null);bus?.send({type:'state',admin:allowed(),gm,editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});};
+ const publish=()=>{
+  void syncMenu();
+  const visible=battleForViewer(rows(),gm),battle=battleHpForViewer(visible,{gm,npcHp:layoutFrom(room).npcHp}),turn=turnForViewer(scene[TURN],battle,gm);
+  const activeId=ready?(turn.id===null?null:(turn.id||battle[0]?.id)):null;
+  focus.update(ready?items:[],activeId);
+  const active=visible.find(row=>row.id===activeId);
+  const npcId=active?.isNpc?items.find(item=>item.id===activeId)?.metadata?.[BATTLE]?.npcId:null;
+  const target=ready&&allowed()&&recommendEnabled&&active?.isNpc?
+   recommendTarget({attacker:active,battle:visible,items,intelligence:npcIntelligence(npcId),grid}):null;
+  focus.recommend(target?.id||null);
+  bus?.send({type:'state',admin:allowed(),gm,recommendTarget:allowed()&&recommendEnabled,
+   editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),
+   connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});
+ };
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
@@ -63,7 +94,7 @@ async function start(){
  }
  async function setGrant(value){
   if(typeof value!=='string'||!/^[a-f0-9]{64}$/.test(value))return;
-  const candidate=connection(value),capabilities=await candidate.call('capabilities');grant?.close();grant=candidate;token=value;admin=capabilities.admin===true;npcDirectory=null;npcDirectoryAt=0;editableIds=new Set();if(capabilities.scope==='sheet'){const owned=await candidate.call('list');editableIds=new Set(owned.map(row=>row.id));}commits.clear();publish();bus.send({type:'grant',token});
+  const candidate=connection(value),capabilities=await candidate.call('capabilities');grant?.close();grant=candidate;token=value;admin=capabilities.admin===true;npcDirectory=null;npcDirectoryAt=0;npcIntCache.clear();editableIds=new Set();if(capabilities.scope==='sheet'){const owned=await candidate.call('list');editableIds=new Set(owned.map(row=>row.id));}commits.clear();publish();bus.send({type:'grant',token});
  }
  async function npcStatsForToken(name){
   if(!allowed()||!grant)return null;
@@ -89,6 +120,12 @@ async function start(){
  async function command(d){
   if(d.type!=='stats'&&!allowed())throw Error('Connect a Cosmos administrator account as GM.');
   if(d.epoch!==undefined&&d.epoch!==epoch)throw Error('The scene changed. Try again in this scene.');
+  if(d.type==='recommend-setting'){
+   if(typeof d.enabled!=='boolean')throw Error('Choose whether to recommend a target.');
+   recommendEnabled=d.enabled;
+   try{localStorage.setItem(RECOMMEND_SETTING,String(recommendEnabled));}catch{}
+   schedule();return;
+  }
   if(d.type==='layout'){
    const l=layoutFrom(room);if(['party','initiative','npcHp'].includes(d.key)&&typeof d.value==='boolean')l[d.key]=d.value;
    else if(d.key==='partyDock'&&['left','right','top','bottom'].includes(d.value))l.partyDock=d.value;
@@ -121,6 +158,7 @@ async function start(){
    if(rows().length>=100)throw Error('This scene already has 100 combatants.');
    const matches=party.filter(row=>normalizeName(row.name)===normalizeName(tokenName(item))),site=matches.length===1?matches[0]:null;
    const npc=!site&&!d.stats?await npcStatsForToken(tokenName(item)):null;
+   if(npc)npcIntCache.set(npc.npcId,npc.intelligence);
    if(!site&&!npc&&!d.stats){bus.send({type:'setup',id:item.id,name:tokenName(item)});await OBR.popover.open({id:PREFIX+'/setup',url:new URL('/owlbear/battle-add.html?id='+encodeURIComponent(item.id)+'&name='+encodeURIComponent(tokenName(item)),location.origin).href,width:280,height:320});return;}
    const stats=site||npc||d.stats,trackHp=!!site||stats.hp!==null&&stats.hp!==undefined&&stats.hp>0;
     const rolledInitiative=npc?rollNpcInitiative(npc.initiative):null;
@@ -143,7 +181,7 @@ async function start(){
   // Center only this viewer's camera. Players cannot locate GM-hidden combatants.
   if(d?.type==='locate'){const row=ready?battleForViewer(rows(),gm).find(row=>row.id===d.id):null;if(row)void focus.locate(row.id).catch(error=>console.warn('Initiative locate:',error.message));return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
-  if(!['layout','stats','initiative','turn','add','remove'].includes(d?.type))return;
+  if(!['layout','recommend-setting','stats','initiative','turn','add','remove'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
  });
  async function refreshAccess(){const current=grant;if(!current)return;try{const cap=await current.call('capabilities'),owned=cap.scope==='sheet'?await current.call('list'):[];if(grant!==current)return;admin=cap.admin===true;editableIds=new Set(owned.map(row=>row.id));publish();}catch{if(grant!==current)return;admin=false;editableIds.clear();publish();}}

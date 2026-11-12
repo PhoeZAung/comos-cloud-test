@@ -59,6 +59,7 @@ export function npcBattleStats(character,rollDie=randomNpcDie){
   flat:Number.isFinite(n.flat)?n.flat:ac,
   cmd:Number.isFinite(n.cmd)?n.cmd:10,
   initiative,trackHp:true,
+  intelligence:Number.isFinite(n.int)?n.int:Number.isFinite(d.int)?d.int:null,
   npcId:character.id,
   hpRoll:result.expression?{expression:result.expression,rolls:result.rolls,total:result.hp}:null
  };
