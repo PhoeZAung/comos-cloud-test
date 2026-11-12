@@ -29,7 +29,7 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
     if(index){
      const button=document.createElement('button');button.type='button';button.setAttribute('role','tab');button.dataset.panelTab='sheet:'+sheet.id;button.dataset.extensionSheetTab='true';button.setAttribute('aria-controls','panel-character');button.id='tab-sheet-'+sheet.id;button.title=sheet.name;button.textContent=sheet.name;adminButton.before(button);
     }
-    const close=document.createElement('button');close.type='button';close.dataset.extensionSheetTab='true';close.dataset.closeExtensionSheet=sheet.id;close.className='extension-sheet-close';close.title='Close '+sheet.name;close.setAttribute('aria-label','Close '+sheet.name);close.textContent='×';adminButton.before(close);
+    const close=document.createElement('button');close.type='button';close.dataset.extensionSheetTab='true';close.dataset.closeExtensionSheet=sheet.id;close.className='extension-sheet-close';close.title='Close '+sheet.name;close.setAttribute('aria-label','Close '+sheet.name);close.textContent='×';if(index===0)first.after(close);else adminButton.before(close);
    }
   }
   if(selected.startsWith('sheet:')&&(!sheets.some(sheet=>sheet.id===selected.slice(6))||selected.slice(6)===sheets[0]?.id))select('character');
