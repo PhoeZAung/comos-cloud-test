@@ -87,7 +87,7 @@ export function formatRoll(label,r){
  const title=r.weaponName||r.spellName||r.abilityName||label;
  const combatStatus=r.combat?.pending?'Awaiting GM approval':r.combat?.applied?'HP updated ('+Number(r.combat.amount??0)+' effective)':r.combat?.note||'HP not updated';
  const checks=(r.combat?.mitigation||[]).map(part=>part.type==='sr'?'SR '+part.total+'/'+part.sr+(part.passed?' passed':' resisted'):part.type==='dr'?'DR '+(part.reduced||0)+' blocked':part.type==='energy'?(part.energy+' '+(part.before-part.after)+' resisted'):part.type==='review'?'GM review: vulnerability':'').filter(Boolean);
- const outcome=r.combat?.target?'\\nTarget: '+r.combat.target+(r.combat.outcome?' · '+r.combat.outcome:'')+' · '+combatStatus+(checks.length?'\\n'+checks.join(' · '):''):'';
+ const outcome=r.combat?.target?'\nTarget: '+r.combat.target+(r.combat.outcome?' · '+r.combat.outcome:'')+' · '+combatStatus+(checks.length?'\n'+checks.join(' · '):''):'';
  const failure=r.spellFailure,armorCheck=failure?'\nArmor spell failure: '+failure.roll+' vs '+failure.chance+'% — '+(failure.failed?'failed':'passed'):'';
  if(r.descriptionOnly)return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingInfusedAmmo!==undefined?' · '+r.remainingInfusedAmmo+' infused rounds remaining':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+armorCheck+'\n'+r.description;
  if(!['weapon','spell','ability'].includes(r.kind))return label+': '+receipt(r,true);
