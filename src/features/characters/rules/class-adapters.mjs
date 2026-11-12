@@ -7,7 +7,7 @@ import {martialChoicePools,martialArchetype,martialCounter,AKIMBO_ID,GUNBREAKER_
 import {MONK_ID,KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
 import {registry} from './catalog.mjs';
 import {archer,archerAtLevel,archerChanges} from './archer-levels.mjs';
-import {fixedSkills} from '../../sheet/skills.mjs';
+import {fixedSkills,sheetSkills} from '../../sheet/skills.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
 import {bardClass,isBard,bardSpellRows} from './bard-level-one.mjs';
@@ -50,6 +50,7 @@ export const classDefaultHp=b=>Math.floor(classHitDie(b)/2)+1;
 export const classHasSpells=b=>isSheetFamily(b)?Boolean(sheetFamilyProfile(b).manualSpellcasting):isRedMage(b)?redMageHasSpells(b):!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
+ if(id.startsWith('skill:craft-('))return classSkill(b,'skill:craft');
  if(isRedMage(b)&&b.level>=15&&!levelOneArchetype(b)?.data.replacements.some(r=>r.atClassLevel<=b.level&&!r.eventOnly&&r.targetFeatureIds.includes('ffd20:class:red-mage:feature:jack-of-all-trades')))return true;
  if(!isArcher(b)&&!isLevelOneClass(b)&&!isChaCaster(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
  if(isLevelOneClass(b)||isChaCaster(b)){const value=id.replace(/^skill:/,'');return (levelOneArchetype(b)?.data.classSkills||classFor(b).data.classSkills).some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
@@ -161,7 +162,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   next.items=[{name:'Starting outfit',type:'Gear',amount:1,desc:'Starting outfit worth up to 10 gil.',value:10,sourceRuleId:definition.id+':starting-outfit'}];
   next.weapons=[];next.currency_gil=next.gil=definition.data.startingWealth??175;
  }
- const previousSkills=previous.skills||fixedSkills.map(r=>({...r,lvl:0,temp:0,cs:false,subName:''}));
+ const previousSkills=sheetSkills(previous);
  next.skills=previousSkills.map((row,i)=>{
   const r={...row},sid=skillId(r),owned=classSkill(b,sid)||p.racial.traits.some(f=>f.effects.some(e=>(e.target==='skills.'+sid+'.class_skill'||e.target==='skills.row.'+i+'.class_skill')&&e.automation==='automatic'&&!e.condition));
   r.lvl=b.skillRanks?.[i]||0;r.cs=owned||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=owned;
