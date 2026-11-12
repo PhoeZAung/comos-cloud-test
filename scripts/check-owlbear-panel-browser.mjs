@@ -37,6 +37,24 @@ try{
  await page.evaluate(()=>{window.rollRows=[{...window.rollRows[0],id:'roll-2',label:'Saving throw',parts:[{label:'Roll',total:17,expression:'1d20+3',faces:[14]}]},...window.rollRows];});await page.locator('[data-refresh-history]').click();await page.waitForFunction(()=>document.querySelectorAll('.roll-history li').length===3);checks.push('refresh adds newest saved roll without rolling again');
  await page.evaluate(()=>window.deliver({...window.roomState,admin:true}));await page.locator('[data-panel-tab="admin"]').click();assert.equal(await page.locator('[data-admin-controls]').isVisible(),true);checks.push('verified admin can open display controls');
  assert.equal(await page.evaluate(()=>window.listCalls),1);checks.push('admin state does not duplicate the character roster request');
+ await page.locator('[data-panel-tab="character"]').click();
+ await page.waitForSelector('[data-npc-group] [data-character]');
+ await page.setViewportSize({width:225,height:250});
+ const rosterBounds=await page.evaluate(()=>{
+  const scroll=document.querySelector('[data-character-roster]');
+  const player=document.querySelector('[data-characters] .character-card');
+  const npc=document.querySelector('[data-npc-characters] .character-card');
+  return {scrollHeight:scroll.scrollHeight,clientHeight:scroll.clientHeight,clientWidth:scroll.clientWidth,
+    playerWidth:player.getBoundingClientRect().width,npcWidth:npc.getBoundingClientRect().width,
+    playerHeight:player.getBoundingClientRect().height};
+ });
+ assert.ok(rosterBounds.scrollHeight>rosterBounds.clientHeight,'roster must scroll instead of crushing players');
+ assert.ok(Math.abs(rosterBounds.playerWidth-rosterBounds.npcWidth)<3,'player and NPC cards must share full width');
+ assert.ok(rosterBounds.playerHeight>=53,'character cards stay legible in compact viewport');
+ await page.setViewportSize({width:390,height:640});
+ await page.locator('[data-panel-tab="admin"]').click();
+ checks.push('compact roster scrolls both characters and NPCs at equal width');
+
  await page.evaluate(()=>window.deliver({...window.roomState,admin:true,battle:[{id:'token-1',name:'Goblin',initiative:13,hp:17,hpMax:20,mp:4,mpMax:6,ac:14,touch:12,flat:11,cmd:17,trackHp:true,available:true}],turn:{id:'token-1',round:2}}));
  await page.locator('[data-panel-tab="initiative"]').click();assert.equal(await page.locator('.initiative-input').isEnabled(),true);await page.locator('[data-turn="1"]').click();assert.equal((await page.evaluate(()=>window.commands)).at(-1).type,'turn');checks.push('authorized GM can change initiative and send turn commands');
  await page.locator('[data-panel-tab="admin"]').click();
