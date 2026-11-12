@@ -375,3 +375,46 @@ attention. Temporary HP uses a conservative nonstacking rule until a
 source-aware effect/expiration tracker is implemented. GM validation is an
 approval workflow, not proof against malicious users with unrestricted scene
 editing or clients invoking unrelated APIs.
+
+## Pathfinder DR, spell resistance and special ability defenses (v1.7.1)
+
+Saved NPC stat sheets now include **DR**, **SR**, and **caster level (CL)** as numeric
+stats and **DR bypass**, **energy resistances**, **immunities**, and **vulnerabilities**
+as descriptive details. Common stat-block entries such as `DR 5/cold iron`,
+`SR 18` and `Resist fire 10, cold 5` are imported when present, or you can
+edit them in the NPC sheet. Existing NPC defensive-abilities text can also
+provide a DR/SR fallback until manually normalized.
+
+Edit a weapon's **DR bypass properties** (e.g. `magic, silver, good`) and
+**Damage Type** (e.g. Slashing). Properties must reflect the actual equipment
+and attack; Cosmos does not guess magic enhancement, material, or alignment.
+Physical weapon or natural-attack damage faces DR unless all required bypass
+properties match, with `and` vs `or` interpreted separately. DR is applied
+**once** to the physical part of a hit. Damage reduction also applies to
+explicit bludgeoning/piercing/slashing portions of magical damage (Paizo FAQ).
+Pure energy damage is not reduced by DR.
+
+Abilities now offer a **category**: Unspecified, **Spell-like (Sp)**,
+**Supernatural (Su)** or **Extraordinary (Ex)**. Spells and Sp abilities
+perform a server-generated `1d20 + caster level + SR bonus` check against an
+NPC's SR unless **Allow spell resistance?** is explicitly set to **No**.
+Su/Ex abilities and weapons do not check SR. Use **Caster level override**
+and **Spell penetration bonus** when needed. Leave nonmagical abilities
+Unspecified; do not infer Sp from a name alone. The spell-SR field defaults to
+Yes for newly edited magic entries; **check each spell description**, since
+many spells do not allow SR. Missing caster level with applicable SR **blocks
+automatic HP application** with an explanatory message rather than inventing
+a check.
+
+For mixed damage, select one or more Damage Types or use typed dice formula
+terms (for example `1d6 bludgeoning + 1d6 cold`). Cosmos applies DR only
+to physical damage and recognized energy resistance/immunity to energy
+damage. Vulnerabilities and unusual stacking/resistance exceptions appear as
+GM-review notices rather than being guessed. Normal attack vs AC, critical
+confirmation, GM validation toggles, battle logging and End Battle remain.
+
+Caveats: complex spell saves (half, partial), spell resistance on certain
+indirect effects, vulnerability multipliers, ongoing DOT, specific creature
+exceptions, weapon-property thresholds, and special homebrew FFD20 mechanics
+still require GM adjudication. Do not assume every spell, or every spell-like
+ability, automatically allows SR.

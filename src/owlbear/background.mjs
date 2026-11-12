@@ -135,7 +135,8 @@ async function start(){
    targetTokenId:target.id,targetSheetId:target.siteId||null,targetName:target.name,
    gmOnly:actor.visible===false||target.visible===false,
    targetAc:target[request.defense],targetHp:target.hp,targetHpMax:target.hpMax,targetHpTemp:target.hpTemp??0,
-   defense:request.defense,round:request.round
+   defense:request.defense,round:request.round,
+   targetNpcId:target.isNpc?items.find(item=>item.id===target.id)?.metadata?.[BATTLE]?.npcId||null:null
   };
   const response=await grant.call('combat-apply',payload);
   let event=response.event;

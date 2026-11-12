@@ -93,3 +93,39 @@ test('End Battle preserves previous history and changes the battle sequence',()=
  assert.equal(f.actions.apply(roomId,'player1',false,f.request(newRoll)).event.battle,2);
  f.db.close();
 });
+
+test('saved NPC defenses reduce non-bypassing weapon damage before token update',()=>{
+ const f=fixture(),npcId=randomUUID();
+ f.db.prepare('INSERT INTO characters VALUES(?,?,?,?,?,?,?)').run(npcId,'Silver Knight','npc',0,'gm',1,'today');
+ f.db.prepare('INSERT INTO character_details VALUES(?,?)').run(npcId,JSON.stringify({
+  npcStats:{dr:5,sr:18},npcText:{drBypass:'silver and good'},hp_max:40,hp_curr:40
+ }));
+ const roll=f.insert({kind:'weapon',rolls:[14],total:22,damage:{total:13},
+  resolution:{abilityKind:'weapon',damageTypes:['Slashing'],drBypass:['silver'],srApplies:false}});
+ const result=f.actions.apply(roomId,'player1',false,f.request(roll,{
+  targetTokenId:'silver-token',targetSheetId:null,targetNpcId:npcId,
+  targetAc:18,targetHp:40,targetHpMax:40,targetHpTemp:0
+ }));
+ assert.equal(result.event.amount,8);
+ assert.equal(result.event.mitigation.find(entry=>entry.type==='dr').reduced,5);
+ assert.equal(result.event.after.hp,32);
+ f.db.close();
+});
+
+test('spell-like effects are checked against NPC SR using server-side caster-level die',()=>{
+ const f=fixture(),npcId=randomUUID();
+ f.db.prepare('INSERT INTO characters VALUES(?,?,?,?,?,?,?)').run(npcId,'Spirit Knight','npc',0,'gm',1,'today');
+ f.db.prepare('INSERT INTO character_details VALUES(?,?)').run(npcId,JSON.stringify({
+  npcStats:{dr:4,sr:18},npcText:{drBypass:'magic'},hp_max:40,hp_curr:40
+ }));
+ const actions=createCombatActions(f.db,{rollSr:()=>6}); // 6 + CL 9 + 2 penetration = 17, fails SR 18
+ const roll=f.insert({kind:'ability',effectType:'damage',damage:{total:12},
+  resolution:{abilityKind:'sp',casterLevel:9,srBonus:2,srApplies:true}});
+ const result=actions.apply(roomId,'player1',false,f.request(roll,{
+  targetTokenId:'spirit-token',targetSheetId:null,targetNpcId:npcId,targetAc:18,targetHp:40,targetHpMax:40,targetHpTemp:0
+ }));
+ assert.equal(result.event.reason,'Spell resisted');
+ assert.equal(result.event.amount,0);assert.equal(result.event.after.hp,40);
+ assert.equal(result.event.mitigation.find(entry=>entry.type==='sr').total,17);
+ f.db.close();
+});
