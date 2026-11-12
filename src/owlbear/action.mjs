@@ -25,14 +25,14 @@ function say(message){status.textContent=message;}
 function saveScroll(id){
  const sheet=openSheets.get(id);
  if(!sheet)return;
- try{sheet.scrollY=sheet.iframe.contentWindow?.scrollY??sheet.scrollY??0;sheet.iframe.dataset.savedScroll=String(sheet.scrollY);}catch{}
+ try{const y=sheet.iframe.contentWindow?.scrollY;if(Number.isFinite(y)&&(y>0||sheet.scrollY===0))sheet.scrollY=y;}catch{}
 }
 function restoreScroll(sheet){
  if(!sheet)return;
  // Wait for the hidden iframe to re-enter layout before scrolling.
  requestAnimationFrame(()=>requestAnimationFrame(()=>{
   if(activeCharacterId!==sheet.id||sheet.iframe.dataset.sheetInactive==='true')return;
-  try{sheet.iframe.dataset.restoreTarget=String(sheet.scrollY||0);sheet.iframe.contentWindow?.scrollTo(0,sheet.scrollY||0);sheet.iframe.dataset.restoreActual=String(sheet.iframe.contentWindow?.scrollY);}catch{}
+  try{sheet.iframe.contentWindow?.scrollTo(0,sheet.scrollY||0);}catch{}
  }));
 }
 function showRoster(){
@@ -78,7 +78,15 @@ function openSheet(id,npc=false){
   const iframe=document.createElement('iframe'),nonce=crypto.randomUUID();
   iframe.title=(names.get(id)||'Character')+' sheet';iframe.dataset.sheetInactive='true';iframe.setAttribute('aria-hidden','true');
   frames.append(iframe);
-  openSheets.set(id,{id,name:names.get(id)||'Character',npc,iframe,nonce,scrollY:0,connection:null});
+  const sheet={id,name:names.get(id)||'Character',npc,iframe,nonce,scrollY:0,connection:null};
+  openSheets.set(id,sheet);
+  iframe.addEventListener('load',()=>{
+   try{iframe.contentWindow?.addEventListener('scroll',()=>{
+    if(activeCharacterId!==id||iframe.dataset.sheetInactive==='true')return;
+    const y=iframe.contentWindow.scrollY;
+    if(Number.isFinite(y))sheet.scrollY=y;
+   },{passive:true});}catch{}
+  });
   iframe.src=new URL('sheet.html?characterId='+encodeURIComponent(id)+'#'+nonce,location.href).href;
  }
  syncSheetTabs();
