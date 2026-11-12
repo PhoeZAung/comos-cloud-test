@@ -1,5 +1,6 @@
 import {npcStatLabels,npcTextLabels,npcStatGroups,npcTextGroups} from '../features/characters/npc-stat-block.mjs';
 import {effectTypes,effectType} from '../features/sheet/effect-types.mjs';
+import {combatVerdict} from '../features/sheet/combat-verdict.mjs';
 import {saveTypes,saveOutcomes} from '../features/sheet/save-rules.mjs';
 import {abilityKinds,srModes} from '../features/sheet/pathfinder-defenses.mjs';
 import {abilityGroup} from '../features/sheet/ability-groups.mjs';
@@ -91,7 +92,9 @@ export function rollDice(expression,random=limit=>{const range=4294967296,ceilin
 export function formatRoll(label,r){
  const receipt=(x,typed=false)=>x.total+' ('+x.expression+(x.rolls?.length?' · '+x.rolls.join(', '):'')+')'+(typed&&damageTypeLine(x)?' — '+damageTypeLine(x):'');
  const title=r.weaponName||r.spellName||r.abilityName||label;
- const combatStatus=r.combat?.pending?'Awaiting GM approval':r.combat?.applied?'HP updated ('+Number(r.combat.amount??0)+' effective)':r.combat?.note||'HP not updated';
+ const reason=String(r.combat?.reason||r.combat?.outcome||'').toLowerCase();
+ const noHp=reason.includes('miss')||reason.includes('resist')||reason.includes('negat')||reason.includes('spell failed');
+ const combatStatus=r.combat?.pending?'Awaiting GM approval':r.combat?.applied?(noHp?'No HP change':Number(r.combat.amount??0)===0?'Resolved · 0 effective HP': 'HP changed ('+Number(r.combat.amount)+' effective)'):r.combat?.note||'HP not updated';
  const checks=(r.combat?.mitigation||[]).map(part=>part.type==='sr'?'SR '+part.total+'/'+part.sr+(part.passed?' passed':' resisted'):part.type==='dr'?'DR '+(part.reduced||0)+' blocked':part.type==='energy'?(part.energy+' '+(part.before-part.after)+' resisted'):part.type==='save'?(part.save==='fort'?'Fort':part.save==='ref'?'Ref':'Will')+' '+part.total+' vs DC '+part.dc+(part.passed?' saved':' failed'):part.type==='review'?'GM review: vulnerability':'').filter(Boolean);
  const outcome=r.combat?.target?'\nTarget: '+r.combat.target+(r.combat.outcome?' · '+r.combat.outcome:'')+' · '+combatStatus+(checks.length?'\n'+checks.join(' · '):''):'';
  const failure=r.spellFailure,armorCheck=failure?'\nArmor spell failure: '+failure.roll+' vs '+failure.chance+'% — '+(failure.failed?'failed':'passed'):'';
@@ -392,7 +395,19 @@ function mountCharacterSheet(tabs,switchTo){
  }
  async function roll(label,expression,weaponIndex,spellIndex,abilityEntry,mode='use'){
   clearTimeout(remainingTimer);if(remainingInvalid)return;if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy)return;setBusy(true);let node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
-  try{const result=await request({op:'roll',...(abilityEntry?{kind:'ability',...abilityEntry}:spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:recordId(),...((weaponIndex!==undefined||spellIndex!==undefined||abilityEntry)?{mode}:{}),discord:mode==='send'||discordEnabled,discordStats:preferences.discordRollStats});if(closed)return;const r=result.roll;if(r.characterRevision!==undefined){try{const fresh=await request();character=fresh.character;draw();node=root.querySelector('[data-roll-result]');node.hidden=false;}catch{status('Use saved · Sync pending');}}const failed=result.discord==='failed';if(mode==='send'){node.hidden=true;notify(failed?'Discord delivery failed':result.discord==='sent'?'Sent to Discord':'Discord delivery pending');}else if(r.descriptionOnly){node.hidden=true;notify(failed?'Use · Discord delivery failed':'Use');}else{const present=()=>{if(closed)return;const current=root.querySelector('[data-roll-result]');if(current){current.textContent=formatRoll(label,r)+(failed?' · Discord delivery failed':'');current.hidden=false;}};if(document.body.hasAttribute('data-owlbear-sheet')||r.provider==='owlbear-dice-plus'){present();status('Rolled with Dice+');}else{node.hidden=false;node.textContent='Roll queued…';void showDice(r,{onResult:present});status('Rolled');}}document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
+  try{const result=await request({op:'roll',...(abilityEntry?{kind:'ability',...abilityEntry}:spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:recordId(),...((weaponIndex!==undefined||spellIndex!==undefined||abilityEntry)?{mode}:{}),discord:mode==='send'||discordEnabled,discordStats:preferences.discordRollStats});if(closed)return;const r=result.roll;if(r.characterRevision!==undefined){try{const fresh=await request();character=fresh.character;draw();node=root.querySelector('[data-roll-result]');node.hidden=false;}catch{status('Use saved · Sync pending');}}const failed=result.discord==='failed';if(mode==='send'){node.hidden=true;notify(failed?'Discord delivery failed':result.discord==='sent'?'Sent to Discord':'Discord delivery pending');}else if(r.descriptionOnly){node.hidden=true;notify(failed?'Use · Discord delivery failed':'Use');}else{const present=()=>{if(closed)return;const current=root.querySelector('[data-roll-result]');if(current){
+  current.textContent=formatRoll(label,r)+(failed?' · Discord delivery failed':'');
+  const verdict=combatVerdict(r);
+  if(verdict){
+   current.dataset.combatResult=verdict.tone;
+   const banner=document.createElement('strong');
+   banner.className='cs-combat-indicator cs-combat-indicator-'+verdict.tone;
+   banner.textContent=verdict.label;
+   banner.title=verdict.detail;
+   current.prepend(banner);
+  }else delete current.dataset.combatResult;
+  current.hidden=false;
+ }};if(document.body.hasAttribute('data-owlbear-sheet')||r.provider==='owlbear-dice-plus'){present();status('Rolled with Dice+');}else{node.hidden=false;node.textContent='Roll queued…';void showDice(r,{onResult:present});status('Rolled');}}document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
   catch(err){if(!closed)node.textContent=err.message;}finally{if(!closed)setBusy(false);}
  }
  function selectSpellLevel(level,focus=false){spellFilter=level;draw();const url=new URL(location.href);url.searchParams.set('spellLevel',level);history.replaceState(null,'',url);if(focus){const tab=root.querySelector('[data-spell-level="'+level+'"]');tab.focus({preventScroll:true});tab.scrollIntoView({block:'nearest',inline:'nearest'});}}
