@@ -58,7 +58,7 @@ try{
  await page.locator('[data-panel-tab="character"]').click();
  await page.locator('[data-characters] [data-character]').first().click();
  await page.locator('[data-add-sheet]').click();
- await page.locator('[data-sheet-search]').fill('long NPC');
+ await page.locator('[data-sheet-search]').fill('long NPC');await page.locator('[data-sheet-search-go]').click();
  assert.equal(await page.locator('[data-pick-sheet="npc-1"]').isVisible(),true);
  await page.locator('[data-sheet-search]').fill('not a character');
  assert.equal(await page.locator('[data-pick-sheet]').count(),0);
