@@ -138,9 +138,9 @@ async function start(){
  bus=await localChannel(OBR,d=>{
   if(d?.type==='hello'){publish();bus.send({type:'room-rolls',rolls:history.rows()});if(token)bus.send({type:'grant',token});void refreshAccess();return;}
   if(d?.type==='roll-receipt'){void history.publish(d.entry,d.target).catch(error);return;}
-  if(d?.type==='highlight'){const row=rows().find(row=>row.id===d.id&&(gm||row.visible));focus.hover(ready&&row?row.id:null);return;}
+  if(d?.type==='highlight'){const row=battleForViewer(rows(),gm).find(row=>row.id===d.id);focus.hover(ready&&row?row.id:null);return;}
   // Center only this viewer's camera. Players cannot locate GM-hidden combatants.
-  if(d?.type==='locate'){const row=ready?rows().find(row=>row.id===d.id&&(gm||row.visible)):null;if(row)void focus.locate(row.id).catch(error=>console.warn('Initiative locate:',error.message));return;}
+  if(d?.type==='locate'){const row=ready?battleForViewer(rows(),gm).find(row=>row.id===d.id):null;if(row)void focus.locate(row.id).catch(error=>console.warn('Initiative locate:',error.message));return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
   if(!['layout','stats','initiative','turn','add','remove'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
