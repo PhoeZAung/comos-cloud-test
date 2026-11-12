@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {defenseProfile,parseDr,parseSr,bypassesDr,resolveDefenses} from '../src/owlbear/pathfinder-defenses.mjs';
+import {defenseProfile,parseDr,parseSr,bypassesDr,resolveDefenses} from '../src/features/sheet/pathfinder-defenses.mjs';
 import {parseNpcStatBlock} from '../src/features/characters/npc-stat-block.mjs';
 import {computeCombatEffect} from '../src/owlbear/combat-effects.mjs';
 const damage=(kind,total,{parts=null,resolution={}}={})=>({
