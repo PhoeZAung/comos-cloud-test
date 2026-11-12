@@ -102,3 +102,75 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 .sheet-picker-search-row{display:flex;align-items:flex-end;gap:6px;margin-bottom:8px}
 .sheet-picker-search-row .sheet-picker-search{flex:1 1 0;min-width:0;margin-bottom:0}
 .sheet-picker-search-row [data-sheet-search-go]{flex:0 0 auto;min-height:35px;padding:7px 10px}
+
+
+/* Cosmos constellation navigation — compact, legible, and responsive. */
+.cosmos-tabs{
+ position:relative;display:flex;align-items:stretch;gap:5px;min-height:46px;
+ padding:6px;border:1px solid #5a4a794e;border-radius:13px;
+ background:linear-gradient(145deg,#211b32 0%,#141827 52%,#181427 100%);
+ box-shadow:inset 0 1px #c9b7ff17,0 6px 21px #07061147;
+ scrollbar-color:#66557e transparent;
+}
+.cosmos-tabs button[data-panel-tab]{
+ position:relative;display:flex;align-items:center;justify-content:center;
+ flex:0 0 auto;min-height:34px;min-width:62px;max-width:135px;
+ padding:7px 11px;border:1px solid transparent;border-radius:9px;
+ background:transparent;color:#bcb1d0;font:600 11px/1.2 system-ui;
+ letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ transition:background .16s ease,color .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.cosmos-tabs button[data-panel-tab]:hover{
+ color:#f4eaff;border-color:#9176b753;
+ background:linear-gradient(145deg,#392b5080,#25223c80);
+}
+.cosmos-tabs button[data-panel-tab][aria-selected=true]{
+ color:#faf5ff;background:linear-gradient(135deg,#554170,#382b55 62%,#2d294d);
+ border-color:#c6a5f68c;
+ box-shadow:inset 0 1px #fff2,0 0 0 1px #c49fff15,0 2px 14px #b88aff19;
+ text-shadow:0 1px 6px #bf9be544;
+}
+.cosmos-tabs button[data-panel-tab][aria-selected=true]::after{
+ content:"";position:absolute;bottom:0;left:24%;width:52%;height:2px;
+ background:#dfc4ff;border-radius:3px;box-shadow:0 0 8px #b394ff;
+}
+.cosmos-tabs button[data-panel-tab="admin"]:not([hidden]){color:#e9cee9}
+.cosmos-tabs button[data-panel-tab="admin"][aria-selected=true]{color:#fff2fa}
+.cosmos-tabs button[data-panel-tab="initiative"][aria-selected=true]{border-color:#b3a0eb9e}
+.cosmos-tabs .extension-sheet-close{
+ flex:0 0 20px;min-width:20px;width:20px;max-width:20px;
+ min-height:34px;margin-left:-5px;padding:0;
+ border:1px solid #6b587745;border-left:0;border-radius:0 8px 8px 0;
+ background:#261c3899;color:#baa8d1;font-size:16px;
+}
+.cosmos-tabs button[data-panel-tab]:has(+.extension-sheet-close){
+ border-top-right-radius:4px;border-bottom-right-radius:4px;padding-right:7px;
+}
+.cosmos-tabs .extension-sheet-close:hover,.cosmos-tabs .extension-sheet-close:focus-visible{
+ border-color:#b99de0;color:#fff;background:#503350;
+}
+@media(max-width:380px){
+ .cosmos-tabs{gap:4px;padding:4px;min-height:42px}
+ .cosmos-tabs button[data-panel-tab]{min-width:53px;max-width:112px;min-height:32px;padding:7px 8px;font-size:10px}
+ .cosmos-tabs .extension-sheet-close{min-height:32px;min-width:18px;width:18px;max-width:18px;margin-left:-4px}
+}
+@media(prefers-reduced-motion:reduce){
+ .cosmos-tabs button[data-panel-tab]{transition:none}
+}
+
+/* Each initiative name is a real camera-focus button; remains keyboard usable. */
+.initiative-tab .battle-name{padding:1px 3px;text-align:left}
+.initiative-tab .battle-locate{
+ display:block;width:100%;min-width:0;padding:7px 5px;
+ border:1px solid transparent;border-radius:7px;background:transparent;
+ font:600 12px/1.3 system-ui;color:#e9dffc;text-align:left;
+ cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.initiative-tab .battle-locate:hover,.initiative-tab .battle-locate:focus-visible{
+ background:#41325a9c;border-color:#b79ce784;color:#aeeefe;
+ text-decoration:underline;text-underline-offset:3px;
+}
+.initiative-tab .current-turn .battle-locate{color:#f8e4ff}
+.initiative-tab .battle-name:hover,.initiative-tab .battle-name:focus-visible{
+ color:inherit;text-decoration:none;
+}
