@@ -32,7 +32,7 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21)}={}){
  }
  function history(id,admin){
   room(id);
-  return db.prepare('SELECT event_json FROM cosmos_combat_events WHERE room_id=? AND status=? ORDER BY created_at DESC,id DESC LIMIT 120').all(id,'applied').map(row=>{
+  return db.prepare('SELECT event_json FROM cosmos_combat_events WHERE room_id=? AND status=? ORDER BY rowid DESC LIMIT 120').all(id,'applied').map(row=>{
    const event=JSON.parse(row.event_json);
    if(!admin&&event.gmOnly)return null;
    if(!admin&&event.targetNpc){delete event.before;delete event.after;}
