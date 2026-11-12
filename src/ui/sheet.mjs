@@ -82,11 +82,12 @@ export function rollDice(expression,random=limit=>{const range=4294967296,ceilin
 export function formatRoll(label,r){
  const receipt=(x,typed=false)=>x.total+' ('+x.expression+(x.rolls?.length?' · '+x.rolls.join(', '):'')+')'+(typed&&damageTypeLine(x)?' — '+damageTypeLine(x):'');
  const title=r.weaponName||r.spellName||r.abilityName||label;
+ const outcome=r.combat?.target?'\nTarget: '+r.combat.target+(r.combat.outcome?' · '+r.combat.outcome:'')+' · HP not automatically changed':'';
  const failure=r.spellFailure,armorCheck=failure?'\nArmor spell failure: '+failure.roll+' vs '+failure.chance+'% — '+(failure.failed?'failed':'passed'):'';
  if(r.descriptionOnly)return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingInfusedAmmo!==undefined?' · '+r.remainingInfusedAmmo+' infused rounds remaining':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+armorCheck+'\n'+r.description;
  if(!['weapon','spell','ability'].includes(r.kind))return label+': '+receipt(r,true);
  const attack=r.kind==='weapon'?r:r.attack;
- return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingInfusedAmmo!==undefined?' · '+r.remainingInfusedAmmo+' infused rounds remaining':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+armorCheck+(attack?'\nAttack Roll: '+receipt(attack):'')+(r.damage?'\nDice Roll: '+receipt(r.damage,true):'')+(r.critical?.threat?'\nCritical threat\nConfirmation: '+receipt(r.critical.confirmation)+(r.critical.damage?'\nDamage if confirmed: '+receipt(r.critical.damage,true):''):'');
+ return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingInfusedAmmo!==undefined?' · '+r.remainingInfusedAmmo+' infused rounds remaining':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+armorCheck+(attack?'\nAttack Roll: '+receipt(attack):'')+(r.damage?'\n'+(r.effectType==='heal'?'Healing':r.effectType==='temp_hp'?'Temporary HP':'Dice Roll')+': '+receipt(r.damage,true):'')+(r.critical?.threat?'\nCritical threat\nConfirmation: '+receipt(r.critical.confirmation)+(r.critical.damage?'\nDamage if confirmed: '+receipt(r.critical.damage,true):''):'')+outcome;
 }
 
 /**
