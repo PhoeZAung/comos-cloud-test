@@ -9,7 +9,7 @@ const output=await mkdtemp(path.join(tmpdir(),'cosmos-laser-limit-'));
 const mime={'.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.png':'image/png','.svg':'image/svg+xml','.webp':'image/webp'};
 const fixture=`import {setupEffects} from '/assets/effects.mjs';
 import {preferences} from '/assets/preferences.mjs';
-import {renderSection} from '/features/sheet/view.mjs';
+import {renderSection,renderSheetFrame} from '/features/sheet/view.mjs';
 import {mountNotesElectric} from '/assets/sheet-notes-electric.mjs';
 window.toggleLaser=enabled=>document.dispatchEvent(new CustomEvent('comos:preferences',{detail:{...preferences,laserFlow:enabled}}));
 window.disposeEffects=setupEffects();
@@ -17,6 +17,8 @@ let dispose=()=>{};
 window.drawLimit=(hp=5,spent=0)=>{dispose();document.querySelector('main').innerHTML=renderSection({data:{classes:[{name:'Black Mage',level:1}],hp_max:10,hp_curr:hp,limitBreakPool:{spent},activeAbilities:[{name:'Mana Wall (Limit Break)',limitBreak:true}],notesArea:'Editable notes'}},'abilities');dispose=mountNotesElectric(document.querySelector('main'));};
 window.drawNotes=()=>{dispose();document.querySelector('main').innerHTML=renderSection({data:{notesArea:'Editable notes'}},'notes');dispose=mountNotesElectric(document.querySelector('main'));};
 window.clearSheet=()=>{dispose();document.querySelector('main').replaceChildren();};
+window.drawSheet=(section='overview')=>{dispose();document.querySelector('main').innerHTML=renderSheetFrame({id:'laser-fixture',name:'Storm Weaver',data:{classes:[{name:'Black Mage',level:1}],hp_max:10,hp_curr:5,activeAbilities:[{name:'Mana Wall (Limit Break)',limitBreak:true}]}},section);dispose=mountNotesElectric(document.querySelector('main'));};
+document.querySelector('main').onclick=event=>{const tab=event.target.closest('[data-sheet-tab]');if(tab)window.drawSheet(tab.dataset.sheetTab);};
 window.drawLimit(6);`;
 const server=createServer(async(req,res)=>{
  try{
@@ -40,10 +42,24 @@ try{
  await page.waitForFunction(()=>performance.getEntriesByType('resource').some(r=>r.name.endsWith('/assets/comos-universe.png')));
  assert.equal(await page.locator('.laser-flow-canvas').evaluate(c=>!!c.getContext('webgl2')),true);
  await page.locator('#test-click').click();
+ // Follow the real sheet navigation, including replacement DOM on tab switches.
+ const aligned=()=>page.waitForFunction(()=>{
+  const tabs=document.querySelector('.cs-tabs[aria-label="Character sheet"]')?.getBoundingClientRect();
+  const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
+  return tabs&&surface&&Math.abs(surface.left-tabs.left)<2&&Math.abs(surface.width-tabs.width)<2&&Math.abs(surface.top-Math.max(0,tabs.top))<2;
+ });
+ await page.evaluate(()=>window.drawSheet());await aligned();
+ for(const name of ['combat','favorites','overview']){
+  await page.locator('.cs-tabs[aria-label="Character sheet"] [data-sheet-tab="'+name+'"]').click();await aligned();
+ }
  await page.waitForTimeout(2200);await page.screenshot({path:path.join(output,'laser-desktop.png')});
- await page.setViewportSize({width:390,height:844});await page.waitForTimeout(200);
+ await page.setViewportSize({width:390,height:844});await aligned();await page.waitForTimeout(200);
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await page.screenshot({path:path.join(output,'laser-mobile.png')});
+ await page.evaluate(()=>window.scrollTo(0,300));await aligned();
+ await page.evaluate(()=>{window.scrollTo(0,0);window.drawLimit(6);});
+ await page.waitForFunction(()=>document.querySelector('[data-laser-surface="ambient"]'));
+
  await page.emulateMedia({reducedMotion:'reduce'});await page.waitForFunction(()=>!document.querySelector('.laser-flow-canvas'));
  await page.emulateMedia({reducedMotion:'no-preference'});await page.locator('.laser-flow-canvas').waitFor();
  await page.evaluate(()=>{window.toggleLaser(false);window.toggleLaser(true);window.toggleLaser(false);});
@@ -72,5 +88,5 @@ try{
  await page.evaluate(()=>{window.toggleLaser(true);window.drawLimit(5,0);});await page.locator('.laser-flow-canvas').waitFor();
  await page.locator('#test-click').click();assert.equal(await page.locator('.cs-limit-entry .cs-entry-use').isEnabled(),true);
  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);
- console.log(JSON.stringify({checks:['LaserFlow WebGL, reveal asset, desktop/mobile, click-through','Toggle races, reduced motion and disposal','Limit border follows threshold, spent pool, refill and healing','Notes toggle stays independent; notes remain editable','No-WebGL keeps controls usable'],output},null,2));
+ console.log(JSON.stringify({checks:['LaserFlow WebGL, reveal asset, desktop/mobile, click-through','Tab impact and side barrier follow resize, scrolling and replacement sheet tabs','Toggle races, reduced motion and disposal','Limit border follows threshold, spent pool, refill and healing','Notes toggle stays independent; notes remain editable','No-WebGL keeps controls usable'],output},null,2));
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}
