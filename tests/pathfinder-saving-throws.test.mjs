@@ -6,7 +6,7 @@ import {resolveDefenses} from '../src/features/sheet/pathfinder-defenses.mjs';
 import {spellRoll,abilityRoll} from '../backend/characters/rolls.mjs';
 
 const effect={kind:'damage',hit:true,amount:21,reason:'Hit'};
-const receipt=(rule={})=>({kind:'spell',dc:17,resolution:{abilityKind:'spell',srApplies:false,saveType:'ref',saveSuccess:'half',...rule},
+const receipt=(rule={})=>({kind:'spell',dc:17,effectType:'damage',resolution:{abilityKind:'spell',srApplies:false,saveType:'ref',saveSuccess:'half',...rule},
  damage:{total:21,breakdown:[{type:'fire',total:21}]}});
 const defenses=(roll,target,saveDie)=>resolveDefenses(roll,
  computeCombatEffect(roll,{ac:12}),target,{saveRoll:saveDie,saves:target.saves});
