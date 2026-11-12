@@ -2,6 +2,7 @@ import {npcDirectory,npcDirectoryPath} from './npcs.mjs';
 import {createPublicPartyRoutes} from './public-party.mjs';
 import {sheetSkills} from '../../src/features/sheet/skills.mjs';
 import {publishRoll} from './rolls.mjs';
+import {catalogInventoryItem} from '../items/inventory.mjs';
 import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
@@ -9,7 +10,7 @@ import {mergeWizardData} from './editor-fields.mjs';
 import {compileBuild,levelUpBuild,appendClassBuild} from '../../src/features/characters/rules/build.mjs';
 import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 import {statusRoster,characterPortrait,STATUS_LIMIT} from './owlbear-status.mjs';
-export function createDirectoryRoutes({db,sessions,adminUids,origin}){
+export function createDirectoryRoutes({db,sessions,adminUids,origin,items}){
  const admins=new Set(adminUids),streams=new Map(),publicParty=createPublicPartyRoutes(db);
  const tags=()=>db.prepare('SELECT * FROM character_tags ORDER BY name,id').all();
  return async(req,res,path,send)=>{
@@ -97,7 +98,16 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
       data.owlbearStatusVisible=change.visible;
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
      }else if(change.op==='sheet'){
-      data=mergeSheetData(data,change,{npc});
+      if(change.action==='addCatalogItem'){
+       if(npc||c.owner_id!==session.user.id)throw Object.assign(Error('Choose one of your own characters.'),{httpStatus:403});
+       if(!Number.isInteger(change.quantity)||change.quantity<1||change.quantity>999)throw Error('Choose a quantity from 1 to 999.');
+       const item=items?.get(change.itemId);
+       if(!item||item.archived)throw Object.assign(Error('This item is unavailable.'),{httpStatus:404});
+       const inventory=Array.isArray(data.items)?data.items:[];
+       if(inventory.length>=1000)throw Error('Inventory has too many entries.');
+       data.items=[...inventory,catalogInventoryItem(item,change.quantity)];
+       if(Buffer.byteLength(JSON.stringify(data))>500000)throw Error('Character inventory is too large.');
+      }else data=mergeSheetData(data,change,{npc});
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
      }else if(['wizard-build','wizard-level-up','wizard-add-class'].includes(change.op)){
       if(!Array.isArray(change.build?.skillRanks))throw Error('Allocate all skill points before saving.');
@@ -125,7 +135,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    if(req.method==='POST')publicParty.refresh();
    if(req.method==='POST'&&db.prepare('SELECT archived FROM characters WHERE id=?').get(id)?.archived){send(200,{archived:true,id});return true;}
    const current=db.prepare('SELECT name,revision FROM characters WHERE id=?').get(id);
-   send(200,{admin:session.admin,character:{id,...current,...(npc?{kind:'npc'}:{}),data,tags:db.prepare('SELECT tag_id AS id FROM character_tag_links WHERE character_id=?').all(id).map(t=>t.id),partyTags:db.prepare("SELECT t.id,t.name,t.kind FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id WHERE l.character_id=? AND t.kind='party' ORDER BY t.name COLLATE NOCASE,t.id").all(id)},availableTags:session.admin?tags():[]});
+   send(200,{admin:session.admin,character:{id,...current,owned:c.owner_id===session.user.id,...(npc?{kind:'npc'}:{}),data,tags:db.prepare('SELECT tag_id AS id FROM character_tag_links WHERE character_id=?').all(id).map(t=>t.id),partyTags:db.prepare("SELECT t.id,t.name,t.kind FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id WHERE l.character_id=? AND t.kind='party' ORDER BY t.name COLLATE NOCASE,t.id").all(id)},availableTags:session.admin?tags():[]});
   }catch(error){send(error.httpStatus||400,{error:'invalid_request',message:error.message?.includes('UNIQUE')?'That name is already in use.':error.message||'Could not save.'});}return true;
  };
 }

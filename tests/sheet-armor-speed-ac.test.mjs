@@ -85,6 +85,22 @@ test('legacy equipped armor applies imported stats, while shields leave DEX and 
  assert.match(renderSection({data:hero},'overview'),/data-roll="DEX check" data-bonus="6"/);
 });
 
+test('shields with an explicit positive Dexterity cap limit AC and preserve Reflex',()=>{
+ const hero={...base,items:[shield({name:'Tower Shield',maxDex:'+2'})]};
+ const stats=sheetStats(hero);
+ assert.equal(stats.dexAcModifier,2);
+ assert.equal(stats.touch,12);
+ assert.equal(stats.ref,6);
+});
+
+test('Uncanny Dodge uses granted abilities by default and accepts a sheet override',()=>{
+ const hero={...base,ac_dodge:2,passiveAbilities:[{rulesName:'Uncanny Dodge'}]};
+ assert.equal(sheetStats(hero).flat,18);
+ const edited=mergeSheetData(hero,{action:'fields',fields:{uncanny_dodge:'off'}});
+ assert.equal(sheetStats(edited).flat,10);
+ assert.equal(sheetStats({...edited,dex:8}).flat,9);
+});
+
 test('racial speed restores standard legacy sheets and respects compiled alternate movement',()=>{
  const normal={...base,race:'Hume',size_category:'Small',speed:15,items:[armor({speed:'30 ft. / 20 ft.'})]};
  assert.equal(sheetStats(normal).speed,30);

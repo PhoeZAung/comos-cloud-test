@@ -4,7 +4,7 @@ import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gun
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
 import {weaponAttackParts,attackTypes} from '../../src/features/sheet/model.mjs';
-import {entryCalculations,context,damageExpression,diceTerms,damageTypeLine} from '../../src/features/sheet/calculations.mjs';
+import {entryCalculations,damageExpression,diceTerms,damageTypeLine,criticalProfile,weaponDamageFormulas} from '../../src/features/sheet/calculations.mjs';
 import {randomInt} from 'node:crypto';
 const relay='https://weathered-term-1e39.phoeaung2076.workers.dev';
 export function serverRoll(expression){
@@ -12,30 +12,39 @@ export function serverRoll(expression){
  for(const term of terms){if(term.count){const values=Array.from({length:term.count},()=>randomInt(1,term.sides+1)),subtotal=term.sign*values.reduce((a,b)=>a+b,0);rolls.push(...values.map(v=>v*term.sign));total+=subtotal;breakdown.push({type:term.type,dice:term.count+'d'+term.sides,rolls:values,total:subtotal});}else{const n=term.sign*term.flat;bonus+=n;total+=n;breakdown.push({type:term.type,total:n});}}
  return {expression,rolls,bonus,total,breakdown};
 }
-export function criticalProfile(row){
- const range=String(row.crit_range===undefined||row.crit_range===null||row.crit_range===''?'20':row.crit_range).trim().replace(/[–—]/g,'-'),match=/^(\d{1,2})(?:\s*-\s*20)?$/.exec(range),minimum=Number(match?.[1]);
- const mult=/^(?:[x×]\s*)?(\d{1,2})$/i.exec(String(row.crit_mult||'x2').trim()),multiplier=Number(mult?.[1]);
- if(!match||minimum<1||minimum>20||!mult||multiplier<2||multiplier>5)throw Error('Set a critical range from 1-20 to 20 and a multiplier from x2 to x5.');
- return {minimum,multiplier};
-}
+export {criticalProfile};
 export function criticalResult(row,attack,damage,expression,roll=serverRoll){
  const profile=criticalProfile(row),threat=!!attack&&attack.rolls[0]>=profile.minimum&&attack.rolls[0]!==1;
  const result={...profile,threat};if(threat){result.confirmation=roll(expression);if(damage)result.damage={...damage,expression:profile.multiplier+' × ('+damage.expression+')',rolls:[],bonus:0,total:damage.total*profile.multiplier,breakdown:(damage.breakdown||[]).map(part=>({...part,total:part.total*profile.multiplier}))};}
  return result;
 }
 export function weaponRoll(row,data,roll=serverRoll,options){
- const p=weaponAttackParts(row,data,options),expression='1d20'+(p.total>=0?'+':'')+p.total,attack=roll(expression),ctx=context(data,row);let damage=null,damageError='';
- if(row.damage||row.dmg){try{const formula=damageExpression(String(row.damage||row.dmg),ctx);diceTerms(formula);damage=roll(formula);}catch(error){damageError=error.message;}}
- const critical=p.type==='cmb'?{...criticalProfile(row),threat:false}:criticalResult(row,attack,damage,expression,roll);
- if(critical.threat&&!damage)critical.damageError=damageError;
+ const p=weaponAttackParts(row,data,options),profile=criticalProfile(row);
+ const expression='1d20'+(p.total>=0?'+':'')+p.total,attack=roll(expression);
+ const threat=p.type!=='cmb'&&attack.rolls[0]!==1&&attack.rolls[0]>=profile.minimum;
+ const critical={...profile,threat};
+ let formulas,damage=null,damageError='';
+ try{formulas=weaponDamageFormulas(row,data,threat?profile.multiplier:0);}catch(error){damageError=error.message;}
+ if(formulas?.normal)damage=roll(formulas.normal);
+ if(threat){
+  critical.confirmation=roll(expression);
+  if(formulas?.critical)critical.damage=roll(formulas.critical);
+  if(damageError||formulas?.criticalError)critical.damageError=damageError||formulas.criticalError;
+ }
  return {...attack,kind:'weapon',weaponName:String(row.name||'Weapon'),attackType:p.type,critical,damage,damageError};
 }
-export function spellRoll(row,data,roll=serverRoll){
- const c=entryCalculations(row,data,'spells');if(c.mp===null)throw Error('Set the spell level before casting.');
- const attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;let damage=null,damageError='';
+export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false}={}){
+ const c=entryCalculations(row,data,'spells');
+ if(c.mp===null)throw Error('Set the spell level before casting.');
+ const chance=c.spellFailure,failureRoll=chance>0?roll('1d100'):null;
+ const spellFailure=failureRoll?{chance,roll:failureRoll.total,failed:failureRoll.total<=chance}:null;
+ const base={kind:'spell',spellName:String(row.name||'Spell'),mpAmount:c.mp,dc:c.dc,range:c.range,description:String(row.desc||''),expression:'cast',...(spellFailure?{spellFailure}:{})};
+ if(descriptionOnly||spellFailure?.failed)return {...base,descriptionOnly:descriptionOnly&&!spellFailure?.failed,rolls:[],bonus:0,total:0};
+ const attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;
+ let damage=null,damageError='';
  if(row.damage||row.dmg){try{damage=roll(damageExpression(String(row.damage||row.dmg),c.ctx));}catch(error){damageError=error.message;}}
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
- return {critical,kind:'spell',spellName:String(row.name||'Spell'),mpAmount:c.mp,dc:c.dc,range:c.range,description:String(row.desc||''),attack,damage,damageError,expression:'cast',rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
+ return {...base,critical,attack,damage,damageError,rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
 }
 export function abilityRoll(row,data,key,roll=serverRoll){
  const c=entryCalculations(row,data,key),attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;
@@ -51,7 +60,7 @@ function diceLine(r,{typed=false}={}){
  const elements=typed?damageTypeLine(r):'';
  return calculation+(elements?' — '+elements:'');
 }
-export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push('Dice Roll: '+diceLine(r.damage,{typed:true}));if(r.critical?.threat){lines.push('Crit!');lines.push('Attack Roll: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Dice Roll: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
+export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push('Dice Roll: '+diceLine(r.damage,{typed:true}));if(r.critical?.threat){lines.push('Critical threat');lines.push('Confirmation: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Damage if confirmed: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
 export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch,makeWeaponRoll=weaponRoll,makeSpellRoll=spellRoll,makeAbilityRoll=abilityRoll}){
  const weapon=change.kind==='weapon',spell=change.kind==='spell',ability=change.kind==='ability',entry=weapon||spell||ability;
  if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.discord!=='boolean'||(change.discordStats!==undefined&&typeof change.discordStats!=='boolean')||(change.kind!==undefined&&!entry))throw Error('Invalid roll.');
@@ -74,11 +83,21 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  const diceRoll=external?expression=>external.roll(expression):serverRoll;
  const npc=character.kind==='npc';
  const weaponDice=external?(row,data)=>weaponRoll(row,data,diceRoll,{npc}):npc?(row,data)=>makeWeaponRoll(row,data,diceRoll,{npc}):makeWeaponRoll;
- const spellDice=external?(row,data)=>spellRoll(row,data,diceRoll):makeSpellRoll;
+ const spellDice=external?(row,data,_,options)=>spellRoll(row,data,diceRoll,options):makeSpellRoll;
  const abilityDice=external?(row,data,key)=>abilityRoll(row,data,key,diceRoll):makeAbilityRoll;
  let updated=null;
  const descriptionOnly=entry&&(mode==='send'||mode==='use'&&!weapon&&!String(row.damage||row.dmg||'').trim());
- const roll=descriptionOnly?{kind:change.kind,description:String(row.desc||''),descriptionOnly:true,expression:'description',rolls:[],bonus:0,total:0,...(weapon?{weaponName:label}:spell?{spellName:label}:{abilityName:label})}:weapon?weaponDice(row,character.data):spell?spellDice(row,character.data):ability?abilityDice(row,character.data,change.collection):diceRoll(expression),delivery=change.discord?'pending':'off';
+ const delivery=change.discord?'pending':'off';
+ let roll;
+ if(spell&&mode==='use'){
+  roll=spellDice(row,character.data,undefined,{descriptionOnly});
+ }else if(descriptionOnly){
+  const nameKey=weapon?'weaponName':spell?'spellName':'abilityName';
+  roll={kind:change.kind,[nameKey]:label,description:String(row.desc||''),descriptionOnly:true,expression:'description',rolls:[],bonus:0,total:0};
+ }else if(weapon)roll=weaponDice(row,character.data);
+ else if(spell)roll=spellDice(row,character.data);
+ else if(ability)roll=abilityDice(row,character.data,change.collection);
+ else roll=diceRoll(expression);
  if(external){external.finish();roll.provider='owlbear-dice-plus';}
  if(mode==='use'&&roll.damageError)throw Error(roll.damageError);
  if(weapon&&mode==='use'&&(row.uses_formula||weaponUsage.maxUses>0)){
@@ -101,7 +120,8 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  if(!change.discord)return {roll,discord:'off'};
  const safe=s=>String(s).replaceAll('@','＠');
  const stats=change.discordStats!==false,lines=['🎲 '+safe(character.name)+' — '+safe(label)];if(external)lines.push('Dice+ client roll');
- if(descriptionOnly){
+ if(roll.spellFailure){const f=roll.spellFailure;lines.push('Armor spell failure: '+f.roll+' vs '+f.chance+'% — '+(f.failed?'failed':'passed'));}
+ if(descriptionOnly&&!roll.spellFailure?.failed){
   if(stats&&roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');
   if(stats&&roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(stats&&roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');
   lines.push(safe(row.desc||'No description.'));

@@ -13,12 +13,16 @@ window.fetch=async(input,options={})=>{
  await connected;
  const method=options.method||'GET',body=options.body?JSON.parse(options.body):undefined;
  if(body?.op==='roll'&&body.mode!=='send'){
-  if(!character)throw Error('Reload your character before rolling.');
+  if(!character||url.pathname!=='/api/v1/character-records/'+character.id)throw Error('Reload your character before rolling.');
   await connection.call('roll-context',{requestId:body.requestId});
   body.owlbearRolls=await requestSheetDice(character,body,notation=>connection.call('dice',{notation,requestId:body.requestId},100000));
  }
  const result=await connection.call('api',{path:url.pathname+url.search,method,body},30000);
- if(result.data?.character)character=result.data.character;
+ const current=result.data?.character;
+ if(current&&current.id===new URL(location.href).searchParams.get('characterId')){
+  if(current.id!==character?.id)controller.postMessage({type:'cosmos:sheet-selected',nonce,characterId:current.id},location.origin);
+  character=current;
+ }
  return new Response(JSON.stringify(result.data),{status:result.status,headers:{'Content-Type':'application/json'}});
 };
 document.addEventListener('click',event=>{

@@ -124,17 +124,21 @@ export function equippedArmor(data={},baseSpeed=30){
  // Enhancement values are expected to be included in the item's total bonus.
  const maximumBonus=rows=>Math.max(0,...rows.map(row=>armNumber(inventoryItemValue(row,'acBonus'))??0));
  const bodyBonus=maximumBonus(body),shieldBonus=maximumBonus(shields);
- const maxDexCaps=body.map(row=>armNumber(inventoryItemValue(row,'maxDex'))).filter(v=>v!==null&&v>=0);
+ const cap=row=>armNumber(inventoryItemValue(row,'maxDex'));
+ const maxDexCaps=[...body.map(cap).filter(v=>v!==null&&v>=0),...shields.map(cap).filter(v=>v>0)];
  const worstPenalty=rows=>Math.min(0,...rows.map(row=>-Math.abs(armNumber(inventoryItemValue(row,'checkPenalty'))??0)));
  // Shields and armor have separate ACPs. Their penalties stack with each other,
  // but the resulting worn-gear ACP does not stack with load ACP.
  const armorPenalty=worstPenalty(body),shieldPenalty=worstPenalty(shields);
  const category=body.some(row=>armorCategoryOf(row)==='heavy')?'heavy':body.some(row=>armorCategoryOf(row)==='medium')?'medium':'light';
  const speedCaps=body.map(row=>armorSpeedLimit(row,baseSpeed,armorCategoryOf(row)));
+ const failure=row=>Math.min(100,Math.max(0,armNumber(inventoryItemValue(row,'spellFailure'))??0));
+ const spellFailure=[...body.map(row=>({category:armorCategoryOf(row),chance:failure(row),shield:false})),
+  ...shields.map(row=>({category:/\b(?:light|buckler)\b/i.test([row.name,row.type,row.secondaryType].join(' '))?'light':/\bheavy\b/i.test([row.name,row.type,row.secondaryType].join(' '))?'heavy':'other',chance:failure(row),shield:true}))];
  return {worn:worn.length,bodyBonus,shieldBonus,acBonus:bodyBonus+shieldBonus,
   checkPenalty:armorPenalty+shieldPenalty,armorPenalty,shieldPenalty,
   maxDex:maxDexCaps.length?Math.min(...maxDexCaps):Infinity,
-  category,speedCap:speedCaps.length?Math.min(baseSpeed,...speedCaps):baseSpeed};
+  category,spellFailure,speedCap:speedCaps.length?Math.min(baseSpeed,...speedCaps):baseSpeed};
 }
 export function carryingCapacity(data={}){
  const strength=Math.floor(data.str===undefined||data.str===null||data.str===''?10:numeric(data.str)),size=Object.keys(SIZE_CAPACITY).find(s=>s.toLowerCase()===String(data.size_category||data.size||'Medium').toLowerCase())||'Medium';

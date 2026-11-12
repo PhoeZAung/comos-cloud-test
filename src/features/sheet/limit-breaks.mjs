@@ -1,8 +1,10 @@
 import {sheetStats,number} from './model.mjs';
 import {characterClasses,totalClassLevel} from '../characters/ffd20.mjs';
-export const isLimitBreak=row=>row?.limitBreak===true||/limit[\s-]*break/i.test(String(row?.sourceRuleId||'')+' '+String(row?.rulesName||'')+' '+String(row?.name||''));
+const isExtraLimitBreak=row=>[row?.rulesName,row?.name].some(name=>/^extra limit break$/i.test(String(name||'').trim()));
+export const isLimitBreak=row=>!isExtraLimitBreak(row)&&(row?.limitBreak===true||/limit[\s-]*break/i.test(String(row?.sourceRuleId||'')+' '+String(row?.rulesName||'')+' '+String(row?.name||'')));
 export function limitBreakState(data){
- const level=totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1,max=1+Math.floor((Math.max(1,level)-1)/4),s=sheetStats(data);
+ const level=totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1;
+ const max=1+Math.floor((Math.max(1,level)-1)/4)+(data.feats||[]).filter(isExtraLimitBreak).length,s=sheetStats(data);
  const rows=['activeAbilities','passiveAbilities','racialAbilities','feats'].flatMap(k=>data[k]||[]).filter(isLimitBreak);
  // Legacy independent counters are reconciled conservatively; reading never refills a spent pool.
  const legacy=rows.reduce((spent,row)=>spent+Math.max(0,number(row.u_max)-number(row.u_curr??row.u_max)),0);
