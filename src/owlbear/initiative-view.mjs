@@ -36,7 +36,7 @@ export function mountInitiative(view,send){
    card.node.classList.toggle('current-turn',row.id===turn);card.node.classList.toggle('unavailable',!row.available);
    if(document.activeElement!==card.input)card.input.value=row.initiative;
    card.input.disabled=!state.admin;card.input.setAttribute('aria-label',row.name+' initiative');
-   card.node.querySelector('.battle-locate').textContent=row.name;
+   const locateButton=card.node.querySelector('.battle-locate');locateButton.textContent=row.name;locateButton.setAttribute('aria-label','Center camera on '+row.name);locateButton.title='Center camera on '+row.name;
    for(const key of ['hp','mp']){
     const button=card[key],untracked=key==='hp'&&!row.trackHp;
     button.textContent=untracked?'—':String(row[key]);
