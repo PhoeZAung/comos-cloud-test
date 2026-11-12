@@ -7,14 +7,14 @@ export function mountInitiative(view,send){
  let state={battle:[],party:[],turn:{},admin:false};
  const edits=resourceEditor(()=>state,value=>send(value));
  function render(){
-  const active=new Set(),visible=Array.isArray(state.battle)?state.battle:[],turn=state.turn?.id||visible[0]?.id;
+  const active=new Set(),visible=Array.isArray(state.battle)?state.battle:[],turn=state.turn?.id||null;
   for(const [index,row] of visible.entries()){
    active.add(row.id);let card=cards.get(row.id);
    if(!card){
     const node=document.createElement('tr');
-    node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"></td><td><button data-key="hp" class="battle-resource hp"></button></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
+    node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"><button type="button" class="battle-locate"></button></td><td><button data-key="hp" class="battle-resource hp"></button></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
     card={node,input:node.querySelector('input')};cards.set(row.id,card);
-    const name=node.querySelector('.battle-name');name.tabIndex=0;name.setAttribute('aria-label','Highlight '+row.name+' on map');
+    const name=node.querySelector('.battle-locate');name.setAttribute('aria-label','Center camera on '+row.name);name.title='Center camera on '+row.name;name.onclick=()=>send({type:'locate',id:row.id});
     name.onpointerenter=()=>send({type:'highlight',id:row.id});
     name.onpointerleave=()=>send({type:'highlight',id:null});
     name.onfocus=()=>send({type:'highlight',id:row.id});
@@ -36,7 +36,7 @@ export function mountInitiative(view,send){
    card.node.classList.toggle('current-turn',row.id===turn);card.node.classList.toggle('unavailable',!row.available);
    if(document.activeElement!==card.input)card.input.value=row.initiative;
    card.input.disabled=!state.admin;card.input.setAttribute('aria-label',row.name+' initiative');
-   card.node.querySelector('.battle-name').textContent=row.name;
+   card.node.querySelector('.battle-locate').textContent=row.name;
    for(const key of ['hp','mp']){
     const button=card[key],untracked=key==='hp'&&!row.trackHp;
     button.textContent=untracked?'—':String(row[key]);
