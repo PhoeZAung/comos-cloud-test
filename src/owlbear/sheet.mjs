@@ -38,7 +38,7 @@ window.fetch=async(input,options={})=>{
    const resolution=await connection.call('combat-complete',{requestId:body.requestId,targetId:combat.targetId});
    roll.combat.applied=resolution.applied===true;
    roll.combat.pending=resolution.status==='pending';
-   if(resolution.event){roll.combat.amount=resolution.event.applied;roll.combat.hp=resolution.event.after?.hp;}
+   if(resolution.event){roll.combat.amount=resolution.event.applied;roll.combat.hp=resolution.event.after?.hp;roll.combat.mitigation=resolution.event.mitigation||[];roll.combat.outcome=resolution.event.reason||roll.combat.outcome;}
    if(resolution.reason)roll.combat.note=resolution.reason;
   }catch(error){
    roll.combat.note='HP was not updated: '+error.message;
