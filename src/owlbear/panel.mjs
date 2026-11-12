@@ -10,10 +10,13 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
  function select(value){
   if(value==='admin'&&!admin)value='character';
   if(value.startsWith('sheet:')&&!sheets.some(sheet=>sheet.id===value.slice(6)))value='character';
+  const leavingSheet=(selected==='character'||selected.startsWith('sheet:'))&&value!=='character'&&!value.startsWith('sheet:');
+  // Capture scroll before hiding the iframe's container.
+  if(leavingSheet)onView(value);
   selected=value;syncTabs();
   for(const panel of panels)panel.hidden=panel.dataset.panelView!==(value==='character'||value.startsWith('sheet:')?'character':value);
   if(value==='character'||value.startsWith('sheet:'))onSheetTab(selectedSheetId());
-  else onView(value);
+  else if(!leavingSheet)onView(value);
   if(historyVisible())void refresh();
  }
  function syncSheets(next){
