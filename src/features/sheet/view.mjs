@@ -1,4 +1,4 @@
-import {npcStatLabels,npcTextLabels} from '../characters/npc-stat-block.mjs';
+import {npcStatLabels,npcTextLabels,npcStatGroups,npcTextGroups} from '../characters/npc-stat-block.mjs';
 import {abilityGroup,abilityLayout} from './ability-groups.mjs';
 import {actionType} from './entry-options.mjs';
 import {themes} from '../site-themes.mjs';
@@ -136,29 +136,40 @@ export function renderSection(character,section,{ability='activeAbilities',comba
 }
 function renderNpcSheet(data={}){
  const stats=data.npcStats||{},details=data.npcText||{};
- const stat=(key,{roll=false,suffix=''}={})=>{
-  const value=stats[key],label=npcStatLabels[key];
-  if(!Number.isFinite(value))return '';
-  return roll?`<button class="cs-metric" type="button" data-roll="${e(label)}" data-bonus="${value}"><span>${e(label)}</span><strong>${signed(value)}</strong></button>`:
-    `<div class="cs-metric"><span>${e(label)}</span><strong>${value}${suffix}</strong></div>`;
+ const saves=new Set(['fort','ref','will','initiative','cmb','perception','meleeAttack','rangedAttack']);
+ const stat=key=>{
+  const value=stats[key],label=npcStatLabels[key],known=Number.isFinite(value);
+  if(known&&saves.has(key))return `<button class="cs-metric" type="button" data-roll="${e(label)}" data-bonus="${value}"><span>${e(label)}</span><strong>${signed(value)}</strong></button>`;
+  return `<div class="cs-metric${known?'':' cs-metric-unset'}"><span>${e(label)}</span><strong>${known?e(value)+(key.toLowerCase().includes('speed')||key==='reach'?' ft':''):'—'}</strong></div>`;
  };
  const scores=abilities.map(key=>{
-  const score=stats[key];if(!Number.isFinite(score))return '';
-  const bonus=Math.floor((score-10)/2);
-  return `<button class="cs-score" type="button" data-roll="${key.toUpperCase()} check" data-bonus="${bonus}"><span>${key.toUpperCase()}</span><strong>${score}</strong><small>${signed(bonus)}</small></button>`;
+  const score=stats[key],known=Number.isFinite(score);
+  return known?`<button class="cs-score" type="button" data-roll="${key.toUpperCase()} check" data-bonus="${Math.floor((score-10)/2)}"><span>${key.toUpperCase()}</span><strong>${score}</strong><small>${signed(Math.floor((score-10)/2))}</small></button>`:
+   `<div class="cs-score cs-score-unset"><span>${key.toUpperCase()}</span><strong>—</strong><small>Not set</small></div>`;
  }).join('');
- const metrics=['ac','touch','flat','cmd','dr','sr','casterLevel','cr','speed','bab','initiative','fort','ref','will','cmb'].map(key=>stat(key,{roll:['initiative','fort','ref','will','cmb'].includes(key),suffix:key==='speed'?' ft':''})).join('');
+ const statCards=npcStatGroups.map((group,index)=>{
+  const values=group.keys.filter(key=>!abilities.includes(key)).map(stat).join('');
+  return baseCard(group.title,'<div class="cs-metrics">'+values+'</div>'+(index===npcStatGroups.length-1?'<div class="cs-scores">'+scores+'</div>':''),
+   edit('npcStats:'+index,group.title));
+ }).join('');
+ const knownHp=Number.isFinite(data.hp_curr)&&Number.isFinite(data.hp_max);
+ const health=knownHp?resource('HP',data.hp_curr,data.hp_max,'hp_curr',data.hp_temp,false,{showEdit:false}):
+  '<section class="cs-card"><h2>HP</h2><div class="cs-metrics"><div class="cs-metric cs-metric-unset"><span>Current / max HP</span><strong>— / —</strong></div><div class="cs-metric cs-metric-unset"><span>Temporary HP</span><strong>—</strong></div></div></section>';
  const skillRows=(data.npcSkills||[]).map((skill,index)=>`<div class="cs-skill"><button type="button" class="cs-skill-roll" data-roll="${e(skill.name)}" data-bonus="${e(skill.bonus)}"><span>${e(skill.name)}</span><strong>${signed(skill.bonus)}</strong>${icons.dice}</button><button type="button" class="cs-entry-name-edit" data-edit-entry="npcSkills:${index}" aria-label="Edit ${e(skill.name)}">${icons.edit}</button></div>`).join('');
- const pairs=Object.entries(npcTextLabels).filter(([key])=>key!=='summary'&&details[key]).map(([key,label])=>`<div><dt>${label}</dt><dd>${e(details[key])}</dd></div>`).join('');
+ const detailCards=npcTextGroups.map((group,index)=>{
+  const values=group.keys.map(key=>`<div><dt>${e(npcTextLabels[key])}</dt><dd class="${details[key]?'':'cs-npc-empty'}">${details[key]?e(details[key]):'—'}</dd></div>`).join('');
+  return '<section class="cs-card cs-npc-details"><details '+(index===1?'open':'')+'><summary>'+e(group.title)+'</summary><dl class="cs-pairs">'+values+'</dl></details>'+
+    edit('npcText:'+index,group.title)+'</section>';
+ }).join('');
  const weapons=collectionBlock('weapons',data,'',{npc:true});
  const actions=(data.activeAbilities||[]).map((row,index)=>entry('activeAbilities',row,index,data)).join('');
- return `<div class="cs-npc-sheet">${details.summary?'<p class="cs-classline">'+e(details.summary)+'</p>':''}
-  <div class="cs-grid">${baseCard('Stats','<div class="cs-metrics">'+metrics+'</div><div class="cs-scores">'+scores+'</div>',edit('npcStats','NPC stats'))}
-  <div>${resource('HP',number(data.hp_curr),number(data.hp_max), 'hp_curr',number(data.hp_temp),false,{showEdit:false})}${edit('npcHealth','NPC HP')}</div></div>
+ return `<div class="cs-npc-sheet">
+  <div class="cs-grid">${statCards}<div>${health}${edit('npcHealth','NPC HP')}</div></div>
   ${weapons}
   <section class="cs-card"><div class="cs-card-title"><h2>Skills</h2><button type="button" class="cs-icon" data-add-entry="npcSkills" aria-label="Add skill">+</button></div><div class="cs-skills">${skillRows}</div></section>
   <section class="cs-collection"><div class="cs-section-tools"><h2>Abilities</h2><button type="button" class="cs-icon" data-add-entry="activeAbilities" aria-label="Add ability">+</button></div>${actions}</section>
-  <section class="cs-card"><div class="cs-card-title"><h2>Stat block details</h2>${edit('npcText','stat block details')}</div><dl class="cs-pairs">${pairs}</dl></section></div>`;
+  <div class="cs-npc-detail-groups">${detailCards}</div>
+ </div>`;
 }
 function resource(label,current,max,key,temp,favorite=false,{spellAbility=null,showEdit=true}={}){return `<section class="cs-resource ${key==='mp_curr'?'cs-resource-mp':'cs-resource-hp'}"><div><h2>${label}</h2><span>/ ${max}</span>${showEdit?edit(key==='hp_curr'?'hp':'mp',label):''}<button type="button" class="cs-favorite" data-resource-favorite="${key==='hp_curr'?'hp_favorite':'mp_favorite'}" aria-label="Favorite ${label}" aria-pressed="${favorite===true}">${icons.favorites}</button></div><div class="cs-resource-controls"><button type="button" data-resource="${key}" data-delta="-1" aria-label="Decrease ${label}">−</button><input type="number" data-resource-input="${key}" value="${current}" aria-label="Current ${label}" step="any"><button type="button" data-resource="${key}" data-delta="1" aria-label="Increase ${label}">+</button></div>${spellAbility?'<select class="cs-spell-ability-select" data-spell-ability aria-label="Spell ability">'+abilities.map(a=>'<option value="'+a+'"'+(spellAbility===a?' selected':'')+'>'+a.toUpperCase()+'</option>').join('')+'</select>':''}${key==='hp_curr'?(number(temp)>0?'<div class="cs-temp-hp"><span>Temp HP</span><button type="button" class="cs-icon" data-temp-hp-delta="-1" aria-label="Decrease temporary HP">−</button><input type="number" min="0" step="1" data-resource-input="hp_temp" value="'+number(temp)+'" aria-label="Temporary HP"><button type="button" class="cs-icon" data-temp-hp-delta="1" aria-label="Increase temporary HP">+</button></div>':'<button type="button" class="cs-text-button" data-add-temp-hp>Add temp HP</button>'):''}</section>`;}
 const search=()=>'<label class="cs-search"><span class="sr-only">Find an entry</span><input type="search" data-sheet-search placeholder="Find an entry…"></label>';
