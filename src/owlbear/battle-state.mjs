@@ -11,5 +11,5 @@ export function battleRows(items,party){
 }
 
 // The GM retains hidden combatants; player-facing state must never include hidden names, stats, or active IDs.
-export function battleForViewer(rows,gm=false){return gm?rows:rows.filter(row=>row.visible===true);}
+export function battleForViewer(rows,gm=false){return gm?rows:rows.filter(row=>row.visible!==false);}
 export function turnForViewer(turn,battle,gm=false){const current=turn||{};return gm||!current.id||battle.some(row=>row.id===current.id)?current:{round:current.round,id:null};}
