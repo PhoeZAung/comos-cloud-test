@@ -142,6 +142,32 @@ the sheet titlebar. The sheet-tab strip appears only after opening a second
 sheet. Admin → group/party sheet viewing uses named tabs instead of opening all
 member sheets side by side; only visited tabs load an iframe.
 
+## Manual ability editor and compact weapon modifiers
+
+All four Ability categories (**Active**, **Passive**, **Feats**, **Racial**)
+now use a single **+** button which opens the manual editor immediately;
+the old two-choice Add Ability menu is gone. **+ Group** remains alongside.
+On the Active page both buttons are placed **above Limit Break**, with
+the separate ability entries below.
+
+The manual editor displays **Name** first, followed by a collapsed
+**Advanced Settings** disclosure for action type, targeting, mechanics,
+usage and other optional fields. **Description**, **Effect** and
+**At Higher Levels** stay visible as matching full-width rich-text
+sections. **Add Premade** appears to the right of the Add/Edit ability
+title; switching opens the rule-ability library and confirms before
+discarding unsaved manual edits. Existing premade abilities and their
+calculation rules are unchanged.
+
+Weapon Attack Roll's **Ability Mod** is now **AR Mod**; Damage's
+**Damage Ability** is now **DMG Mod**. Each ability selector shows the
+actual ability contribution beside its label, for example bold
+**STR: +4**; None shows **None: +0**. Changing attack type, ability,
+or damage style immediately refreshes the corresponding bold value.
+The verbose top-of-dialog STR explanation and separate attack/damage
+total-preview boxes are removed. Underlying rolls and calculations
+are not changed.
+
 ## Weapon defaults and special rules
 
 New player weapons default to STR for both attack and damage when their
