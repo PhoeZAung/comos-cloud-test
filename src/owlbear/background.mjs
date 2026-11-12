@@ -125,7 +125,9 @@ async function start(){
    const stats=site||npc||d.stats,trackHp=!!site||stats.hp!==null&&stats.hp!==undefined&&stats.hp>0;
    if(['mp','ac',...(trackHp?['hp']:[])].some(key=>!Number.isFinite(stats[key])||Math.abs(stats[key])>=1e7)||stats.initiative!==undefined&&(!Number.isFinite(stats.initiative)||Math.abs(stats.initiative)>9999)||!site&&(stats.mp<0||stats.hp!==null&&stats.hp!==undefined&&(!Number.isFinite(stats.hp)||stats.hp<0)))throw Error('Enter valid starting stats, or leave HP blank.');
    const data={enabled:true,siteId:site?.id||null,...(npc?{npcId:npc.npcId,hpRoll:npc.hpRoll}:{}),trackHp,hp:trackHp?stats.hp:0,hpMax:trackHp?stats.hp:0,mp:stats.mp,mpMax:stats.mp,ac:stats.ac,touch:stats.touch??stats.ac,flat:stats.flat??stats.ac,cmd:stats.cmd??10,initiative:stats.initiative||0,order:Date.now()};
-   await OBR.scene.items.updateItems([item.id],drafts=>{for(const draft of drafts)draft.metadata[BATTLE]=data;});await OBR.popover.close(PREFIX+'/setup');return;
+   await OBR.scene.items.updateItems([item.id],drafts=>{for(const draft of drafts)draft.metadata[BATTLE]=data;});await OBR.popover.close(PREFIX+'/setup');
+   if(npc){const text='NPC '+tokenName(item)+' added · HP '+npc.hp+(npc.hpRoll?' (rolled '+npc.hpRoll.expression+')':' (printed)');void OBR.notification.show(text.slice(0,220),'INFO').catch(()=>{});}
+   return;
   }
   if(d.type==='remove'){
    const sorted=rows(),index=sorted.findIndex(row=>row.id===d.id),current=scene[TURN];
