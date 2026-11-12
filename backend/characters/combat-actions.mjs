@@ -20,7 +20,7 @@ function init(db){
  CREATE INDEX IF NOT EXISTS idx_cosmos_combat_room_history
   ON cosmos_combat_events(room_id,created_at DESC);`);
 }
-export function createCombatActions(db,{rollSr=()=>randomInt(1,21)}={}){
+export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>randomInt(1,21)}={}){
  init(db);
  const room=id=>{check(validRoom(id),'Invalid Owlbear room.');db.prepare('INSERT OR IGNORE INTO cosmos_combat_rooms(room_id) VALUES(?)').run(id);return db.prepare('SELECT * FROM cosmos_combat_rooms WHERE room_id=?').get(id);};
  const getSettings=id=>{const r=room(id);return {weapon:r.weapon_validation===1,ability:r.ability_validation===1};};
@@ -55,14 +55,22 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21)}={}){
   check(targetNpc||validId(value.targetSheetId),'Choose a linked party target.');
   check(!targetNpc||roll.kind==='weapon'||roll.effectType==='damage','Healing and temporary HP require a linked party target.');
   check(Number.isInteger(value.round)&&value.round>=1&&value.round<=100000,'Invalid combat round.');
+  // A recorded attack/ability is resolved only once. In particular, retries
+  // must never generate a second saving throw or SR check for the same roll.
+  const previous=effectRow(value.requestId);
+  if(previous){
+   check(previous.roomId===id&&previous.targetTokenId===value.targetTokenId&&
+    previous.actorTokenId===value.actorTokenId&&previous.actorId===receipt.character_id,'Roll was already applied to a different target.');
+   return {event:previous,alreadyApplied:true,needsNpcUpdate:previous.status==='pending'};
+  }
   const source=db.prepare('SELECT id,name,kind,archived FROM characters WHERE id=?').get(receipt.character_id);
   check(source&&!source.archived,'Acting character is unavailable.');
-  let target=null,targetData=null,targetStats=null;
+  let target=null,targetData=null,targetStats=null,targetSaveStats=null;
   if(!targetNpc){
    target=db.prepare('SELECT c.id,c.name,c.kind,c.archived,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.targetSheetId);
    check(target&&!target.archived&&target.kind==='player','Target character is unavailable.');
    targetData=JSON.parse(target.data_json);check(targetData.owlbearStatusVisible===true,'Target must be shared with the battle tracker.');
-   targetStats=sheetStats(targetData);
+   targetStats=sheetStats(targetData);targetSaveStats=targetStats;
   }
   let ac=targetNpc?value.targetAc:null,defense=value.defense;
   check(['ac','touch','cmd'].includes(defense),'Invalid target defense.');
@@ -73,6 +81,7 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21)}={}){
    if(!saved||saved.kind!=='npc'||saved.archived)throw Error('The linked NPC defense record is unavailable.');
    const npcData=JSON.parse(saved.data_json);
    profile=defenseProfile(npcData,{npc:true});
+   targetSaveStats=npcData.npcStats||null;
    const npcDefense=npcData.npcStats?.[defense];
    if(Number.isFinite(npcDefense))ac=npcDefense;
   }else if(!targetNpc)profile=defenseProfile(targetData);
@@ -80,7 +89,11 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21)}={}){
   const initial=computeCombatEffect(roll,{defense,ac});
   const srRelevant=initial.hit&&['spell','sp'].includes(roll.resolution?.abilityKind)&&
     roll.resolution?.srApplies!==false&&profile.sr>0;
-  const result=resolveDefenses(roll,initial,profile,{srRoll:srRelevant?rollSr():null});
+  const result=resolveDefenses(roll,initial,profile,{
+   srRoll:srRelevant?rollSr():null,
+   saveRoll:()=>rollSave(),
+   saves:targetSaveStats
+  });
   if(result.kind==='heal'||result.kind==='temp_hp')check(!targetNpc,'Healing requires a party character.');
   const beforeNpc=Number(value.targetHp),maxNpc=Number(value.targetHpMax),tempNpc=Number(value.targetHpTemp||0);
   if(targetNpc)check([beforeNpc,maxNpc,tempNpc].every(Number.isFinite)&&maxNpc>=0&&Math.abs(beforeNpc)<=1000000&&maxNpc<=1000000&&tempNpc>=0&&tempNpc<=1000000,'NPC health is unavailable.');
@@ -96,7 +109,7 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21)}={}){
   try{
    const existing=effectRow(value.requestId);
    if(existing){
-    check(existing.roomId===id&&existing.targetTokenId===value.targetTokenId&&existing.actorId===receipt.character_id,'Roll was already applied to a different target.');
+    check(existing.roomId===id&&existing.targetTokenId===value.targetTokenId&&existing.actorTokenId===value.actorTokenId&&existing.actorId===receipt.character_id,'Roll was already applied to a different target.');
     db.exec('COMMIT');return {event:existing,alreadyApplied:true,needsNpcUpdate:existing.status==='pending'};
    }
    let diff;
