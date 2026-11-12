@@ -177,7 +177,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
     else if(entryNumber.includes(key)){if(['mp_cost','caster_level'].includes(key)&&value===''){safe[key]='';continue;}safe[key]=numeric(value);if(['u_curr','u_max'].includes(key)&&(!Number.isInteger(safe[key])||safe[key]<0))bad('Uses must be nonnegative whole numbers.');if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
     else if(key==='two_handed'&&['items','weapons'].includes(change.collection)&&typeof value==='boolean')safe[key]=value;
     else if(['equipped','cs','restoreOnLongRest','favorite','carried'].includes(key)&&typeof value==='boolean')safe[key]=value;
-    else if(key==='ability_mod'&&change.collection==='weapons'&&value==='auto')safe[key]=value;
+    else if(key==='ability_mod'&&change.collection==='weapons'&&['auto','none'].includes(value))safe[key]=value;
     else if(['stat','ability_mod'].includes(key)&&abilities.includes(value))safe[key]=value;
     else bad('Invalid entry field.');
    }
