@@ -145,7 +145,7 @@ async function start(){
  }},error);
  await syncMenu();
  // Close widgets left by the retired standalone Party extension in this browser.
- await Promise.allSettled(['com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
+ await Promise.allSettled([INIT,'com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
  publish();window.addEventListener('pagehide',()=>{stopped=true;history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();clearTimeout(timer);},{once:true});
 }
 OBR.onReady(()=>void start().catch(e=>console.error('Cosmos:',e)));
