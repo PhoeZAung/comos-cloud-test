@@ -1,12 +1,13 @@
 import {mergeRollHistory} from '../features/room-rolls.mjs';
 export function mountPanel(root,{history}={}){
  let selected='character',admin=false,connected=false,loading=false,again=false,closed=false,generation=0,personal=[],shared=[],signature='';
- const buttons=[...root.querySelectorAll('[data-panel-tab]')],panels=[...root.querySelectorAll('[data-panel-view]')],list=root.querySelector('[data-roll-history]'),status=root.querySelector('[data-history-status]');
+ const buttons=[...root.querySelectorAll('[data-panel-tab]')],panels=[...root.querySelectorAll('[data-panel-view]')],list=root.querySelector('[data-roll-history]'),status=root.querySelector('[data-history-status]'),historyDetails=root.querySelector('[data-history-details]');
+ const historyVisible=()=>selected==='settings'&&historyDetails.open;
  function select(value){
   selected=value==='admin'&&!admin?'character':value;
   for(const button of buttons){const active=button.dataset.panelTab===selected;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;}
   for(const panel of panels)panel.hidden=panel.dataset.panelView!==selected;
-  if(selected==='roll')void refresh();
+  if(historyVisible())void refresh();
  }
  function render(rows){
   const next=JSON.stringify(rows);status.textContent=rows.length?'':'No rolls yet.';if(signature===next&&list.children.length===rows.length)return;signature=next;
@@ -20,7 +21,7 @@ export function mountPanel(root,{history}={}){
   status.textContent=rows.length?'':'No rolls yet.';
  }
  async function refresh(){
-  if(closed||selected!=='roll')return;
+  if(closed||!historyVisible())return;
   if(!connected){render(shared);if(!shared.length)status.textContent='Connect Cosmos to see your rolls.';return;}
   if(loading){again=true;return;}loading=true;const own=generation;
   if(!list.children.length)status.textContent='Loading…';
@@ -31,6 +32,7 @@ export function mountPanel(root,{history}={}){
  const click=event=>{const button=event.target.closest('[data-panel-tab]');if(button)select(button.dataset.panelTab);};root.addEventListener('click',click);
  const keydown=event=>{const button=event.target.closest('[data-panel-tab]');if(!button||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const visible=buttons.filter(node=>!node.hidden),at=visible.indexOf(button),index=event.key==='Home'?0:event.key==='End'?visible.length-1:(at+(event.key==='ArrowRight'?1:visible.length-1))%visible.length;select(visible[index].dataset.panelTab);visible[index].focus();};root.addEventListener('keydown',keydown);
  root.querySelector('[data-refresh-history]').onclick=()=>void refresh();
+ historyDetails.addEventListener('toggle',()=>{if(historyVisible())void refresh();});
  const timer=setInterval(()=>void refresh(),5000);select('character');
- return {admin(value){admin=value===true;root.querySelector('[data-panel-tab="admin"]').hidden=!admin;if(!admin&&selected==='admin')select('character');},connected(value){generation++;connected=value===true;if(!connected){personal=[];list.replaceChildren();}void refresh();},shared(value){shared=Array.isArray(value)?value:[];if(selected==='roll')render(mergeRollHistory(personal,shared));},invalidate(){void refresh();},close(){closed=true;clearInterval(timer);root.removeEventListener('click',click);root.removeEventListener('keydown',keydown);}};
+ return {admin(value){admin=value===true;root.querySelector('[data-panel-tab="admin"]').hidden=!admin;if(!admin&&selected==='admin')select('character');},connected(value){generation++;connected=value===true;if(!connected){personal=[];list.replaceChildren();}void refresh();},shared(value){shared=Array.isArray(value)?value:[];if(historyVisible())render(mergeRollHistory(personal,shared));},invalidate(){void refresh();},close(){closed=true;clearInterval(timer);root.removeEventListener('click',click);root.removeEventListener('keydown',keydown);}};
 }

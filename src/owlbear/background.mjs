@@ -25,7 +25,7 @@ async function start(){
   await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',anchorPosition:{left:x,top:y},anchorOrigin:{horizontal:'LEFT',vertical:'TOP'},transformOrigin:{horizontal:'LEFT',vertical:'TOP'},hidePaper:true,disableClickAway:true,marginThreshold:8});popovers.set(id,value);
  }
  function geometry(){
-  return dockedPanels(view,layoutFrom(room),party.length,rows().filter(row=>gm||row.visible).length,ready);
+  return dockedPanels(view,{...layoutFrom(room),initiative:false},party.length,rows().filter(row=>gm||row.visible).length,ready);
  }
  function healthItems(item,row){
   const ratio=grid/(item.grid?.dpi||grid),sx=ratio*Math.abs(item.scale?.x||1),sy=ratio*Math.abs(item.scale?.y||1),angle=(item.rotation||0)*Math.PI/180;
@@ -56,7 +56,7 @@ async function start(){
  }
  async function render(){
   again=true;if(rendering)return;rendering=true;
-  try{while(again){again=false;const rectangles=geometry();await widget(PARTY,'/owlbear/party/overlay.html',rectangles.party);await widget(INIT,'/owlbear/initiative.html',rectangles.battle);await health();}}
+  try{while(again){again=false;const rectangles=geometry();await widget(PARTY,'/owlbear/party/overlay.html',rectangles.party);await widget(INIT,'/owlbear/initiative.html',null);await health();}}
   catch(e){recoverBars=true;console.error('Cosmos display:',e.message);}finally{rendering=false;}
  }
  async function setGrant(value){
@@ -145,7 +145,7 @@ async function start(){
  }},error);
  await syncMenu();
  // Close widgets left by the retired standalone Party extension in this browser.
- await Promise.allSettled(['com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
+ await Promise.allSettled([INIT,'com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
  publish();window.addEventListener('pagehide',()=>{stopped=true;history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();clearTimeout(timer);},{once:true});
 }
 OBR.onReady(()=>void start().catch(e=>console.error('Cosmos:',e)));

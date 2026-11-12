@@ -5,13 +5,15 @@ import {dicePlus} from './dice-plus.mjs';
 import {panelSize} from './panel-size.mjs';
 import {localChannel} from './local-channel.mjs';
 import {mountPanel} from './panel.mjs';
+import {mountInitiative} from './initiative-view.mjs';
 import {publicReceipt} from '../features/room-rolls.mjs';
 const status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]'),frame=document.querySelector('iframe'),dice=dicePlus(OBR);
 const npcList=document.querySelector('[data-npc-characters]'),npcGroup=document.querySelector('[data-npc-group]');
 let popup,nonce,connection,sheetConnection,sheetNonce,activeCharacterId,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
 let disposeSize,trackerBus,grantToken='';const audiences=new Map(),names=new Map();
-let showNpcs=false,activeNpc=false,loadGeneration=0;
+let showNpcs=false,activeNpc=false,loadGeneration=0,characterRequest=null,npcRequest=null;
 const panel=mountPanel(document.querySelector('main'),{history:()=>connection.call('roll-history')});
+const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command));
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID(),openTab=document.querySelector('[data-open-sheet-tab]');
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function say(message){status.textContent=message;}
@@ -23,34 +25,46 @@ async function sheetRequest(method,value){
  if(method==='dice'){await dice.ready();return dice.roll(value.notation,audiences.get(value.requestId)||'self');}
  throw Error('Unsupported sheet action.');
 }
-async function load(){
+async function load({fresh=false}={}){
  if(!connection)throw Error('Connect your Cosmos account first.');
  const current=connection,turn=++loadGeneration;
- const [characters,npcs]=await Promise.all([current.call('list'),showNpcs?current.call('npc-list'):[]]);
+ if(fresh){characterRequest=null;npcRequest=null;}
+ // Single-flight: an admin-state update while connecting must not fetch
+ // every player character a second time.
+ if(!characterRequest)characterRequest=current.call('list').catch(error=>{if(connection===current)characterRequest=null;throw error;});
+ const characters=await characterRequest;
  if(current!==connection||turn!==loadGeneration)return;
- for(const character of [...characters,...npcs])names.set(character.id,character.name);
+ for(const character of characters)names.set(character.id,character.name);
  const card=c=>'<button class="character-card" data-character="'+esc(c.id)+'"><span class="character-photo">'+(typeof c.portraitUrl==='string'&&/^data:image\/(png|jpeg|webp);base64,/i.test(c.portraitUrl)?'<img src="'+esc(c.portraitUrl)+'" alt="">':'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="13" r="8"/><path d="M5 38v-5a15 15 0 0130 0v5Z"/></svg>')+'</span><strong>'+esc(c.name)+'</strong><span aria-hidden="true">›</span></button>';
  list.innerHTML=characters.map(card).join('')||'<p>No characters.</p>';
- npcList.innerHTML=showNpcs?npcs.map(card).join(''):'';npcGroup.hidden=!showNpcs||!npcs.length||!frame.hidden;
  say('Connected');panel.connected(true);document.querySelector('[data-connect]').hidden=true;
+ // Show the player's characters immediately; admin NPC pagination can
+ // continue independently without blocking their sheet picker.
+ if(!showNpcs){npcList.replaceChildren();npcGroup.hidden=true;return;}
+ if(!npcRequest)npcRequest=current.call('npc-list').catch(error=>{if(connection===current)npcRequest=null;throw error;});
+ const npcs=await npcRequest;
+ if(current!==connection||turn!==loadGeneration||!showNpcs)return;
+ for(const character of npcs)names.set(character.id,character.name);
+ npcList.innerHTML=npcs.map(card).join('');
+ npcGroup.hidden=!npcs.length||!frame.hidden;
 }
 OBR.onReady(async()=>{
  available=true;say('Connect your Cosmos account to load your characters.');void OBR.action.setIcon(new URL('/owlbear/sheet-action.svg',location.origin).href).catch(()=>{});void panelSize(OBR,say).then(dispose=>disposeSize=dispose).catch(error=>say(error.message));
  trackerBus=await localChannel(OBR,data=>{
-  if(data?.type==='grant'&&data.token!==grantToken){grantToken=data.token;panel.connected(false);connection?.close();connection=connectGrant(data.token);void load().catch(error=>say(error.message));}
+  if(data?.type==='grant'&&data.token!==grantToken){grantToken=data.token;panel.connected(false);connection?.close();connection=connectGrant(data.token);characterRequest=null;npcRequest=null;void load().catch(error=>say(error.message));}
   if(data?.type==='state'){
    if(showNpcs!==(data.admin===true)){
     showNpcs=data.admin===true;
     if(!showNpcs){npcList.replaceChildren();npcGroup.hidden=true;if(activeNpc)back();}
     if(connection)void load().catch(error=>say(error.message));
    }
-   panel.admin(data.admin===true);document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
+   panel.admin(data.admin===true);initiativeView.state(data);document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
    for(const key of ['party','initiative'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout[key];
-   for(const key of ['partyDock','initiativeDock'])document.querySelector('[data-layout="'+key+'"]').value=data.layout[key];
+   for(const key of ['partyDock'])document.querySelector('[data-layout="'+key+'"]').value=data.layout[key];
    document.querySelector('[data-tracker-status]').textContent=data.feed==='Live'?'Connected':data.feed;
   }
   if(data?.type==='room-rolls')panel.shared(data.rolls);
-  if(data?.type==='result'&&data.error)say(data.error);
+  if(data?.type==='result'){const handled=initiativeView.result(data);if(data.error&&!handled)say(data.error);}
  });
  trackerBus.send({type:'hello'});
  document.querySelector('[data-admin-controls]').onchange=event=>{const node=event.target,key=node.dataset.layout;if(key)trackerBus.send({type:'layout',key,value:node.type==='checkbox'?node.checked:node.value,requestId:crypto.randomUUID()});};
@@ -64,7 +78,7 @@ document.querySelector('[data-connect]').onclick=()=>{
 window.addEventListener('message',event=>{
  if(event.origin!==location.origin)return;
  if(event.source===popup&&event.data?.type==='cosmos:connected'&&event.data.nonce===nonce){
-  if(!/^[a-f0-9]{64}$/.test(event.data.token||''))return;grantToken=event.data.token;connection=connectGrant(grantToken);trackerBus?.send({type:'grant-set',token:grantToken});popup.postMessage({type:'cosmos:connected-ack',nonce},location.origin);void load().catch(error=>say(error.message));
+  if(!/^[a-f0-9]{64}$/.test(event.data.token||''))return;grantToken=event.data.token;connection=connectGrant(grantToken);characterRequest=null;npcRequest=null;trackerBus?.send({type:'grant-set',token:grantToken});popup.postMessage({type:'cosmos:connected-ack',nonce},location.origin);void load().catch(error=>say(error.message));
  }
  const fromFrame=sheetNonce&&event.source===frame.contentWindow&&event.data?.nonce===sheetNonce;
  const fromTab=tabNonce&&event.source===tabWindow&&event.data?.nonce===tabNonce;
@@ -87,7 +101,6 @@ function openSheet(event){
  activeCharacterId=button.dataset.character;sheetConnection?.close();sheetConnection=null;
  sheetNonce=crypto.randomUUID();frame.src=new URL('sheet.html?characterId='+encodeURIComponent(activeCharacterId)+'#'+sheetNonce,location.href).href;
  list.hidden=true;npcGroup.hidden=true;frame.hidden=false;document.querySelector('[data-back]').hidden=false;openTab.hidden=false;
- document.querySelector('.panel-options').open=false;
  say('Connected');
 }
 list.onclick=npcList.onclick=openSheet;
@@ -100,5 +113,5 @@ openTab.onclick=()=>{
  tabCharacterId=activeCharacterId;tabWindow.focus();say('Connected');
 };
 document.querySelector('[data-back]').onclick=back;
-document.querySelector('[data-refresh]').onclick=()=>void load().catch(error=>say(error.message));
-window.addEventListener('pagehide',()=>{disposeSize?.();panel.close();trackerBus?.close();connection?.close();sheetConnection?.close();tabConnection?.close();},{once:true});
+document.querySelector('[data-refresh]').onclick=()=>void load({fresh:true}).catch(error=>say(error.message));
+window.addEventListener('pagehide',()=>{disposeSize?.();panel.close();initiativeView.close();trackerBus?.close();connection?.close();sheetConnection?.close();tabConnection?.close();},{once:true});

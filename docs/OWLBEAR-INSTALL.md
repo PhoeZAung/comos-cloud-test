@@ -1,8 +1,13 @@
 # Cosmos for Owlbear
 
-One extension now contains character sheets, Dice+ rolling, Party, and Initiative.
-Publish the exact release SHA with scripts/publish-owlbear-qnap.sh. Wait for
-COSMOS OWLBEAR RELEASE IS LIVE before refreshing the room.
+The extension action popover now has four tabs: Character, Admin (verified GM and
+Cosmos administrator only), Initiative, and Settings. Roll history is a disclosure
+under Settings rather than a separate tab. Connect account, refresh characters,
+open Cosmos, and roll visibility settings are also under Settings.
+
+For production, publish the tested main SHA manually from Termius over Tailscale
+using /share/Service/Container/Cosmos/publish-cosmos-qnap.sh, as described in
+QNAP_PHONE_DEPLOY.md. A GitHub merge does not update the QNAP container.
 
 ## Update an existing room
 
@@ -33,9 +38,11 @@ Every browser reads the same committed server feed directly. One live stream per
 browser serves all Cosmos panels; it reconnects with snapshot fallback. Portraits
 are small, versioned thumbnails. Players need no Cosmos login to view Party.
 
-GM + Cosmos administrator controls are inside Cosmos: Show Party, Show Initiative,
-Party position (Top/Bottom/Left/Right), Initiative position (Left/Right). Settings
-are shared through room metadata, with placement adapted to each viewport. There
+GM + Cosmos administrator controls are in the Admin tab: Show Party,
+Party position (Top/Bottom/Left/Right), and Show token HP bars. The separate
+floating Initiative tracker has moved into the Initiative tab of the action
+popover. Party display and token-bar settings are shared through room metadata;
+Party placement adapts to each viewport. There
 is no free dragging. Party takes no space while no characters are selected.
 Dimensions are checked every 750 ms because the background frame may not receive
 the parent browser's resize events. Dock coordinates are recalculated only when
@@ -67,7 +74,9 @@ tracker edits change only current HP/MP. Other AC values default to AC (CMD 10)
 for these local combatants; detailed defenses for linked characters come from
 their sheets. No arbitrary token portrait is downloaded by the server.
 
-The compact table shows initiative, name, current HP, current MP, and AC. Click
+Open the Initiative tab in the Cosmos extension to view the compact table of
+initiative, name, current HP, current MP, and AC. The tracker no longer creates
+a separate floating Initiative window. Click
 AC for Touch/Flat-footed/CMD. Editing initiative re-sorts highest first; ties keep
 addition order. The active combatant is highlighted. Previous/Next advance turns
 and the round counter. Invisible tokens are omitted from players' displays.
@@ -75,15 +84,17 @@ and the round counter. Invisible tokens are omitted from players' displays.
 Battle membership/stats are token metadata; turns/rounds are scene metadata.
 Switching scenes loads that scene's battle rather than carrying old tokens over.
 Published Party choices remain on Cosmos. Removing a token removes its row.
-While Initiative is shown, battle tokens have a small HP bar and current/max
-number above them, rendered locally for each viewer and attached to token motion.
-Bars disappear when Initiative is hidden or a token leaves battle. No MP bar is
+When the administrator enables Show token HP bars, tracked battle tokens have
+a small HP bar and current/max number above them, rendered locally for each
+viewer and attached to token motion. Bars disappear when the toggle is off or
+a token leaves battle. No MP bar is
 placed over tokens. Local item updates are batched and unchanged bars are skipped.
 
 ## Sheets, permissions, and Dice+
 
-The existing character selector, resize handle, separate sheet window, and Dice+
-roll visibility remain. The Check Dice+ diagnostic button is absent. Actual sheet
+The existing character selector, Add another character sheet (+), resize handle,
+separate sheet window, and Dice+ roll visibility remain. Add another character
+only fetches available sheets when clicked; it is not an automatic load request. The Check Dice+ diagnostic button is absent. Actual sheet
 rolls still use Dice+ faces, with server validation of formulas/modifiers/resources
 and no duplicate Cosmos dice animation.
 

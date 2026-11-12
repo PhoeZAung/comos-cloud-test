@@ -1,7 +1,7 @@
-# Cosmos extension: Character / Admin / Roll
+# Cosmos extension: Character / Admin / Initiative / Settings
 
-Roll combines the connected account's saved Cosmos receipts with public Cosmos
-rolls shared by everyone in the current Owlbear room, newest first (100 entries).
+Settings → Roll history combines the connected account's saved Cosmos receipts
+with public Cosmos rolls shared by everyone in the current Owlbear room, newest first (100 entries).
 Personal server history includes earlier website rolls. Room history collects
 public extension rolls even while the action panel is closed, caches them per
 room/browser, and syncs public snapshots when players join and every 30 seconds.
@@ -22,8 +22,8 @@ Everyone requests use Dice+'s documented ALL destination. Private requests stay
 local. Result matching uses the unique roll ID, player ID and notation rather
 than requiring the replying Dice+ instance to have the roller's connection ID.
 
-Personal history refreshes every five seconds while Roll is selected; incoming
-room receipts render immediately, including before a Cosmos account connects.
+Personal history refreshes every five seconds while Settings → Roll history is
+expanded; incoming room receipts render there even before an account connects.
 Unchanged history does not replace the list or interrupt scrolling. No database
 migration was added.
 
@@ -42,9 +42,12 @@ sized in em units with no square border or background.
 
 Admin is hidden initially. Both Cosmos administrator capability and Owlbear GM
 role must be verified before the Admin tab, display controls and battle token
-menu appear. Revoking access hides the tab, returns to Character, and removes
+menu appear. Initiative is now available inside a tab to all players, with
+current HP/MP, initiative edits and turn controls restricted to authorized GMs.
+Revoking access hides the tab, returns to Character, and removes
 the context menu. Commands retain their existing authorization checks. Dice+
-integration and roll visibility settings remain available to ordinary players.
+integration and roll visibility settings remain available to ordinary players in
+Settings. Moving Roll history to Settings does not change its privacy rules.
 
 Checks: tests/owlbear-history.test.mjs covers receipt correctness, ownership,
 expired sessions, permission denial and battle menu lifecycle.
@@ -73,7 +76,7 @@ execution and external login/character/media verification remain manual.
 
 After success, hard-refresh Cosmos, reopen the Owlbear room, and reconnect the
 Cosmos account. Existing grants intentionally expire when the backend restarts.
-The extension install URL remains /owlbear/manifest.json; version is 1.2.0.
+The extension install URL remains /owlbear/manifest.json; version is 1.3.0.
 
 Discord rolls are enabled by default in both the website and Owlbear sheet.
 The Main settings switch can disable delivery for the current sheet. Dice+
