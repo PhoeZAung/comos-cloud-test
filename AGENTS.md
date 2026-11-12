@@ -1,3 +1,30 @@
+# Production release policy (manual QNAP publishing only)
+
+Production Cosmos is hosted on the user's QNAP, not the older Railway test URL.
+**Do not use GitHub Actions to deploy production, restore an automatic deploy
+workflow, or assume a merge to main restarts Docker.** The owner connects with
+Termius over Tailscale. The installed, proven QNAP release script is
+/share/Service/Container/Cosmos/publish-cosmos-qnap.sh; the repo's matching
+version is scripts/publish-cosmos-qnap.sh. For each requested production release:
+review and merge tested changes to GitHub main; identify the exact full main
+commit SHA; provide the manual Termius command:
+
+~~~sh
+cd /share/Service/Container/Cosmos
+sh ./publish-cosmos-qnap.sh <FULL_40_CHARACTER_MAIN_COMMIT_SHA>
+~~~
+
+The optional QNAP-local publish-cosmos launcher (source:
+scripts/publish-latest-qnap.sh) fetches main and asks for DEPLOY confirmation.
+It is not installed merely by committing its source. Explicit user operation
+on QNAP is still necessary. Verify current-code-sha, container logs/health,
+and relevant signed-in browser behavior before saying production is published.
+Protect data, mounted volumes, backups, secrets, database migrations, and the
+Tailscale network. Refer to docs/QNAP_PHONE_DEPLOY.md for the full procedure.
+Keep .github/workflows/verify.yml for CI tests only.
+
+---
+
 # Class and race import work
 
 For class/race import or resume requests, read `docs/imports/RESUME.md` and run
