@@ -14,13 +14,15 @@ const harmlessNone=/^(?:none|no save|n\/a|not applicable|\s*)$/i;
 export function resolveSavingThrow(roll,effect,{bonus,die}={}){
  if(roll.kind==='weapon'||!effect.hit)return {effect,check:null};
  const source=roll.resolution||{};
- const type=Object.hasOwn(saveTypes,source.saveType)?source.saveType:'none';
+ if(source.saveType&&!Object.hasOwn(saveTypes,source.saveType))throw Error('Unknown save type: review the ability settings.');
+ const type=source.saveType||'none';
  const description=String(source.saveDescription||'').trim();
  if(type==='none'){
   if(description&&!harmlessNone.test(description))throw Error('This spell/ability describes a save ('+description.slice(0,70)+'). Set Save type and success effect before automatic HP.');
   return {effect,check:null};
  }
- const outcome=Object.hasOwn(saveOutcomes,source.saveSuccess)?source.saveSuccess:'manual';
+ if(source.saveSuccess&&!Object.hasOwn(saveOutcomes,source.saveSuccess))throw Error('Unknown save outcome: review the ability settings.');
+ const outcome=source.saveSuccess||'manual';
  if(outcome==='manual')throw Error('This save has a partial or special effect. Resolve it with the GM; no HP was applied.');
  const dc=Number(roll.dc);
  if(!Number.isInteger(dc)||dc<1||dc>100000)throw Error('Set a valid spell DC or ability Save DC formula before resolving a '+saveTypes[type]+' save.');
