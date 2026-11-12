@@ -33,6 +33,15 @@ export function randomNpcDie(sides){
  return bytes[0]%sides+1;
 }
 
+// The sheet's Init value is a modifier, not an initiative roll result.
+// Roll once when an NPC enters battle and store the result on that token.
+export function rollNpcInitiative(bonus,rollDie=randomNpcDie){
+ if(!Number.isFinite(bonus)||!Number.isInteger(bonus)||Math.abs(bonus)>9999)throw Error('Invalid NPC initiative modifier.');
+ const d20=rollDie(20);
+ if(!Number.isInteger(d20)||d20<1||d20>20)throw Error('Invalid NPC initiative die.');
+ return {d20,bonus,total:d20+bonus};
+}
+
 export function npcBattleStats(character,rollDie=randomNpcDie){
  if(character?.kind!=='npc'||!character.data)return null;
  const d=character.data,n=d.npcStats||{},ac=Number(n.ac);
