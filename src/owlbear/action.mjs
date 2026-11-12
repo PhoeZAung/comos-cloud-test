@@ -29,10 +29,11 @@ function saveScroll(id){
 }
 function restoreScroll(sheet){
  if(!sheet)return;
- requestAnimationFrame(()=>{
+ // Wait for the hidden iframe to re-enter layout before scrolling.
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
   if(activeCharacterId!==sheet.id||sheet.iframe.hidden)return;
   try{sheet.iframe.contentWindow?.scrollTo(0,sheet.scrollY||0);}catch{}
- });
+ }));
 }
 function showRoster(){
  saveScroll(activeCharacterId);
