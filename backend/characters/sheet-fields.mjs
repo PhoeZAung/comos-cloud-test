@@ -2,6 +2,7 @@ import {randomUUID} from 'node:crypto';
 import {npcStatLabels,npcTextLabels} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
+import {effectTypes} from '../../src/features/sheet/effect-types.mjs';
 import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
 import {addManualSourceAbilities} from '../../src/features/characters/rules/manual-source-library.mjs';
@@ -153,6 +154,10 @@ export function mergeSheetData(original,change,{npc=false}={}){
      if(typeof value!=='string'||!Object.hasOwn(weaponDamageStyles,value))bad('Choose a weapon damage style.');
      safe[key]=value;
     }else if(key==='action_type'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');safe[key]=value;}
+    else if(key==='effect_type'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+     if(typeof value!=='string'||!Object.hasOwn(effectTypes,value))bad('Choose a valid HP effect type.');
+     safe[key]=value;
+    }
     else if(key==='spell_failure'&&change.collection==='spells'){
      if(value==='')safe[key]='';
      else{const chance=numeric(value);if(!Number.isInteger(chance)||chance<0||chance>100)bad('Spell failure must be a whole percentage from 0 to 100.');safe[key]=chance;}
