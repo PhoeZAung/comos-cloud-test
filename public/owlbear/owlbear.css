@@ -253,3 +253,11 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 @media(prefers-reduced-motion:reduce){
  .cosmos-tabs >.cosmos-sheet-tab-group >.extension-sheet-close{transition:none}
 }
+
+
+/* A GM-only eye slash makes invisible combatants unmistakable. */
+.initiative-tab .battle-locate{display:flex;align-items:center;justify-content:flex-start;gap:5px}
+.initiative-tab .battle-locate-label{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.initiative-tab .battle-hidden-eye{flex:0 0 16px;color:#d2a9ef;filter:drop-shadow(0 0 4px #a777dd70)}
+.initiative-tab .battle-hidden-eye[hidden]{display:none!important}
+.initiative-tab .battle-resource.hp:disabled[title="HP hidden by GM"]{color:#92839f;background:transparent;border-color:transparent;cursor:default}
