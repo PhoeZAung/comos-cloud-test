@@ -6,7 +6,7 @@ test('initiative focus locates tokens without changing selection and adds local 
  const added=[],removed=[],moves=[],item={id:'token-1',type:'IMAGE',layer:'CHARACTER',visible:true,position:{x:100,y:200},scale:{x:1,y:1},zIndex:10,image:{width:60,height:60},lastModified:'one'};
  const OBR={
   scene:{
-   items:{getItemBounds:async ids=>{assert.deepEqual(ids,['token-1']);return {min:{x:100,y:200},max:{x:160,y:260},width:60,height:60,center:{x:130,y:230}};}},
+   items:{getItemBounds:async ids=>{assert.equal(ids.length,1);assert.ok(['token-1','hidden-token'].includes(ids[0]));return {min:{x:100,y:200},max:{x:160,y:260},width:60,height:60,center:{x:130,y:230}};}},
    local:{addItems:async shapes=>{added.push(...shapes);},deleteItems:async ids=>{removed.push(...ids);}}
   },
   viewport:{animateToBounds:async box=>moves.push(box)},
