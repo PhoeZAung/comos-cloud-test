@@ -55,3 +55,7 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 .initiative-tab .initiative-panel [data-empty]{text-align:center;color:#baa8c9;font-size:12px;padding:10px}
 .initiative-tab .resource-input{width:42px;height:27px;font-weight:700;color:#f3efff;background:#161320;border:1px solid #a98bc2;text-align:center}
 .initiative-tab .saving{box-shadow:inset 0 -2px #d8bbff}
+
+/* Initiative token locator. Hovering or focusing a name outlines its map token. */
+.initiative-tab .battle-name{cursor:crosshair;border-radius:4px;outline-offset:-2px}
+.initiative-tab .battle-name:hover,.initiative-tab .battle-name:focus-visible{color:#5cecff;text-decoration:underline;text-underline-offset:3px}
