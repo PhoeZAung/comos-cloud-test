@@ -7,7 +7,7 @@ export function mountInitiative(view,send){
  let state={battle:[],party:[],turn:{},admin:false};
  const edits=resourceEditor(()=>state,value=>send(value));
  function render(){
-  const active=new Set(),visible=Array.isArray(state.battle)?state.battle:[],turn=state.turn?.id||null;
+  const active=new Set(),visible=Array.isArray(state.battle)?state.battle:[],turn=state.turn?.id===undefined?visible[0]?.id:state.turn.id;
   for(const [index,row] of visible.entries()){
    active.add(row.id);let card=cards.get(row.id);
    if(!card){
