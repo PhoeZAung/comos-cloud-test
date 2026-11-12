@@ -15,6 +15,7 @@ export function resolveCombatTarget({characterId,kind,row={},battle=[],turn={},s
  const target=battle.find(item=>item.id===selection[0]&&item.visible!==false&&item.available!==false);
  if(!target)throw Error('Choose a visible combatant from initiative as your target.');
  const kindEffect=kind==='weapon'?'damage':effectType(row);
+ if(['heal','temp_hp'].includes(kindEffect)&&!String(row.damage||row.dmg||'').trim())throw Error('Set a healing or temporary HP Dice Roll formula before using this ability.');
  if(kindEffect==='damage'&&target.id===actor.id)throw Error('Choose a different target to attack.');
  if(kindEffect==='heal'||kindEffect==='temp_hp'){
   if(!target.siteId||target.isNpc)throw Error('Choose a linked party character to receive healing or temporary HP.');
