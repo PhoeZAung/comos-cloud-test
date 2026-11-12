@@ -221,7 +221,7 @@ OBR.onReady(async()=>{
    }
    panel.admin(data.admin===true);initiativeView.state(data);
    document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
-   for(const key of ['party','initiative'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout[key];
+   for(const key of ['party','initiative','npcHp'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout?.[key]===true;
    document.querySelector('[data-layout="partyDock"]').value=data.layout.partyDock;
    document.querySelector('[data-tracker-status]').textContent=data.feed==='Live'?'Connected':data.feed;
   }
