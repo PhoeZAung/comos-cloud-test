@@ -18,7 +18,7 @@ export function context(data,row={}){
  const profile=(data.castingProfiles||[]).find(p=>source?p.className?.toLowerCase()===source:classes.length===1&&p.className?.toLowerCase()===classes[0].name.toLowerCase());
  const explicitCl=row.caster_level!==undefined&&row.caster_level!==null&&row.caster_level!==''?Number(row.caster_level):null;
  const npcCl=Number.isFinite(data?.npcStats?.casterLevel)?data.npcStats.casterLevel:null;
- const cl=Number.isFinite(explicitCl)&&explicitCl>0?explicitCl:profile?number(profile.casterLevel):
+ const cl=profile?number(profile.casterLevel):Number.isFinite(explicitCl)&&explicitCl>0?explicitCl:
   Number.isFinite(npcCl)&&npcCl>0?npcCl:match?number(match.level):classes.length===1?number(classes[0].level):undefined;
  return {...Object.fromEntries(abilities.map(k=>[k.toUpperCase(),data[k]===undefined||data[k]===null||data[k]===''?undefined:s.mods[k]])),LEVEL:totalClassLevel(classes)||number(data.character_level||data.level)||1,CL:cl};
 }
