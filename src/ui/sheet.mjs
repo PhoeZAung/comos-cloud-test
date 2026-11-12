@@ -49,13 +49,13 @@ function field(key,value,{weapon=false,item=false,longDescription=false}={}){
  if(key==='sourceCategory')return '<label class="cs-field cs-field-wide cs-tag-editor"><span>Item Tag / Shop Category</span><div><span data-category-icon aria-hidden="true">'+itemCategorySymbol(value)+'</span><select name="sourceCategory" aria-label="Item Tag / Shop Category">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).map(([group,tags])=>'<optgroup label="'+(group==='Other'?'Older Items':group)+'">'+tags.map(tag=>'<option value="'+tag+'"'+(value===tag?' selected':'')+'>'+tag+'</option>').join('')+'</optgroup>').join('')+'</select></div></label>';
 
  if(key==='crit_range'||key==='crit_mult'){const choices=key==='crit_range'?Array.from({length:20},(_,i)=>i===0?'20':(20-i)+'-20'):['x2','x3','x4','x5'];const normalized=String(value||'').replace(/[–—]/g,'-').replace('×','x');return '<label class="cs-field"><span>'+readable(key)+'</span><select name="'+key+'"><option value=""'+(!normalized?' selected':'')+'>Select</option>'+choices.map(v=>'<option value="'+v+'"'+(normalized===v?' selected':'')+'>'+v+'</option>').join('')+'</select></label>';}
- const label=item?inventoryFieldLabel(key):weapon&&key==='damage'?'Damage formula':readable(key);
+ const label=item?inventoryFieldLabel(key):weapon&&key==='damage'?'Damage formula':weapon&&key==='ability_mod'?'AR Mod':weapon&&key==='damage_ability'?'DMG Mod':readable(key);
  if(key==='damage_ability'||key==='damage_style'){
   const options=key==='damage_ability'?Object.fromEntries(weaponDamageAbilities.map(ability=>[ability,ability==='auto'?'Automatic (attack type & style)':ability==='none'?'None (no ability bonus)':readable(ability)])):weaponDamageStyles;
-  return '<label class="cs-field"><span>'+label+'</span><select name="'+key+'">'+Object.entries(options).map(([option,title])=>'<option value="'+option+'"'+(value===option?' selected':'')+'>'+title+'</option>').join('')+'</select></label>';
+  return '<label class="cs-field'+(weapon&&key==='damage_ability'?' cs-weapon-mod-field':'')+'"><span>'+label+(weapon&&key==='damage_ability'?' <strong data-weapon-dmg-mod></strong>':'')+'</span><select name="'+key+'">'+Object.entries(options).map(([option,title])=>'<option value="'+option+'"'+(value===option?' selected':'')+'>'+title+'</option>').join('')+'</select></label>';
  }
  const opts=key==='attack_type'?(weapon?Object.keys(attackTypes):['none',...Object.keys(attackTypes)]):key==='ability_mod'&&weapon?['auto','none',...abilities]:key==='size_category'?sizes:key==='stat'||key==='ability_mod'||key==='spell_dc_base'||key==='casting_ability'?abilities:key.startsWith('ar_')&&key.endsWith('_ability')?abilities:null;
- if(opts)return `<label class="cs-field"><span>${label}</span><select name="${key}">${opts.map(opt=>'<option value="'+opt+'"'+(opt===String(value||opts[0])?' selected':'')+'>'+(key==='attack_type'?(attackTypes[opt]||'None'):opt==='auto'?'Automatic (attack type)':opt==='none'?'None (no ability bonus)':abilities.includes(opt)?opt.toUpperCase():opt)+'</option>').join('')}</select></label>`;
+ if(opts)return `<label class="cs-field${weapon&&key==='ability_mod'?' cs-weapon-mod-field':''}"><span>${label}${weapon&&key==='ability_mod'?'<strong data-weapon-ar-mod></strong>':''}</span><select name="${key}">${opts.map(opt=>'<option value="'+opt+'"'+(opt===String(value||opts[0])?' selected':'')+'>'+(key==='attack_type'?(attackTypes[opt]||'None'):opt==='auto'?'Automatic (attack type)':opt==='none'?'None (no ability bonus)':abilities.includes(opt)?opt.toUpperCase():opt)+'</option>').join('')}</select></label>`;
  if(boolKeys.has(key))return `<label class="cs-checkbox"><input type="checkbox" name="${key}" ${value?'checked':''}><span>${label}</span></label>`;
  if(['desc','effect','at_higher_lvls'].includes(key))return richEditor(key,item&&key==='desc'?normalizeInventoryText(value,key):value,label,longDescription&&key==='desc'?100000:item&&key==='desc'?30000:12000);
   if(['resistances','proficiencies','favored_class_options','special'].includes(key))return `<label class="cs-field cs-field-wide"><span>${label}</span><textarea name="${key}" rows="5" maxlength="${item&&key==='special'?30000:12000}">${e(item&&key==='special'?normalizeInventoryText(value,key):value||'')}</textarea></label>`;
@@ -191,7 +191,7 @@ function mountCharacterSheet(tabs,switchTo){
   if(dialogState?.change?.collection!=='weapons'||dialogState.keys.includes('npcAttackBonus'))return;
   const form=root.querySelector('[data-sheet-form]');
   if(!form||!character)return;
-  const attack=form.querySelector('[data-weapon-attack-preview]'),damage=form.querySelector('[data-weapon-damage-preview]');
+  const attack=form.querySelector('[data-weapon-ar-mod]'),damage=form.querySelector('[data-weapon-dmg-mod]');
   if(!attack||!damage)return;
   const value=name=>form.elements.namedItem(name)?.value;
   const row={...dialogState.values,attack_type:value('attack_type')||'melee',
@@ -200,10 +200,10 @@ function mountCharacterSheet(tabs,switchTo){
   try{
    const info=weaponAttackParts(row,character.data),stat=info.ability==='none'?0:sheetStats(character.data).mods[info.ability];
    const signed=n=>(n>=0?'+':'')+n;
-   attack.textContent=(row.ability_mod==='auto'?'Automatic':row.ability_mod==='none'?'No ability modifier':'Selected')+': '+info.ability.toUpperCase()+' '+signed(stat)+' → '+attackTypes[info.type]+' attack '+signed(info.total);
+   attack.textContent=(info.ability==='none'?'None':info.ability.toUpperCase())+': '+signed(stat);
    const effect=weaponDamageFormulas({...row,damage:'1d4',extra_damage:''},character.data);
-   damage.textContent=(row.damage_ability==='auto'?'Automatic':'Override')+': '+(effect.ability?effect.ability.toUpperCase()+' '+signed(effect.abilityBonus):'No ability bonus')+' to damage'+(row.damage_style==='thrown'?' (thrown/sling)':row.damage_style==='two_handed'?' (two-handed)':row.damage_style==='off_hand'?' (off-hand)':row.damage_style==='bow'?' (bow)':'');
-  }catch(error){attack.textContent='Ability preview unavailable.';damage.textContent=error.message;}
+   damage.textContent=(effect.ability?effect.ability.toUpperCase():'None')+': '+signed(effect.abilityBonus);
+  }catch{attack.textContent='—';damage.textContent='—';}
  }
  function renderEntryFields(keys,values,collection){
   if(collection==='npcStats')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field"><span>${npcStatLabels[key]}</span><input name="${key}" type="number" step="${key==='cr'?'any':'1'}" value="${e(values[key]??'')}"></label>`).join('')+'</div>';
@@ -214,7 +214,7 @@ function mountCharacterSheet(tabs,switchTo){
    return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',[...parts.common.map(([,key])=>key),...(parts.allowTwoHanded?['two_handed']:[]),'carried'])+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
   }
   if(collection==='weapons'&&keys.includes('npcAttackBonus'))return '<div class="cs-form-grid">'+keys.map(render).join('')+'</div>';
-  if(collection==='weapons')return '<div class="cs-form-grid cs-weapon-editor">'+render('name')+'<fieldset class="cs-editor-group"><legend>Attack Roll</legend>'+['attack_type','ability_mod','attack_misc','range','misfire'].filter(k=>keys.includes(k)).map(render).join('')+'<output class="cs-weapon-ability-preview" data-weapon-attack-preview aria-live="polite"></output></fieldset><fieldset class="cs-editor-group"><legend>Damage</legend>'+['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types'].filter(k=>keys.includes(k)).map(render).join('')+'<output class="cs-weapon-ability-preview" data-weapon-damage-preview aria-live="polite"></output></fieldset><fieldset class="cs-editor-group"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Carried weight</legend>'+['weight','amount','carried'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>'+render('desc')+'</div>';
+  if(collection==='weapons')return '<div class="cs-form-grid cs-weapon-editor">'+render('name')+'<fieldset class="cs-editor-group"><legend>Attack Roll</legend>'+['attack_type','ability_mod','attack_misc','range','misfire'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Damage</legend>'+['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Carried weight</legend>'+['weight','amount','carried'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>'+render('desc')+'</div>';
   const narrative=keys.filter(k=>['desc','effect','at_higher_lvls'].includes(k));
    const abilityEditor=['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection);
    if(abilityEditor){
@@ -361,7 +361,7 @@ function mountCharacterSheet(tabs,switchTo){
    values.damage_style=row.damage_style??(row.two_handed&&values.attack_type==='melee'?'two_handed':'standard');
    values.crit_range=row.crit_range||'20';values.crit_mult=row.crit_mult||'x2';
   }
-  openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='weapons'&&!npcWeapon?'Melee starts with STR for attack and damage; ranged starts with DEX attack and no damage ability. Switching Attack Type updates these defaults unless you choose a manual override. None disables the extra ability modifier. Natural 20 is a critical threat (confirmation roll), with a default 20 / x2 critical profile. Attack Type otherwise selects the automatic attack ability: STR for melee/touch, DEX for ranged/ranged touch. Damage Automatic uses STR for melee (and thrown/sling) and no ability bonus for ordinary ranged attacks. Use Damage Style for two-handed, off-hand, or bow rules; choose Formula only if the damage dice formula already includes a bonus. Manual overrides remain available.':key==='skills'?(skillSupportsSpecialization(row.name)?'Edit ranks, misc, class skill and specialization.':'Edit ranks, misc and class skill.'):''});
+  openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='weapons'&&!npcWeapon?'':key==='skills'?(skillSupportsSpecialization(row.name)?'Edit ranks, misc, class skill and specialization.':'Edit ranks, misc and class skill.'):''});
   if(index!==null&&key!=='skills')root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
  }
  async function roll(label,expression,weaponIndex,spellIndex,abilityEntry,mode='use'){
