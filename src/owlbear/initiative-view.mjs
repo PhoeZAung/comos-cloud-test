@@ -73,7 +73,7 @@ export function mountInitiative(view,send){
     details.textContent='Round '+event.round+' · '+(event.action||event.source||'Action')+
       ' · '+(event.kind==='heal'?'Healed':event.kind==='temp_hp'?'Temp HP':'Damage')+
       ' '+(event.applied??0)+(event.hit===false?' ('+(event.reason||'missed')+')':'')+(event.critical?' · Critical':'')+
-      (event.mitigation||[]).map(part=>part.type==='sr'?' · SR '+part.total+'/'+part.sr+(part.passed?' passed':' resisted'):part.type==='dr'?' · DR '+(part.reduced||0)+' blocked':part.type==='energy'?' · '+part.energy+' '+(part.before-part.after)+' resisted':part.type==='review'?' · GM review needed':'').join('');
+      (event.mitigation||[]).map(part=>part.type==='sr'?' · SR '+part.total+'/'+part.sr+(part.passed?' passed':' resisted'):part.type==='dr'?' · DR '+(part.reduced||0)+' blocked':part.type==='energy'?' · '+part.energy+' '+(part.before-part.after)+' resisted':part.type==='save'?' · '+(part.save==='fort'?'Fort':part.save==='ref'?'Ref':'Will')+' '+part.total+' vs DC '+part.dc+(part.passed?' saved':' failed'):part.type==='review'?' · GM review needed':'').join('');
    }
    li.append(headline,details);eventList.append(li);
   }
