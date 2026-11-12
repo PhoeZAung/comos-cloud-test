@@ -139,6 +139,31 @@ the sheet titlebar. The sheet-tab strip appears only after opening a second
 sheet. Admin → group/party sheet viewing uses named tabs instead of opening all
 member sheets side by side; only visited tabs load an iframe.
 
+## Extension tabs, camera focus and hidden combatants
+
+Extension navigation uses the Cosmos constellation theme, including a clear
+active tab and compact named tabs for additional sheets. In Initiative, the
+character's name is a **Center camera** control for every Owlbear player and
+the GM. It moves only the current viewer's viewport; hovering or focusing
+still temporarily outlines visible tokens on that viewer's screen.
+
+A token set to **invisible** in Owlbear may remain in the initiative order.
+Its name, stats and active-turn token ID are not included in the player
+initiative view, while the GM retains them. Players cannot focus a hidden
+token by sending an invented ID; the controller checks token visibility.
+The active-turn number still progresses normally, but a hidden active turn
+is not falsely attributed to another character.
+
+The resize grip previews dimensions as you drag and commits the Owlbear
+host iframe's width/height on pointer release; host resizing mid-drag
+can discard the pointer capture. Responsive layout reflows after a size is
+applied. Keyboard arrow resizing updates dimensions immediately.
+
+Catalog input fields (search and quantity) are no longer flagged as unsaved
+character edits, so a normal Buy operation will not report
+"Finish saving this character before buying" unless the character really
+has pending unsaved edits.
+
 ## Catalog preview and purchases
 
 In a player's Inventory, **+ Add Items** opens the searchable catalog.

@@ -7,17 +7,17 @@ import {publicPartyClient} from './public-party-client.mjs';
 import {dockedPanels} from './docking.mjs';
 import {initiativeFocus} from './initiative-focus.mjs';
 import {uniqueNpcForToken,npcBattleStats} from './npc-battle.mjs';
-import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,tokenName,normalizeName} from './battle-state.mjs';
+import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,battleForViewer,turnForViewer,tokenName,normalizeName} from './battle-state.mjs';
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative';
 async function start(){
  let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
- const popovers=new Map(),bars=new Map(),commits=new Map(),focus=initiativeFocus(OBR,buildShape);let syncMenu=()=>Promise.resolve(),npcDirectory=null,npcDirectoryAt=0;
+ const popovers=new Map(),bars=new Map(),commits=new Map(),focus=initiativeFocus(OBR,buildShape);focus.setShowHidden(gm);let syncMenu=()=>Promise.resolve(),npcDirectory=null,npcDirectoryAt=0;
  const error=e=>void OBR.notification.show(e.message||String(e),'ERROR');
  const allowed=()=>gm&&admin;
   const canEditParty=id=>Boolean(grant&&(allowed()||editableIds.has(id)));
  const rows=()=>battleRows(items,party);
  const history=await roomHistory(OBR,(rolls,{remote,row})=>{bus?.send({type:'room-rolls',rolls});if(remote&&row)void OBR.notification.show((row.character+' · '+row.parts.map(part=>part.label+' '+part.total).join(' · ')).slice(0,220),'INFO').catch(()=>{});});
- const publish=()=>{void syncMenu();const battle=rows().filter(row=>gm||row.visible),turn=scene[TURN]||{};focus.update(ready?items:[],ready?(turn.id||battle[0]?.id):null);bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});};
+ const publish=()=>{void syncMenu();const battle=battleForViewer(rows(),gm),turn=turnForViewer(scene[TURN],battle,gm);focus.update(ready?items:[],ready?(turn.id===null?null:(turn.id||battle[0]?.id)):null);bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});};
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
@@ -27,7 +27,7 @@ async function start(){
   await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',anchorPosition:{left:x,top:y},anchorOrigin:{horizontal:'LEFT',vertical:'TOP'},transformOrigin:{horizontal:'LEFT',vertical:'TOP'},hidePaper:true,disableClickAway:true,marginThreshold:8});popovers.set(id,value);
  }
  function geometry(){
-  return dockedPanels(view,{...layoutFrom(room),initiative:false},party.length,rows().filter(row=>gm||row.visible).length,ready);
+  return dockedPanels(view,{...layoutFrom(room),initiative:false},party.length,battleForViewer(rows(),gm).length,ready);
  }
  function healthItems(item,row){
   const ratio=grid/(item.grid?.dpi||grid),sx=ratio*Math.abs(item.scale?.x||1),sy=ratio*Math.abs(item.scale?.y||1),angle=(item.rotation||0)*Math.PI/180;
@@ -138,7 +138,9 @@ async function start(){
  bus=await localChannel(OBR,d=>{
   if(d?.type==='hello'){publish();bus.send({type:'room-rolls',rolls:history.rows()});if(token)bus.send({type:'grant',token});void refreshAccess();return;}
   if(d?.type==='roll-receipt'){void history.publish(d.entry,d.target).catch(error);return;}
-  if(d?.type==='highlight'){const row=rows().find(row=>row.id===d.id&&(gm||row.visible));focus.hover(ready&&row?row.id:null);return;}
+  if(d?.type==='highlight'){const row=battleForViewer(rows(),gm).find(row=>row.id===d.id);focus.hover(ready&&row?row.id:null);return;}
+  // Center only this viewer's camera. Players cannot locate GM-hidden combatants.
+  if(d?.type==='locate'){const row=ready?battleForViewer(rows(),gm).find(row=>row.id===d.id):null;if(row)void focus.locate(row.id).catch(error=>console.warn('Initiative locate:',error.message));return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
   if(!['layout','stats','initiative','turn','add','remove'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
@@ -155,7 +157,7 @@ async function start(){
   }if(current===epoch){ready=loaded;schedule();}
  }
  OBR.scene.onReadyChange(()=>{void loadScene().catch(error);});OBR.scene.items.onChange(value=>{if(ready){items=value;schedule();}});OBR.scene.onMetadataChange(value=>{scene=value;schedule();});OBR.scene.grid.onChange(value=>{grid=value.dpi;schedule();});
- OBR.player.onChange(value=>{gm=value.role==='GM';publish();schedule();});
+ OBR.player.onChange(value=>{gm=value.role==='GM';focus.setShowHidden(gm);publish();schedule();});
  // Background iframes do not reliably receive parent-window resize/zoom events.
  // Read only dimensions, not scene data, and redraw only when they change.
  let measuring=false,stopped=false;

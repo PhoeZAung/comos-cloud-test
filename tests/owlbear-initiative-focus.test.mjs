@@ -6,7 +6,7 @@ test('initiative focus locates tokens without changing selection and adds local 
  const added=[],removed=[],moves=[],item={id:'token-1',type:'IMAGE',layer:'CHARACTER',visible:true,position:{x:100,y:200},scale:{x:1,y:1},zIndex:10,image:{width:60,height:60},lastModified:'one'};
  const OBR={
   scene:{
-   items:{getItemBounds:async ids=>{assert.deepEqual(ids,['token-1']);return {min:{x:100,y:200},max:{x:160,y:260},width:60,height:60,center:{x:130,y:230}};}},
+   items:{getItemBounds:async ids=>{assert.equal(ids.length,1);assert.ok(['token-1','hidden-token'].includes(ids[0]));return {min:{x:100,y:200},max:{x:160,y:260},width:60,height:60,center:{x:130,y:230}};}},
    local:{addItems:async shapes=>{added.push(...shapes);},deleteItems:async ids=>{removed.push(...ids);}}
   },
   viewport:{animateToBounds:async box=>moves.push(box)},
@@ -34,9 +34,20 @@ test('initiative focus locates tokens without changing selection and adds local 
  focus.hover(null);
  await new Promise(resolve=>setTimeout(resolve,25));
  assert.equal(await focus.locate('not-a-token'),false);
+ // Players must never move to explicitly hidden tokens even if they know an ID.
+ const hidden={...item,id:'hidden-token',visible:false};
+ focus.update([hidden],'hidden-token');
+ assert.equal(await focus.locate('hidden-token'),false);
+ // The Owlbear GM may still inspect and locate a hidden combatant.
+ focus.setShowHidden(true);
+ focus.update([hidden],'hidden-token');
+ assert.equal(await focus.locate('hidden-token'),true);
+ assert.equal(moves.length,2);
+ focus.setShowHidden(false);
+ assert.equal(await focus.locate('hidden-token'),false);
  focus.update([],null);
  await new Promise(resolve=>setTimeout(resolve,25));
  await focus.close();
  assert.ok(removed.length>0);
- assert.equal(moves.length,1);
+ assert.equal(moves.length,2);
 });
