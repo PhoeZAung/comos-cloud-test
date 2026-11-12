@@ -261,3 +261,11 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 .initiative-tab .battle-hidden-eye{flex:0 0 16px;color:#d2a9ef;filter:drop-shadow(0 0 4px #a777dd70)}
 .initiative-tab .battle-hidden-eye[hidden]{display:none!important}
 .initiative-tab .battle-resource.hp:disabled[title="HP hidden by GM"]{color:#92839f;background:transparent;border-color:transparent;cursor:default}
+
+/* The former Admin tab now lives in Settings, above Roll history. */
+.cosmos-admin-settings{margin:14px 0;padding:12px;border:1px solid #6e5a8b;border-radius:11px;background:#171629}
+.cosmos-admin-settings h2{font-size:15px;margin:0 0 10px;color:#eadbff}
+.cosmos-admin-settings .cosmos-admin{border:0;padding:0;background:transparent}
+.cosmos-admin-settings .cosmos-panel-note{font-size:11px;line-height:1.45;color:#bdb0d0}
+.cosmos-admin-settings [data-recommend-target]{accent-color:#f25a73}
+.cosmos-admin-settings[hidden]{display:none!important}
