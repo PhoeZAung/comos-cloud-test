@@ -1,5 +1,5 @@
 import {mergeRollHistory} from '../features/room-rolls.mjs';
-export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{}}={}){
+export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},onView=()=>{}}={}){
  let selected='character',admin=false,connected=false,loading=false,again=false,closed=false,generation=0,personal=[],shared=[],signature='',sheets=[];
  const buttons=()=>[...root.querySelectorAll('[data-panel-tab]')],panels=[...root.querySelectorAll('[data-panel-view]')],first=root.querySelector('[data-panel-tab="character"]'),adminButton=root.querySelector('[data-panel-tab="admin"]'),list=root.querySelector('[data-roll-history]'),status=root.querySelector('[data-history-status]'),historyDetails=root.querySelector('[data-history-details]');
  const historyVisible=()=>selected==='settings'&&historyDetails.open;
@@ -13,6 +13,7 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{}}=
   selected=value;syncTabs();
   for(const panel of panels)panel.hidden=panel.dataset.panelView!==(value==='character'||value.startsWith('sheet:')?'character':value);
   if(value==='character'||value.startsWith('sheet:'))onSheetTab(selectedSheetId());
+  else onView(value);
   if(historyVisible())void refresh();
  }
  function syncSheets(next){
