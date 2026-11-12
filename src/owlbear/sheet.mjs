@@ -26,6 +26,15 @@ window.fetch=async(input,options={})=>{
  return new Response(JSON.stringify(result.data),{status:result.status,headers:{'Content-Type':'application/json'}});
 };
 document.addEventListener('click',event=>{
+ // The host owns the sheet picker and pop-out grant; never open an unconnected popup.
+ const add=event.target.closest('[data-add-sheet]'),pop=event.target.closest('[data-sheet-popout]');
+ if(add||pop){
+  event.preventDefault();event.stopImmediatePropagation();
+  if(pop&&window.parent!==window){
+   try{if(window.parent.cosmosOpenSheetWindow?.(nonce))return;}catch{}
+  }
+  controller.postMessage({type:add?'cosmos:add-sheet':'cosmos:popout-sheet',nonce},location.origin);return;
+ }
  const link=event.target.closest('a[href]');if(!link)return;const url=new URL(link.href);
  if(url.origin!==location.origin)return;
  event.preventDefault();

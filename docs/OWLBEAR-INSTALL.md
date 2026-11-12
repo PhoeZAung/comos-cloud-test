@@ -120,16 +120,19 @@ connection has moved out of Settings; the extra **Refresh characters** and
 Player and NPC cards live in the same vertically scrollable roster; narrowing
 or shortening the extension does not compress player cards underneath NPCs.
 
-When a sheet is open, the searchable **+ Add sheet** button is beside **Open sheet window**
-in the small top toolbar. Choosing another sheet keeps the first iframe alive,
-with its scroll position explicitly restored on return, and adds the second sheet as a named top-level tab
-alongside Character, Admin (authorized only), Initiative, and Settings.
-For two or more open sheets, each sheet's tab uses its character's name.
-At one open sheet, the main tab stays labelled Character and no extra sheet
-tabs or close controls appear. The × controls can close individual tabs;
-**← Characters** returns to the roster without closing loaded sheets.
-The old tab bar and + button inside the embedded character sheet are hidden
-in Owlbear only, not on standalone Cosmos sheets.
+With a sheet open, its **Add Sheet (+)** and **Pop Out** controls live inside
+the character sheet's titlebar beside Favorite (star) and Rest (moon), matching
+the Cosmos website. The redundant top-level ← Characters, + and Pop Out row
+has been removed from the Owlbear extension.
+
+The first open sheet gets a tab bearing its **character name**, even when it
+is the only sheet. As additional characters open, their named tabs share the
+entire available width and gradually shrink like browser tabs. Each tab's ×
+close button is only visible on hover or keyboard focus; touch devices keep
+the control visible so the character can still be closed. Closing the last
+sheet returns to the Character roster. Previously opened sheets retain their
+own iframe, position, and internal section while switching.
+
 NPC sheet results appear in the picker only when the user is both an Owlbear GM
 and a currently verified Cosmos administrator; revoking that role clears any
 open NPC picker and closes NPC sheets.
@@ -139,39 +142,33 @@ the sheet titlebar. The sheet-tab strip appears only after opening a second
 sheet. Admin → group/party sheet viewing uses named tabs instead of opening all
 member sheets side by side; only visited tabs load an iframe.
 
-## Multiple-sheet tabs and weapon stat previews
+## Weapon defaults and special rules
 
-When a second character sheet is opened in the Owlbear extension, both
-characters appear as connected Cosmos-themed violet tab chips with their
-close controls integrated into the same surface, rather than mixed old-style
-buttons. Closing back to one sheet restores the standard Character tab.
+New player weapons default to STR for both attack and damage when their
+**Attack Type** is Melee (or Touch). Choosing Ranged or Ranged Touch defaults
+the attack ability to DEX and the damage ability to **None**. The editor
+updates those defaults when Attack Type changes, unless a user explicitly
+chooses a different ability. Both attack and damage ability menus support
+**None** (no ability bonus), as well as manual STR, DEX, CON, INT, WIS, CHA
+and their existing Automatic choices.
 
-In the player Weapon editor, **Attack Type** controls the default attack
-ability: melee/touch usually use STR, ranged/ranged touch use DEX, or the
-character's saved global attack ability override. Selecting **Automatic
-(attack type)** applies that rule; choosing a specific ability remains
-possible for feats or special weapons.
+**Damage Style** still handles two-handed STR (1.5× positive STR),
+off-hand STR (half positive STR), thrown/sling STR, and bow rules. Attack
+and damage ability selections remain independent; for example, a finesse
+weapon can attack with DEX but add STR to damage when appropriate. The
+actual chosen modifiers are shown live in the editor.
 
-**Damage Ability** defaults to **Automatic (attack type & style)** for new
-weapons: standard melee uses STR, ordinary ranged uses no ability bonus,
-thrown/sling uses STR, two-handed melee uses 1.5× positive STR, off-hand
-melee uses half positive STR, and bows apply STR penalties as appropriate.
-Attack ability and damage ability are independent: weapon finesse, for
-example, can use DEX to attack while still using STR for damage. Both
-effective abilities and bonuses update in live explanatory summaries as
-the user edits Attack Type, Damage Style, or ability overrides.
+Every newly entered weapon preselects **critical range 20** and **critical
+multiplier ×2**. A natural 20 produces a critical **threat**, followed by
+the existing Pathfinder/FFd20 confirmation roll; it is not an automatically
+confirmed critical. Custom critical ranges and multipliers can still be
+chosen. Existing weapons keep their saved values. Older weapons lacking
+a Damage Ability field continue to use **None** to prevent doubling damage
+bonuses already included in a manually entered dice formula.
 
-Existing weapons with no saved damage-ability setting keep **Formula only**
-on edit to avoid silently adding a second bonus to legacy dice formulas.
-Users can switch to Automatic if their dice formula excludes the ability
-bonus. NPC weapons keep their existing printed attack-bonus workflow.
-
-Conditional feats and special modifiers still require the corresponding
-manual ability override or entered bonus; the editor does not infer every
-feat or equipment rule automatically.
-
-These interface defaults do not imply that every ffd20 class and weapon
-uses exactly the same modifier rule.
+Conditional feats, class modifiers and special weapon traits may require
+manual overrides; these defaults do not assume every class or weapon uses
+identical rules.
 
 ## Extension tabs, camera focus and hidden combatants
 

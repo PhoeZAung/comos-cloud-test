@@ -13,10 +13,9 @@ const roster=document.querySelector('[data-character-roster]'),prompt=document.q
 const frames=document.querySelector('[data-sheet-frames]'),picker=document.querySelector('[data-sheet-picker]'),choices=document.querySelector('[data-sheet-choices]'),pickerSearch=document.querySelector('[data-sheet-search]'),pickerStatus=document.querySelector('[data-sheet-search-status]');
 const npcList=document.querySelector('[data-npc-characters]'),npcGroup=document.querySelector('[data-npc-group]'),dice=dicePlus(OBR);
 const openSheets=new Map(),names=new Map(),audiences=new Map();
-const backButton=document.querySelector('[data-back]'),addSheet=document.querySelector('[data-add-sheet]'),openTab=document.querySelector('[data-open-sheet-tab]');
 let popup,nonce,connection,activeCharacterId=null,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
 let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,characterRequest=null,npcRequest=null,characters=[],npcs=[],pickerCandidates=[];
-const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheetTab:id=>showSheet(id),onCloseSheet:id=>closeSheet(id),onView:()=>{saveScroll(activeCharacterId);backButton.hidden=true;addSheet.hidden=true;openTab.hidden=true;}});
+const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheetTab:id=>showSheet(id),onCloseSheet:id=>closeSheet(id),onView:()=>{saveScroll(activeCharacterId);}});
 const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command));
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID();
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -40,7 +39,6 @@ function showRoster(){
  activeCharacterId=null;
  roster.hidden=false;frames.hidden=true;
  for(const sheet of openSheets.values()){sheet.iframe.dataset.sheetInactive='true';sheet.iframe.setAttribute('aria-hidden','true');}
- backButton.hidden=true;addSheet.hidden=true;openTab.hidden=true;
  npcGroup.hidden=!showNpcs||!npcList.children.length;
 }
 function showSheet(id){
@@ -50,7 +48,6 @@ function showSheet(id){
  activeCharacterId=id;
  roster.hidden=true;frames.hidden=false;
  for(const sheet of openSheets.values()){const inactive=sheet!==chosen;sheet.iframe.dataset.sheetInactive=String(inactive);sheet.iframe.setAttribute('aria-hidden',String(inactive));}
- backButton.hidden=false;addSheet.hidden=false;openTab.hidden=false;
  restoreScroll(chosen);
 }
 function syncSheetTabs(){
@@ -184,16 +181,23 @@ function chooseFromRoster(event,npc=false){
 }
 list.addEventListener('click',event=>chooseFromRoster(event));
 npcList.addEventListener('click',event=>chooseFromRoster(event,true));
-backButton.onclick=()=>showRoster();
-addSheet.onclick=openPicker;
-openTab.onclick=()=>{
- if(!activeCharacterId)return;
- if(tabWindow&&!tabWindow.closed&&tabCharacterId===activeCharacterId){tabWindow.focus();return;}
+function openSheetWindow(id){
+ if(!id||!connection||!openSheets.has(id))return;
+ if(tabWindow&&!tabWindow.closed&&tabCharacterId===id){tabWindow.focus();return;}
  tabNonce=crypto.randomUUID();tabConnection?.close();tabConnection=null;
- tabWindow=window.open(new URL('sheet.html?characterId='+encodeURIComponent(activeCharacterId)+'#'+tabNonce,location.href).href,tabName,'popup=yes,width=1000,height=800,resizable=yes,scrollbars=yes,toolbar=no,menubar=no');
+ tabWindow=window.open(new URL('sheet.html?characterId='+encodeURIComponent(id)+'#'+tabNonce,location.href).href,tabName,'popup=yes,width=1000,height=800,resizable=yes,scrollbars=yes,toolbar=no,menubar=no');
  if(!tabWindow){tabCharacterId=null;say('Allow the sheet popup, then click the pop-out icon again.');return;}
- tabCharacterId=activeCharacterId;tabWindow.focus();say('Connected');
+ tabCharacterId=id;tabWindow.focus();say('Connected');
+}
+// Same-origin embedded sheets can open a window during the original click gesture.
+// A delayed postMessage can lose transient user activation and trigger popup blockers.
+window.cosmosOpenSheetWindow=sourceNonce=>{
+ const sheet=[...openSheets.values()].find(s=>s.nonce===sourceNonce&&s.id===activeCharacterId);
+ if(!sheet||!connection)return false;
+ openSheetWindow(sheet.id);
+ return true;
 };
+
 
 OBR.onReady(async()=>{
  available=true;say('Connect your Cosmos account to load your characters.');
@@ -254,6 +258,14 @@ window.addEventListener('message',event=>{
  }
  const fromFrame=[...openSheets.values()].find(sheet=>event.source===sheet.iframe.contentWindow&&event.data?.nonce===sheet.nonce);
  const fromTab=tabNonce&&event.source===tabWindow&&event.data?.nonce===tabNonce;
+ if(fromFrame&&event.data?.type==='cosmos:add-sheet'){
+  if(activeCharacterId===fromFrame.id)openPicker();
+  return;
+ }
+ if(fromFrame&&event.data?.type==='cosmos:popout-sheet'){
+  if(activeCharacterId===fromFrame.id)openSheetWindow(fromFrame.id);
+  return;
+ }
  if((fromFrame||fromTab)&&event.data?.type==='cosmos:sheet-selected'&&/^[0-9a-f-]{36}$/i.test(event.data.characterId)){
   if(fromTab)tabCharacterId=event.data.characterId;
  }

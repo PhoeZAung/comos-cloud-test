@@ -215,3 +215,41 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
  .cosmos-tabs .cosmos-sheet-tab-group >button[data-panel-tab]{min-width:35px;max-width:108px;padding-inline:7px}
  .cosmos-tabs .cosmos-sheet-tab-group >.extension-sheet-close{min-width:22px;width:22px;max-width:22px;min-height:32px}
 }
+
+
+/* Browser-like responsive tab strip. Every tab shares all available width;
+   names ellipsize as more character sheets are opened. */
+.cosmos-tabs{display:flex;width:100%;min-width:0;gap:4px;overflow-x:auto;scrollbar-width:thin}
+.cosmos-tabs >button[data-panel-tab],
+.cosmos-tabs >.cosmos-sheet-tab-group{
+ flex:1 1 0!important;min-width:0!important;max-width:none!important;
+}
+.cosmos-tabs >button[data-panel-tab]{padding-inline:5px}
+.cosmos-tabs >.cosmos-sheet-tab-group{
+ display:flex;align-items:stretch;overflow:hidden;white-space:nowrap;
+}
+.cosmos-tabs >.cosmos-sheet-tab-group >button[data-panel-tab]{
+ flex:1 1 0!important;min-width:0!important;max-width:none!important;
+ padding-inline:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+/* Close controls are accessible on keyboard focus and touch, while mouse
+   users see them only on hover, with no permanently wasted tab width. */
+.cosmos-tabs >.cosmos-sheet-tab-group >.extension-sheet-close{
+ flex:0 0 0!important;min-width:0!important;width:0!important;max-width:0!important;
+ padding:0!important;border:0!important;opacity:0;visibility:hidden;pointer-events:none;
+ transition:opacity .12s ease,flex-basis .12s ease,width .12s ease;
+}
+.cosmos-tabs >.cosmos-sheet-tab-group:hover >.extension-sheet-close,
+.cosmos-tabs >.cosmos-sheet-tab-group:focus-within >.extension-sheet-close{
+ flex-basis:23px!important;min-width:23px!important;width:23px!important;max-width:23px!important;
+ opacity:1;visibility:visible;pointer-events:auto;border-left:1px solid #a58bc740!important;
+}
+@media(hover:none){
+ .cosmos-tabs >.cosmos-sheet-tab-group >.extension-sheet-close{
+  flex-basis:21px!important;min-width:21px!important;width:21px!important;max-width:21px!important;
+  opacity:1;visibility:visible;pointer-events:auto;border-left:1px solid #a58bc740!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .cosmos-tabs >.cosmos-sheet-tab-group >.extension-sheet-close{transition:none}
+}
