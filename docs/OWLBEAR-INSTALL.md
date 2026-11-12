@@ -166,17 +166,14 @@ on edit to avoid silently adding a second bonus to legacy dice formulas.
 Users can switch to Automatic if their dice formula excludes the ability
 bonus. NPC weapons keep their existing printed attack-bonus workflow.
 
- Follow-up capability does not automatically add rules-derived feats or
-conditional modifiers; explicit overrides and entered bonuses remain
-available.
+Conditional feats and special modifiers still require the corresponding
+manual ability override or entered bonus; the editor does not infer every
+feat or equipment rule automatically.
 
- **Note:** The lines above describe interface defaults and calculation
-behavior, not a claim that every ffd20 class or weapon follows exactly the
-same modifier rule.
+These interface defaults do not imply that every ffd20 class and weapon
+uses exactly the same modifier rule.
 
- 
-
- ## Extension tabs, camera focus and hidden combatants
+## Extension tabs, camera focus and hidden combatants
 
 Extension navigation uses the Cosmos constellation theme, including a clear
 active tab and compact named tabs for additional sheets. In Initiative, the
