@@ -9,7 +9,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 const output=await mkdtemp(path.join(tmpdir(),'cosmos-owlbear-panel-'));
 const stubs={
- '@owlbear-rodeo/sdk':`export default {onReady:callback=>{window.testReady=callback();},action:{setIcon:async()=>{}}};`,
+ '@owlbear-rodeo/sdk':`export default {onReady:callback=>{window.testReady=callback();},action:{setIcon:async()=>{}},player:{getSelection:async()=>window.selectedTokens||[],deselect:async ids=>{window.unselectedTargets.push(...ids);window.selectedTokens=(window.selectedTokens||[]).filter(id=>!ids.includes(id));}}};`,
  './panel-size.mjs':`export async function panelSize(){}`,
  './local-channel.mjs':`export async function localChannel(OBR,receive){window.deliver=receive;return {send(value){if(value.type==='hello')receive(window.roomState);if(value.type==='roll-receipt')window.receipts.push(value);if(['turn','initiative','stats','highlight','locate','recommend-setting'].includes(value.type))window.commands.push(value);},close(){}};}`,
  './connection.mjs':`export function connection(){return {close(){},async call(method){if(method==='list'){window.listCalls++;return [{id:'character-1',name:'Astra'},{id:'character-2',name:'Nyx'}];}if(method==='npc-list')return [{id:'npc-1',name:'A very long NPC name that should scroll rather than squeeze characters'}];if(method==='roll-history'){window.historyCalls++;return {rolls:window.rollRows};}if(method==='api')return {status:200,data:{roll:{total:22,expression:'1d20+5',rolls:[17]}}};throw Error('Unexpected account request');}};}`,
@@ -27,7 +27,7 @@ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const browser=await chromium.launch({headless:true,...(process.platform==='win32'?{channel:'msedge'}:{})}),checks=[],errors=[];
 try{
  const page=await browser.newPage({viewport:{width:390,height:640}});page.on('pageerror',error=>errors.push(error.message));
- await page.addInitScript(()=>{window.historyCalls=0;window.listCalls=0;window.receipts=[];window.diceTargets=[];window.commands=[];window.roomState={type:'state',admin:false,feed:'Live',layout:{party:false,initiative:false,partyDock:'top',initiativeDock:'left'}};window.rollRows=[{id:'roll-1',character:'Astra',label:'<img src=x onerror=alert(1)>',time:Date.now(),parts:[{label:'Attack',total:27,expression:'1d20+7',faces:[20]},{label:'Damage',total:8,expression:'2d6',faces:[3,5]}]}];});
+ await page.addInitScript(()=>{window.historyCalls=0;window.listCalls=0;window.receipts=[];window.diceTargets=[];window.commands=[];window.selectedTokens=[];window.unselectedTargets=[];window.roomState={type:'state',admin:false,feed:'Live',layout:{party:false,initiative:false,partyDock:'top',initiativeDock:'left'}};window.rollRows=[{id:'roll-1',character:'Astra',label:'<img src=x onerror=alert(1)>',time:Date.now(),parts:[{label:'Attack',total:27,expression:'1d20+7',faces:[20]},{label:'Damage',total:8,expression:'2d6',faces:[3,5]}]}];});
  await page.goto('http://127.0.0.1:'+server.address().port+'/owlbear/index.html');await page.evaluate(()=>window.testReady);
  assert.equal(await page.locator('[data-panel-tab="admin"]').count(),0);assert.equal(await page.locator('[data-admin-settings]').isVisible(),false);checks.push('player never sees GM Admin settings');
  assert.deepEqual(await page.locator('[data-panel-tab]').allTextContents(),['Character','Initiative','Settings']);checks.push('three ordered tabs with Admin moved into Settings');
@@ -127,6 +127,33 @@ try{
  catch(error){console.error('First sheet after switching',await scrollDebug());throw error;}
  checks.push('switching sheets restores the previous scroll position and internal section tab');
  await page.locator('[data-panel-tab="sheet:character-2"]').click();await page.locator('[data-panel-tab="sheet:character-2"]').hover();await page.locator('[data-close-extension-sheet="character-2"]').click();assert.equal(await page.locator('iframe').count(),1);assert.equal(await page.locator('[data-panel-tab^="sheet:"]').count(),0);assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Astra');assert.equal(await page.locator('.cosmos-sheet-tab-group').count(),1);checks.push('Add Sheet beside popout uses named main tabs, switching preserves iframes, and single sheet hides extra tabs');
+ // Exercise action panel RPC against real target resolver with a synthetic
+ // Owlbear selection; ensure completed actions only deselect their target.
+ await page.evaluate(()=>{
+  window.selectedTokens=['goblin-token'];
+  window.deliver({...window.roomState,ready:true,battle:[
+   {id:'actor-token',siteId:'character-1',isNpc:false,available:true,visible:true,hp:20,ac:18,touch:13,cmd:17},
+   {id:'goblin-token',isNpc:true,siteId:null,available:true,visible:true,hp:10,ac:16,touch:12,cmd:18,name:'Goblin'}
+  ],turn:{id:'actor-token',round:1}});
+ });
+ const actionId=await page.evaluate(()=>crypto.randomUUID());
+ const target=await page.evaluate(async requestId=>document.querySelector('iframe').contentWindow.call('combat-context',{
+  requestId,characterId:'character-1',kind:'weapon',row:{attack_type:'touch'}
+ }),actionId);
+ assert.deepEqual([target.targetId,target.defense,target.ac],['goblin-token','touch',12]);
+ await page.evaluate(async requestId=>document.querySelector('iframe').contentWindow.call('combat-complete',{requestId,targetId:'goblin-token'}),actionId);
+ assert.deepEqual(await page.evaluate(()=>window.unselectedTargets),['goblin-token']);
+ assert.deepEqual(await page.evaluate(()=>window.selectedTokens),[]);
+ await page.evaluate(()=>{window.selectedTokens=['goblin-token'];window.deliver({...window.roomState,ready:true,battle:[
+  {id:'actor-token',siteId:'character-1',isNpc:false,available:true,visible:true},
+  {id:'goblin-token',isNpc:true,siteId:null,available:true,visible:true,ac:16}
+ ],turn:{id:'goblin-token',round:1}});});
+ await assert.rejects(page.evaluate(async()=>document.querySelector('iframe').contentWindow.call('combat-context',{
+  requestId:crypto.randomUUID(),characterId:'character-1',kind:'weapon',row:{attack_type:'melee'}
+ })),/initiative turn/);
+ assert.deepEqual(await page.evaluate(()=>window.selectedTokens),['goblin-token']);
+ await page.evaluate(()=>window.deliver(window.roomState));
+ checks.push('selected target resolves against touch AC, clears only after completed use, and blocks attacks off-turn');
  const requestId=await page.evaluate(()=>crypto.randomUUID());await page.evaluate(async requestId=>{const sheet=document.querySelector('iframe').contentWindow;await sheet.call('roll-context',{requestId});await sheet.call('dice',{requestId,notation:'1d20+5'});},requestId);
  await page.locator('[data-panel-tab="settings"]').click();await page.locator('[data-roll-audience]').selectOption('self');await page.evaluate(async requestId=>{const sheet=document.querySelector('iframe').contentWindow;await sheet.call('dice',{requestId,notation:'1d20+5'});await sheet.call('api',{path:'/api/v1/character-records/character-1',method:'POST',body:{op:'roll',requestId,label:'Attack'}});},requestId);
  assert.deepEqual(await page.evaluate(()=>window.diceTargets),['everyone','everyone']);assert.equal(await page.evaluate(()=>window.receipts[0].target),'everyone');assert.equal(await page.evaluate(()=>window.receipts[0].entry.parts[0].total),22);checks.push('one logical roll keeps its initial audience through every die and shared receipt');
