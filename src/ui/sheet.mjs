@@ -1,6 +1,6 @@
 import {npcStatLabels,npcTextLabels} from '../features/characters/npc-stat-block.mjs';
 import {effectTypes,effectType} from '../features/sheet/effect-types.mjs';
-import {abilityKinds,srModes} from '../owlbear/pathfinder-defenses.mjs';
+import {abilityKinds,srModes} from '../features/sheet/pathfinder-defenses.mjs';
 import {abilityGroup} from '../features/sheet/ability-groups.mjs';
 import {isLimitBreak} from '../features/sheet/limit-breaks.mjs';
 import {baseLandSpeed} from '../features/sheet/movement.mjs';
