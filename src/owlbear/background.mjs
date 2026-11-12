@@ -133,6 +133,7 @@ async function start(){
   const payload={
    roomId:OBR.room.id,requestId:request.requestId,actorSheetId,actorTokenId:actor.id,
    targetTokenId:target.id,targetSheetId:target.siteId||null,targetName:target.name,
+   gmOnly:actor.visible===false||target.visible===false,
    targetAc:target[request.defense],targetHp:target.hp,targetHpMax:target.hpMax,targetHpTemp:target.hpTemp??0,
    defense:request.defense,round:request.round
   };
