@@ -19,7 +19,7 @@ import {MUTANT_ID,MUTANT_TABLE,MUTANT_PHYSICAL,mutantEmptyRolls,mutantRollIssues
 import {spells} from './spells.mjs';
 import {blackMageSummary} from '../rules-summary.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
-import {fixedSkills} from '../../sheet/skills.mjs';
+import {fixedSkills,sheetSkills,legacySkillCount} from '../../sheet/skills.mjs';
 import {pointSpend,standardArray} from '../ability-generation.mjs';
 import {ARCHER_ID,BLACK_MAGE_ID,availableClasses,classFor,classHasSpells,isArcher,classHitDie,classDefaultHp,className,classSkill,archerChoiceEvents,archerEligibleOptions,archerPreview,archerIssues,archerFeatureChanges,compileNoncastingBuild} from './class-adapters.mjs';
 export {registry,spells,availableClasses,classFor,className,classSkill};
@@ -287,7 +287,8 @@ export function sanitizeBuild(raw){
  if(!raw.baseScores||Object.keys(raw.baseScores).some(k=>!stats.includes(k)))bad('Invalid base scores.');for(const k of stats){if(!Number.isInteger(raw.baseScores[k])||raw.baseScores[k]<1||raw.baseScores[k]>45)bad('Invalid base scores.');b.baseScores[k]=raw.baseScores[k];}
  for(const k of ['disabledTraits','alternateIds','spellIds']){if(!Array.isArray(raw[k])||raw[k].length>400||raw[k].some(v=>typeof v!=='string'||v.length>250))bad('Invalid '+k+'.');b[k]=uniq(raw[k]);}
  if(raw.spellSelections!==undefined&&raw.spellSelections!==null){const groups=raw.spellSelections;if(!groups||typeof groups!=='object'||Array.isArray(groups)||Object.keys(groups).some(k=>!['cantrips','leveled'].includes(k)))bad('Invalid spell slots.');for(const k of ['cantrips','leveled'])if(!Array.isArray(groups[k])||groups[k].length>200||groups[k].some(v=>v!==null&&(typeof v!=='string'||v.length>250)))bad('Invalid spell slots.');if(JSON.stringify([...groups.cantrips,...groups.leveled].filter(Boolean))!==JSON.stringify(b.spellIds))bad('Spell slots do not match learned spells.');b.spellSelections=structuredClone(groups);}
- if(raw.skillRanks!==undefined&&raw.skillRanks!==null){if(!Array.isArray(raw.skillRanks)||raw.skillRanks.length!==fixedSkills.length||raw.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>20))bad('Invalid skill ranks.');b.skillRanks=[...raw.skillRanks];}
+ if(raw.skillRanks!==undefined&&raw.skillRanks!==null){if(!Array.isArray(raw.skillRanks)||![fixedSkills.length,legacySkillCount].includes(raw.skillRanks.length)||raw.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>20))bad('Invalid skill ranks.');
+ b.skillRanks=[...raw.skillRanks,...Array(fixedSkills.length-raw.skillRanks.length).fill(0)];}
  for(const k of ['racialChoices','racialSpecialties']){const value=raw[k]??{};if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length>10)bad('Invalid '+k+'.');for(const [id,v] of Object.entries(value)){if(id.length>250||(k==='racialChoices'?(!Array.isArray(v)||v.length>(b.raceId==='ffd20:race:yagudo'&&id===YAGUDO_RANK_LANGUAGES?40:20)||v.some(x=>typeof x!=='string'||x.length>250)):(typeof v!=='string'||v.length>80)))bad('Invalid '+k+'.');}b[k]=structuredClone(value);}
  for(const k of ['hpRolls','favored']){if(!Array.isArray(raw[k])||raw[k].length>20)bad('Invalid level selections.');b[k]=raw[k].slice();}
  if(raw.abilityMethod!==undefined){if(!['manual','point-buy','array','rolled'].includes(raw.abilityMethod))bad('Unknown score method.');b.abilityMethod=raw.abilityMethod;}
@@ -483,8 +484,9 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  if(initial){next.hp_curr=p.hp;next.mp=p.summary.mp;next.mp_curr=p.summary.mp;next.mp_temp=0;next.items=[{name:'Starting outfit',type:'Gear',amount:1,desc:'Starting outfit worth up to 10 gil, granted in addition to starting wealth.',value:10,sourceRuleId:'ffd20:class:black-mage:starting-outfit'}];next.weapons=[];next.currency_gil=70;next.gil=70;b.initialIntMod=mod(mageCastingInt(b));}
  else if(next.mp===undefined&&next.mp_curr!==undefined){next.mp=next.mp_curr;next.mp_temp=0;}
  next.favoredClassBonuses=Object.fromEntries(b.favored.slice(0,b.level).map((v,i)=>[String(i+1),v]));
- const originalRows=previous.skills||fixedSkills.map(r=>({...r,lvl:0,temp:0,cs:false,subName:''}));
- next.skills=originalRows.map((row,index)=>{const r={...row};if(b.skillRanks&&index<fixedSkills.length)r.lvl=b.skillRanks[index];const id=skillId(r);const ownedClassSkill=registry.class.data.classSkills.some(s=>s.skillId===id)||racialClassSkill(b,id,index);r.cs=b.carry?.classSkills?.[index]===true||ownedClassSkill||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=ownedClassSkill;
+ const originalRows=sheetSkills(previous);
+ next.skills=originalRows.map((row,index)=>{const r={...row};if(b.skillRanks&&index<fixedSkills.length)r.lvl=b.skillRanks[index];const id=skillId(r);const ownedClassSkill=registry.class.data.classSkills.some(s=>s.skillId===id||id.startsWith('skill:craft-(')&&s.skillId==='skill:craft')||
+  racialClassSkill(b,id,index)||(id.startsWith('skill:craft-(')&&racialClassSkill(b,'skill:craft',index));r.cs=b.carry?.classSkills?.[index]===true||ownedClassSkill||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=ownedClassSkill;
   // Remove only the last source contribution, preserving manually entered misc bonuses.
   r.temp=Number(row.temp||0)-Number(row.rulesBonus||0);let bonus=0;
   if(b.carry)bonus=Number(b.carry.ruleBonuses?.[index]||0);

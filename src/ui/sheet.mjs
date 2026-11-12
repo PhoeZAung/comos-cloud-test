@@ -21,7 +21,7 @@ import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel,damageTypeLine,weaponDamageAbilities,weaponDamageStyles,weaponDamageFormulas} from '../features/sheet/calculations.mjs';
 import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,usableItemImageUrl,normalizeInventoryText} from '../features/sheet/inventory-fields.mjs';
-import {skillSupportsSpecialization} from '../features/sheet/skills.mjs';
+import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
 import {applyRichFormat,formatSheetText} from '../features/sheet/rich-text.mjs';
 import {escape as e,sections,renderCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
@@ -394,9 +394,9 @@ function mountCharacterSheet(tabs,switchTo){
   openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='weapons'&&!npcWeapon?'':key==='skills'?(skillSupportsSpecialization(row.name)?'Edit ranks, misc, class skill and specialization.':'Edit ranks, misc and class skill.'):''});
   if(index!==null&&key!=='skills')root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
  }
- async function roll(label,expression,weaponIndex,spellIndex,abilityEntry,mode='use'){
+ async function roll(label,expression,weaponIndex,spellIndex,abilityEntry,mode='use',skillIndex){
   clearTimeout(remainingTimer);if(remainingInvalid)return;if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy)return;setBusy(true);let node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
-  try{const result=await request({op:'roll',...(abilityEntry?{kind:'ability',...abilityEntry}:spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:recordId(),...((weaponIndex!==undefined||spellIndex!==undefined||abilityEntry)?{mode}:{}),discord:mode==='send'||discordEnabled,discordStats:preferences.discordRollStats});if(closed)return;const r=result.roll;if(r.characterRevision!==undefined){try{const fresh=await request();character=fresh.character;draw();node=root.querySelector('[data-roll-result]');node.hidden=false;}catch{status('Use saved · Sync pending');}}const failed=result.discord==='failed';if(mode==='send'){node.hidden=true;notify(failed?'Discord delivery failed':result.discord==='sent'?'Sent to Discord':'Discord delivery pending');}else if(r.descriptionOnly){node.hidden=true;notify(failed?'Use · Discord delivery failed':'Use');}else{const present=()=>{if(closed)return;const current=root.querySelector('[data-roll-result]');if(current){
+  try{const result=await request({op:'roll',...(skillIndex!==undefined?{kind:'skill',index:skillIndex}:abilityEntry?{kind:'ability',...abilityEntry}:spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:recordId(),...((weaponIndex!==undefined||spellIndex!==undefined||abilityEntry||skillIndex!==undefined)?{mode}:{}),discord:mode==='send'||discordEnabled,discordStats:preferences.discordRollStats});if(closed)return;const r=result.roll;if(r.characterRevision!==undefined){try{const fresh=await request();character=fresh.character;draw();node=root.querySelector('[data-roll-result]');node.hidden=false;}catch{status('Use saved · Sync pending');}}const failed=result.discord==='failed';if(mode==='send'){node.hidden=true;notify(failed?'Discord delivery failed':result.discord==='sent'?'Sent to Discord':'Discord delivery pending');}else if(r.descriptionOnly){node.hidden=true;notify(failed?'Use · Discord delivery failed':'Use');}else{const present=()=>{if(closed)return;const current=root.querySelector('[data-roll-result]');if(current){
   current.textContent=formatRoll(label,r)+(failed?' · Discord delivery failed':'');
   const verdict=combatVerdict(r);
   if(verdict){
@@ -618,7 +618,12 @@ function mountCharacterSheet(tabs,switchTo){
   if(button.matches('[data-resource]')){const key=button.dataset.resource,s=sheetStats(character.data),value=(key==='hp_curr'?s.hp:s.mp)+Number(button.dataset.delta);void save({action:'fields',fields:{[key]:value}});return;}
   if(button.matches('[data-use]')){const index=Number(button.dataset.use),row=character.data.activeAbilities[index];void save({action:'useAbility',index});return;}
   if(button.matches('[data-damage-roll]')){roll(button.dataset.damageLabel+' damage',button.dataset.damageRoll);return;}
-  if(button.matches('[data-roll]')){roll(button.dataset.roll,'1d20'+(Number(button.dataset.bonus)>=0?'+':'')+number(button.dataset.bonus));return;}
+  if(button.matches('[data-skill-index]')){
+    const index=Number(button.dataset.skillIndex),row=sheetSkills(character.data)[index];
+    if(!row||!skillCanRoll(row)){status('Trained only: assign at least 1 rank to this skill before rolling.');return;}
+    void roll(skillDisplayName(row),null,undefined,undefined,undefined,'use',index);return;
+   }
+   if(button.matches('[data-roll]')){roll(button.dataset.roll,'1d20'+(Number(button.dataset.bonus)>=0?'+':'')+number(button.dataset.bonus));return;}
   if(button.matches('[data-formula]')){showFormula(button.dataset.formula);return;}
   if(button.matches('[data-spend-mp]')){openDialog('Spend MP',['amount'],{amount:1},{action:'spendMp'},{help:'Enter the MP cost for this cast.'});return;}
  },{signal:control.signal});

@@ -291,3 +291,17 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 .combat-history li small{font-size:11px;color:#bfb1cb;overflow-wrap:anywhere}
 .combat-history [data-combat-empty]{font-size:11px;color:#b7a5c7}
 .combat-approvals[hidden],.combat-end-button[hidden]{display:none!important}
+
+
+/* Linked combatant status: a visible color cue plus accessible title in Initiative. */
+.initiative-tab tr[data-link-status="character"]{--cosmos-link-color:#5ce0a7}
+.initiative-tab tr[data-link-status="npc"]{--cosmos-link-color:#80c4ff}
+.initiative-tab tr[data-link-status="unlinked"]{--cosmos-link-color:#a8a5ae}
+.initiative-tab tr[data-link-status="missing"]{--cosmos-link-color:#ffd27b}
+.initiative-tab .battle-locate{display:flex;align-items:center;gap:6px;border-left:3px solid var(--cosmos-link-color,transparent);padding-left:5px}
+.initiative-tab .battle-locate-label{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.initiative-tab .battle-link-indicator{display:block;flex:none;width:9px;height:9px;border-radius:50%;background:var(--cosmos-link-color,#a8a5ae);box-shadow:0 0 0 2px #140f1d;opacity:.98}
+.initiative-tab tr[data-link-status="missing"] .battle-locate-label{color:#ffdb8f}
+.initiative-tab tr[data-link-status="unlinked"] .battle-locate-label{color:#bbb5c5}
+.initiative-tab tr[data-link-status="character"] .battle-link-indicator{box-shadow:0 0 0 2px #140f1d,0 0 7px #5ce0a766}
+.initiative-tab tr[data-link-status="npc"] .battle-link-indicator{box-shadow:0 0 0 2px #140f1d,0 0 7px #80c4ff66}
