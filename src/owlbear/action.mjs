@@ -31,7 +31,7 @@ function restoreScroll(sheet){
  if(!sheet)return;
  // Wait for the hidden iframe to re-enter layout before scrolling.
  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-  if(activeCharacterId!==sheet.id||sheet.iframe.hidden)return;
+  if(activeCharacterId!==sheet.id||sheet.iframe.dataset.sheetInactive==='true')return;
   try{sheet.iframe.contentWindow?.scrollTo(0,sheet.scrollY||0);}catch{}
  }));
 }
@@ -39,7 +39,7 @@ function showRoster(){
  saveScroll(activeCharacterId);
  activeCharacterId=null;
  roster.hidden=false;frames.hidden=true;
- for(const sheet of openSheets.values())sheet.iframe.hidden=true;
+ for(const sheet of openSheets.values()){sheet.iframe.dataset.sheetInactive='true';sheet.iframe.setAttribute('aria-hidden','true');}
  backButton.hidden=true;addSheet.hidden=true;openTab.hidden=true;
  npcGroup.hidden=!showNpcs||!npcList.children.length;
 }
@@ -49,7 +49,7 @@ function showSheet(id){
  if(activeCharacterId!==id)saveScroll(activeCharacterId);
  activeCharacterId=id;
  roster.hidden=true;frames.hidden=false;
- for(const sheet of openSheets.values())sheet.iframe.hidden=sheet!==chosen;
+ for(const sheet of openSheets.values()){const inactive=sheet!==chosen;sheet.iframe.dataset.sheetInactive=String(inactive);sheet.iframe.setAttribute('aria-hidden',String(inactive));}
  backButton.hidden=false;addSheet.hidden=false;openTab.hidden=false;
  restoreScroll(chosen);
 }
@@ -76,7 +76,7 @@ function openSheet(id,npc=false){
  if(npc&&!showNpcs)return;
  if(!openSheets.has(id)){
   const iframe=document.createElement('iframe'),nonce=crypto.randomUUID();
-  iframe.title=(names.get(id)||'Character')+' sheet';iframe.hidden=true;
+  iframe.title=(names.get(id)||'Character')+' sheet';iframe.dataset.sheetInactive='true';iframe.setAttribute('aria-hidden','true');
   frames.append(iframe);
   openSheets.set(id,{id,name:names.get(id)||'Character',npc,iframe,nonce,scrollY:0,connection:null});
   iframe.src=new URL('sheet.html?characterId='+encodeURIComponent(id)+'#'+nonce,location.href).href;
