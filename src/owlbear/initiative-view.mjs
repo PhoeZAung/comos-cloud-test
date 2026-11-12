@@ -36,7 +36,7 @@ export function mountInitiative(view,send){
    card.node.classList.toggle('current-turn',row.id===turn);card.node.classList.toggle('unavailable',!row.available);
    if(document.activeElement!==card.input)card.input.value=row.initiative;
    card.input.disabled=!state.admin;card.input.setAttribute('aria-label',row.name+' initiative');
-   const locateButton=card.node.querySelector('.battle-locate');locateButton.querySelector('.battle-locate-label').textContent=row.name;const hidden=row.visible===false&&state.admin===true;locateButton.querySelector('.battle-hidden-eye').hidden=!hidden;locateButton.setAttribute('aria-label','Center camera on '+row.name+(hidden?' (hidden from players)':''));locateButton.title=hidden?'Hidden from players · center camera on '+row.name:'Center camera on '+row.name;
+   const locateButton=card.node.querySelector('.battle-locate');locateButton.querySelector('.battle-locate-label').textContent=row.name;const hidden=row.visible===false&&state.gm===true;locateButton.querySelector('.battle-hidden-eye').hidden=!hidden;locateButton.setAttribute('aria-label','Center camera on '+row.name+(hidden?' (hidden from players)':''));locateButton.title=hidden?'Hidden from players · center camera on '+row.name:'Center camera on '+row.name;
    for(const key of ['hp','mp']){
     const button=card[key],untracked=key==='hp'&&(!row.trackHp||row.hp===null);
     button.textContent=untracked?'—':String(row[key]);
