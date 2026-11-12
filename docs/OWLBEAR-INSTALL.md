@@ -512,3 +512,53 @@ Not yet automated: unusual PF1/FFD20 status effects and duration tracking,
 multi-target area spells, cover and line of sight, condition immunity,
 regeneration, evasion, special saving throw riders from weapons, or
 homebrew exceptions. Those require GM review before automatically adjusting HP.
+
+## Initiative link colors and trained-only FFD20 skills (v1.7.4)
+
+**Initiative link indicator:** Beside each combatant name in the existing
+Initiative tab, a colored dot and accent identify the connection status.
+- Green = linked PC character sheet
+- Blue = linked NPC record (only the GM receives private NPC record IDs)
+- Grey = unlinked token; manual combatant
+- Amber = stale/broken character sheet link (previous link no longer available)
+
+The accessible name and tooltip spell out the status. These colors do not
+affect initiative order, combat rolls or ownership permissions. The current
+turn retains its original highlight.
+
+**Complete skill list:** The fixed FFD20/Pathfinder 1e roster now includes
+Computers and the FFD20 expanded technical Craft specializations:
+Electronic, Explosive, Mechanical and Structural, plus the common named
+Craft specialties from the expanded FFD20 sheet. Existing Craft, Profession
+and Perform specialization slots remain editable. New skills are appended to
+the underlying saved list to preserve historical wizard rank indices;
+the player-facing skill list is alphabetical.
+
+**Trained only:** Listed FFD20/PF1e trained-only checks are unavailable in
+the character sheet when the character has 0 ranks. This includes Computers,
+Disable Device, Drive, Handle Animal, Knowledge (all), Linguistics, Pilot,
+Profession, Sleight of Hand, Spellcraft, Use Magic Device, and the four
+technical Craft variants. A generic Craft slot with specialty Electronic,
+Explosive, Mechanical or Structural is subject to the same check.
+
+The skill row and dice icon turn grey; the roll control is *disabled*.
+The Edit button, favorite action, ranks and misc/class-skill adjustments are
+*not* disabled. Increasing the **actual invested rank** to 1 unlocks the
+button. Bonuses, class-skill membership or misc adjustments alone cannot
+bypass the rank requirement. The Favorites section uses the same restriction.
+
+The backend also accepts an indexed `kind: "skill"` roll and independently
+checks the saved skill and ranks, calculates the bonus from saved data and
+records a receipt. Owlbear Dice+ requests the same authenticated skill bonus
+and never trusts the DOM's displayed modifier. This is not a blanket ban on
+general ability checks or GM-approved exceptions.
+
+**Special rules:** Pathfinder/FFD20 permits untrained Knowledge rolls for
+limited, common facts (typically DC 10 or below) and certain abilities may
+offer other exceptions. The standard skill button intentionally enforces the
+user-requested 1-rank trained-only rule; a GM can adjudicate exceptional
+checks separately. No arbitrary class/racial exception is inferred.
+
+Sources: https://finalfantasyd20.com/skills/
+and https://www.finalfantasyd20.com/pdf/FFd20_Character_Sheets_Expanded.pdf
+with Mount-Aetheria's indexed rank array used for legacy compatibility.
