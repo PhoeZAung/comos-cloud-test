@@ -134,8 +134,7 @@ async function load({fresh=false}={}){
  const card=c=>'<button class="character-card" data-character="'+esc(c.id)+'"><span class="character-photo">'+(typeof c.portraitUrl==='string'&&/^data:image\/(png|jpeg|webp);base64,/i.test(c.portraitUrl)?'<img src="'+esc(c.portraitUrl)+'" alt="">':'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="13" r="8"/><path d="M5 38v-5a15 15 0 0130 0v5Z"/></svg>')+'</span><strong>'+esc(c.name)+'</strong><span aria-hidden="true">›</span></button>';
  list.innerHTML=characters.map(card).join('')||'<p>No characters yet.</p>';
  say('Connected');panel.connected(true);prompt.hidden=true;
- // After authentication the Character page is always the landing tab.
- if(!openSheets.size)panel.select('character');
+ // Switching or refreshing the admin/NPC roster must not steal the selected tab.
  if(!showNpcs){npcs=[];npcList.replaceChildren();npcGroup.hidden=true;return;}
  if(!npcRequest)npcRequest=current.call('npc-list').catch(error=>{if(connection===current)npcRequest=null;throw error;});
  const loadedNpcs=await npcRequest;
