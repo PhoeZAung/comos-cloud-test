@@ -79,11 +79,15 @@ try{
  await page.locator('[data-add-sheet]').click();assert.equal(await page.locator('[data-pick-sheet="npc-1"]').count(),0);await page.locator('[data-sheet-search]').fill('Nyx');assert.equal(await page.locator('[data-pick-sheet="character-2"]').isVisible(),true);await page.locator('[data-pick-sheet="character-2"]').click();await page.waitForFunction(()=>document.querySelectorAll('iframe').length===2);await page.waitForFunction(()=>typeof document.querySelectorAll('iframe')[1]?.contentWindow.call==='function');
  assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Astra');assert.equal(await page.locator('[data-panel-tab="sheet:character-2"]').textContent(),'Nyx');assert.equal(await page.locator('iframe:visible').count(),1);
  await page.locator('[data-panel-tab="character"]').click();assert.equal(await page.locator('iframe:visible').count(),1);assert.equal(await page.evaluate(()=>document.querySelectorAll('iframe')[0].hidden),false);
- await page.evaluate(()=>{const child=document.querySelectorAll('iframe')[0].contentWindow;child.scrollTo(0,420);const url=new URL(child.location.href);url.searchParams.set('section','items');child.history.replaceState(null,'',url);});
+ await page.evaluate(()=>{const child=document.querySelectorAll('iframe')[0].contentWindow;const url=new URL(child.location.href);url.searchParams.set('section','items');child.history.replaceState(null,'',url);child.scrollTo(0,420);});
+ const scrollDebug=()=>page.evaluate(()=>{const frame=document.querySelectorAll('iframe')[0],child=frame?.contentWindow,doc=child?.document;return {y:child?.scrollY,frameHeight:frame?.getBoundingClientRect().height,frameHidden:frame?.hidden,inactive:frame?.dataset.sheetInactive,docScroll:doc?.scrollingElement?.scrollTop,docHeight:doc?.scrollingElement?.scrollHeight,clientHeight:doc?.scrollingElement?.clientHeight,url:child?.location.href};});
+ const initialScroll=await scrollDebug();console.log('First sheet before switching',initialScroll);
+ assert.ok(initialScroll.y>=390,'First sheet must actually scroll before testing restoration');
  await page.locator('[data-panel-tab="sheet:character-2"]').click();
  await page.locator('[data-panel-tab="character"]').click();
  assert.equal(await page.evaluate(()=>document.querySelectorAll('iframe')[0].contentWindow.location.search.includes('section=items')),true);
- await page.waitForFunction(()=>document.querySelectorAll('iframe')[0]?.contentWindow?.scrollY>=390,null,{timeout:5000});
+ try{await page.waitForFunction(()=>document.querySelectorAll('iframe')[0]?.contentWindow?.scrollY>=390,null,{timeout:5000});}
+ catch(error){console.error('First sheet after switching',await scrollDebug());throw error;}
  checks.push('switching sheets restores the previous scroll position and internal section tab');
  await page.locator('[data-panel-tab="sheet:character-2"]').click();await page.locator('[data-close-extension-sheet="character-2"]').click();assert.equal(await page.locator('iframe').count(),1);assert.equal(await page.locator('[data-panel-tab^="sheet:"]').count(),0);assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Character');checks.push('Add Sheet beside popout uses named main tabs, switching preserves iframes, and single sheet hides extra tabs');
  const requestId=await page.evaluate(()=>crypto.randomUUID());await page.evaluate(async requestId=>{const sheet=document.querySelector('iframe').contentWindow;await sheet.call('roll-context',{requestId});await sheet.call('dice',{requestId,notation:'1d20+5'});},requestId);
