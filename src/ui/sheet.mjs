@@ -5,6 +5,8 @@ import {baseLandSpeed} from '../features/sheet/movement.mjs';
 import {actionTypes,actionType,damageTypes,selectedDamageTypes} from '../features/sheet/entry-options.mjs';
 import {mountHoldButton,confirmCharacterDelete,crumpleSheet} from './sheet-delete.mjs';
 import {mountNotesElectric} from './sheet-notes-electric.mjs';
+import {openInventoryPicker,openCharacterPicker} from './sheet-pickers.mjs';
+import {createSheetTabs,sheetTabURL} from './sheet-tabs.mjs';
 import {mountSheetSettings} from './sheet-settings.mjs';
 import {sheetLoading} from './sheet-loading.mjs';
 import {MAGICKED_AMMO_ID} from '../features/characters/rules/gunbreaker-ammo.mjs';
@@ -104,12 +106,24 @@ export function openCharacterSheetPopup(url,characterId,{display=window.screen,o
 }
 
 export function mountSheet(){
+ const tabs=createSheetTabs();
+ let dispose=mountCharacterSheet(tabs,switchTo);
+ function switchTo(id){
+  dispose();
+  history.replaceState(null,'',sheetTabURL(location.href,id,tabs.view(id)));
+  dispose=mountCharacterSheet(tabs,switchTo);
+ }
+ return ()=>dispose();
+}
+
+function mountCharacterSheet(tabs,switchTo){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
  const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
  let deletePending=false,weaponsCollapsed=false,disposeHold=()=>{},disposeNotesElectric=()=>{};let showStars=false,disposeSettings,disposePartyNotes,notesGeneration=0;let notesTab=new URL(location.href).searchParams.get('notesTab')||'personal';
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
- let lastFightSection=['combat','abilities','spells'].includes(section)?section:'combat';
+ const rememberedFight=new URL(location.href).searchParams.get('lastFightSection');
+ let lastFightSection=['combat','abilities','spells'].includes(section)?section:['abilities','spells'].includes(rememberedFight)?rememberedFight:'combat';
  let combatView=new URL(location.href).searchParams.get('combatView')==='offense'?'offense':'defense';
  let itemTag=new URL(location.href).searchParams.get('itemTag')||'All';if(itemTag!=='All'&&!ITEM_TAG_OPTIONS.includes(itemTag)&&!Object.hasOwn(SHOP_ITEM_CATEGORY_GROUPS,itemTag))itemTag='All';
  let spellFilter=new URL(location.href).searchParams.get('spellLevel')||'all';if(spellFilter!=='all'){spellFilter=Number(spellFilter);if(!Number.isInteger(spellFilter)||spellFilter<0||spellFilter>9)spellFilter='all';}
@@ -120,6 +134,15 @@ export function mountSheet(){
  const status=message=>{const node=root.querySelector('[data-sheet-status]');if(node)node.textContent=message;};
  const dialog=()=>root.querySelector('[data-sheet-dialog]');
  const equipmentDialog=()=>root.querySelector('[data-equipment-dialog]');let selectedEquipmentSlot=null;
+ const canOpenTabs=()=>character.kind!=='npc'&&character.owned!==false;
+ const openPicker=()=>root.querySelector('.cs-picker[open]');
+ const currentView=()=>({section,ability,combatView,itemView,itemTag,spellLevel:spellFilter,notesTab,lastFightSection,scrollY:window.scrollY});
+ async function canSwitch(){
+  if(busy||conflict||remainingInvalid||dragState){status('Finish saving this sheet before switching.');return false;}
+  if(dirty&&!confirm('Discard unsaved edits on this sheet?'))return false;
+  if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return false;
+  return !closed;
+ }
  const itemDescriptionDialog=()=>root.querySelector('[data-item-description-dialog]');
  const setBusy=value=>{busy=value;root.querySelector('[data-sheet]')?.classList.toggle('cs-saving',value);root.querySelectorAll('button,input,select,textarea').forEach(node=>{if(value){node.dataset.busyDisabled=String(node.disabled);node.disabled=true;}else if(node.dataset.busyDisabled!==undefined){node.disabled=node.dataset.busyDisabled==='true';delete node.dataset.busyDisabled;}});};
  async function request(body,revision){
@@ -129,19 +152,30 @@ export function mountSheet(){
  function draw(){if(closed)return;if(character.kind==='npc'&&!document.body.hasAttribute('data-owlbear-sheet')){const back=document.querySelector('header .back');if(back){back.href='admin-npcs.html';back.textContent='← NPCs';}}disposeHold();disposeNotesElectric();disposeSettings?.();disposePartyNotes?.();disposePartyNotes=undefined;const notesTicket=++notesGeneration;if(!(character.partyTags||[]).some(tag=>tag.id===notesTab))notesTab='personal';if(section==='items'&&itemView==='inventory'){
   const visible=visibleInventoryCategory(inventoryCategoryCounts(character.data.items),itemTag);
   if(visible!==itemTag){itemTag=visible;const url=new URL(location.href);url.searchParams.set('itemTag',visible);history.replaceState(null,'',url);}
- }clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,showStars,discordEnabled,notesTab,owlbear:document.body.hasAttribute('data-owlbear-sheet')});root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);disposeNotesElectric=mountNotesElectric(root);disposeHold=mountHoldButton(root.querySelector('[data-delete-character]'),()=>void deleteCharacter(),{signal:control.signal});syncWeapons();const notesRoot=root.querySelector('[data-party-notes]');if(notesRoot)void import('./party-notes.mjs').then(module=>{if(!closed&&notesTicket===notesGeneration&&notesRoot.isConnected)disposePartyNotes=module.mountPartyNotes(notesRoot,{characterId:id,tagId:notesRoot.dataset.partyNotes});}).catch(()=>{if(notesRoot.isConnected)notesRoot.querySelector('[role=status]').textContent='Could not open party notes.';});document.title=character.name+' · Cosmos';dirty=false;}
+ }clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,showStars,discordEnabled,notesTab,owlbear:document.body.hasAttribute('data-owlbear-sheet')});
+ if(canOpenTabs()){
+  tabs.add(character);
+  root.querySelector('[data-sheet]').insertAdjacentHTML('afterbegin',tabs.render(id));
+  const strip=root.querySelector('.cs-sheet-tab-list'),active=strip.querySelector('.is-active');
+  if(active)strip.scrollLeft=active.getBoundingClientRect().left-strip.getBoundingClientRect().left;
+ }
+ root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);disposeNotesElectric=mountNotesElectric(root);disposeHold=mountHoldButton(root.querySelector('[data-delete-character]'),()=>void deleteCharacter(),{signal:control.signal});syncWeapons();const notesRoot=root.querySelector('[data-party-notes]');if(notesRoot)void import('./party-notes.mjs').then(module=>{if(!closed&&notesTicket===notesGeneration&&notesRoot.isConnected)disposePartyNotes=module.mountPartyNotes(notesRoot,{characterId:id,tagId:notesRoot.dataset.partyNotes});}).catch(()=>{if(notesRoot.isConnected)notesRoot.querySelector('[role=status]').textContent='Could not open party notes.';});document.title=character.name+' · Cosmos';dirty=false;}
  async function save(change,skipPending=false){
   if(!skipPending){if(change.action==='fields')for(const key of Object.keys(change.fields||{}))delete pendingResourceFields[key];if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return false;}
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
-  try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;dialog()?.close();draw();status('Saved · Synced'+(admin?' · Admin':''));return true;}
+  try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;dialog()?.close();
+   if(change.action==='addCatalogItem'){
+    itemTag='All';const url=new URL(location.href);url.searchParams.delete('itemTag');history.replaceState(null,'',url);
+   }
+   draw();status('Saved · Synced'+(admin?' · Admin':''));return true;}
   catch(err){if(closed)return false;if(err.status===409){conflict=true;root.querySelector('[data-sheet-refresh]').hidden=false;}status(err.message);const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=err.message;const equipStatus=root.querySelector('[data-equip-status]');if(equipStatus)equipStatus.textContent=err.message;return false;}
   finally{if(!closed)setBusy(false);}
  }
  async function refresh(force=false){
-  if(closed||busy||deletePending||polling||dragState||document.hidden||(!force&&document.activeElement?.matches('[data-party-notes-input]'))||(!force&&(dirty||conflict||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))))return;
+  if(closed||busy||deletePending||polling||dragState||document.hidden||(!force&&document.activeElement?.matches('[data-party-notes-input]'))||(!force&&(dirty||conflict||openPicker()||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))))return;
   if(force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
   polling=true;const previousRevision=character?.revision;
-  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
+  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||openPicker()||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
   catch(err){if(!closed)status(err.message);}
   finally{polling=false;}
  }
@@ -331,6 +365,33 @@ export function mountSheet(){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
+   if(button.matches('[data-add-sheet]')){
+    if(!canOpenTabs()||openPicker())return;
+    openCharacterPicker(root,{signal:control.signal,hasTab:tabs.has,onSelect:async next=>{
+     if(!await canSwitch()||closed)return;
+     tabs.remember(id,currentView());tabs.add(next);switchTo(next.id);
+    }});
+    return;
+   }
+   if(button.matches('[data-switch-sheet],[data-close-sheet]')){
+    const closeId=button.dataset.closeSheet,target=button.dataset.switchSheet||closeId;
+    if(!canOpenTabs()||!tabs.has(target)||!closeId&&target===id)return;
+    if(closeId&&closeId!==id){tabs.close(closeId,id);root.querySelector('.cs-sheet-tabs').outerHTML=tabs.render(id);return;}
+    void (async()=>{
+     if(!await canSwitch()||closed)return;
+     tabs.remember(id,currentView());
+     const next=closeId?tabs.close(closeId,id):target;
+     if(next!==id)switchTo(next);
+    })();
+    return;
+   }
+   if(button.matches('[data-add-entry="items"]')){
+    if(busy||conflict||openPicker())return;
+    if(character.owned===false){editEntry('items',null);return;}
+    openInventoryPicker(root,{signal:control.signal,onCustom:()=>editEntry('items',null),
+     onAdd:async(itemId,quantity)=>await save({action:'addCatalogItem',itemId,quantity})?'':root.querySelector('[data-sheet-status]')?.textContent||'Could not add item.'});
+    return;
+   }
    if(button.matches('[data-rename-character]')){
      if(character.data.manualCharacter!==true||busy||conflict||dirty){status('Save or refresh before renaming this character.');return;}
      const rename=root.querySelector('[data-rename-dialog]');
@@ -526,6 +587,6 @@ export function mountSheet(){
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void refresh();},{signal:control.signal});
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML=sheetLoading();
- void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();schedule();if(!document.body.hasAttribute('data-owlbear-sheet')&&typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed){root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.name==='TimeoutError'?'The character server took too long to respond. Please retry.':err.message)+'</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';root.querySelector('[data-retry-sheet]').onclick=()=>location.reload();}});
+ void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();const scroll=tabs.view(id)?.scrollY;if(scroll!==undefined)window.scrollTo(0,scroll);schedule();if(!document.body.hasAttribute('data-owlbear-sheet')&&typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed){root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.name==='TimeoutError'?'The character server took too long to respond. Please retry.':err.message)+'</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';root.querySelector('[data-retry-sheet]').onclick=()=>location.reload();}});
  return ()=>{disposeHold();disposeNotesElectric();clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }

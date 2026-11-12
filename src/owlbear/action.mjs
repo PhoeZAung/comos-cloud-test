@@ -68,6 +68,10 @@ window.addEventListener('message',event=>{
  }
  const fromFrame=sheetNonce&&event.source===frame.contentWindow&&event.data?.nonce===sheetNonce;
  const fromTab=tabNonce&&event.source===tabWindow&&event.data?.nonce===tabNonce;
+ if((fromFrame||fromTab)&&event.data?.type==='cosmos:sheet-selected'&&/^[0-9a-f-]{36}$/i.test(event.data.characterId)){
+  if(fromFrame)activeCharacterId=event.data.characterId;
+  else tabCharacterId=event.data.characterId;
+ }
  if((fromFrame||fromTab)&&event.data?.type==='cosmos:sheet-ready'){
   const channel=new MessageChannel();
   if(fromTab){tabConnection?.close();tabConnection=peer(channel.port1,sheetRequest);}

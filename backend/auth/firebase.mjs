@@ -69,13 +69,13 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const adminUids=[...new Set([...administrators.uids,...googleOwner.uids])];
     if(googleOwner.status!=='ready')console.info('Comos Google owner: '+googleOwner.status+'.');
     if(env.COMOS_ADMIN_BOOTSTRAP_EMAIL)console.info('Comos admin bootstrap: '+administrators.status+'.');
-    const directory=createDirectoryRoutes({db,sessions,adminUids,origin:config.origin});
     const partyNotes=createPartyNotesRoutes({db,sessions,adminUids,origin:config.origin});
     const loreRoutes=createLoreRoutes({db,sessions,origin:config.origin,adminUids});
     const loreImageRoutes=mediaRoot?await createLoreImageRoutes({db,sessions,origin:config.origin,mediaRoot,adminUids}):null;
     const characterLibraryRoutes=createCharacterLibraryRoutes({db,sessions,origin:config.origin,adminUids});
     await importItemCatalog(db);
     const itemService=createItemsService(db);
+    const directory=createDirectoryRoutes({db,sessions,adminUids,items:itemService,origin:config.origin});
     const itemsRoutes=createItemsRoutes({sessions,items:itemService,purchases:createPurchaseService(db,itemService),origin:config.origin,adminUids});
     const charactersRoutes=createCharactersRoutes({sessions,characters:createCharactersService(db),origin:config.origin,adminUids});
     const groupsRoutes=createGroupsRoutes({sessions,groups:createGroupsService(db),origin:config.origin,adminUids});
@@ -85,7 +85,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const backupRoutes=createAdminBackupRoutes({db,sessions,auth:firebaseAuth,adminUids:googleOwner.uids});
     const replyRoutes=createReplyRoutes({sessions,posts,replies:createRepliesService(db,{posts}),origin:config.origin,adminUids});
     const sessionRoutes=createSessionRoutes({sessions,origin:config.origin});
-    const owlbear=createOwlbearRoutes({db,sessions,adminUids,origin:config.origin,handlers:[directory,partyNotes,characterLibraryRoutes,accountRoutes,sessionRoutes]});
+    const owlbear=createOwlbearRoutes({db,sessions,adminUids,origin:config.origin,handlers:[directory,partyNotes,characterLibraryRoutes,accountRoutes,sessionRoutes,itemsRoutes]});
     const userDeletion=createUserDeletionRoutes({db,sessions,adminUids,origin:config.origin});
     const directoryRoutes=async(...args)=>await userDeletion(...args)||await owlbear(...args)||await partyNotes(...args)||await directory(...args);
     return { loreImageRoutes,loreRoutes,characterLibraryRoutes,directoryRoutes,homeMediaRoutes,itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,replyRoutes,backupRoutes,accountRoutes,sessionRoutes, close: () => deleteApp(app) };

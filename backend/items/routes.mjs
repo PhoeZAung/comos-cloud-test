@@ -1,17 +1,24 @@
 import {createAuthThrottle} from '../auth/throttle.mjs';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 export function createItemsRoutes({sessions,items,origin,adminUids=[],purchases=null,throttle=createAuthThrottle()}){
- const admins=new Set(adminUids),base='/api/v1/admin/items';
+ const admins=new Set(adminUids),base='/api/v1/admin/items',catalog='/api/v1/item-catalog';
  return async(req,res,pathname,send)=>{
-  if(pathname!==base&&!pathname.startsWith(base+'/'))return false;
-  const id=pathname===base?null:pathname.slice(base.length+1);
-  if(req.method!=='GET'&&!(id===null&&req.method==='POST')){send(405,{error:'method_not_allowed'});return true;}
+  const playerCatalog=pathname===catalog||pathname===catalog+'/categories';
+  if(!playerCatalog&&pathname!==base&&!pathname.startsWith(base+'/'))return false;
+  const id=pathname===(playerCatalog?catalog:base)?null:pathname.slice((playerCatalog?catalog:base).length+1);
+  if(req.method!=='GET'&&!(!playerCatalog&&id===null&&req.method==='POST')){send(405,{error:'method_not_allowed'});return true;}
   if(req.method==='POST'&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){send(403,{error:'origin_not_allowed'});return true;}
   const permit=throttle.enter(req.socket?.remoteAddress||'unknown',req.method==='GET'?'restore':'profile');
   if(!permit.allowed){res.setHeader('Retry-After',String(permit.retryAfter));send(429,{error:'too_many_requests'});return true;}
   try{
    const session=await adminSession(req,sessions,admins);
    if(!session){send(401,{error:'sign_in_required'});return true;}
+   if(playerCatalog){
+    const query=new URL(req.url,origin).searchParams;
+    if(id==='categories')send(200,{categories:items.categories()});
+    else send(200,items.list({q:query.get('q')||'',cursor:query.get('cursor')||'',category:query.get('category')||''}));
+    return true;
+   }
    if(!session.admin){send(403,{error:'admin_required'});return true;}
    if(req.method==='POST'){const change=await adminJson(req,50000);if(change?.op==='buy'){if(!purchases)throw Error('Purchases unavailable.');send(200,{receipt:purchases.purchase(session.user.id,change)});}else send(200,{item:items.save(change)});return true;}
    const query=new URL(req.url,origin).searchParams;

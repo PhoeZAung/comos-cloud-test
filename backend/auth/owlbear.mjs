@@ -61,7 +61,10 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
     }else if(/^\/api\/v1\/party-notes\/[0-9a-f-]{36}$/i.test(url.pathname)){
      const row=db.prepare('SELECT owner_id,archived,kind FROM characters WHERE id=?').get(url.searchParams.get('characterId')||'');
      if(!row||row.archived||row.kind==='npc'||row.owner_id!==grant.userId||[...url.searchParams.keys()].some(key=>!['characterId','revision'].includes(key)))throw Error('Unsupported party notes.');
-    }else if(url.pathname==='/api/v1/auth/session'&&method==='GET'&&!url.search){}
+    }else if(url.pathname==='/api/v1/my/characters'&&method==='GET'&&[...url.searchParams.keys()].every(key=>key==='cursor')){}
+    else if(url.pathname==='/api/v1/item-catalog'&&method==='GET'&&[...url.searchParams.keys()].every(key=>['q','cursor','category'].includes(key))){}
+    else if(url.pathname==='/api/v1/item-catalog/categories'&&method==='GET'&&!url.search){}
+    else if(url.pathname==='/api/v1/auth/session'&&method==='GET'&&!url.search){}
     else if(url.pathname==='/api/v1/account'&&!url.search){if(method==='POST'&&(!payload?.preferences||Object.keys(payload).some(k=>!['revision','preferences'].includes(k))))throw Error('Unsupported account operation.');}
     else throw Error('Unsupported request.');
     target=url.pathname+url.search;
