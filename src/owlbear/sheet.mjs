@@ -34,8 +34,16 @@ window.fetch=async(input,options={})=>{
    outcome:roll.spellFailure?.failed?'Spell failed':attackOutcome(roll,combat),
    applied:false};
   // Remove only the target used by this successful roll. Do not clear a new selection.
-  try{await connection.call('combat-complete',{requestId:body.requestId,targetId:combat.targetId});}
-  catch(error){console.warn('Could not clear Owlbear target:',error.message);}
+  try{
+   const resolution=await connection.call('combat-complete',{requestId:body.requestId,targetId:combat.targetId});
+   roll.combat.applied=resolution.applied===true;
+   roll.combat.pending=resolution.status==='pending';
+   if(resolution.event){roll.combat.amount=resolution.event.applied;roll.combat.hp=resolution.event.after?.hp;}
+   if(resolution.reason)roll.combat.note=resolution.reason;
+  }catch(error){
+   roll.combat.note='HP was not updated: '+error.message;
+   console.warn('Could not apply combat effect:',error.message);
+  }
  }
  const current=result.data?.character;
  if(current&&current.id===new URL(location.href).searchParams.get('characterId')){
