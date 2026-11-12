@@ -1,14 +1,14 @@
 import {mergeRollHistory} from '../features/room-rolls.mjs';
 export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},onView=()=>{}}={}){
  let selected='character',admin=false,connected=false,loading=false,again=false,closed=false,generation=0,personal=[],shared=[],signature='',sheets=[];
- const buttons=()=>[...root.querySelectorAll('[data-panel-tab]')],panels=[...root.querySelectorAll('[data-panel-view]')],first=root.querySelector('[data-panel-tab="character"]'),adminButton=root.querySelector('[data-panel-tab="admin"]'),list=root.querySelector('[data-roll-history]'),status=root.querySelector('[data-history-status]'),historyDetails=root.querySelector('[data-history-details]');
+ const buttons=()=>[...root.querySelectorAll('[data-panel-tab]')],panels=[...root.querySelectorAll('[data-panel-view]')],first=root.querySelector('[data-panel-tab="character"]'),initiativeButton=root.querySelector('[data-panel-tab="initiative"]'),list=root.querySelector('[data-roll-history]'),status=root.querySelector('[data-history-status]'),historyDetails=root.querySelector('[data-history-details]');
  const historyVisible=()=>selected==='settings'&&historyDetails.open;
  function selectedSheetId(){return selected.startsWith('sheet:')?selected.slice(6):sheets[0]?.id||null;}
  function syncTabs(){
   for(const button of buttons()){const active=button.dataset.panelTab===selected;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;}
  }
  function select(value){
-  if(value==='admin'&&!admin)value='character';
+  if(value==='admin')value='settings';
   if(value.startsWith('sheet:')&&!sheets.some(sheet=>sheet.id===value.slice(6)))value='character';
   const leavingSheet=(selected==='character'||selected.startsWith('sheet:'))&&value!=='character'&&!value.startsWith('sheet:');
   // Capture scroll before hiding the iframe's container.
@@ -46,7 +46,7 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
     const button=document.createElement('button');button.type='button';button.setAttribute('role','tab');
     button.dataset.panelTab='sheet:'+sheet.id;button.setAttribute('aria-controls','panel-character');
     button.id='tab-sheet-'+sheet.id;button.title=sheet.name;button.textContent=sheet.name;
-    adminButton.before(wrap(button,sheet));
+    initiativeButton.before(wrap(button,sheet));
    }
   }
   if(selected.startsWith('sheet:')&&(!sheets.some(sheet=>sheet.id===selected.slice(6))||selected.slice(6)===sheets[0]?.id))select('character');
@@ -77,5 +77,5 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
  root.querySelector('[data-refresh-history]').onclick=()=>void refresh();
  historyDetails.addEventListener('toggle',()=>{if(historyVisible())void refresh();});
  const timer=setInterval(()=>void refresh(),5000);select('character');
- return {select,syncSheets,admin(value){admin=value===true;root.querySelector('[data-panel-tab="admin"]').hidden=!admin;if(!admin&&selected==='admin')select('character');},connected(value){generation++;connected=value===true;if(!connected){personal=[];list.replaceChildren();}void refresh();},shared(value){shared=Array.isArray(value)?value:[];if(historyVisible())render(mergeRollHistory(personal,shared));},invalidate(){void refresh();},close(){closed=true;clearInterval(timer);root.removeEventListener('click',click);root.removeEventListener('keydown',keydown);}};
+ return {select,syncSheets,admin(value){admin=value===true;root.querySelector('[data-admin-settings]').hidden=!admin;},connected(value){generation++;connected=value===true;if(!connected){personal=[];list.replaceChildren();}void refresh();},shared(value){shared=Array.isArray(value)?value:[];if(historyVisible())render(mergeRollHistory(personal,shared));},invalidate(){void refresh();},close(){closed=true;clearInterval(timer);root.removeEventListener('click',click);root.removeEventListener('keydown',keydown);}};
 }
