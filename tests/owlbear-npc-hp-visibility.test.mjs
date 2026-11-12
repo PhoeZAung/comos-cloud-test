@@ -32,7 +32,7 @@ test('NPC HP sharing defaults to off and stays in room display metadata',()=>{
 test('GM-only invisible eye marker appears for invisible combatants, not in player rows',async()=>{
  const source=await readFile('src/owlbear/initiative-view.mjs','utf8');
  assert.match(source,/class="battle-hidden-eye"/);
- assert.match(source,/row\.visible===false&&state\.admin===true/);
+ assert.match(source,/row\.visible===false&&state\.gm===true/);
  assert.match(source,/hidden from players/);
  const background=await readFile('src/owlbear/background.mjs','utf8');
  assert.match(background,/battleHpForViewer\(visible,\{gm,npcHp:layoutFrom\(room\)\.npcHp\}\)/);
