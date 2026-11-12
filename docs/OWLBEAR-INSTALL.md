@@ -53,7 +53,11 @@ remaining health, a muted red section for missing health, and the deficit in its
 tooltip. Token HP meters use the same visible missing-health track.
 Compact cards show the character portrait, name, current HP/MP, and clickable AC
 details. The administrator can click current HP/MP to save to the original sheet.
-Players see committed values and read-only resource controls. Enter/blur saves;
+Players who connect their own Cosmos account can click the pencil-marked HP or
+MP value on **their own** published Party card and enter an updated value.
+Only an authorized GM/administrator may edit another member's values; the
+backend independently enforces ownership and revision checks. Other players'
+Party resources remain read-only. Enter/blur saves;
 Escape cancels. Maximum HP/MP cannot be edited from the trackers.
 
 ## Initiative
@@ -87,6 +91,9 @@ initiative, name, current HP, current MP, and AC. The tracker no longer creates
 a separate floating Initiative window. Click
 AC for Touch/Flat-footed/CMD. Editing initiative re-sorts highest first; ties keep
 addition order. The active combatant is highlighted in the list and outlined in gold on the map.
+The map highlight now uses a tightly padded rectangle centered on Owlbear's
+actual token bounds rather than a loosely centered circle. This outlines the
+image boundary, not the per-pixel transparent silhouette.
 Previous/Next advance turns and the round counter and pan the current GM's
 Owlbear viewport to the next/previous token; they do not move every player's
 camera. Hovering over a combatant name (or focusing it by keyboard) shows a
@@ -113,9 +120,9 @@ connection has moved out of Settings; the extra **Refresh characters** and
 Player and NPC cards live in the same vertically scrollable roster; narrowing
 or shortening the extension does not compress player cards underneath NPCs.
 
-When a sheet is open, the **+ Add sheet** button is beside **Open sheet window**
+When a sheet is open, the searchable **+ Add sheet** button is beside **Open sheet window**
 in the small top toolbar. Choosing another sheet keeps the first iframe alive,
-with its scroll position, and adds the second sheet as a named top-level tab
+with its scroll position explicitly restored on return, and adds the second sheet as a named top-level tab
 alongside Character, Admin (authorized only), Initiative, and Settings.
 For two or more open sheets, each sheet's tab uses its character's name.
 At one open sheet, the main tab stays labelled Character and no extra sheet
@@ -123,6 +130,14 @@ tabs or close controls appear. The × controls can close individual tabs;
 **← Characters** returns to the roster without closing loaded sheets.
 The old tab bar and + button inside the embedded character sheet are hidden
 in Owlbear only, not on standalone Cosmos sheets.
+NPC sheet results appear in the picker only when the user is both an Owlbear GM
+and a currently verified Cosmos administrator; revoking that role clears any
+open NPC picker and closes NPC sheets.
+
+On the standalone Cosmos website, **+ Add Sheet** lives beside **Pop Out** in
+the sheet titlebar. The sheet-tab strip appears only after opening a second
+sheet. Admin → group/party sheet viewing uses named tabs instead of opening all
+member sheets side by side; only visited tabs load an iframe.
 
 ## Sheets, permissions, and Dice+
 
