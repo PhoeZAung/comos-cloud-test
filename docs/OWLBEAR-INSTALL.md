@@ -170,6 +170,40 @@ Conditional feats, class modifiers and special weapon traits may require
 manual overrides; these defaults do not assume every class or weapon uses
 identical rules.
 
+## Auto connection, NPC visibility and initiative rolls
+
+On opening or refreshing the Owlbear extension, Cosmos attempts a fresh
+authenticated connection using the **existing signed-in Cosmos session**.
+It does not store bearer grant tokens in localStorage or in a file. If the
+user is not signed in, the extension prompts them to connect; returning
+to its connection window after signing in automatically checks again.
+Depending on browser third-party cookie restrictions, the first interactive
+connection may still require the user to sign in through the popup.
+
+The admin navigation and per-character administration list no longer
+display the **Item Controls**/Shop icons. The player character-sheet item
+catalog and Gil purchases are unaffected; legacy item management endpoints
+are not removed from the backend.
+
+The GM-only **NPC HP visible to players** switch lives in the extension's
+Admin → Display settings and is stored with the Owlbear room layout.
+It defaults **off** to protect nonparty combatant HP. When off, the player
+initiative state does not contain current/max HP for unlinked foes or NPCs
+and their local token HP bars are suppressed. Party-member HP is always
+visible, while GM initiative continues to show all HP. Switching the
+setting on restores the nonparty HP for players.
+
+An Owlbear-invisible combatant stays in GM initiative and displays a
+small crossed-out eye beside the name, signalling that players do not
+see that combatant's entry. The player-visible battle list and current
+hidden-turn ID remain redacted regardless of the HP visibility toggle.
+
+For a uniquely matched saved NPC, Add to Battle reads its printed **Init**
+modifier and rolls **1d20 + modifier** automatically. The resulting
+initiative and rolled HP snapshot are stored on that battle token; the
+NPC notification includes the initiative roll. Manual fallback is used if
+no unique saved NPC can be matched.
+
 ## Extension tabs, camera focus and hidden combatants
 
 Extension navigation uses the Cosmos constellation theme, including a clear

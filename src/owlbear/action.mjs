@@ -14,6 +14,7 @@ const frames=document.querySelector('[data-sheet-frames]'),picker=document.query
 const npcList=document.querySelector('[data-npc-characters]'),npcGroup=document.querySelector('[data-npc-group]'),dice=dicePlus(OBR);
 const openSheets=new Map(),names=new Map(),audiences=new Map();
 let popup,nonce,connection,activeCharacterId=null,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
+let autoConnecting=false,pendingExistingGrant=null,autoAttemptAt=0,autoAttemptGeneration=0;
 let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,characterRequest=null,npcRequest=null,characters=[],npcs=[],pickerCandidates=[];
 const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheetTab:id=>showSheet(id),onCloseSheet:id=>closeSheet(id),onView:()=>{saveScroll(activeCharacterId);}});
 const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command));
@@ -199,15 +200,54 @@ window.cosmosOpenSheetWindow=sourceNonce=>{
 };
 
 
+function attachGrant(token,{notifyBackground=false}={}){
+ if(typeof token!=='string'||!/^[a-f0-9]{64}$/.test(token))return;
+ if(grantToken===token&&connection)return;
+ grantToken=token;connection?.close();connection=null;
+ characterRequest=null;npcRequest=null;
+ panel.connected(false);resetSheets();
+ connection=connectGrant(token);panel.select('character');
+ if(notifyBackground)trackerBus?.send({type:'grant-set',token});
+ void load().catch(error=>say(error.message));
+}
+async function autoConnect(){
+ if(!available||autoConnecting||connection||Date.now()-autoAttemptAt<3000)return;
+ const generation=++autoAttemptGeneration;autoAttemptAt=Date.now();autoConnecting=true;
+ try{
+  const response=await fetch('/api/v1/owlbear/connect',{
+   method:'POST',credentials:'same-origin',cache:'no-store',
+   headers:{'Content-Type':'application/json'},body:JSON.stringify({scope:'sheet'})
+  });
+  if(generation!==autoAttemptGeneration)return;
+  if(!response.ok){
+   if(response.status!==401)throw Error('Cosmos could not restore the connection.');
+   if(pendingExistingGrant&&!connection)attachGrant(pendingExistingGrant);
+   else if(!connection)say('Sign in to Cosmos to connect your character sheets.');
+   return;
+  }
+  const result=await response.json();
+  if(!/^[a-f0-9]{64}$/.test(result.token||''))throw Error('Invalid Cosmos connection.');
+  if(generation!==autoAttemptGeneration)return;
+  pendingExistingGrant=null;attachGrant(result.token,{notifyBackground:true});
+ }catch(error){
+  if(generation!==autoAttemptGeneration)return;
+  if(pendingExistingGrant&&!connection)attachGrant(pendingExistingGrant);
+  else if(!connection)say(error.message);
+ }finally{
+  if(generation===autoAttemptGeneration){autoConnecting=false;pendingExistingGrant=null;}
+ }
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)void autoConnect();});
+window.addEventListener('focus',()=>void autoConnect());
+
 OBR.onReady(async()=>{
  available=true;say('Connect your Cosmos account to load your characters.');
  void OBR.action.setIcon(new URL('/owlbear/sheet-action.svg',location.origin).href).catch(()=>{});
  void panelSize(OBR,say).then(dispose=>disposeSize=dispose).catch(error=>say(error.message));
  trackerBus=await localChannel(OBR,data=>{
   if(data?.type==='grant'&&data.token!==grantToken){
-   grantToken=data.token;panel.connected(false);connection?.close();resetSheets();
-   connection=connectGrant(data.token);characterRequest=null;npcRequest=null;
-   panel.select('character');void load().catch(error=>say(error.message));
+   if(autoConnecting)pendingExistingGrant=data.token;
+   else attachGrant(data.token);
   }
   if(data?.type==='state'){
    if(showNpcs!==(data.admin===true)){
@@ -221,7 +261,7 @@ OBR.onReady(async()=>{
    }
    panel.admin(data.admin===true);initiativeView.state(data);
    document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
-   for(const key of ['party','initiative'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout[key];
+   for(const key of ['party','initiative','npcHp'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout?.[key]===true;
    document.querySelector('[data-layout="partyDock"]').value=data.layout.partyDock;
    document.querySelector('[data-tracker-status]').textContent=data.feed==='Live'?'Connected':data.feed;
   }
@@ -231,6 +271,7 @@ OBR.onReady(async()=>{
    if(data.error&&!handled)say(data.error);
   }
  });
+ void autoConnect();
  trackerBus.send({type:'hello'});
  document.querySelector('[data-admin-controls]').onchange=event=>{
   const node=event.target,key=node.dataset.layout;
@@ -239,6 +280,7 @@ OBR.onReady(async()=>{
 });
 document.querySelector('[data-connect]').onclick=()=>{
  if(!available){say('Open this extension inside an Owlbear room first.');return;}
+ ++autoAttemptGeneration;autoConnecting=false;pendingExistingGrant=null;
  const bytes=crypto.getRandomValues(new Uint8Array(32));
  nonce=[...bytes].map(b=>b.toString(16).padStart(2,'0')).join('');
  panel.connected(false);panel.admin(false);connection?.close();connection=null;resetSheets();
@@ -250,11 +292,9 @@ window.addEventListener('message',event=>{
  if(event.origin!==location.origin)return;
  if(event.source===popup&&event.data?.type==='cosmos:connected'&&event.data.nonce===nonce){
   if(!/^[a-f0-9]{64}$/.test(event.data.token||''))return;
-  grantToken=event.data.token;connection=connectGrant(grantToken);
-  characterRequest=null;npcRequest=null;
-  trackerBus?.send({type:'grant-set',token:grantToken});
+  ++autoAttemptGeneration;autoConnecting=false;pendingExistingGrant=null;
+  attachGrant(event.data.token,{notifyBackground:true});
   popup.postMessage({type:'cosmos:connected-ack',nonce},location.origin);
-  panel.select('character');void load().catch(error=>say(error.message));
  }
  const fromFrame=[...openSheets.values()].find(sheet=>event.source===sheet.iframe.contentWindow&&event.data?.nonce===sheet.nonce);
  const fromTab=tabNonce&&event.source===tabWindow&&event.data?.nonce===tabNonce;

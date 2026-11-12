@@ -6,8 +6,8 @@ import {connection} from './connection.mjs';
 import {publicPartyClient} from './public-party-client.mjs';
 import {dockedPanels} from './docking.mjs';
 import {initiativeFocus} from './initiative-focus.mjs';
-import {uniqueNpcForToken,npcBattleStats} from './npc-battle.mjs';
-import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,battleForViewer,turnForViewer,tokenName,normalizeName} from './battle-state.mjs';
+import {uniqueNpcForToken,npcBattleStats,rollNpcInitiative} from './npc-battle.mjs';
+import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,battleForViewer,battleHpForViewer,turnForViewer,tokenName,normalizeName} from './battle-state.mjs';
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative';
 async function start(){
  let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
@@ -17,7 +17,7 @@ async function start(){
   const canEditParty=id=>Boolean(grant&&(allowed()||editableIds.has(id)));
  const rows=()=>battleRows(items,party);
  const history=await roomHistory(OBR,(rolls,{remote,row})=>{bus?.send({type:'room-rolls',rolls});if(remote&&row)void OBR.notification.show((row.character+' · '+row.parts.map(part=>part.label+' '+part.total).join(' · ')).slice(0,220),'INFO').catch(()=>{});});
- const publish=()=>{void syncMenu();const battle=battleForViewer(rows(),gm),turn=turnForViewer(scene[TURN],battle,gm);focus.update(ready?items:[],ready?(turn.id===null?null:(turn.id||battle[0]?.id)):null);bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});};
+ const publish=()=>{void syncMenu();const visible=battleForViewer(rows(),gm),battle=battleHpForViewer(visible,{gm,npcHp:layoutFrom(room).npcHp}),turn=turnForViewer(scene[TURN],battle,gm);focus.update(ready?items:[],ready?(turn.id===null?null:(turn.id||battle[0]?.id)):null);bus?.send({type:'state',admin:allowed(),gm,editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle,turn,layout:layoutFrom(room),ready});};
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
@@ -42,7 +42,7 @@ async function start(){
   if(!ready)return;const generation=epoch,l=layoutFrom(room),active=new Set(),add=[],updates=[],remove=[];
   if(recoverBars){const old=await OBR.scene.local.getItems(item=>!!item.metadata[BAR]);if(generation!==epoch||!ready)return;if(old.length)await OBR.scene.local.deleteItems(old.map(item=>item.id));bars.clear();recoverBars=false;}
   if(l.initiative)for(const row of rows()){
-   if((!gm&&!row.visible)||!row.available||!row.trackHp)continue;const item=items.find(item=>item.id===row.id);if(!item)continue;active.add(row.id);
+   if((!gm&&!row.visible)||!row.available||!row.trackHp||!gm&&!row.siteId&&!l.npcHp)continue;const item=items.find(item=>item.id===row.id);if(!item)continue;active.add(row.id);
    const desired=healthItems(item,row),signature=JSON.stringify(desired.map(({id,lastModified,lastModifiedUserId,...value})=>value)),old=bars.get(row.id);
    if(old?.signature===signature)continue;
    if(old){desired.forEach((value,index)=>updates.push({...value,id:old.ids[index]}));bars.set(row.id,{ids:old.ids,signature});}
@@ -90,7 +90,7 @@ async function start(){
   if(d.type!=='stats'&&!allowed())throw Error('Connect a Cosmos administrator account as GM.');
   if(d.epoch!==undefined&&d.epoch!==epoch)throw Error('The scene changed. Try again in this scene.');
   if(d.type==='layout'){
-   const l=layoutFrom(room);if(['party','initiative'].includes(d.key)&&typeof d.value==='boolean')l[d.key]=d.value;
+   const l=layoutFrom(room);if(['party','initiative','npcHp'].includes(d.key)&&typeof d.value==='boolean')l[d.key]=d.value;
    else if(d.key==='partyDock'&&['left','right','top','bottom'].includes(d.value))l.partyDock=d.value;
    else if(d.key==='initiativeDock'&&['left','right'].includes(d.value))l.initiativeDock=d.value;
    else throw Error('Invalid display setting.');await OBR.room.setMetadata({[LAYOUT]:l});room={...room,[LAYOUT]:l};schedule();return;
@@ -123,10 +123,11 @@ async function start(){
    const npc=!site&&!d.stats?await npcStatsForToken(tokenName(item)):null;
    if(!site&&!npc&&!d.stats){bus.send({type:'setup',id:item.id,name:tokenName(item)});await OBR.popover.open({id:PREFIX+'/setup',url:new URL('/owlbear/battle-add.html?id='+encodeURIComponent(item.id)+'&name='+encodeURIComponent(tokenName(item)),location.origin).href,width:280,height:320});return;}
    const stats=site||npc||d.stats,trackHp=!!site||stats.hp!==null&&stats.hp!==undefined&&stats.hp>0;
+    const rolledInitiative=npc?rollNpcInitiative(npc.initiative):null;
    if(['mp','ac',...(trackHp?['hp']:[])].some(key=>!Number.isFinite(stats[key])||Math.abs(stats[key])>=1e7)||stats.initiative!==undefined&&(!Number.isFinite(stats.initiative)||Math.abs(stats.initiative)>9999)||!site&&(stats.mp<0||stats.hp!==null&&stats.hp!==undefined&&(!Number.isFinite(stats.hp)||stats.hp<0)))throw Error('Enter valid starting stats, or leave HP blank.');
-   const data={enabled:true,siteId:site?.id||null,...(npc?{npcId:npc.npcId,hpRoll:npc.hpRoll}:{}),trackHp,hp:trackHp?stats.hp:0,hpMax:trackHp?stats.hp:0,mp:stats.mp,mpMax:stats.mp,ac:stats.ac,touch:stats.touch??stats.ac,flat:stats.flat??stats.ac,cmd:stats.cmd??10,initiative:stats.initiative||0,order:Date.now()};
+   const data={enabled:true,siteId:site?.id||null,...(npc?{npcId:npc.npcId,hpRoll:npc.hpRoll}:{}),trackHp,hp:trackHp?stats.hp:0,hpMax:trackHp?stats.hp:0,mp:stats.mp,mpMax:stats.mp,ac:stats.ac,touch:stats.touch??stats.ac,flat:stats.flat??stats.ac,cmd:stats.cmd??10,initiative:rolledInitiative?.total??(stats.initiative||0),...(rolledInitiative?{initiativeRoll:rolledInitiative}:{}),order:Date.now()};
    await OBR.scene.items.updateItems([item.id],drafts=>{for(const draft of drafts)draft.metadata[BATTLE]=data;});await OBR.popover.close(PREFIX+'/setup');
-   if(npc){const text='NPC '+tokenName(item)+' added · HP '+npc.hp+(npc.hpRoll?' (rolled '+npc.hpRoll.expression+')':' (printed)');void OBR.notification.show(text.slice(0,220),'INFO').catch(()=>{});}
+   if(npc){const text='NPC '+tokenName(item)+' added · Initiative '+rolledInitiative.total+' (d20 '+rolledInitiative.d20+' + '+rolledInitiative.bonus+') · HP '+npc.hp+(npc.hpRoll?' (rolled '+npc.hpRoll.expression+')':' (printed)');void OBR.notification.show(text.slice(0,220),'INFO').catch(()=>{});}
    return;
   }
   if(d.type==='remove'){
