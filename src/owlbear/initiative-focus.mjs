@@ -1,10 +1,8 @@
-import {buildShape} from '@owlbear-rodeo/sdk';
-
 const KEY='com.cosmos.character-sheets/initiative-highlight';
 
 // The local outlines never change the shared scene or take over a player's
 // selection. Every player sees the turn marker; hover is per viewer.
-export function initiativeFocus(OBR){
+export function initiativeFocus(OBR,buildShape){
  let items=[],active=null,hovered=null,rendered='',ids=[],closed=false,running=false,again=false;
  const visible=id=>items.find(item=>item.id===id&&item.visible!==false&&item.type==='IMAGE'&&item.layer==='CHARACTER');
  async function bounds(id){
