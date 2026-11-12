@@ -3,10 +3,11 @@ import {Readable} from 'node:stream';
 import {adminSession,adminJson} from './admin-requests.mjs';
 import {npcDirectoryPath} from '../characters/npcs.mjs';
 import {rollHistory} from '../characters/roll-history.mjs';
+import {createCombatActions} from '../characters/combat-actions.mjs';
 // Session credentials remain on the server. Grants are scoped, memory-only and
 // disappear on server restart; every use revalidates the original login session.
 export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
- const grants=new Map(),admins=new Set(adminUids);
+ const grants=new Map(),admins=new Set(adminUids),combat=createCombatActions(db);
  return async(req,res,path,send)=>{
   if(!['/api/v1/owlbear/connect','/api/v1/owlbear/request'].includes(path))return false;
   if(req.method!=='POST'){send(405,{error:'method_not_allowed'});return true;}
@@ -29,6 +30,18 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
    if(!session||session.user.id!==grant.userId){send(401,{message:'Reconnect Cosmos.'});return true;}
    let target,method='GET',payload;
    if(body.method==='capabilities'){send(200,{status:200,data:{admin:session.admin,scope:grant.scope}});return true;}
+   if(['combat-settings','combat-settings-get','combat-apply','combat-finalize','combat-history','combat-end'].includes(body.method)){
+    if(grant.scope!=='sheet')throw Error('Connect your Cosmos character sheets.');
+    const value=body.value||{},roomId=value.roomId;
+    let data;
+    if(body.method==='combat-settings')data=combat.settings(roomId,session.admin,value.settings);
+    else if(body.method==='combat-settings-get')data=combat.getSettings(roomId);
+    else if(body.method==='combat-history')data={events:combat.history(roomId,session.admin)};
+    else if(body.method==='combat-apply')data=combat.apply(roomId,session.user.id,session.admin,value);
+    else if(body.method==='combat-finalize')data=combat.finalize(roomId,session.user.id,session.admin,value);
+    else data=combat.end(roomId,session.admin);
+    send(200,{status:200,data});return true;
+   }
    if(body.method==='roll-history'){
     if(grant.scope!=='sheet')throw Error('Connect your Cosmos character sheets.');
     send(200,{status:200,data:{rolls:rollHistory(db,session.user.id,{admin:session.admin})}});return true;
