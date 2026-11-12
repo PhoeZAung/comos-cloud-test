@@ -1,5 +1,5 @@
 import {randomUUID,randomInt} from 'node:crypto';
-import {defenseProfile,resolveDefenses} from '../../src/owlbear/pathfinder-defenses.mjs';
+import {defenseProfile,resolveDefenses} from '../../src/features/sheet/pathfinder-defenses.mjs';
 import {sheetStats} from '../../src/features/sheet/model.mjs';
 import {computeCombatEffect,applyCombatHp} from '../../src/owlbear/combat-effects.mjs';
 
