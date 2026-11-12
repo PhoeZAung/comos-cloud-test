@@ -17,7 +17,7 @@ const stubs={
 };
 const bundle=await build({entryPoints:['src/owlbear/action.mjs'],bundle:true,format:'esm',write:false,plugins:[{name:'synthetic-room',setup(builder){builder.onResolve({filter:/.*/},args=>Object.hasOwn(stubs,args.path)?{path:args.path,namespace:'synthetic'}:null);builder.onLoad({filter:/.*/,namespace:'synthetic'},args=>({contents:stubs[args.path],loader:'js'}));}}]});
 const html=(await readFile('dist-live/owlbear/index.html','utf8')).replace('src="/owlbear/action.js"','src="/_test/action.mjs"');
-const server=createServer(async(req,res)=>{try{let bytes,type;if(req.url==='/'||req.url==='/owlbear/index.html'){bytes=html;type='text/html';}else if(req.url==='/_test/action.mjs'){bytes=bundle.outputFiles[0].contents;type='text/javascript';}else if(req.url.startsWith('/owlbear/sheet.html')){bytes='<!doctype html><html><body><main style="height:2000px">Sheet test content</main><script type="module" src="/_test/sheet.mjs"></script></body></html>';type='text/html';}else if(req.url==='/_test/rpc.mjs'){bytes=await readFile('src/owlbear/rpc.mjs');type='text/javascript';}else if(req.url==='/_test/sheet.mjs'){bytes="import {peer} from '/_test/rpc.mjs';window.addEventListener('message',event=>{if(event.data?.type==='cosmos:sheet-port'){window.call=peer(event.ports[0],()=>{}).call;}});parent.postMessage({type:'cosmos:sheet-ready',nonce:location.hash.slice(1)},location.origin);";type='text/javascript';}else if(/^\/owlbear\/[a-z.-]+$/.test(req.url)){bytes=await readFile('public'+req.url);type=req.url.endsWith('.css')?'text/css':'image/svg+xml';}else{res.writeHead(404).end();return;}res.writeHead(200,{'Content-Type':type});res.end(bytes);}catch{res.writeHead(404).end();}});
+const server=createServer(async(req,res)=>{try{let bytes,type;if(req.url==='/'||req.url==='/owlbear/index.html'){bytes=html;type='text/html';}else if(req.url==='/_test/action.mjs'){bytes=bundle.outputFiles[0].contents;type='text/javascript';}else if(req.url.startsWith('/owlbear/sheet.html')){bytes='<!doctype html><html><body><main style="height:2000px"><div class="cs-quick-tools"><button data-toggle-stars>Star</button><button data-open-rest>Rest</button><button data-add-sheet>+</button><a data-sheet-popout href="/owlbear/sheet.html">Pop out</a></div>Sheet test content</main><script type="module" src="/_test/sheet.mjs"></script></body></html>';type='text/html';}else if(req.url==='/_test/rpc.mjs'){bytes=await readFile('src/owlbear/rpc.mjs');type='text/javascript';}else if(req.url==='/_test/sheet.mjs'){bytes="import {peer} from '/_test/rpc.mjs';document.addEventListener('click',e=>{const add=e.target.closest('[data-add-sheet]'),pop=e.target.closest('[data-sheet-popout]');if(add||pop){e.preventDefault();e.stopImmediatePropagation();parent.postMessage({type:add?'cosmos:add-sheet':'cosmos:popout-sheet',nonce:location.hash.slice(1)},location.origin);}},true);window.addEventListener('message',event=>{if(event.data?.type==='cosmos:sheet-port'){window.call=peer(event.ports[0],()=>{}).call;}});parent.postMessage({type:'cosmos:sheet-ready',nonce:location.hash.slice(1)},location.origin);";type='text/javascript';}else if(/^\/owlbear\/[a-z.-]+$/.test(req.url)){bytes=await readFile('public'+req.url);type=req.url.endsWith('.css')?'text/css':'image/svg+xml';}else{res.writeHead(404).end();return;}res.writeHead(200,{'Content-Type':type});res.end(bytes);}catch{res.writeHead(404).end();}});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const browser=await chromium.launch({headless:true,...(process.platform==='win32'?{channel:'msedge'}:{})}),checks=[],errors=[];
 try{
@@ -60,13 +60,31 @@ try{
 
  await page.locator('[data-panel-tab="character"]').click();
  await page.locator('[data-characters] [data-character]').first().click();
- await page.locator('[data-add-sheet]').click();
+ await page.waitForFunction(()=>document.querySelector('iframe')?.contentWindow?.call);
+ assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Astra');
+ assert.equal(await page.locator('.cosmos-sheet-tab-group').count(),1);
+ assert.equal(await page.locator('[data-back],[data-add-sheet],[data-open-sheet-tab]').count(),0);
+ const toolbar=page.frameLocator('iframe[data-sheet-inactive="false"]').locator('.cs-quick-tools');
+ assert.equal(await toolbar.locator('[data-toggle-stars]').count(),1);
+ assert.equal(await toolbar.locator('[data-open-rest]').count(),1);
+ assert.equal(await toolbar.locator('[data-add-sheet]').count(),1);
+ assert.equal(await toolbar.locator('[data-sheet-popout]').count(),1);
+ const popupPromise=page.waitForEvent('popup');
+ await toolbar.locator('[data-sheet-popout]').click();
+ const newWindow=await popupPromise;await newWindow.close();
+ await toolbar.locator('[data-add-sheet]').click();
  await page.locator('[data-sheet-search]').fill('long NPC');await page.locator('[data-sheet-search-go]').click();
  assert.equal(await page.locator('[data-pick-sheet="npc-1"]').isVisible(),true);
  await page.locator('[data-sheet-search]').fill('not a character');
  assert.equal(await page.locator('[data-pick-sheet]').count(),0);
  await page.locator('[data-sheet-picker] form button').click();
- await page.locator('[data-back]').click();
+ const single=page.locator('.cosmos-sheet-tab-group');
+ assert.equal(await single.locator('.extension-sheet-close').evaluate(n=>getComputedStyle(n).visibility),'hidden');
+ await single.locator('[data-panel-tab="character"]').hover();
+ assert.equal(await single.locator('.extension-sheet-close').evaluate(n=>getComputedStyle(n).visibility),'visible');
+ await single.locator('.extension-sheet-close').click();
+ assert.equal(await page.locator('.cosmos-sheet-tab-group').count(),0);
+ assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Character');
  await page.locator('[data-panel-tab="admin"]').click();
  checks.push('admin-only NPC is searchable; search filters unmatched names');
 
@@ -77,8 +95,8 @@ try{
  await page.evaluate(()=>window.deliver(window.roomState));assert.equal(await page.locator('[data-panel-tab="admin"]').isVisible(),false);assert.equal(await page.locator('[data-admin-controls]').isVisible(),false);assert.equal(await page.locator('[data-panel-tab="character"]').getAttribute('aria-selected'),'true');checks.push('revoked admin immediately loses controls and returns to Character');assert.equal(await page.locator('[data-npc-characters] [data-character]').count(),0);
  assert.equal(await page.locator('[data-turn="1"]').isVisible(),false);checks.push('role revocation disables initiative controls');
  await page.locator('[data-panel-tab="character"]').focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator('[data-panel-tab="initiative"]').getAttribute('aria-selected'),'true');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);checks.push('phone layout and keyboard tabs skip hidden Admin');
- await page.locator('[data-panel-tab="character"]').click();if(await page.locator('[data-back]').isVisible())await page.locator('[data-back]').click();await page.locator('[data-character]').first().click();await page.waitForFunction(()=>typeof document.querySelector('iframe')?.contentWindow.call==='function');
- assert.equal(await page.locator('[data-add-sheet]').isVisible(),true);assert.equal(await page.locator('[data-open-sheet-tab]').isVisible(),true);assert.equal(await page.locator('[data-panel-tab^="sheet:"]').count(),0);
+ await page.locator('[data-panel-tab="character"]').click();await page.locator('[data-character]').first().click();await page.waitForFunction(()=>typeof document.querySelector('iframe')?.contentWindow.call==='function');
+ assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Astra');assert.equal(await page.locator('.cosmos-sheet-tab-group').count(),1);assert.equal(await page.frameLocator('iframe[data-sheet-inactive="false"]').locator('[data-add-sheet]').isVisible(),true);assert.equal(await page.frameLocator('iframe[data-sheet-inactive="false"]').locator('[data-sheet-popout]').isVisible(),true);assert.equal(await page.locator('[data-panel-tab^="sheet:"]').count(),0);
  await page.locator('[data-add-sheet]').click();assert.equal(await page.locator('[data-pick-sheet="npc-1"]').count(),0);await page.locator('[data-sheet-search]').fill('Nyx');assert.equal(await page.locator('[data-pick-sheet="character-2"]').isVisible(),true);await page.locator('[data-pick-sheet="character-2"]').click();await page.waitForFunction(()=>document.querySelectorAll('iframe').length===2);await page.waitForFunction(()=>typeof document.querySelectorAll('iframe')[1]?.contentWindow.call==='function');
  assert.equal(await page.locator('[data-panel-tab="character"]').textContent(),'Astra');assert.equal(await page.locator('[data-panel-tab="sheet:character-2"]').textContent(),'Nyx');assert.equal(await page.locator('iframe:visible').count(),1);
   assert.equal(await page.locator('.cosmos-sheet-tab-group').count(),2);
