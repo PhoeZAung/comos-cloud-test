@@ -64,6 +64,12 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
     }else if(url.pathname==='/api/v1/my/characters'&&method==='GET'&&[...url.searchParams.keys()].every(key=>key==='cursor')){}
     else if(url.pathname==='/api/v1/item-catalog'&&method==='GET'&&[...url.searchParams.keys()].every(key=>['q','cursor','category'].includes(key))){}
     else if(url.pathname==='/api/v1/item-catalog/categories'&&method==='GET'&&!url.search){}
+    else if(/^\/api\/v1\/item-catalog\/[0-9a-f-]{36}$/i.test(url.pathname)&&method==='GET'&&!url.search){}
+    else if(url.pathname==='/api/v1/item-catalog/purchase'&&method==='POST'&&!url.search){
+     if(grant.scope!=='sheet'||payload?.characterId!==undefined&&typeof payload.characterId!=='string')throw Error('Unsupported purchase request.');
+     const row=db.prepare('SELECT owner_id,kind,archived FROM characters WHERE id=?').get(payload?.characterId);
+     if(!row||row.owner_id!==grant.userId||row.kind!=='player'||row.archived)throw Error('You can only buy items for your own character.');
+    }
     else if(url.pathname==='/api/v1/auth/session'&&method==='GET'&&!url.search){}
     else if(url.pathname==='/api/v1/account'&&!url.search){if(method==='POST'&&(!payload?.preferences||Object.keys(payload).some(k=>!['revision','preferences'].includes(k))))throw Error('Unsupported account operation.');}
     else throw Error('Unsupported request.');

@@ -30,3 +30,42 @@ test('inventory shows only nonempty category tiles and all equipment slots remai
  assert.match(gear,/data-equip-slot="misc-1"/);
  assert.doesNotMatch(gear,/cs-accessory-panel|cs-body-detail/);
 });
+
+
+test('ordinary players preview catalog details and buy only for their own sheet with Gil deducted once',async()=>{
+ const {db,user,id,items,item,purchases,change}=await seed();
+ const other=createUserRepository(db).create({displayName:'Other'});
+ const otherId=randomUUID();
+ createCharactersService(db).save({op:'save',id:otherId,revision:0,name:'Other hero',ownerId:other.id,sources:[]});
+ db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(otherId,JSON.stringify({currency_gil:50}));
+ const sessions={restore:async cookie=>{if(cookie!=='player')throw Error('No session');return {subject:'player',user:{id:user.id}};}};
+ const server=createApiServer({db,itemsRoutes:createItemsRoutes({sessions,items,purchases,origin:'https://cosmos.test'})});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ const url='http://127.0.0.1:'+server.address().port+'/api/v1/item-catalog';
+ const headers={Cookie:'__Host-comos_session=player',Origin:'https://cosmos.test','Content-Type':'application/json'};
+ try{
+  assert.equal((await fetch(url+'/'+item.id)).status,401,'signed-out users cannot preview');
+  let response=await fetch(url+'/'+item.id,{headers});
+  assert.equal(response.status,200);
+  const detail=(await response.json()).item;
+  assert.equal(detail.description,'Rope details');
+  assert.equal(detail.priceGil,0.15);
+  assert.equal(detail.revision,1);
+  const badOrigin=await fetch(url+'/purchase',{method:'POST',headers:{...headers,Origin:'https://other.test'},body:JSON.stringify(change)});
+  assert.equal(badOrigin.status,403);
+  const otherChange={...change,characterId:otherId,requestId:randomUUID()};
+  response=await fetch(url+'/purchase',{method:'POST',headers,body:JSON.stringify(otherChange)});
+  assert.equal(response.status,403,'ordinary buyer must not spend another player’s Gil');
+  assert.equal(saved(db,otherId).currency_gil,50);
+  response=await fetch(url+'/purchase',{method:'POST',headers,body:JSON.stringify(change)});
+  assert.equal(response.status,200);
+  const receipt=(await response.json()).receipt;
+  assert.equal(receipt.totalGil,.45);
+  assert.equal(receipt.remainingGil,9.55);
+  assert.equal(saved(db,id).items[0].amount,3);
+  response=await fetch(url+'/purchase',{method:'POST',headers,body:JSON.stringify(change)});
+  assert.equal(response.status,200);
+  assert.deepEqual((await response.json()).receipt,receipt,'retries never double-charge');
+  assert.equal(saved(db,id).currency_gil,9.55);
+ }finally{await new Promise(resolve=>server.close(resolve));db.close();}
+});

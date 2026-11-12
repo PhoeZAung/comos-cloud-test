@@ -404,7 +404,26 @@ function mountCharacterSheet(tabs,switchTo){
     if(busy||conflict||openPicker())return;
     if(character.owned===false){editEntry('items',null);return;}
     openInventoryPicker(root,{signal:control.signal,onCustom:()=>editEntry('items',null),
-     onAdd:async(itemId,quantity)=>await save({action:'addCatalogItem',itemId,quantity})?'':root.querySelector('[data-sheet-status]')?.textContent||'Could not add item.'});
+     getBalance:()=>character?.data?.currency_gil??character?.data?.gil??0,
+     onAdd:async(itemId,quantity)=>await save({action:'addCatalogItem',itemId,quantity})?'':root.querySelector('[data-sheet-status]')?.textContent||'Could not add item.',
+     onBuy:async(item,quantity,requestId)=>{
+      if(busy||closed||conflict||dirty)throw Error('Finish saving this character before buying.');
+      const change={op:'buy',requestId,characterId:id,itemId:item.id,quantity,revision:character.revision,itemRevision:item.revision};
+      const response=await fetch('/api/v1/item-catalog/purchase',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(change)});
+      const result=await response.json();
+      if(!response.ok)throw Error(result.message||'Purchase could not be completed. Review your Gil and try again.');
+      return result.receipt;
+     },
+     onPurchased:async receipt=>{
+      if(closed)return;
+      try{
+       const refreshed=await request(null);
+       if(closed)return;
+       character=refreshed.character;itemTag='All';
+       const url=new URL(location.href);url.searchParams.delete('itemTag');history.replaceState(null,'',url);
+       draw();status('Bought '+receipt.quantity+' × '+receipt.itemName+' for '+receipt.totalGil+' Gil. Remaining: '+receipt.remainingGil+' Gil.');
+      }catch(error){if(!closed)status('Purchase completed. Refresh the sheet to see the item and updated Gil. '+error.message);}
+     }});
     return;
    }
    if(button.matches('[data-rename-character]')){

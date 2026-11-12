@@ -139,6 +139,24 @@ the sheet titlebar. The sheet-tab strip appears only after opening a second
 sheet. Admin → group/party sheet viewing uses named tabs instead of opening all
 member sheets side by side; only visited tabs load an iframe.
 
+## Catalog preview and purchases
+
+In a player's Inventory, **+ Add Items** opens the searchable catalog.
+Clicking an item **only opens a themed details popup**; it does not add or
+charge anything. The popup displays the full item description, source fields,
+quantity, fixed Gil unit price, calculated total amount, and the character's
+current Gil. A purchase happens only after clicking **Buy**. The server
+checks the signed-in character owner, sheet and catalog revisions, price and
+available Gil, then atomically saves the item and deducts Gil. Duplicate
+requests with the same purchase ID cannot charge twice.
+
+Catalog entries with **no fixed price** are clearly labeled. Their button
+reads **Add without a price** instead of Buy and performs the previous
+no-charge Add Item operation; it does not invent or deduct Gil. A zero-Gil
+fixed price uses Buy with a zero-Gil charge. Admin-controlled purchases
+remain on the existing admin endpoint with independent permissions.
+The same experience is available inside the Owlbear sheet.
+
 ## Sheets, permissions, and Dice+
 
 The existing character selector, resize handle, separate sheet window, and
