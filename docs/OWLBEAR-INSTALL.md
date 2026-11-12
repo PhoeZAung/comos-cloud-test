@@ -66,8 +66,16 @@ A token whose name/label uniquely matches a published Party character links to
 that live sheet automatically. Linked current HP/MP edits write through the
 existing authenticated, revision-checked sheet API; AC and maxima remain sourced
 from the sheet. If sharing stops, linked stats are disabled until shared again.
-For unmatched tokens, Add to battle opens a short form for starting HP, MP, AC,
-and initiative. HP is optional: leave it blank (or zero) for an untracked monster.
+When no published Party character matches, Add to battle first looks for one
+uniquely named saved NPC in the connected Cosmos administrator's NPC library.
+A unique, complete NPC match auto-fills AC, defenses, MP and initiative and rolls
+starting HP from the original imported hit-dice expression, such as
+`94 (11d10+33)`. The rolled starting HP becomes the token's current and maximum
+HP, and the dice and result are stored with its battle metadata. If no dice
+formula exists, the printed NPC HP is used instead. These NPC combatant values
+are a snapshot; editing the token's resources does not edit the NPC library.
+If no unique NPC matches or required NPC stats are missing, Add to battle opens
+the normal manual form for starting HP, MP, AC, and initiative. HP is optional: leave it blank (or zero) for an untracked monster.
 It still sorts and takes turns in battle, with a dash in HP and no token HP bar.
 Positive starting resources establish their fixed maximum values. Subsequent
 tracker edits change only current HP/MP. Other AC values default to AC (CMD 10)
@@ -78,8 +86,12 @@ Open the Initiative tab in the Cosmos extension to view the compact table of
 initiative, name, current HP, current MP, and AC. The tracker no longer creates
 a separate floating Initiative window. Click
 AC for Touch/Flat-footed/CMD. Editing initiative re-sorts highest first; ties keep
-addition order. The active combatant is highlighted. Previous/Next advance turns
-and the round counter. Invisible tokens are omitted from players' displays.
+addition order. The active combatant is highlighted in the list and outlined in gold on the map.
+Previous/Next advance turns and the round counter and pan the current GM's
+Owlbear viewport to the next/previous token; they do not move every player's
+camera. Hovering over a combatant name (or focusing it by keyboard) shows a
+cyan outline on that token just for the local viewer. No token selection is changed.
+Invisible tokens are omitted from players' displays.
 
 Battle membership/stats are token metadata; turns/rounds are scene metadata.
 Switching scenes loads that scene's battle rather than carrying old tokens over.

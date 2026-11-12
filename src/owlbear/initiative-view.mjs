@@ -14,6 +14,11 @@ export function mountInitiative(view,send){
     const node=document.createElement('tr');
     node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"></td><td><button data-key="hp" class="battle-resource hp"></button></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
     card={node,input:node.querySelector('input')};cards.set(row.id,card);
+    const name=node.querySelector('.battle-name');name.tabIndex=0;name.setAttribute('aria-label','Highlight '+row.name+' on map');
+    name.onpointerenter=()=>send({type:'highlight',id:row.id});
+    name.onpointerleave=()=>send({type:'highlight',id:null});
+    name.onfocus=()=>send({type:'highlight',id:row.id});
+    name.onblur=()=>send({type:'highlight',id:null});
     card.input.onchange=()=>{const value=Number(card.input.value);if(card.input.value!==''&&Number.isFinite(value))send({type:'initiative',id:row.id,value,requestId:crypto.randomUUID()});};
     for(const key of ['hp','mp']){card[key]=node.querySelector('[data-key='+key+']');card[key].onclick=()=>edits.edit(row.id,key,card[key],true);}
     node.querySelector('.battle-ac').onclick=()=>{
