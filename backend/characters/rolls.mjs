@@ -46,14 +46,18 @@ export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false}={}){
  let damage=null,damageError='';
  if(row.damage||row.dmg){try{damage=roll(damageExpression(String(row.damage||row.dmg),c.ctx));}catch(error){damageError=error.message;}}
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
- return {...base,critical,attack,damage,damageError,rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
+ const saveSuccessDamage=row.save_type&&row.save_type!=='none'&&row.save_success==='alternate'&&row.save_success_damage?
+  roll(damageExpression(row.save_success_damage,c.ctx)):null;
+ return {...base,critical,attack,damage,damageError,...(saveSuccessDamage?{saveSuccessDamage}:{}),rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
 }
 export function abilityRoll(row,data,key,roll=serverRoll){
  const c=entryCalculations(row,data,key),attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;
  // Invalid formulas fail before any use is spent or a receipt is committed.
  const damage=row.damage||row.dmg?roll(damageExpression(String(row.damage||row.dmg),c.ctx)):null;
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
- return {critical,kind:'ability',abilityName:String(row.name||'Ability'),dc:c.dc,attack,damage,description:String(row.desc||''),expression:'ability',rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
+ const saveSuccessDamage=row.save_type&&row.save_type!=='none'&&row.save_success==='alternate'&&row.save_success_damage?
+  roll(damageExpression(row.save_success_damage,c.ctx)):null;
+ return {critical,kind:'ability',abilityName:String(row.name||'Ability'),dc:c.dc,attack,damage,...(saveSuccessDamage?{saveSuccessDamage}:{}),description:String(row.desc||''),expression:'ability',rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
 }
 function diceLine(r,{typed=false}={}){
  const rolls=Array.isArray(r.rolls)?r.rolls.filter(Number.isFinite):[];
@@ -62,7 +66,7 @@ function diceLine(r,{typed=false}={}){
  const elements=typed?damageTypeLine(r):'';
  return calculation+(elements?' — '+elements:'');
 }
-export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push((r.effectType==='heal'?'Healing':r.effectType==='temp_hp'?'Temporary HP':'Dice Roll')+': '+diceLine(r.damage,{typed:true}));if(r.critical?.threat){lines.push('Critical threat');lines.push('Confirmation: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Damage if confirmed: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
+export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push((r.effectType==='heal'?'Healing':r.effectType==='temp_hp'?'Temporary HP':'Dice Roll')+': '+diceLine(r.damage,{typed:true}));if(r.saveSuccessDamage)lines.push('Alternate damage if save succeeds: '+diceLine(r.saveSuccessDamage,{typed:true}));if(r.critical?.threat){lines.push('Critical threat');lines.push('Confirmation: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Damage if confirmed: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
 export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch,makeWeaponRoll=weaponRoll,makeSpellRoll=spellRoll,makeAbilityRoll=abilityRoll}){
  const weapon=change.kind==='weapon',spell=change.kind==='spell',ability=change.kind==='ability',entry=weapon||spell||ability;
  if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.discord!=='boolean'||(change.discordStats!==undefined&&typeof change.discordStats!=='boolean')||(change.kind!==undefined&&!entry))throw Error('Invalid roll.');
@@ -111,7 +115,10 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
    casterLevel:Number.isInteger(rawCl)&&rawCl>0?rawCl:null,
    srBonus:Number.isFinite(row.sr_bonus)?row.sr_bonus:0,
    drBypass:String(row.dr_bypass||'').split(/[,;]/).map(x=>x.trim()).filter(Boolean).slice(0,12),
-   damageTypes:Array.isArray(row.damage_types)?row.damage_types.slice(0,20):[]
+   damageTypes:Array.isArray(row.damage_types)?row.damage_types.slice(0,20):[],
+   saveType:typeof row.save_type==='string'?row.save_type:'none',
+   saveSuccess:typeof row.save_success==='string'?row.save_success:'manual',
+   saveDescription:String(row.saving_throw||'').slice(0,180)
   };
  }
  if(external){external.finish();roll.provider='owlbear-dice-plus';}

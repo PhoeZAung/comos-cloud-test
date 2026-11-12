@@ -1,3 +1,4 @@
+import {resolveSavingThrow} from './save-rules.mjs';
 // Pathfinder 1e attack/effect defense rules. Source metadata is copied into
 // recorded roll receipts on the server; target defenses come from saved sheets.
 export const abilityKinds=Object.freeze({other:'Unspecified',sp:'Spell-like (Sp)',su:'Supernatural (Su)',ex:'Extraordinary (Ex)'});
@@ -41,9 +42,11 @@ export function bypassesDr(required,tags=[]){
 }
 function typedBuckets(roll,result){
  const weapon=roll.kind==='weapon';
- const damage=result.critical&&roll.critical?.damage?roll.critical.damage:roll.damage;
+ const damage=result.saveDamageUsed&&roll.saveSuccessDamage?roll.saveSuccessDamage:
+  result.critical&&roll.critical?.damage?roll.critical.damage:roll.damage;
  const parts=Array.isArray(damage?.breakdown)?damage.breakdown:[];
- const tags=(Array.isArray(roll.damageTypes)?roll.damageTypes:[]).map(canonical);
+ const tags=(Array.isArray(roll.resolution?.damageTypes)?roll.resolution.damageTypes:
+  Array.isArray(roll.damageTypes)?roll.damageTypes:[]).map(canonical);
  const buckets=new Map();let untyped=0;
  if(parts.length){
   for(const part of parts){
@@ -52,16 +55,27 @@ function typedBuckets(roll,result){
    else untyped+=total;
   }
  }else untyped=result.amount;
- const types=[...buckets.keys()],hasPhysical=types.some(type=>physicalTypes.has(type));
  const primary=tags.filter(type=>physicalTypes.has(type)||energyTypes.has(type));
  const inherited=weapon?primary.find(type=>physicalTypes.has(type))||
   (primary.length===1?primary[0]:'bludgeoning'):
   primary.length===1?primary[0]:'untyped';
- // Treat untyped weapon bonuses as part of the main weapon damage, but never
- // silently classify an untyped magical spell as physical.
  buckets.set(inherited,(buckets.get(inherited)||0)+untyped);
- // Force each subtotal to be nonnegative and keep the roll total authoritative.
  const output=[...buckets].map(([type,total])=>({type,total:Math.max(0,total)}));
+ // A successful half save reduces each typed component *before* DR/energy
+ // resistance. Preserve the post-save integer total without redistributing
+ // damage unpredictably between physical and elemental components.
+ const sum=output.reduce((n,p)=>n+p.total,0),want=result.amount;
+ if(sum>0&&want!==sum){
+  const weighted=output.map((part,index)=>({...part,index,
+   fraction:part.total*want/sum,
+   total:Math.floor(part.total*want/sum)}));
+  let remaining=want-weighted.reduce((n,part)=>n+part.total,0);
+  for(const part of [...weighted].sort((x,y)=>(y.fraction-y.total)-(x.fraction-x.total)||x.index-y.index)){
+   if(remaining--<=0)break;
+   part.total++;
+  }
+  return weighted.map(({type,total})=>({type,total}));
+ }
  return output;
 }
 function parseEnergyResistance(text,type){
@@ -72,7 +86,7 @@ function parseEnergyResistance(text,type){
 function isImmune(text,type){
  return new RegExp('(?:^|[,;\\s])'+type+'(?=$|[,;\\s])','i').test(String(text||''));
 }
-export function resolveDefenses(roll,effect,target,{srRoll=null}={}){
+export function resolveDefenses(roll,effect,target,{srRoll=null,saveRoll=null,saves=null}={}){
  if(effect.kind!=='damage'&&effect.kind!=='heal'&&effect.kind!=='temp_hp')return {...effect,mitigation:[]};
  if(!effect.hit)return {...effect,mitigation:[]};
  const resolution=roll.resolution||{};
@@ -89,7 +103,14 @@ export function resolveDefenses(roll,effect,target,{srRoll=null}={}){
   mitigation.push({type:'sr',sr,roll:srRoll,casterLevel:cl,bonus,total:check,passed:check>=sr});
   if(check<sr)return {...effect,hit:false,amount:0,reason:'Spell resisted',mitigation};
  }
- if(effect.kind!=='damage')return {...effect,mitigation};
+ const saveType=roll.resolution?.saveType;
+ const canSave=roll.kind!=='weapon'&&
+  ['fort','ref','will'].includes(saveType);
+ const die=canSave?(typeof saveRoll==='function'?saveRoll():saveRoll):null;
+ const saved=resolveSavingThrow(roll,effect,{bonus:saves?.[saveType],die});
+ if(saved.check)mitigation.push(saved.check);
+ effect=saved.effect;
+ if(!effect.hit||effect.kind!=='damage')return {...effect,mitigation};
  const dr=Math.max(0,Number(target?.dr)||0);
  let amount=0,physical=0,energy=0;
  const buckets=typedBuckets(roll,effect);

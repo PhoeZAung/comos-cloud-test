@@ -220,7 +220,7 @@ export function entryDetail(row,data={},key='',{npc=false}={}){
     const entries=available.filter(([k])=>keys.includes(k));
     return entries.length?'<section class="cs-entry-detail-group"><h3>'+title+'</h3><dl class="cs-pairs">'+entries.map(([k,label])=>'<div><dt>'+e(label)+'</dt><dd>'+e(k==='action_type'&&!previewRow[k]?'None':Array.isArray(previewRow[k])?previewRow[k].join(' · '):previewRow[k])+'</dd></div>').join('')+'</dl></section>':'';
   };
-  const priority=['action_type','effect_type','ability_kind','attack_type','range','duration','target','saving_throw','school','spell_resist','type'];
+  const priority=['action_type','effect_type','ability_kind','save_type','save_success','save_success_damage','attack_type','range','duration','target','saving_throw','school','spell_resist','type'];
   const rolls=['damage','dmg','extra_damage','misfire','crit_range','crit_mult','uses'];
   const other=available.map(([k])=>k).filter(k=>!priority.includes(k)&&!rolls.includes(k));
   const categories=['spells',...abilityTabs].includes(key);

@@ -129,3 +129,63 @@ test('spell-like effects are checked against NPC SR using server-side caster-lev
  assert.equal(result.event.mitigation.find(entry=>entry.type==='sr').total,17);
  f.db.close();
 });
+
+test('NPC Reflex save halves fire spell damage before energy resistance and persists the die roll',()=>{
+ const f=fixture(),npcId=randomUUID();
+ f.db.prepare('INSERT INTO characters VALUES(?,?,?,?,?,?,?)').run(npcId,'Fire Warden','npc',0,'gm',1,'today');
+ f.db.prepare('INSERT INTO character_details VALUES(?,?)').run(npcId,JSON.stringify({
+  npcStats:{ac:14,ref:5,sr:0},npcText:{energyResistances:'fire 3'},hp_max:40,hp_curr:40
+ }));
+ let count=0;const actions=createCombatActions(f.db,{rollSave:()=>{count++;return 12;}});
+ const receipt=f.insert({kind:'spell',dc:17,effectType:'damage',damage:{total:21,breakdown:[{type:'fire',total:21}]},
+  resolution:{abilityKind:'spell',srApplies:false,saveType:'ref',saveSuccess:'half',damageTypes:['Fire']}},'Fireball');
+ const args=f.request(receipt,{targetTokenId:'warden-token',targetSheetId:null,targetNpcId:npcId,
+  targetAc:14,targetHp:40,targetHpMax:40,targetHpTemp:0});
+ const first=actions.apply(roomId,'player1',false,args);
+ assert.equal(first.event.amount,7);
+ assert.equal(first.event.after.hp,33);
+ assert.equal(first.event.mitigation.find(x=>x.type==='save').total,17);
+ assert.equal(count,1);
+ const retried=actions.apply(roomId,'player1',false,args);
+ assert.equal(retried.alreadyApplied,true);assert.equal(count,1,'never re-roll the save on retry');
+ f.db.close();
+});
+
+test('NPC Fortitude successful save uses Slay Living alternative damage from recorded roll',()=>{
+ const f=fixture(),npcId=randomUUID();
+ f.db.prepare('INSERT INTO characters VALUES(?,?,?,?,?,?,?)').run(npcId,'Living Guard','npc',0,'gm',1,'today');
+ f.db.prepare('INSERT INTO character_details VALUES(?,?)').run(npcId,JSON.stringify({
+  npcStats:{touch:12,fort:8,sr:0},hp_max:70,hp_curr:70
+ }));
+ const actions=createCombatActions(f.db,{rollSave:()=>12});
+ const id=f.insert({kind:'spell',dc:19,effectType:'damage',
+  attack:{rolls:[13],total:22},damage:{total:51},saveSuccessDamage:{total:16},
+  resolution:{abilityKind:'spell',srApplies:false,saveType:'fort',saveSuccess:'alternate'}},'Slay Living');
+ const result=actions.apply(roomId,'player1',false,f.request(id,{
+  targetTokenId:'guard-token',targetSheetId:null,targetNpcId:npcId,targetAc:12,
+  defense:'touch',targetHp:70,targetHpMax:70,targetHpTemp:0
+ }));
+ assert.equal(result.event.amount,16);
+ assert.equal(result.event.after.hp,54);
+ assert.equal(result.event.reason,'Save: alternate damage');
+ f.db.close();
+});
+
+test('ambiguous save text and missing NPC save bonus never auto-apply HP',()=>{
+ const f=fixture(),npcId=randomUUID();
+ f.db.prepare('INSERT INTO characters VALUES(?,?,?,?,?,?,?)').run(npcId,'Forgotten Warden','npc',0,'gm',1,'today');
+ f.db.prepare('INSERT INTO character_details VALUES(?,?)').run(npcId,JSON.stringify({
+  npcStats:{ac:15},hp_max:20,hp_curr:20
+ }));
+ const actions=createCombatActions(f.db,{rollSave:()=>12});
+ const original=f.request(null,{targetTokenId:'warden-token',targetSheetId:null,targetNpcId:npcId,
+  targetHp:20,targetHpMax:20,targetAc:15,targetHpTemp:0});
+ const legacy=f.insert({kind:'spell',dc:15,effectType:'damage',damage:{total:10},
+  resolution:{abilityKind:'spell',srApplies:false,saveType:'none',saveDescription:'Will partial'}});
+ assert.throws(()=>actions.apply(roomId,'player1',false,{...original,requestId:legacy}),/Set Save type/);
+ const missing=f.insert({kind:'ability',dc:15,effectType:'damage',damage:{total:10},
+  resolution:{abilityKind:'sp',srApplies:false,saveType:'fort',saveSuccess:'negates'}});
+ assert.throws(()=>actions.apply(roomId,'player1',false,{...original,requestId:missing}),/save bonus is missing/);
+ assert.equal(actions.history(roomId,true).length,0);
+ f.db.close();
+});
