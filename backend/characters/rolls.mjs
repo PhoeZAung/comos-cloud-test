@@ -5,7 +5,8 @@ import {externalRollSource} from './external-rolls.mjs';
 import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
-import {weaponAttackParts,attackTypes} from '../../src/features/sheet/model.mjs';
+import {weaponAttackParts,attackTypes,skillTotal} from '../../src/features/sheet/model.mjs';
+import {sheetSkills,skillCanRoll,skillDisplayName} from '../../src/features/sheet/skills.mjs';
 import {entryCalculations,damageExpression,diceTerms,damageTypeLine,criticalProfile,weaponDamageFormulas} from '../../src/features/sheet/calculations.mjs';
 import {randomInt} from 'node:crypto';
 const relay='https://weathered-term-1e39.phoeaung2076.workers.dev';
@@ -68,7 +69,7 @@ function diceLine(r,{typed=false}={}){
 }
 export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push((r.effectType==='heal'?'Healing':r.effectType==='temp_hp'?'Temporary HP':'Dice Roll')+': '+diceLine(r.damage,{typed:true}));if(r.saveSuccessDamage)lines.push('Alternate damage if save succeeds: '+diceLine(r.saveSuccessDamage,{typed:true}));if(r.critical?.threat){lines.push('Critical threat');lines.push('Confirmation: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Damage if confirmed: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
 export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch,makeWeaponRoll=weaponRoll,makeSpellRoll=spellRoll,makeAbilityRoll=abilityRoll}){
- const weapon=change.kind==='weapon',spell=change.kind==='spell',ability=change.kind==='ability',entry=weapon||spell||ability;
+ const weapon=change.kind==='weapon',spell=change.kind==='spell',ability=change.kind==='ability',skill=change.kind==='skill',entry=weapon||spell||ability||skill;
  if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.discord!=='boolean'||(change.discordStats!==undefined&&typeof change.discordStats!=='boolean')||(change.kind!==undefined&&!entry))throw Error('Invalid roll.');
  if(entry){if(!Number.isInteger(change.index)||change.index<0||!Number.isInteger(change.revision)||change.revision<0)throw Error('Invalid entry roll.');}
  else if(typeof change.label!=='string'||!change.label.trim()||change.label.length>120||/[\u0000-\u001f]/.test(change.label))throw Error('Invalid roll.');
@@ -79,8 +80,9 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  const old=db.prepare('SELECT * FROM sheet_rolls WHERE id=?').get(change.requestId);
  if(old){if(old.user_id!==userId||old.character_id!==character.id||old.expression!==receiptKey||(!entry&&old.label!==change.label))throw Error('Roll identifier already used.');return {roll:JSON.parse(old.result_json),discord:old.delivery};}
  if(entry&&(change.revision!==character.revision||change.revision!==db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision))throw Object.assign(Error('This character changed. Load the latest sheet before rolling.'),{httpStatus:409});
- const row=entry?character.data?.[weapon?'weapons':spell?'spells':change.collection]?.[change.index]:null;if(entry&&!row)throw Error('Entry not found.');
- const label=entry?String(row.name||'Weapon').slice(0,120):change.label;
+ const row=skill?sheetSkills(character.data)[change.index]:entry?character.data?.[weapon?'weapons':spell?'spells':change.collection]?.[change.index]:null;if(entry&&!row)throw Error('Entry not found.');
+ if(skill&&!skillCanRoll(row))throw Error('Trained only: add at least 1 skill rank before rolling.');
+ const label=entry?String(skill?skillDisplayName(row):row.name||'Weapon').slice(0,120):change.label;
  const last=db.prepare('SELECT created_at FROM sheet_rolls WHERE user_id=? ORDER BY created_at DESC LIMIT 1').get(userId);if(last&&Date.now()-last.created_at<1500)throw Error('Wait a moment before rolling again.');
  if(ability&&mode!=='send'&&isLimitBreak(row)){const gate=limitBreakState(character.data);if(!gate.allowed)throw Error(gate.reason);}
  const weaponUsage=weapon&&mode==='use'?entryCalculations(row,character.data,'weapons'):null;
@@ -92,7 +94,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  const spellDice=external?(row,data,_,options)=>spellRoll(row,data,diceRoll,options):makeSpellRoll;
  const abilityDice=external?(row,data,key)=>abilityRoll(row,data,key,diceRoll):makeAbilityRoll;
  let updated=null;
- const descriptionOnly=entry&&(mode==='send'||mode==='use'&&!weapon&&!String(row.damage||row.dmg||'').trim());
+ const descriptionOnly=entry&&!skill&&(mode==='send'||mode==='use'&&!weapon&&!String(row.damage||row.dmg||'').trim());
  const delivery=change.discord?'pending':'off';
  let roll;
  if(spell&&mode==='use'){
@@ -103,9 +105,10 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  }else if(weapon)roll=weaponDice(row,character.data);
  else if(spell)roll=spellDice(row,character.data);
  else if(ability)roll=abilityDice(row,character.data,change.collection);
+ else if(skill){const bonus=skillTotal(row,character.data);roll={...diceRoll('1d20'+(bonus>=0?'+':'')+bonus),kind:'skill',skillName:label};}
  else roll=diceRoll(expression);
  if(ability||spell)roll.effectType=effectType(row);
- if(entry){
+ if(entry&&!skill){
   const calc=weapon?null:entryCalculations(row,character.data,spell?'spells':change.collection);
   const rawCl=calc?.ctx?.CL??character.data?.npcStats?.casterLevel;
   const rawKind=ability?row.ability_kind:'other';
@@ -149,7 +152,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   if(stats&&roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(stats&&roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');
   lines.push(safe(row.desc||'No description.'));
   for(const [key,title]of Object.entries({effect:'Effect',action_type:'Action type',damage_types:'Damage Type',misfire:'Misfire',type:'Type',lvl:'Level',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',spell_resist:'Spell resistance',damage:'Dice Roll',at_higher_lvls:'At higher levels'}))if(row[key]!==undefined&&row[key]!==''&&(stats||key!=='damage'))lines.push(title+': '+safe(row[key]));
- }else if(entry){if(stats)lines.push(...entryReceipt(roll));if(stats&&roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');if(stats&&roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(stats&&roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');}
+ }else if(entry){if(stats)lines.push(...(skill?[diceLine(roll)]:entryReceipt(roll)));if(stats&&roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');if(stats&&roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(stats&&roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');}
  else if(stats)lines.push(diceLine(roll,{typed:true}));
  // Send complete stored descriptions in bounded Discord messages. Receipt replay never resends or spends twice.
  const content=lines.join('\n').replaceAll('@','＠'),chunks=[];for(let start=0;start<content.length;){let end=Math.min(start+1900,content.length);if(end<content.length&&/[\uD800-\uDBFF]/.test(content[end-1]))end--;chunks.push(content.slice(start,end));start=end;}
