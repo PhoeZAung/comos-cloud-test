@@ -12,7 +12,14 @@ test('initiative focus locates tokens without changing selection and adds local 
   viewport:{animateToBounds:async box=>moves.push(box)},
   player:{select:()=>{throw Error('Do not alter user selection.');}}
  };
- const focus=initiativeFocus(OBR);
+ const makeShape=()=>{
+  const properties={id:'mock-'+(added.length+removed.length+1),type:'SHAPE'};
+  const builder={};
+  for(const name of ['shapeType','width','height','position','layer','zIndex','fillOpacity','strokeColor','strokeOpacity','strokeWidth','disableHit','locked','disableAutoZIndex','metadata'])builder[name]=value=>{properties[name]=value;return builder;};
+  builder.build=()=>({...properties});
+  return builder;
+ };
+ const focus=initiativeFocus(OBR,makeShape);
  focus.update([item],'token-1');
  await new Promise(resolve=>setTimeout(resolve,25));
  assert.equal(added.length,1);assert.equal(added[0].type,'SHAPE');
