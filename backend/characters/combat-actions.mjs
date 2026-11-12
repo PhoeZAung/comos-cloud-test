@@ -44,6 +44,7 @@ export function createCombatActions(db){
   const r=room(id),receipt=db.prepare('SELECT id,user_id,character_id,result_json,label FROM sheet_rolls WHERE id=?').get(value.requestId);
   check(receipt,'The combat roll is not recorded.');
   check(isAdmin||receipt.user_id===userId,'This is not your combat roll.');
+  check(value.actorSheetId===receipt.character_id,'The acting sheet does not match this roll.');
   const roll=JSON.parse(receipt.result_json);
   check(['weapon','ability','spell'].includes(roll.kind),'This receipt is not a targeted action.');
   const needsApproval=roll.kind==='weapon'?r.weapon_validation===1:r.ability_validation===1;
