@@ -44,8 +44,8 @@ test('grey out dice and entire locked skill control while leaving Edit and Favor
  const html=renderSkillRows(d);
  assert.match(html,/cs-skill-untrained/);
  assert.match(html,/data-training-locked="true"/);
- assert.match(html,/Trained only · 1 rank required/);
- const computer=html.slice(html.indexOf('Trained only: add at least 1 skill rank'));
+ assert.doesNotMatch(html,/Trained only · 1 rank required/);
+ const computer=html.slice(html.indexOf('aria-label="Roll Computers unavailable until one skill rank is assigned"'));
  assert.match(computer,/disabled aria-disabled="true"/);
  assert.match(html,/data-edit-entry="skills:0"/);
  assert.match(html,/data-favorite="skills:0"/);
