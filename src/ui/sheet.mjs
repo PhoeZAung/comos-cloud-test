@@ -135,7 +135,7 @@ export function mountSheet(){
 
 function mountCharacterSheet(tabs,switchTo){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
- const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
+ const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;let combatFlashTimer=null;
  let deletePending=false,weaponsCollapsed=false,disposeHold=()=>{},disposeNotesElectric=()=>{};let showStars=false,disposeSettings,disposePartyNotes,notesGeneration=0;let notesTab=new URL(location.href).searchParams.get('notesTab')||'personal';
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
@@ -394,11 +394,20 @@ function mountCharacterSheet(tabs,switchTo){
   openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='weapons'&&!npcWeapon?'':key==='skills'?(skillSupportsSpecialization(row.name)?'Edit ranks, misc, class skill and specialization.':'Edit ranks, misc and class skill.'):''});
   if(index!==null&&key!=='skills')root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
  }
+ function clearCombatFlash(){
+  clearTimeout(combatFlashTimer);combatFlashTimer=null;
+  const flash=root.querySelector('[data-roll-result].cs-combat-flash');
+  if(flash){flash.classList.remove('cs-combat-flash');flash.hidden=true;delete flash.dataset.combatResult;}
+ }
+ // A click anywhere dismisses the temporary Owlbear hit/miss verdict.
+ document.addEventListener('pointerdown',clearCombatFlash,{signal:control.signal});
  async function roll(label,expression,weaponIndex,spellIndex,abilityEntry,mode='use',skillIndex){
-  clearTimeout(remainingTimer);if(remainingInvalid)return;if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy)return;setBusy(true);let node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
+  clearTimeout(remainingTimer);if(remainingInvalid)return;if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy)return;clearCombatFlash();setBusy(true);let node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
   try{const result=await request({op:'roll',...(skillIndex!==undefined?{kind:'skill',index:skillIndex}:abilityEntry?{kind:'ability',...abilityEntry}:spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:recordId(),...((weaponIndex!==undefined||spellIndex!==undefined||abilityEntry||skillIndex!==undefined)?{mode}:{}),discord:mode==='send'||discordEnabled,discordStats:preferences.discordRollStats});if(closed)return;const r=result.roll;if(r.characterRevision!==undefined){try{const fresh=await request();character=fresh.character;draw();node=root.querySelector('[data-roll-result]');node.hidden=false;}catch{status('Use saved · Sync pending');}}const failed=result.discord==='failed';if(mode==='send'){node.hidden=true;notify(failed?'Discord delivery failed':result.discord==='sent'?'Sent to Discord':'Discord delivery pending');}else if(r.descriptionOnly){node.hidden=true;notify(failed?'Use · Discord delivery failed':'Use');}else{const present=()=>{if(closed)return;const current=root.querySelector('[data-roll-result]');if(current){
-  current.textContent=formatRoll(label,r)+(failed?' · Discord delivery failed':'');
   const verdict=combatVerdict(r);
+  const flash=document.body.hasAttribute('data-owlbear-sheet')&&['HIT','MISS'].includes(verdict?.label);
+  current.textContent=flash?'':formatRoll(label,r)+(failed?' · Discord delivery failed':'');
+  current.classList.toggle('cs-combat-flash',flash);
   if(verdict){
    current.dataset.combatResult=verdict.tone;
    const banner=document.createElement('strong');
@@ -408,6 +417,7 @@ function mountCharacterSheet(tabs,switchTo){
    current.prepend(banner);
   }else delete current.dataset.combatResult;
   current.hidden=false;
+  if(flash)combatFlashTimer=setTimeout(clearCombatFlash,1800);
  }};if(document.body.hasAttribute('data-owlbear-sheet')||r.provider==='owlbear-dice-plus'){present();status('Rolled with Dice+');}else{node.hidden=false;node.textContent='Roll queued…';void showDice(r,{onResult:present});status('Rolled');}}document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
   catch(err){if(!closed)node.textContent=err.message;}finally{if(!closed)setBusy(false);}
  }
@@ -713,5 +723,5 @@ function mountCharacterSheet(tabs,switchTo){
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML=sheetLoading();
  void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();const scroll=tabs.view(id)?.scrollY;if(scroll!==undefined)window.scrollTo(0,scroll);schedule();if(!document.body.hasAttribute('data-owlbear-sheet')&&typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed){root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.name==='TimeoutError'?'The character server took too long to respond. Please retry.':err.message)+'</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';root.querySelector('[data-retry-sheet]').onclick=()=>location.reload();}});
- return ()=>{disposeHold();disposeNotesElectric();clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
+ return ()=>{disposeHold();disposeNotesElectric();clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);clearTimeout(combatFlashTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }
