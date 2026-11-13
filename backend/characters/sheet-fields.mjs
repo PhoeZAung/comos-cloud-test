@@ -34,7 +34,7 @@ function text(v,max=12000,label='Text'){if(typeof v!=='string'||v.length>max||/[
 export function mergeSheetData(original,change,{npc=false}={}){
  const data=npc?normalizeNpcSheet(structuredClone(original)):structuredClone(original);
  if(change.action==='portrait'){
-  if(Object.keys(change).some(key=>!['action','portrait'].includes(key))||!Object.hasOwn(change,'portrait'))bad('Invalid portrait update.');
+  if(Object.keys(change).some(key=>!['op','revision','action','portrait'].includes(key))||!Object.hasOwn(change,'portrait'))bad('Invalid portrait update.');
   data.portrait=validatePortrait(change.portrait);
   return data;
  }
