@@ -37,15 +37,19 @@ async function start(){
   return null;
  }
  const history=await roomHistory(OBR,(rolls,{remote,row})=>{bus?.send({type:'room-rolls',rolls});if(remote&&row)void OBR.notification.show((row.character+' · '+row.parts.map(part=>part.label+' '+part.total).join(' · ')).slice(0,220),'INFO').catch(()=>{});});
+ function suggestedTarget(activeId){
+  if(!ready||!allowed()||!recommendEnabled)return null;
+  const visible=battleForViewer(rows(),gm),active=visible.find(row=>row.id===activeId);
+  if(!active?.isNpc)return null;
+  const npcId=items.find(item=>item.id===activeId)?.metadata?.[BATTLE]?.npcId;
+  return recommendTarget({attacker:active,battle:visible,items,intelligence:npcIntelligence(npcId),grid});
+ }
  const publish=()=>{
   void syncMenu();
   const visible=battleForViewer(rows(),gm),battle=battleHpForViewer(visible,{gm,npcHp:layoutFrom(room).npcHp}),turn=turnForViewer(scene[TURN],battle,gm);
   const activeId=ready?(turn.id===null?null:(turn.id||battle[0]?.id)):null;
   focus.update(ready?items:[],activeId);
-  const active=visible.find(row=>row.id===activeId);
-  const npcId=active?.isNpc?items.find(item=>item.id===activeId)?.metadata?.[BATTLE]?.npcId:null;
-  const target=ready&&allowed()&&recommendEnabled&&active?.isNpc?
-   recommendTarget({attacker:active,battle:visible,items,intelligence:npcIntelligence(npcId),grid}):null;
+  const target=suggestedTarget(activeId);
   focus.recommend(target?.id||null);
   // NPC record IDs are visible only to an authenticated GM, for matching
   // their opened Cosmos sheet to the acting Owlbear token.
@@ -205,7 +209,7 @@ async function start(){
    const sorted=rows();if(!sorted.length)return;const turn=scene[TURN]||{},index=Math.max(0,sorted.findIndex(row=>row.id===turn.id));let next=index,round=Math.max(1,Number(turn.round)||1);
    if(d.direction===-1){next=(index-1+sorted.length)%sorted.length;if(index===0)round=Math.max(1,round-1);}
    else{next=(index+1)%sorted.length;if(next===0)round++;}
-   const value={id:sorted[next].id,round};await OBR.scene.setMetadata({[TURN]:value});scene={...scene,[TURN]:value};schedule();await focus.locate(value.id);return;
+   const value={id:sorted[next].id,round};await OBR.scene.setMetadata({[TURN]:value});scene={...scene,[TURN]:value};schedule();await focus.frameTurn(value.id,suggestedTarget(value.id)?.id||null);return;
   }
   if(d.type==='add'){
    const item=items.find(item=>item.id===d.id);if(!item||item.type!=='IMAGE'||item.layer!=='CHARACTER')throw Error('Select a character token.');
