@@ -699,7 +699,13 @@ function mountCharacterSheet(tabs,switchTo){
     updateWeaponEditorPreview();return;
    }
   if(event.target.matches('[data-owlbear-section-slider]')){const tabs=['favorites','overview','combat','skills','items','notes'],target=tabs[Number(event.target.value)];if(target)root.querySelector('.cs-tabs[aria-label="Character sheet"] [data-sheet-tab="'+target+'"]')?.click();return;}
-   if(event.target.matches('[data-sheet-portrait]')){const file=event.target.files?.[0];if(!file)return;if(busy||conflict){status('Save or refresh before changing the portrait.');return;}status('Preparing portrait…');void processPicture(file).then(portrait=>save({op:'wizard',step:'identity',fields:{charName:character.name,alignment:character.data.alignment||'',bio:character.data.bio||'',portrait}})).catch(err=>status(err.message));return;}
+   if(event.target.matches('[data-sheet-portrait]')){
+    const file=event.target.files?.[0];if(!file)return;
+    event.target.value=''; // Allow choosing the same file again after a failed upload.
+    if(busy||conflict||dirty){status(dirty?'Save or discard unsaved edits before changing the portrait.':'Save or refresh before changing the portrait.');return;}
+    status('Preparing portrait…');
+    void processPicture(file).then(portrait=>save({action:'portrait',portrait})).catch(err=>status(err.message));return;
+   }
   if(event.target.matches('[data-sheet-background]')){void save({action:'fields',fields:{sheet_background_enabled:event.target.checked}});return;}
   if(event.target.matches('[data-spell-ability]')){void save({action:'fields',fields:{spell_dc_base:event.target.value}});return;}
   if(event.target.matches('[name=sourceCategory]')){
