@@ -6,22 +6,32 @@ import {weaponAttackParts} from '../features/sheet/model.mjs';
 // Build only the same simple formulas that the Cosmos backend supports.
 export async function requestSheetDice(character,change,requestRoll){
  const data=character.data||{},responses=[];
- async function roll(expression){
-  // Reserve the backend receipt slot before asynchronous Dice+ results arrive.
-  const slot=responses.length;responses.push(null);
-  const terms=diceTerms(expression);
-  const notation=terms.map((t,i)=>(t.sign<0?'-':i?'+':'')+(t.count?t.count+'d'+t.sides:t.flat)).join('');
+ // Dice+ supports comma-separated independent rolls in ONE request. Sending
+ // attack and damage as two concurrent requests can leave the second roll
+ // unprocessed while the first physical roll is still in progress.
+ async function rollBatch(expressions){
+  if(!expressions.length)return [];
+  const entries=expressions.map(expression=>({expression,terms:diceTerms(expression)}));
+  const notation=entries.map(({terms})=>terms.map((t,i)=>(t.sign<0?'-':i?'+':'')+(t.count?t.count+'d'+t.sides:t.flat)).join('')).join(', ');
   const result=await requestRoll(notation),groups=result?.groups;
   if(!Array.isArray(groups))throw Error('Dice+ returned no dice.');
-  const expected=terms.filter(t=>t.count),faces=[];
+  const expected=entries.flatMap(entry=>entry.terms.filter(t=>t.count));
   if(groups.length!==expected.length)throw Error('Dice+ returned different dice groups.');
-  groups.forEach((group,i)=>{
-   const term=expected[i];
-   if(group.isCondensed||group.diceType!=='d'+term.sides||!Array.isArray(group.dice)||group.dice.length!==term.count)throw Error('Dice+ returned different dice.');
-   for(const die of group.dice){if(die.kept===false||die.label!==undefined||!Number.isInteger(die.value)||die.value<1||die.value>term.sides)throw Error('Dice+ returned an unsupported face.');faces.push(die.value);}
+  const faces=entries.map(()=>[]);let at=0;
+  entries.forEach(({terms},i)=>{
+   for(const term of terms.filter(t=>t.count)){
+    const group=groups[at++];
+    if(group.isCondensed||group.diceType!=='d'+term.sides||!Array.isArray(group.dice)||group.dice.length!==term.count)throw Error('Dice+ returned different dice.');
+    for(const die of group.dice){
+     if(die.kept===false||die.label!==undefined||!Number.isInteger(die.value)||die.value<1||die.value>term.sides)throw Error('Dice+ returned an unsupported face.');
+     faces[i].push(die.value);
+    }
+   }
   });
-  responses[slot]={expression,faces};return faces;
+  responses.push(...entries.map(({expression},i)=>({expression,faces:faces[i]})));
+  return faces;
  }
+ async function roll(expression){return (await rollBatch([expression]))[0];}
  if(!change.kind){await roll(change.expression);return responses;}
  if(change.kind==='skill'){
   const row=sheetSkills(data)[change.index];
@@ -42,18 +52,18 @@ export async function requestSheetDice(character,change,requestRoll){
  const calculation=weapon?weaponAttackParts(row,data,{npc:character.kind==='npc'}):entryCalculations(row,data,key);
  const bonus=weapon?calculation.total:calculation.attack?.bonus;
  const attackExpression=bonus===undefined?null:'1d20'+(bonus>=0?'+':'')+bonus;
- // Dice+ receives the attack and normal damage requests together. Crit
- // confirmation and extra critical damage follow only if the attack threatens.
+ // Attack and normal damage land in the same Dice+ throw, but Cosmos still
+ // records separate ordered receipts so the backend can apply the correct rules.
+ // Crit confirmation and extra critical damage remain conditional on a threat.
  const normal=weapon?weaponDamageFormulas(row,data,0).normal:
   hasDamage?damageExpression(String(row.damage||row.dmg),calculation.ctx):'';
- const attackRequest=attackExpression?roll(attackExpression):Promise.resolve(null);
- const damageRequest=normal?roll(normal):Promise.resolve(null);
- const [attack]=await Promise.all([attackRequest,damageRequest]);
+ const first=await rollBatch([attackExpression,normal].filter(Boolean));
+ const attack=attackExpression?first[0]:null;
  const profile=criticalProfile(row),cmb=weapon?calculation.type==='cmb':calculation.attack?.mode==='cmb';
  const threat=attack&&!cmb&&attack[0]!==1&&attack[0]>=profile.minimum;
  if(threat){
   const critical=weapon?weaponDamageFormulas(row,data,profile.multiplier).critical:'';
-  await Promise.all([roll(attackExpression),critical?roll(critical):Promise.resolve(null)]);
+  await rollBatch([attackExpression,critical].filter(Boolean));
  }
  return responses;
 }
