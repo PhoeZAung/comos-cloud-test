@@ -17,6 +17,21 @@ both edges. Resize, nested scrolling and tab redraws update the geometry; after
 the bar scrolls above the viewport the side barrier continues from the top edge.
 Pages without visible sheet tabs retain the supplied percentage geometry and
 spread 1.5. The reference surface stays transparent and the stage fills the viewport.
+
+**Full-height waterfall continuation:** The React Bits shader deliberately
+fades its original bright impact spill near the tab bar. Cosmos extends that
+edge light with two subtle downward-animated streams attached to the measured
+sheet surface (not an arbitrary 600px wrapper). On every sheet tab, the
+surface runs to the bottom of its live content **or 96px beyond the visible
+viewport**, whichever is farther. This keeps short tabs flowing off-screen
+and lets long Skills, Inventory, Notes and other tall tabs continue while the
+user scrolls. Streams paint only to a viewport-sized overscan to avoid a very
+tall CSS animation layer; the fixed overlay scroll-following geometry moves
+them with the active tab. If tabs scroll above the viewport, their streams
+still reach from its top to below its bottom. The original React Bits shader
+and its registry checksum remain unchanged. No new hitboxes, scrollbars or
+click-intercepting elements are introduced. Reduced-motion and the user
+preference both suppress the continuation along with LaserFlow.
 Disabling the preference, enabling reduced motion, or leaving the page unmounts
 the effect. The overlay does not capture pointer input.
 
@@ -33,6 +48,6 @@ Validation:
 - `node scripts/check-laser-limit-browser.mjs` (requires Playwright Chromium;
   optionally set `COSMOS_BROWSER_EXECUTABLE` to a compatible Chromium binary).
 
-The browser fixture covers desktop/mobile sizing, WebGL and no-WebGL rendering,
+The browser fixture covers full-height flowing side streams, short and long tabs, scroll alignment, desktop/mobile sizing, WebGL and no-WebGL rendering,
 local reveal image loading, click-through, toggles, reduced motion, cleanup,
 Limit Break readiness transitions, and editable Notes. It uses no live account.

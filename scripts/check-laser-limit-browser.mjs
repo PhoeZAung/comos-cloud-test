@@ -52,6 +52,72 @@ try{
  for(const name of ['combat','favorites','overview']){
   await page.locator('.cs-tabs[aria-label="Character sheet"] [data-sheet-tab="'+name+'"]').click();await aligned();
  }
+
+ // Short pages must not cut off the pour before the bottom of the viewport.
+ await page.evaluate(()=>window.drawSheet('favorites'));await aligned();
+ await page.waitForFunction(()=>{
+  const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
+  return surface&&surface.bottom>=innerHeight+94;
+ });
+ const flowing=await page.locator('.cosmos-laser-surface').evaluate(element=>{
+  const left=getComputedStyle(element,'::before'),right=getComputedStyle(element,'::after');
+  return {leftContent:left.content,rightContent:right.content,
+   leftAnimation:left.animationName,rightAnimation:right.animationName,
+   leftHeight:parseFloat(left.height),rightHeight:parseFloat(right.height)};
+ });
+ assert.equal(flowing.leftContent,'""');
+ assert.equal(flowing.rightContent,'""');
+ assert.match(flowing.leftAnimation,/cosmos-laser-waterfall/);
+ assert.match(flowing.rightAnimation,/cosmos-laser-waterfall/);
+ assert.ok(flowing.leftHeight>0&&flowing.rightHeight>0);
+
+ // Simulate a tall Skills/Inventory tab; the observed sheet height must
+ // stretch the side barrier automatically, and scrolling must not sever it.
+ await page.evaluate(()=>{
+  window.drawSheet('skills');
+  const sheet=document.querySelector('[data-sheet]');
+  const content=document.createElement('div');
+  content.dataset.laserTallFixture='true';
+  content.style.height='2600px';
+  sheet.append(content);
+ });await aligned();
+ await page.waitForFunction(()=>{
+  const sheet=document.querySelector('[data-sheet]')?.getBoundingClientRect();
+  const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
+  return sheet&&surface&&sheet.bottom>innerHeight*2&&Math.abs(surface.bottom-sheet.bottom)<3;
+ });
+ // A fixed-height in-panel scroll area models pop-out/embedded long tabs.
+ // Browser fixture window scrolling is not a reliable proxy for nested scroll.
+ await page.evaluate(()=>{
+  const main=document.querySelector('main');
+  main.style.height='420px';
+  main.style.maxHeight='420px';
+  main.style.overflowY='scroll';
+  main.scrollTop=1200;
+ });await aligned();
+ const scrollMetrics=await page.evaluate(()=>{
+  const main=document.querySelector('main');
+  const tabs=document.querySelector('.cs-tabs[aria-label="Character sheet"]')?.getBoundingClientRect();
+  const sheet=document.querySelector('[data-sheet]')?.getBoundingClientRect();
+  const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
+  return {scrollTop:main.scrollTop,scrollHeight:main.scrollHeight,clientHeight:main.clientHeight,
+   overflow:getComputedStyle(main).overflowY,viewport:innerHeight,windowScroll:scrollY,
+   tabsTop:tabs?.top,sheetBottom:sheet?.bottom,surfaceTop:surface?.top,surfaceBottom:surface?.bottom};
+ });
+ console.log('Long tab LaserFlow scroll fixture:',scrollMetrics);
+ assert.ok(scrollMetrics.scrollTop>500,'Long tab did not scroll: '+JSON.stringify(scrollMetrics));
+ assert.ok(scrollMetrics.tabsTop<=2,'Sticky tab bar should remain at or above the viewport top: '+JSON.stringify(scrollMetrics));
+ assert.ok(Math.abs(scrollMetrics.surfaceTop)<2,'Pour should continue from viewport top: '+JSON.stringify(scrollMetrics));
+ assert.ok(scrollMetrics.surfaceBottom>=scrollMetrics.viewport+94,'Pour should run off-screen: '+JSON.stringify(scrollMetrics));
+ await page.evaluate(()=>{
+  const main=document.querySelector('main');
+  main.scrollTop=0;
+  main.style.removeProperty('height');
+  main.style.removeProperty('max-height');
+  main.style.removeProperty('overflow-y');
+  window.drawSheet('overview');
+ });await aligned();
+
  await page.waitForTimeout(2200);await page.screenshot({path:path.join(output,'laser-desktop.png')});
  await page.setViewportSize({width:390,height:844});await aligned();await page.waitForTimeout(200);
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
