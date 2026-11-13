@@ -7,6 +7,8 @@ import {weaponAttackParts} from '../features/sheet/model.mjs';
 export async function requestSheetDice(character,change,requestRoll){
  const data=character.data||{},responses=[];
  async function roll(expression){
+  // Reserve the backend receipt slot before asynchronous Dice+ results arrive.
+  const slot=responses.length;responses.push(null);
   const terms=diceTerms(expression);
   const notation=terms.map((t,i)=>(t.sign<0?'-':i?'+':'')+(t.count?t.count+'d'+t.sides:t.flat)).join('');
   const result=await requestRoll(notation),groups=result?.groups;
@@ -18,7 +20,7 @@ export async function requestSheetDice(character,change,requestRoll){
    if(group.isCondensed||group.diceType!=='d'+term.sides||!Array.isArray(group.dice)||group.dice.length!==term.count)throw Error('Dice+ returned different dice.');
    for(const die of group.dice){if(die.kept===false||die.label!==undefined||!Number.isInteger(die.value)||die.value<1||die.value>term.sides)throw Error('Dice+ returned an unsupported face.');faces.push(die.value);}
   });
-  responses.push({expression,faces});return faces;
+  responses[slot]={expression,faces};return faces;
  }
  if(!change.kind){await roll(change.expression);return responses;}
  if(change.kind==='skill'){
@@ -40,11 +42,18 @@ export async function requestSheetDice(character,change,requestRoll){
  const calculation=weapon?weaponAttackParts(row,data,{npc:character.kind==='npc'}):entryCalculations(row,data,key);
  const bonus=weapon?calculation.total:calculation.attack?.bonus;
  const attackExpression=bonus===undefined?null:'1d20'+(bonus>=0?'+':'')+bonus;
- const attack=attackExpression?await roll(attackExpression):null;
+ // Dice+ receives the attack and normal damage requests together. Crit
+ // confirmation and extra critical damage follow only if the attack threatens.
+ const normal=weapon?weaponDamageFormulas(row,data,0).normal:
+  hasDamage?damageExpression(String(row.damage||row.dmg),calculation.ctx):'';
+ const attackRequest=attackExpression?roll(attackExpression):Promise.resolve(null);
+ const damageRequest=normal?roll(normal):Promise.resolve(null);
+ const [attack]=await Promise.all([attackRequest,damageRequest]);
  const profile=criticalProfile(row),cmb=weapon?calculation.type==='cmb':calculation.attack?.mode==='cmb';
  const threat=attack&&!cmb&&attack[0]!==1&&attack[0]>=profile.minimum;
- const formulas=weapon?weaponDamageFormulas(row,data,threat?profile.multiplier:0):{normal:hasDamage?damageExpression(String(row.damage||row.dmg),calculation.ctx):''};
- if(formulas.normal)await roll(formulas.normal);
- if(threat){await roll(attackExpression);if(formulas.critical)await roll(formulas.critical);}
+ if(threat){
+  const critical=weapon?weaponDamageFormulas(row,data,profile.multiplier).critical:'';
+  await Promise.all([roll(attackExpression),critical?roll(critical):Promise.resolve(null)]);
+ }
  return responses;
 }
