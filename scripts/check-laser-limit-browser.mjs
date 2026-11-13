@@ -90,20 +90,30 @@ try{
  // Browser fixture window scrolling is not a reliable proxy for nested scroll.
  await page.evaluate(()=>{
   const main=document.querySelector('main');
-  main.style.height='640px';
-  main.style.overflowY='auto';
-  main.scrollTop=950;
+  main.style.height='420px';
+  main.style.maxHeight='420px';
+  main.style.overflowY='scroll';
+  main.scrollTop=1200;
  });await aligned();
- await page.waitForFunction(()=>{
+ const scrollMetrics=await page.evaluate(()=>{
   const main=document.querySelector('main');
   const tabs=document.querySelector('.cs-tabs[aria-label="Character sheet"]')?.getBoundingClientRect();
+  const sheet=document.querySelector('[data-sheet]')?.getBoundingClientRect();
   const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
-  return main.scrollTop>500&&tabs&&tabs.top<0&&surface&&Math.abs(surface.top)<2&&surface.bottom>=innerHeight+94;
+  return {scrollTop:main.scrollTop,scrollHeight:main.scrollHeight,clientHeight:main.clientHeight,
+   overflow:getComputedStyle(main).overflowY,viewport:innerHeight,windowScroll:scrollY,
+   tabsTop:tabs?.top,sheetBottom:sheet?.bottom,surfaceTop:surface?.top,surfaceBottom:surface?.bottom};
  });
+ console.log('Long tab LaserFlow scroll fixture:',scrollMetrics);
+ assert.ok(scrollMetrics.scrollTop>500,'Long tab did not scroll: '+JSON.stringify(scrollMetrics));
+ assert.ok(scrollMetrics.tabsTop<0,'Tab bar should be above the nested viewport: '+JSON.stringify(scrollMetrics));
+ assert.ok(Math.abs(scrollMetrics.surfaceTop)<2,'Pour should continue from viewport top: '+JSON.stringify(scrollMetrics));
+ assert.ok(scrollMetrics.surfaceBottom>=scrollMetrics.viewport+94,'Pour should run off-screen: '+JSON.stringify(scrollMetrics));
  await page.evaluate(()=>{
   const main=document.querySelector('main');
   main.scrollTop=0;
   main.style.removeProperty('height');
+  main.style.removeProperty('max-height');
   main.style.removeProperty('overflow-y');
   window.drawSheet('overview');
  });await aligned();
