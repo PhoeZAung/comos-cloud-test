@@ -86,13 +86,27 @@ try{
   const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
   return sheet&&surface&&sheet.bottom>innerHeight*2&&Math.abs(surface.bottom-sheet.bottom)<3;
  });
- await page.evaluate(()=>window.scrollTo(0,950));await aligned();
+ // A fixed-height in-panel scroll area models pop-out/embedded long tabs.
+ // Browser fixture window scrolling is not a reliable proxy for nested scroll.
+ await page.evaluate(()=>{
+  const main=document.querySelector('main');
+  main.style.height='640px';
+  main.style.overflowY='auto';
+  main.scrollTop=950;
+ });await aligned();
  await page.waitForFunction(()=>{
+  const main=document.querySelector('main');
   const tabs=document.querySelector('.cs-tabs[aria-label="Character sheet"]')?.getBoundingClientRect();
   const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
-  return tabs&&tabs.top<0&&surface&&Math.abs(surface.top)<2&&surface.bottom>=innerHeight+94;
+  return main.scrollTop>500&&tabs&&tabs.top<0&&surface&&Math.abs(surface.top)<2&&surface.bottom>=innerHeight+94;
  });
- await page.evaluate(()=>window.scrollTo(0,0));await page.evaluate(()=>window.drawSheet('overview'));await aligned();
+ await page.evaluate(()=>{
+  const main=document.querySelector('main');
+  main.scrollTop=0;
+  main.style.removeProperty('height');
+  main.style.removeProperty('overflow-y');
+  window.drawSheet('overview');
+ });await aligned();
 
  await page.waitForTimeout(2200);await page.screenshot({path:path.join(output,'laser-desktop.png')});
  await page.setViewportSize({width:390,height:844});await aligned();await page.waitForTimeout(200);
