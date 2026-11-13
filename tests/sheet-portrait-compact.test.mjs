@@ -27,7 +27,7 @@ test('sheet portrait upload is direct and locked skills omit redundant visible t
  const hero={id:'character-1',name:'Knight',kind:'player',data:{portrait:tinyPortrait,str:14,skills:[]}};
  const html=renderSheetFrame(hero,'skills');
  assert.match(html,/data-sheet-portrait/);
- assert.match(html,/Change image here/);
+ assert.match(html,/title="Change portrait"/);
  assert.match(html,/class="cs-portrait"/);
  assert.match(html,/cs-skill-untrained/);
  assert.doesNotMatch(html,/Trained only ·/);
