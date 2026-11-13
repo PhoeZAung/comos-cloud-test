@@ -52,6 +52,48 @@ try{
  for(const name of ['combat','favorites','overview']){
   await page.locator('.cs-tabs[aria-label="Character sheet"] [data-sheet-tab="'+name+'"]').click();await aligned();
  }
+
+ // Short pages must not cut off the pour before the bottom of the viewport.
+ await page.evaluate(()=>window.drawSheet('favorites'));await aligned();
+ await page.waitForFunction(()=>{
+  const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
+  return surface&&surface.bottom>=innerHeight+94;
+ });
+ const flowing=await page.locator('.cosmos-laser-surface').evaluate(element=>{
+  const left=getComputedStyle(element,'::before'),right=getComputedStyle(element,'::after');
+  return {leftContent:left.content,rightContent:right.content,
+   leftAnimation:left.animationName,rightAnimation:right.animationName,
+   leftHeight:parseFloat(left.height),rightHeight:parseFloat(right.height)};
+ });
+ assert.equal(flowing.leftContent,'""');
+ assert.equal(flowing.rightContent,'""');
+ assert.match(flowing.leftAnimation,/cosmos-laser-waterfall/);
+ assert.match(flowing.rightAnimation,/cosmos-laser-waterfall/);
+ assert.ok(flowing.leftHeight>0&&flowing.rightHeight>0);
+
+ // Simulate a tall Skills/Inventory tab; the observed sheet height must
+ // stretch the side barrier automatically, and scrolling must not sever it.
+ await page.evaluate(()=>{
+  window.drawSheet('skills');
+  const sheet=document.querySelector('[data-sheet]');
+  const content=document.createElement('div');
+  content.dataset.laserTallFixture='true';
+  content.style.height='2600px';
+  sheet.append(content);
+ });await aligned();
+ await page.waitForFunction(()=>{
+  const sheet=document.querySelector('[data-sheet]')?.getBoundingClientRect();
+  const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
+  return sheet&&surface&&sheet.bottom>innerHeight*2&&Math.abs(surface.bottom-sheet.bottom)<3;
+ });
+ await page.evaluate(()=>window.scrollTo(0,950));await aligned();
+ await page.waitForFunction(()=>{
+  const tabs=document.querySelector('.cs-tabs[aria-label="Character sheet"]')?.getBoundingClientRect();
+  const surface=document.querySelector('.cosmos-laser-surface')?.getBoundingClientRect();
+  return tabs&&tabs.top<0&&surface&&Math.abs(surface.top)<2&&surface.bottom>=innerHeight+94;
+ });
+ await page.evaluate(()=>window.scrollTo(0,0));await page.evaluate(()=>window.drawSheet('overview'));await aligned();
+
  await page.waitForTimeout(2200);await page.screenshot({path:path.join(output,'laser-desktop.png')});
  await page.setViewportSize({width:390,height:844});await aligned();await page.waitForTimeout(200);
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
