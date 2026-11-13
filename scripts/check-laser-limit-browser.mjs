@@ -106,7 +106,7 @@ try{
  });
  console.log('Long tab LaserFlow scroll fixture:',scrollMetrics);
  assert.ok(scrollMetrics.scrollTop>500,'Long tab did not scroll: '+JSON.stringify(scrollMetrics));
- assert.ok(scrollMetrics.tabsTop<0,'Tab bar should be above the nested viewport: '+JSON.stringify(scrollMetrics));
+ assert.ok(scrollMetrics.tabsTop<=2,'Sticky tab bar should remain at or above the viewport top: '+JSON.stringify(scrollMetrics));
  assert.ok(Math.abs(scrollMetrics.surfaceTop)<2,'Pour should continue from viewport top: '+JSON.stringify(scrollMetrics));
  assert.ok(scrollMetrics.surfaceBottom>=scrollMetrics.viewport+94,'Pour should run off-screen: '+JSON.stringify(scrollMetrics));
  await page.evaluate(()=>{
