@@ -407,3 +407,22 @@
 .cs-skill-training-note{display:block!important;margin-top:3px;color:var(--muted);font-size:.72rem;letter-spacing:.015em}
 .cs-skill-untrained [data-edit-entry]{opacity:1;filter:none;cursor:pointer;color:var(--accent)}
 .cs-skill-untrained .cs-favorite{opacity:1}
+
+/* Owlbear in-sheet combat feedback is a brief, non-blocking verdict, not a roll card. */
+body[data-owlbear-sheet] .cs-roll-result.cs-combat-flash{
+ position:fixed;top:50%;left:50%;bottom:auto;z-index:1000;transform:translate(-50%,-50%);
+ width:max-content;max-width:90vw;margin:0;padding:0;border:0;background:transparent;
+ box-shadow:none;pointer-events:none;animation:cosmos-combat-flash 1.8s ease-out both
+}
+body[data-owlbear-sheet] .cs-roll-result.cs-combat-flash .cs-combat-indicator{
+ margin:0;padding:14px 28px;font-size:clamp(26px,7vw,44px);letter-spacing:.15em;
+ box-shadow:0 8px 32px #000a
+}
+@keyframes cosmos-combat-flash{
+ 0%{opacity:0;transform:translate(-50%,-46%) scale(.92)}
+ 12%,67%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+ 100%{opacity:0;transform:translate(-50%,-57%) scale(1.03)}
+}
+@media(prefers-reduced-motion:reduce){
+ body[data-owlbear-sheet] .cs-roll-result.cs-combat-flash{animation:none}
+}
