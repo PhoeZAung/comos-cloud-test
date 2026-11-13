@@ -50,19 +50,42 @@ export function initiativeFocus(OBR,buildShape){
   }catch(error){console.warn('Initiative highlight:',error.message);rendered='';}
   finally{running=false;}
  }
+ async function locate(id){
+  const box=await bounds(id);if(!box)return false;
+  const center=box.center||{x:(box.min.x+box.max.x)/2,y:(box.min.y+box.max.y)/2};
+  const size=Math.max(600,box.width*7,box.height*7);
+  await OBR.viewport.animateToBounds({min:{x:center.x-size/2,y:center.y-size/2},
+   max:{x:center.x+size/2,y:center.y+size/2},width:size,height:size,center});
+  return true;
+ }
  return {
   setShowHidden(value){const next=value===true;if(showHidden===next)return;showHidden=next;rendered='';if(hovered&&!visible(hovered))hovered=null;void draw();},
   update(nextItems,activeId){items=nextItems;active=activeId&&visible(activeId)?activeId:null;if(hovered&&!visible(hovered))hovered=null;if(recommended&&!visible(recommended))recommended=null;void draw();},
   recommend(id){recommended=id&&visible(id)?id:null;void draw();},
   hover(id){hovered=id&&visible(id)?id:null;void draw();},
-  async locate(id){
-   const box=await bounds(id);if(!box)return false;
-   // Don't zoom all the way to a single token: keep adjacent squares visible.
-   const size=Math.max(600,box.width*7,box.height*7);
-   const expanded={min:{x:box.center.x-size/2,y:box.center.y-size/2},
-     max:{x:box.center.x+size/2,y:box.center.y+size/2},width:size,height:size,center:box.center};
-   await OBR.viewport.animateToBounds(expanded);
-   return true;
+  locate,
+  // Frame both combatants only when the recommended target is already
+  // visible on this GM's screen; otherwise keep the usual NPC-only focus.
+  async frameTurn(id,targetId){
+   if(!targetId||targetId===id)return locate(id);
+   const [actor,target]=await Promise.all([bounds(id),bounds(targetId)]);
+   if(!actor||!target)return locate(id);
+   try{
+    const center=box=>box.center||{x:(box.min.x+box.max.x)/2,y:(box.min.y+box.max.y)/2};
+    const [point,width,height]=await Promise.all([
+     OBR.viewport.transformPoint(center(target)),OBR.viewport.getWidth(),OBR.viewport.getHeight()
+    ]);
+    if(!point||![point.x,point.y,width,height].every(Number.isFinite)||
+       point.x<0||point.y<0||point.x>width||point.y>height)return locate(id);
+    const minX=Math.min(actor.min.x,target.min.x),minY=Math.min(actor.min.y,target.min.y);
+    const maxX=Math.max(actor.max.x,target.max.x),maxY=Math.max(actor.max.y,target.max.y);
+    const padding=Math.max(120,Math.min(actor.width,actor.height)*1.5,Math.min(target.width,target.height)*1.5);
+    const spanX=Math.max(600,maxX-minX+padding*2),spanY=Math.max(600,maxY-minY+padding*2);
+    const cx=(minX+maxX)/2,cy=(minY+maxY)/2;
+    await OBR.viewport.animateToBounds({min:{x:cx-spanX/2,y:cy-spanY/2},
+     max:{x:cx+spanX/2,y:cy+spanY/2},width:spanX,height:spanY,center:{x:cx,y:cy}});
+    return true;
+   }catch(error){console.warn('Recommended target framing:',error.message);return locate(id);}
   },
   async close(){closed=true;hovered=null;active=null;recommended=null;if(ids.length)await OBR.scene.local.deleteItems(ids);ids=[];}
  };
