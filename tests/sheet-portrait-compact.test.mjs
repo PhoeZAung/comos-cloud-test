@@ -8,7 +8,7 @@ const tinyPortrait='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAA
 
 test('portrait-only sheet update works for rules-built characters without rewriting identity or stats',()=>{
  const original={charName:'Knight',alignment:'LG',bio:'Saved biography',str:14,rulesBuild:{level:4},portrait:'',currency_gil:60};
- const saved=mergeSheetData(original,{action:'portrait',portrait:tinyPortrait});
+ const saved=mergeSheetData(original,{op:'sheet',revision:1,action:'portrait',portrait:tinyPortrait});
  assert.equal(saved.portrait,tinyPortrait);
  assert.equal(saved.charName,'Knight');
  assert.equal(saved.alignment,'LG');
