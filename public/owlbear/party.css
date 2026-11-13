@@ -9,3 +9,22 @@
 .party-values button.editable{cursor:pointer;text-decoration:underline dotted #d9b8ff88;text-underline-offset:3px}
 .party-values button.editable:hover,.party-values button.editable:focus-visible{color:#fff;background:#5b436855;border-radius:4px}
 .party-values button:disabled{cursor:default;text-decoration:none}
+
+/* Compact GM settings and on-demand battle log. */
+.cosmos-admin-settings{padding:0}
+.cosmos-admin-settings>summary{padding:11px 12px;cursor:pointer;font-weight:700;font-size:13px;color:#eadbff}
+.cosmos-admin-settings[open]{padding:0 12px 12px}
+.cosmos-admin-settings[open]>summary{margin:0 -12px 9px}
+.combat-history-trigger{display:flex;justify-content:flex-end;flex:none;margin:8px 10px}
+.combat-history-trigger button{padding:7px 11px;border-color:#826a9e;background:#282139}
+.combat-history{position:fixed;inset:0;margin:auto;width:min(92vw,440px);max-width:440px;max-height:min(75dvh,560px);color:#f2e9fb;border:1px solid #9579b4;border-radius:13px;background:#181626;box-shadow:0 15px 60px #000b;padding:14px;overflow:hidden}
+.combat-history[open]{display:flex;flex-direction:column;gap:9px}
+.combat-history::backdrop{background:#090513ad}
+.combat-history header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.combat-history header strong{font-size:15px;color:#f3e8ff}
+.combat-history header button{padding:3px 9px;font-size:20px}
+.combat-history ol{flex:1;min-height:0;max-height:none;overflow-y:auto;list-style:none;margin:0;padding:0}
+.combat-history li{padding:8px 0;border-bottom:1px solid #6b597641;display:grid;gap:3px}
+.combat-history li strong{font-size:12px;overflow-wrap:anywhere}
+.combat-history li small{font-size:11px;color:#bfb1cb;overflow-wrap:anywhere}
+.combat-history [data-combat-empty]{font-size:12px;color:#b7a5c7}
