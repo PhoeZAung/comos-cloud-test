@@ -20,7 +20,7 @@ test('mobile offsets and nested scrolling retain tab alignment and full viewport
  assert.deepEqual(surface,{left:10,top:120,width:350,height:820,beamPosition:220/390});
  const scrolled=sheetLaserSurface({left:10,top:-500,width:350,height:48},{bottom:900},stage);
  assert.equal(scrolled.top,0);
- assert.equal(scrolled.height,stage.height+LASER_VIEWPORT_OVERFLOW);
+ assert.equal(scrolled.height,900,'content extending below the viewport keeps the longer height');
  const long=sheetLaserSurface({left:0,top:-500,width:350,height:48},{bottom:2200},stage);
  assert.equal(long.height,2200);
 });
