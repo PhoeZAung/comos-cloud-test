@@ -1,12 +1,19 @@
 /**
  * Inventory categories from the original Mount Aetheria shop (tools.html).
- * Keep these labels in sync with SHOP_GROUPS in tools-parts/scripts/tools-js-002-firebase-tools-module.mjs.
+ * Nine browse groups preserve the original per-item category tags for compatibility.
  * Collection and Misc are retained for items created in older character sheets.
  */
+// Nine browse groups; existing category tags remain valid for saved characters.
 export const SHOP_ITEM_CATEGORY_GROUPS = Object.freeze({
-  Tools: Object.freeze(['Gear', 'Food', 'Weapon', 'Ranged Weapon', 'Ammunition', 'Armor', 'Enchantment', 'Machine']),
-  Magic: Object.freeze(['Alchemical Items', 'Artifacts', 'Magic Items']),
-  Other: Object.freeze(['Collection', 'Misc'])
+ 'Weapons & Ammunition':Object.freeze(['Weapon','Ranged Weapon','Ammunition']),
+ 'Armor & Shields':Object.freeze(['Armor']),
+ 'Consumables':Object.freeze(['Food','Alchemical Items','Consumables']),
+ 'Gear & Tools':Object.freeze(['Gear']),
+ 'Magic Items':Object.freeze(['Magic Items','Artifacts']),
+ 'Enhancements':Object.freeze(['Enchantment','Enhancements']),
+ 'Materials & Crafting':Object.freeze(['Materials & Crafting']),
+ 'Vehicles & Mounts':Object.freeze(['Machine','Vehicles & Mounts']),
+ 'Services & Other':Object.freeze(['Collection','Misc','Services & Other'])
 });
 export const ITEM_TAG_OPTIONS = Object.freeze(Object.values(SHOP_ITEM_CATEGORY_GROUPS).flat());
 
@@ -23,7 +30,8 @@ export const ITEM_CATEGORY_SYMBOLS = Object.freeze({
   'Artifacts': '🏺',
   'Magic Items': '🔮',
   'Collection': '📜',
-  'Misc': '📦'
+  'Misc': '📦',
+  'Consumables':'🧪', 'Enhancements':'✨', 'Materials & Crafting':'🧱', 'Vehicles & Mounts':'🚙', 'Services & Other':'🧾'
 });
 
 const aliases = new Map();
@@ -32,18 +40,18 @@ for (const category of ITEM_TAG_OPTIONS) {
 }
 for (const [alias, category] of Object.entries({
   'equipment':'Gear', 'adventuring gear':'Gear', 'general gear':'Gear',
-  'foods':'Food', 'consumable':'Food', 'consumables':'Food',
+  'foods':'Food', 'consumable':'Consumables', 'consumables':'Consumables', 'potions':'Consumables', 'potion':'Consumables',
   'weapons':'Weapon', 'melee weapon':'Weapon', 'melee weapons':'Weapon',
   'ranged weapons':'Ranged Weapon', 'firearm':'Ranged Weapon', 'firearms':'Ranged Weapon',
   'ammo':'Ammunition', 'arrows':'Ammunition', 'bullets':'Ammunition',
   'armour':'Armor', 'shield':'Armor', 'shields':'Armor',
   'enchantments':'Enchantment', 'weapon enchantment':'Enchantment', 'armor enchantment':'Enchantment',
-  'machines':'Machine', 'vehicle':'Machine', 'vehicles':'Machine',
+  'machines':'Machine', 'vehicle':'Vehicles & Mounts', 'vehicles':'Vehicles & Mounts', 'mount':'Vehicles & Mounts', 'mounts':'Vehicles & Mounts',
   'alchemical item':'Alchemical Items', 'alchemical':'Alchemical Items', 'alchemy':'Alchemical Items',
   'artifact':'Artifacts', 'magic item':'Magic Items', 'wondrous':'Magic Items',
   'wondrous item':'Magic Items', 'wondrous items':'Magic Items',
   'collections':'Collection', 'collectible':'Collection', 'collectibles':'Collection',
-  'miscellaneous':'Misc', 'other':'Misc'
+  'miscellaneous':'Misc', 'other':'Misc', 'materials':'Materials & Crafting', 'crafting':'Materials & Crafting', 'service':'Services & Other', 'services':'Services & Other'
 })) aliases.set(alias, category);
 
 function individualValues(raw) {
