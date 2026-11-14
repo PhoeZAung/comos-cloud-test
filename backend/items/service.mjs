@@ -1,6 +1,6 @@
 import {SHOP_ITEM_CATEGORY_GROUPS} from '../../src/features/sheet/item-categories.mjs';
 import {shopSourceForItem,shopSourceSql,isShopSource} from '../../src/features/sheet/shop-sources.mjs';
-import {catalogKey,parseCatalogKey,shopCatalogLabel} from '../../src/features/sheet/shop-catalogs.mjs';
+import {catalogKey,parseCatalogKey,shopCatalogLabel,shopCatalogShortLabel} from '../../src/features/sheet/shop-catalogs.mjs';
 import {gilUnits} from './catalog.mjs';
 const invalid=message=>Object.assign(new Error(message),{code:'INVALID_ITEM'});
 const conflict=()=>Object.assign(new Error('This item changed. Reload before saving.'),{code:'REVISION_CONFLICT'});
@@ -102,7 +102,7 @@ export function createItemsService(db){
   return groups.map(group=>{
    let catalog={};
    try{catalog=JSON.parse(sample.get(group.sampleId)?.catalog_json||'{}');}catch{}
-   return {id:catalogKey(group.sourceId,group.sourceVersion),label:shopCatalogLabel({...group,catalog}),count:group.count,sourceId:group.sourceId,sourceVersion:group.sourceVersion};
+   return {id:catalogKey(group.sourceId,group.sourceVersion),label:shopCatalogLabel({...group,catalog}),shortLabel:shopCatalogShortLabel({...group,catalog}),count:group.count,sourceId:group.sourceId,sourceVersion:group.sourceVersion};
   });
  }
  return {get,list,save,categories,listCatalogs};
