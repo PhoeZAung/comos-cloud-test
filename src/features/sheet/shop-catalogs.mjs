@@ -44,3 +44,35 @@ export function shopCatalogLabel(item={}){
  else origin=sourceId||'Imported catalog';
  return game+' · '+origin+(version?' ['+version+']':'');
 }
+
+
+// Concise, distinct labels for player-facing controls. Keep full provenance
+// separately for accessibility and traceability.
+export function shopCatalogShortLabel(item={}){
+ const catalog=item.catalog||item.sourceCatalog||{};
+ const sourceId=String(item.sourceId||item.source_id||catalog.sourceId||'');
+ const system=shopSourceForItem({...item,sourceId,sourceSystem:catalog.sourceSystem||item.sourceSystem});
+ const namedSystem=String(catalog.sourceSystem||item.sourceSystem||'').toLowerCase();
+ const game=/^(?:dnd|dnd-?5e|dungeons-and-dragons-?5e)(?:[-_.]?2024)?$/.test(namedSystem)
+  ?(namedSystem.includes('2024')?'5e24':'5e14')
+  :({'pathfinder-1e':'PF1e','pathfinder-2e':'PF2e',ffd20:'FFd20',cosmos:'Cosmos'}[system]||'Cosmos');
+ const repository=first(catalog.sourceRepository,catalog.repository,githubRepository(first(catalog.sourceUrl,catalog.detailUrl,catalog.link)));
+ const provider=first(catalog.sourceProvider,catalog.provider,catalog.catalogName,catalog.catalogLabel,catalog.sourceName);
+ let origin='';
+ if(sourceId==='legacy-master')return 'Cosmos';
+ if(sourceId==='pathfinder-shopping')origin='AoN';
+ else if(repository)origin=/^(foundryvtt|foundry)\//i.test(repository)?'Foundry':repository.split('/')[0];
+ else if(sourceId==='pathfinder-2e-shopping')origin='Foundry';
+ else if(sourceId==='ffd20-shopping')origin='Core';
+ else if(provider)origin=provider;
+ else origin=sourceId.replace(/^(?:pf1e|pf2e|pathfinder-1e|pathfinder-2e|ffd20)[._-]?/i,'').replace(/[_-]+/g,' ').trim()||'Core';
+ return game+' · '+String(origin).slice(0,26);
+}
+
+export function shopCatalogChoiceLabel(item={},catalogs=[]){
+ const base=item.shortLabel||shopCatalogShortLabel(item);
+ const others=catalogs.filter(c=>c.id!==item.id&&(c.shortLabel||shopCatalogShortLabel(c))===base);
+ if(!others.length)return base;
+ const version=String(item.sourceVersion||'').replace(/^(?:foundry-|pathfinder-|pf1e-|pf2e-)/i,'').slice(0,24);
+ return base+' · '+(version||String(item.sourceId||'').slice(0,16));
+}

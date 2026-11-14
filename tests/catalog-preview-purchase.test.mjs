@@ -9,7 +9,7 @@ test('catalog preview prioritizes combat facts, description, one original link a
   catalog:{dmg:'1d8',crit:'19–20/x2',range:'30 ft',sourceUrl:'https://www.aonprd.com/EquipmentWeapons.aspx',
    raw:{Weight:'1 lb',Type:'Utility','Source (Possible Spoilers)':'Core Rulebook','Item Level':'3','Bulk':'L'}}
  });
- assert.match(html,/Pathfinder 1e · Archives of Nethys/);
+ assert.match(html,/PF1e · AoN/);
  assert.match(html,/<strong>Rope<\/strong>/);
  assert.match(html,/&lt;script&gt;/);
  assert.doesNotMatch(html,/<script>|<img/);
@@ -18,7 +18,8 @@ test('catalog preview prioritizes combat facts, description, one original link a
  assert.match(html,/<dt>Critical<\/dt><dd>19–20\/x2<\/dd>/);
  assert.match(html,/<dt>Range<\/dt><dd>30 ft<\/dd>/);
  assert.match(html,/View original item/);
- assert.doesNotMatch(html,/Source:|Source category|Original source category|Item level|Bulk|Source \(Possible Spoilers\)|<dt>Type<\/dt>|<dt>Weight/);
+ assert.match(html,/<dt>Weight \(lb\)<\/dt><dd>1 lb<\/dd>/);
+ assert.doesNotMatch(html,/Source:|Source category|Original source category|Item level|Bulk|Source \(Possible Spoilers\)|<dt>Type<\/dt>|<dt>Slot|<dt>Rarity/);
 });
 
 test('mechanical preview reads legacy source fields for spell failure, save DC and speed',()=>{
@@ -42,4 +43,18 @@ test('catalog purchase totals use fixed exact prices and never estimate ambiguou
  assert.equal(catalogPurchaseTotal({priceGil:4},2.2),null);
  assert.equal(formatGil(3.25),'3.25 Gil');
  assert.equal(formatGil(null),'Not priced');
+});
+
+
+test('irrelevant imported metadata never appears as gameplay facts but weight survives',()=>{
+ const row={catalog:{raw:{
+  'Source: Special':'Not gameplay','Source System':'custom','Source: Rarity':'Uncommon',
+  'Slot':'Head','Slot Amount':'1','Weight':'3 lb','Spell Failure':'15%',
+  'Damage':'1d6','DC/Save':'Reflex DC 15'
+ }}};
+ const facts=catalogMechanicalFacts(row);
+ assert.ok(facts.some(([label,value])=>label==='Weight (lb)'&&value==='3 lb'));
+ assert.ok(facts.some(([label])=>label==='Damage'));
+ assert.ok(facts.some(([label])=>label==='Save DC'));
+ assert.deepEqual(facts.filter(([label])=>/slot|rarity|source|special/i.test(label)),[]);
 });

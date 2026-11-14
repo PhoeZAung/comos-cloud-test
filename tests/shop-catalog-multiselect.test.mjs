@@ -4,7 +4,7 @@ import {randomUUID} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {openDatabase} from '../backend/db/database.mjs';
 import {createItemsService} from '../backend/items/service.mjs';
-import {catalogKey,parseCatalogKey,shopCatalogLabel} from '../src/features/sheet/shop-catalogs.mjs';
+import {catalogKey,parseCatalogKey,shopCatalogLabel,shopCatalogShortLabel,shopCatalogChoiceLabel} from '../src/features/sheet/shop-catalogs.mjs';
 
 test('each PF1e upstream origin has its own human-readable catalog identity',()=>{
  const aon={sourceId:'pathfinder-shopping',sourceVersion:'aon-v1'};
@@ -55,4 +55,32 @@ test('player catalog picker opens empty and supports one or more chosen catalogs
  assert.match(source,/chosen\.has\(key\)\)chosen\.delete\(key\);else chosen\.add\(key\)/);
  assert.match(source,/for\(const id of chosen\)params\.append\('catalog',id\)/);
  assert.match(source,/\/api\/v1\/item-catalog\/catalogs/);
+});
+
+
+test('short shop labels remain clear across providers and repeated versions',()=>{
+ const aon={id:'aon-one',sourceId:'pathfinder-shopping',sourceVersion:'aon-v1'};
+ const foundry={id:'foundry-one',sourceId:'pathfinder-2e-shopping',sourceVersion:'foundry-8.7.0'};
+ const github={id:'github-one',sourceId:'pf1e-github-baileymh',sourceVersion:'github-1',catalog:{sourceSystem:'pathfinder-1e',sourceUrl:'https://github.com/baileymh/pf1e-content/blob/main/README.md'}};
+ assert.equal(shopCatalogShortLabel(aon),'PF1e · AoN');
+ assert.equal(shopCatalogShortLabel(foundry),'PF2e · Foundry');
+ assert.equal(shopCatalogShortLabel(github),'PF1e · baileymh');
+ assert.equal(shopCatalogShortLabel({sourceId:'legacy-master'}),'Cosmos');
+ assert.equal(shopCatalogChoiceLabel(aon,[aon,foundry,github]),'PF1e · AoN');
+ const other={id:'aon-two',sourceId:'pathfinder-shopping',sourceVersion:'aon-v2'};
+ assert.notEqual(shopCatalogChoiceLabel(aon,[aon,other]),shopCatalogChoiceLabel(other,[aon,other]));
+});
+
+test('minimal shop UI uses a popup and custom item stands beside shop selection',async()=>{
+ const src=await readFile('src/ui/inventory-shop-picker.mjs','utf8');
+ assert.match(src,/data-picker-shop-toggle/);
+ assert.match(src,/data-picker-shop-panel/);
+ assert.match(src,/data-picker-shop-done/);
+ assert.match(src,/data-custom-item/);
+ assert.match(src,/groups:false,iconOnly:true/);
+ assert.doesNotMatch(src,/Choose shops · select one or more catalogs/);
+ const sheet=await readFile('src/ui/sheet.mjs','utf8');
+ assert.match(sheet,/catalogMechanicalFacts\(\{\.\.\.item,catalog:item\.sourceCatalog/);
+ assert.match(sheet,/const common=parts\.common\.map/);
+ assert.match(sheet,/imported\?'<details class="cs-inventory-advanced-source"/);
 });
