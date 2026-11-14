@@ -329,3 +329,11 @@ html[data-notes-electric="true"] .cs-notes-electric::before{background:conic-gra
 html[data-notes-electric="true"] .cs-notes-electric::after{inset:-6px;background:conic-gradient(from var(--electric-angle,0deg),transparent 15%,var(--accent) 29%,transparent 38%,transparent 63%,#f5f7ff 75%,transparent 83%);filter:blur(13px);opacity:.65;animation:cs-electric-spin 5s linear infinite reverse}
 @keyframes cs-electric-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){html[data-notes-electric="true"] .cs-notes-electric::before,html[data-notes-electric="true"] .cs-notes-electric::after{animation:none;opacity:.25}}
+
+
+.cs-shop-source-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+.cs-shop-source-tabs .button[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:-2px}
+.cs-source-field-row{display:grid;grid-template-columns:minmax(140px,1fr) minmax(180px,2fr) auto;gap:8px;align-items:end;margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:10px}
+.cs-source-field-row .cs-field{min-width:0}
+.cs-source-field-row :is(input,textarea){max-width:100%;box-sizing:border-box}
+@media(max-width:680px){.cs-source-field-row{grid-template-columns:1fr}.cs-shop-source-tabs{gap:4px}}
