@@ -18,7 +18,7 @@ export function createItemsService(db){
  }
  function save(data){
   if(!data||typeof data!=='object'||Array.isArray(data)||!validId(data.id)||!Number.isSafeInteger(data.revision)||data.revision<0)throw invalid('Invalid item change.');
-  const fields=data.op==='save'?['op','id','revision','name','sourceId','sourceVersion','category','description','priceGil','costText']:data.op==='archive'?['op','id','revision','archived']:[];
+  const fields=data.op==='save'?['op','id','revision','name','sourceId','sourceVersion','category','description','priceGil','costText','sourceUrl','sourceCategoryDetail','sourceFields']:data.op==='archive'?['op','id','revision','archived']:[];
   if(!fields.length||Object.keys(data).some(k=>!fields.includes(k)))throw invalid('Invalid item fields.');
   const previous=get(data.id),values={};
   if(data.op==='save'){
@@ -33,16 +33,43 @@ export function createItemsService(db){
   values.priceGil=Object.hasOwn(data,'priceGil')?data.priceGil:(previous?.priceGil??null);
    if(values.priceGil!==null&&gilUnits(values.priceGil)===null)throw invalid('Gil price must be nonnegative with at most two decimal places.');
    if(!Object.hasOwn(data,'costText'))values.costText=previous?.costText||'';
+   if(Object.hasOwn(data,'sourceUrl')){
+    if(typeof data.sourceUrl!=='string'||data.sourceUrl.length>2048)throw invalid('Invalid item source link.');
+    if(data.sourceUrl.trim()){let url;try{url=new URL(data.sourceUrl.trim());}catch{throw invalid('Invalid item source link.');}
+     if(!['https:','http:'].includes(url.protocol)||url.username||url.password)throw invalid('Item source link must be HTTP(S).');
+     values.sourceUrl=url.href;
+    }else values.sourceUrl='';
+   }
+   if(Object.hasOwn(data,'sourceCategoryDetail')){
+    if(typeof data.sourceCategoryDetail!=='string'||data.sourceCategoryDetail.length>160||/[\u0000-\u001f\u007f]/u.test(data.sourceCategoryDetail))throw invalid('Invalid original website category.');
+    values.sourceCategoryDetail=data.sourceCategoryDetail.trim();
+   }
+   if(Object.hasOwn(data,'sourceFields')){
+    if(!data.sourceFields||typeof data.sourceFields!=='object'||Array.isArray(data.sourceFields)||Object.keys(data.sourceFields).length>100)throw invalid('Invalid source columns.');
+    const fields={},entries=Object.entries(data.sourceFields);let length=0;
+    for(const [key,value] of entries){
+     if(!key||key.length>100||['__proto__','constructor','prototype'].includes(key)||typeof value!=='string'||value.length>12000)throw invalid('Invalid source column.');
+     length+=key.length+value.length;if(length>60000)throw invalid('Source columns too large.');
+     fields[key]=value;
+    }
+    values.sourceFields=fields;
+   }
   }else if(typeof data.archived!=='boolean'||data.revision<1)throw invalid('Invalid archive change.');
+  const baseCatalog=previous?.catalog&&typeof previous.catalog==='object'&&!Array.isArray(previous.catalog)?previous.catalog:{};
+  const updatedCatalog={...baseCatalog,
+   ...(Object.hasOwn(values,'sourceUrl')?{sourceUrl:values.sourceUrl}:{}),
+   ...(Object.hasOwn(values,'sourceCategoryDetail')?{sourceCategoryDetail:values.sourceCategoryDetail}:{}),
+   ...(Object.hasOwn(values,'sourceFields')?{sourceFields:values.sourceFields}:{})};
+  const catalogJson=JSON.stringify(updatedCatalog);
   db.exec('BEGIN IMMEDIATE');
   try{
    const old=get(data.id),now=new Date().toISOString();
    if(data.revision===0&&data.op==='save'){
     if(old){if(old.revision!==1||old.archived||Object.entries(values).some(([k,v])=>old[k]!==v))throw conflict();}
-    else db.prepare('INSERT INTO items(id,name,source_id,source_version,category,description,price_units,cost_text,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?)').run(data.id,values.name,values.sourceId,values.sourceVersion,values.category,values.description,values.priceGil===null?null:gilUnits(values.priceGil),values.costText,now,now);
+    else db.prepare('INSERT INTO items(id,name,source_id,source_version,category,description,price_units,cost_text,catalog_json,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)').run(data.id,values.name,values.sourceId,values.sourceVersion,values.category,values.description,values.priceGil===null?null:gilUnits(values.priceGil),values.costText,catalogJson,now,now);
    }else{
     if(!old||old.revision!==data.revision)throw conflict();
-    if(data.op==='save')db.prepare('UPDATE items SET name=?,source_id=?,source_version=?,category=?,description=?,price_units=?,cost_text=?,revision=revision+1,updated_at=? WHERE id=?').run(values.name,values.sourceId,values.sourceVersion,values.category,values.description,values.priceGil===null?null:gilUnits(values.priceGil),values.costText,now,data.id);
+    if(data.op==='save')db.prepare('UPDATE items SET name=?,source_id=?,source_version=?,category=?,description=?,price_units=?,cost_text=?,catalog_json=?,revision=revision+1,updated_at=? WHERE id=?').run(values.name,values.sourceId,values.sourceVersion,values.category,values.description,values.priceGil===null?null:gilUnits(values.priceGil),values.costText,catalogJson,now,data.id);
     else db.prepare('UPDATE items SET archived=?,revision=revision+1,updated_at=? WHERE id=?').run(Number(data.archived),now,data.id);
    }
    const item=get(data.id);db.exec('COMMIT');return item;
