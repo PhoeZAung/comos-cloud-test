@@ -15,7 +15,14 @@ export const SHOP_ITEM_CATEGORY_GROUPS = Object.freeze({
  'Vehicles & Mounts':Object.freeze(['Machine','Vehicles & Mounts']),
  'Services & Other':Object.freeze(['Collection','Misc','Services & Other'])
 });
-export const ITEM_TAG_OPTIONS = Object.freeze(Object.values(SHOP_ITEM_CATEGORY_GROUPS).flat());
+// The original 13 per-item tags remain stable for old sheets, tests and imports.
+export const ITEM_TAG_OPTIONS = Object.freeze(['Gear','Food','Weapon','Ranged Weapon','Ammunition','Armor','Enchantment','Machine','Alchemical Items','Artifacts','Magic Items','Collection','Misc']);
+export const ALL_ITEM_TAG_OPTIONS=Object.freeze([...new Set([...ITEM_TAG_OPTIONS,...Object.values(SHOP_ITEM_CATEGORY_GROUPS).flat()])]);
+export const LEGACY_ITEM_GROUPS=Object.freeze({
+ Tools:Object.freeze(['Gear','Food','Weapon','Ranged Weapon','Ammunition','Armor','Enchantment','Machine']),
+ Magic:Object.freeze(['Alchemical Items','Artifacts','Magic Items']),
+ Other:Object.freeze(['Collection','Misc'])
+});
 
 export const ITEM_CATEGORY_SYMBOLS = Object.freeze({
   'Gear': '🎒',
@@ -35,7 +42,7 @@ export const ITEM_CATEGORY_SYMBOLS = Object.freeze({
 });
 
 const aliases = new Map();
-for (const category of ITEM_TAG_OPTIONS) {
+for (const category of ALL_ITEM_TAG_OPTIONS) {
   aliases.set(category.toLowerCase(), category);
 }
 for (const [alias, category] of Object.entries({
@@ -91,7 +98,7 @@ const escape=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 /** Counts distinct inventory records for each category, rather than quantities in a stack. */
 export function inventoryCategoryCounts(items=[]){
  const counts=Object.fromEntries(ITEM_TAG_OPTIONS.map(tag=>[tag,0]));
- for(const item of Array.isArray(items)?items:[])counts[itemCategoryForItem(item)]++;
+ for(const item of Array.isArray(items)?items:[]){const category=itemCategoryForItem(item);counts[category]=(counts[category]||0)+1;}
  return counts;
 }
 
@@ -103,12 +110,12 @@ export function visibleInventoryCategory(counts={},selected='All'){
  return Number(counts[selected]||0)>0?selected:'All';
 }
 
-export function renderCategoryTiles(counts={},selected='All',{attribute='data-item-tag',label='Item categories',groups=false,iconOnly=false}={}){
+export function renderCategoryTiles(counts={},selected='All',{attribute='data-item-tag',label='Item categories',groups=false,iconOnly=false,groupClass='item-group-buttons'}={}){
  const total=Object.values(counts).reduce((sum,value)=>sum+Number(value||0),0);
  if(total===0)return '';
  const categories=[...ITEM_TAG_OPTIONS,...Object.keys(counts).filter(tag=>!ITEM_TAG_OPTIONS.includes(tag)&&tag!=='All')].filter(tag=>Number(counts[tag]||0)>0);
  const visible=visibleInventoryCategory(counts,selected);
- const groupsMarkup=groups?'<nav class="item-group-buttons" aria-label="Item groups">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).filter(([,tags])=>tags.some(tag=>Number(counts[tag]||0)>0)).map(([name])=>'<button type="button" '+attribute+'="'+name+'" aria-pressed="'+(visible===name)+'">'+escape(name)+'</button>').join('')+'</nav>':'';
+ const groupsMarkup=groups?'<nav class="'+escape(groupClass)+'" aria-label="Item groups">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).filter(([,tags])=>tags.some(tag=>Number(counts[tag]||0)>0)).map(([name])=>'<button type="button" '+attribute+'="'+name+'" aria-pressed="'+(visible===name)+'">'+escape(name)+'</button>').join('')+'</nav>':'';
  return groupsMarkup+'<nav class="item-category-tiles'+(iconOnly?' item-category-icon-only':'')+'" aria-label="'+escape(label)+'">'
   +'<button type="button" class="item-category-all" '+attribute+'="All" aria-pressed="'+(visible==='All')+'" aria-label="All inventory items" title="All items"><span aria-hidden="true">▦</span>'+(iconOnly?'':'<strong>All</strong>')+'<small>'+total+'</small></button>'
   +categories.map(tag=>'<button type="button" '+attribute+'="'+escape(tag)+'" aria-pressed="'+(visible===tag)+'" aria-label="'+escape(tag)+'" title="'+escape(tag)+'"><span aria-hidden="true">'+itemCategorySymbol(tag)+'</span>'+(iconOnly?'':'<span>'+escape(tag)+'</span>')+'<small>'+Number(counts[tag]||0)+'</small></button>').join('')
