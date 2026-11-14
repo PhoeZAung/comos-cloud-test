@@ -32,7 +32,18 @@ try{
  await page.goto('http://127.0.0.1:'+server.address().port);
  await page.waitForFunction(()=>typeof window.start==='function');
  await page.evaluate(()=>window.start());
- await page.waitForSelector('[data-catalog-item="'+paid+'"]');
+ try{await page.waitForSelector('[data-catalog-item="'+paid+'"]',{timeout:5000});}
+ catch(error){
+  console.error('Picker diagnostics',JSON.stringify({
+   pageErrors:errors,
+   dialogVisible:await page.locator('.cs-catalog-picker').count(),
+   pickerStatus:await page.locator('[data-picker-status]').allTextContents(),
+   tabs:await page.locator('[data-picker-source]').allTextContents(),
+   renderedRows:await page.locator('[data-catalog-item]').count(),
+   html:await page.locator('.cs-catalog-picker').first().innerHTML().catch(()=>null)
+  },null,2));
+  throw error;
+ }
  assert.equal(await page.locator('[data-catalog-purchase]:visible').count(),0,'browse rows must not expose purchase controls until an item is clicked');
  await page.locator('[data-catalog-item="'+paid+'"]').click();
  await page.locator('.cs-catalog-preview[open]').waitFor();

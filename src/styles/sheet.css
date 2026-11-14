@@ -329,3 +329,8 @@ html[data-notes-electric="true"] .cs-notes-electric::before{background:conic-gra
 html[data-notes-electric="true"] .cs-notes-electric::after{inset:-6px;background:conic-gradient(from var(--electric-angle,0deg),transparent 15%,var(--accent) 29%,transparent 38%,transparent 63%,#f5f7ff 75%,transparent 83%);filter:blur(13px);opacity:.65;animation:cs-electric-spin 5s linear infinite reverse}
 @keyframes cs-electric-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){html[data-notes-electric="true"] .cs-notes-electric::before,html[data-notes-electric="true"] .cs-notes-electric::after{animation:none;opacity:.25}}
+
+
+.cs-shop-source-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.cs-inventory-group-filters{display:flex;flex-wrap:wrap;gap:4px}
+.cs-source-field-row{display:grid;gap:8px}

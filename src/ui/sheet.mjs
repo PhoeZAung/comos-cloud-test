@@ -1,3 +1,5 @@
+import {SHOP_SOURCES,shopSourceForItem} from '../features/sheet/shop-sources.mjs';
+import {sourceCategorySuggestions} from '../features/sheet/source-categories.mjs';
 import {npcStatLabels,npcTextLabels,npcStatGroups,npcTextGroups} from '../features/characters/npc-stat-block.mjs';
 import {effectTypes,effectType} from '../features/sheet/effect-types.mjs';
 import {combatVerdict} from '../features/sheet/combat-verdict.mjs';
@@ -20,7 +22,7 @@ import {preferences} from './preferences.mjs';
 import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel,damageTypeLine,weaponDamageAbilities,weaponDamageStyles,weaponDamageFormulas} from '../features/sheet/calculations.mjs';
-import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,usableItemImageUrl,normalizeInventoryText} from '../features/sheet/inventory-fields.mjs';
+import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,inventorySourceFields,usableItemImageUrl,normalizeInventoryText} from '../features/sheet/inventory-fields.mjs';
 import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
 import {applyRichFormat,formatSheetText} from '../features/sheet/rich-text.mjs';
@@ -35,13 +37,14 @@ const groupFields={
 };
 const labels={uncanny_dodge:'Uncanny Dodge',spell_failure:'Armor spell failure override (%)',npcAttackBonus:'Attack bonus',bonus:'Skill bonus',two_handed:'Two-handed (reserves both hands)',mp_cost:'MP Amount (blank = spell level)',casting_ability:'Casting ability',caster_level:'Caster level override',dc_misc:'Save DC adjustment',mp_adjustment:'MP cost adjustment',save_dc_override:'Save DC override (exact value)',attack_bonus_override:'Total attack bonus override',dc_formula:'Save DC formula',uses_formula:'Usage formula',damage:'Dice Roll',str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',speed_mod:'Speed Mod (ft)',speed_burrow:'Burrow (ft)',speed_climb:'Climb (ft)',speed_fly:'Fly (ft)',speed_swim:'Swim (ft)',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Manual Armor (fallback without equipped armor)',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Legacy capacity',capacity_modifier:'Capacity modifier (lb, +/-)',capacity_body_type:'Body type',carried:'Carried (counts toward weight)',weight:'Weight (lb)',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',effect:'Effect',save_type:'Saving throw',save_success:'Successful save',save_success_damage:'Alternate successful-save damage',ability_kind:'Ability category',dr_bypass:'DR bypass properties',sr_bonus:'Spell penetration bonus',favored_class_options:'Favored class options',link:'Link (URL)',action_type:'Action type',damage_types:'Damage Type',misfire:'Misfire',u_curr:'Uses',u_max:'Max Usage',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Ability Mod',extra_damage:'Extra damage (not multiplied on crit)',attack_misc:'Attack bonus',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
 const readable=k=>labels[k]||k.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
+const safeItemReference=value=>{try{const url=new URL(value);return ['https:','http:'].includes(url.protocol)&&!url.username&&!url.password?url.href:'';}catch{return '';}};
 const textKeys=new Set(['name','desc','effect','misfire','action_type','damage','extra_damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','dr_bypass','at_higher_lvls','subName','languages','senses','resistances','proficiencies','favored_class_options','link','dc_formula','uses_formula']);
 const boolKeys=new Set(['cs','equipped','two_handed','restoreOnLongRest','carried']);
 function richEditor(key,value,label,maxLength=12000){
  const controls=[['bold','Bold','B'],['italic','Italic','I'],['heading','Heading','H'],['bullet','Bullet list','•'],['left','Align left','L'],['center','Center','≣'],['right','Align right','R']];
  return '<div class="cs-field cs-field-wide cs-rich-field" data-rich-editor><div class="cs-rich-heading"><label for="cs-rich-'+key+'">'+label+'</label><details class="cs-rich-tools"><summary aria-label="Show formatting tools for '+label+'" title="Show formatting tools">☷</summary><div class="cs-rich-toolbar" role="toolbar" aria-label="'+label+' formatting">'+controls.map(([command,title,glyph])=>'<button type="button" data-rich-format="'+command+'" title="'+title+'" aria-label="'+title+'">'+glyph+'</button>').join('')+'</div></details></div><textarea id="cs-rich-'+key+'" name="'+key+'" rows="5" maxlength="'+maxLength+'">'+e(value||'')+'</textarea></div>';
 }
-function field(key,value,{weapon=false,item=false,longDescription=false}={}){
+function field(key,value,{weapon=false,item=false,longDescription=false,source='cosmos'}={}){
  if(key==='capacity_body_type')return '<label class="cs-field"><span>Body type</span><select name="capacity_body_type"><option value="biped"'+(value!=='quadruped'?' selected':'')+'>Biped</option><option value="quadruped"'+(value==='quadruped'?' selected':'')+'>Quadruped</option></select></label>';
  if(key==='carried')return '<label class="cs-checkbox"><input type="checkbox" name="carried" '+(value!==false?'checked':'')+'><span>Carried (counts toward weight)</span></label>';
  if(key==='ability_kind')return '<label class="cs-field"><span>Ability category</span><select name="ability_kind">'+Object.entries(abilityKinds).map(([id,label])=>'<option value="'+id+'"'+((value||'other')===id?' selected':'')+'>'+label+'</option>').join('')+'</select><small class="cs-caption">Sp = spell-like (SR); Su = supernatural (no SR); Ex = extraordinary (no SR).</small></label>';
@@ -56,6 +59,9 @@ function field(key,value,{weapon=false,item=false,longDescription=false}={}){
  if(key==='uncanny_dodge')return '<label class="cs-field"><span>Uncanny Dodge</span><select name="uncanny_dodge">'+[['auto','Automatic'],['on','On'],['off','Off']].map(([option,name])=>'<option value="'+option+'"'+((value||'auto')===option?' selected':'')+'>'+name+'</option>').join('')+'</select></label>';
  if(key==='damage_types'){const chosen=selectedDamageTypes(value);return '<fieldset class="cs-field cs-field-wide cs-damage-tags"><legend>Damage Type</legend><div data-damage-tags>'+chosen.map(type=>damageTag(type)).join('')+'</div><select data-add-damage-type aria-label="Add damage type"><option value="">Add damage type…</option>'+damageTypes.map(type=>'<option'+(chosen.includes(type)?' disabled':'')+'>'+type+'</option>').join('')+'</select></fieldset>';}
 
+ if(item&&key==='shopSource')return '<label class="cs-field"><span>Item source</span><select name="shopSource">'+SHOP_SOURCES.map(s=>'<option value="'+s.id+'"'+(shopSourceForItem({shopSource:value})===s.id?' selected':'')+'>'+e(s.label)+'</option>').join('')+'</select></label>';
+ if(item&&key==='sourceCategoryDetail')return '<label class="cs-field cs-field-wide"><span>Original website category</span><input name="sourceCategoryDetail" list="cs-source-categories" maxlength="160" value="'+e(value||'')+'" placeholder="e.g. Weapons — Simple"><datalist id="cs-source-categories">'+sourceCategorySuggestions(source).map(label=>'<option value="'+e(label)+'"></option>').join('')+'</datalist></label>';
+ if(item&&key==='link')return '<label class="cs-field cs-field-wide"><span>Item source link (URL)</span><input name="link" type="url" maxlength="2048" autocomplete="off" placeholder="https://..." value="'+e(value||'')+'"></label>';
  if(key==='img'&&item)return '<label class="cs-field"><span>Image URL (optional)</span><input type="text" name="img" maxlength="2048" autocomplete="off" value="'+e(usableItemImageUrl(value))+'" placeholder="https://example.com/image.png"><small class="cs-caption">Unsupported links are ignored when saving.</small></label>';
  if(key==='rarity'){const options=['','Common','Uncommon','Rare','Epic','Legendary'],selected=normalizeInventoryText(value,key);return '<label class="cs-field"><span>Rarity</span><select name="rarity">'+(selected&&!options.includes(selected)?'<option value="'+e(selected)+'" selected>Imported: '+e(selected)+'</option>':'')+options.map(v=>'<option value="'+v+'"'+(v===selected?' selected':'')+'>'+(v||'—')+'</option>').join('')+'</select></label>';}
  if(key==='sourceCategory')return '<label class="cs-field cs-field-wide cs-tag-editor"><span>Item Tag / Shop Category</span><div><span data-category-icon aria-hidden="true">'+itemCategorySymbol(value)+'</span><select name="sourceCategory" aria-label="Item Tag / Shop Category">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).map(([group,tags])=>'<optgroup label="'+(group==='Other'?'Older Items':group)+'">'+tags.map(tag=>'<option value="'+tag+'"'+(value===tag?' selected':'')+'>'+tag+'</option>').join('')+'</optgroup>').join('')+'</select></div></label>';
@@ -223,14 +229,28 @@ function mountCharacterSheet(tabs,switchTo){
    damage.textContent=(effect.ability?effect.ability.toUpperCase():'None')+': '+signed(effect.abilityBonus);
   }catch{attack.textContent='—';damage.textContent='—';}
  }
+ function sourceFieldsFromEditor(){
+  const fields=Object.create(null);
+  for(const row of root.querySelectorAll('[data-source-field-row]')){
+   const key=row.querySelector('[data-source-field-name]')?.value.trim();
+   const value=row.querySelector('[data-source-field-value]')?.value??'';
+   if(key&&key.length<=100)fields[key]=value;
+  }
+  return fields;
+ }
+ function sourceFieldsEditor(values){
+  const fields=inventorySourceFields(values);
+  const row=(label,value)=>'<div class="cs-source-field-row" data-source-field-row><label class="cs-field"><span>Original column name</span><input data-source-field-name maxlength="100" value="'+e(label)+'"></label><label class="cs-field cs-field-wide"><span>Value</span><textarea data-source-field-value rows="2" maxlength="12000">'+e(value)+'</textarea></label><button class="button" type="button" data-remove-source-field aria-label="Remove source field">Remove</button></div>';
+  return '<fieldset class="cs-editor-group cs-inventory-field-group"><legend>Original source columns</legend><p class="cs-caption">Preserves the original column names and content, including source-specific stats. The catalog snapshot stays unchanged.</p><div data-source-fields>'+Object.entries(fields).map(([k,v])=>row(k,v)).join('')+'</div><button type="button" class="button" data-add-source-field>Add source field</button></fieldset>';
+ }
  function renderEntryFields(keys,values,collection){
   if(collection==='npcStats')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field"><span>${npcStatLabels[key]}</span><input name="${key}" type="number" step="${key==='cr'?'any':'1'}" value="${e(values[key]??'')}"></label>`).join('')+'</div>';
   if(collection==='npcHealth')return '<div class="cs-form-grid">'+keys.map(key=>'<label class="cs-field"><span>'+e(readable(key))+'</span><input type="number" name="'+key+'" step="1" value="'+e(values[key]??'')+'" placeholder="Not set"></label>').join('')+'</div>';
   if(collection==='npcText')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field cs-field-wide"><span>${npcTextLabels[key]}</span><textarea name="${key}" rows="2" maxlength="4000">${e(values[key]??'')}</textarea></label>`).join('')+'</div>';
-  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{weapon:collection==='weapons',item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
+  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons',item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
   if(collection==='items'){
    const parts=inventoryEditorFields(values.sourceCategory||'Misc'),group=(title,keys)=>'<fieldset class="cs-editor-group cs-inventory-field-group"><legend>'+e(title)+'</legend>'+keys.map(render).join('')+'</fieldset>';
-   return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',[...parts.common.map(([,key])=>key),...(parts.allowTwoHanded?['two_handed']:[]),'carried'])+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
+   return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',[...parts.common.map(([,key])=>key),...(parts.allowTwoHanded?['two_handed']:[]),'carried'])+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+sourceFieldsEditor(values)+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
   }
   if(collection==='weapons'&&keys.includes('npcAttackBonus'))return '<div class="cs-form-grid cs-weapon-editor">'+keys.map(render).join('')+'<p class="cs-caption">Special on-hit weapon saves are GM-managed; they do not cancel normal weapon damage.</p></div>';
   if(collection==='weapons')return '<div class="cs-form-grid cs-weapon-editor">'+render('name')+'<fieldset class="cs-editor-group"><legend>Attack Roll</legend>'+['attack_type','ability_mod','attack_misc','range','misfire'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Damage</legend>'+['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Special on-hit save (manual)</legend>'+['saving_throw','save_type','save_success','save_dc_override'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Carried weight</legend>'+['weight','amount','carried'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>'+render('desc')+'</div>';
@@ -346,7 +366,7 @@ function mountCharacterSheet(tabs,switchTo){
   remove.dataset.removeEntry=collection+':'+index;
   remove.setAttribute('aria-label','Remove '+String(item.name||'Unnamed')+' from inventory');
   const facts=inventoryItemDetails(item).filter(([label])=>label!=='Cost');
-  popup.querySelector('[data-item-details]').innerHTML=facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>':'';
+  popup.querySelector('[data-item-details]').innerHTML=facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+(label==='Source link'&&safeItemReference(value)?'<a href="'+e(safeItemReference(value))+'" target="_blank" rel="noopener noreferrer">View source</a>':e(value))+'</dd></div>').join('')+'</dl>':'';
   popup.querySelector('[data-item-description-text]').innerHTML=formatSheetText(String(item.desc||item.description||'').trim()||'No description.');
   const special=popup.querySelector('[data-item-special]');special.hidden=!String(item.special||'').trim();special.innerHTML=item.special?'<h3>Special</h3><p>'+e(item.special)+'</p>':'';
   popup.showModal();
@@ -441,6 +461,16 @@ function mountCharacterSheet(tabs,switchTo){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
+   if(button.matches('[data-add-source-field]')){
+    const area=root.querySelector('[data-source-fields]');
+    if(area&&area.children.length<100){
+     const row=document.createElement('div');row.className='cs-source-field-row';row.dataset.sourceFieldRow='';
+     row.innerHTML='<label class="cs-field"><span>Original column name</span><input data-source-field-name maxlength="100"></label><label class="cs-field cs-field-wide"><span>Value</span><textarea data-source-field-value rows="2" maxlength="12000"></textarea></label><button type="button" class="button" data-remove-source-field>Remove</button>';
+     area.append(row);row.querySelector('input').focus();dirty=true;
+    }
+    return;
+   }
+   if(button.matches('[data-remove-source-field]')){button.closest('[data-source-field-row]')?.remove();dirty=true;return;}
    if(button.closest('[data-item-description-dialog]')&&button.matches('[data-edit-entry],[data-remove-entry],[data-favorite]'))itemDescriptionDialog()?.close();
    if(button.matches('[data-add-sheet]')){
     if(!canOpenTabs()||openPicker())return;
@@ -653,7 +683,8 @@ function mountCharacterSheet(tabs,switchTo){
    }
    if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
-  const fields={};for(const key of dialogState.keys){if(key==='damage_types'){fields[key]=new FormData(event.target).getAll(key);continue;}const node=event.target.elements[key];if(dialogState.change.action==='npcStats'||dialogState.change.action==='npcText'){fields[key]=node.value;continue;}if(dialogState.change.collection==='npcHealth'){fields[key]=node.value===''?null:Number(node.value);continue;}if(['caster_level','mp_cost','spell_failure','save_dc_override','attack_bonus_override'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
+  const fields={};for(const key of dialogState.keys){if(key==='damage_types'){fields[key]=new FormData(event.target).getAll(key);continue;}const node=event.target.elements[key];if(dialogState.change.action==='npcStats'||dialogState.change.action==='npcText'){fields[key]=node.value;continue;}if(dialogState.change.collection==='npcHealth'){fields[key]=node.value===''?null:Number(node.value);continue;}if(dialogState.change.collection==='items'){fields[key]=boolKeys.has(key)?node.checked:['weight','amount'].includes(key)?Number(node.value):node.value;continue;}if(['caster_level','mp_cost','spell_failure','save_dc_override','attack_bonus_override'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
+  if(dialogState.change.collection==='items')fields.sourceFields=sourceFieldsFromEditor();
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
@@ -692,13 +723,14 @@ function mountCharacterSheet(tabs,switchTo){
    if(event.target.matches('[data-sheet-portrait]')){const file=event.target.files?.[0];if(!file)return;if(busy||conflict){status('Save or refresh before changing the portrait.');return;}status('Preparing portrait…');void processPicture(file).then(portrait=>save({op:'wizard',step:'identity',fields:{charName:character.name,alignment:character.data.alignment||'',bio:character.data.bio||'',portrait}})).catch(err=>status(err.message));return;}
   if(event.target.matches('[data-sheet-background]')){void save({action:'fields',fields:{sheet_background_enabled:event.target.checked}});return;}
   if(event.target.matches('[data-spell-ability]')){void save({action:'fields',fields:{spell_dc_base:event.target.value}});return;}
-  if(event.target.matches('[name=sourceCategory]')){
+  if(event.target.matches('[name=sourceCategory],[name=shopSource]')){
    const select=event.target,dialogFields=root.querySelector('[data-dialog-fields]');
    if(dialogState?.change?.collection==='items'){
     const oldFields=Object.fromEntries(new FormData(root.querySelector('[data-sheet-form]')).entries());
     for(const [key,value] of Object.entries(oldFields))dialogState.values[key]=value;
     const twoHanded=root.querySelector('[name=two_handed]');if(twoHanded)dialogState.values.two_handed=twoHanded.checked;
-    dialogState.values.sourceCategory=select.value;dialogState.keys=inventoryEditorKeys(select.value);
+    dialogState.values.sourceFields=sourceFieldsFromEditor();
+   dialogState.values[select.name]=select.value;dialogState.keys=inventoryEditorKeys(dialogState.values.sourceCategory);
     dialogFields.innerHTML=renderEntryFields(dialogState.keys,dialogState.values,'items');
     dirty=true;status('Unsaved changes');
    }else root.querySelector('[data-category-icon]').textContent=itemCategorySymbol(select.value);

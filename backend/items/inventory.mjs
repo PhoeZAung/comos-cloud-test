@@ -1,3 +1,4 @@
+import {shopSourceForItem} from '../../src/features/sheet/shop-sources.mjs';
 import {inventoryEditorKeys,inventoryItemValue,usableItemImageUrl} from '../../src/features/sheet/inventory-fields.mjs';
 
 export function catalogInventoryItem(item,quantity){
@@ -16,5 +17,7 @@ export function catalogInventoryItem(item,quantity){
  }
  return {...mapped,name:item.name,desc:item.description,sourceCategory:item.category,tags:item.category,amount:quantity,
   equipped:false,equip_slot:'',sourceItemId:item.id,sourceOriginalId:catalog.id||'',sourceCatalog:catalog,
-  details:catalog.details||[],cost:item.costText||mapped.cost||'',link:catalog.sourceUrl||'',...(catalog.dmg?{damage:catalog.dmg}:{})};
+  details:catalog.details||[],cost:item.costText||mapped.cost||'',shopSource:shopSourceForItem(item),
+  sourceCategoryDetail:catalog.sourceCategoryDetail||catalog.sourceCategory||catalog.originalCategory||catalog.sourceSection||'',
+  link:catalog.detailUrl||catalog.sourceUrl||'',...(catalog.dmg?{damage:catalog.dmg}:{})};
 }
