@@ -1,6 +1,7 @@
 import {catalogKey,shopCatalogChoiceLabel} from '../features/sheet/shop-catalogs.mjs';
 import {renderCategoryTiles,itemCategorySymbol} from '../features/sheet/item-categories.mjs';
 import {renderCatalogPreview,formatGil,catalogPurchaseTotal} from '../features/sheet/catalog-shop-preview.mjs';
+import {shopUnitPriceGil} from '../features/sheet/shop-pricing.mjs';
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 async function get(path,signal){
@@ -9,12 +10,12 @@ async function get(path,signal){
  if(!response.ok)throw Error(data.message||({401:'Sign in to Cosmos first.',404:'Item unavailable.',429:'Try again soon.'})[response.status]||'Could not load this item.');
  return data;
 }
-export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCustom,getBalance}){
- const dialog=document.createElement('dialog'),preview=document.createElement('dialog');
+export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCustom,getBalance,pricingMode=null}){
+ const dialog=document.createElement('dialog'),preview=document.createElement('dialog'),shopDialog=document.createElement('dialog');
  dialog.className='cs-dialog cs-picker cs-catalog-picker';
  dialog.setAttribute('aria-label','Add an item');
  dialog.innerHTML='<header><h2>Item catalog</h2><button class="cs-icon" type="button" data-picker-close aria-label="Close">×</button></header>'+
- '<div class="cs-catalog-shop-controls"><div class="cs-catalog-toolbar"><button type="button" class="button cs-shop-trigger" data-picker-shop-toggle aria-controls="cs-picker-shop-options" aria-expanded="false">Choose Shop <span data-picker-shop-count></span><span aria-hidden="true">⌄</span></button><button type="button" class="button cs-custom-trigger" data-custom-item>+ Custom Item</button></div><div class="cs-catalog-source-picker" data-picker-shop-panel id="cs-picker-shop-options" hidden><div class="cs-shop-popup-heading"><strong>Shops</strong><button type="button" class="button" data-picker-shop-done>Done</button></div><nav class="cs-shop-source-tabs" aria-label="Select shops" data-picker-sources></nav></div></div>'+  
+ '<div class="cs-catalog-shop-controls"><div class="cs-catalog-toolbar"><button type="button" class="button cs-shop-trigger" data-picker-shop-toggle aria-haspopup="dialog" aria-controls="cs-picker-shop-options" aria-expanded="false">Choose Shop <span data-picker-shop-count></span><span aria-hidden="true">⌄</span></button><button type="button" class="button cs-custom-trigger" data-custom-item>+ Custom Item</button></div></div>'+   
  '<div data-picker-categories></div>'+
  '<form class="cs-picker-search"><input name="q" aria-label="Search items" placeholder="Search items" maxlength="80"><button class="button">Search</button></form>'+
  '<div class="cs-picker-list cs-catalog-list" data-picker-list></div>'+
@@ -27,21 +28,25 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  '<div class="cs-catalog-amount"><span>Amount</span><strong data-catalog-total>—</strong><small data-catalog-unit></small></div></div>'+
  '<p class="cs-catalog-balance" data-catalog-balance></p><div data-catalog-description></div>'+
  '<p role="status" data-catalog-feedback></p><footer class="cs-catalog-actions"><button type="button" class="button" data-catalog-back>Back to items</button><button type="submit" class="button primary" data-catalog-confirm>Buy</button></footer></form></div>';
- root.append(dialog,preview);
+ shopDialog.id='cs-picker-shop-options';
+ shopDialog.className='cs-dialog cs-shop-tag-dialog';
+ shopDialog.setAttribute('aria-labelledby','cs-picker-shop-title');
+ shopDialog.innerHTML='<header><h2 id="cs-picker-shop-title">Choose Shops</h2><button type="button" class="cs-icon" data-picker-shop-cancel aria-label="Close shops">×</button></header><p class="cs-caption">Choose one or more catalogs</p><nav class="cs-shop-source-tabs" aria-label="Shop tags" data-picker-sources></nav><footer><button class="button primary" type="button" data-picker-shop-done>Done</button></footer>';
+ root.append(dialog,preview,shopDialog);
  const request=new AbortController();
- const dispose=()=>{request.abort();if(preview.open)preview.close();preview.remove();dialog.remove();signal.removeEventListener('abort',dispose);};
+ const dispose=()=>{request.abort();if(shopDialog.open)shopDialog.close();if(preview.open)preview.close();shopDialog.remove();preview.remove();dialog.remove();signal.removeEventListener('abort',dispose);};
  dialog.addEventListener('close',dispose,{once:true});
  signal.addEventListener('abort',dispose,{once:true});
  const list=dialog.querySelector('[data-picker-list]'),status=dialog.querySelector('[data-picker-status]');
  const categories=dialog.querySelector('[data-picker-categories]'),next=dialog.querySelector('[data-picker-next]');
- const shopPanel=dialog.querySelector('[data-picker-shop-panel]'),shopToggle=dialog.querySelector('[data-picker-shop-toggle]');
- const setShopPopup=open=>{shopPanel.hidden=!open;shopToggle.setAttribute('aria-expanded',String(open));};
+ const shopPanel=shopDialog,shopToggle=dialog.querySelector('[data-picker-shop-toggle]');
+ const setShopPopup=open=>{if(open&&!shopPanel.open){chosen=new Set(appliedChosen);shopPanel.returnValue='';paintSources();shopPanel.showModal();}else if(!open&&shopPanel.open)shopPanel.close();shopToggle.setAttribute('aria-expanded',String(open));};
  const form=preview.querySelector('[data-catalog-purchase]'),input=form.elements.quantity,confirm=form.querySelector('[data-catalog-confirm]'),feedback=preview.querySelector('[data-catalog-feedback]');
- let catalogs=[],chosen=new Set(),counts={},items=[],selected=null,category='All',query='',cursor=null,busy=false,requestId=null,selectionVersion=0;
- const priceText=item=>item.priceGil===null?(item.costText?String(item.costText)+' · no Gil price':'No fixed price'):formatGil(item.priceGil);
- const paintSources=()=>{dialog.querySelector('[data-picker-sources]').innerHTML=catalogs.map(source=>'<button type="button" class="button" data-picker-catalog="'+esc(source.id)+'" title="'+esc(source.label)+'" aria-pressed="'+chosen.has(source.id)+'"><span>'+esc(shopCatalogChoiceLabel(source,catalogs))+'</span><small>'+Number(source.count||0).toLocaleString()+'</small></button>').join('');dialog.querySelector('[data-picker-shop-count]').textContent=chosen.size?' ('+chosen.size+')':'';};
- const selectedParams=()=>{const params=new URLSearchParams();for(const id of chosen)params.append('catalog',id);return params;};
- const loadCounts=async()=>{if(!chosen.size)return;const version=selectionVersion,params=selectedParams();const result=await get('/api/v1/item-catalog/categories?'+params,request.signal);if(!dialog.open||version!==selectionVersion)return;counts=Object.fromEntries(result.categories.map(row=>[row.category,row.count]));paintCategories();};
+ let catalogs=[],chosen=new Set(),appliedChosen=new Set(),counts={},items=[],selected=null,category='All',query='',cursor=null,busy=false,queuedLoad=false,requestId=null,selectionVersion=0;
+ const priceText=item=>{const unit=shopUnitPriceGil(item,pricingMode);return unit===null?(item.costText?String(item.costText)+' · no Gil price':'No fixed price'):formatGil(unit);};
+ const paintSources=()=>{shopPanel.querySelector('[data-picker-sources]').innerHTML=catalogs.map(source=>'<button type="button" class="button" data-picker-catalog="'+esc(source.id)+'" title="'+esc(source.label)+'" aria-pressed="'+chosen.has(source.id)+'"><span>'+esc(shopCatalogChoiceLabel(source,catalogs))+'</span><small>'+Number(source.count||0).toLocaleString()+'</small></button>').join('');dialog.querySelector('[data-picker-shop-count]').textContent=appliedChosen.size?' ('+appliedChosen.size+')':'';};
+ const selectedParams=()=>{const params=new URLSearchParams();for(const id of appliedChosen)params.append('catalog',id);return params;};
+ const loadCounts=async()=>{if(!appliedChosen.size)return;const version=selectionVersion,params=selectedParams();const result=await get('/api/v1/item-catalog/categories?'+params,request.signal);if(!dialog.open||version!==selectionVersion)return;counts=Object.fromEntries(result.categories.map(row=>[row.category,row.count]));paintCategories();};
  const paintCategories=()=>{categories.innerHTML=renderCategoryTiles(counts,category,{attribute:'data-picker-category',label:'Item categories',groups:false,iconOnly:true});};
  function updateAmount(){
   if(!selected)return;
