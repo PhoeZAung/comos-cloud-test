@@ -273,7 +273,7 @@ function calculationDetails(row,data,key){
 }
 
 export function renderItemCategories(data,selected='All'){
- return renderCategoryTiles(inventoryCategoryCounts(data.items),selected,{label:'Inventory categories',groups:false,iconOnly:true});
+ return renderCategoryTiles(inventoryCategoryCounts(data.items),selected,{label:'Inventory categories',groups:true,iconOnly:true});
 }
 export function renderSpellLevels(data,selected='all'){
  return '<nav class="cs-spell-levels" role="tablist" aria-label="Spell levels"><button type="button" role="tab" tabindex="'+(selected==='all'?'0':'-1')+'" aria-selected="'+(selected==='all')+'" data-spell-level="all"><strong>All spells</strong><span>'+(data.spells||[]).length+' spells</span><small>All levels</small></button>'+Array.from({length:10},(_,level)=>{const rows=(data.spells||[]).filter(r=>levelOf(r.lvl)===level),calc=entryCalculations({lvl:level},data,'spells');return '<button type="button" role="tab" tabindex="'+(selected===level?'0':'-1')+'" aria-selected="'+(selected===level)+'" data-spell-level="'+level+'"><strong>'+(level===0?'Cantrip':'Level '+level)+'</strong><span>'+rows.length+' · DC '+(calc.dc??'—')+'</span><small>'+level+' MP</small></button>';}).join('')+'</nav>';
