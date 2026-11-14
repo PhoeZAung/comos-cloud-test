@@ -1,16 +1,18 @@
+import {SHOP_ITEM_CATEGORY_GROUPS} from '../../src/features/sheet/item-categories.mjs';
+import {shopSourceForItem,shopSourceSql,isShopSource} from '../../src/features/sheet/shop-sources.mjs';
 import {gilUnits} from './catalog.mjs';
 const invalid=message=>Object.assign(new Error(message),{code:'INVALID_ITEM'});
 const conflict=()=>Object.assign(new Error('This item changed. Reload before saving.'),{code:'REVISION_CONFLICT'});
 const validId=id=>typeof id==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
-const record=row=>row?{id:row.id,name:row.name,sourceId:row.source_id,sourceVersion:row.source_version,category:row.category,archived:Boolean(row.archived),schemaVersion:row.schema_version,revision:row.revision,createdAt:row.created_at,updatedAt:row.updated_at,priceGil:row.price_units===null?null:row.price_units/100,costText:row.cost_text||'',...('description' in row?{description:row.description,catalog:JSON.parse(row.catalog_json||'{}')}:{})}:null;
+const record=row=>row?{id:row.id,name:row.name,sourceId:row.source_id,sourceVersion:row.source_version,category:row.category,shopSource:shopSourceForItem({sourceId:row.source_id}),archived:Boolean(row.archived),schemaVersion:row.schema_version,revision:row.revision,createdAt:row.created_at,updatedAt:row.updated_at,priceGil:row.price_units===null?null:row.price_units/100,costText:row.cost_text||'',...('description' in row?{description:row.description,catalog:JSON.parse(row.catalog_json||'{}')}:{})}:null;
 export function createItemsService(db){
  const get=id=>{if(!validId(id))throw invalid('Invalid item ID.');return record(db.prepare('SELECT * FROM items WHERE id=?').get(id));};
- function list({q='',sourceId='',cursor='',archived=false,category=''}={}){
-  if(typeof q!=='string'||q.length>80||typeof sourceId!=='string'||(sourceId&&!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(sourceId))||(cursor&&!validId(cursor))||typeof archived!=='boolean'||typeof category!=='string'||category.length>40)throw invalid('Invalid item search.');
+ function list({q='',sourceId='',shopSource='all',cursor='',archived=false,category=''}={}){
+  if(typeof q!=='string'||q.length>80||typeof sourceId!=='string'||(sourceId&&!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(sourceId))||(cursor&&!validId(cursor))||typeof archived!=='boolean'||typeof category!=='string'||category.length>60||!isShopSource(shopSource))throw invalid('Invalid item search.');
   const columns='id,name,source_id,source_version,category,archived,schema_version,revision,created_at,updated_at,price_units,cost_text';
-  const groups={Tools:['Gear','Food','Weapon','Ranged Weapon','Ammunition','Armor','Enchantment','Machine'],Magic:['Alchemical Items','Artifacts','Magic Items'],Other:['Collection','Misc']},categories=Object.hasOwn(groups,category)?groups[category]:[category];
-  const filter=(sourceId?' AND source_id=?':'')+(category?' AND category IN ('+categories.map(()=>'?').join(',')+')':'');
-  const params=[Number(archived),cursor,q,...(sourceId?[sourceId]:[]),...(category?categories:[])];
+  const categories=Object.hasOwn(SHOP_ITEM_CATEGORY_GROUPS,category)?SHOP_ITEM_CATEGORY_GROUPS[category]:[category];
+  const source=shopSourceSql(shopSource),filter=(sourceId?' AND source_id=?':'')+source.sql+(category?' AND category IN ('+categories.map(()=>'?').join(',')+')':'');
+  const params=[Number(archived),cursor,q,...(sourceId?[sourceId]:[]),...source.params,...(category?categories:[])];
   const rows=db.prepare(`SELECT ${columns} FROM items WHERE archived=? AND id>? AND instr(lower(name),lower(?))>0${filter} ORDER BY id LIMIT 21`).all(...params);
   return {items:rows.slice(0,20).map(record),nextCursor:rows.length>20?rows[19].id:null};
  }
@@ -46,6 +48,10 @@ export function createItemsService(db){
    const item=get(data.id);db.exec('COMMIT');return item;
   }catch(error){db.exec('ROLLBACK');throw error;}
  }
- const categories=()=>db.prepare('SELECT category,count(*) AS count FROM items WHERE archived=0 GROUP BY category ORDER BY category').all();
+ const categories=(shopSource='all')=>{
+  if(!isShopSource(shopSource))throw invalid('Invalid shop source.');
+  const source=shopSourceSql(shopSource);
+  return db.prepare('SELECT category,count(*) AS count FROM items WHERE archived=0'+source.sql+' GROUP BY category ORDER BY category').all(...source.params);
+ };
  return {get,list,save,categories};
 }
