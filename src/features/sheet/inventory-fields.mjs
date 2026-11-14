@@ -35,7 +35,7 @@ export function inventoryEditorKeys(category){
 }
 // Read legacy shop aliases without changing the saved schema until the user edits the field.
 const legacyAliases={
- shopSource:['sourceSystem','sourceId'],sourceCategoryDetail:['originalCategory','sourceCategoryOriginal','sourceSubcategory'],link:['sourceUrl','detailUrl','href','url'],
+ shopSource:['sourceSystem','sourceId'],sourceCategoryDetail:['originalCategory','sourceCategoryOriginal','sourceSubcategory'],link:['detailUrl','sourceUrl','href','url'],
  secondaryType:['filterTag','secondary type'],img:['image','imageUrl','imgUrl','image_url','image url','icon','picture'],cost:['priceGil','unitPriceGil','price'],
  weight:['weightLb','weight_lb','weightlbs','bulk'],cl:['casterLevel','caster level'],
  dmg:['damage','damageDice','damage_dice','dmgM','dmgS','damageM','damageS','damage (m)','attackDmg'],crit:['critical','crit_range','critRange'],
