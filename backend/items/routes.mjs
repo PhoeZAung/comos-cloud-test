@@ -20,7 +20,7 @@ export function createItemsRoutes({sessions,items,origin,adminUids=[],purchases=
      if(!purchases)throw Error('Purchases unavailable.');
      const change=await adminJson(req,12000);
      send(200,{receipt:purchases.purchase(session.user.id,change,{admin:false})});
-    }else if(id==='catalogs')send(200,{catalogs:items.listCatalogs()});
+    }else if(id==='catalogs')send(200,{catalogs:items.listCatalogs({playerView:true})});
     else if(id==='categories')send(200,{categories:items.categories('all',query.has('catalog')?query.getAll('catalog'):null)});
     else if(id){
      if(query.size){send(400,{error:'invalid_request'});return true;}

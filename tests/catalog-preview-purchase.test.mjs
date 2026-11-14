@@ -17,7 +17,7 @@ test('catalog preview prioritizes combat facts, description, one original link a
  assert.match(html,/<dt>Damage<\/dt><dd>1d8<\/dd>/);
  assert.match(html,/<dt>Critical<\/dt><dd>19–20\/x2<\/dd>/);
  assert.match(html,/<dt>Range<\/dt><dd>30 ft<\/dd>/);
- assert.match(html,/View original item/);
+ assert.match(html,/View item page/);
  assert.match(html,/<dt>Weight \(lb\)<\/dt><dd>1 lb<\/dd>/);
  assert.doesNotMatch(html,/Source:|Source category|Original source category|Item level|Bulk|Source \(Possible Spoilers\)|<dt>Type<\/dt>|<dt>Slot|<dt>Rarity/);
 });
@@ -63,10 +63,10 @@ test('irrelevant imported metadata never appears as gameplay facts but weight su
 test('FFd20 preview shows a derived Gil rate without changing the original Pathfinder cost',()=>{
  const sourceItem={name:'Healing Potion',sourceId:'pathfinder-shopping',priceGil:null,costText:'12 gp',description:'Restores health.',catalog:{sourceUrl:'https://www.aonprd.com/'}};
  const native=renderCatalogPreview(sourceItem);
- assert.match(native,/No Gil conversion configured/);
+ assert.doesNotMatch(native,/Original price|conversion configured|1 gp = 1 Gil/);
  const ffd20=renderCatalogPreview(sourceItem,{pricingMode:'ffd20-gp-to-gil-v1'});
- assert.match(ffd20,/Original price: <strong>12 gp<\/strong>/);
- assert.match(ffd20,/FFd20 shop: 1 gp = 1 Gil/);
+ assert.doesNotMatch(ffd20,/Original price/);
+ assert.doesNotMatch(ffd20,/FFd20 shop|1 gp = 1 Gil/);
  assert.equal(catalogPurchaseTotal({...sourceItem,priceGil:12},3),36);
  assert.equal(sourceItem.priceGil,null);
 });

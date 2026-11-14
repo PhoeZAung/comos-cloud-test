@@ -254,8 +254,8 @@ function mountCharacterSheet(tabs,switchTo){
    const parts=inventoryEditorFields(values.sourceCategory||'Misc'),group=(title,keys)=>'<fieldset class="cs-editor-group cs-inventory-field-group"><legend>'+e(title)+'</legend>'+keys.map(render).join('')+'</fieldset>';
    const imported=Boolean(values.sourceItemId||values.sourceCatalog||Object.keys(inventorySourceFields(values)).length);
    const hidden=new Set(['shopSource','sourceCategoryDetail','itemLevel','pf2eBulk','rarity','type','secondaryType']);
-   const common=parts.common.map(([,key])=>key).filter(key=>!hidden.has(key)&&(imported||key!=='link'));
-   return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',[...common,...(parts.allowTwoHanded?['two_handed']:[]),'carried'])+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+(imported?'<details class="cs-inventory-advanced-source"><summary>Advanced source columns</summary>'+sourceFieldsEditor(values)+'</details>':'')+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
+   const common=imported?parts.common.map(([,key])=>key).filter(key=>!hidden.has(key)):['amount','cost','weight'];
+   return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',[...common,...(imported&&parts.allowTwoHanded?['two_handed']:[]),...(imported?['carried']:[])])+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+(imported?'<details class="cs-inventory-advanced-source"><summary>Advanced source columns</summary>'+sourceFieldsEditor(values)+'</details>':'')+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
   }
   if(collection==='weapons'&&keys.includes('npcAttackBonus'))return '<div class="cs-form-grid cs-weapon-editor">'+keys.map(render).join('')+'<p class="cs-caption">Special on-hit weapon saves are GM-managed; they do not cancel normal weapon damage.</p></div>';
   if(collection==='weapons')return '<div class="cs-form-grid cs-weapon-editor">'+render('name')+'<fieldset class="cs-editor-group"><legend>Attack Roll</legend>'+['attack_type','ability_mod','attack_misc','range','misfire'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Damage</legend>'+['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Special on-hit save (manual)</legend>'+['saving_throw','save_type','save_success','save_dc_override'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Carried weight</legend>'+['weight','amount','carried'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>'+render('desc')+'</div>';
@@ -501,7 +501,7 @@ function mountCharacterSheet(tabs,switchTo){
    if(button.matches('[data-add-entry="items"]')){
     if(busy||conflict||openPicker())return;
     if(character.owned===false){editEntry('items',null);return;}
-    openInventoryPicker(root,{signal:control.signal,pricingMode:FFD20_SHOP_PRICE_MODE,onCustom:()=>editEntry('items',null),
+    openInventoryPicker(root,{signal:control.signal,shopSelectionKey:id,pricingMode:FFD20_SHOP_PRICE_MODE,onCustom:()=>editEntry('items',null),
      getBalance:()=>character?.data?.currency_gil??character?.data?.gil??0,
      onAdd:async(itemId,quantity)=>await save({action:'addCatalogItem',itemId,quantity})?'':root.querySelector('[data-sheet-status]')?.textContent||'Could not add item.',
      onBuy:async(item,quantity,requestId,pricingMode)=>{
@@ -519,7 +519,7 @@ function mountCharacterSheet(tabs,switchTo){
        if(closed)return;
        character=refreshed.character;itemTag='All';
        const url=new URL(location.href);url.searchParams.delete('itemTag');history.replaceState(null,'',url);
-       draw();status('Bought '+receipt.quantity+' × '+receipt.itemName+' for '+receipt.totalGil+' Gil. Remaining: '+receipt.remainingGil+' Gil.');
+       draw();status('Bought '+receipt.quantity+' × '+receipt.itemName+' for 🪙 '+receipt.totalGil+'. Remaining: 🪙 '+receipt.remainingGil+'.');
       }catch(error){if(!closed)status('Purchase completed. Refresh the sheet to see the item and updated Gil. '+error.message);}
      }});
     return;

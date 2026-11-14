@@ -457,3 +457,21 @@
 .cs-shop-tag-dialog .button[data-picker-catalog][aria-pressed="true"]>span::before{content:"✓ ";color:var(--accent)}
 .cs-shop-tag-dialog footer{display:flex;justify-content:flex-end;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
 .cs-shop-tag-dialog footer .button{min-height:38px;border-radius:9px;padding:8px 20px}
+
+
+/* Compact money/weight indicators in the shop. */
+.cs-shop-money{display:inline-flex;align-items:center;gap:3px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cs-shop-money>span[aria-hidden]{font-size:1.08em}
+.cs-shop-weight{display:block;color:var(--muted);font:11px/1.35 system-ui;margin-top:2px;white-space:nowrap}
+.cs-shop-balance-label{color:var(--muted);font-size:12px}
+.cs-catalog-row-price .cs-shop-money{font-weight:750}
+.cs-catalog-balance .cs-shop-money{font-size:1.04em;font-weight:700}
+/* The server receipt drives the count-down; nothing moves before a successful purchase. */
+.cs-shop-spend-feedback{box-sizing:border-box;position:fixed;z-index:2147483000;right:clamp(10px,3vw,30px);bottom:clamp(12px,4vh,40px);min-width:190px;max-width:min(330px,calc(100vw - 24px));padding:13px 18px;border:1px solid var(--accent);border-radius:13px;background:var(--surface);color:var(--text);box-shadow:0 15px 48px #0009;animation:cs-shop-spend-in .25s ease-out both;pointer-events:none}
+.cs-shop-spend-caption{font:600 11px/1.4 system-ui;letter-spacing:.055em;text-transform:uppercase;color:var(--muted)}
+.cs-shop-spend-line{display:flex;align-items:center;gap:10px;margin-top:3px;font:700 clamp(24px,5vw,32px)/1.2 system-ui;white-space:nowrap}
+.cs-shop-spend-line strong{font-variant-numeric:tabular-nums}
+.cs-shop-spend-deduction{color:#f09ca4;font:700 14px/1.4 system-ui;margin-top:4px;animation:cs-shop-spend-deduction .55s ease-out both}
+@keyframes cs-shop-spend-in{from{opacity:0;transform:translateY(15px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes cs-shop-spend-deduction{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.cs-shop-spend-feedback,.cs-shop-spend-deduction{animation:none!important}}

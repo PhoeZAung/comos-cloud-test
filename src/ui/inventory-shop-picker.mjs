@@ -2,15 +2,24 @@ import {catalogKey,shopCatalogChoiceLabel} from '../features/sheet/shop-catalogs
 import {renderCategoryTiles,itemCategorySymbol} from '../features/sheet/item-categories.mjs';
 import {renderCatalogPreview,formatGil,catalogPurchaseTotal} from '../features/sheet/catalog-shop-preview.mjs';
 import {shopUnitPriceGil} from '../features/sheet/shop-pricing.mjs';
+import {showShopSpendAnimation} from './shop-spend-animation.mjs';
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const moneyHtml=value=>{
+ const label=formatGil(value);
+ if(label==='Not priced')return esc(label);
+ return '<span class="cs-shop-money" aria-label="'+esc(label)+'"><span aria-hidden="true">🪙</span> '+esc(label.replace(/ Gil$/,''))+'</span>';
+};
+const weightHtml=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0?'<span class="cs-shop-weight">⚖️ '+esc(new Intl.NumberFormat('en-US',{maximumFractionDigits:4}).format(value))+' lb</span>':'';
+const rememberedShopTags=new WeakMap();
+const tagStorageKey=key=>key&&/^[0-9a-f-]{36}$/i.test(String(key))?'cosmos.shop.tags.'+key:null;
 async function get(path,signal){
  const response=await fetch(path,{credentials:'same-origin',cache:'no-store',signal});
  const data=await response.json();
  if(!response.ok)throw Error(data.message||({401:'Sign in to Cosmos first.',404:'Item unavailable.',429:'Try again soon.'})[response.status]||'Could not load this item.');
  return data;
 }
-export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCustom,getBalance,pricingMode=null}){
+export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCustom,getBalance,pricingMode=null,shopSelectionKey=null}){
  const dialog=document.createElement('dialog'),preview=document.createElement('dialog'),shopDialog=document.createElement('dialog');
  dialog.className='cs-dialog cs-picker cs-catalog-picker';
  dialog.setAttribute('aria-label','Add an item');
@@ -44,18 +53,37 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  const form=preview.querySelector('[data-catalog-purchase]'),input=form.elements.quantity,confirm=form.querySelector('[data-catalog-confirm]'),feedback=preview.querySelector('[data-catalog-feedback]');
  let catalogs=[],chosen=new Set(),appliedChosen=new Set(),counts={},items=[],selected=null,category='All',query='',cursor=null,busy=false,queuedLoad=false,requestId=null,selectionVersion=0;
  const priceText=item=>{const unit=shopUnitPriceGil(item,pricingMode);return unit===null?(item.costText?String(item.costText)+' · no Gil price':'No fixed price'):formatGil(unit);};
- const paintSources=()=>{shopPanel.querySelector('[data-picker-sources]').innerHTML=catalogs.map(source=>'<button type="button" class="button" data-picker-catalog="'+esc(source.id)+'" title="'+esc(source.label)+'" aria-pressed="'+chosen.has(source.id)+'"><span>'+esc(shopCatalogChoiceLabel(source,catalogs))+'</span><small>'+Number(source.count||0).toLocaleString()+'</small></button>').join('');dialog.querySelector('[data-picker-shop-count]').textContent=appliedChosen.size?' ('+appliedChosen.size+')':'';};
- const selectedParams=()=>{const params=new URLSearchParams();for(const id of appliedChosen)params.append('catalog',id);return params;};
+ const priceHtml=item=>{const unit=shopUnitPriceGil(item,pricingMode);return unit===null?esc(priceText(item)):moneyHtml(unit);};
+ const paintSources=()=>{shopPanel.querySelector('[data-picker-sources]').innerHTML=catalogs.map(source=>'<button type="button" class="button" data-picker-catalog="'+esc(source.id)+'" title="'+esc(shopCatalogChoiceLabel(source,catalogs))+'" aria-pressed="'+chosen.has(source.id)+'"><span>'+esc(shopCatalogChoiceLabel(source,catalogs))+'</span><small>'+Number(source.count||0).toLocaleString()+'</small></button>').join('');dialog.querySelector('[data-picker-shop-count]').textContent=appliedChosen.size?' ('+appliedChosen.size+')':'';};
+ const selectedParams=()=>{
+  const params=new URLSearchParams(),ids=new Set();
+  for(const choice of catalogs)if(appliedChosen.has(choice.id))for(const id of choice.catalogIds||[choice.id])ids.add(id);
+  for(const id of ids)params.append('catalog',id);
+  return params;
+ };
+ const rememberTags=()=>{
+  const selection=[...appliedChosen];rememberedShopTags.set(root,selection);
+  const key=tagStorageKey(shopSelectionKey);
+  if(key){try{localStorage.setItem(key,JSON.stringify(selection));}catch{}}
+ };
+ const restoreTags=()=>{
+  let selected=rememberedShopTags.get(root);
+  const key=tagStorageKey(shopSelectionKey);
+  if(!selected&&key){try{selected=JSON.parse(localStorage.getItem(key)||'[]');}catch{}}
+  const valid=new Set(catalogs.map(entry=>entry.id));
+  appliedChosen=new Set(Array.isArray(selected)?selected.filter(x=>typeof x==='string'&&valid.has(x)):[]);
+  chosen=new Set(appliedChosen);
+ };
  const loadCounts=async()=>{if(!appliedChosen.size)return;const version=selectionVersion,params=selectedParams();const result=await get('/api/v1/item-catalog/categories?'+params,request.signal);if(!dialog.open||version!==selectionVersion)return;counts=Object.fromEntries(result.categories.map(row=>[row.category,row.count]));paintCategories();};
  const paintCategories=()=>{categories.innerHTML=renderCategoryTiles(counts,category,{attribute:'data-picker-category',label:'Item categories',groups:false,iconOnly:true});};
  function updateAmount(){
   if(!selected)return;
   const qty=Number(input.value),unit=shopUnitPriceGil(selected,pricingMode),total=catalogPurchaseTotal({...selected,priceGil:unit},qty),priced=unit!==null;
-  preview.querySelector('[data-catalog-total]').textContent=priced?(total===null?'—':formatGil(total)):'No listed price';
-  preview.querySelector('[data-catalog-unit]').textContent=priced?'Unit price: '+priceText(selected):'Original cost is not converted to Gil. Adding this item will not deduct Gil.';
+  preview.querySelector('[data-catalog-total]').innerHTML=priced?(total===null?'—':moneyHtml(total)):'No listed price';
+  preview.querySelector('[data-catalog-unit]').innerHTML=priced?'Unit: '+moneyHtml(unit):'No price set · item can be added without payment.';
   const raw=getBalance?.(),balance=Number(raw),known=raw!==null&&raw!==undefined&&Number.isFinite(balance)&&balance>=0;
   const insufficient=priced&&known&&total!==null&&Math.round(balance*100)<Math.round(total*100);
-  preview.querySelector('[data-catalog-balance]').textContent=(known?'Your Gil: '+formatGil(balance):'')+(insufficient?' · Not enough Gil':priced?'':' · No Gil will be deducted for unpriced items.');
+  preview.querySelector('[data-catalog-balance]').innerHTML=(known?'<span class="cs-shop-balance-label">Balance</span> '+moneyHtml(balance):'')+(insufficient?' · Not enough Gil':priced?'':' · No payment required');
   confirm.textContent=priced?'Buy':'Add without a price';
   confirm.disabled=busy||!Number.isSafeInteger(qty)||qty<1||qty>999||priced&&(total===null||insufficient);
  }
@@ -67,11 +95,11 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   if(!append){items=[];list.replaceChildren();next.hidden=true;}
   try{
    const params=new URLSearchParams({q:query,category:category==='All'?'':category,cursor:append?cursor:''});
-   for(const id of appliedChosen)params.append('catalog',id);
+   for(const [,id] of selectedParams())params.append('catalog',id);
    const result=await get('/api/v1/item-catalog?'+params,request.signal);
    if(!dialog.open||version!==selectionVersion)return;
    items=items.concat(result.items);cursor=result.nextCursor;next.hidden=!cursor;
-   list.innerHTML=items.map(item=>'<button class="cs-picker-row cs-catalog-row" type="button" data-catalog-item="'+esc(item.id)+'" aria-haspopup="dialog"><span class="cs-catalog-row-icon" aria-hidden="true">'+itemCategorySymbol(item.category)+'</span><span class="cs-catalog-row-label"><strong>'+esc(item.name)+'</strong><small>'+esc(item.category)+' · '+esc(shopCatalogChoiceLabel(catalogs.find(source=>source.id===catalogKey(item.sourceId,item.sourceVersion))||{shortLabel:'Catalog'},catalogs))+'</small></span><span class="cs-catalog-row-price">'+esc(priceText(item))+'</span><span class="cs-catalog-row-arrow" aria-hidden="true">›</span></button>').join('');
+   list.innerHTML=items.map(item=>'<button class="cs-picker-row cs-catalog-row" type="button" data-catalog-item="'+esc(item.id)+'" aria-haspopup="dialog"><span class="cs-catalog-row-icon" aria-hidden="true">'+itemCategorySymbol(item.category)+'</span><span class="cs-catalog-row-label"><strong>'+esc(item.name)+'</strong><small>'+esc(item.category)+' · '+esc(shopCatalogChoiceLabel(catalogs.find(source=>(source.catalogIds||[source.id]).includes(catalogKey(item.sourceId,item.sourceVersion)))||{shortLabel:'Catalog'},catalogs))+'</small>'+weightHtml(item.weightLb)+'</span><span class="cs-catalog-row-price">'+priceHtml(item)+'</span><span class="cs-catalog-row-arrow" aria-hidden="true">›</span></button>').join('');
    status.textContent=items.length?'':'No items found.';
   }catch(error){if(dialog.open)status.textContent=error.message;}
   finally{busy=false;if(queuedLoad){queuedLoad=false;void load();}}
@@ -92,7 +120,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  }
  dialog.querySelector('[data-picker-close]').onclick=()=>dialog.close();
  dialog.querySelector('.cs-picker-search').onsubmit=event=>{
-  event.preventDefault();if(busy)return;query=event.currentTarget.elements.q.value.trim();if(!chosen.size){status.textContent='Choose one or more shops first.';return;}void load();
+  event.preventDefault();if(busy)return;query=event.currentTarget.elements.q.value.trim();if(!appliedChosen.size){status.textContent='Choose one or more shops first.';return;}void load();
  };
  input.addEventListener('input',()=>{requestId=crypto.randomUUID();updateAmount();});
  form.addEventListener('submit',async event=>{
@@ -106,6 +134,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
     if(preview.open)preview.close();
     if(dialog.open)dialog.close();
     await onPurchased(receipt);
+    showShopSpendAnimation(receipt);
    }else{
     const message=await onAdd(selected.id,quantity);
     if(message)throw Error(message);
@@ -136,7 +165,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   if(shopPanel.returnValue!=='apply'){chosen=new Set(appliedChosen);paintSources();return;}
   const changed=chosen.size!==appliedChosen.size||[...chosen].some(id=>!appliedChosen.has(id));
   if(!changed)return;
-  appliedChosen=new Set(chosen);selectionVersion++;category='All';cursor=null;counts={};items=[];
+  appliedChosen=new Set(chosen);rememberTags();selectionVersion++;category='All';cursor=null;counts={};items=[];
   list.replaceChildren();next.hidden=true;paintSources();paintCategories();
   if(!appliedChosen.size){status.textContent='Choose Shop to browse items.';return;}
   void loadCounts().catch(error=>{if(dialog.open)status.textContent=error.message;});
@@ -144,5 +173,5 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  });
  dialog.showModal();
  status.textContent='Choose Shop to browse items.';
- void (async()=>{try{const result=await get('/api/v1/item-catalog/catalogs',request.signal);if(!dialog.open)return;catalogs=result.catalogs||[];paintSources();if(!catalogs.length)status.textContent='No catalogs are available yet.';}catch(error){if(dialog.open)status.textContent=error.message;}})();
+ void (async()=>{try{const result=await get('/api/v1/item-catalog/catalogs',request.signal);if(!dialog.open)return;catalogs=result.catalogs||[];restoreTags();paintSources();if(!catalogs.length)status.textContent='No catalogs are available yet.';else if(appliedChosen.size){void loadCounts();void load();}}catch(error){if(dialog.open)status.textContent=error.message;}})();
 }
