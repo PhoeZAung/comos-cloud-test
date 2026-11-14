@@ -45,7 +45,9 @@ try{
  await page.locator('[data-picker-catalog="'+cosmosCatalog+'"]').waitFor();
  assert.equal(await page.locator('[data-catalog-item]').count(),0,'no items should load until a catalog is selected');
  await page.locator('[data-picker-catalog="'+cosmosCatalog+'"]').click();
+ assert.equal(await page.locator('[data-picker-shop-panel]:visible').count(),1,'selecting a shop must not dismiss the popup');
  await page.locator('[data-picker-shop-done]').click();
+ assert.equal(await page.locator('[data-picker-shop-panel]:visible').count(),0,'Done closes the source popup');
  try{await page.waitForSelector('[data-catalog-item="'+paid+'"]',{timeout:5000});}
  catch(error){
   console.error('Picker diagnostics',JSON.stringify({
