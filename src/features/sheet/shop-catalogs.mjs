@@ -76,3 +76,22 @@ export function shopCatalogChoiceLabel(item={},catalogs=[]){
  const version=String(item.sourceVersion||'').replace(/^(?:foundry-|pathfinder-|pf1e-|pf2e-)/i,'').slice(0,24);
  return base+' · '+(version||String(item.sourceId||'').slice(0,16));
 }
+
+
+/** Player shop tags: combine versions from the same official import, keep
+ * other providers independent, and hide tiny legacy/test catalogs (<50).
+ * The underlying items and historical purchases are never deleted. */
+export function visibleShopCatalogs(catalogs=[]){
+ const merged=new Map();
+ for(const catalog of catalogs){
+  if(!catalog||typeof catalog.id!=='string'||!Number.isFinite(catalog.count))continue;
+  const sourceId=String(catalog.sourceId||'');
+  const core=['legacy-master','pathfinder-shopping','pathfinder-2e-shopping'].includes(sourceId);
+  const groupKey=core?sourceId:catalog.id;
+  const label=sourceId==='legacy-master'?'Cosmos':sourceId==='pathfinder-shopping'?'PF1e · AoN':sourceId==='pathfinder-2e-shopping'?'PF2e · Foundry':catalog.shortLabel||shopCatalogShortLabel(catalog);
+  const previous=merged.get(groupKey);
+  if(previous){previous.count+=catalog.count;previous.catalogIds.push(catalog.id);}
+  else merged.set(groupKey,{...catalog,id:groupKey,label,shortLabel:label,catalogIds:[catalog.id],count:catalog.count});
+ }
+ return [...merged.values()].filter(source=>source.count>=50||['legacy-master','pathfinder-shopping','pathfinder-2e-shopping'].includes(source.sourceId));
+}
