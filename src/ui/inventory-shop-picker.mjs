@@ -2,6 +2,7 @@ import {catalogKey,shopCatalogChoiceLabel} from '../features/sheet/shop-catalogs
 import {renderCategoryTiles,itemCategorySymbol} from '../features/sheet/item-categories.mjs';
 import {renderCatalogPreview,formatGil,catalogPurchaseTotal} from '../features/sheet/catalog-shop-preview.mjs';
 import {shopUnitPriceGil} from '../features/sheet/shop-pricing.mjs';
+import {showShopSpendAnimation} from './shop-spend-animation.mjs';
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const moneyHtml=value=>{
@@ -133,6 +134,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
     if(preview.open)preview.close();
     if(dialog.open)dialog.close();
     await onPurchased(receipt);
+    showShopSpendAnimation(receipt);
    }else{
     const message=await onAdd(selected.id,quantity);
     if(message)throw Error(message);
