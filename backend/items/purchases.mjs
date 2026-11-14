@@ -15,7 +15,7 @@ export function createPurchaseService(db,items){
  function purchase(userId,change,{admin=false}={}){
   const fields=['op','requestId','characterId','itemId','quantity','revision','itemRevision','pricingMode'];
   if(!change||Object.keys(change).some(k=>!fields.includes(k))||(change.pricingMode!==undefined&&change.pricingMode!==FFD20_SHOP_PRICE_MODE)||change.op!=='buy'||!uuid(change.requestId)||!uuid(change.characterId)||!uuid(change.itemId)||!Number.isInteger(change.quantity)||change.quantity<1||change.quantity>999||!Number.isSafeInteger(change.revision)||change.revision<1||!Number.isSafeInteger(change.itemRevision)||change.itemRevision<1)throw fail('Choose an item, character and quantity of 1–999.');
-  const fingerprint=JSON.stringify([change.characterId,change.itemId,change.quantity,change.revision,change.itemRevision,change.pricingMode||null]);
+  const fingerprint=JSON.stringify([change.characterId,change.itemId,change.quantity,change.revision,change.itemRevision,...(change.pricingMode?[change.pricingMode]:[])]);
   db.exec('BEGIN IMMEDIATE');try{
    const existing=db.prepare('SELECT * FROM item_purchases WHERE request_id=?').get(change.requestId);
    if(existing){if(existing.user_id!==userId||existing.fingerprint!==fingerprint)throw fail('This purchase ID was already used.',409);db.exec('COMMIT');return JSON.parse(existing.receipt_json);}
