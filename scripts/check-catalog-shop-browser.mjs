@@ -9,9 +9,9 @@ const gold='00000000-0000-4000-8000-000000000003';
 const cosmosCatalog='legacy-master~fixture-v1',pathfinderCatalog='pathfinder-shopping~aon-v1';
 const catalogs=[{id:cosmosCatalog,label:'Cosmos · Master catalog [fixture-v1]',count:1},{id:pathfinderCatalog,label:'Pathfinder 1e · Archives of Nethys [aon-v1]',count:2}];
 const records={
- [paid]:{id:paid,name:'Potion of Healing',sourceId:'legacy-master',sourceVersion:'fixture-v1',category:'Alchemical Items',revision:2,description:'**Healing** potion.\n<script>evil()</script>',priceGil:3.25,costText:'3.25 gil',catalog:{raw:{Weight:'1 lb'}}},
+ [paid]:{id:paid,name:'Potion of Healing',sourceId:'legacy-master',sourceVersion:'fixture-v1',category:'Alchemical Items',revision:2,description:'**Healing** potion.\n<script>evil()</script>',priceGil:3.25,costText:'3.25 gil',weightLb:1,catalog:{raw:{Weight:'1 lb'}}},
  [unpriced]:{id:unpriced,name:'Unpriced artifact',sourceId:'pathfinder-shopping',sourceVersion:'aon-v1',category:'Artifacts',revision:1,description:'Ancient relic',priceGil:null,costText:'Variable',catalog:{raw:{Type:'Relic'}}},
- [gold]:{id:gold,name:'Priced potion',sourceId:'pathfinder-shopping',sourceVersion:'aon-v1',category:'Consumables',revision:1,description:'Restores HP',priceGil:null,costText:'12 gp',catalog:{raw:{'Weight':'0.1 lb'}}}
+ [gold]:{id:gold,name:'Priced potion',sourceId:'pathfinder-shopping',sourceVersion:'aon-v1',category:'Consumables',revision:1,description:'Restores HP',priceGil:null,costText:'12 gp',weightLb:0.1,catalog:{raw:{'Weight':'0.1 lb'}}}
 };
 let postCount=0;
 const server=createServer(async(req,res)=>{
@@ -24,7 +24,7 @@ const server=createServer(async(req,res)=>{
   try{const content=await readFile('.'+pathname);res.writeHead(200,{'content-type':'text/javascript'});res.end(content);}catch{res.writeHead(404).end();}
  }else if(pathname==='/api/v1/item-catalog/catalogs')send(200,{catalogs});
  else if(pathname==='/api/v1/item-catalog/categories')send(200,{categories:u.searchParams.getAll('catalog').includes(cosmosCatalog)&&u.searchParams.getAll('catalog').includes(pathfinderCatalog)?[{category:'Alchemical Items',count:1},{category:'Artifacts',count:1},{category:'Consumables',count:1}]:u.searchParams.getAll('catalog').includes(cosmosCatalog)?[{category:'Alchemical Items',count:1}]:[{category:'Artifacts',count:1},{category:'Consumables',count:1}]});
- else if(pathname==='/api/v1/item-catalog'&&req.method==='GET')send(200,{items:Object.values(records).filter(item=>u.searchParams.getAll('catalog').includes(item.sourceId+'~'+item.sourceVersion)).map(({id,name,category,sourceId,sourceVersion,revision,priceGil})=>({id,name,category,sourceId,sourceVersion,revision,priceGil})),nextCursor:null});
+ else if(pathname==='/api/v1/item-catalog'&&req.method==='GET')send(200,{items:Object.values(records).filter(item=>u.searchParams.getAll('catalog').includes(item.sourceId+'~'+item.sourceVersion)).map(({id,name,category,sourceId,sourceVersion,revision,priceGil,costText,weightLb})=>({id,name,category,sourceId,sourceVersion,revision,priceGil,costText,weightLb})),nextCursor:null});
  else if(pathname.startsWith('/api/v1/item-catalog/')&&req.method==='GET')send(records[pathname.slice('/api/v1/item-catalog/'.length)]?200:404,{item:records[pathname.slice('/api/v1/item-catalog/'.length)]});
  else if(pathname==='/api/v1/item-catalog/purchase'&&req.method==='POST'){postCount++;send(500,{message:'Unexpected direct payment in fixture'});}
  else res.writeHead(404).end();
@@ -54,6 +54,7 @@ try{
  await page.locator('[data-picker-shop-done]').click();
  assert.equal(await page.locator('.cs-shop-tag-dialog[open]').count(),0,'Done closes the source popup');
  try{await page.waitForSelector('[data-catalog-item="'+paid+'"]',{timeout:5000});}
+ assert.match(await page.locator('[data-catalog-item="'+paid+'"]').innerText(),/1 lb/,'weight should show in the item list');
  catch(error){
   console.error('Picker diagnostics',JSON.stringify({
    pageErrors:errors,
@@ -71,37 +72,39 @@ try{
  assert.equal(postCount,0,'clicking a row must only preview, never purchase');
  assert.match(await page.locator('[data-catalog-description]').innerText(),/Healing potion/);
  assert.equal(await page.locator('.cs-catalog-preview script').count(),0,'catalog descriptions cannot execute HTML');
- assert.equal(await page.locator('[data-catalog-total]').innerText(),'3.25 Gil');
+ assert.equal(await page.locator('[data-catalog-total] .cs-shop-money').getAttribute('aria-label'),'3.25 Gil');
+ assert.match(await page.locator('[data-catalog-balance]').innerText(),/🪙/);
  await page.locator('[data-catalog-purchase] input[name=quantity]').fill('4');
- assert.equal(await page.locator('[data-catalog-total]').innerText(),'13 Gil');
+ assert.equal(await page.locator('[data-catalog-total] .cs-shop-money').getAttribute('aria-label'),'13 Gil');
  assert.equal(await page.locator('[data-catalog-confirm]').innerText(),'Buy');
  await page.locator('[data-catalog-confirm]').click();
  await page.waitForFunction(()=>window.receipts.length===1);
+ await page.locator('[data-shop-spend-feedback]').waitFor();
+ assert.equal(await page.locator('[data-shop-spend-feedback]').getAttribute('aria-label'),'Spent 13 Gil. Balance 7 Gil.');
  assert.deepEqual(await page.evaluate(()=>window.purchases.map(p=>({id:p.id,qty:p.qty}))),[{id:paid,qty:4}]);
  assert.equal(await page.locator('.cs-catalog-preview[open]').count(),0);
  await page.waitForFunction(()=>document.querySelectorAll('.cs-catalog-picker').length===0);
  await page.evaluate(()=>window.start());
+ await page.locator('[data-catalog-item="'+unpriced+'"]').waitFor();
  await page.locator('[data-picker-shop-toggle]').click();
- await page.locator('[data-picker-catalog="'+pathfinderCatalog+'"]').click();
+ assert.equal(await page.locator('[data-picker-catalog="'+pathfinderCatalog+'"]').getAttribute('aria-pressed'),'true','shop tags must persist after reopening +');
  await page.locator('[data-picker-shop-done]').click();
  await page.locator('[data-catalog-item="'+unpriced+'"]').click();
  await page.locator('.cs-catalog-preview[open]').waitFor();
  assert.equal(await page.locator('[data-catalog-confirm]').innerText(),'Add without a price');
- assert.match(await page.locator('[data-catalog-balance]').innerText(),/No Gil will be deducted/);
+ assert.match(await page.locator('[data-catalog-balance]').innerText(),/No payment required/);
  await page.locator('[data-catalog-confirm]').click();
  await page.waitForFunction(()=>window.freeAdds.length===1);
  assert.deepEqual(await page.evaluate(()=>window.freeAdds),[{id:unpriced,qty:1}]);
  assert.equal(postCount,0);
  await page.waitForFunction(()=>document.querySelectorAll('.cs-catalog-picker').length===0);
  await page.evaluate(()=>window.start());
- await page.locator('[data-picker-shop-toggle]').click();
- await page.locator('[data-picker-catalog="'+pathfinderCatalog+'"]').click();
- await page.locator('[data-picker-shop-done]').click();
+ await page.locator('[data-catalog-item="'+gold+'"]').waitFor();
  await page.locator('[data-catalog-item="'+gold+'"]').click();
  await page.locator('.cs-catalog-preview[open]').waitFor();
- assert.equal(await page.locator('[data-catalog-total]').innerText(),'12 Gil','FFd20 shop converts 12 gp to 12 Gil');
- assert.match(await page.locator('[data-catalog-description]').innerText(),/Original price: 12 gp/);
- assert.match(await page.locator('[data-catalog-description]').innerText(),/1 gp = 1 Gil/);
+ assert.equal(await page.locator('[data-catalog-total] .cs-shop-money').getAttribute('aria-label'),'12 Gil','FFd20 shop converts 12 gp to 12 Gil');
+ assert.doesNotMatch(await page.locator('[data-catalog-description]').innerText(),/Original price:/);
+ assert.doesNotMatch(await page.locator('[data-catalog-description]').innerText(),/1 gp = 1 Gil/);
  assert.equal(await page.locator('[data-catalog-confirm]').innerText(),'Buy');
  await page.locator('[data-catalog-confirm]').click();
  await page.waitForFunction(()=>window.receipts.length===2);
