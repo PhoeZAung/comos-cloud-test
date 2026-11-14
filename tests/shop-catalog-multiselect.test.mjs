@@ -74,7 +74,9 @@ test('short shop labels remain clear across providers and repeated versions',()=
 test('minimal shop UI uses a popup and custom item stands beside shop selection',async()=>{
  const src=await readFile('src/ui/inventory-shop-picker.mjs','utf8');
  assert.match(src,/data-picker-shop-toggle/);
- assert.match(src,/data-picker-shop-panel/);
+ assert.match(src,/cs-shop-tag-dialog/);
+ assert.match(src,/shopPanel\.showModal\(\)/);
+ assert.match(src,/aria-haspopup=\\"dialog\\"/);
  assert.match(src,/data-picker-shop-done/);
  assert.match(src,/data-custom-item/);
  assert.match(src,/groups:false,iconOnly:true/);
