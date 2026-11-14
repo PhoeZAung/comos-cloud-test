@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {renderCategoryTiles,inventoryCategoryCounts,visibleInventoryCategory} from '../src/features/sheet/item-categories.mjs';
 import {renderItemCategories,renderSection} from '../src/features/sheet/view.mjs';
 
@@ -41,4 +42,27 @@ test('Inventory categories appear when first item is added and disappear when la
  assert.match(screen,/Sword/);
  assert.match(screen,/data-item-tag="Weapon"/);
  assert.doesNotMatch(screen,/data-item-tag="Armor"/);
+});
+
+
+test('Inventory and catalog show category icons without redundant text group tabs',async()=>{
+ const inventory=renderItemCategories({items:[
+  {name:'Sword',sourceCategory:'Weapon',amount:1},
+  {name:'Shield',sourceCategory:'Armor',amount:1},
+  {name:'Potion',sourceCategory:'Consumables',amount:1},
+  {name:'Ring',sourceCategory:'Magic Items',amount:1},
+  {name:'Vehicle',sourceCategory:'Vehicles & Mounts',amount:1},
+  {name:'Service',sourceCategory:'Services & Other',amount:1}
+ ]});
+ assert.match(inventory,/class="item-category-tiles item-category-icon-only"/);
+ assert.match(inventory,/aria-label="Weapon"/);
+ assert.match(inventory,/aria-label="Armor"/);
+ assert.match(inventory,/aria-label="Consumables"/);
+ assert.doesNotMatch(inventory,/cs-inventory-group-filters|item-group-buttons|Weapons & Ammunition|Armor & Shields/);
+ assert.doesNotMatch(inventory,/>Magic Items<|>Vehicles & Mounts<|>Services & Other</);
+ // The master category definitions remain intact for saved items and legacy filters.
+ const catalog=await readFile('src/ui/items.mjs','utf8');
+ const filters=catalog.match(/renderCategoryTiles\(counts,selected,\{attribute:'data-catalog-category',label:'Catalog categories',groups:false,iconOnly:true\}\)/g)||[];
+ assert.equal(filters.length,3,'initial catalog, refresh, and selection rerenders must all use icon-only tabs');
+ assert.doesNotMatch(catalog,/label:'Catalog categories',groups:true/);
 });
