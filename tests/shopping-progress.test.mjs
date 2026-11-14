@@ -37,3 +37,25 @@ test('source normalizer retains distinct names but ignores host www',()=>{
  assert.equal(recordSystem({sourceSystem:'ffd20'}),'ffd20');
  assert.equal(fraction(0,87),0);
 });
+
+
+test('supplemental approved runtime JSON counts as integrated, but never as QNAP-live',()=>{
+ const queue=base();
+ queue.candidates[0].reviewState='approved';
+ queue.candidates[0].masterJsonState='added';
+ const empty={items:[]};
+ const supplement={schemaVersion:'cosmos.shopping-approved-batch.v1',
+  items:[{id:'ffd20:unique',name:'Unique Sword',sourceSystem:'ffd20',
+   sourceUrl:'https://finalfantasyd20.com/equipment/weapons/',priceGil:250}]};
+ const differentBase={items:[]};
+ const manifestEmpty={count:0,version:'old'};
+ queue.candidates[0].priceAmount=250;
+ assert.throws(()=>computeProgress(queue,differentBase,manifestEmpty,empty),/without a reviewed matching runtime source/);
+ const p=computeProgress(queue,differentBase,manifestEmpty,supplement);
+ assert.equal(p.candidatePipeline.approvedForImport.percent,100);
+ assert.equal(p.candidatePipeline.masterJsonIntegrated.percent,100);
+ assert.equal(p.candidatePipeline.verifiedLiveOnQnap.percent,0);
+ assert.equal(p.comparisonWithCurrentRepoMaster.notFound,1);
+ queue.candidates[0].reviewState='pending';
+ assert.throws(()=>computeProgress(queue,differentBase,manifestEmpty,supplement),/without a reviewed matching runtime source/);
+});
