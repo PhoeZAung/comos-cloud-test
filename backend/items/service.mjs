@@ -10,7 +10,9 @@ export function createItemsService(db){
  function list({q='',sourceId='',shopSource='all',cursor='',archived=false,category=''}={}){
   if(typeof q!=='string'||q.length>80||typeof sourceId!=='string'||(sourceId&&!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(sourceId))||(cursor&&!validId(cursor))||typeof archived!=='boolean'||typeof category!=='string'||category.length>60||!isShopSource(shopSource))throw invalid('Invalid item search.');
   const columns='id,name,source_id,source_version,category,archived,schema_version,revision,created_at,updated_at,price_units,cost_text';
-  const categories=Object.hasOwn(SHOP_ITEM_CATEGORY_GROUPS,category)?SHOP_ITEM_CATEGORY_GROUPS[category]:[category];
+  const oldGroups={Tools:['Gear','Food','Weapon','Ranged Weapon','Ammunition','Armor','Enchantment','Machine'],Magic:['Alchemical Items','Artifacts','Magic Items'],Other:['Collection','Misc']};
+  const groups={...SHOP_ITEM_CATEGORY_GROUPS,...oldGroups};
+  const categories=Object.hasOwn(groups,category)?groups[category]:[category];
   const source=shopSourceSql(shopSource),filter=(sourceId?' AND source_id=?':'')+source.sql+(category?' AND category IN ('+categories.map(()=>'?').join(',')+')':'');
   const params=[Number(archived),cursor,q,...(sourceId?[sourceId]:[]),...source.params,...(category?categories:[])];
   const rows=db.prepare(`SELECT ${columns} FROM items WHERE archived=? AND id>? AND instr(lower(name),lower(?))>0${filter} ORDER BY id LIMIT 21`).all(...params);
