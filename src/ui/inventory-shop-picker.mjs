@@ -1,4 +1,4 @@
-import {SHOP_SOURCES,shopSourceLabel} from '../features/sheet/shop-sources.mjs';
+import {catalogKey} from '../features/sheet/shop-catalogs.mjs';
 import {renderCategoryTiles,itemCategorySymbol} from '../features/sheet/item-categories.mjs';
 import {renderCatalogPreview,formatGil,catalogPurchaseTotal} from '../features/sheet/catalog-shop-preview.mjs';
 
@@ -14,7 +14,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  dialog.className='cs-dialog cs-picker cs-catalog-picker';
  dialog.setAttribute('aria-label','Add an item');
  dialog.innerHTML='<header><h2>Item catalog</h2><button class="cs-icon" type="button" data-picker-close aria-label="Close">×</button></header>'+
- '<nav class="cs-shop-source-tabs" aria-label="Shop source" data-picker-sources></nav>'+
+ '<div class="cs-catalog-source-picker"><p class="cs-caption">Choose shops · select one or more catalogs</p><nav class="cs-shop-source-tabs" aria-label="Choose shops" data-picker-sources></nav></div>'+ 
  '<div data-picker-categories></div>'+
  '<form class="cs-picker-search"><input name="q" aria-label="Search items" placeholder="Search items" maxlength="80"><button class="button">Search</button></form>'+
  '<div class="cs-picker-list cs-catalog-list" data-picker-list></div>'+
@@ -35,10 +35,11 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  const list=dialog.querySelector('[data-picker-list]'),status=dialog.querySelector('[data-picker-status]');
  const categories=dialog.querySelector('[data-picker-categories]'),next=dialog.querySelector('[data-picker-next]');
  const form=preview.querySelector('[data-catalog-purchase]'),input=form.elements.quantity,confirm=form.querySelector('[data-catalog-confirm]'),feedback=preview.querySelector('[data-catalog-feedback]');
- let counts={},items=[],selected=null,category='All',shopSource='cosmos',query='',cursor=null,busy=false,requestId=null;
+ let catalogs=[],chosen=new Set(),counts={},items=[],selected=null,category='All',query='',cursor=null,busy=false,requestId=null,selectionVersion=0;
  const priceText=item=>item.priceGil===null?(item.costText?String(item.costText)+' · no Gil price':'No fixed price'):formatGil(item.priceGil);
- const paintSources=()=>{dialog.querySelector('[data-picker-sources]').innerHTML=SHOP_SOURCES.map(source=>'<button type="button" class="button" data-picker-source="'+source.id+'" aria-pressed="'+(source.id===shopSource)+'">'+esc(source.label)+'</button>').join('');};
- const loadCounts=async()=>{const result=await get('/api/v1/item-catalog/categories?'+new URLSearchParams({source:shopSource}),request.signal);if(!dialog.open)return;counts=Object.fromEntries(result.categories.map(row=>[row.category,row.count]));paintCategories();};
+ const paintSources=()=>{dialog.querySelector('[data-picker-sources]').innerHTML=catalogs.map(source=>'<button type="button" class="button" data-picker-catalog="'+esc(source.id)+'" aria-pressed="'+chosen.has(source.id)+'">'+esc(source.label)+' <small>('+Number(source.count||0).toLocaleString()+')</small></button>').join('');};
+ const selectedParams=()=>{const params=new URLSearchParams();for(const id of chosen)params.append('catalog',id);return params;};
+ const loadCounts=async()=>{if(!chosen.size)return;const version=selectionVersion,params=selectedParams();const result=await get('/api/v1/item-catalog/categories?'+params,request.signal);if(!dialog.open||version!==selectionVersion)return;counts=Object.fromEntries(result.categories.map(row=>[row.category,row.count]));paintCategories();};
  const paintCategories=()=>{categories.innerHTML=renderCategoryTiles(counts,category,{attribute:'data-picker-category',label:'Item categories',groups:true,iconOnly:true});};
  function updateAmount(){
   if(!selected)return;
@@ -52,15 +53,17 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   confirm.disabled=busy||!Number.isSafeInteger(qty)||qty<1||qty>999||priced&&(total===null||insufficient);
  }
  async function load(append=false){
-  if(busy)return;
+  if(busy||!chosen.size)return;
+  const version=selectionVersion;
   busy=true;status.textContent='Loading items…';
   if(!append){items=[];list.replaceChildren();next.hidden=true;}
   try{
-   const params=new URLSearchParams({q:query,source:shopSource,category:category==='All'?'':category,cursor:append?cursor:''});
+   const params=new URLSearchParams({q:query,category:category==='All'?'':category,cursor:append?cursor:''});
+   for(const id of chosen)params.append('catalog',id);
    const result=await get('/api/v1/item-catalog?'+params,request.signal);
-   if(!dialog.open)return;
+   if(!dialog.open||version!==selectionVersion)return;
    items=items.concat(result.items);cursor=result.nextCursor;next.hidden=!cursor;
-   list.innerHTML=items.map(item=>'<button class="cs-picker-row cs-catalog-row" type="button" data-catalog-item="'+esc(item.id)+'" aria-haspopup="dialog"><span class="cs-catalog-row-icon" aria-hidden="true">'+itemCategorySymbol(item.category)+'</span><span class="cs-catalog-row-label"><strong>'+esc(item.name)+'</strong><small>'+esc(item.category)+'</small></span><span class="cs-catalog-row-price">'+esc(priceText(item))+'</span><span class="cs-catalog-row-arrow" aria-hidden="true">›</span></button>').join('');
+   list.innerHTML=items.map(item=>'<button class="cs-picker-row cs-catalog-row" type="button" data-catalog-item="'+esc(item.id)+'" aria-haspopup="dialog"><span class="cs-catalog-row-icon" aria-hidden="true">'+itemCategorySymbol(item.category)+'</span><span class="cs-catalog-row-label"><strong>'+esc(item.name)+'</strong><small>'+esc(item.category)+' · '+esc(catalogs.find(source=>source.id===catalogKey(item.sourceId,item.sourceVersion))?.label||'Imported catalog')+'</small></span><span class="cs-catalog-row-price">'+esc(priceText(item))+'</span><span class="cs-catalog-row-arrow" aria-hidden="true">›</span></button>').join('');
    status.textContent=items.length?'':'No items found.';
   }catch(error){if(dialog.open)status.textContent=error.message;}
   finally{busy=false;}
@@ -81,7 +84,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  }
  dialog.querySelector('[data-picker-close]').onclick=()=>dialog.close();
  dialog.querySelector('.cs-picker-search').onsubmit=event=>{
-  event.preventDefault();if(busy)return;query=event.currentTarget.elements.q.value.trim();void load();
+  event.preventDefault();if(busy)return;query=event.currentTarget.elements.q.value.trim();if(!chosen.size){status.textContent='Choose one or more shops first.';return;}void load();
  };
  input.addEventListener('input',()=>{requestId=crypto.randomUUID();updateAmount();});
  form.addEventListener('submit',async event=>{
@@ -108,13 +111,12 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  dialog.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||busy)return;
   if(button.hasAttribute('data-custom-item')){dialog.close();onCustom();return;}
-  if(button.dataset.pickerSource){shopSource=button.dataset.pickerSource;category='All';cursor=null;counts={};paintSources();paintCategories();void loadCounts();void load();return;}
+  if(button.dataset.pickerCatalog){const key=button.dataset.pickerCatalog;if(chosen.has(key))chosen.delete(key);else chosen.add(key);selectionVersion++;category='All';cursor=null;counts={};items=[];list.replaceChildren();next.hidden=true;paintSources();paintCategories();if(!chosen.size){status.textContent='Choose one or more shops to see items.';return;}void loadCounts().catch(error=>{if(dialog.open)status.textContent=error.message;});void load();return;}
   if(button.hasAttribute('data-picker-next')){void load(true);return;}
   if(button.dataset.pickerCategory){category=button.dataset.pickerCategory;paintCategories();void load();return;}
   if(button.dataset.catalogItem)void showItem(button.dataset.catalogItem);
  });
  dialog.showModal();
- paintSources();
- void loadCounts().catch(()=>{if(dialog.open)paintCategories();});
- void load();
+ status.textContent='Choose one or more shops to see items.';
+ void (async()=>{try{const result=await get('/api/v1/item-catalog/catalogs',request.signal);if(!dialog.open)return;catalogs=result.catalogs||[];paintSources();if(!catalogs.length)status.textContent='No catalogs are available yet.';}catch(error){if(dialog.open)status.textContent=error.message;}})();
 }
