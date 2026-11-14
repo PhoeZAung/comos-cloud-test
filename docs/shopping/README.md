@@ -1,21 +1,21 @@
 # Shopping extraction → Cosmos JSON → live QNAP: progress
 
-This tracker covers **87 candidate gaps or provenance conflicts** found by the item extraction audit. It does **not** treat source-page visits, archived text, or existing items as proof that every AoN/FFd20 shopping item is available in the live Cosmos shop.
+This tracker covers **96 candidate gaps or provenance conflicts** found by the item extraction audit. It does **not** treat source-page visits, archived text, or existing items as proof that every AoN/FFd20 shopping item is available in the live Cosmos shop.
 
 ## Current confirmed checkpoints
 
 | Stage | Progress | Why |
 | --- | ---: | --- |
 | FFd20 category URLs visited | **24/26 = 92.3%** | Two index pages still excluded from detailed extraction |
-| FFd20 category URLs returning parsed/indexed rows | **19/26 = 73.1%** | Five visited pages need special parser/rules classification |
-| Review candidate records written to a Cosmos **review-only** JSON | **87/87 = 100%** | [review-queue.json](review-queue.json) exists on this branch |
-| Candidates approved for runtime import | **0/87 = 0%** | Mechanics, prices, variants and cross-system duplicates not fully reviewed |
-| Candidates integrated into the production **master JSON archive** | **0/87 = 0%** | The immutable 5,604-row base catalog is unchanged |
-| Candidates verified in the **live QNAP Cosmos site** | **0/87 = 0% verified** | No new item import, QNAP release receipt, or authenticated verification |
+| FFd20 category URLs returning parsed/indexed rows | **20/26 = 76.9%** | Five visited pages need special parser/rules classification |
+| Review candidate records written to a Cosmos **review-only** JSON | **96/96 = 100%** | [review-queue.json](review-queue.json) exists on this branch |
+| Candidates approved for runtime import | **0/96 = 0%** | Mechanics, prices, variants and cross-system duplicates not fully reviewed |
+| Candidates integrated into the production **master JSON archive** | **0/96 = 0%** | The immutable 5,604-row base catalog is unchanged |
+| Candidates verified in the **live QNAP Cosmos site** | **0/96 = 0% verified** | No new item import, QNAP release receipt, or authenticated verification |
 
-**End-to-end shipped: 0% of the 87 audited candidates**, even though the project has a pre-existing 5,604-item master catalog. This does not mean the site has zero shop items.
+**End-to-end shipped: 0% of the 96 audited candidates**, even though the project has a pre-existing 5,604-item master catalog. This does not mean the site has zero shop items.
 
-**Actual comparison with the Cosmos master archive (verified in CI):** 77 candidate names do not occur there; 9 match only another system; 1 matches the correct system under a different source page; 0 match both same system and source page. These 10 collision cases require additional review and should not be auto-imported.
+**Updated comparison expected after the Airship Examples addition:** 85 candidate names do not occur in the master catalog, 10 match only another game system, and 1 matches the correct system but a different source page. The CI-generated report is authoritative. The 9 airships are vehicle-statblock metadata and not yet approved as normal shop items. These 10 collision cases require additional review and should not be auto-imported.
 
 AoN: 73 category/index links are inventoried. Automated access was refused via `robots.txt` HTTP 403; some older sample checks exist but a fresh full automated AoN coverage percentage is unavailable. Respect the block and use permitted, manually saved pages if needed.
 
