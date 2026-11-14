@@ -1,3 +1,4 @@
+import {SHOP_SOURCES,shopSourceLabel} from '../features/sheet/shop-sources.mjs';
 import {purchaseFeedback,clearFeedback} from './feedback.mjs';
 import {recordId} from './record-id.mjs';
 import {renderCategoryTiles,ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS} from '../features/sheet/item-categories.mjs';
@@ -7,7 +8,7 @@ const safeLink=v=>{try{const u=new URL(v);return ['https:','http:'].includes(u.p
 export function mountItems({fixture=false}={}){
  const root=document.querySelector('[data-item-admin]'),controller=new AbortController();
  const buyerId=new URL(location.href).searchParams.get('characterId');
- let closed=false,busy=false,rows=[],counts={},selected='All',q='',cursor='',nextCursor=null,buyer=null,item=null,pendingPurchase=null,editingId=null,draftId=null;
+ let closed=false,busy=false,rows=[],counts={},selected='All',shopSource='cosmos',q='',cursor='',nextCursor=null,buyer=null,item=null,pendingPurchase=null,editingId=null,draftId=null;
  const status=message=>{if(!closed)for(const n of root.querySelectorAll('[data-item-status]'))n.textContent=message;};
  const dialog=()=>root.querySelector('[data-item-dialog]');
  const setBusy=v=>{busy=v;if(!closed)root.querySelectorAll('button,input,textarea,select').forEach(n=>n.disabled=v);if(!v){const buy=root.querySelector('[data-buy-form] button[type=submit]');if(buy)buy.disabled=!buyer||item?.priceGil===null;}};
@@ -17,19 +18,20 @@ export function mountItems({fixture=false}={}){
   const data=await r.json();if(!r.ok)throw Object.assign(Error(data.message||({401:'Sign in to continue.',403:'Administrator access required.',404:'This record is unavailable.',409:'This record changed. Reopen it before buying.',429:'Wait a moment before trying again.'}[r.status]||'Could not connect. Try again.')),{status:r.status});return data;
  }
  function draw(){if(closed)return;
-  root.innerHTML='<div class="item-control"><p data-item-status role="status"></p><div class="item-buyer-context"><strong data-buyer-name>'+esc(buyer?buyer.name:'Item catalog')+'</strong><span data-buyer-gil>'+esc(buyer?gil(buyer.gil):'')+'</span></div>'+(!buyerId?'<a class="back" href="admin.html">← Choose a character in Admin</a>':'<a class="back" href="admin.html">← Characters</a>')+'<div data-category-tiles>'+renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true})+'</div><form class="item-search-row" data-item-search><input aria-label="Find item" name="q" maxlength="80" placeholder="Find item" value="'+esc(q)+'"><button class="button" type="submit">Find</button></form><div class="item-control-bar"><h2 data-catalog-count></h2><button class="button" type="button" data-new>Add item</button></div><div class="item-catalog-list" data-item-list></div><div class="item-pagination" data-item-pages></div><dialog class="item-dialog" data-item-dialog aria-labelledby="item-dialog-title"><header><h2 id="item-dialog-title"></h2><button type="button" class="item-close" aria-label="Close item" data-close>×</button></header><p role="status" data-item-status></p><div data-item-content></div></dialog></div>';
+  root.innerHTML='<div class="item-control"><p data-item-status role="status"></p><div class="item-buyer-context"><strong data-buyer-name>'+esc(buyer?buyer.name:'Item catalog')+'</strong><span data-buyer-gil>'+esc(buyer?gil(buyer.gil):'')+'</span></div>'+(!buyerId?'<a class="back" href="admin.html">← Choose a character in Admin</a>':'<a class="back" href="admin.html">← Characters</a>')+'<nav class="item-source-tabs" aria-label="Shop source">'+SHOP_SOURCES.map(source=>'<button type="button" class="button" data-source-tab="'+source.id+'" aria-pressed="'+(shopSource===source.id)+'">'+esc(source.label)+'</button>').join('')+'</nav><div data-category-tiles>'+renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true})+'</div><form class="item-search-row" data-item-search><input aria-label="Find item" name="q" maxlength="80" placeholder="Find item" value="'+esc(q)+'"><button class="button" type="submit">Find</button></form><div class="item-control-bar"><h2 data-catalog-count></h2><button class="button" type="button" data-new>Add item</button></div><div class="item-catalog-list" data-item-list></div><div class="item-pagination" data-item-pages></div><dialog class="item-dialog" data-item-dialog aria-labelledby="item-dialog-title"><header><h2 id="item-dialog-title"></h2><button type="button" class="item-close" aria-label="Close item" data-close>×</button></header><p role="status" data-item-status></p><div data-item-content></div></dialog></div>';
   drawList();
  }
  function drawList(){
   root.querySelector('[data-catalog-count]').textContent=(selected==='All'?'Items':selected)+' · '+(selected==='All'?Object.values(counts).reduce((a,b)=>a+b,0):SHOP_ITEM_CATEGORY_GROUPS[selected]?.reduce((a,k)=>a+(counts[k]||0),0)??counts[selected]??0).toLocaleString();
-  root.querySelector('[data-item-list]').innerHTML=rows.map(r=>'<article class="item-catalog-row"><button type="button" class="item-open" data-open="'+r.id+'">'+esc(r.name)+'<small>'+esc(r.category)+'</small></button><span class="item-price">'+esc(r.priceGil===null?(r.costText||'Price needed'):gil(r.priceGil))+'</span><button class="button" type="button" data-buy-open="'+r.id+'">Buy</button></article>').join('')||'<p>No items found.</p>';
+  root.querySelector('[data-item-list]').innerHTML=rows.map(r=>'<article class="item-catalog-row"><button type="button" class="item-open" data-open="'+r.id+'">'+esc(r.name)+'<small>'+esc(r.category)+' · '+esc(shopSourceLabel(r))+'</small></button><span class="item-price">'+esc(r.priceGil===null?(r.costText||'Price needed'):gil(r.priceGil))+'</span><button class="button" type="button" data-buy-open="'+r.id+'">Buy</button></article>').join('')||'<p>No items found.</p>';
   root.querySelector('[data-item-pages]').innerHTML=(cursor?'<button type="button" class="button" data-first>First</button>':'')+(nextCursor?'<button type="button" class="button" data-next>Next</button>':'');
  }
  async function loadList(){
-  const result=await request('?'+new URLSearchParams({q,cursor,category:selected==='All'?'':selected}));rows=result.items;nextCursor=result.nextCursor;if(!closed)drawList();
+  const result=await request('?'+new URLSearchParams({q,cursor,source:shopSource,category:selected==='All'?'':selected}));rows=result.items;nextCursor=result.nextCursor;if(!closed)drawList();
  }
  async function withBusy(fn){if(busy||closed)return;setBusy(true);status('');try{await fn();}catch(error){if(!closed)status(error.message);}finally{if(!closed)setBusy(false);}}
  async function freshBuyer(){if(!buyer)return;try{buyer=(await request('/buyer/'+encodeURIComponent(buyer.id))).character;}catch(error){buyer=null;throw error;}if(closed)return;root.querySelector('[data-buyer-name]').textContent=buyer.name;root.querySelector('[data-buyer-gil]').textContent=gil(buyer.gil);}
+ async function reloadCategories(){const meta=await request('/categories?'+new URLSearchParams({source:shopSource}));counts=Object.fromEntries(meta.categories.map(row=>[row.category,row.count]));root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});}
  function showItem(){
   if(closed)return;const c=item.catalog||{},details=c.details,fields=Object.entries(c).filter(([k,v])=>!['id','name','desc','special','raw','details','tags','tagFields','detailFields','sourceUrl','category','cost','priceGil'].includes(k)&&v!==null&&v!==''&&typeof v!=='object');
   root.querySelector('#item-dialog-title').textContent=item.name;
@@ -46,7 +48,8 @@ export function mountItems({fixture=false}={}){
   if(b.hasAttribute('data-new')){item=null;editor();return;}
   if(b.hasAttribute('data-edit-item')){editor();return;}
   void withBusy(async()=>{
-   if(b.dataset.catalogCategory){selected=b.dataset.catalogCategory;cursor='';root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();}
+   if(b.dataset.sourceTab){shopSource=b.dataset.sourceTab;selected='All';cursor='';root.querySelectorAll('[data-source-tab]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.sourceTab===shopSource)));await reloadCategories();await loadList();}
+   else if(b.dataset.catalogCategory){selected=b.dataset.catalogCategory;cursor='';root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();}
    else if(b.hasAttribute('data-next')||b.hasAttribute('data-first')){cursor=b.hasAttribute('data-first')?'':nextCursor;await loadList();}
    else if(b.dataset.open||b.dataset.buyOpen){item=(await request('/'+encodeURIComponent(b.dataset.open||b.dataset.buyOpen))).item;pendingPurchase=null;await freshBuyer();showItem();}
   });
@@ -60,9 +63,9 @@ export function mountItems({fixture=false}={}){
    const before=Number(buyer.gil),{receipt}=await request('',pendingPurchase);pendingPurchase=null;buyer={...buyer,gil:receipt.remainingGil,revision:receipt.revision};dialog().close();root.querySelector('[data-buyer-gil]').textContent=gil(buyer.gil);purchaseFeedback(receipt,before,root.querySelector('[data-buyer-gil]'));status('Purchased.');
   }else if(form.hasAttribute('data-item-form')){
    const change={op:'save',id:editingId||draftId,revision:editingId?item.revision:0,...Object.fromEntries(d)};change.priceGil=change.priceGil===''?null:Number(change.priceGil);
-   item=(await request('',change)).item;pendingPurchase=null;const meta=await request('/categories');counts=Object.fromEntries(meta.categories.map(x=>[x.category,x.count]));root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();showItem();status('Item saved.');
+   item=(await request('',change)).item;pendingPurchase=null;await reloadCategories();await loadList();showItem();status('Item saved.');
   }
  });},{signal:controller.signal});
- draw();void withBusy(async()=>{if(buyerId){buyer={id:buyerId};await freshBuyer();}const meta=await request('/categories');counts=Object.fromEntries(meta.categories.map(x=>[x.category,x.count]));root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();await freshBuyer();});
+ draw();void withBusy(async()=>{if(buyerId){buyer={id:buyerId};await freshBuyer();}await reloadCategories();await loadList();await freshBuyer();});
  return ()=>{clearFeedback();closed=true;controller.abort();};
 }
