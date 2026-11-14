@@ -1,4 +1,4 @@
-import {shopCatalogLabel} from './shop-catalogs.mjs';
+import {shopCatalogShortLabel} from './shop-catalogs.mjs';
 import {inventoryItemValue} from './inventory-fields.mjs';
 import {formatSheetText} from './rich-text.mjs';
 
@@ -8,7 +8,7 @@ const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;
 // bulk, item level and repeated scraped "Source: ..." columns are intentionally hidden.
 const MECHANICAL_FIELDS=Object.freeze([
  ['Damage','dmg'],['Damage (Small)','dmgS'],['Damage (Medium)','dmgM'],
- ['Critical','crit'],['Range','range'],['Damage type','damageType'],['Weapon traits','traits'],['Special properties','special'],
+ ['Critical','crit'],['Range','range'],['Damage type','damageType'],['Weapon traits','traits'],
  ['Attack / Damage','attackDmg'],['Misfire','misfire'],['Capacity','capacity'],['Ammunition','ammo'],
  ['Armor bonus','acBonus'],['Max Dex','maxDex'],['Check penalty','checkPenalty'],['Spell failure','spellFailure'],
  ['Speed (30 ft.)','speed30Ft'],['Speed (20 ft.)','speed20Ft'],['Speed','speed'],['Full speed','fullSpeed'],
@@ -16,11 +16,11 @@ const MECHANICAL_FIELDS=Object.freeze([
  ['Save DC','dcSave'],['Healing','healing'],['Effect','effect'],['Duration','duration'],
  ['Bonus','bonus'],['Caster level','cl'],['Craft DC','craftDc'],
  ['Aim','aim'],['Load','load'],['Passengers / Crew','passengersCrew'],['Fuel','fuel'],['Mileage','mileage'],
- ['Proficiency','proficiency'],['Usage','usageType'],['Tier','tier']
+ ['Proficiency','proficiency'],['Usage','usageType'],['Tier','tier'],['Weight (lb)','weight']
 ]);
 export function catalogMechanicalFacts(item={}){
- const catalog=item.catalog||{};
- const record={...catalog,sourceCatalog:catalog};
+ const catalog=item.catalog||item.sourceCatalog||{};
+ const record={...catalog,...item,sourceCatalog:catalog};
  const facts=[],seenKeys=new Set();
  for(const [label,key] of MECHANICAL_FIELDS){
   let value=inventoryItemValue(record,key);
@@ -31,7 +31,7 @@ export function catalogMechanicalFacts(item={}){
   if(key==='attackDmg'&&String(value)===String(inventoryItemValue(record,'dmg')??''))continue;
   if(seenKeys.has(key))continue;
   seenKeys.add(key);
-  facts.push([label,String(value).slice(0,600)]);
+  facts.push([label,key==='weight'?String(value)+' lb':String(value).slice(0,600)]);
  }
  return facts;
 }
@@ -49,7 +49,7 @@ export function renderCatalogPreview(item){
  const catalog=item.catalog||{},facts=catalogMechanicalFacts(item);
  const details=facts.length?'<section class="cs-catalog-details"><h3>Gameplay details</h3><dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl></section>':'';
  const link=safeItemLink(catalog.detailUrl||catalog.sourceUrl||catalog.link);
- return '<p class="cs-catalog-category">'+esc(shopCatalogLabel(item))+'</p>'+
+ return '<p class="cs-catalog-category">'+esc(shopCatalogShortLabel(item))+'</p>'+
   (item.priceGil===null&&item.costText?'<p class="cs-catalog-original-price">Original price: <strong>'+esc(item.costText)+'</strong> · No Gil conversion configured</p>':'')+
   details+
   '<div class="cs-catalog-item-description"><h3>Description</h3><div class="cs-prose">'+formatSheetText(item.description||'No description available.')+'</div></div>'+
