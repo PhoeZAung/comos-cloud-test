@@ -1213,10 +1213,16 @@
       "currency": "gil",
       "priceAmount": 10000,
       "comparison": "not-found-in-snapshot",
-      "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "reviewState": "approved",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Source-verified approved metadata; included in supplemental runtime catalog JSON and imported on server startup. Not verified live on QNAP.",
+      "approvalEvidence": {
+        "sourceCheck": "2026-11-14",
+        "reviewedSource": "https://finalfantasyd20.com/magical-items/rings/sorcery-ring/",
+        "details": "Price, category, and listed gameplay effects manually verified. Mechanics informational only; not auto-applied.",
+        "runtimeJson": "backend/items/catalog/ffd20-verified-batch-01.json"
+      }
     },
     {
       "id": "ffd20:vitality-ring",
@@ -1229,10 +1235,16 @@
       "currency": "gil",
       "priceAmount": 4000,
       "comparison": "not-found-in-snapshot",
-      "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "reviewState": "approved",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Source-verified approved metadata; included in supplemental runtime catalog JSON and imported on server startup. Not verified live on QNAP.",
+      "approvalEvidence": {
+        "sourceCheck": "2026-11-14",
+        "reviewedSource": "https://finalfantasyd20.com/magical-items/rings/vitality-ring/",
+        "details": "Price, category, and listed gameplay effects manually verified. Mechanics informational only; not auto-applied.",
+        "runtimeJson": "backend/items/catalog/ffd20-verified-batch-01.json"
+      }
     },
     {
       "id": "ffd20:bulletproof-vest",
@@ -1245,10 +1257,16 @@
       "currency": "gil",
       "priceAmount": 300,
       "comparison": "not-found-in-snapshot",
-      "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "reviewState": "approved",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Source-verified approved metadata; included in supplemental runtime catalog JSON and imported on server startup. Not verified live on QNAP.",
+      "approvalEvidence": {
+        "sourceCheck": "2026-11-14",
+        "reviewedSource": "https://finalfantasyd20.com/equipment/technological-gear/",
+        "details": "Price, category, and listed gameplay effects manually verified. Mechanics informational only; not auto-applied.",
+        "runtimeJson": "backend/items/catalog/ffd20-verified-batch-01.json"
+      }
     },
     {
       "id": "ffd20:s-w-a-t-vest",
@@ -1261,10 +1279,16 @@
       "currency": "gil",
       "priceAmount": 1400,
       "comparison": "not-found-in-snapshot",
-      "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "reviewState": "approved",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Source-verified approved metadata; included in supplemental runtime catalog JSON and imported on server startup. Not verified live on QNAP.",
+      "approvalEvidence": {
+        "sourceCheck": "2026-11-14",
+        "reviewedSource": "https://finalfantasyd20.com/equipment/technological-gear/",
+        "details": "Price, category, and listed gameplay effects manually verified. Mechanics informational only; not auto-applied.",
+        "runtimeJson": "backend/items/catalog/ffd20-verified-batch-01.json"
+      }
     },
     {
       "id": "ffd20:executive-vest",
@@ -1277,10 +1301,16 @@
       "currency": "gil",
       "priceAmount": 2500,
       "comparison": "not-found-in-snapshot",
-      "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "reviewState": "approved",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Source-verified approved metadata; included in supplemental runtime catalog JSON and imported on server startup. Not verified live on QNAP.",
+      "approvalEvidence": {
+        "sourceCheck": "2026-11-14",
+        "reviewedSource": "https://finalfantasyd20.com/equipment/technological-gear/",
+        "details": "Price, category, and listed gameplay effects manually verified. Mechanics informational only; not auto-applied.",
+        "runtimeJson": "backend/items/catalog/ffd20-verified-batch-01.json"
+      }
     },
     {
       "id": "ffd20:tactical-entry-vest",
@@ -1293,10 +1323,16 @@
       "currency": "gil",
       "priceAmount": 10000,
       "comparison": "not-found-in-snapshot",
-      "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "reviewState": "approved",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Source-verified approved metadata; included in supplemental runtime catalog JSON and imported on server startup. Not verified live on QNAP.",
+      "approvalEvidence": {
+        "sourceCheck": "2026-11-14",
+        "reviewedSource": "https://finalfantasyd20.com/equipment/technological-gear/",
+        "details": "Price, category, and listed gameplay effects manually verified. Mechanics informational only; not auto-applied.",
+        "runtimeJson": "backend/items/catalog/ffd20-verified-batch-01.json"
+      }
     },
     {
       "id": "ffd20:demolition-suit",
@@ -1309,10 +1345,16 @@
       "currency": "gil",
       "priceAmount": 25000,
       "comparison": "not-found-in-snapshot",
-      "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "reviewState": "approved",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Source-verified approved metadata; included in supplemental runtime catalog JSON and imported on server startup. Not verified live on QNAP.",
+      "approvalEvidence": {
+        "sourceCheck": "2026-11-14",
+        "reviewedSource": "https://finalfantasyd20.com/equipment/technological-gear/",
+        "details": "Price, category, and listed gameplay effects manually verified. Mechanics informational only; not auto-applied.",
+        "runtimeJson": "backend/items/catalog/ffd20-verified-batch-01.json"
+      }
     },
     {
       "id": "ffd20:riot-shield",
@@ -1325,10 +1367,16 @@
       "currency": "gil",
       "priceAmount": 1000,
       "comparison": "not-found-in-snapshot",
-      "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "reviewState": "approved",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Source-verified approved metadata; included in supplemental runtime catalog JSON and imported on server startup. Not verified live on QNAP.",
+      "approvalEvidence": {
+        "sourceCheck": "2026-11-14",
+        "reviewedSource": "https://finalfantasyd20.com/equipment/technological-gear/",
+        "details": "Price, category, and listed gameplay effects manually verified. Mechanics informational only; not auto-applied.",
+        "runtimeJson": "backend/items/catalog/ffd20-verified-batch-01.json"
+      }
     },
     {
       "id": "ffd20:galbadia-soldier-motorcyle-w-side-car",
