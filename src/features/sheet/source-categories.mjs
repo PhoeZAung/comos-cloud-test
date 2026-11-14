@@ -9,6 +9,8 @@ export const AON_PF1E_CATEGORIES=Object.freeze({
  'Magic Armor': ['ArmorQuality','ShieldQuality','SpecificArmor','SpecificShield'],
  'Magic Weapons': ['MeleeWeaponQuality','RangedWeaponQuality','SpecificWeapon'],
  'Magic Rods': ['Metamagic','Other'],
+ 'Magic Artifacts': ['Minor','Major','Metagame','Transcendent'],
+ 'Wondrous Items': ['Chest','Eyes','Feet','Belts','Body','Hands','Head','Headband','Neck','Shoulders','Wrist','Other','Ioun'],
  'Other AoN sections': ['Alchemical Reagents','Fungal Grafts','Special Materials','Spellbooks','Vehicles','Magic Altars','Magic Artifacts','Construct Mods','Cursed Items','Demonic Implants','Devil Talismans','Elemental Augmentations','Magic Favors','Fleshcrafting','Genie Seals','Infused Poisons','Intelligent Items','Juju Fetishes','Magic Item Index','Magic Sets','Necrografts','Necrotoxins','Magic Plants','Potions/Oils','Relics','Magic Rings','Scaling Items','Shadow Piercings','Magic Staves','Magic Tattoos','Thassilonian Runes','Magic Thrones','Wondrous Items']
 });
 export const FFD20_SOURCE_CATEGORIES=Object.freeze([
