@@ -47,7 +47,10 @@ try{
  await page.locator('[data-picker-catalog="'+cosmosCatalog+'"]').waitFor();
  assert.equal(await page.locator('[data-catalog-item]').count(),0,'no items should load until a catalog is selected');
  await page.locator('[data-picker-catalog="'+cosmosCatalog+'"]').click();
- assert.equal(await page.locator('.cs-shop-tag-dialog[open]').count(),1,'selecting a shop must not dismiss the popup');
+ await page.locator('[data-picker-catalog="'+pathfinderCatalog+'"]').click();
+ assert.equal(await page.locator('[data-picker-catalog="'+cosmosCatalog+'"]').getAttribute('aria-pressed'),'true');
+ assert.equal(await page.locator('[data-picker-catalog="'+pathfinderCatalog+'"]').getAttribute('aria-pressed'),'true');
+ assert.equal(await page.locator('.cs-shop-tag-dialog[open]').count(),1,'selecting shop tags must not dismiss the modal');
  await page.locator('[data-picker-shop-done]').click();
  assert.equal(await page.locator('.cs-shop-tag-dialog[open]').count(),0,'Done closes the source popup');
  try{await page.waitForSelector('[data-catalog-item="'+paid+'"]',{timeout:5000});}
@@ -89,6 +92,22 @@ try{
  await page.waitForFunction(()=>window.freeAdds.length===1);
  assert.deepEqual(await page.evaluate(()=>window.freeAdds),[{id:unpriced,qty:1}]);
  assert.equal(postCount,0);
+ await page.waitForFunction(()=>document.querySelectorAll('.cs-catalog-picker').length===0);
+ await page.evaluate(()=>window.start());
+ await page.locator('[data-picker-shop-toggle]').click();
+ await page.locator('[data-picker-catalog="'+pathfinderCatalog+'"]').click();
+ await page.locator('[data-picker-shop-done]').click();
+ await page.locator('[data-catalog-item="'+gold+'"]').click();
+ await page.locator('.cs-catalog-preview[open]').waitFor();
+ assert.equal(await page.locator('[data-catalog-total]').innerText(),'12 Gil','FFd20 shop converts 12 gp to 12 Gil');
+ assert.match(await page.locator('[data-catalog-description]').innerText(),/Original price: 12 gp/);
+ assert.match(await page.locator('[data-catalog-description]').innerText(),/1 gp = 1 Gil/);
+ assert.equal(await page.locator('[data-catalog-confirm]').innerText(),'Buy');
+ await page.locator('[data-catalog-confirm]').click();
+ await page.waitForFunction(()=>window.receipts.length===2);
+ const converted=await page.evaluate(()=>window.purchases.find(p=>p.id==='00000000-0000-4000-8000-000000000003'));
+ assert.equal(converted.price,12);
+ assert.equal(converted.mode,'ffd20-gp-to-gil-v1');
  await page.waitForFunction(()=>document.querySelectorAll('.cs-catalog-picker').length===0);
  await page.evaluate(()=>window.start());
  await page.locator('[data-custom-item]').click();
