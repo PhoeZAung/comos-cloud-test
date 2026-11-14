@@ -54,7 +54,6 @@ try{
  await page.locator('[data-picker-shop-done]').click();
  assert.equal(await page.locator('.cs-shop-tag-dialog[open]').count(),0,'Done closes the source popup');
  try{await page.waitForSelector('[data-catalog-item="'+paid+'"]',{timeout:5000});}
- assert.match(await page.locator('[data-catalog-item="'+paid+'"]').innerText(),/1 lb/,'weight should show in the item list');
  catch(error){
   console.error('Picker diagnostics',JSON.stringify({
    pageErrors:errors,
@@ -66,6 +65,7 @@ try{
   },null,2));
   throw error;
  }
+ assert.match(await page.locator('[data-catalog-item="'+paid+'"]').innerText(),/1 lb/,'weight should show in the item list');
  assert.equal(await page.locator('[data-catalog-purchase]:visible').count(),0,'browse rows must not expose purchase controls until an item is clicked');
  await page.locator('[data-catalog-item="'+paid+'"]').click();
  await page.locator('.cs-catalog-preview[open]').waitFor();
