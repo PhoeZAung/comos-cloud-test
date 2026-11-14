@@ -30,9 +30,10 @@
       "priceAmount": 50,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:cheya-dumplings",
@@ -46,9 +47,10 @@
       "priceAmount": 300,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:leap-cake",
@@ -62,9 +64,10 @@
       "priceAmount": 500,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:snowberry-fire-peppers",
@@ -78,9 +81,10 @@
       "priceAmount": 600,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:buttered-sparrowfish-fillet",
@@ -94,9 +98,10 @@
       "priceAmount": 900,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:sun-dried-lantern-lemons",
@@ -110,9 +115,10 @@
       "priceAmount": 900,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:calming-oils-gozreh",
@@ -126,9 +132,10 @@
       "priceAmount": 1000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:hero-s-brew",
@@ -142,9 +149,10 @@
       "priceAmount": 1400,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:newlife-soup",
@@ -158,9 +166,10 @@
       "priceAmount": 1500,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:hellfire-infusion",
@@ -174,9 +183,10 @@
       "priceAmount": 1900,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:black-powder",
@@ -190,9 +200,10 @@
       "priceAmount": 10,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:brimstone",
@@ -206,9 +217,10 @@
       "priceAmount": 0.5,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:cold-iron",
@@ -222,9 +234,10 @@
       "priceAmount": 1,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:cooperation-crystals",
@@ -238,9 +251,10 @@
       "priceAmount": 300,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:cytillesh-spores",
@@ -254,9 +268,10 @@
       "priceAmount": 5,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:darkwood",
@@ -270,9 +285,10 @@
       "priceAmount": 2,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:dew-of-lunary",
@@ -286,9 +302,10 @@
       "priceAmount": 4,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:fire-fragment",
@@ -302,9 +319,10 @@
       "priceAmount": 350,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:ginger-extract",
@@ -318,9 +336,10 @@
       "priceAmount": 0.5,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:gold",
@@ -334,9 +353,10 @@
       "priceAmount": 5,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:heavenly-quartz",
@@ -350,9 +370,10 @@
       "priceAmount": 250,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:fungal-eyes",
@@ -366,9 +387,10 @@
       "priceAmount": 18000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:reaching-vines",
@@ -382,9 +404,10 @@
       "priceAmount": 4000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:aquatic-cummerbund",
@@ -398,9 +421,10 @@
       "priceAmount": 2600,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:belt-of-foraging",
@@ -414,9 +438,10 @@
       "priceAmount": 6000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:serpent-belt",
@@ -430,9 +455,10 @@
       "priceAmount": 9000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:minotaur-belt",
@@ -446,9 +472,10 @@
       "priceAmount": 11000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:feller-s-belt",
@@ -462,9 +489,10 @@
       "priceAmount": 12000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:war-kilt-of-sarenrae",
@@ -478,9 +506,10 @@
       "priceAmount": 13000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:belt-of-dwarvenkind",
@@ -494,9 +523,10 @@
       "priceAmount": 14900,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:belt-of-giant-strength-4",
@@ -510,9 +540,10 @@
       "priceAmount": 16000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:ghoulbane-belt",
@@ -526,9 +557,10 @@
       "priceAmount": 20000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:belt-of-stoneskin",
@@ -542,9 +574,10 @@
       "priceAmount": 60000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:belt-of-physical-might-6",
@@ -558,9 +591,10 @@
       "priceAmount": 90000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:shadowform-belt",
@@ -574,9 +608,10 @@
       "priceAmount": 110000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:anchoring-belt",
@@ -590,9 +625,10 @@
       "priceAmount": 60000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:glorious-tabard-lesser",
@@ -606,9 +642,10 @@
       "priceAmount": 400,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:pauper-s-robes",
@@ -622,9 +659,10 @@
       "priceAmount": 2400,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:robe-of-components",
@@ -638,9 +676,10 @@
       "priceAmount": 5000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:sorcerer-s-robe",
@@ -654,9 +693,10 @@
       "priceAmount": 5000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:pathfinder-greatcoat",
@@ -670,9 +710,10 @@
       "priceAmount": 8000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:neili-robes",
@@ -686,9 +727,10 @@
       "priceAmount": 10000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:blazing-robe",
@@ -702,9 +744,10 @@
       "priceAmount": 11000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:hamatulatsu-robe",
@@ -718,9 +761,10 @@
       "priceAmount": 14000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:bodywrap-of-mighty-strikes-6",
@@ -734,9 +778,10 @@
       "priceAmount": 108000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:robes-of-xin-shalast",
@@ -750,9 +795,10 @@
       "priceAmount": 198000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "aon:starfaring-robes",
@@ -766,9 +812,10 @@
       "priceAmount": 82000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; validate variant, system, price and item mechanics before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:feed-chocobo",
@@ -782,9 +829,10 @@
       "priceAmount": null,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:saddle-exotic-pack",
@@ -798,9 +846,10 @@
       "priceAmount": 15,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:saddle-exotic-riding",
@@ -814,9 +863,10 @@
       "priceAmount": 30,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:saddle-exotic-military",
@@ -830,9 +880,10 @@
       "priceAmount": 60,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:saddlebags",
@@ -846,9 +897,10 @@
       "priceAmount": 4,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:bit-and-bridle",
@@ -862,9 +914,10 @@
       "priceAmount": 2,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:saddle-blanket",
@@ -878,9 +931,10 @@
       "priceAmount": null,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:autoloader",
@@ -894,9 +948,10 @@
       "priceAmount": 750,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:machine-pistol",
@@ -910,9 +965,10 @@
       "priceAmount": 900,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:flamethrower",
@@ -926,9 +982,10 @@
       "priceAmount": 750,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:heavy-machine-gun",
@@ -942,9 +999,10 @@
       "priceAmount": 7500,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:rocket-launcher",
@@ -958,9 +1016,10 @@
       "priceAmount": 1150,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:grenade-launcher",
@@ -974,9 +1033,10 @@
       "priceAmount": 475,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:40mm-fragmentation-grenade",
@@ -990,9 +1050,10 @@
       "priceAmount": 650,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:c4-semtex",
@@ -1006,9 +1067,10 @@
       "priceAmount": 300,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:det-cord",
@@ -1022,9 +1084,10 @@
       "priceAmount": 100,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:dynamite",
@@ -1038,9 +1101,10 @@
       "priceAmount": 300,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:fragmentation-grenade",
@@ -1054,9 +1118,10 @@
       "priceAmount": 575,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:molotov-cocktail",
@@ -1070,9 +1135,10 @@
       "priceAmount": 10,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:smoke-grenade",
@@ -1086,9 +1152,10 @@
       "priceAmount": 50,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:tear-gas-grenade",
@@ -1102,9 +1169,10 @@
       "priceAmount": 300,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:thermite-grenade",
@@ -1118,9 +1186,10 @@
       "priceAmount": 850,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:white-phosphorus-grenade",
@@ -1134,9 +1203,10 @@
       "priceAmount": 625,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:dagger",
@@ -1150,9 +1220,10 @@
       "priceAmount": 2,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:shortspear",
@@ -1166,9 +1237,10 @@
       "priceAmount": 1,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:glaive",
@@ -1182,9 +1254,10 @@
       "priceAmount": 8,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:greataxe",
@@ -1198,9 +1271,10 @@
       "priceAmount": 13,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:sorcery-ring",
@@ -1390,9 +1464,10 @@
       "priceAmount": 1000,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:handwraps",
@@ -1406,9 +1481,10 @@
       "priceAmount": 0.1,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Other-system name collision; never auto-import under a wrong source system."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:animated-doll",
@@ -1422,9 +1498,10 @@
       "priceAmount": 125,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:power-flail",
@@ -1438,9 +1515,10 @@
       "priceAmount": 135,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:power-pole",
@@ -1454,9 +1532,10 @@
       "priceAmount": 200,
       "comparison": "not-found-in-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Metadata only; verify variants and rules before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:air-cab",
@@ -1470,9 +1549,10 @@
       "priceAmount": 1912.5,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:air-cutter",
@@ -1486,9 +1566,10 @@
       "priceAmount": 62325,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:blackjack",
@@ -1502,9 +1583,10 @@
       "priceAmount": 29616,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:bronco",
@@ -1518,9 +1600,10 @@
       "priceAmount": 4024,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:falcon",
@@ -1534,9 +1617,10 @@
       "priceAmount": 4960140,
       "comparison": "name-exists-in-other-system",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:garland",
@@ -1550,9 +1634,10 @@
       "priceAmount": 119250,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:invincible",
@@ -1566,9 +1651,10 @@
       "priceAmount": 279002400,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:ixali-balloon",
@@ -1582,9 +1668,10 @@
       "priceAmount": 84,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     },
     {
       "id": "ffd20:lufenian-airship",
@@ -1598,10 +1685,12 @@
       "priceAmount": 69000,
       "comparison": "not-found-in-october-snapshot",
       "reviewState": "pending",
-      "masterJsonState": "not_added",
+      "masterJsonState": "added",
       "productionState": "unverified",
-      "notes": "Priced vehicle statblock; separate from ordinary equipment. Verify the variant, in-game purchase availability, mechanics and collision before import."
+      "notes": "Included in deployable bulk shopping JSON (not confirmed on QNAP). Original source/currency preserved; mechanics not yet implemented. If unpriced, adding without charge must be explicit.",
+      "bulkImportStatus": "metadata-only-not-mechanics-verified"
     }
   ],
-  "updatedAtUTC": "2026-11-14"
+  "updatedAtUTC": "2026-11-14",
+  "bulkImportFile": "backend/items/catalog/shopping-bulk-02.json"
 }

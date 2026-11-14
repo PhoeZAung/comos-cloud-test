@@ -13,6 +13,7 @@ import {createReplyRoutes} from '../posts/reply-routes.mjs';
 import {createPostsRoutes} from '../posts/routes.mjs';
 import {importItemCatalog} from '../items/catalog.mjs';
 import {importApprovedShoppingBatch} from '../items/approved-shopping.mjs';
+import {importBulkShoppingBatch} from '../items/bulk-shopping.mjs';
 import {createPurchaseService} from '../items/purchases.mjs';
 import {createItemsService} from '../items/service.mjs';
 import {createItemsRoutes} from '../items/routes.mjs';
@@ -76,6 +77,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const characterLibraryRoutes=createCharacterLibraryRoutes({db,sessions,origin:config.origin,adminUids});
     await importItemCatalog(db);
     await importApprovedShoppingBatch(db);
+    await importBulkShoppingBatch(db);
     const itemService=createItemsService(db);
     const directory=createDirectoryRoutes({db,sessions,adminUids,items:itemService,origin:config.origin});
     const itemsRoutes=createItemsRoutes({sessions,items:itemService,purchases:createPurchaseService(db,itemService),origin:config.origin,adminUids});
