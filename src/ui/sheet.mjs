@@ -37,6 +37,7 @@ const groupFields={
 };
 const labels={uncanny_dodge:'Uncanny Dodge',spell_failure:'Armor spell failure override (%)',npcAttackBonus:'Attack bonus',bonus:'Skill bonus',two_handed:'Two-handed (reserves both hands)',mp_cost:'MP Amount (blank = spell level)',casting_ability:'Casting ability',caster_level:'Caster level override',dc_misc:'Save DC adjustment',mp_adjustment:'MP cost adjustment',save_dc_override:'Save DC override (exact value)',attack_bonus_override:'Total attack bonus override',dc_formula:'Save DC formula',uses_formula:'Usage formula',damage:'Dice Roll',str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',speed_mod:'Speed Mod (ft)',speed_burrow:'Burrow (ft)',speed_climb:'Climb (ft)',speed_fly:'Fly (ft)',speed_swim:'Swim (ft)',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Manual Armor (fallback without equipped armor)',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Legacy capacity',capacity_modifier:'Capacity modifier (lb, +/-)',capacity_body_type:'Body type',carried:'Carried (counts toward weight)',weight:'Weight (lb)',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',effect:'Effect',save_type:'Saving throw',save_success:'Successful save',save_success_damage:'Alternate successful-save damage',ability_kind:'Ability category',dr_bypass:'DR bypass properties',sr_bonus:'Spell penetration bonus',favored_class_options:'Favored class options',link:'Link (URL)',action_type:'Action type',damage_types:'Damage Type',misfire:'Misfire',u_curr:'Uses',u_max:'Max Usage',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Ability Mod',extra_damage:'Extra damage (not multiplied on crit)',attack_misc:'Attack bonus',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
 const readable=k=>labels[k]||k.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
+const safeItemReference=value=>{try{const url=new URL(value);return ['https:','http:'].includes(url.protocol)&&!url.username&&!url.password?url.href:'';}catch{return '';}};
 const textKeys=new Set(['name','desc','effect','misfire','action_type','damage','extra_damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','dr_bypass','at_higher_lvls','subName','languages','senses','resistances','proficiencies','favored_class_options','link','dc_formula','uses_formula']);
 const boolKeys=new Set(['cs','equipped','two_handed','restoreOnLongRest','carried']);
 function richEditor(key,value,label,maxLength=12000){
@@ -229,7 +230,7 @@ function mountCharacterSheet(tabs,switchTo){
   }catch{attack.textContent='—';damage.textContent='—';}
  }
  function sourceFieldsFromEditor(){
-  const fields={};
+  const fields=Object.create(null);
   for(const row of root.querySelectorAll('[data-source-field-row]')){
    const key=row.querySelector('[data-source-field-name]')?.value.trim();
    const value=row.querySelector('[data-source-field-value]')?.value??'';
@@ -365,7 +366,7 @@ function mountCharacterSheet(tabs,switchTo){
   remove.dataset.removeEntry=collection+':'+index;
   remove.setAttribute('aria-label','Remove '+String(item.name||'Unnamed')+' from inventory');
   const facts=inventoryItemDetails(item).filter(([label])=>label!=='Cost');
-  popup.querySelector('[data-item-details]').innerHTML=facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>':'';
+  popup.querySelector('[data-item-details]').innerHTML=facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+(label==='Source link'&&safeItemReference(value)?'<a href="'+e(safeItemReference(value))+'" target="_blank" rel="noopener noreferrer">View source</a>':e(value))+'</dd></div>').join('')+'</dl>':'';
   popup.querySelector('[data-item-description-text]').innerHTML=formatSheetText(String(item.desc||item.description||'').trim()||'No description.');
   const special=popup.querySelector('[data-item-special]');special.hidden=!String(item.special||'').trim();special.innerHTML=item.special?'<h3>Special</h3><p>'+e(item.special)+'</p>':'';
   popup.showModal();
