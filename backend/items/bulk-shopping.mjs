@@ -5,7 +5,7 @@ import {catalogId,gilUnits} from './catalog.mjs';
 // Keeps source-only metadata separate from the verified 8 and unchanged base archive.
 const FILE=new URL('./catalog/shopping-bulk-02.json',import.meta.url);
 const VERSION='bulk-2026-11-14-02';
-const SOURCE_HOSTS=new Set(['finalfantasyd20.com','aonprd.com','www.aonprd.com']);
+const SOURCE_HOSTS=new Set(['finalfantasyd20.com','www.finalfantasyd20.com','aonprd.com','www.aonprd.com']);
 
 export function validateBulkShoppingBatch(input){
  if(input?.schemaVersion!=='cosmos.shopping-bulk-metadata.v1'||
