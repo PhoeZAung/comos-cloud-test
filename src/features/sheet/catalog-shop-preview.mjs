@@ -19,7 +19,8 @@ export function renderCatalogPreview(item){
  const facts=inventoryItemDetails(record).filter(([label])=>!['Category','Cost'].includes(label));
  const name=esc(item.name),category=esc(item.category||'Item');
  const details=facts.length?'<section class="cs-catalog-details"><h3>Item details</h3><dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+(label==='Source link'&&safeItemLink(value)?'<a href="'+esc(safeItemLink(value))+'" target="_blank" rel="noopener noreferrer">Open original item page</a>':esc(value))+'</dd></div>').join('')+'</dl></section>':'';
- return '<p class="cs-catalog-category">'+category+' · '+esc(shopSourceLabel(item))+'</p>'+
+ return '<p class="cs-catalog-category">'+category+' · '+esc(shopSourceLabel(item))+'</p>'+ 
+  (item.priceGil===null&&item.costText?'<p class="cs-catalog-original-price">Original source price: <strong>'+esc(item.costText)+'</strong> · No Gil conversion configured</p>':'')+
   '<div class="cs-catalog-item-description"><h3>Description</h3><div class="cs-prose">'+formatSheetText(item.description||'No description available.')+'</div></div>'+
   details;
 }
