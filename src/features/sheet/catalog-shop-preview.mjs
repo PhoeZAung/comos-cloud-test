@@ -8,7 +8,7 @@ const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;
 // bulk, item level and repeated scraped "Source: ..." columns are intentionally hidden.
 const MECHANICAL_FIELDS=Object.freeze([
  ['Damage','dmg'],['Damage (Small)','dmgS'],['Damage (Medium)','dmgM'],
- ['Critical','crit'],['Range','range'],['Damage type','damageType'],
+ ['Critical','crit'],['Range','range'],['Damage type','damageType'],['Weapon traits','traits'],['Special properties','special'],
  ['Attack / Damage','attackDmg'],['Misfire','misfire'],['Capacity','capacity'],['Ammunition','ammo'],
  ['Armor bonus','acBonus'],['Max Dex','maxDex'],['Check penalty','checkPenalty'],['Spell failure','spellFailure'],
  ['Speed (30 ft.)','speed30Ft'],['Speed (20 ft.)','speed20Ft'],['Speed','speed'],['Full speed','fullSpeed'],
