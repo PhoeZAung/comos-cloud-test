@@ -12,7 +12,7 @@ import {addManualSourceAbilities} from '../../src/features/characters/rules/manu
 import {isLimitBreak,syncLimitBreaks,spendLimitBreak} from '../../src/features/sheet/limit-breaks.mjs';
 import {restRecovery} from '../../src/features/sheet/recovery.mjs';
 import {skillBudget} from '../../src/features/sheet/skill-budget.mjs';
-import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
+import {ALL_ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
 import {updateManagedStats} from '../../src/features/characters/managed-stats.mjs';
 import {sheetSkills,skillSupportsSpecialization} from '../../src/features/sheet/skills.mjs';
 import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields,inventoryFieldLabel,usableItemImageUrl,normalizeInventoryText} from '../../src/features/sheet/inventory-fields.mjs';
@@ -184,7 +184,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
      const bonus=numeric(value);
      if(!Number.isInteger(bonus)||Math.abs(bonus)>100000)bad('Enter a whole roll bonus.');
      safe[key]=bonus;
-    }else if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
+    }else if(key==='sourceCategory'&&change.collection==='items'&&ALL_ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
     else if(key==='shopSource'&&change.collection==='items'){
       if(!SHOP_SOURCE_IDS.includes(value))bad('Choose a valid item source.');
       safe.shopSource=value;
