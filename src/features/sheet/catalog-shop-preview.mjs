@@ -1,8 +1,8 @@
 import {shopSourceLabel} from './shop-sources.mjs';
-import {safeSheetLink} from './rich-text.mjs';
 import {inventoryItemDetails} from './inventory-fields.mjs';
 import {formatSheetText} from './rich-text.mjs';
 
+const safeItemLink=value=>{try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:'';}catch{return '';}};
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function formatGil(value){
  if(typeof value!=='number'||!Number.isFinite(value)||value<0)return 'Not priced';
@@ -18,7 +18,7 @@ export function renderCatalogPreview(item){
  const record={name:item.name,shopSource:item.shopSource,sourceCategory:item.category,sourceCatalog:item.catalog,cost:item.costText};
  const facts=inventoryItemDetails(record).filter(([label])=>!['Category','Cost'].includes(label));
  const name=esc(item.name),category=esc(item.category||'Item');
- const details=facts.length?'<section class="cs-catalog-details"><h3>Item details</h3><dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+(label==='Source link'&&safeSheetLink(value)?'<a href="'+esc(safeSheetLink(value))+'" target="_blank" rel="noopener noreferrer">Open original item page</a>':esc(value))+'</dd></div>').join('')+'</dl></section>':'';
+ const details=facts.length?'<section class="cs-catalog-details"><h3>Item details</h3><dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+(label==='Source link'&&safeItemLink(value)?'<a href="'+esc(safeItemLink(value))+'" target="_blank" rel="noopener noreferrer">Open original item page</a>':esc(value))+'</dd></div>').join('')+'</dl></section>':'';
  return '<p class="cs-catalog-category">'+category+' · '+esc(shopSourceLabel(item))+'</p>'+
   '<div class="cs-catalog-item-description"><h3>Description</h3><div class="cs-prose">'+formatSheetText(item.description||'No description available.')+'</div></div>'+
   details;
