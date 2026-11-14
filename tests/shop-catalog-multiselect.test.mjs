@@ -68,7 +68,8 @@ test('short shop labels remain clear across providers and repeated versions',()=
  assert.equal(shopCatalogShortLabel({sourceId:'legacy-master'}),'Cosmos');
  assert.equal(shopCatalogChoiceLabel(aon,[aon,foundry,github]),'PF1e · AoN');
  const other={id:'aon-two',sourceId:'pathfinder-shopping',sourceVersion:'aon-v2'};
- assert.notEqual(shopCatalogChoiceLabel(aon,[aon,other]),shopCatalogChoiceLabel(other,[aon,other]));
+ assert.equal(shopCatalogChoiceLabel(aon,[aon,other]),'PF1e · AoN');
+ assert.equal(shopCatalogChoiceLabel(other,[aon,other]),'PF1e · AoN');
 });
 
 test('minimal shop UI uses a popup and custom item stands beside shop selection',async()=>{
