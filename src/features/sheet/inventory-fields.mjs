@@ -10,7 +10,7 @@ export const ITEM_EDIT_FIELDS_BY_CATEGORY=Object.freeze({
   Machine:[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['Mileage','mileage'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness'],['Attack/Damage','attackDmg'],['Critical','critical'],['Range','range'],['Damage Type','damageType'],['Aim','aim'],['Load','load']],
   'Alchemical Items':[['Tier','tier'],['Range','range'],['DC/Save','dcSave']],
   Consumables:[['Tier','tier'],['Range','range'],['DC/Save','dcSave'],['Effect','effect'],['Duration','duration']],
-  Enhancements:[['Bonus','bonus'],['Effect','effect'],['Slot','slot']],
+  Enhancements:[['Bonus','bonus'],['Effect','effect']],
   'Materials & Crafting':[['Craft DC','craftDc'],['Base Price Modifier','priceModifier']],
   'Vehicles & Mounts':[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness']],
   'Services & Other':[['Duration','duration'],['Price of Passage (per mile)','passagePrice']]
