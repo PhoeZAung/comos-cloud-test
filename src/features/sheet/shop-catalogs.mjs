@@ -28,7 +28,10 @@ export function shopCatalogLabel(item={}){
  const sourceId=String(item.sourceId||item.source_id||catalog.sourceId||'');
  const version=String(item.sourceVersion||item.source_version||catalog.sourceVersion||'');
  const system=shopSourceForItem({...item,sourceId,sourceSystem:catalog.sourceSystem||item.sourceSystem});
- const game=gameNames[system]||'Cosmos';
+ const namedSystem=String(catalog.sourceSystem||item.sourceSystem||'').toLowerCase();
+ const game=/^(?:dnd|dnd-?5e|dungeons-and-dragons-?5e)(?:[-_.]?2024)?$/.test(namedSystem)
+  ?'D&D 5e'+(namedSystem.includes('2024')?' (2024)':'')
+  :gameNames[system]||'Cosmos';
  const repository=first(catalog.sourceRepository,catalog.repository,githubRepository(first(catalog.sourceUrl,catalog.detailUrl,catalog.link)));
  const provider=first(catalog.sourceProvider,catalog.provider,catalog.catalogName,catalog.catalogLabel,catalog.sourceName);
  let origin='';
