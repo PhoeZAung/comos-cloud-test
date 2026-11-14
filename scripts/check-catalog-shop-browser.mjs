@@ -17,7 +17,7 @@ const server=createServer(async(req,res)=>{
  const send=(status,data)=>{res.writeHead(status,{'content-type':'application/json','cache-control':'no-store'});res.end(JSON.stringify(data));};
  if(pathname==='/'){
   res.writeHead(200,{'content-type':'text/html'});
-  res.end('<!doctype html><html><body><main></main><script type="module">import {openInventoryPicker} from "/src/ui/inventory-shop-picker.mjs";window.purchases=[];window.freeAdds=[];window.receipts=[];window.start=()=>openInventoryPicker(document.querySelector("main"),{signal:new AbortController().signal,getBalance:()=>20,onCustom:()=>{},onAdd:async(id,qty)=>{window.freeAdds.push({id,qty});return "";},onBuy:async(item,qty,key)=>{window.purchases.push({id:item.id,qty,key});return {itemName:item.name,totalGil:item.priceGil*qty,remainingGil:20-item.priceGil*qty};},onPurchased:async receipt=>window.receipts.push(receipt)});</script></body></html>');
+  res.end('<!doctype html><html><body><main></main><script type="module">import {openInventoryPicker} from "/src/ui/inventory-shop-picker.mjs";window.purchases=[];window.freeAdds=[];window.receipts=[];window.customAdds=0;window.start=()=>openInventoryPicker(document.querySelector("main"),{signal:new AbortController().signal,getBalance:()=>20,onCustom:()=>{window.customAdds++;},onAdd:async(id,qty)=>{window.freeAdds.push({id,qty});return "";},onBuy:async(item,qty,key)=>{window.purchases.push({id:item.id,qty,key});return {itemName:item.name,totalGil:item.priceGil*qty,remainingGil:20-item.priceGil*qty};},onPurchased:async receipt=>window.receipts.push(receipt)});</script></body></html>');
  }else if(pathname.startsWith('/src/')&&pathname.endsWith('.mjs')&&!pathname.includes('..')){
   try{const content=await readFile('.'+pathname);res.writeHead(200,{'content-type':'text/javascript'});res.end(content);}catch{res.writeHead(404).end();}
  }else if(pathname==='/api/v1/item-catalog/catalogs')send(200,{catalogs});
@@ -35,9 +35,17 @@ try{
  await page.goto('http://127.0.0.1:'+server.address().port);
  await page.waitForFunction(()=>typeof window.start==='function');
  await page.evaluate(()=>window.start());
+ await page.locator('[data-picker-shop-toggle]').waitFor();
+ assert.equal(await page.locator('[data-picker-shop-panel]:visible').count(),0,'shop choices must stay hidden until Choose Shop opens');
+ assert.equal(await page.locator('.item-group-buttons').count(),0,'large text group buttons must not appear');
+ assert.equal(await page.locator('[data-catalog-item]').count(),0,'the catalog starts empty');
+ const toolbarOrder=await page.locator('.cs-catalog-toolbar button').evaluateAll(buttons=>buttons.map(b=>b.textContent.trim()));
+ assert.match(toolbarOrder[0],/Choose Shop/);assert.match(toolbarOrder[1],/Custom Item/);
+ await page.locator('[data-picker-shop-toggle]').click();
  await page.locator('[data-picker-catalog="'+cosmosCatalog+'"]').waitFor();
  assert.equal(await page.locator('[data-catalog-item]').count(),0,'no items should load until a catalog is selected');
  await page.locator('[data-picker-catalog="'+cosmosCatalog+'"]').click();
+ await page.locator('[data-picker-shop-done]').click();
  try{await page.waitForSelector('[data-catalog-item="'+paid+'"]',{timeout:5000});}
  catch(error){
   console.error('Picker diagnostics',JSON.stringify({
@@ -65,7 +73,9 @@ try{
  assert.deepEqual(await page.evaluate(()=>window.purchases.map(p=>({id:p.id,qty:p.qty}))),[{id:paid,qty:4}]);
  assert.equal(await page.locator('.cs-catalog-preview[open]').count(),0);
  await page.evaluate(()=>window.start());
+ await page.locator('[data-picker-shop-toggle]').click();
  await page.locator('[data-picker-catalog="'+pathfinderCatalog+'"]').click();
+ await page.locator('[data-picker-shop-done]').click();
  await page.locator('[data-catalog-item="'+unpriced+'"]').click();
  await page.locator('.cs-catalog-preview[open]').waitFor();
  assert.equal(await page.locator('[data-catalog-confirm]').innerText(),'Add without a price');
@@ -74,6 +84,10 @@ try{
  await page.waitForFunction(()=>window.freeAdds.length===1);
  assert.deepEqual(await page.evaluate(()=>window.freeAdds),[{id:unpriced,qty:1}]);
  assert.equal(postCount,0);
+ await page.evaluate(()=>window.start());
+ await page.locator('[data-custom-item]').click();
+ await page.waitForFunction(()=>window.customAdds===1);
+ assert.equal(await page.locator('.cs-catalog-picker[open]').count(),0,'Custom Item opens without choosing any shop');
  assert.deepEqual(errors,[]);
  console.log('Catalog preview opens before purchase, displays description/total, and separates Buy from unpriced Add.');
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
