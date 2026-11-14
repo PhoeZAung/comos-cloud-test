@@ -1,0 +1,177 @@
+{
+  "schemaVersion": "cosmos.shopping-approved-batch.v1",
+  "batchId": "ffd20-verified-2026-11-14-01",
+  "reviewedOn": "2026-11-14",
+  "reviewStatus": "approved-source-metadata",
+  "mechanicsMode": "informational-only; no automatic equip or character statistic changes",
+  "items": [
+    {
+      "id": "ffd20:bulletproof-vest",
+      "name": "Bulletproof Vest",
+      "category": "Armor",
+      "priceGil": 300,
+      "sourceSystem": "ffd20",
+      "sourceUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "detailUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "description": "Light tactical armor: +1 armor bonus, 8 temporary HP, 5% arcane spell failure, maximum Dexterity +8. It becomes broken when its temporary HP is depleted.",
+      "raw": {
+        "weightLb": 8,
+        "armorBonus": 1,
+        "temporaryHp": 8,
+        "armorType": "light",
+        "spellFailurePercent": 5,
+        "maxDexterity": 8,
+        "slots": [
+          "body",
+          "armor"
+        ]
+      }
+    },
+    {
+      "id": "ffd20:s-w-a-t-vest",
+      "name": "S.W.A.T. Vest",
+      "category": "Armor",
+      "priceGil": 1400,
+      "sourceSystem": "ffd20",
+      "sourceUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "detailUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "description": "Light tactical armor: +2 armor bonus, 16 temporary HP, 10% arcane spell failure, maximum Dexterity +8, armor check penalty -1. Breaks after its temporary HP is exhausted.",
+      "raw": {
+        "weightLb": 14,
+        "armorBonus": 2,
+        "temporaryHp": 16,
+        "armorType": "light",
+        "spellFailurePercent": 10,
+        "maxDexterity": 8,
+        "armorCheckPenalty": -1,
+        "slots": [
+          "body",
+          "armor"
+        ]
+      }
+    },
+    {
+      "id": "ffd20:executive-vest",
+      "name": "Executive Vest",
+      "category": "Armor",
+      "priceGil": 2500,
+      "sourceSystem": "ffd20",
+      "sourceUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "detailUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "description": "Light tactical armor: +3 armor bonus, 16 temporary HP, DR 2/bludgeoning, 20% arcane spell failure, maximum Dexterity +5, armor check penalty -2. Breaks when temporary HP runs out.",
+      "raw": {
+        "weightLb": 24,
+        "armorBonus": 3,
+        "temporaryHp": 16,
+        "damageReduction": "2/bludgeoning",
+        "armorType": "light",
+        "spellFailurePercent": 20,
+        "maxDexterity": 5,
+        "armorCheckPenalty": -2,
+        "slots": [
+          "body",
+          "armor"
+        ]
+      }
+    },
+    {
+      "id": "ffd20:tactical-entry-vest",
+      "name": "Tactical Entry Vest",
+      "category": "Armor",
+      "priceGil": 10000,
+      "sourceSystem": "ffd20",
+      "sourceUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "detailUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "description": "Medium tactical armor: +6 armor bonus, 32 temporary HP, DR 2/bludgeoning, 30% arcane spell failure, maximum Dexterity +3, armor check penalty -3. Half its armor bonus applies against gun touch attacks; it becomes broken when temporary HP is depleted.",
+      "raw": {
+        "weightLb": 32,
+        "armorBonus": 6,
+        "temporaryHp": 32,
+        "damageReduction": "2/bludgeoning",
+        "armorType": "medium",
+        "spellFailurePercent": 30,
+        "maxDexterity": 3,
+        "armorCheckPenalty": -3,
+        "slots": [
+          "body",
+          "armor"
+        ],
+        "gunTouchArmorFraction": 0.5
+      }
+    },
+    {
+      "id": "ffd20:demolition-suit",
+      "name": "Demolition Suit",
+      "category": "Armor",
+      "priceGil": 25000,
+      "sourceSystem": "ffd20",
+      "sourceUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "detailUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "description": "Heavy tactical armor: +10 armor bonus, 50 temporary HP, DR 3/—, 40% arcane spell failure, maximum Dexterity +1, armor check penalty -5. Half its armor bonus applies against gun touch attacks; damaged to broken when temporary HP runs out.",
+      "raw": {
+        "weightLb": 50,
+        "armorBonus": 10,
+        "temporaryHp": 50,
+        "damageReduction": "3/-",
+        "armorType": "heavy",
+        "spellFailurePercent": 40,
+        "maxDexterity": 1,
+        "armorCheckPenalty": -5,
+        "slots": [
+          "body",
+          "armor"
+        ],
+        "gunTouchArmorFraction": 0.5
+      }
+    },
+    {
+      "id": "ffd20:riot-shield",
+      "name": "Riot Shield",
+      "category": "Armor",
+      "priceGil": 1000,
+      "sourceSystem": "ffd20",
+      "sourceUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "detailUrl": "https://finalfantasyd20.com/equipment/technological-gear/",
+      "description": "A tower-style riot shield with a +4 shield bonus, one-way ballistic viewing, and a baton sheath. Half its shield bonus applies against gun touch attacks.",
+      "raw": {
+        "weightLb": 5,
+        "shieldBonus": 4,
+        "gunTouchShieldFraction": 0.5,
+        "quickDrawBatonSheath": true
+      }
+    },
+    {
+      "id": "ffd20:sorcery-ring",
+      "name": "Sorcery Ring",
+      "category": "Magic Items",
+      "priceGil": 10000,
+      "sourceSystem": "ffd20",
+      "sourceUrl": "https://finalfantasyd20.com/magical-items/rings/",
+      "detailUrl": "https://finalfantasyd20.com/magical-items/rings/sorcery-ring/",
+      "description": "Wearer gains the Extra MP feat after wearing this ring continuously for 24 hours, provided they have caster level 1 or higher.",
+      "raw": {
+        "slot": "ring",
+        "casterLevel": 10,
+        "weightLb": 0,
+        "effect": "Extra MP feat after 24 hours; requires caster level at least 1"
+      }
+    },
+    {
+      "id": "ffd20:vitality-ring",
+      "name": "Vitality Ring",
+      "category": "Magic Items",
+      "priceGil": 4000,
+      "sourceSystem": "ffd20",
+      "sourceUrl": "https://finalfantasyd20.com/magical-items/rings/",
+      "detailUrl": "https://finalfantasyd20.com/magical-items/rings/vitality-ring/",
+      "description": "Grants a +2 enhancement bonus to Constitution. For the first 24 hours of wear, treat the bonus as temporary.",
+      "raw": {
+        "slot": "ring",
+        "casterLevel": 4,
+        "weightLb": 0,
+        "constitutionEnhancementBonus": 2,
+        "first24HoursTemporary": true
+      }
+    }
+  ]
+}
