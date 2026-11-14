@@ -33,7 +33,10 @@ function sourcePrice(price){
 const detail=(name,val)=>val===undefined||val===null||val===''?null:{name,val:String(val)};
 function categoryFor(source){
  const system=source.system||{};
- if(source.type==='weapon')return typeof system.range==='number'&&system.range>0?'Ranged Weapon':'Weapon';
+ if(source.type==='weapon'){
+  if(Array.isArray(system.traits?.value)&&system.traits.value.includes('consumable'))return 'Consumables';
+  return typeof system.range==='number'&&system.range>0?'Ranged Weapon':'Weapon';
+ }
  if(source.type==='armor'||source.type==='shield')return 'Armor';
  if(source.type==='consumable')return 'Consumables';
  if(source.type==='ammo')return 'Ammunition';
@@ -67,7 +70,10 @@ export function convertFoundryEquipment(source,filename){
   ...(kind==='weapon'&&s.category?{proficiency:String(s.category)}:{}),
   ...(effect?{effect}:{}),
   ...(s.usage?.value?{usageType:s.usage.value}:{}),
-  ...(s.traits?.rarity?{rarity:s.traits.rarity}:{})
+  ...(s.traits?.rarity?{rarity:s.traits.rarity}:{}),
+  ...(Number.isInteger(s.level?.value)?{itemLevel:s.level.value}:{}),
+  ...(typeof s.bulk?.value==='number'?{pf2eBulk:String(s.bulk.value)}:{}),
+  ...(Array.isArray(s.traits?.value)?{traits:s.traits.value.join(', ')}:{})
  };
  const description=readableDescription(s.description?.value);
  return {

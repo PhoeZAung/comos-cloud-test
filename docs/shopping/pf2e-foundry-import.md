@@ -19,7 +19,8 @@ The PF2e item records are NOT committed to the public Cosmos repository. Install
 2. On QNAP, after publishing the code, run:
 
     cd /share/Service/Container/Cosmos
-    sh ./scripts/install-pf2e-foundry-qnap.sh
+    docker cp cosmos-app:/app/scripts/install-pf2e-foundry-qnap.sh ./install-pf2e-foundry-qnap.sh
+    sh ./install-pf2e-foundry-qnap.sh
 
    The script downloads the pinned upstream source into a new releases directory, extracts ONLY its equipment JSON pack, and builds /data/pf2e-foundry-8.7.0.json.gz with the deployed Cosmos image. This step does not restart Cosmos or write SQLite.
 3. Review output: converted item count, categories and checksum. Restart only the app with the existing Compose config:
