@@ -56,7 +56,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   busy=true;status.textContent='Loading items…';
   if(!append){items=[];list.replaceChildren();next.hidden=true;}
   try{
-   const params=new URLSearchParams({q,source:shopSource,category:category==='All'?'':category,cursor:append?cursor:''});
+   const params=new URLSearchParams({q:query,source:shopSource,category:category==='All'?'':category,cursor:append?cursor:''});
    const result=await get('/api/v1/item-catalog?'+params,request.signal);
    if(!dialog.open)return;
    items=items.concat(result.items);cursor=result.nextCursor;next.hidden=!cursor;
