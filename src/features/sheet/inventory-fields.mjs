@@ -17,7 +17,7 @@ export const ITEM_EDIT_FIELDS_BY_CATEGORY=Object.freeze({
   'Services & Other':[['Duration','duration'],['Price of Passage (per mile)','passagePrice']]
 });
 export const ITEM_COMMON_FIELDS=Object.freeze([
- ['Type','type'],['Subtype','secondaryType'],['Source','shopSource'],['Original source category','sourceCategoryDetail'],['Source link','link'],['Image URL','img'],['Amount','amount'],['Cost','cost'],['Weight (lb)','weight'],['Caster Level','cl'],['Rarity','rarity']
+ ['Type','type'],['Subtype','secondaryType'],['Source','shopSource'],['Original source category','sourceCategoryDetail'],['Source link','link'],['Image URL','img'],['Amount','amount'],['Cost','cost'],['Weight (lb)','weight'],['Caster Level','cl'],['Rarity','rarity'],['Item level','itemLevel'],['PF2e Bulk','pf2eBulk'],['Traits','traits']
 ]);
 const noSubtype=new Set(); // Source-specific weapon/armor subtypes are always editable.
 const noCasterLevel=new Set(); // Magic and nonmagic variants may carry caster-level metadata.
@@ -37,7 +37,7 @@ export function inventoryEditorKeys(category){
 // Read legacy shop aliases without changing the saved schema until the user edits the field.
 const legacyAliases={
  shopSource:['sourceSystem','sourceId'],sourceCategoryDetail:['originalCategory','sourceCategoryOriginal','sourceSubcategory'],link:['detailUrl','sourceUrl','href','url'],
- secondaryType:['filterTag','secondary type'],img:['image','imageUrl','imgUrl','image_url','image url','icon','picture'],cost:['priceGil','unitPriceGil','price'],
+ secondaryType:['filterTag','secondary type'],itemLevel:['level','Level'],pf2eBulk:['bulkPf2e'],traits:['Traits'],img:['image','imageUrl','imgUrl','image_url','image url','icon','picture'],cost:['priceGil','unitPriceGil','price'],
  weight:['weightLb','weight_lb','weightlbs','bulk'],cl:['casterLevel','caster level'],
  dmg:['damage','damageDice','damage_dice','dmgM','damageM','Dmg (M)','DMG','dmgS','damageS','damage (m)','attackDmg'],dmgS:['Dmg (S)','damageS'],crit:['critical','crit_range','critRange'],
  proficiency:['proficiency'],usageType:['usage','use'],ammo:['ammunition','capacity'],

@@ -21,11 +21,13 @@ test('nine high-level groups preserve legacy item tags for existing characters',
 });
 
 test('shop sources use strict source identity rather than name collisions',()=>{
- assert.deepEqual(SHOP_SOURCES.map(x=>x.id),['cosmos','pathfinder-1e','ffd20']);
+ assert.deepEqual(SHOP_SOURCES.map(x=>x.id),['cosmos','pathfinder-1e','pathfinder-2e','ffd20']);
  assert.equal(shopSourceForItem({sourceId:'pathfinder-shopping'}),'pathfinder-1e');
  assert.equal(shopSourceForItem({sourceId:'ffd20-shopping'}),'ffd20');
+ assert.equal(shopSourceForItem({sourceId:'pathfinder-2e-shopping'}),'pathfinder-2e');
  assert.equal(shopSourceForItem({sourceId:'legacy-master'}),'cosmos');
  assert.equal(shopSourceSql('pathfinder-1e').params[0],'pathfinder-shopping');
+ assert.equal(shopSourceSql('pathfinder-2e').params[0],'pathfinder-2e-shopping');
  assert.throws(()=>shopSourceSql("ffd20' OR 1=1"),/Invalid/);
 });
 
