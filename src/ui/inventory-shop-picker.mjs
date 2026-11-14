@@ -122,7 +122,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   if(button.dataset.catalogItem)void showItem(button.dataset.catalogItem);
  });
  dialog.addEventListener('keydown',event=>{if(event.key==='Escape'&&!shopPanel.hidden){event.preventDefault();event.stopPropagation();setShopPopup(false);shopToggle.focus();}});
- dialog.addEventListener('click',event=>{if(!shopPanel.hidden&&!event.target.closest('[data-picker-shop-panel],[data-picker-shop-toggle]'))setShopPopup(false);});
+ dialog.addEventListener('click',event=>{const path=event.composedPath();if(!shopPanel.hidden&&!path.includes(shopPanel)&&!path.includes(shopToggle))setShopPopup(false);});
  dialog.showModal();
  status.textContent='Choose Shop to browse items.';
  void (async()=>{try{const result=await get('/api/v1/item-catalog/catalogs',request.signal);if(!dialog.open)return;catalogs=result.catalogs||[];paintSources();if(!catalogs.length)status.textContent='No catalogs are available yet.';}catch(error){if(dialog.open)status.textContent=error.message;}})();
