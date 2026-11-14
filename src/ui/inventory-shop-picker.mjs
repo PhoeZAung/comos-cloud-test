@@ -111,10 +111,11 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  });
  preview.addEventListener('click',event=>{if(event.target.closest('[data-catalog-back]'))preview.close();});
  dialog.addEventListener('click',event=>{
-  const button=event.target.closest('button');if(!button||busy)return;
+  const button=event.target.closest('button');if(!button)return;
   if(button.hasAttribute('data-custom-item')){dialog.close();onCustom();return;}
   if(button.hasAttribute('data-picker-shop-toggle')){setShopPopup(shopPanel.hidden);return;}
   if(button.hasAttribute('data-picker-shop-done')){setShopPopup(false);shopToggle.focus();return;}
+  if(busy)return;
   if(button.dataset.pickerCatalog){const key=button.dataset.pickerCatalog;if(chosen.has(key))chosen.delete(key);else chosen.add(key);selectionVersion++;category='All';cursor=null;counts={};items=[];list.replaceChildren();next.hidden=true;paintSources();paintCategories();if(!chosen.size){status.textContent='Choose one or more shops to see items.';return;}void loadCounts().catch(error=>{if(dialog.open)status.textContent=error.message;});void load();return;}
   if(button.hasAttribute('data-picker-next')){void load(true);return;}
   if(button.dataset.pickerCategory){category=button.dataset.pickerCategory;paintCategories();void load();return;}
