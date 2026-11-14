@@ -35,13 +35,13 @@ test('critical parsing and damage failures never invent or execute rules',()=>{
 test('weapon damage uses the saved damage formula, independently of the attack ability, including in Dice+',async()=>{
  const row={...data.weapons[0],ability_mod:'dex',damage:'1d8',damage_ability:'auto',damage_style:'two_handed',extra_damage:'1d6 fire'};
  const character={data:{...data,weapons:[row]}},change={kind:'weapon',index:0};
- const pending=[[[19]],[[3],[2]],[[12]],[[4,5,6],[3]]],requested=[];
+ const pending=[[[19],[3],[2]],[[12],[4,5,6],[3]]],requested=[];
  const responses=await requestSheetDice(character,change,async notation=>{
   requested.push(notation);
   const sizes=[...notation.matchAll(/\d+d(\d+)/g)].map(m=>m[1]);
   return {groups:pending.shift().map((faces,i)=>({diceType:'d'+sizes[i],dice:faces.map(value=>({value}))}))};
  });
- assert.deepEqual(requested,['1d20+10','1d8+6+1d6','1d20+10','3d8+18+1d6']);
+ assert.deepEqual(requested,['1d20+10, 1d8+6+1d6','1d20+10, 3d8+18+1d6']);
  const external=externalRollSource(responses),result=weaponRoll(row,character.data,external.roll);
  external.finish();
  assert.equal(result.damage.total,11);

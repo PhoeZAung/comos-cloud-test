@@ -1,4 +1,5 @@
 import {randomUUID} from 'node:crypto';
+import {validatePortrait} from './editor-fields.mjs';
 import {npcStatLabels,npcTextLabels,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
@@ -32,6 +33,11 @@ function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.
 function text(v,max=12000,label='Text'){if(typeof v!=='string'||v.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v))bad(label+' is too long (limit '+max+' characters) or contains invalid characters.');return v;}
 export function mergeSheetData(original,change,{npc=false}={}){
  const data=npc?normalizeNpcSheet(structuredClone(original)):structuredClone(original);
+ if(change.action==='portrait'){
+  if(Object.keys(change).some(key=>!['op','revision','action','portrait'].includes(key))||!Object.hasOwn(change,'portrait'))bad('Invalid portrait update.');
+  data.portrait=validatePortrait(change.portrait);
+  return data;
+ }
  if(change.action==='npcStats'){
   if(!npc||!plain(change.fields)||Object.keys(change.fields).some(key=>!Object.hasOwn(npcStatLabels,key)))bad('Invalid NPC stats.');
   data.npcStats??={};

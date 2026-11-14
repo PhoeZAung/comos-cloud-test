@@ -8,6 +8,21 @@ export function mountInitiative(view,send){
  const root=view.querySelector('tbody'),cards=new Map();
  let state={battle:[],party:[],turn:{},admin:false,approvals:[]},events=[];
  const edits=resourceEditor(()=>state,value=>send(value));
+ const historyDialog=view.querySelector('[data-combat-history]');
+ const historyButton=view.querySelector('[data-combat-history-toggle]');
+ const historyClose=view.querySelector('[data-close-combat-history]');
+ const syncHistory=()=>historyButton.setAttribute('aria-expanded',String(historyDialog.open));
+ const toggleHistory=()=>{if(historyDialog.open)historyDialog.close();else historyDialog.showModal();syncHistory();};
+ const closeHistory=()=>historyDialog.close();
+ const backdropClick=event=>{
+  if(event.target!==historyDialog)return;
+  const bounds=historyDialog.getBoundingClientRect();
+  if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom)closeHistory();
+ };
+ historyButton.addEventListener('click',toggleHistory);
+ historyClose.addEventListener('click',closeHistory);
+ historyDialog.addEventListener('click',backdropClick);
+ historyDialog.addEventListener('close',syncHistory);
  function render(){
   const active=new Set(),visible=Array.isArray(state.battle)?state.battle:[],turn=state.turn?.id===undefined?visible[0]?.id:state.turn.id;
   for(const [index,row] of visible.entries()){
@@ -114,6 +129,10 @@ export function mountInitiative(view,send){
   state(next){state=next;edits.confirm(next);render();},
   history(value){events=Array.isArray(value)?value.slice(0,120):[];render();},
   result(data){const handled=edits.result(data);render();return handled;},
-  close(){edits.close();view.removeEventListener('click',decisionClick);view.querySelector('footer').removeEventListener('click',turnClick);view.querySelector('.battle-scroll').removeEventListener('scroll',scroll);}
+  close(){
+   closeHistory();historyButton.removeEventListener('click',toggleHistory);historyClose.removeEventListener('click',closeHistory);
+   historyDialog.removeEventListener('click',backdropClick);historyDialog.removeEventListener('close',syncHistory);
+   edits.close();view.removeEventListener('click',decisionClick);view.querySelector('footer').removeEventListener('click',turnClick);view.querySelector('.battle-scroll').removeEventListener('scroll',scroll);
+  }
  };
 }

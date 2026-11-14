@@ -92,10 +92,11 @@ test('only administrators can save, edit and roll NPCs, including through an Owl
   const attack={op:'roll',kind:'weapon',index:1,revision:opened.revision,mode:'use'};
   const notation=[];
   const faces=await requestSheetDice(opened,attack,async expression=>{
-   notation.push(expression);const attackRoll=expression.startsWith('1d20');
-   return {groups:[{diceType:attackRoll?'d20':'d8',dice:[{value:attackRoll?11:4}]}]};
+   notation.push(expression);
+   const types=[...expression.matchAll(/(\d+)d(\d+)/g)].map(match=>'d'+match[2]);
+   return {groups:types.map((diceType,i)=>({diceType,dice:[{value:i===0?11:4}]}))};
   });
-  assert.deepEqual(notation,['1d20+16','1d8+9']);
+  assert.deepEqual(notation,['1d20+16, 1d8+9']);
   const result=await call(gm,'api',{method:'POST',path,body:{...attack,discord:false,requestId:randomUUID(),owlbearRolls:faces}});
   assert.equal(result.data.status,200);assert.equal(result.data.data.roll.total,27);
   assert.equal(result.data.data.roll.damage.total,13);
