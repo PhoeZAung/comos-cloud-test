@@ -84,6 +84,7 @@ test('FFd20 shop can buy a source-only gp item for equal Gil without modifying o
   const receipt=purchases.purchase(user.id,buy);
   assert.equal(receipt.totalGil,24);
   assert.equal(receipt.remainingGil,16);
+  assert.equal(JSON.parse(db.prepare('SELECT fingerprint FROM item_purchases WHERE request_id=?').get(buy.requestId).fingerprint).length,6);
   assert.deepEqual(purchases.purchase(user.id,buy),receipt,'retry does not charge twice');
   const d=saved(db,id);
   assert.equal(d.currency_gil,16);
@@ -94,6 +95,15 @@ test('FFd20 shop can buy a source-only gp item for equal Gil without modifying o
   assert.deepEqual(d.legacy,{keep:true});
   assert.equal(items.get(pf.id).priceGil,null,'a purchase must not permanently convert the original item');
   assert.throws(()=>purchases.purchase(user.id,{...buy,pricingMode:undefined}),/already used/);
+ }finally{db.close();}
+});
+
+test('legacy purchase fingerprints keep their original five fields',async()=>{
+ const {db,user,purchases,change}=await seed();
+ try{
+  purchases.purchase(user.id,change);
+  const signature=JSON.parse(db.prepare('SELECT fingerprint FROM item_purchases WHERE request_id=?').get(change.requestId).fingerprint);
+  assert.deepEqual(signature,[change.characterId,change.itemId,change.quantity,change.revision,change.itemRevision]);
  }finally{db.close();}
 });
 
