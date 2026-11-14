@@ -23,6 +23,7 @@ import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel,damageTypeLine,weaponDamageAbilities,weaponDamageStyles,weaponDamageFormulas} from '../features/sheet/calculations.mjs';
 import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,inventorySourceFields,usableItemImageUrl,normalizeInventoryText} from '../features/sheet/inventory-fields.mjs';
+import {catalogMechanicalFacts} from '../features/sheet/catalog-shop-preview.mjs';
 import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
 import {applyRichFormat,formatSheetText} from '../features/sheet/rich-text.mjs';
@@ -250,7 +251,10 @@ function mountCharacterSheet(tabs,switchTo){
   const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons',item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
   if(collection==='items'){
    const parts=inventoryEditorFields(values.sourceCategory||'Misc'),group=(title,keys)=>'<fieldset class="cs-editor-group cs-inventory-field-group"><legend>'+e(title)+'</legend>'+keys.map(render).join('')+'</fieldset>';
-   return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',[...parts.common.map(([,key])=>key),...(parts.allowTwoHanded?['two_handed']:[]),'carried'])+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+sourceFieldsEditor(values)+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
+   const imported=Boolean(values.sourceItemId||values.sourceCatalog||Object.keys(inventorySourceFields(values)).length);
+   const hidden=new Set(['shopSource','sourceCategoryDetail','itemLevel','pf2eBulk','rarity','type','secondaryType']);
+   const common=parts.common.map(([,key])=>key).filter(key=>!hidden.has(key)&&(imported||key!=='link'));
+   return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',[...common,...(parts.allowTwoHanded?['two_handed']:[]),'carried'])+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+(imported?'<details class="cs-inventory-advanced-source"><summary>Advanced source columns</summary>'+sourceFieldsEditor(values)+'</details>':'')+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
   }
   if(collection==='weapons'&&keys.includes('npcAttackBonus'))return '<div class="cs-form-grid cs-weapon-editor">'+keys.map(render).join('')+'<p class="cs-caption">Special on-hit weapon saves are GM-managed; they do not cancel normal weapon damage.</p></div>';
   if(collection==='weapons')return '<div class="cs-form-grid cs-weapon-editor">'+render('name')+'<fieldset class="cs-editor-group"><legend>Attack Roll</legend>'+['attack_type','ability_mod','attack_misc','range','misfire'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Damage</legend>'+['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Special on-hit save (manual)</legend>'+['saving_throw','save_type','save_success','save_dc_override'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Carried weight</legend>'+['weight','amount','carried'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>'+render('desc')+'</div>';
@@ -365,8 +369,9 @@ function mountCharacterSheet(tabs,switchTo){
   const remove=popup.querySelector('[data-item-popup-remove]');
   remove.dataset.removeEntry=collection+':'+index;
   remove.setAttribute('aria-label','Remove '+String(item.name||'Unnamed')+' from inventory');
-  const facts=inventoryItemDetails(item).filter(([label])=>label!=='Cost');
-  popup.querySelector('[data-item-details]').innerHTML=facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+(label==='Source link'&&safeItemReference(value)?'<a href="'+e(safeItemReference(value))+'" target="_blank" rel="noopener noreferrer">View source</a>':e(value))+'</dd></div>').join('')+'</dl>':'';
+  const facts=catalogMechanicalFacts({...item,catalog:item.sourceCatalog||item.catalog||{}});
+  const sourceLink=safeItemReference(inventoryItemValue(item,'link'));
+  popup.querySelector('[data-item-details]').innerHTML=(facts.length?'<dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+e(label)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>':'')+(sourceLink?'<p class="cs-inventory-reference"><a href="'+e(sourceLink)+'" target="_blank" rel="noopener noreferrer">View original item</a></p>':'');
   popup.querySelector('[data-item-description-text]').innerHTML=formatSheetText(String(item.desc||item.description||'').trim()||'No description.');
   const special=popup.querySelector('[data-item-special]');special.hidden=!String(item.special||'').trim();special.innerHTML=item.special?'<h3>Special</h3><p>'+e(item.special)+'</p>':'';
   popup.showModal();
