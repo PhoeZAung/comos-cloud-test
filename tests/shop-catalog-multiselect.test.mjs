@@ -50,10 +50,10 @@ test('multi-select catalogs combine only selected origins and group categories f
 test('player catalog picker opens empty and supports one or more chosen catalogs',async()=>{
  const source=await readFile('src/ui/inventory-shop-picker.mjs','utf8');
  assert.match(source,/chosen=new Set\(\)/);
- assert.match(source,/Choose one or more shops to see items/);
+ assert.match(source,/Choose Shop to browse items/);
  assert.match(source,/data-picker-catalog/);
  assert.match(source,/chosen\.has\(key\)\)chosen\.delete\(key\);else chosen\.add\(key\)/);
- assert.match(source,/for\(const id of chosen\)params\.append\('catalog',id\)/);
+ assert.match(source,/for\(const id of appliedChosen\)params\.append\('catalog',id\)/);
  assert.match(source,/\/api\/v1\/item-catalog\/catalogs/);
 });
 
@@ -74,7 +74,9 @@ test('short shop labels remain clear across providers and repeated versions',()=
 test('minimal shop UI uses a popup and custom item stands beside shop selection',async()=>{
  const src=await readFile('src/ui/inventory-shop-picker.mjs','utf8');
  assert.match(src,/data-picker-shop-toggle/);
- assert.match(src,/data-picker-shop-panel/);
+ assert.match(src,/cs-shop-tag-dialog/);
+ assert.match(src,/shopPanel\.showModal\(\)/);
+ assert.match(src,/aria-haspopup=/);
  assert.match(src,/data-picker-shop-done/);
  assert.match(src,/data-custom-item/);
  assert.match(src,/groups:false,iconOnly:true/);

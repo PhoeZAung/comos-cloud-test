@@ -69,3 +69,53 @@ test('ordinary players preview catalog details and buy only for their own sheet 
   assert.equal(saved(db,id).currency_gil,9.55);
  }finally{await new Promise(resolve=>server.close(resolve));db.close();}
 });
+
+
+test('FFd20 shop can buy a source-only gp item for equal Gil without modifying original catalog prices',async()=>{
+ const {db,user,id,items,purchases,change}=await seed();
+ try{
+  db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify({currency_gil:40,legacy:{keep:true}}),id);
+  const pf=items.save({op:'save',id:randomUUID(),revision:0,name:'Lesser Healing Potion',sourceId:'pathfinder-shopping',sourceVersion:'aon-v1',category:'Consumables',description:'Healing',priceGil:null,costText:'12 gp'});
+  const buy={...change,requestId:randomUUID(),itemId:pf.id,quantity:2,pricingMode:'ffd20-gp-to-gil-v1'};
+  assert.equal(items.get(pf.id).priceGil,null,'the source catalog must retain a null native Gil price');
+  assert.equal(items.get(pf.id).costText,'12 gp');
+  assert.throws(()=>purchases.purchase(user.id,{...buy,pricingMode:undefined}),/no fixed Gil price/);
+  assert.throws(()=>purchases.purchase(user.id,{...buy,pricingMode:'arbitrary'}),/Choose an item/);
+  const receipt=purchases.purchase(user.id,buy);
+  assert.equal(receipt.totalGil,24);
+  assert.equal(receipt.remainingGil,16);
+  assert.equal(JSON.parse(db.prepare('SELECT fingerprint FROM item_purchases WHERE request_id=?').get(buy.requestId).fingerprint).length,6);
+  assert.deepEqual(purchases.purchase(user.id,buy),receipt,'retry does not charge twice');
+  const d=saved(db,id);
+  assert.equal(d.currency_gil,16);
+  assert.equal(d.items[0].unitPriceGil,12);
+  assert.equal(d.items[0].cost,'12 Gil');
+  assert.equal(d.items[0].originalPriceText,'12 gp');
+  assert.equal(d.items[0].purchasedForGil,24);
+  assert.deepEqual(d.legacy,{keep:true});
+  assert.equal(items.get(pf.id).priceGil,null,'a purchase must not permanently convert the original item');
+  assert.throws(()=>purchases.purchase(user.id,{...buy,pricingMode:undefined}),/already used/);
+ }finally{db.close();}
+});
+
+test('legacy purchase fingerprints keep their original five fields',async()=>{
+ const {db,user,purchases,change}=await seed();
+ try{
+  purchases.purchase(user.id,change);
+  const signature=JSON.parse(db.prepare('SELECT fingerprint FROM item_purchases WHERE request_id=?').get(change.requestId).fingerprint);
+  assert.deepEqual(signature,[change.characterId,change.itemId,change.quantity,change.revision,change.itemRevision]);
+ }finally{db.close();}
+});
+
+test('FFd20 conversion charges mixed coins exactly, while ambiguous prices remain unavailable',async()=>{
+ const {db,user,id,items,purchases,change}=await seed();
+ try{
+  const coinItem=items.save({op:'save',id:randomUUID(),revision:0,name:'Mixed coins',sourceId:'pathfinder-2e-shopping',sourceVersion:'foundry-v1',category:'Gear',description:'Test',priceGil:null,costText:'0 pp + 2 gp + 5 sp + 1 cp'});
+  const buy={...change,itemId:coinItem.id,requestId:randomUUID(),quantity:2,pricingMode:'ffd20-gp-to-gil-v1'};
+  const receipt=purchases.purchase(user.id,buy);
+  assert.equal(receipt.totalGil,5.02);
+  assert.equal(receipt.remainingGil,4.98);
+  const ambiguous=items.save({op:'save',id:randomUUID(),revision:0,name:'Price range',sourceId:'pathfinder-shopping',sourceVersion:'aon-v1',category:'Gear',description:'Test',priceGil:null,costText:'2–20 gp'});
+  assert.throws(()=>purchases.purchase(user.id,{...buy,requestId:randomUUID(),itemId:ambiguous.id,revision:2,quantity:1}),/no fixed Gil price/);
+ }finally{db.close();}
+});

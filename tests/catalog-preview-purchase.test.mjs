@@ -58,3 +58,15 @@ test('irrelevant imported metadata never appears as gameplay facts but weight su
  assert.ok(facts.some(([label])=>label==='Save DC'));
  assert.deepEqual(facts.filter(([label])=>/slot|rarity|source|special/i.test(label)),[]);
 });
+
+
+test('FFd20 preview shows a derived Gil rate without changing the original Pathfinder cost',()=>{
+ const sourceItem={name:'Healing Potion',sourceId:'pathfinder-shopping',priceGil:null,costText:'12 gp',description:'Restores health.',catalog:{sourceUrl:'https://www.aonprd.com/'}};
+ const native=renderCatalogPreview(sourceItem);
+ assert.match(native,/No Gil conversion configured/);
+ const ffd20=renderCatalogPreview(sourceItem,{pricingMode:'ffd20-gp-to-gil-v1'});
+ assert.match(ffd20,/Original price: <strong>12 gp<\/strong>/);
+ assert.match(ffd20,/FFd20 shop: 1 gp = 1 Gil/);
+ assert.equal(catalogPurchaseTotal({...sourceItem,priceGil:12},3),36);
+ assert.equal(sourceItem.priceGil,null);
+});
