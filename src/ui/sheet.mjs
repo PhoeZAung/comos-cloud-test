@@ -519,7 +519,7 @@ function mountCharacterSheet(tabs,switchTo){
        if(closed)return;
        character=refreshed.character;itemTag='All';
        const url=new URL(location.href);url.searchParams.delete('itemTag');history.replaceState(null,'',url);
-       draw();status('Bought '+receipt.quantity+' × '+receipt.itemName+' for '+receipt.totalGil+' Gil. Remaining: '+receipt.remainingGil+' Gil.');
+       draw();status('Bought '+receipt.quantity+' × '+receipt.itemName+' for 🪙 '+receipt.totalGil+'. Remaining: 🪙 '+receipt.remainingGil+'.');
       }catch(error){if(!closed)status('Purchase completed. Refresh the sheet to see the item and updated Gil. '+error.message);}
      }});
     return;
