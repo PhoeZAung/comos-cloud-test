@@ -74,6 +74,7 @@ try{
  await page.waitForFunction(()=>window.receipts.length===1);
  assert.deepEqual(await page.evaluate(()=>window.purchases.map(p=>({id:p.id,qty:p.qty}))),[{id:paid,qty:4}]);
  assert.equal(await page.locator('.cs-catalog-preview[open]').count(),0);
+ await page.waitForFunction(()=>document.querySelectorAll('.cs-catalog-picker').length===0);
  await page.evaluate(()=>window.start());
  await page.locator('[data-picker-shop-toggle]').click();
  await page.locator('[data-picker-catalog="'+pathfinderCatalog+'"]').click();
@@ -86,6 +87,7 @@ try{
  await page.waitForFunction(()=>window.freeAdds.length===1);
  assert.deepEqual(await page.evaluate(()=>window.freeAdds),[{id:unpriced,qty:1}]);
  assert.equal(postCount,0);
+ await page.waitForFunction(()=>document.querySelectorAll('.cs-catalog-picker').length===0);
  await page.evaluate(()=>window.start());
  await page.locator('[data-custom-item]').click();
  await page.waitForFunction(()=>window.customAdds===1);
