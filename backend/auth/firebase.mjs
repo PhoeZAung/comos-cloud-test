@@ -81,7 +81,8 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     await importApprovedShoppingBatch(db);
     await importBulkShoppingBatch(db);
     await importPf1eOfflineCatalog(db);
-    await importPf2eCatalog(db);
+    // Optional third-party catalog failures must not take the live Cosmos server down.
+    try{await importPf2eCatalog(db);}catch(error){console.error('Optional PF2e item catalog skipped:',error?.message||String(error));}
     const itemService=createItemsService(db);
     const directory=createDirectoryRoutes({db,sessions,adminUids,items:itemService,origin:config.origin});
     const itemsRoutes=createItemsRoutes({sessions,items:itemService,purchases:createPurchaseService(db,itemService),origin:config.origin,adminUids});
