@@ -4,8 +4,8 @@ import {shopSourceForItem} from './shop-sources.mjs';
 import {itemCategoryForItem,normalizeItemTagLabel} from './item-categories.mjs';
 
 export const ITEM_EDIT_FIELDS_BY_CATEGORY=Object.freeze({
-  Weapon:[['Proficiency','proficiency'],['Usage','usageType'],['Damage (Medium)','dmg'],['Damage (Small)','dmgS'],['Critical','crit'],['Range','range'],['Damage Type','damageType']],
-  'Ranged Weapon':[['Proficiency','proficiency'],['Usage','usageType'],['Damage (Medium)','dmg'],['Damage (Small)','dmgS'],['Critical','crit'],['Range','range'],['Misfire','misfire'],['Capacity','capacity'],['Ammunition','ammo'],['Damage Type','damageType']],
+  Weapon:[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Damage (Medium)','dmgM'],['Damage (Small)','dmgS'],['Critical','crit'],['Range','range'],['Damage Type','damageType']],
+  'Ranged Weapon':[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Damage (Medium)','dmgM'],['Damage (Small)','dmgS'],['Critical','crit'],['Range','range'],['Misfire','misfire'],['Capacity','capacity'],['Ammunition','ammo'],['Damage Type','damageType']],
   Ammunition:[['Damage','dmg'],['Range','range'],['Damage Type','damageType']],
   Armor:[['Armor Bonus','acBonus'],['Max Dex','maxDex'],['Check Penalty','checkPenalty'],['Spell Failure','spellFailure'],['Speed (30 ft.)','speed30Ft'],['Speed (20 ft.)','speed20Ft'],['Speed (legacy)','speed']],
   Machine:[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['Mileage','mileage'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness'],['Attack/Damage','attackDmg'],['Critical','critical'],['Range','range'],['Damage Type','damageType'],['Aim','aim'],['Load','load']],
