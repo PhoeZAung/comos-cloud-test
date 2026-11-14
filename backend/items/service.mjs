@@ -1,6 +1,6 @@
 import {SHOP_ITEM_CATEGORY_GROUPS} from '../../src/features/sheet/item-categories.mjs';
 import {shopSourceForItem,shopSourceSql,isShopSource} from '../../src/features/sheet/shop-sources.mjs';
-import {catalogKey,parseCatalogKey,shopCatalogLabel,shopCatalogShortLabel} from '../../src/features/sheet/shop-catalogs.mjs';
+import {catalogKey,parseCatalogKey,shopCatalogLabel,shopCatalogShortLabel,visibleShopCatalogs} from '../../src/features/sheet/shop-catalogs.mjs';
 import {inventoryItemValue} from '../../src/features/sheet/inventory-fields.mjs';
 import {gilUnits} from './catalog.mjs';
 const invalid=message=>Object.assign(new Error(message),{code:'INVALID_ITEM'});
@@ -102,14 +102,15 @@ export function createItemsService(db){
   const source=shopSourceSql(shopSource);
   return db.prepare('SELECT category,count(*) AS count FROM items WHERE archived=0'+source.sql+catalogSql(chosen)+' GROUP BY category ORDER BY category').all(...source.params,...catalogParams(chosen));
  };
- function listCatalogs(){
+ function listCatalogs({playerView=false}={}){
   const groups=db.prepare("SELECT source_id AS sourceId,source_version AS sourceVersion,count(*) AS count,min(id) AS sampleId FROM items WHERE archived=0 GROUP BY source_id,source_version ORDER BY source_id,source_version").all();
   const sample=db.prepare('SELECT catalog_json FROM items WHERE id=?');
-  return groups.map(group=>{
+  const catalogs=groups.map(group=>{
    let catalog={};
    try{catalog=JSON.parse(sample.get(group.sampleId)?.catalog_json||'{}');}catch{}
    return {id:catalogKey(group.sourceId,group.sourceVersion),label:shopCatalogLabel({...group,catalog}),shortLabel:shopCatalogShortLabel({...group,catalog}),count:group.count,sourceId:group.sourceId,sourceVersion:group.sourceVersion};
   });
+  return playerView?visibleShopCatalogs(catalogs):catalogs;
  }
  return {get,list,save,categories,listCatalogs};
 }
