@@ -50,7 +50,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  const paintCategories=()=>{categories.innerHTML=renderCategoryTiles(counts,category,{attribute:'data-picker-category',label:'Item categories',groups:false,iconOnly:true});};
  function updateAmount(){
   if(!selected)return;
-  const qty=Number(input.value),total=catalogPurchaseTotal(selected,qty),priced=selected.priceGil!==null;
+  const qty=Number(input.value),unit=shopUnitPriceGil(selected,pricingMode),total=catalogPurchaseTotal({...selected,priceGil:unit},qty),priced=unit!==null;
   preview.querySelector('[data-catalog-total]').textContent=priced?(total===null?'—':formatGil(total)):'No listed price';
   preview.querySelector('[data-catalog-unit]').textContent=priced?'Unit price: '+priceText(selected):'Original cost is not converted to Gil. Adding this item will not deduct Gil.';
   const raw=getBalance?.(),balance=Number(raw),known=raw!==null&&raw!==undefined&&Number.isFinite(balance)&&balance>=0;
@@ -60,20 +60,21 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   confirm.disabled=busy||!Number.isSafeInteger(qty)||qty<1||qty>999||priced&&(total===null||insufficient);
  }
  async function load(append=false){
-  if(busy||!chosen.size)return;
+  if(!appliedChosen.size)return;
+  if(busy){queuedLoad=true;return;}
   const version=selectionVersion;
   busy=true;status.textContent='Loading items…';
   if(!append){items=[];list.replaceChildren();next.hidden=true;}
   try{
    const params=new URLSearchParams({q:query,category:category==='All'?'':category,cursor:append?cursor:''});
-   for(const id of chosen)params.append('catalog',id);
+   for(const id of appliedChosen)params.append('catalog',id);
    const result=await get('/api/v1/item-catalog?'+params,request.signal);
    if(!dialog.open||version!==selectionVersion)return;
    items=items.concat(result.items);cursor=result.nextCursor;next.hidden=!cursor;
    list.innerHTML=items.map(item=>'<button class="cs-picker-row cs-catalog-row" type="button" data-catalog-item="'+esc(item.id)+'" aria-haspopup="dialog"><span class="cs-catalog-row-icon" aria-hidden="true">'+itemCategorySymbol(item.category)+'</span><span class="cs-catalog-row-label"><strong>'+esc(item.name)+'</strong><small>'+esc(item.category)+' · '+esc(shopCatalogChoiceLabel(catalogs.find(source=>source.id===catalogKey(item.sourceId,item.sourceVersion))||{shortLabel:'Catalog'},catalogs))+'</small></span><span class="cs-catalog-row-price">'+esc(priceText(item))+'</span><span class="cs-catalog-row-arrow" aria-hidden="true">›</span></button>').join('');
    status.textContent=items.length?'':'No items found.';
   }catch(error){if(dialog.open)status.textContent=error.message;}
-  finally{busy=false;}
+  finally{busy=false;if(queuedLoad){queuedLoad=false;void load();}}
  }
  async function showItem(itemId){
   if(busy||!dialog.open)return;
@@ -83,7 +84,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
    if(!dialog.open||!result.item)return;
    selected=result.item;requestId=crypto.randomUUID();
    preview.querySelector('[data-catalog-title]').textContent=selected.name;
-   preview.querySelector('[data-catalog-description]').innerHTML=renderCatalogPreview(selected);
+   preview.querySelector('[data-catalog-description]').innerHTML=renderCatalogPreview(selected,{pricingMode});
    input.value='1';feedback.textContent='';
    busy=false;updateAmount();preview.showModal();input.focus();status.textContent='';
   }catch(error){if(dialog.open)status.textContent=error.message;}
@@ -96,12 +97,12 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  input.addEventListener('input',()=>{requestId=crypto.randomUUID();updateAmount();});
  form.addEventListener('submit',async event=>{
   event.preventDefault();
-  const quantity=Number(input.value),total=catalogPurchaseTotal(selected,quantity),priced=selected?.priceGil!==null;
+  const quantity=Number(input.value),unit=shopUnitPriceGil(selected,pricingMode),total=catalogPurchaseTotal({...selected,priceGil:unit},quantity),priced=unit!==null;
   if(busy||!selected||!Number.isSafeInteger(quantity)||quantity<1||quantity>999||priced&&total===null)return;
   busy=true;confirm.disabled=true;feedback.textContent=priced?'Buying…':'Adding item…';
   try{
    if(priced){
-    const receipt=await onBuy(selected,quantity,requestId);
+    const receipt=await onBuy(selected,quantity,requestId,pricingMode);
     if(preview.open)preview.close();
     if(dialog.open)dialog.close();
     await onPurchased(receipt);
@@ -118,16 +119,29 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  dialog.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button)return;
   if(button.hasAttribute('data-custom-item')){dialog.close();onCustom();return;}
-  if(button.hasAttribute('data-picker-shop-toggle')){setShopPopup(shopPanel.hidden);return;}
-  if(button.hasAttribute('data-picker-shop-done')){setShopPopup(false);shopToggle.focus();return;}
+  if(button.hasAttribute('data-picker-shop-toggle')){setShopPopup(true);return;}
   if(busy)return;
-  if(button.dataset.pickerCatalog){const key=button.dataset.pickerCatalog;if(chosen.has(key))chosen.delete(key);else chosen.add(key);selectionVersion++;category='All';cursor=null;counts={};items=[];list.replaceChildren();next.hidden=true;paintSources();paintCategories();if(!chosen.size){status.textContent='Choose one or more shops to see items.';return;}void loadCounts().catch(error=>{if(dialog.open)status.textContent=error.message;});void load();return;}
   if(button.hasAttribute('data-picker-next')){void load(true);return;}
   if(button.dataset.pickerCategory){category=button.dataset.pickerCategory;paintCategories();void load();return;}
   if(button.dataset.catalogItem)void showItem(button.dataset.catalogItem);
  });
- dialog.addEventListener('keydown',event=>{if(event.key==='Escape'&&!shopPanel.hidden){event.preventDefault();event.stopPropagation();setShopPopup(false);shopToggle.focus();}});
- dialog.addEventListener('click',event=>{const path=event.composedPath();if(!shopPanel.hidden&&!path.includes(shopPanel)&&!path.includes(shopToggle))setShopPopup(false);});
+ shopPanel.addEventListener('click',event=>{
+  const button=event.target.closest('button');if(!button)return;
+  if(button.dataset.pickerCatalog){const key=button.dataset.pickerCatalog;if(chosen.has(key))chosen.delete(key);else chosen.add(key);paintSources();return;}
+  if(button.hasAttribute('data-picker-shop-done')){shopPanel.close('apply');return;}
+  if(button.hasAttribute('data-picker-shop-cancel'))shopPanel.close();
+ });
+ shopPanel.addEventListener('close',()=>{
+  shopToggle.setAttribute('aria-expanded','false');
+  if(shopPanel.returnValue!=='apply'){chosen=new Set(appliedChosen);paintSources();return;}
+  const changed=chosen.size!==appliedChosen.size||[...chosen].some(id=>!appliedChosen.has(id));
+  if(!changed)return;
+  appliedChosen=new Set(chosen);selectionVersion++;category='All';cursor=null;counts={};items=[];
+  list.replaceChildren();next.hidden=true;paintSources();paintCategories();
+  if(!appliedChosen.size){status.textContent='Choose Shop to browse items.';return;}
+  void loadCounts().catch(error=>{if(dialog.open)status.textContent=error.message;});
+  void load();
+ });
  dialog.showModal();
  status.textContent='Choose Shop to browse items.';
  void (async()=>{try{const result=await get('/api/v1/item-catalog/catalogs',request.signal);if(!dialog.open)return;catalogs=result.catalogs||[];paintSources();if(!catalogs.length)status.textContent='No catalogs are available yet.';}catch(error){if(dialog.open)status.textContent=error.message;}})();
