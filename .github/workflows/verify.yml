@@ -40,6 +40,19 @@ jobs:
           detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
           print('::error title=Node test failure details::' + detail)
           PY
+      - name: Report shopping extraction vs Cosmos JSON vs verified QNAP production
+        run: |
+          node scripts/shopping-progress.mjs > "$RUNNER_TEMP/shopping-progress.md"
+          node scripts/shopping-progress.mjs --json > "$RUNNER_TEMP/shopping-progress.json"
+          cat "$RUNNER_TEMP/shopping-progress.md"
+      - name: Archive shopping progress report
+        uses: actions/upload-artifact@v4
+        with:
+          name: shopping-progress
+          path: |
+            ${{ runner.temp }}/shopping-progress.md
+            ${{ runner.temp }}/shopping-progress.json
+          retention-days: 30
       - name: Verify cloud deployment build
         run: npm run build:cloud
       - name: Install browser for Owlbear panel smoke test
