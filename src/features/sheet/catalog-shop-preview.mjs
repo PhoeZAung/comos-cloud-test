@@ -1,9 +1,40 @@
-import {shopSourceLabel} from './shop-sources.mjs';
-import {inventoryItemDetails} from './inventory-fields.mjs';
+import {shopCatalogLabel} from './shop-catalogs.mjs';
+import {inventoryItemValue} from './inventory-fields.mjs';
 import {formatSheetText} from './rich-text.mjs';
 
 const safeItemLink=value=>{try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:'';}catch{return '';}};
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// Only values that affect play appear before purchase. Source/category/version,
+// bulk, item level and repeated scraped "Source: ..." columns are intentionally hidden.
+const MECHANICAL_FIELDS=Object.freeze([
+ ['Damage','dmg'],['Damage (Small)','dmgS'],['Damage (Medium)','dmgM'],
+ ['Critical','crit'],['Range','range'],['Damage type','damageType'],['Weapon traits','traits'],['Special properties','special'],
+ ['Attack / Damage','attackDmg'],['Misfire','misfire'],['Capacity','capacity'],['Ammunition','ammo'],
+ ['Armor bonus','acBonus'],['Max Dex','maxDex'],['Check penalty','checkPenalty'],['Spell failure','spellFailure'],
+ ['Speed (30 ft.)','speed30Ft'],['Speed (20 ft.)','speed20Ft'],['Speed','speed'],['Full speed','fullSpeed'],
+ ['AC / CMD','acCmd'],['Hit Points','hp'],['Hardness','hardness'],
+ ['Save DC','dcSave'],['Healing','healing'],['Effect','effect'],['Duration','duration'],
+ ['Bonus','bonus'],['Caster level','cl'],['Craft DC','craftDc'],
+ ['Aim','aim'],['Load','load'],['Passengers / Crew','passengersCrew'],['Fuel','fuel'],['Mileage','mileage'],
+ ['Proficiency','proficiency'],['Usage','usageType'],['Tier','tier']
+]);
+export function catalogMechanicalFacts(item={}){
+ const catalog=item.catalog||{};
+ const record={...catalog,sourceCatalog:catalog};
+ const facts=[],seenKeys=new Set();
+ for(const [label,key] of MECHANICAL_FIELDS){
+  let value=inventoryItemValue(record,key);
+  if((value===undefined||value===null||String(value).trim()==='')&&key==='healing')value=catalog.healing;
+  if(value===undefined||value===null||typeof value==='object'||!String(value).trim())continue;
+  // Different-size damage is only useful if it differs from the generic damage field.
+  if((key==='dmgS'||key==='dmgM')&&String(value)===String(inventoryItemValue(record,'dmg')??''))continue;
+  if(key==='attackDmg'&&String(value)===String(inventoryItemValue(record,'dmg')??''))continue;
+  if(seenKeys.has(key))continue;
+  seenKeys.add(key);
+  facts.push([label,String(value).slice(0,600)]);
+ }
+ return facts;
+}
 export function formatGil(value){
  if(typeof value!=='number'||!Number.isFinite(value)||value<0)return 'Not priced';
  return new Intl.NumberFormat('en-US',{maximumFractionDigits:2,minimumFractionDigits:0}).format(value)+' Gil';
@@ -15,12 +46,12 @@ export function catalogPurchaseTotal(item,quantity){
  return total/100;
 }
 export function renderCatalogPreview(item){
- const record={name:item.name,shopSource:item.shopSource,sourceCategory:item.category,sourceCatalog:item.catalog,cost:item.costText};
- const facts=inventoryItemDetails(record).filter(([label])=>!['Category','Cost'].includes(label));
- const name=esc(item.name),category=esc(item.category||'Item');
- const details=facts.length?'<section class="cs-catalog-details"><h3>Item details</h3><dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+(label==='Source link'&&safeItemLink(value)?'<a href="'+esc(safeItemLink(value))+'" target="_blank" rel="noopener noreferrer">Open original item page</a>':esc(value))+'</dd></div>').join('')+'</dl></section>':'';
- return '<p class="cs-catalog-category">'+category+' · '+esc(shopSourceLabel(item))+'</p>'+ 
-  (item.priceGil===null&&item.costText?'<p class="cs-catalog-original-price">Original source price: <strong>'+esc(item.costText)+'</strong> · No Gil conversion configured</p>':'')+
+ const catalog=item.catalog||{},facts=catalogMechanicalFacts(item);
+ const details=facts.length?'<section class="cs-catalog-details"><h3>Gameplay details</h3><dl class="cs-inventory-facts">'+facts.map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl></section>':'';
+ const link=safeItemLink(catalog.detailUrl||catalog.sourceUrl||catalog.link);
+ return '<p class="cs-catalog-category">'+esc(shopCatalogLabel(item))+'</p>'+
+  (item.priceGil===null&&item.costText?'<p class="cs-catalog-original-price">Original price: <strong>'+esc(item.costText)+'</strong> · No Gil conversion configured</p>':'')+
+  details+
   '<div class="cs-catalog-item-description"><h3>Description</h3><div class="cs-prose">'+formatSheetText(item.description||'No description available.')+'</div></div>'+
-  details;
+  (link?'<p class="cs-catalog-link"><a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">View original item</a></p>':'');
 }

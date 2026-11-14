@@ -1,20 +1,32 @@
 import {SHOP_ITEM_CATEGORY_GROUPS} from '../../src/features/sheet/item-categories.mjs';
 import {shopSourceForItem,shopSourceSql,isShopSource} from '../../src/features/sheet/shop-sources.mjs';
+import {catalogKey,parseCatalogKey,shopCatalogLabel} from '../../src/features/sheet/shop-catalogs.mjs';
 import {gilUnits} from './catalog.mjs';
 const invalid=message=>Object.assign(new Error(message),{code:'INVALID_ITEM'});
 const conflict=()=>Object.assign(new Error('This item changed. Reload before saving.'),{code:'REVISION_CONFLICT'});
 const validId=id=>typeof id==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
+const selectedCatalogs=value=>{
+ if(value===null)return null; // Legacy clients retain their existing all-source behavior.
+ if(!Array.isArray(value)||value.length>100||new Set(value).size!==value.length)throw invalid('Invalid catalog selection.');
+ const selected=value.map(parseCatalogKey);
+ if(selected.some(value=>!value))throw invalid('Invalid catalog selection.');
+ return selected;
+};
+const catalogSql=selected=>selected?.length?' AND ('+selected.map(()=>'('+'source_id=? AND source_version=?'+')').join(' OR ')+')':'';
+const catalogParams=selected=>selected?selected.flatMap(row=>[row.sourceId,row.sourceVersion]):[];
 const record=row=>row?{id:row.id,name:row.name,sourceId:row.source_id,sourceVersion:row.source_version,category:row.category,shopSource:shopSourceForItem({sourceId:row.source_id}),archived:Boolean(row.archived),schemaVersion:row.schema_version,revision:row.revision,createdAt:row.created_at,updatedAt:row.updated_at,priceGil:row.price_units===null?null:row.price_units/100,costText:row.cost_text||'',...('description' in row?{description:row.description,catalog:JSON.parse(row.catalog_json||'{}')}:{})}:null;
 export function createItemsService(db){
  const get=id=>{if(!validId(id))throw invalid('Invalid item ID.');return record(db.prepare('SELECT * FROM items WHERE id=?').get(id));};
- function list({q='',sourceId='',shopSource='all',cursor='',archived=false,category=''}={}){
+ function list({q='',sourceId='',shopSource='all',cursor='',archived=false,category='',catalogs=null}={}){
   if(typeof q!=='string'||q.length>80||typeof sourceId!=='string'||(sourceId&&!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(sourceId))||(cursor&&!validId(cursor))||typeof archived!=='boolean'||typeof category!=='string'||category.length>60||!isShopSource(shopSource))throw invalid('Invalid item search.');
+  const chosen=selectedCatalogs(catalogs);
+  if(chosen?.length===0)return {items:[],nextCursor:null};
   const columns='id,name,source_id,source_version,category,archived,schema_version,revision,created_at,updated_at,price_units,cost_text';
   const oldGroups={Tools:['Gear','Food','Weapon','Ranged Weapon','Ammunition','Armor','Enchantment','Machine'],Magic:['Alchemical Items','Artifacts','Magic Items'],Other:['Collection','Misc']};
   const groups={...SHOP_ITEM_CATEGORY_GROUPS,...oldGroups};
   const categories=Object.hasOwn(groups,category)?groups[category]:[category];
-  const source=shopSourceSql(shopSource),filter=(sourceId?' AND source_id=?':'')+source.sql+(category?' AND category IN ('+categories.map(()=>'?').join(',')+')':'');
-  const params=[Number(archived),cursor,q,...(sourceId?[sourceId]:[]),...source.params,...(category?categories:[])];
+  const source=shopSourceSql(shopSource),filter=(sourceId?' AND source_id=?':'')+source.sql+catalogSql(chosen)+(category?' AND category IN ('+categories.map(()=>'?').join(',')+')':'');
+  const params=[Number(archived),cursor,q,...(sourceId?[sourceId]:[]),...source.params,...catalogParams(chosen),...(category?categories:[])];
   const rows=db.prepare(`SELECT ${columns} FROM items WHERE archived=? AND id>? AND instr(lower(name),lower(?))>0${filter} ORDER BY id LIMIT 21`).all(...params);
   return {items:rows.slice(0,20).map(record),nextCursor:rows.length>20?rows[19].id:null};
  }
@@ -77,10 +89,21 @@ export function createItemsService(db){
    const item=get(data.id);db.exec('COMMIT');return item;
   }catch(error){db.exec('ROLLBACK');throw error;}
  }
- const categories=(shopSource='all')=>{
+ const categories=(shopSource='all',catalogs=null)=>{
   if(!isShopSource(shopSource))throw invalid('Invalid shop source.');
+  const chosen=selectedCatalogs(catalogs);
+  if(chosen?.length===0)return [];
   const source=shopSourceSql(shopSource);
-  return db.prepare('SELECT category,count(*) AS count FROM items WHERE archived=0'+source.sql+' GROUP BY category ORDER BY category').all(...source.params);
+  return db.prepare('SELECT category,count(*) AS count FROM items WHERE archived=0'+source.sql+catalogSql(chosen)+' GROUP BY category ORDER BY category').all(...source.params,...catalogParams(chosen));
  };
- return {get,list,save,categories};
+ function listCatalogs(){
+  const groups=db.prepare("SELECT source_id AS sourceId,source_version AS sourceVersion,count(*) AS count,min(id) AS sampleId FROM items WHERE archived=0 GROUP BY source_id,source_version ORDER BY source_id,source_version").all();
+  const sample=db.prepare('SELECT catalog_json FROM items WHERE id=?');
+  return groups.map(group=>{
+   let catalog={};
+   try{catalog=JSON.parse(sample.get(group.sampleId)?.catalog_json||'{}');}catch{}
+   return {id:catalogKey(group.sourceId,group.sourceVersion),label:shopCatalogLabel({...group,catalog}),count:group.count,sourceId:group.sourceId,sourceVersion:group.sourceVersion};
+  });
+ }
+ return {get,list,save,categories,listCatalogs};
 }

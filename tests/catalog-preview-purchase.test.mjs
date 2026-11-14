@@ -1,16 +1,34 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {renderCatalogPreview,formatGil,catalogPurchaseTotal} from '../src/features/sheet/catalog-shop-preview.mjs';
+import {renderCatalogPreview,formatGil,catalogPurchaseTotal,catalogMechanicalFacts} from '../src/features/sheet/catalog-shop-preview.mjs';
 
-test('catalog preview uses safe full descriptions and source item metadata before any purchase',()=>{
- const html=renderCatalogPreview({name:'<img src=x onerror=alert(1)>',category:'Gear',description:'**Rope**\n<script>alert(1)</script>',costText:'2 Gil',catalog:{raw:{Weight:'1 lb',Type:'Utility'}}});
- assert.match(html,/class="cs-catalog-category">Gear/);
+test('catalog preview prioritizes combat facts, description, one original link and named catalog',()=>{
+ const html=renderCatalogPreview({
+  name:'<img src=x onerror=alert(1)>',category:'Weapon',sourceId:'pathfinder-shopping',sourceVersion:'pf1e-offline-v1',
+  description:'**Rope**\n<script>alert(1)</script>',costText:'2 gp',priceGil:null,
+  catalog:{dmg:'1d8',crit:'19–20/x2',range:'30 ft',sourceUrl:'https://www.aonprd.com/EquipmentWeapons.aspx',
+   raw:{Weight:'1 lb',Type:'Utility','Source (Possible Spoilers)':'Core Rulebook','Item Level':'3','Bulk':'L'}}
+ });
+ assert.match(html,/Pathfinder 1e · Archives of Nethys/);
  assert.match(html,/<strong>Rope<\/strong>/);
  assert.match(html,/&lt;script&gt;/);
  assert.doesNotMatch(html,/<script>|<img/);
- assert.match(html,/Item details/);
- assert.match(html,/Weight/);
- assert.match(html,/<dt>Weight \(lb\)<\/dt><dd>1<\/dd>/);
+ assert.match(html,/Gameplay details/);
+ assert.match(html,/<dt>Damage<\/dt><dd>1d8<\/dd>/);
+ assert.match(html,/<dt>Critical<\/dt><dd>19–20\/x2<\/dd>/);
+ assert.match(html,/<dt>Range<\/dt><dd>30 ft<\/dd>/);
+ assert.match(html,/View original item/);
+ assert.doesNotMatch(html,/Source:|Source category|Original source category|Item level|Bulk|Source \(Possible Spoilers\)|<dt>Type<\/dt>|<dt>Weight/);
+});
+
+test('mechanical preview reads legacy source fields for spell failure, save DC and speed',()=>{
+ const row={catalog:{raw:{'Arcane Spell Failure Chance':'25%','DC/Save':'Fortitude DC 18','Full Speed':'60 ft','Dmg (M)':'1d10','Critical':'x3'}}};
+ const facts=catalogMechanicalFacts(row);
+ assert.ok(facts.some(([k,v])=>k==='Spell failure'&&v==='25%'));
+ assert.ok(facts.some(([k,v])=>k==='Save DC'&&v==='Fortitude DC 18'));
+ assert.ok(facts.some(([k,v])=>k==='Full speed'&&v==='60 ft'));
+ assert.ok(facts.some(([k,v])=>k==='Critical'&&v==='x3'));
+ assert.ok(facts.some(([k,v])=>k==='Damage'&&v==='1d10'));
 });
 
 test('catalog purchase totals use fixed exact prices and never estimate ambiguous prices',()=>{
