@@ -1,5 +1,6 @@
 import {gilUnits} from './catalog.mjs';
 import {catalogInventoryItem} from './inventory.mjs';
+import {shopUnitPriceGil,FFD20_SHOP_PRICE_MODE} from '../../src/features/sheet/shop-pricing.mjs';
 const fail=(message,status=400)=>Object.assign(Error(message),{httpStatus:status,error:'invalid_purchase'});
 const uuid=v=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
 const balance=d=>gilUnits(Number(d.currency_gil??d.gil??0));
@@ -12,22 +13,26 @@ export function createPurchaseService(db,items){
  }
  const character=id=>{if(!uuid(id))throw fail('Choose a character.');const row=db.prepare('SELECT c.*,u.display_name AS owner_name,d.data_json FROM characters c JOIN users u ON u.id=c.owner_id LEFT JOIN character_details d ON d.character_id=c.id WHERE c.id=? AND c.archived=0 AND c.kind=\'player\'').get(id);if(!row)throw fail('Character unavailable.',404);return summary(row);};
  function purchase(userId,change,{admin=false}={}){
-  const fields=['op','requestId','characterId','itemId','quantity','revision','itemRevision'];
-  if(!change||Object.keys(change).some(k=>!fields.includes(k))||change.op!=='buy'||!uuid(change.requestId)||!uuid(change.characterId)||!uuid(change.itemId)||!Number.isInteger(change.quantity)||change.quantity<1||change.quantity>999||!Number.isSafeInteger(change.revision)||change.revision<1||!Number.isSafeInteger(change.itemRevision)||change.itemRevision<1)throw fail('Choose an item, character and quantity of 1–999.');
-  const fingerprint=JSON.stringify([change.characterId,change.itemId,change.quantity,change.revision,change.itemRevision]);
+  const fields=['op','requestId','characterId','itemId','quantity','revision','itemRevision','pricingMode'];
+  if(!change||Object.keys(change).some(k=>!fields.includes(k))||(change.pricingMode!==undefined&&change.pricingMode!==FFD20_SHOP_PRICE_MODE)||change.op!=='buy'||!uuid(change.requestId)||!uuid(change.characterId)||!uuid(change.itemId)||!Number.isInteger(change.quantity)||change.quantity<1||change.quantity>999||!Number.isSafeInteger(change.revision)||change.revision<1||!Number.isSafeInteger(change.itemRevision)||change.itemRevision<1)throw fail('Choose an item, character and quantity of 1–999.');
+  const fingerprint=JSON.stringify([change.characterId,change.itemId,change.quantity,change.revision,change.itemRevision,change.pricingMode||null]);
   db.exec('BEGIN IMMEDIATE');try{
    const existing=db.prepare('SELECT * FROM item_purchases WHERE request_id=?').get(change.requestId);
    if(existing){if(existing.user_id!==userId||existing.fingerprint!==fingerprint)throw fail('This purchase ID was already used.',409);db.exec('COMMIT');return JSON.parse(existing.receipt_json);}
    const c=db.prepare('SELECT * FROM characters WHERE id=? AND archived=0 AND kind=\'player\'').get(change.characterId);
    if(!c)throw fail('Character unavailable.',404);if(!admin&&c.owner_id!==userId)throw fail('You can only buy items for your own character.',403);if(c.revision!==change.revision)throw fail('Character changed. Recheck its gil before buying.',409);
    const item=items.get(change.itemId);if(!item||item.archived)throw fail('Item unavailable.',404);if(item.revision!==change.itemRevision)throw fail('Item or price changed. Reopen it before buying.',409);
-   if(item.priceGil===null)throw fail('Set a fixed gil price before buying this item.');
-   const unit=gilUnits(item.priceGil),total=unit*change.quantity;if(unit===null||!Number.isSafeInteger(total))throw fail('Invalid gil price.');
+   const unitPriceGil=shopUnitPriceGil(item,change.pricingMode);
+   if(unitPriceGil===null)throw fail('This item has no fixed Gil price.');
+   const unit=gilUnits(unitPriceGil),total=unit*change.quantity;if(unit===null||!Number.isSafeInteger(total))throw fail('Invalid gil price.');
+   const converted=item.priceGil===null&&change.pricingMode===FFD20_SHOP_PRICE_MODE;
    const data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(c.id)?.data_json||'{}'),funds=balance(data);
    if(funds===null)throw fail('Set a valid gil balance in the sheet first.');if(funds<total)throw fail('Not enough gil.');
    const inventory=Array.isArray(data.items)?data.items:[],now=new Date().toISOString();
    if(inventory.length>=1000)throw fail('Inventory has too many entries.');
-   inventory.push({...catalogInventoryItem(item,change.quantity),unitPriceGil:item.priceGil,purchasedForGil:total/100,purchasedAt:now});
+   const bought=catalogInventoryItem(item,change.quantity);
+   if(converted){bought.originalPriceText=item.costText;bought.cost=String(unitPriceGil)+' Gil';}
+   inventory.push({...bought,unitPriceGil,purchasedForGil:total/100,purchasedAt:now});
    data.items=inventory;data.currency_gil=(funds-total)/100;data.gil=data.currency_gil;
    const json=JSON.stringify(data);if(Buffer.byteLength(json)>500000)throw fail('Character inventory is too large.');
    db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(c.id,json);
