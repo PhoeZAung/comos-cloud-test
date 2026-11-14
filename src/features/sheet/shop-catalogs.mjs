@@ -70,6 +70,9 @@ export function shopCatalogShortLabel(item={}){
 }
 
 export function shopCatalogChoiceLabel(item={},catalogs=[]){
+ if(item.sourceId==='pathfinder-shopping')return 'PF1e · AoN';
+ if(item.sourceId==='pathfinder-2e-shopping')return 'PF2e · Foundry';
+ if(item.sourceId==='legacy-master')return 'Cosmos';
  const base=item.shortLabel||shopCatalogShortLabel(item);
  const others=catalogs.filter(c=>c.id!==item.id&&(c.shortLabel||shopCatalogShortLabel(c))===base);
  if(!others.length)return base;
