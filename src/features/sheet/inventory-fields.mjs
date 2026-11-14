@@ -4,12 +4,13 @@ import {shopSourceForItem} from './shop-sources.mjs';
 import {itemCategoryForItem,normalizeItemTagLabel} from './item-categories.mjs';
 
 export const ITEM_EDIT_FIELDS_BY_CATEGORY=Object.freeze({
-  Weapon:[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Critical','crit'],['Range','range']],
-  'Ranged Weapon':[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Critical','crit'],['Range','range'],['Ammunition','ammo']],
-  Armor:[['Armor Bonus','acBonus'],['Max Dex','maxDex'],['Check Penalty','checkPenalty'],['Spell Failure','spellFailure'],['Speed (30 ft. base / 20 ft. base)','speed']],
+  Weapon:[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Damage (Medium)','dmgM'],['Damage (Small)','dmgS'],['Critical','crit'],['Range','range'],['Damage Type','damageType']],
+  'Ranged Weapon':[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Damage (Medium)','dmgM'],['Damage (Small)','dmgS'],['Critical','crit'],['Range','range'],['Misfire','misfire'],['Capacity','capacity'],['Ammunition','ammo'],['Damage Type','damageType']],
+  Ammunition:[['Damage','dmg'],['Range','range'],['Damage Type','damageType']],
+  Armor:[['Armor Bonus','acBonus'],['Max Dex','maxDex'],['Check Penalty','checkPenalty'],['Spell Failure','spellFailure'],['Speed (30 ft.)','speed30Ft'],['Speed (20 ft.)','speed20Ft'],['Speed (legacy)','speed']],
   Machine:[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['Mileage','mileage'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness'],['Attack/Damage','attackDmg'],['Critical','critical'],['Range','range'],['Damage Type','damageType'],['Aim','aim'],['Load','load']],
-  'Alchemical Items':[['Tier','tier'],['Range','range'],['DC/Save','dcSave']],
-  Consumables:[['Tier','tier'],['Range','range'],['DC/Save','dcSave'],['Effect','effect'],['Duration','duration']],
+  'Alchemical Items':[['Tier','tier'],['Range','range'],['DC/Save','dcSave'],['Damage','dmg'],['Craft DC','craftDc']],
+  Consumables:[['Tier','tier'],['Range','range'],['DC/Save','dcSave'],['Effect','effect'],['Duration','duration'],['Damage','dmg'],['Craft DC','craftDc']],
   Enhancements:[['Bonus','bonus'],['Effect','effect']],
   'Materials & Crafting':[['Craft DC','craftDc'],['Base Price Modifier','priceModifier']],
   'Vehicles & Mounts':[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness']],
@@ -38,12 +39,12 @@ const legacyAliases={
  shopSource:['sourceSystem','sourceId'],sourceCategoryDetail:['originalCategory','sourceCategoryOriginal','sourceSubcategory'],link:['detailUrl','sourceUrl','href','url'],
  secondaryType:['filterTag','secondary type'],img:['image','imageUrl','imgUrl','image_url','image url','icon','picture'],cost:['priceGil','unitPriceGil','price'],
  weight:['weightLb','weight_lb','weightlbs','bulk'],cl:['casterLevel','caster level'],
- dmg:['damage','damageDice','damage_dice','dmgM','dmgS','damageM','damageS','damage (m)','attackDmg'],crit:['critical','crit_range','critRange'],
+ dmg:['damage','damageDice','damage_dice','dmgM','damageM','Dmg (M)','DMG','dmgS','damageS','damage (m)','attackDmg'],dmgS:['Dmg (S)','damageS'],crit:['critical','crit_range','critRange'],
  proficiency:['proficiency'],usageType:['usage','use'],ammo:['ammunition','capacity'],
- acBonus:['armorBonus','shieldBonus','Armor/Shield Bonus'],maxDex:['maxDexBonus','maximumDexterityBonus','maximumDexBonus'],checkPenalty:['armorCheckPenalty'],
- spellFailure:['arcaneSpellFailure'],speed:['speedPenalty','speed30Ft','speed20Ft'],
+ acBonus:['armorBonus','shieldBonus','Armor/Shield Bonus','Armor Bonus'],maxDex:['maxDexBonus','maximumDexterityBonus','maximumDexBonus','Max Dex Bonus'],checkPenalty:['armorCheckPenalty','Armor Check Penalty'],
+ spellFailure:['arcaneSpellFailure','Arcane Spell Failure Chance'],speed30Ft:['Speed (30 ft.)'],speed20Ft:['Speed (20 ft.)'],speed:['speedPenalty','speed30Ft','speed20Ft'],
  fullSpeed:['full speed'],passengersCrew:['passengers','crew'],acCmd:['ac/cmd'],critical:['crit'],
- damageType:['damage type'],dcSave:['saveDc','dc saves'],range:['rangeIncrement','range_increment'],special:['Special','Special Properties','specialProperties','properties']
+ damageType:['damage type'],misfire:['Misfire'],capacity:['Capacity'],dcSave:['saveDc','dc saves'],range:['rangeIncrement','range_increment'],special:['Special','Special Properties','specialProperties','properties']
 };
 export function inventoryItemValue(item={},key){
  if(key==='shopSource')return shopSourceForItem(item);

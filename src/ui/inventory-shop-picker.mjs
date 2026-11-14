@@ -36,7 +36,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  const categories=dialog.querySelector('[data-picker-categories]'),next=dialog.querySelector('[data-picker-next]');
  const form=preview.querySelector('[data-catalog-purchase]'),input=form.elements.quantity,confirm=form.querySelector('[data-catalog-confirm]'),feedback=preview.querySelector('[data-catalog-feedback]');
  let counts={},items=[],selected=null,category='All',shopSource='cosmos',query='',cursor=null,busy=false,requestId=null;
- const priceText=item=>item.priceGil===null?'No fixed price':formatGil(item.priceGil);
+ const priceText=item=>item.priceGil===null?(item.costText?String(item.costText)+' · no Gil price':'No fixed price'):formatGil(item.priceGil);
  const paintSources=()=>{dialog.querySelector('[data-picker-sources]').innerHTML=SHOP_SOURCES.map(source=>'<button type="button" class="button" data-picker-source="'+source.id+'" aria-pressed="'+(source.id===shopSource)+'">'+esc(source.label)+'</button>').join('');};
  const loadCounts=async()=>{const result=await get('/api/v1/item-catalog/categories?'+new URLSearchParams({source:shopSource}),request.signal);if(!dialog.open)return;counts=Object.fromEntries(result.categories.map(row=>[row.category,row.count]));paintCategories();};
  const paintCategories=()=>{categories.innerHTML=renderCategoryTiles(counts,category,{attribute:'data-picker-category',label:'Item categories',groups:true,iconOnly:true});};
@@ -44,7 +44,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   if(!selected)return;
   const qty=Number(input.value),total=catalogPurchaseTotal(selected,qty),priced=selected.priceGil!==null;
   preview.querySelector('[data-catalog-total]').textContent=priced?(total===null?'—':formatGil(total)):'No listed price';
-  preview.querySelector('[data-catalog-unit]').textContent=priced?'Unit price: '+priceText(selected):'The catalog does not provide a fixed Gil price.';
+  preview.querySelector('[data-catalog-unit]').textContent=priced?'Unit price: '+priceText(selected):'Original cost is not converted to Gil. Adding this item will not deduct Gil.';
   const raw=getBalance?.(),balance=Number(raw),known=raw!==null&&raw!==undefined&&Number.isFinite(balance)&&balance>=0;
   const insufficient=priced&&known&&total!==null&&Math.round(balance*100)<Math.round(total*100);
   preview.querySelector('[data-catalog-balance]').textContent=(known?'Your Gil: '+formatGil(balance):'')+(insufficient?' · Not enough Gil':priced?'':' · No Gil will be deducted for unpriced items.');

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "cosmos.pf1e-offline-manifest.v1",
+  "version": "2026-11-14-offline-pf1e-v1",
+  "sourceSystem": "pathfinder-1e",
+  "sourcePages": 96,
+  "itemCandidateOccurrences": 7566,
+  "itemCount": 7562,
+  "duplicateOccurrences": 4,
+  "sha256": "413c4e5e387c5f7475097940e14241b41aa496982e75639ce0baddebce4cc7f0",
+  "compressedSha256": "36bd0dc7bfa36197d52d479648f202ac1fdf3bfa7cebfadce024c5c594ca0212",
+  "dataFile": "/data/pf1e-offline-v1.json.gz",
+  "provenance": "User-supplied offline AoN PF1e HTML pages. All original table columns preserved; prices not converted to gil."
+}
