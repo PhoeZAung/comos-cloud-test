@@ -38,7 +38,7 @@ export function inventoryEditorKeys(category){
 const legacyAliases={
  shopSource:['sourceSystem','sourceId'],sourceCategoryDetail:['originalCategory','sourceCategoryOriginal','sourceSubcategory'],link:['detailUrl','sourceUrl','href','url'],
  secondaryType:['filterTag','secondary type'],itemLevel:['level','Level'],pf2eBulk:['bulkPf2e'],traits:['Traits'],img:['image','imageUrl','imgUrl','image_url','image url','icon','picture'],cost:['priceGil','unitPriceGil','price'],
- weight:['weightLb','weight_lb','weightlbs','bulk'],cl:['casterLevel','caster level'],
+ weight:['weightLb','weight_lb','weightlbs','Weight (lb)','Weight (lbs)','Weight (pounds)','weight pounds'],cl:['casterLevel','caster level'],
  dmg:['damage','damageDice','damage_dice','dmgM','damageM','Dmg (M)','DMG','dmgS','damageS','damage (m)','attackDmg'],dmgS:['Dmg (S)','damageS'],crit:['critical','crit_range','critRange'],
  proficiency:['proficiency'],usageType:['usage','use'],ammo:['ammunition','capacity'],
  acBonus:['armorBonus','shieldBonus','Armor/Shield Bonus','Armor Bonus'],maxDex:['maxDexBonus','maximumDexterityBonus','maximumDexBonus','Max Dex Bonus'],checkPenalty:['armorCheckPenalty','Armor Check Penalty'],
@@ -46,6 +46,22 @@ const legacyAliases={
  fullSpeed:['full speed'],passengersCrew:['passengers','crew'],acCmd:['ac/cmd'],critical:['crit'],
  damageType:['damage type'],misfire:['Misfire'],capacity:['Capacity'],dcSave:['saveDc','dc saves'],range:['rangeIncrement','range_increment'],special:['Special','Special Properties','specialProperties','properties']
 };
+// Carrying capacity and shop previews both use pounds, never PF2e Bulk.
+export function itemWeightLb(value){
+ if(typeof value==='number')return Number.isFinite(value)&&value>=0&&value<=1e6?Math.round(value*10000)/10000:null;
+ if(typeof value!=='string')return null;
+ const raw=value.trim().toLowerCase().replace(/−/g,'-');
+ let whole=0,fraction=0,unit='';
+ const mixed=/^(\d[\d,]*(?:\.\d+)?)\s+(\d+)\s*\/\s*(\d+)\s*(lb\.?|lbs\.?|pounds?|kg\.?|kgs\.?|kilograms?)?$/i.exec(raw);
+ const fractional=/^(\d+)\s*\/\s*(\d+)\s*(lb\.?|lbs\.?|pounds?|kg\.?|kgs\.?|kilograms?)?$/i.exec(raw);
+ const simple=/^(\d[\d,]*(?:\.\d+)?)\s*(lb\.?|lbs\.?|pounds?|kg\.?|kgs\.?|kilograms?)?$/i.exec(raw);
+ if(mixed&&Number(mixed[3])>0){whole=Number(mixed[1].replaceAll(',',''));fraction=Number(mixed[2])/Number(mixed[3]);unit=mixed[4]||'';}
+ else if(fractional&&Number(fractional[2])>0){fraction=Number(fractional[1])/Number(fractional[2]);unit=fractional[3]||'';}
+ else if(simple){whole=Number(simple[1].replaceAll(',',''));unit=simple[2]||'';}
+ else return null;
+ const weight=(whole+fraction)*(/^kg|^kilogram/.test(unit)?2.2046226218:1);
+ return Number.isFinite(weight)&&weight>=0&&weight<=1e6?Math.round(weight*10000)/10000:null;
+}
 export function inventoryItemValue(item={},key){
  if(key==='shopSource')return shopSourceForItem(item);
  const candidates=[key,...(legacyAliases[key]||[])];
@@ -71,11 +87,7 @@ export function inventoryItemValue(item={},key){
  const catalog=item.sourceCatalog??item.catalog;
  const value=[item,item.raw,catalog,catalog?.raw].map(lookup).find(present)
     ??[item.details,catalog?.details,item.attrs].map(lookupDetails).find(present);
- if(key==='weight'&&value!==undefined){
-  const fraction=/^\s*(?:(\d+)\s+)?(\d+)\s*\/\s*(\d+)/.exec(String(value));
-  if(fraction&&Number(fraction[3])>0)return Number(fraction[1]||0)+Number(fraction[2])/Number(fraction[3]);
-  const parsed=Number.parseFloat(String(value));return Number.isFinite(parsed)?parsed:value;
- }
+ if(key==='weight')return itemWeightLb(value)??undefined;
  return value;
 }
 /** Preserve every named column from an imported AoN/FFd20 source table.
