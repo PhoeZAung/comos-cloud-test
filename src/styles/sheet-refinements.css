@@ -407,3 +407,12 @@
 .cs-skill-training-note{display:block!important;margin-top:3px;color:var(--muted);font-size:.72rem;letter-spacing:.015em}
 .cs-skill-untrained [data-edit-entry]{opacity:1;filter:none;cursor:pointer;color:var(--accent)}
 .cs-skill-untrained .cs-favorite{opacity:1}
+
+
+/* Source-origin catalog chips: selected catalogs are visible and independently toggleable. */
+.cs-catalog-source-picker{margin:.5rem 0 .35rem}
+.cs-catalog-source-picker>.cs-caption{margin:0 0 .4rem}
+.cs-catalog-source-picker .cs-shop-source-tabs{display:flex;flex-wrap:wrap;gap:6px;max-height:min(25dvh,180px);overflow:auto}
+.cs-catalog-source-picker .button[data-picker-catalog]{min-height:36px;padding:6px 10px;font-size:12px;text-align:left;white-space:normal}
+.cs-catalog-source-picker .button[data-picker-catalog][aria-pressed="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,var(--surface));color:var(--text)}
+.cs-catalog-row-label small{white-space:normal;overflow-wrap:anywhere}
