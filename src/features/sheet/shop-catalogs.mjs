@@ -32,7 +32,7 @@ export function shopCatalogLabel(item={}){
  const repository=first(catalog.sourceRepository,catalog.repository,githubRepository(first(catalog.sourceUrl,catalog.detailUrl,catalog.link)));
  const provider=first(catalog.sourceProvider,catalog.provider,catalog.catalogName,catalog.catalogLabel,catalog.sourceName);
  let origin='';
- if(repository)origin=(/^(foundryvtt|foundry)\//i.test(repository)?'Foundry':'GitHub')+' ('+repository+')';
+ if(repository)origin=(provider||(/^(foundryvtt|foundry)\//i.test(repository)?'Foundry':'GitHub'))+' ('+repository+')';
  else if(provider)origin=provider;
  else if(sourceId==='pathfinder-shopping')origin='Archives of Nethys';
  else if(sourceId==='pathfinder-2e-shopping')origin='Foundry (foundryvtt/pf2e)';
