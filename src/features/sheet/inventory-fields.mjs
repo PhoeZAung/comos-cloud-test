@@ -1,3 +1,4 @@
+import {shopSourceForItem} from './shop-sources.mjs';
 // Category-specific inventory fields, ported from Mount Aetheria's item editor.
 // Keep category names identical to the shared original-shop taxonomy.
 import {itemCategoryForItem,normalizeItemTagLabel} from './item-categories.mjs';
@@ -7,13 +8,18 @@ export const ITEM_EDIT_FIELDS_BY_CATEGORY=Object.freeze({
   'Ranged Weapon':[['Proficiency','proficiency'],['Usage','usageType'],['Damage','dmg'],['Critical','crit'],['Range','range'],['Ammunition','ammo']],
   Armor:[['Armor Bonus','acBonus'],['Max Dex','maxDex'],['Check Penalty','checkPenalty'],['Spell Failure','spellFailure'],['Speed (30 ft. base / 20 ft. base)','speed']],
   Machine:[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['Mileage','mileage'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness'],['Attack/Damage','attackDmg'],['Critical','critical'],['Range','range'],['Damage Type','damageType'],['Aim','aim'],['Load','load']],
-  'Alchemical Items':[['Tier','tier'],['Range','range'],['DC/Save','dcSave']]
+  'Alchemical Items':[['Tier','tier'],['Range','range'],['DC/Save','dcSave']],
+  Consumables:[['Tier','tier'],['Range','range'],['DC/Save','dcSave'],['Effect','effect'],['Duration','duration']],
+  Enhancements:[['Bonus','bonus'],['Effect','effect'],['Slot','slot']],
+  'Materials & Crafting':[['Craft DC','craftDc'],['Base Price Modifier','priceModifier']],
+  'Vehicles & Mounts':[['Full Speed','fullSpeed'],['Passengers/Crew','passengersCrew'],['Fuel','fuel'],['AC/CMD','acCmd'],['HP','hp'],['Hardness','hardness']],
+  'Services & Other':[['Duration','duration'],['Price of Passage (per mile)','passagePrice']]
 });
 export const ITEM_COMMON_FIELDS=Object.freeze([
- ['Type','type'],['Subtype','secondaryType'],['Image URL','img'],['Amount','amount'],['Cost','cost'],['Weight (lb)','weight'],['Caster Level','cl'],['Rarity','rarity']
+ ['Type','type'],['Subtype','secondaryType'],['Source','shopSource'],['Original source category','sourceCategoryDetail'],['Source link','link'],['Image URL','img'],['Amount','amount'],['Cost','cost'],['Weight (lb)','weight'],['Caster Level','cl'],['Rarity','rarity']
 ]);
-const noSubtype=new Set(['Weapon','Ranged Weapon','Ammunition','Armor','Machine']);
-const noCasterLevel=new Set(['Weapon','Ranged Weapon','Ammunition','Armor','Food']);
+const noSubtype=new Set(); // Source-specific weapon/armor subtypes are always editable.
+const noCasterLevel=new Set(); // Magic and nonmagic variants may carry caster-level metadata.
 export const itemEditableColumns=Object.freeze([
  ...new Set([...ITEM_COMMON_FIELDS.map(([,key])=>key),...Object.values(ITEM_EDIT_FIELDS_BY_CATEGORY).flat().map(([,key])=>key),'special'])
 ]);
@@ -29,6 +35,7 @@ export function inventoryEditorKeys(category){
 }
 // Read legacy shop aliases without changing the saved schema until the user edits the field.
 const legacyAliases={
+ shopSource:['sourceSystem','sourceId'],sourceCategoryDetail:['originalCategory','sourceCategoryOriginal','sourceSubcategory'],link:['sourceUrl','detailUrl','href','url'],
  secondaryType:['filterTag','secondary type'],img:['image','imageUrl','imgUrl','image_url','image url','icon','picture'],cost:['priceGil','unitPriceGil','price'],
  weight:['weightLb','weight_lb','weightlbs','bulk'],cl:['casterLevel','caster level'],
  dmg:['damage','damageDice','damage_dice','dmgM','dmgS','damageM','damageS','damage (m)','attackDmg'],crit:['critical','crit_range','critRange'],
@@ -39,6 +46,7 @@ const legacyAliases={
  damageType:['damage type'],dcSave:['saveDc','dc saves'],range:['rangeIncrement','range_increment'],special:['Special','Special Properties','specialProperties','properties']
 };
 export function inventoryItemValue(item={},key){
+ if(key==='shopSource')return shopSourceForItem(item);
  const candidates=[key,...(legacyAliases[key]||[])];
  const normalize=label=>String(label||'').toLowerCase().replace(/[^a-z0-9]/g,'');
  const normalized=new Set(candidates.map(normalize));
@@ -69,6 +77,27 @@ export function inventoryItemValue(item={},key){
  }
  return value;
 }
+/** Preserve every named column from an imported AoN/FFd20 source table.
+ * User edits overlay the source snapshot; the snapshot itself is immutable.
+ */
+export function inventorySourceFields(item={}){
+ const catalog=item.sourceCatalog??item.catalog??{};
+ const values={};
+ const sources=[catalog.raw,catalog.allFields,catalog.allFieldsJSON,catalog.sourceFields,item.raw,item.sourceFields];
+ for(let source of sources){
+  if(typeof source==='string'){
+   try{source=JSON.parse(source);}catch{continue;}
+  }
+  if(!source||typeof source!=='object'||Array.isArray(source))continue;
+  for(const [key,value] of Object.entries(source)){
+   if(!key||key.length>100||['__proto__','constructor','prototype'].includes(key)||value===null||value===undefined||typeof value==='object')continue;
+   if(Object.keys(values).length>=100&&!Object.hasOwn(values,key))break;
+   values[key]=String(value).slice(0,12000);
+  }
+ }
+ return values;
+}
+
 // An image URL is optional display metadata. Never block an item save because
 // imported catalog data contains an oversized image, data URI, or unsupported URL.
 export function usableItemImageUrl(value){
@@ -94,7 +123,8 @@ export function inventoryFieldLabel(key){
 export function inventoryItemDetails(item={}){
  const {common,extras}=inventoryEditorFields(itemCategoryForItem(item));
  const values=[['Category',itemCategoryForItem(item)],...common.filter(([,key])=>!['img','amount'].includes(key)),...extras].map(([label,key])=>[label,key==='Category'?itemCategoryForItem(item):inventoryItemValue(item,key)]);
- const seen=new Set();return values.filter(([label,value])=>{
+ const raw=Object.entries(inventorySourceFields(item)).map(([label,value])=>['Source: '+label,value]);
+ const seen=new Set();return [...values,...raw].filter(([label,value])=>{
   if(value===undefined||value===null||value==='')return false;
   if(seen.has(label))return false;seen.add(label);return true;
  });
