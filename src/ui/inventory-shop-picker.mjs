@@ -1,3 +1,4 @@
+import {SHOP_SOURCES,shopSourceLabel} from '../features/sheet/shop-sources.mjs';
 import {renderCategoryTiles,itemCategorySymbol} from '../features/sheet/item-categories.mjs';
 import {renderCatalogPreview,formatGil,catalogPurchaseTotal} from '../features/sheet/catalog-shop-preview.mjs';
 
@@ -13,6 +14,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  dialog.className='cs-dialog cs-picker cs-catalog-picker';
  dialog.setAttribute('aria-label','Add an item');
  dialog.innerHTML='<header><h2>Item catalog</h2><button class="cs-icon" type="button" data-picker-close aria-label="Close">×</button></header>'+
+ '<nav class="cs-shop-source-tabs" aria-label="Shop source" data-picker-sources></nav>'+
  '<div data-picker-categories></div>'+
  '<form class="cs-picker-search"><input name="q" aria-label="Search items" placeholder="Search items" maxlength="80"><button class="button">Search</button></form>'+
  '<div class="cs-picker-list cs-catalog-list" data-picker-list></div>'+
@@ -33,8 +35,10 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  const list=dialog.querySelector('[data-picker-list]'),status=dialog.querySelector('[data-picker-status]');
  const categories=dialog.querySelector('[data-picker-categories]'),next=dialog.querySelector('[data-picker-next]');
  const form=preview.querySelector('[data-catalog-purchase]'),input=form.elements.quantity,confirm=form.querySelector('[data-catalog-confirm]'),feedback=preview.querySelector('[data-catalog-feedback]');
- let counts={},items=[],selected=null,category='All',query='',cursor=null,busy=false,requestId=null;
+ let counts={},items=[],selected=null,category='All',shopSource='cosmos',query='',cursor=null,busy=false,requestId=null;
  const priceText=item=>item.priceGil===null?'No fixed price':formatGil(item.priceGil);
+ const paintSources=()=>{dialog.querySelector('[data-picker-sources]').innerHTML=SHOP_SOURCES.map(source=>'<button type="button" class="button" data-picker-source="'+source.id+'" aria-pressed="'+(source.id===shopSource)+'">'+esc(source.label)+'</button>').join('');};
+ const loadCounts=async()=>{const result=await get('/api/v1/item-catalog/categories?'+new URLSearchParams({source:shopSource}),request.signal);if(!dialog.open)return;counts=Object.fromEntries(result.categories.map(row=>[row.category,row.count]));paintCategories();};
  const paintCategories=()=>{categories.innerHTML=renderCategoryTiles(counts,category,{attribute:'data-picker-category',label:'Item categories',groups:true,iconOnly:true});};
  function updateAmount(){
   if(!selected)return;
@@ -52,7 +56,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   busy=true;status.textContent='Loading items…';
   if(!append){items=[];list.replaceChildren();next.hidden=true;}
   try{
-   const params=new URLSearchParams({q:query,category:category==='All'?'':category,cursor:append?cursor:''});
+   const params=new URLSearchParams({q,source:shopSource,category:category==='All'?'':category,cursor:append?cursor:''});
    const result=await get('/api/v1/item-catalog?'+params,request.signal);
    if(!dialog.open)return;
    items=items.concat(result.items);cursor=result.nextCursor;next.hidden=!cursor;
@@ -104,14 +108,13 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  dialog.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||busy)return;
   if(button.hasAttribute('data-custom-item')){dialog.close();onCustom();return;}
+  if(button.dataset.pickerSource){shopSource=button.dataset.pickerSource;category='All';cursor=null;counts={};paintSources();paintCategories();void loadCounts();void load();return;}
   if(button.hasAttribute('data-picker-next')){void load(true);return;}
   if(button.dataset.pickerCategory){category=button.dataset.pickerCategory;paintCategories();void load();return;}
   if(button.dataset.catalogItem)void showItem(button.dataset.catalogItem);
  });
  dialog.showModal();
- void get('/api/v1/item-catalog/categories',request.signal).then(result=>{
-  if(!dialog.open)return;
-  counts=Object.fromEntries(result.categories.map(item=>[item.category,item.count]));paintCategories();
- }).catch(()=>{if(dialog.open)paintCategories();});
+ paintSources();
+ void loadCounts().catch(()=>{if(dialog.open)paintCategories();});
  void load();
 }
