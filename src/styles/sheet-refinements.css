@@ -440,3 +440,20 @@
 .cs-catalog-picker .item-category-tiles button>span:first-child{font-size:19px}
 .cs-catalog-picker .item-category-tiles button small{display:none}
 @media(max-width:420px){.cs-catalog-toolbar .button{padding:8px 10px}.cs-catalog-shop-controls .cs-catalog-source-picker{width:100%}}
+
+
+/* Choose Shop is a proper centered modal with multi-select shop tags, not a dropdown. */
+.cs-dialog.cs-shop-tag-dialog{box-sizing:border-box;width:min(450px,calc(100vw - 24px));max-height:min(76dvh,650px);overflow:auto;border:1px solid var(--line);border-radius:15px;padding:16px;background:var(--surface);color:var(--text);box-shadow:0 22px 66px #0008}
+.cs-shop-tag-dialog::backdrop{background:#000a;backdrop-filter:blur(2px)}
+.cs-shop-tag-dialog header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.cs-shop-tag-dialog header h2{margin:0;font:600 18px/1.3 system-ui;color:var(--text)}
+.cs-shop-tag-dialog header .cs-icon{min-width:36px;min-height:36px}
+.cs-shop-tag-dialog>.cs-caption{display:block;margin:0 0 12px;color:var(--muted);font-size:12px}
+.cs-shop-tag-dialog .cs-shop-source-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,165px),1fr));gap:8px;max-height:min(48dvh,380px);overflow-y:auto;padding:2px}
+.cs-shop-tag-dialog .button[data-picker-catalog]{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;min-height:43px;padding:10px;border:1px solid var(--line);border-radius:10px;text-align:left;background:var(--bg);color:var(--text);font:600 12px/1.3 system-ui}
+.cs-shop-tag-dialog .button[data-picker-catalog]>span{min-width:0;overflow-wrap:anywhere}
+.cs-shop-tag-dialog .button[data-picker-catalog] small{margin-left:auto;color:var(--muted);font:11px system-ui}
+.cs-shop-tag-dialog .button[data-picker-catalog][aria-pressed="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface))}
+.cs-shop-tag-dialog .button[data-picker-catalog][aria-pressed="true"]>span::before{content:"✓ ";color:var(--accent)}
+.cs-shop-tag-dialog footer{display:flex;justify-content:flex-end;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.cs-shop-tag-dialog footer .button{min-height:38px;border-radius:9px;padding:8px 20px}
