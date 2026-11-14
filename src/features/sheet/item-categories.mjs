@@ -108,7 +108,7 @@ export function renderCategoryTiles(counts={},selected='All',{attribute='data-it
  if(total===0)return '';
  const categories=[...ITEM_TAG_OPTIONS,...Object.keys(counts).filter(tag=>!ITEM_TAG_OPTIONS.includes(tag)&&tag!=='All')].filter(tag=>Number(counts[tag]||0)>0);
  const visible=visibleInventoryCategory(counts,selected);
- const groupsMarkup=groups?'<nav class="item-group-buttons" aria-label="Item groups">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).filter(([,tags])=>tags.some(tag=>Number(counts[tag]||0)>0)).map(([name])=>'<button type="button" '+attribute+'="'+name+'" aria-pressed="'+(visible===name)+'">'+name+'</button>').join('')+'</nav>':'';
+ const groupsMarkup=groups?'<nav class="item-group-buttons" aria-label="Item groups">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).filter(([,tags])=>tags.some(tag=>Number(counts[tag]||0)>0)).map(([name])=>'<button type="button" '+attribute+'="'+name+'" aria-pressed="'+(visible===name)+'">'+escape(name)+'</button>').join('')+'</nav>':'';
  return groupsMarkup+'<nav class="item-category-tiles'+(iconOnly?' item-category-icon-only':'')+'" aria-label="'+escape(label)+'">'
   +'<button type="button" class="item-category-all" '+attribute+'="All" aria-pressed="'+(visible==='All')+'" aria-label="All inventory items" title="All items"><span aria-hidden="true">▦</span>'+(iconOnly?'':'<strong>All</strong>')+'<small>'+total+'</small></button>'
   +categories.map(tag=>'<button type="button" '+attribute+'="'+escape(tag)+'" aria-pressed="'+(visible===tag)+'" aria-label="'+escape(tag)+'" title="'+escape(tag)+'"><span aria-hidden="true">'+itemCategorySymbol(tag)+'</span>'+(iconOnly?'':'<span>'+escape(tag)+'</span>')+'<small>'+Number(counts[tag]||0)+'</small></button>').join('')
