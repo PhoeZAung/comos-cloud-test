@@ -15,6 +15,8 @@ This tracker covers **87 candidate gaps or provenance conflicts** found by the i
 
 **End-to-end shipped: 0% of the 87 audited candidates**, even though the project has a pre-existing 5,604-item master catalog. This does not mean the site has zero shop items.
 
+**Actual comparison with the Cosmos master archive (verified in CI):** 77 candidate names do not occur there; 9 match only another system; 1 matches the correct system under a different source page; 0 match both same system and source page. These 10 collision cases require additional review and should not be auto-imported.
+
 AoN: 73 category/index links are inventoried. Automated access was refused via `robots.txt` HTTP 403; some older sample checks exist but a fresh full automated AoN coverage percentage is unavailable. Respect the block and use permitted, manually saved pages if needed.
 
 Run in the Cosmos source repository after **every extraction/import update**:
