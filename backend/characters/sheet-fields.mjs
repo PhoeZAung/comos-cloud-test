@@ -1,3 +1,4 @@
+import {SHOP_SOURCE_IDS} from '../../src/features/sheet/shop-sources.mjs';
 import {randomUUID} from 'node:crypto';
 import {npcStatLabels,npcTextLabels,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
@@ -138,7 +139,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
   else{
    if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>36)bad('Invalid entry fields.');
    if(change.collection==='items'){
-    const currentCategory=change.fields.sourceCategory??rows[change.index]?.sourceCategory??'Misc',allowed=new Set([...inventoryEditorKeys(currentCategory),'favorite','equipped']);
+    const currentCategory=change.fields.sourceCategory??rows[change.index]?.sourceCategory??'Misc',allowed=new Set([...inventoryEditorKeys(currentCategory),'favorite','equipped','sourceFields']);
     if(Object.keys(change.fields).some(key=>!allowed.has(key)))bad('That field is not available for this inventory tag.');
    }
    if(change.mode==='update'&&data.gunbreakerAmmo!==undefined&&rows[change.index].rulesOwned&&rows[change.index].sourceRuleId===MAGICKED_AMMO_ID&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Use the gun arm ammunition tracker to change these rounds.');
@@ -184,13 +185,30 @@ export function mergeSheetData(original,change,{npc=false}={}){
      if(!Number.isInteger(bonus)||Math.abs(bonus)>100000)bad('Enter a whole roll bonus.');
      safe[key]=bonus;
     }else if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
+    else if(key==='shopSource'&&change.collection==='items'){
+      if(!SHOP_SOURCE_IDS.includes(value))bad('Choose a valid item source.');
+      safe.shopSource=value;
+    }
+    else if(key==='sourceCategoryDetail'&&change.collection==='items')safe.sourceCategoryDetail=text(value,160,'Original category');
+    else if(key==='sourceFields'&&change.collection==='items'){
+      if(!plain(value)||Object.keys(value).length>100)bad('Too many original source fields.');
+      let length=0;const fields={};
+      for(const [label,entry] of Object.entries(value)){
+        if(!label||label.length>100||['__proto__','constructor','prototype'].includes(label))bad('Invalid source column name.');
+        const val=text(entry,12000,label);
+        length+=label.length+val.length;
+        if(length>60000)bad('Source column data is too large.');
+        fields[label]=val;
+      }
+      safe.sourceFields=fields;
+    }
     else if(key==='weight'&&['items','weapons'].includes(change.collection)){
       const weight=typeof value==='number'?value:typeof value==='string'&&value.trim()?Number.parseFloat(value):0;
       if(Number.isFinite(weight)&&weight>=0&&weight<=1000000)safe.weight=weight;
      }
     else if(key==='img'&&change.collection==='items')safe.img=usableItemImageUrl(value);
      else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount')safe[key]=normalizeInventoryText(value,key);
-    else if(key==='link'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+    else if(key==='link'&&['items','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
       safe.link=text(value,2048);
       if(safe.link){try{const url=new URL(safe.link);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)bad('Link must be an http or https URL.');}
        catch{bad('Link must be a valid http or https URL.');}}
