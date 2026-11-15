@@ -2,6 +2,7 @@ import {abilityUsageGroup} from './ability-groups.mjs';
 import {isLimitBreak,limitBreakState} from './limit-breaks.mjs';
 import {spellMpAmount} from './spell-mp.mjs';
 import {abilities,attackType,number,sheetStats} from './model.mjs';
+import {ammoEffectsForWeapon} from './weapon-inventory.mjs';
 import {characterClasses,totalClassLevel} from '../characters/ffd20.mjs';
 // Bounded arithmetic parser, never JavaScript evaluation. All fractional results floor.
 export function arithmetic(source,values={}){
@@ -104,7 +105,8 @@ export function weaponDamageFormulas(row,data,multiplier){
   else if(style==='bow'&&row.damage_ability==='auto')abilityBonus=Math.min(0,abilityBonus);
  }
  const formula=resolve(row.damage||row.dmg),extra=resolve(row.extra_damage);
- const base=formula&&abilityBonus?join(formula,String(abilityBonus)):formula;
+ const ammo=ammoEffectsForWeapon(data,row);
+ const base=join(formula,[(abilityBonus||0),(ammo.dmgBonus||0)].filter(Boolean).map(String).join(' + '));
  const normal=join(base,extra);
  if(normal)diceTerms(normal);
  let critical='';
