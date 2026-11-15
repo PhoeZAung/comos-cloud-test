@@ -26,8 +26,8 @@ const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
 const textFields=['languages','senses','resistances','proficiencies','favored_class_options','notesArea'];
 const enumFields={uncanny_dodge:['auto','on','off'],size_category:sizes,capacity_body_type:['biped','quadruped'],speed_fly_maneuverability:['','clumsy','poor','average','good','perfect'],spell_dc_base:abilities,ar_melee_ability:abilities,ar_ranged_ability:abilities,ar_touch_ability:abilities,ar_ranged_touch_ability:abilities};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
-const entryText=['name','desc','effect','misfire','ammoType','rarity','cost','img','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
-const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level','mp_cost','sr_bonus','save_dc_override','attack_bonus_override'];
+const entryText=['name','desc','effect','misfire','ammoType','damage_type_other','rarity','cost','img','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
+const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','ammo_ar_bonus','ammo_dmg_bonus','dc_misc','mp_adjustment','caster_level','mp_cost','sr_bonus','save_dc_override','attack_bonus_override'];
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 const bad=message=>{throw Error(message);};
 function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.isFinite(Number(v))||Math.abs(Number(v))>100000000)bad('Enter a valid number.');return Number(v);}
@@ -153,10 +153,11 @@ export function mergeSheetData(original,change,{npc=false}={}){
    if(change.mode==='update'&&isLimitBreak(rows[change.index])&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Limit Break usage is shared and calculated.');
    if(change.mode==='update'&&abilityGroup(data,rows[change.index],change.collection)&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Edit usage on the shared ability group.');
    const safe={};
+   const isAmmunition=(change.fields.sourceCategory??rows[change.index]?.sourceCategory)==='Ammunition';
    for(const [key,value] of Object.entries(change.fields)){
    if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
-    if(key==='damage_types'&&['weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){if(!Array.isArray(value)||value.length>damageTypes.length||value.some(v=>!damageTypes.includes(v)))bad('Choose valid damage types.');safe[key]=[...new Set(value)];}
+    if(key==='damage_types'&&(['weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)||change.collection==='items'&&isAmmunition)){const allowed=change.collection==='weapons'||change.collection==='items'&&isAmmunition?[...damageTypes,'Other']:damageTypes;if(!Array.isArray(value)||value.length>allowed.length||value.some(v=>!allowed.includes(v)))bad('Choose valid damage types.');safe[key]=[...new Set(value)];}
     else if(change.collection==='weapons'&&!npc&&key==='damage_ability'){
      if(!weaponDamageAbilities.includes(value))bad('Choose a damage ability.');
      safe[key]=value;
@@ -213,7 +214,12 @@ export function mergeSheetData(original,change,{npc=false}={}){
       }
       safe.sourceFields=fields;
     }
-    else if(key==='weight'&&['items','weapons'].includes(change.collection)){
+    else if(key==='damage_type_other'&&(change.collection==='weapons'||change.collection==='items'&&isAmmunition)){
+      const custom=text(value,80,'Other damage type').trim();
+      if(custom&&!/^[\p{L}\p{N}][\p{L}\p{N} +/&-]{0,79}$/u.test(custom))bad('Enter a valid custom damage type.');
+      safe.damage_type_other=custom;
+     }
+     else if(key==='weight'&&['items','weapons'].includes(change.collection)){
       const weight=typeof value==='number'?value:typeof value==='string'&&value.trim()?Number.parseFloat(value):0;
       if(Number.isFinite(weight)&&weight>=0&&weight<=1000000)safe.weight=weight;
      }
@@ -225,16 +231,21 @@ export function mergeSheetData(original,change,{npc=false}={}){
        catch{bad('Link must be a valid http or https URL.');}}
      }
      else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=change.collection==='items'&&key==='desc'?normalizeInventoryText(value,key):text(value,key==='name'?120:key==='desc'&&['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(change.collection)?100000:12000,key==='desc'?'Description':key);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
-    else if(entryNumber.includes(key)){if(['mp_cost','caster_level','save_dc_override','attack_bonus_override'].includes(key)&&(value===''||value===null)){safe[key]='';continue;}
+    else if(entryNumber.includes(key)){if(['ammo_ar_bonus','ammo_dmg_bonus'].includes(key)&&!((change.collection==='weapons'||change.collection==='items')&&isAmmunition))bad('Ammo bonuses belong to ammunition entries.');if(['mp_cost','caster_level','save_dc_override','attack_bonus_override'].includes(key)&&(value===''||value===null)){safe[key]='';continue;}
     if(key==='attack_bonus_override'&&!['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection))bad('Only spells and abilities can override attack bonus.');
     safe[key]=numeric(value);
-    if(key==='save_dc_override'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>100000))bad('Save DC must be a positive whole number.');
+    if(['ammo_ar_bonus','ammo_dmg_bonus'].includes(key)&&(!Number.isInteger(safe[key])||Math.abs(safe[key])>1000))bad('Ammo bonuses must be whole numbers between -1000 and 1000.');
+     if(key==='save_dc_override'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>100000))bad('Save DC must be a positive whole number.');
     if(key==='attack_bonus_override'&&(!Number.isInteger(safe[key])||Math.abs(safe[key])>100000))bad('Total attack bonus must be a whole number.');if(['u_curr','u_max'].includes(key)&&(!Number.isInteger(safe[key])||safe[key]<0))bad('Uses must be nonnegative whole numbers.');if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
     else if(key==='two_handed'&&['items','weapons'].includes(change.collection)&&typeof value==='boolean')safe[key]=value;
     else if(['equipped','cs','restoreOnLongRest','favorite','carried'].includes(key)&&typeof value==='boolean')safe[key]=value;
     else if(key==='ability_mod'&&change.collection==='weapons'&&['auto','none'].includes(value))safe[key]=value;
     else if(['stat','ability_mod'].includes(key)&&abilities.includes(value))safe[key]=value;
     else bad('Invalid entry field.');
+   }
+   if(Object.hasOwn(safe,'damage_types')){
+    if(safe.damage_types.includes('Other')&&!(safe.damage_type_other??rows[change.index]?.damage_type_other??'').trim())bad('Enter a name for Other damage type.');
+    if(!safe.damage_types.includes('Other'))safe.damage_type_other='';
    }
    if(change.mode==='add'){
     if(rows.length>=1000||!safe.name?.trim())bad('Enter a name; maximum 1,000 entries per section.');rows.push(safe);
