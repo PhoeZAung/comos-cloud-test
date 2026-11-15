@@ -597,3 +597,32 @@
  .cs-entry-tab-editor .cs-entry-editor-tabs [role="tab"]{font-size:12px;padding:8px 5px}
  .cs-dialog[data-sheet-dialog]:has(.cs-entry-tab-editor) .cs-dialog-actions{bottom:-16px}
 }
+
+
+/* Four compact editing tabs: weapons and abilities share the Items aesthetic. */
+.cs-entry-tab-editor .cs-entry-editor-tabs{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.cs-entry-tab-editor [data-entry-edit-panel][hidden]{display:none!important}
+.cs-entry-tab-editor .cs-save-help{
+ grid-column:1/-1;border:1px solid var(--line);border-radius:10px;
+ background:color-mix(in srgb,var(--accent) 3%,var(--surface));
+ padding:9px 12px;color:var(--muted);font:12px/1.45 system-ui;
+}
+.cs-entry-tab-editor .cs-save-help summary{color:var(--accent);font-weight:650;cursor:pointer}
+.cs-entry-tab-editor .cs-save-help p{margin:8px 0 0;max-width:62ch}
+.cs-weapon-reload{display:inline-flex;align-items:center;justify-content:center;
+ width:25px;height:25px;min-width:25px;border-radius:8px;padding:4px;
+ color:var(--accent);border:1px solid transparent;
+}
+.cs-weapon-reload svg{width:15px;height:15px;stroke-width:2}
+.cs-weapon-reload:hover,.cs-weapon-reload:focus-visible{
+ border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--surface));
+}
+.cs-weapon-migrate{font:600 11px/1.2 system-ui;padding:6px 9px;white-space:nowrap;
+ margin-left:auto;border-radius:8px;}
+.cs-weapon-ammo-fields input[name=ammoType]{min-width:0}
+.cs-entry-tab-editor .cs-ammo-summary{font-variant-numeric:tabular-nums}
+@media(max-width:460px){
+ .cs-entry-tab-editor .cs-entry-editor-tabs{gap:2px;padding:3px}
+ .cs-entry-tab-editor .cs-entry-editor-tabs [role="tab"]{padding:9px 2px;font-size:11px;line-height:1.2;min-width:0}
+ .cs-weapon-migrate{font-size:10px;padding:5px 7px}
+}
