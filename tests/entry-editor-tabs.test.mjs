@@ -6,7 +6,12 @@ import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {entryCalculations} from '../src/features/sheet/calculations.mjs';
 
 const field=key=>'<label><input name="'+key+'"></label>';
-const panel=(html,name)=>html.match(new RegExp('<section role="tabpanel"[^>]*data-entry-edit-panel="'+name+'"[^>]*>([\\s\\S]*?)<\\/section>'))?.[1]??'';
+const panel=(html,name)=>{
+ const start=html.indexOf('data-entry-edit-panel="'+name+'"');
+ if(start<0)return '';
+ const next=html.indexOf('<section role="tabpanel"',start+1);
+ return html.slice(start,next<0?html.length:next);
+};
 const names=html=>[...html.matchAll(/<input name="([^"]+)"/g)].map(x=>x[1]);
 
 test('weapon tabs keep range, misfire and both ammo controls together, without duplicate inputs',()=>{
