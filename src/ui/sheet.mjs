@@ -25,6 +25,7 @@ import {spellLevel,damageTypeLine,weaponDamageAbilities,weaponDamageStyles,weapo
 import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,inventorySourceFields,usableItemImageUrl,normalizeInventoryText} from '../features/sheet/inventory-fields.mjs';
 import {catalogMechanicalFacts} from '../features/sheet/catalog-shop-preview.mjs';
 import {renderItemEditorTabs,collectItemEditorFields} from '../features/sheet/item-editor-tabs.mjs';
+import {renderWeaponEditorTabs,renderAbilityEditorTabs,weaponAmmoStatus} from '../features/sheet/entry-editor-tabs.mjs';
 import {FFD20_SHOP_PRICE_MODE} from '../features/sheet/shop-pricing.mjs';
 import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
@@ -47,18 +48,32 @@ function richEditor(key,value,label,maxLength=12000){
  const controls=[['bold','Bold','B'],['italic','Italic','I'],['heading','Heading','H'],['bullet','Bullet list','•'],['left','Align left','L'],['center','Center','≣'],['right','Align right','R']];
  return '<div class="cs-field cs-field-wide cs-rich-field" data-rich-editor><div class="cs-rich-heading"><label for="cs-rich-'+key+'">'+label+'</label><details class="cs-rich-tools"><summary aria-label="Show formatting tools for '+label+'" title="Show formatting tools">☷</summary><div class="cs-rich-toolbar" role="toolbar" aria-label="'+label+' formatting">'+controls.map(([command,title,glyph])=>'<button type="button" data-rich-format="'+command+'" title="'+title+'" aria-label="'+title+'">'+glyph+'</button>').join('')+'</div></details></div><textarea id="cs-rich-'+key+'" name="'+key+'" rows="5" maxlength="'+maxLength+'">'+e(value||'')+'</textarea></div>';
 }
-function field(key,value,{weapon=false,item=false,longDescription=false,source='cosmos'}={}){
+const weaponEditorLabels=Object.freeze({
+ name:'Weapon Name',attack_type:'Attack Type',ability_mod:'Attack Stat',npcAttackBonus:'Attack Bonus',attack_misc:'Extra Attack Bonus',
+ damage:'Damage Dice',damage_ability:'Damage Stat',damage_style:'Damage Style',extra_damage:'Extra Damage',crit_range:'Critical Range',crit_mult:'Critical Multiplier',
+ damage_types:'Damage Types',dr_bypass:'Bypasses Resistance',u_curr:'Ammo',u_max:'Max Ammo',weight:'Weight (lb)',amount:'Quantity',
+ saving_throw:'Saving Throw',save_dc_override:'Save DC',save_success:'On Successful Save',desc:'Description'
+});
+const abilityEditorLabels=Object.freeze({
+ name:'Ability Name',ability_kind:'Ability Type',lvl:'Level',action_type:'Action',effect_type:'Effect Type',
+ attack_type:'Attack Type',attack_misc:'Extra Attack Bonus',attack_bonus_override:'Attack Bonus',saving_throw:'Saving Throw',
+ save_dc_override:'Save DC',save_success:'On Successful Save',save_success_damage:'Damage on Save',spell_resist:'Spell Resistance',
+ sr_bonus:'Spell Resistance Bonus',spell_failure:'Spell Failure %',casting_ability:'Casting Stat',caster_level:'Caster Level',
+ dc_formula:'DC Formula',dc_misc:'Extra DC Bonus',mp_cost:'MP Cost',u_curr:'Uses Left',u_max:'Max Uses',
+ uses_formula:'Uses Formula',restoreOnLongRest:'Restore on Rest',at_higher_lvls:'Higher Levels'
+});
+function field(key,value,{weapon=false,item=false,ability=false,longDescription=false,source='cosmos'}={}){
  if(key==='capacity_body_type')return '<label class="cs-field"><span>Body type</span><select name="capacity_body_type"><option value="biped"'+(value!=='quadruped'?' selected':'')+'>Biped</option><option value="quadruped"'+(value==='quadruped'?' selected':'')+'>Quadruped</option></select></label>';
  if(key==='carried')return '<label class="cs-checkbox"><input type="checkbox" name="carried" '+(value!==false?'checked':'')+'><span>Carried (counts toward weight)</span></label>';
- if(key==='ability_kind')return '<label class="cs-field"><span>Ability category</span><select name="ability_kind">'+Object.entries(abilityKinds).map(([id,label])=>'<option value="'+id+'"'+((value||'other')===id?' selected':'')+'>'+label+'</option>').join('')+'</select><small class="cs-caption">Sp = spell-like (SR); Su = supernatural (no SR); Ex = extraordinary (no SR).</small></label>';
- if(key==='spell_resist')return '<label class="cs-field"><span>Allow spell resistance?</span><select name="spell_resist">'+Object.entries(srModes).map(([id,label])=>'<option value="'+id+'"'+((String(value||'').toLowerCase().startsWith('no')?'no':'yes')===id?' selected':'')+'>'+label+'</option>').join('')+'</select><small class="cs-caption">Used for spells and spell-like (Sp) abilities. Some spells do not allow SR.</small></label>';
- if(key==='save_type')return '<label class="cs-field"><span>Saving throw</span><select name="save_type">'+Object.entries(saveTypes).map(([id,label])=>'<option value="'+id+'"'+((value||'none')===id?' selected':'')+'>'+label+'</option>').join('')+'</select><small class="cs-caption">Uses the target\'s existing save bonus and the spell/ability DC. Do not guess a save from the spell name.</small></label>';
- if(key==='save_success')return '<label class="cs-field"><span>On successful save</span><select name="save_success">'+Object.entries(saveOutcomes).map(([id,label])=>'<option value="'+id+'"'+((value||'manual')===id?' selected':'')+'>'+label+'</option>').join('')+'</select><small class="cs-caption">Choose a precise outcome. GM resolves partial or unusual effects.</small></label>';
- if(key==='save_success_damage')return '<label class="cs-field cs-field-wide"><span>Damage dice if save succeeds (alternate only)</span><input type="text" name="save_success_damage" maxlength="300" value="'+e(value||'')+'" placeholder="3d6 + {CL}"><small class="cs-caption">Example: Slay Living is 12d6 + {CL} normally, but 3d6 + {CL} after a successful Fortitude save.</small></label>';
- if(key==='save_dc_override')return '<label class="cs-field"><span>Save DC override</span><input type="number" name="save_dc_override" step="1" min="1" max="100000" value="'+e(value??'')+'" placeholder="Automatic"><small class="cs-caption">Optional exact DC for printed spells and abilities; overrides calculated DC.</small></label>';
- if(key==='attack_bonus_override')return '<label class="cs-field"><span>Attack bonus override</span><input type="number" name="attack_bonus_override" step="1" value="'+e(value??'')+'" placeholder="Automatic"><small class="cs-caption">Optional total attack bonus including all modifiers. Blank uses the calculated attack.</small></label>';
- if(key==='effect_type')return '<label class="cs-field"><span>Effect type</span><select name="effect_type">'+Object.entries(effectTypes).map(([id,label])=>'<option value="'+id+'"'+(value===id?' selected':'')+'>'+label+'</option>').join('')+'</select><small class="cs-caption">Uses the Dice Roll formula. In Owlbear, targeted actions require your initiative turn.</small></label>';
- if(key==='action_type')return '<label class="cs-field"><span>Action type</span><select name="action_type"><option value="">None (no icon)</option>'+actionTypes.map(type=>'<option'+(value===type?' selected':'')+'>'+type+'</option>').join('')+'</select></label>';
+ if(key==='ability_kind')return '<label class="cs-field"><span>Ability category</span><select name="ability_kind">'+Object.entries(abilityKinds).map(([id,label])=>'<option value="'+id+'"'+((value||'other')===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>';
+ if(key==='spell_resist')return '<label class="cs-field"><span>Spell Resistance</span><select name="spell_resist">'+Object.entries(srModes).map(([id,label])=>'<option value="'+id+'"'+((String(value||'').toLowerCase().startsWith('no')?'no':'yes')===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>';
+ if(key==='save_type')return '<label class="cs-field"><span>Save Type</span><select name="save_type">'+Object.entries(saveTypes).map(([id,label])=>'<option value="'+id+'"'+((value||'none')===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>';
+ if(key==='save_success')return '<label class="cs-field"><span>On Successful Save</span><select name="save_success">'+Object.entries(saveOutcomes).map(([id,label])=>'<option value="'+id+'"'+((value||'manual')===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>';
+ if(key==='save_success_damage')return '<label class="cs-field cs-field-wide"><span>Damage on Save</span><input type="text" name="save_success_damage" maxlength="300" value="'+e(value||'')+'" placeholder="3d6 + {CL}"></label>';
+ if(key==='save_dc_override')return '<label class="cs-field"><span>Save DC</span><input type="number" name="save_dc_override" step="1" min="1" max="100000" value="'+e(value??'')+'" placeholder="Automatic"></label>';
+ if(key==='attack_bonus_override')return '<label class="cs-field"><span>Attack Bonus</span><input type="number" name="attack_bonus_override" step="1" value="'+e(value??'')+'" placeholder="Automatic"></label>';
+ if(key==='effect_type')return '<label class="cs-field"><span>Effect Type</span><select name="effect_type">'+Object.entries(effectTypes).map(([id,label])=>'<option value="'+id+'"'+(value===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>';
+ if(key==='action_type')return '<label class="cs-field"><span>Action</span><select name="action_type"><option value="">None (no icon)</option>'+actionTypes.map(type=>'<option'+(value===type?' selected':'')+'>'+type+'</option>').join('')+'</select></label>';
  if(key==='uncanny_dodge')return '<label class="cs-field"><span>Uncanny Dodge</span><select name="uncanny_dodge">'+[['auto','Automatic'],['on','On'],['off','Off']].map(([option,name])=>'<option value="'+option+'"'+((value||'auto')===option?' selected':'')+'>'+name+'</option>').join('')+'</select></label>';
  if(key==='damage_types'){const chosen=selectedDamageTypes(value);return '<fieldset class="cs-field cs-field-wide cs-damage-tags"><legend>Damage Type</legend><div data-damage-tags>'+chosen.map(type=>damageTag(type)).join('')+'</div><select data-add-damage-type aria-label="Add damage type"><option value="">Add damage type…</option>'+damageTypes.map(type=>'<option'+(chosen.includes(type)?' disabled':'')+'>'+type+'</option>').join('')+'</select></fieldset>';}
 
@@ -70,9 +85,9 @@ function field(key,value,{weapon=false,item=false,longDescription=false,source='
  if(key==='sourceCategory')return '<label class="cs-field cs-field-wide cs-tag-editor"><span>Item Tag / Shop Category</span><div><span data-category-icon aria-hidden="true">'+itemCategorySymbol(value)+'</span><select name="sourceCategory" aria-label="Item Tag / Shop Category">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).map(([group,tags])=>'<optgroup label="'+(group==='Other'?'Older Items':group)+'">'+tags.map(tag=>'<option value="'+tag+'"'+(value===tag?' selected':'')+'>'+tag+'</option>').join('')+'</optgroup>').join('')+'</select></div></label>';
 
  if(key==='crit_range'||key==='crit_mult'){const choices=key==='crit_range'?Array.from({length:20},(_,i)=>i===0?'20':(20-i)+'-20'):['x2','x3','x4','x5'];const normalized=String(value||'').replace(/[–—]/g,'-').replace('×','x');return '<label class="cs-field"><span>'+readable(key)+'</span><select name="'+key+'"><option value=""'+(!normalized?' selected':'')+'>Select</option>'+choices.map(v=>'<option value="'+v+'"'+(normalized===v?' selected':'')+'>'+v+'</option>').join('')+'</select></label>';}
- const label=item?inventoryFieldLabel(key):weapon&&key==='damage'?'Damage formula':weapon&&key==='ability_mod'?'AR Mod':weapon&&key==='damage_ability'?'DMG Mod':readable(key);
+ const label=item?inventoryFieldLabel(key):weapon?(weaponEditorLabels[key]||readable(key)):ability?(abilityEditorLabels[key]||readable(key)):readable(key);
  if(key==='damage_ability'||key==='damage_style'){
-  const options=key==='damage_ability'?Object.fromEntries(weaponDamageAbilities.map(ability=>[ability,ability==='auto'?'Automatic (attack type & style)':ability==='none'?'None (no ability bonus)':readable(ability)])):weaponDamageStyles;
+  const options=key==='damage_ability'?Object.fromEntries(weaponDamageAbilities.map(ability=>[ability,ability==='auto'?'Automatic':ability==='none'?'None':readable(ability)])):Object.fromEntries(Object.keys(weaponDamageStyles).map(id=>[id,{standard:'Standard',thrown:'Thrown',two_handed:'Two-handed',off_hand:'Off-hand',bow:'Bow'}[id]||weaponDamageStyles[id]]));
   return '<label class="cs-field'+(weapon&&key==='damage_ability'?' cs-weapon-mod-field':'')+'"><span>'+label+(weapon&&key==='damage_ability'?' <strong data-weapon-dmg-mod></strong>':'')+'</span><select name="'+key+'">'+Object.entries(options).map(([option,title])=>'<option value="'+option+'"'+(value===option?' selected':'')+'>'+title+'</option>').join('')+'</select></label>';
  }
  const opts=key==='attack_type'?(weapon?Object.keys(attackTypes):['none',...Object.keys(attackTypes)]):key==='ability_mod'&&weapon?['auto','none',...abilities]:key==='size_category'?sizes:key==='stat'||key==='ability_mod'||key==='spell_dc_base'||key==='casting_ability'?abilities:key.startsWith('ar_')&&key.endsWith('_ability')?abilities:null;
@@ -208,10 +223,10 @@ function mountCharacterSheet(tabs,switchTo){
  function schedule(){clearTimeout(timer);if(closed)return;timer=setTimeout(async()=>{await refresh();schedule();},5000);}
  function openDialog(title,keys,values,change,{help=''}={}){
   if(busy||conflict){status(conflict?'Refresh to load the latest sheet before editing.':'Saving…');return;}
-  root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;root.querySelector('[data-sheet-form]').noValidate=change.collection==='items';dialogState={keys,change,values:{...values}};dialog().classList.add('cs-star-border');dialog().dataset.editor=change.collection||'';root.querySelector('#cs-dialog-title').textContent=title;
+  root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;root.querySelector('[data-sheet-form]').noValidate=['items','weapons','spells',...abilityTabs].includes(change.collection);dialogState={keys,change,values:{...values}};dialog().classList.add('cs-star-border');dialog().dataset.editor=change.collection||'';root.querySelector('#cs-dialog-title').textContent=title;
   root.querySelector('[data-editor-premade]').hidden=!abilityTabs.includes(change.collection);
   root.querySelector('[data-dialog-fields]').innerHTML=keys===groupFields.identity?renderIdentityEditor(values):(help?'<p class="cs-caption">'+e(help)+'</p>':'')+renderEntryFields(keys,values,change.collection);
-  updateWeaponEditorPreview();
+  updateWeaponEditorPreview();updateWeaponAmmoPreview();
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
  }
  function activateItemEditorTab(name,focus=false){
@@ -224,6 +239,27 @@ function mountCharacterSheet(tabs,switchTo){
    if(active&&focus)tab.focus();
   }
   for(const panel of host.querySelectorAll('[data-item-edit-panel]'))panel.hidden=panel.dataset.itemEditPanel!==name;
+ }
+ function activateEntryEditorTab(name,focus=false){
+  const host=dialog()?.querySelector('[data-entry-tab-editor]');
+  if(!host)return;
+  const current=host.querySelector('[data-entry-edit-tab="'+name+'"]');
+  if(!current)return;
+  for(const tab of host.querySelectorAll('[data-entry-edit-tab]')){
+   const active=tab===current;
+   tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;
+  }
+  for(const panel of host.querySelectorAll('[data-entry-edit-panel]'))panel.hidden=panel.dataset.entryEditPanel!==name;
+  if(focus)current.focus();
+ }
+ function updateWeaponAmmoPreview(){
+  if(dialogState?.change?.collection!=='weapons')return;
+  const form=root.querySelector('[data-sheet-form]');
+  const output=form?.querySelector('[data-ammo-summary]');
+  if(!output)return;
+  const state=weaponAmmoStatus(form.elements.namedItem('u_curr')?.value,form.elements.namedItem('u_max')?.value);
+  output.textContent=state.valid?state.label:state.message;
+  output.dataset.invalid=String(!state.valid);
  }
  function updateWeaponEditorPreview(){
   if(dialogState?.change?.collection!=='weapons'||dialogState.keys.includes('npcAttackBonus'))return;
@@ -261,30 +297,12 @@ function mountCharacterSheet(tabs,switchTo){
   if(collection==='npcStats')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field"><span>${npcStatLabels[key]}</span><input name="${key}" type="number" step="${key==='cr'?'any':'1'}" value="${e(values[key]??'')}"></label>`).join('')+'</div>';
   if(collection==='npcHealth')return '<div class="cs-form-grid">'+keys.map(key=>'<label class="cs-field"><span>'+e(readable(key))+'</span><input type="number" name="'+key+'" step="1" value="'+e(values[key]??'')+'" placeholder="Not set"></label>').join('')+'</div>';
   if(collection==='npcText')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field cs-field-wide"><span>${npcTextLabels[key]}</span><textarea name="${key}" rows="2" maxlength="4000">${e(values[key]??'')}</textarea></label>`).join('')+'</div>';
-  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons',item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
+  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons',ability:['spells',...abilityTabs].includes(collection),item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
   if(collection==='items')return renderItemEditorTabs(values,render,sourceFieldsEditor);
-  if(collection==='weapons'&&keys.includes('npcAttackBonus'))return '<div class="cs-form-grid cs-weapon-editor">'+keys.map(render).join('')+'<p class="cs-caption">Special on-hit weapon saves are GM-managed; they do not cancel normal weapon damage.</p></div>';
-  if(collection==='weapons')return '<div class="cs-form-grid cs-weapon-editor">'+render('name')+'<fieldset class="cs-editor-group"><legend>Attack Roll</legend>'+['attack_type','ability_mod','attack_misc','range','misfire'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Damage</legend>'+['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Special on-hit save (manual)</legend>'+['saving_throw','save_type','save_success','save_dc_override'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Carried weight</legend>'+['weight','amount','carried'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>'+render('desc')+'</div>';
+  if(collection==='weapons')return renderWeaponEditorTabs(keys,render,{npc:keys.includes('npcAttackBonus')});
   const narrative=keys.filter(k=>['desc','effect','at_higher_lvls'].includes(k));
-   const abilityEditor=['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection);
-   if(abilityEditor){
-    const narrative=['desc','effect','at_higher_lvls'].filter(k=>keys.includes(k));
-    const layouts=[['Ability details',['lvl','school','type','ability_kind']],['Action & targeting',['action_type','range','duration','target']],['Attack & damage',['effect_type','attack_type','attack_misc','attack_bonus_override','damage','damage_types']],['Saving throw & DC',['saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist']],['Resources',['mp_cost','spell_failure','uses_formula','u_max','u_curr','restoreOnLongRest']],['Reference',['link']]];
-    const picked=new Set(['name',...layouts.flatMap(([,part])=>part),...narrative]);
-    const remainder=keys.filter(k=>!picked.has(k));
-    if(remainder.length)layouts.push(['Additional details',remainder]);
-    const groups=layouts.map(([label,part])=>{
-     const visible=part.filter(k=>keys.includes(k));
-     return visible.length?'<fieldset class="cs-editor-group cs-ability-field-group"><legend>'+label+'</legend>'+visible.map(render).join('')+'</fieldset>':'';
-    }).join('');
-    if(abilityTabs.includes(collection)){
-     return '<div class="cs-form-grid cs-ability-editor cs-manual-ability-editor">'+render('name')+
-      '<details class="cs-ability-advanced"><summary>Advanced Settings</summary><div class="cs-ability-advanced-grid">'+groups+'</div></details>'+
-      '<div class="cs-ability-prose cs-ability-prose-sections">'+narrative.map(k=>'<section class="cs-ability-prose-card">'+render(k)+'</section>').join('')+'</div></div>';
-    }
-    return '<div class="cs-form-grid cs-ability-editor">'+render('name')+groups+
-     (narrative.length?'<fieldset class="cs-editor-group cs-ability-prose"><legend>Description & effects</legend>'+narrative.map(render).join('')+'</fieldset>':'')+'</div>';
-   }
+  const abilityEditor=['spells',...abilityTabs].includes(collection);
+  if(abilityEditor)return renderAbilityEditorTabs(keys,render,{collection});
    return '<div class="cs-form-grid">'+keys.filter(k=>!['u_max','u_curr','desc','effect','at_higher_lvls'].includes(k)).map(render).join('')+(keys.includes('u_curr')?'<fieldset class="cs-editor-group cs-usage-fields"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>':'')+(narrative.length?'<div class="cs-ability-prose">'+narrative.map(render).join('')+'</div>':'')+'</div>';
  }
  function syncWeapons(){for(const collection of root.querySelectorAll('[data-collection="weapons"]')){collection.querySelector('.cs-entry-list').hidden=weaponsCollapsed;const toggle=collection.querySelector('[data-collapse-weapons]');toggle.setAttribute('aria-expanded',String(!weaponsCollapsed));toggle.setAttribute('aria-label',weaponsCollapsed?'Expand weapons':'Collapse weapons');toggle.title=weaponsCollapsed?'Expand weapons':'Collapse weapons';}}
@@ -474,6 +492,7 @@ function mountCharacterSheet(tabs,switchTo){
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
    if(button.matches('[data-item-edit-tab]')){activateItemEditorTab(button.dataset.itemEditTab);return;}
+   if(button.matches('[data-entry-edit-tab]')){activateEntryEditorTab(button.dataset.entryEditTab);return;}
    if(button.matches('[data-add-source-field]')){
     const area=root.querySelector('[data-source-fields]');
     if(area&&area.children.length<100){
@@ -685,6 +704,13 @@ function mountCharacterSheet(tabs,switchTo){
    if(value!==old)void save({action:'fields',fields:{[field]:value}});
   },{signal:control.signal});
   root.addEventListener('keydown',event=>{
+  const entry=event.target.closest?.('[data-entry-edit-tab]');
+  if(entry){
+   const tabs=[...entry.closest('[data-entry-editor-tabs]').querySelectorAll('[data-entry-edit-tab]')];
+   const index=tabs.indexOf(entry),last=tabs.length-1;
+   const next=event.key==='ArrowRight'?tabs[(index+1)%tabs.length]:event.key==='ArrowLeft'?tabs[(index+last)%tabs.length]:event.key==='Home'?tabs[0]:event.key==='End'?tabs[last]:null;
+   if(next){event.preventDefault();activateEntryEditorTab(next.dataset.entryEditTab,true);}return;
+  }
   const tab=event.target.closest?.('[data-item-edit-tab]');
   if(!tab)return;
   const next=event.key==='ArrowRight'?'stats':event.key==='ArrowLeft'?'details':event.key==='Home'?'details':event.key==='End'?'stats':null;
@@ -728,12 +754,28 @@ function mountCharacterSheet(tabs,switchTo){
    if(['caster_level','mp_cost','spell_failure','save_dc_override','attack_bonus_override'].includes(key)&&node.value===''){fields[key]='';continue;}
    fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);
   }
+  if(['weapons','spells',...abilityTabs].includes(dialogState.change.collection)){
+   if(!String(fields.name??'').trim()){
+    const message=root.querySelector('[data-dialog-status]');if(message)message.textContent='Enter a name to save.';
+    activateEntryEditorTab('details');event.target.elements.namedItem('name')?.focus();return;
+   }
+  }
+  if(dialogState.change.collection==='weapons'&&event.target.elements.namedItem('u_max')){
+   const ammo=weaponAmmoStatus(event.target.elements.namedItem('u_curr')?.value,event.target.elements.namedItem('u_max')?.value);
+   if(!ammo.valid){
+    const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=ammo.message;
+    activateEntryEditorTab('range');
+    const key=ammo.message.startsWith('Max')?'u_max':'u_curr';
+    event.target.elements.namedItem(key)?.focus();return;
+   }
+  }
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
  root.addEventListener('change',event=>{
   if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
  root.addEventListener('input',event=>{
+   if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=u_curr],[name=u_max]'))updateWeaponAmmoPreview();
    if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=attack_misc]'))updateWeaponEditorPreview();
    // Shopping dialog inputs do not represent unsaved character edits.
    if(event.target.closest('.cs-picker,.cs-catalog-preview'))return;

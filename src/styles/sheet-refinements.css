@@ -550,3 +550,50 @@
  .cs-dialog[data-editor="items"] .cs-dialog-actions{bottom:-16px}
 }
 @media(prefers-reduced-motion:reduce){.cs-item-editor-tabs [role="tab"]{transition:none}}
+
+
+/* Weapon and ability editors reuse Item Details' Cosmos tab treatment. */
+.cs-dialog[data-editor="weapons"],.cs-dialog[data-editor="activeAbilities"],
+.cs-dialog[data-editor="passiveAbilities"],.cs-dialog[data-editor="racialAbilities"],
+.cs-dialog[data-editor="feats"],.cs-dialog[data-editor="spells"]{
+ width:min(660px,calc(100vw - 24px));
+}
+.cs-entry-tab-editor{display:block;min-width:0;width:100%}
+.cs-entry-tab-editor .cs-entry-editor-tabs{grid-template-columns:repeat(3,minmax(0,1fr));position:sticky;top:0;z-index:3}
+.cs-entry-tab-editor [data-entry-edit-panel][hidden]{display:none!important}
+.cs-entry-tab-editor [data-entry-edit-panel]{min-width:0}
+.cs-entry-tab-editor .cs-editor-tab-fields{min-width:0;align-items:start}
+.cs-entry-tab-editor .cs-tab-field-group{
+ grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;min-width:0;padding:13px;
+ border:1px solid var(--line);border-radius:12px;
+ background:color-mix(in srgb,var(--accent) 3%,var(--surface));
+}
+.cs-entry-tab-editor .cs-tab-field-group legend{
+ font:600 13px/1.4 system-ui;color:var(--accent);padding:0 7px;
+}
+.cs-entry-tab-editor .cs-tab-field-group .cs-field-wide,
+.cs-entry-tab-editor .cs-tab-field-group .cs-damage-tags,
+.cs-entry-tab-editor .cs-ability-prose,
+.cs-entry-tab-editor .cs-ammo-summary{grid-column:1/-1}
+.cs-entry-tab-editor .cs-ability-prose{margin-top:0;padding-top:0;border:0}
+.cs-entry-tab-editor .cs-ability-prose-sections{margin:0}
+.cs-entry-tab-editor .cs-ammo-summary{
+ display:block;min-height:18px;margin:0;padding:2px 6px;
+ color:var(--muted);font:500 12px/1.4 system-ui;text-align:right;
+ font-variant-numeric:tabular-nums;
+}
+.cs-entry-tab-editor .cs-ammo-summary[data-invalid="true"]{color:#f1a3af}
+.cs-dialog[data-sheet-dialog]:has(.cs-entry-tab-editor) .cs-dialog-actions{
+ position:sticky;bottom:-20px;z-index:4;padding:12px 0 4px;
+ margin-top:14px;border-top:1px solid var(--line);background:var(--surface);
+}
+.cs-dialog[data-sheet-dialog]:has(.cs-entry-tab-editor) [data-dialog-status]:not(:empty){
+ color:var(--accent);padding-top:8px;
+}
+@media(max-width:480px){
+ .cs-entry-tab-editor .cs-tab-field-group{grid-template-columns:minmax(0,1fr);padding:12px}
+ .cs-entry-tab-editor .cs-entry-editor-tabs{gap:3px;padding:4px}
+ .cs-entry-tab-editor .cs-entry-editor-tabs [role="tab"]{font-size:12px;padding:8px 5px}
+ .cs-dialog[data-sheet-dialog]:has(.cs-entry-tab-editor) .cs-dialog-actions{bottom:-16px}
+}

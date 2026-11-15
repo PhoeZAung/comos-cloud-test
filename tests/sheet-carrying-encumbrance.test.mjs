@@ -178,7 +178,8 @@ test('minimal capacity UI exposes threshold hover, warnings, info and editor; no
  assert.match(ui,/capacity:\['capacity_modifier','capacity_body_type'\]/);
  assert.match(ui,/name="carried"/);
  assert.match(ui,/name="capacity_body_type"/);
- assert.match(ui,/<legend>Carried weight<\/legend>/);
+ const tabEditor=await readFile(new URL('../src/features/sheet/entry-editor-tabs.mjs',import.meta.url),'utf8');
+ assert.match(tabEditor,/group\('Weapon',\['name','weight','amount','carried'\]\)/);
  const css=await readFile(new URL('../src/styles/sheet-refinements.css',import.meta.url),'utf8');
  assert.match(css,/\.cs-score-encumbered/);
  assert.match(css,/\.cs-capacity-meter/);
