@@ -106,7 +106,9 @@ export function weaponDamageFormulas(row,data,multiplier){
  }
  const formula=resolve(row.damage||row.dmg),extra=resolve(row.extra_damage);
  const ammo=ammoEffectsForWeapon(data,row);
- const base=formula?join(formula,[(abilityBonus||0),(ammo.dmgBonus||0)].filter(Boolean).map(String).join(' + ')):'';
+ let base=formula;
+ if(base&&abilityBonus)base=join(base,String(abilityBonus));
+ if(base&&ammo.dmgBonus)base=join(base,String(ammo.dmgBonus));
  const normal=join(base,extra);
  if(normal)diceTerms(normal);
  let critical='';
