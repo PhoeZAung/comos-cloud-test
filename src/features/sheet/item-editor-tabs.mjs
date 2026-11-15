@@ -53,6 +53,7 @@ export function collectItemEditorFields(form,keys,boolKeys=new Set()){
  for(const key of keys){
   const node=form.elements.namedItem(key);
   if(!node)continue;
+  if(key==='damage_types'){fields[key]=new FormData(form).getAll(key);continue;}
   if(boolKeys.has(key)){fields[key]=node.checked;continue;}
   if(key==='amount'||key==='weight'){
    if(node.value.trim()==='')continue;
