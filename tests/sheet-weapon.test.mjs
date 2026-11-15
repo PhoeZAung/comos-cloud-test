@@ -72,7 +72,7 @@ test('damage ability defaults by weapon style, can be overridden, and preserves 
  const save=fields=>mergeSheetData(base,{action:'entry',collection:'weapons',mode:'update',index:0,fields});
  const edited=save({damage_ability:'dex',damage_style:'standard'});
  assert.equal(weaponAttack(edited.weapons[0],edited),weaponAttack(base.weapons[0],base));
- assert.match(entryDetail(edited.weapons[0],edited,'weapons'),/Damage Ability<\/dt><dd>DEX \+2.*1d8 \+ 2/);
+ assert.match(entryDetail(edited.weapons[0],edited,'weapons'),/Damage Stat<\/dt><dd>DEX \+2.*1d8 \+ 2/);
  assert.throws(()=>save({damage_ability:'speed'}),/Choose a damage ability/);
  assert.throws(()=>save({damage_style:'unknown'}),/Choose a weapon damage style/);
 });
