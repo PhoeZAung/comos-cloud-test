@@ -39,6 +39,30 @@ export function moveInventoryWeapons(data){
 
 const normalizeAmmoName=value=>String(value??'').trim().normalize('NFKC').replace(/\s+/g,' ').toLocaleLowerCase('en-US');
 const validCount=v=>Number.isSafeInteger(Number(v))&&Number(v)>=0;
+const safeBonus=v=>Number.isSafeInteger(Number(v))&&Math.abs(Number(v))<=1000?Number(v):0;
+const knownDamageTypes=new Set(['Bludgeoning','Piercing','Slashing','Earth','Fire','Ice','Lightning','Water','Wind','Holy','Shadow','Acid','Cold','Electricity','Sonic','Force','Positive','Negative','Good','Evil','Lawful','Chaotic','Poison','Mental','Precision']);
+const ammoEffectFromItem=(item,name)=>({
+ name,
+ arBonus:safeBonus(item?.ammo_ar_bonus),
+ dmgBonus:safeBonus(item?.ammo_dmg_bonus),
+ damageTypes:[
+  ...(Array.isArray(item?.damage_types)?item.damage_types:typeof item?.damageType==='string'?[item.damageType]:[])
+ ].flatMap(type=>type==='Other'&&typeof item?.damage_type_other==='string'&&item.damage_type_other.trim()?[item.damage_type_other.trim().slice(0,80)]:[...knownDamageTypes].filter(known=>known.toLowerCase()===String(type).trim().toLowerCase())).slice(0,20)
+});
+/** Match ammunition by exact normalized name; a loaded magazine retains its
+ * source effects even after the matching inventory stack reaches zero.
+ * One ammunition profile applies per shot: duplicate stacks never stack bonuses.
+ */
+export function ammoEffectsForWeapon(data,weapon={}){
+ const name=String(weapon.ammoType||'').trim();
+ if(!name||weaponKind(weapon)==='Ammunition')return {name:'',arBonus:0,dmgBonus:0,damageTypes:[]};
+ const snapshot=weapon.loadedAmmo;
+ if(snapshot&&normalizeAmmoName(snapshot.name)===normalizeAmmoName(name)){
+  return {name,arBonus:safeBonus(snapshot.arBonus),dmgBonus:safeBonus(snapshot.dmgBonus),damageTypes:Array.isArray(snapshot.damageTypes)?snapshot.damageTypes.filter(type=>typeof type==='string'&&type.length<=80).slice(0,20):[]};
+ }
+ const current=ammoStock(data,name).stacks.find(({item})=>Number(item.amount)>0)?.item;
+ return ammoEffectFromItem(current,name);
+}
 
 /** A weapon's Ammo Type is a precise name link to inventory items whose
  * category is Ammunition. No fuzzy matches or unrelated item consumption. */
@@ -60,6 +84,8 @@ export function reloadWeaponFromInventory(data,index){
  const stock=ammoStock(data,weapon.ammoType);
  if(!stock.total)throw Error('No '+weapon.ammoType.trim()+' left in Inventory.');
  const loaded=Math.min(max-current,stock.total);
+ const source=stock.stacks.find(({item})=>Number(item.amount)>0)?.item;
+ const effects=ammoEffectFromItem(source,weapon.ammoType.trim());
  let remaining=loaded;
  for(const {item} of stock.stacks){
   const used=Math.min(Number(item.amount),remaining);
@@ -67,6 +93,7 @@ export function reloadWeaponFromInventory(data,index){
   if(!remaining)break;
  }
  weapon.u_curr=current+loaded;
+ weapon.loadedAmmo=effects;
  // Keep empty stacks (amount 0) in place so saved indices and source metadata remain stable.
  return {loaded,current:weapon.u_curr,max,stockRemaining:stock.total-loaded,ammoType:weapon.ammoType};
 }

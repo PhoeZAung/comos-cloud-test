@@ -657,3 +657,13 @@
  .cs-weapon-type-option>span:first-child{font-size:16px}
  .cs-weapon-type-option small{font-size:10px}
 }
+
+/* Weapon details keep Description visible while nonessential metadata folds away. */
+.cs-weapon-editor .cs-weapon-advanced{grid-column:1/-1;min-width:0;border:1px solid var(--line);border-radius:10px;margin:2px 0}
+.cs-weapon-editor .cs-weapon-advanced>summary{cursor:pointer;padding:12px 14px;color:var(--muted);font-weight:650;font-size:13px}
+.cs-weapon-editor .cs-weapon-advanced[open]>summary{border-bottom:1px solid var(--line)}
+.cs-weapon-editor .cs-weapon-advanced>.cs-form-grid{padding:12px;gap:8px}
+.cs-weapon-editor .cs-weapon-advanced .cs-tab-field-group{margin:0}
+.cs-weapon-editor .cs-weapon-damage-type-group{grid-column:1/-1}
+.cs-weapon-editor .cs-other-damage-field{display:none}
+.cs-weapon-editor:has(input[name="damage_types"][value="Other"]) .cs-other-damage-field{display:flex;flex-direction:column}

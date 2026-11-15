@@ -51,9 +51,11 @@ export function renderItemEditorTabs(values={},renderField,renderSourceFields){
 export function collectItemEditorFields(form,keys,boolKeys=new Set()){
  const fields={};
  for(const key of keys){
+  if(key==='damage_types'){fields[key]=new FormData(form).getAll(key);continue;}
   const node=form.elements.namedItem(key);
   if(!node)continue;
   if(boolKeys.has(key)){fields[key]=node.checked;continue;}
+  if(['ammo_ar_bonus','ammo_dmg_bonus'].includes(key)){fields[key]=node.value.trim()===''?0:Number(node.value);continue;}
   if(key==='amount'||key==='weight'){
    if(node.value.trim()==='')continue;
    fields[key]=Number(node.value);

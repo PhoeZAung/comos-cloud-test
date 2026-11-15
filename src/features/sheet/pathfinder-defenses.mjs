@@ -56,7 +56,8 @@ function typedBuckets(roll,result){
   }
  }else untyped=result.amount;
  const primary=tags.filter(type=>physicalTypes.has(type)||energyTypes.has(type));
- const inherited=weapon?primary.find(type=>physicalTypes.has(type))||
+ const ammoTypes=weapon&&Array.isArray(roll.resolution?.ammoDamageTypes)?roll.resolution.ammoDamageTypes.map(canonical).filter(Boolean):[];
+ const inherited=weapon&&ammoTypes.length?ammoTypes.find(type=>physicalTypes.has(type))||ammoTypes[0]:weapon?primary.find(type=>physicalTypes.has(type))||
   (primary.length===1?primary[0]:'bludgeoning'):
   primary.length===1?primary[0]:'untyped';
  buckets.set(inherited,(buckets.get(inherited)||0)+untyped);

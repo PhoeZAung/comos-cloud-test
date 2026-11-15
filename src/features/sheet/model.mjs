@@ -1,5 +1,6 @@
 // Small, host-independent calculations matching the saved Mount Aetheria sheet.
 import {carryingCapacity} from './carrying.mjs';
+import {ammoEffectsForWeapon} from './weapon-inventory.mjs';
 export const abilities=['str','dex','con','int','wis','cha'];
 export const number=value=>Number.isFinite(Number(value))?Number(value):0;
 export const modifier=value=>Math.floor((number(value)-10)/2);
@@ -68,7 +69,8 @@ export function weaponAttackParts(row,d,{npc=false}={}){
  const defaultAbility=prefix&&abilities.includes(d[prefix+'_ability'])?d[prefix+'_ability']:['ranged','ranged_touch'].includes(type)?'dex':'str';
  const saved=String(row.ability_mod||row.mod||'auto').toLowerCase(),ability=saved==='none'?'none':abilities.includes(saved)?saved:defaultAbility;
  const replacement=(ability==='none'?0:s.mods[ability])-s.mods[defaultAbility],misc=number(row.attack_misc);
- return {type,base,ability,replacement,misc,total:npc&&Number.isFinite(row.npcAttackBonus)?row.npcAttackBonus:base+replacement+misc};
+ const ammoBonus=ammoEffectsForWeapon(d,row).arBonus;
+ return {type,base,ability,replacement,misc,ammoBonus,total:(npc&&Number.isFinite(row.npcAttackBonus)?row.npcAttackBonus:base+replacement+misc)+ammoBonus};
 }
 export function weaponAttack(row,d){return weaponAttackParts(row,d).total;}
 

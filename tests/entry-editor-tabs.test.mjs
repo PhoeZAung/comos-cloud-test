@@ -15,7 +15,7 @@ const panel=(html,name)=>{
 const names=html=>[...html.matchAll(/<input name="([^"]+)"/g)].map(x=>x[1]);
 
 test('weapon tabs separate weapon stats, range, ammunition and saves without duplicate inputs',()=>{
- const keys=['name','sourceCategory','type','cost','rarity','img','link','ammoType','attack_type','ability_mod','attack_misc','damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','range','misfire','u_curr','u_max','weight','amount','carried','desc','saving_throw','save_type','save_success','save_dc_override'];
+ const keys=['name','sourceCategory','cost','rarity','img','link','ammoType','attack_type','ability_mod','attack_misc','damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','damage_type_other','range','misfire','u_curr','u_max','weight','amount','carried','desc','saving_throw','save_type','save_success','save_dc_override'];
  const html=renderWeaponEditorTabs(keys,field,{category:'Ranged Weapon'});
  assert.equal((html.match(/role="tab"/g)||[]).length,4);
  assert.deepEqual([...html.matchAll(/data-entry-edit-tab="([^"]+)"[^>]*>\s*([^<]+)/g)].map(x=>x[2]),['Basic Info','Weapon Stats','Ammunition','Saves']);
@@ -24,7 +24,10 @@ test('weapon tabs separate weapon stats, range, ammunition and saves without dup
  assert.match(panel(html,'details'),/name="name"/);
  assert.match(panel(html,'stats'),/name="damage"/);
  assert.match(panel(html,'details'),/name="sourceCategory"/);
- assert.match(panel(html,'details'),/name="type"/);
+ assert.doesNotMatch(panel(html,'details'),/name="type"/);
+ assert.match(panel(html,'details'),/Advanced Settings/);
+ assert.match(panel(html,'details'),/name="desc"/);
+ assert.match(panel(html,'stats'),/cs-weapon-damage-type-group/);
  for(const key of ['range','misfire'])assert.match(panel(html,'stats'),new RegExp('name="'+key+'"'));
  for(const key of ['ammoType','u_curr','u_max'])assert.match(panel(html,'ammunition'),new RegExp('name="'+key+'"'));
  for(const key of ['saving_throw','save_type','save_success','save_dc_override'])assert.match(panel(html,'saves'),new RegExp('name="'+key+'"'));
@@ -34,12 +37,12 @@ test('weapon tabs separate weapon stats, range, ammunition and saves without dup
 });
 
 
-test('ammo editor shows only Amount in Weapon Stats; melee omits ranged controls',()=>{
- const keys=['sourceCategory','name','amount','cost','weight','carried','img','link','desc'];
+test('ammunition has one stats tab with amount, damage types and additive bonuses; melee omits ranged controls',()=>{
+ const keys=['sourceCategory','name','amount','cost','rarity','weight','carried','img','link','desc','damage_types','damage_type_other','ammo_ar_bonus','ammo_dmg_bonus'];
  const html=renderWeaponEditorTabs(keys,field,{category:'Ammunition'});
- assert.deepEqual([...html.matchAll(/data-entry-edit-tab="([^"]+)"[^>]*>\s*([^<]+)/g)].map(x=>x[2]),['Basic Info','Weapon Stats','Ammunition','Saves']);
- assert.match(panel(html,'stats'),/name="amount"/);
- assert.doesNotMatch(panel(html,'stats'),/name="damage"|name="attack_type"|name="u_curr"/);
+ assert.deepEqual([...html.matchAll(/data-entry-edit-tab="([^"]+)"[^>]*>\s*([^<]+)/g)].map(x=>x[2]),['Basic Info','Ammunition Stats']);
+ for(const key of ['amount','damage_types','damage_type_other','ammo_ar_bonus','ammo_dmg_bonus'])assert.match(panel(html,'ammo-stats'),new RegExp('name="'+key+'"'));
+ assert.doesNotMatch(panel(html,'ammo-stats'),/name="damage"|name="attack_type"|name="u_curr"/);
  assert.deepEqual(names(html).sort(),keys.sort());
  const melee=renderWeaponEditorTabs(['name','attack_type','damage','range','misfire','ammoType','u_curr','u_max'],field,{category:'Weapon'});
  assert.match(panel(melee,'stats'),/name="damage"/);

@@ -6,6 +6,7 @@ import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gun
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
 import {weaponAttackParts,attackTypes,skillTotal} from '../../src/features/sheet/model.mjs';
+import {ammoEffectsForWeapon,weaponKind} from '../../src/features/sheet/weapon-inventory.mjs';
 import {sheetSkills,skillCanRoll,skillDisplayName} from '../../src/features/sheet/skills.mjs';
 import {entryCalculations,damageExpression,diceTerms,damageTypeLine,criticalProfile,weaponDamageFormulas} from '../../src/features/sheet/calculations.mjs';
 import {randomInt} from 'node:crypto';
@@ -22,7 +23,7 @@ export function criticalResult(row,attack,damage,expression,roll=serverRoll){
  return result;
 }
 export function weaponRoll(row,data,roll=serverRoll,options){
- const p=weaponAttackParts(row,data,options),profile=criticalProfile(row);
+ const p=weaponAttackParts(row,data,options),profile=criticalProfile(row),ammunition=ammoEffectsForWeapon(data,row);
  const expression='1d20'+(p.total>=0?'+':'')+p.total,attack=roll(expression);
  const threat=p.type!=='cmb'&&attack.rolls[0]!==1&&attack.rolls[0]>=profile.minimum;
  const critical={...profile,threat};
@@ -34,7 +35,7 @@ export function weaponRoll(row,data,roll=serverRoll,options){
   if(formulas?.critical)critical.damage=roll(formulas.critical);
   if(damageError||formulas?.criticalError)critical.damageError=damageError||formulas.criticalError;
  }
- return {...attack,kind:'weapon',weaponName:String(row.name||'Weapon'),attackType:p.type,critical,damage,damageError};
+ return {...attack,kind:'weapon',weaponName:String(row.name||'Weapon'),attackType:p.type,ammunition,critical,damage,damageError};
 }
 export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false}={}){
  const c=entryCalculations(row,data,'spells');
@@ -81,6 +82,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  if(old){if(old.user_id!==userId||old.character_id!==character.id||old.expression!==receiptKey||(!entry&&old.label!==change.label))throw Error('Roll identifier already used.');return {roll:JSON.parse(old.result_json),discord:old.delivery};}
  if(entry&&(change.revision!==character.revision||change.revision!==db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision))throw Object.assign(Error('This character changed. Load the latest sheet before rolling.'),{httpStatus:409});
  const row=skill?sheetSkills(character.data)[change.index]:entry?character.data?.[weapon?'weapons':spell?'spells':change.collection]?.[change.index]:null;if(entry&&!row)throw Error('Entry not found.');
+ if(weapon&&weaponKind(row)==='Ammunition')throw Error('Ammunition is not a weapon attack.');
  if(skill&&!skillCanRoll(row))throw Error('Trained only: add at least 1 skill rank before rolling.');
  const label=entry?String(skill?skillDisplayName(row):row.name||'Weapon').slice(0,120):change.label;
  const last=db.prepare('SELECT created_at FROM sheet_rolls WHERE user_id=? ORDER BY created_at DESC LIMIT 1').get(userId);if(last&&Date.now()-last.created_at<1500)throw Error('Wait a moment before rolling again.');
@@ -118,7 +120,8 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
    casterLevel:Number.isInteger(rawCl)&&rawCl>0?rawCl:null,
    srBonus:Number.isFinite(row.sr_bonus)?row.sr_bonus:0,
    drBypass:String(row.dr_bypass||'').split(/[,;]/).map(x=>x.trim()).filter(Boolean).slice(0,12),
-   damageTypes:Array.isArray(row.damage_types)?row.damage_types.slice(0,20):[],
+   damageTypes:[...(Array.isArray(row.damage_types)?row.damage_types.flatMap(type=>type==='Other'&&row.damage_type_other?[String(row.damage_type_other)]:type==='Other'?[]:[type]):[]),...(weapon?ammoEffectsForWeapon(character.data,row).damageTypes:[])].slice(0,20),
+   ...(weapon?{ammoDamageTypes:ammoEffectsForWeapon(character.data,row).damageTypes}:{}),
    saveType:typeof row.save_type==='string'?row.save_type:'none',
    saveSuccess:typeof row.save_success==='string'?row.save_success:'manual',
    saveDescription:String(row.saving_throw||'').slice(0,180)
