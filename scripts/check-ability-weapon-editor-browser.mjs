@@ -134,6 +134,7 @@ try{
  assert.equal(readData().items[2].special,'Custom stats');
  checks.push('custom item Save works with minimal fields and validation from either tab');
 
+ await page.locator('[data-sheet-tab=combat]').click();
  await page.locator('[data-sheet-tab=abilities]').click();
  const categories=['activeAbilities','passiveAbilities','feats','racialAbilities'];
  for(const category of categories){
