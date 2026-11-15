@@ -121,6 +121,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
    srBonus:Number.isFinite(row.sr_bonus)?row.sr_bonus:0,
    drBypass:String(row.dr_bypass||'').split(/[,;]/).map(x=>x.trim()).filter(Boolean).slice(0,12),
    damageTypes:[...(Array.isArray(row.damage_types)?row.damage_types.flatMap(type=>type==='Other'&&row.damage_type_other?[String(row.damage_type_other)]:type==='Other'?[]:[type]):[]),...(weapon?ammoEffectsForWeapon(character.data,row).damageTypes:[])].slice(0,20),
+   ...(weapon?{ammoDamageTypes:ammoEffectsForWeapon(character.data,row).damageTypes}:{}),
    saveType:typeof row.save_type==='string'?row.save_type:'none',
    saveSuccess:typeof row.save_success==='string'?row.save_success:'manual',
    saveDescription:String(row.saving_throw||'').slice(0,180)
