@@ -848,7 +848,7 @@ function mountCharacterSheet(tabs,switchTo){
     dialogFields.innerHTML=renderEntryFields(dialogState.keys,dialogState.values,'items');
     activateItemEditorTab('details');
     dirty=true;status('Unsaved changes');
-   }else root.querySelector('[data-category-icon]').textContent=itemCategorySymbol(select.value);
+   }else if(select.name==='sourceCategory'){const icon=root.querySelector('[data-category-icon]');if(icon)icon.textContent=itemCategorySymbol(select.value);}
   }
   if(event.target.matches('[data-discord-rolls]')){discordEnabled=event.target.checked;notify('Discord roll '+(discordEnabled?'on':'off'));}
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(event.target.dataset.resourceInput!=='hp_temp'||value>=0)){pendingResourceFields[event.target.dataset.resourceInput]=value;void save({action:'fields',fields:{...pendingResourceFields}});}}
