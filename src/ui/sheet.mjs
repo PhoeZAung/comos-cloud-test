@@ -50,12 +50,12 @@ function richEditor(key,value,label,maxLength=12000){
  return '<div class="cs-field cs-field-wide cs-rich-field" data-rich-editor><div class="cs-rich-heading"><label for="cs-rich-'+key+'">'+label+'</label><details class="cs-rich-tools"><summary aria-label="Show formatting tools for '+label+'" title="Show formatting tools">☷</summary><div class="cs-rich-toolbar" role="toolbar" aria-label="'+label+' formatting">'+controls.map(([command,title,glyph])=>'<button type="button" data-rich-format="'+command+'" title="'+title+'" aria-label="'+title+'">'+glyph+'</button>').join('')+'</div></details></div><textarea id="cs-rich-'+key+'" name="'+key+'" rows="5" maxlength="'+maxLength+'">'+e(value||'')+'</textarea></div>';
 }
 const weaponFieldsFor=category=>category==='Ammunition'
- ?['sourceCategory','name','cost','weight','carried','img','link','desc','amount']
- :['sourceCategory','name','type','cost','rarity','img','link','weight','amount','carried','two_handed','desc','attack_type','ability_mod','attack_misc','damage','damage_ability','damage_style','extra_damage','damage_types','dr_bypass',...(category==='Ranged Weapon'?['range','misfire']:[]),'crit_range','crit_mult','ammoType','u_curr','u_max','saving_throw','save_type','save_success','save_dc_override'];
+ ?['sourceCategory','name','cost','rarity','weight','carried','img','link','desc','amount','damage_types','damage_type_other','ammo_ar_bonus','ammo_dmg_bonus']
+ :['sourceCategory','name','cost','rarity','img','link','weight','amount','carried','two_handed','desc','attack_type','ability_mod','attack_misc','damage','damage_ability','damage_style','extra_damage','damage_types','damage_type_other','dr_bypass',...(category==='Ranged Weapon'?['range','misfire']:[]),'crit_range','crit_mult','ammoType','u_curr','u_max','saving_throw','save_type','save_success','save_dc_override'];
 const weaponEditorLabels=Object.freeze({
- name:'Weapon Name',sourceCategory:'Item Tag',type:'Weapon Type',cost:'Cost',rarity:'Rarity',ammoType:'Ammo Type',img:'Image URL',link:'Source Link',attack_type:'Attack Type',ability_mod:'Attack Stat',npcAttackBonus:'Attack Bonus',attack_misc:'Extra Attack Bonus',
+ name:'Weapon Name',sourceCategory:'Item Tag',cost:'Cost',rarity:'Rarity',ammoType:'Ammo Type',img:'Image URL',link:'Source Link',attack_type:'Attack Type',ability_mod:'Attack Stat',npcAttackBonus:'Attack Bonus',attack_misc:'Extra Attack Bonus',
  damage:'Damage Dice',damage_ability:'Damage Stat',damage_style:'Damage Style',extra_damage:'Extra Damage',crit_range:'Critical Range',crit_mult:'Critical Multiplier',
- damage_types:'Damage Types',dr_bypass:'Bypasses Resistance',u_curr:'Ammo',u_max:'Max Ammo',weight:'Weight (lb)',amount:'Amount',
+ damage_types:'Damage Types',damage_type_other:'Other Damage Type',ammo_ar_bonus:'AR Bonus',ammo_dmg_bonus:'DMG Bonus',dr_bypass:'Bypasses Resistance',u_curr:'Ammo',u_max:'Max Ammo',weight:'Weight (lb)',amount:'Amount',
  saving_throw:'Saving Throw',save_dc_override:'Save DC',save_success:'On Successful Save',desc:'Description'
 });
 const abilityEditorLabels=Object.freeze({
@@ -79,7 +79,8 @@ function field(key,value,{weapon=false,item=false,ability=false,ammoNames=[],lon
  if(key==='effect_type')return '<label class="cs-field"><span>Effect Type</span><select name="effect_type">'+Object.entries(effectTypes).map(([id,label])=>'<option value="'+id+'"'+(value===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>';
  if(key==='action_type')return '<label class="cs-field"><span>Action</span><select name="action_type"><option value="">None (no icon)</option>'+actionTypes.map(type=>'<option'+(value===type?' selected':'')+'>'+type+'</option>').join('')+'</select></label>';
  if(key==='uncanny_dodge')return '<label class="cs-field"><span>Uncanny Dodge</span><select name="uncanny_dodge">'+[['auto','Automatic'],['on','On'],['off','Off']].map(([option,name])=>'<option value="'+option+'"'+((value||'auto')===option?' selected':'')+'>'+name+'</option>').join('')+'</select></label>';
- if(key==='damage_types'){const chosen=selectedDamageTypes(value);return '<fieldset class="cs-field cs-field-wide cs-damage-tags"><legend>Damage Type</legend><div data-damage-tags>'+chosen.map(type=>damageTag(type)).join('')+'</div><select data-add-damage-type aria-label="Add damage type"><option value="">Add damage type…</option>'+damageTypes.map(type=>'<option'+(chosen.includes(type)?' disabled':'')+'>'+type+'</option>').join('')+'</select></fieldset>';}
+ if(key==='damage_types'){const chosen=selectedDamageTypes(value),options=weapon?[...damageTypes,'Other']:damageTypes;return '<fieldset class="cs-field cs-field-wide cs-damage-tags"><legend>Damage Type</legend><div data-damage-tags>'+chosen.map(type=>damageTag(type)).join('')+'</div><select data-add-damage-type aria-label="Add damage type"><option value="">Add damage type…</option>'+options.map(type=>'<option'+(chosen.includes(type)?' disabled':'')+'>'+type+'</option>').join('')+'</select></fieldset>';}
+  if(key==='damage_type_other')return '<label class="cs-field cs-field-wide cs-other-damage-field"><span>Other Damage Type</span><input name="damage_type_other" maxlength="80" value="'+e(value||'')+'" placeholder="Name the damage type"></label>';
 
  if(item&&key==='shopSource')return '<label class="cs-field"><span>Item source</span><select name="shopSource">'+SHOP_SOURCES.map(s=>'<option value="'+s.id+'"'+(shopSourceForItem({shopSource:value})===s.id?' selected':'')+'>'+e(s.label)+'</option>').join('')+'</select></label>';
  if(item&&key==='sourceCategoryDetail')return '<label class="cs-field cs-field-wide"><span>Original website category</span><input name="sourceCategoryDetail" list="cs-source-categories" maxlength="160" value="'+e(value||'')+'" placeholder="e.g. Weapons — Simple"><datalist id="cs-source-categories">'+sourceCategorySuggestions(source).map(label=>'<option value="'+e(label)+'"></option>').join('')+'</datalist></label>';
@@ -89,10 +90,6 @@ function field(key,value,{weapon=false,item=false,ability=false,ammoNames=[],lon
  if(weapon&&key==='sourceCategory'){
   const category=['Weapon','Ranged Weapon','Ammunition'].includes(value)?value:'Weapon';
   return '<label class="cs-field"><span>Item Tag</span><select name="sourceCategory">'+['Weapon','Ranged Weapon','Ammunition'].map(tag=>'<option value="'+tag+'"'+(tag===category?' selected':'')+'>'+tag+'</option>').join('')+'</select></label>';
- }
- if(weapon&&key==='type'){
-  const types=['Sword','Axe','Dagger','Spear','Staff','Bow','Crossbow','Firearm','Thrown','Other'];
-  return '<label class="cs-field"><span>Weapon Type</span><input name="type" list="cs-weapon-type-options" maxlength="120" value="'+e(value||'')+'" placeholder="e.g. Bow"><datalist id="cs-weapon-type-options">'+types.map(type=>'<option value="'+type+'"></option>').join('')+'</datalist></label>';
  }
  if(weapon&&key==='ammoType'){
   return '<label class="cs-field cs-field-wide"><span>Ammo Type</span><input name="ammoType" type="text" list="cs-weapon-ammo-options" maxlength="160" value="'+e(value||'')+'" placeholder="Exact inventory ammunition name" autocomplete="off"><datalist id="cs-weapon-ammo-options">'+ammoNames.map(name=>'<option value="'+e(name)+'"></option>').join('')+'</datalist></label>';
@@ -455,7 +452,7 @@ function mountCharacterSheet(tabs,switchTo){
   if(character.data.gunbreakerAmmo!==undefined&&row.rulesOwned&&row.sourceRuleId===MAGICKED_AMMO_ID)for(const k of ['uses_formula','restoreOnLongRest']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   if(isLimitBreak(row))for(const k of ['uses_formula','restoreOnLongRest','u_curr','u_max']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   if(abilityGroup(character.data,row,key))for(const k of ['uses_formula','restoreOnLongRest','u_curr','u_max']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
-  const values={u_max:row.u_max??0,u_curr:row.u_curr??row.u_max??0,...row,_weaponEditor:ammoEditor,action_type:actionType(row.action_type??row.type),damage_types:selectedDamageTypes(row.damage_types),sourceCategory:key==='weapons'?weaponKind(row):itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||(key==='weapons'&&index===null?weaponDefaultAbilities(row.attack_type||'melee',character.data).attack:'auto')).toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
+  const values={u_max:row.u_max??0,u_curr:row.u_curr??row.u_max??0,...row,_weaponEditor:ammoEditor,action_type:actionType(row.action_type??row.type),damage_types:selectedDamageTypes(row.damage_types??(key==='items'&&ammoEditor?[String(inventoryItemValue(row,'damageType')||'')]:[])),sourceCategory:key==='weapons'?weaponKind(row):itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||(key==='weapons'&&index===null?weaponDefaultAbilities(row.attack_type||'melee',character.data).attack:'auto')).toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
   if(['spells',...abilityTabs].includes(key))values.effect_type=effectType(row)==='none'&&!row.effect_type&&String(row.damage||row.dmg||'').trim()?'damage':effectType(row);
   if(key==='weapons'&&!npcWeapon&&values.sourceCategory!=='Ammunition'){
    values.damage_ability=row.damage_ability??(index===null?weaponDefaultAbilities(values.attack_type,character.data).damage:'none');
@@ -818,7 +815,12 @@ function mountCharacterSheet(tabs,switchTo){
     activateEntryEditorTab('details');event.target.elements.namedItem('name')?.focus();return;
    }
   }
-  if(dialogState.change.collection==='weapons'&&event.target.elements.namedItem('u_max')){
+  if((dialogState.change.collection==='weapons'||dialogState.values?._weaponEditor)&&new FormData(event.target).getAll('damage_types').includes('Other')&&!String(event.target.elements.namedItem('damage_type_other')?.value||'').trim()){
+    root.querySelector('[data-dialog-status]').textContent='Enter a name for Other damage type.';
+    activateEntryEditorTab(dialogState.values?.sourceCategory==='Ammunition'?'ammo-stats':'stats');
+    event.target.elements.namedItem('damage_type_other')?.focus();return;
+   }
+   if(dialogState.change.collection==='weapons'&&event.target.elements.namedItem('u_max')){
    const ammo=weaponAmmoStatus(event.target.elements.namedItem('u_curr')?.value,event.target.elements.namedItem('u_max')?.value);
    if(!ammo.valid){
     const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=ammo.message;
