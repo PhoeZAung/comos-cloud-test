@@ -197,14 +197,14 @@ test('armor edit presents Armor Bonus without removing imported acBonus schema',
  assert.equal(sheetStats(hidden).encumbrance.armorBonus,6);
 });
 
-test('speed warning and normal DEX roll are visible; capacity icon removed',async()=>{
+test('speed warning and armor-penalized DEX roll are visible; capacity icon removed',async()=>{
  const hero={id:'hero',name:'Hero',data:{...base,speed_mod:5,items:[armor()]}};
  const overview=renderSection(hero,'overview'),inventory=renderSection(hero,'items');
  assert.match(overview,/class="cs-speed-capped"/);
  assert.match(overview,/class="cs-speed-cap-info"/);
  assert.match(overview,/Speed restricted by armor/);
  assert.match(overview,/cs-score-encumbered/);
- assert.match(overview,/data-roll="DEX check" data-bonus="1"/);
+ assert.match(overview,/data-roll="DEX check" data-bonus="4"/);
  assert.match(overview,/<strong>22<\/strong><small>\+6<\/small>/);
  assert.match(overview,/AC \+3/);
  assert.match(inventory,/data-edit-stats="capacity"/);
