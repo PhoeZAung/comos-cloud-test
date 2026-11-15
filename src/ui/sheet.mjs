@@ -25,6 +25,7 @@ import {spellLevel,damageTypeLine,weaponDamageAbilities,weaponDamageStyles,weapo
 import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,inventorySourceFields,usableItemImageUrl,normalizeInventoryText} from '../features/sheet/inventory-fields.mjs';
 import {catalogMechanicalFacts} from '../features/sheet/catalog-shop-preview.mjs';
 import {renderItemEditorTabs,collectItemEditorFields} from '../features/sheet/item-editor-tabs.mjs';
+import {renderWeaponEditorTabs,renderAbilityEditorTabs,weaponAmmoStatus} from '../features/sheet/entry-editor-tabs.mjs';
 import {FFD20_SHOP_PRICE_MODE} from '../features/sheet/shop-pricing.mjs';
 import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
@@ -208,10 +209,10 @@ function mountCharacterSheet(tabs,switchTo){
  function schedule(){clearTimeout(timer);if(closed)return;timer=setTimeout(async()=>{await refresh();schedule();},5000);}
  function openDialog(title,keys,values,change,{help=''}={}){
   if(busy||conflict){status(conflict?'Refresh to load the latest sheet before editing.':'Saving…');return;}
-  root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;root.querySelector('[data-sheet-form]').noValidate=change.collection==='items';dialogState={keys,change,values:{...values}};dialog().classList.add('cs-star-border');dialog().dataset.editor=change.collection||'';root.querySelector('#cs-dialog-title').textContent=title;
+  root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;root.querySelector('[data-sheet-form]').noValidate=['items','weapons','spells',...abilityTabs].includes(change.collection);dialogState={keys,change,values:{...values}};dialog().classList.add('cs-star-border');dialog().dataset.editor=change.collection||'';root.querySelector('#cs-dialog-title').textContent=title;
   root.querySelector('[data-editor-premade]').hidden=!abilityTabs.includes(change.collection);
   root.querySelector('[data-dialog-fields]').innerHTML=keys===groupFields.identity?renderIdentityEditor(values):(help?'<p class="cs-caption">'+e(help)+'</p>':'')+renderEntryFields(keys,values,change.collection);
-  updateWeaponEditorPreview();
+  updateWeaponEditorPreview();updateWeaponAmmoPreview();
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
  }
  function activateItemEditorTab(name,focus=false){
@@ -224,6 +225,27 @@ function mountCharacterSheet(tabs,switchTo){
    if(active&&focus)tab.focus();
   }
   for(const panel of host.querySelectorAll('[data-item-edit-panel]'))panel.hidden=panel.dataset.itemEditPanel!==name;
+ }
+ function activateEntryEditorTab(name,focus=false){
+  const host=dialog()?.querySelector('[data-entry-tab-editor]');
+  if(!host)return;
+  const current=host.querySelector('[data-entry-edit-tab="'+name+'"]');
+  if(!current)return;
+  for(const tab of host.querySelectorAll('[data-entry-edit-tab]')){
+   const active=tab===current;
+   tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;
+  }
+  for(const panel of host.querySelectorAll('[data-entry-edit-panel]'))panel.hidden=panel.dataset.entryEditPanel!==name;
+  if(focus)current.focus();
+ }
+ function updateWeaponAmmoPreview(){
+  if(dialogState?.change?.collection!=='weapons')return;
+  const form=root.querySelector('[data-sheet-form]');
+  const output=form?.querySelector('[data-ammo-summary]');
+  if(!output)return;
+  const state=weaponAmmoStatus(form.elements.namedItem('u_curr')?.value,form.elements.namedItem('u_max')?.value);
+  output.textContent=state.valid?state.label:state.message;
+  output.dataset.invalid=String(!state.valid);
  }
  function updateWeaponEditorPreview(){
   if(dialogState?.change?.collection!=='weapons'||dialogState.keys.includes('npcAttackBonus'))return;
@@ -261,30 +283,12 @@ function mountCharacterSheet(tabs,switchTo){
   if(collection==='npcStats')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field"><span>${npcStatLabels[key]}</span><input name="${key}" type="number" step="${key==='cr'?'any':'1'}" value="${e(values[key]??'')}"></label>`).join('')+'</div>';
   if(collection==='npcHealth')return '<div class="cs-form-grid">'+keys.map(key=>'<label class="cs-field"><span>'+e(readable(key))+'</span><input type="number" name="'+key+'" step="1" value="'+e(values[key]??'')+'" placeholder="Not set"></label>').join('')+'</div>';
   if(collection==='npcText')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field cs-field-wide"><span>${npcTextLabels[key]}</span><textarea name="${key}" rows="2" maxlength="4000">${e(values[key]??'')}</textarea></label>`).join('')+'</div>';
-  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons',item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
+  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons',ability:['spells',...abilityTabs].includes(collection),item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
   if(collection==='items')return renderItemEditorTabs(values,render,sourceFieldsEditor);
-  if(collection==='weapons'&&keys.includes('npcAttackBonus'))return '<div class="cs-form-grid cs-weapon-editor">'+keys.map(render).join('')+'<p class="cs-caption">Special on-hit weapon saves are GM-managed; they do not cancel normal weapon damage.</p></div>';
-  if(collection==='weapons')return '<div class="cs-form-grid cs-weapon-editor">'+render('name')+'<fieldset class="cs-editor-group"><legend>Attack Roll</legend>'+['attack_type','ability_mod','attack_misc','range','misfire'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Damage</legend>'+['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Special on-hit save (manual)</legend>'+['saving_throw','save_type','save_success','save_dc_override'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Carried weight</legend>'+['weight','amount','carried'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>'+render('desc')+'</div>';
+  if(collection==='weapons')return renderWeaponEditorTabs(keys,render,{npc:keys.includes('npcAttackBonus')});
   const narrative=keys.filter(k=>['desc','effect','at_higher_lvls'].includes(k));
-   const abilityEditor=['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection);
-   if(abilityEditor){
-    const narrative=['desc','effect','at_higher_lvls'].filter(k=>keys.includes(k));
-    const layouts=[['Ability details',['lvl','school','type','ability_kind']],['Action & targeting',['action_type','range','duration','target']],['Attack & damage',['effect_type','attack_type','attack_misc','attack_bonus_override','damage','damage_types']],['Saving throw & DC',['saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist']],['Resources',['mp_cost','spell_failure','uses_formula','u_max','u_curr','restoreOnLongRest']],['Reference',['link']]];
-    const picked=new Set(['name',...layouts.flatMap(([,part])=>part),...narrative]);
-    const remainder=keys.filter(k=>!picked.has(k));
-    if(remainder.length)layouts.push(['Additional details',remainder]);
-    const groups=layouts.map(([label,part])=>{
-     const visible=part.filter(k=>keys.includes(k));
-     return visible.length?'<fieldset class="cs-editor-group cs-ability-field-group"><legend>'+label+'</legend>'+visible.map(render).join('')+'</fieldset>':'';
-    }).join('');
-    if(abilityTabs.includes(collection)){
-     return '<div class="cs-form-grid cs-ability-editor cs-manual-ability-editor">'+render('name')+
-      '<details class="cs-ability-advanced"><summary>Advanced Settings</summary><div class="cs-ability-advanced-grid">'+groups+'</div></details>'+
-      '<div class="cs-ability-prose cs-ability-prose-sections">'+narrative.map(k=>'<section class="cs-ability-prose-card">'+render(k)+'</section>').join('')+'</div></div>';
-    }
-    return '<div class="cs-form-grid cs-ability-editor">'+render('name')+groups+
-     (narrative.length?'<fieldset class="cs-editor-group cs-ability-prose"><legend>Description & effects</legend>'+narrative.map(render).join('')+'</fieldset>':'')+'</div>';
-   }
+  const abilityEditor=['spells',...abilityTabs].includes(collection);
+  if(abilityEditor)return renderAbilityEditorTabs(keys,render,{collection});
    return '<div class="cs-form-grid">'+keys.filter(k=>!['u_max','u_curr','desc','effect','at_higher_lvls'].includes(k)).map(render).join('')+(keys.includes('u_curr')?'<fieldset class="cs-editor-group cs-usage-fields"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>':'')+(narrative.length?'<div class="cs-ability-prose">'+narrative.map(render).join('')+'</div>':'')+'</div>';
  }
  function syncWeapons(){for(const collection of root.querySelectorAll('[data-collection="weapons"]')){collection.querySelector('.cs-entry-list').hidden=weaponsCollapsed;const toggle=collection.querySelector('[data-collapse-weapons]');toggle.setAttribute('aria-expanded',String(!weaponsCollapsed));toggle.setAttribute('aria-label',weaponsCollapsed?'Expand weapons':'Collapse weapons');toggle.title=weaponsCollapsed?'Expand weapons':'Collapse weapons';}}
@@ -474,6 +478,7 @@ function mountCharacterSheet(tabs,switchTo){
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
    if(button.matches('[data-item-edit-tab]')){activateItemEditorTab(button.dataset.itemEditTab);return;}
+   if(button.matches('[data-entry-edit-tab]')){activateEntryEditorTab(button.dataset.entryEditTab);return;}
    if(button.matches('[data-add-source-field]')){
     const area=root.querySelector('[data-source-fields]');
     if(area&&area.children.length<100){
@@ -685,6 +690,13 @@ function mountCharacterSheet(tabs,switchTo){
    if(value!==old)void save({action:'fields',fields:{[field]:value}});
   },{signal:control.signal});
   root.addEventListener('keydown',event=>{
+  const entry=event.target.closest?.('[data-entry-edit-tab]');
+  if(entry){
+   const tabs=[...entry.closest('[data-entry-editor-tabs]').querySelectorAll('[data-entry-edit-tab]')];
+   const index=tabs.indexOf(entry),last=tabs.length-1;
+   const next=event.key==='ArrowRight'?tabs[(index+1)%tabs.length]:event.key==='ArrowLeft'?tabs[(index+last)%tabs.length]:event.key==='Home'?tabs[0]:event.key==='End'?tabs[last]:null;
+   if(next){event.preventDefault();activateEntryEditorTab(next.dataset.entryEditTab,true);}return;
+  }
   const tab=event.target.closest?.('[data-item-edit-tab]');
   if(!tab)return;
   const next=event.key==='ArrowRight'?'stats':event.key==='ArrowLeft'?'details':event.key==='Home'?'details':event.key==='End'?'stats':null;
@@ -728,12 +740,28 @@ function mountCharacterSheet(tabs,switchTo){
    if(['caster_level','mp_cost','spell_failure','save_dc_override','attack_bonus_override'].includes(key)&&node.value===''){fields[key]='';continue;}
    fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);
   }
+  if(['weapons','spells',...abilityTabs].includes(dialogState.change.collection)){
+   if(!String(fields.name??'').trim()){
+    const message=root.querySelector('[data-dialog-status]');if(message)message.textContent='Enter a name to save.';
+    activateEntryEditorTab('details');event.target.elements.namedItem('name')?.focus();return;
+   }
+  }
+  if(dialogState.change.collection==='weapons'&&event.target.elements.namedItem('u_max')){
+   const ammo=weaponAmmoStatus(event.target.elements.namedItem('u_curr')?.value,event.target.elements.namedItem('u_max')?.value);
+   if(!ammo.valid){
+    const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=ammo.message;
+    activateEntryEditorTab('range');
+    const key=ammo.message.startsWith('Max')?'u_max':'u_curr';
+    event.target.elements.namedItem(key)?.focus();return;
+   }
+  }
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
  root.addEventListener('change',event=>{
   if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
  root.addEventListener('input',event=>{
+   if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=u_curr],[name=u_max]'))updateWeaponAmmoPreview();
    if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=attack_misc]'))updateWeaponEditorPreview();
    // Shopping dialog inputs do not represent unsaved character edits.
    if(event.target.closest('.cs-picker,.cs-catalog-preview'))return;
