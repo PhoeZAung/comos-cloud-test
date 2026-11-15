@@ -28,15 +28,15 @@ test('damage ability follows attack type and weapon style independently of attac
  assert.equal(formula({...base,attack_type:'melee',damage:'1d8+4',damage_ability:'none'}),'1d8+4','legacy formulas must not double-count');
 });
 
-test('weapon edit form places AR Mod and DMG Mod ability contributions beside their labels',async()=>{
+test('weapon edit form gives clear Attack Stat and Damage Stat labels and live bonuses',async()=>{
  const source=await readFile('src/ui/sheet.mjs','utf8');
  assert.match(source,/function updateWeaponEditorPreview\(\)/);
  assert.match(source,/data-weapon-ar-mod/);
  assert.match(source,/data-weapon-dmg-mod/);
  assert.match(source,/weaponAttackParts\(row,character\.data\)/);
  assert.match(source,/weaponDamageFormulas\(\{\.\.\.row,damage:'1d4',extra_damage:''\},character\.data\)/);
- assert.match(source,/AR Mod/);
- assert.match(source,/DMG Mod/);
+ assert.match(source,/Attack Stat/);
+ assert.match(source,/Damage Stat/);
  assert.doesNotMatch(source,/data-weapon-attack-preview|data-weapon-damage-preview/);
  assert.doesNotMatch(source,/Melee starts with STR for attack and damage/);
  assert.match(source,/stat=info\.ability==='none'\?0:sheetStats\(character\.data\)\.mods\[info\.ability\]/);
