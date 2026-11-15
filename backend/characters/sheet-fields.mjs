@@ -1,4 +1,5 @@
 import {SHOP_SOURCE_IDS} from '../../src/features/sheet/shop-sources.mjs';
+import {moveInventoryWeapons,reloadWeaponFromInventory} from '../../src/features/sheet/weapon-inventory.mjs';
 import {randomUUID} from 'node:crypto';
 import {npcStatLabels,npcTextLabels,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
@@ -25,7 +26,7 @@ const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
 const textFields=['languages','senses','resistances','proficiencies','favored_class_options','notesArea'];
 const enumFields={uncanny_dodge:['auto','on','off'],size_category:sizes,capacity_body_type:['biped','quadruped'],speed_fly_maneuverability:['','clumsy','poor','average','good','perfect'],spell_dc_base:abilities,ar_melee_ability:abilities,ar_ranged_ability:abilities,ar_touch_ability:abilities,ar_ranged_touch_ability:abilities};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
-const entryText=['name','desc','effect','misfire','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
+const entryText=['name','desc','effect','misfire','ammoType','rarity','cost','img','sourceCategory','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
 const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level','mp_cost','sr_bonus','save_dc_override','attack_bonus_override'];
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 const bad=message=>{throw Error(message);};
@@ -117,6 +118,12 @@ export function mergeSheetData(original,change,{npc=false}={}){
   if(Object.hasOwn(change.fields,'size_category'))data.size=data.size_category;
   if(Object.hasOwn(change.fields,'currency_gil'))data.gil=data.currency_gil;
   if(Object.hasOwn(change.fields,'mp_curr')&&!Object.hasOwn(change.fields,'mp')){if(data.mp_curr<0)bad('MP cannot be negative.');data.mp_temp=Math.min(Math.max(0,number(data.mp_temp)),data.mp_curr);data.mp=data.mp_curr-data.mp_temp;}
+ }else if(change.action==='moveInventoryWeapons'){
+  if(npc)bad('NPC inventories cannot be moved this way.');
+  moveInventoryWeapons(data);
+ }else if(change.action==='reloadWeapon'){
+  if(npc)bad('Reload player weapons from their inventory only.');
+  reloadWeaponFromInventory(data,change.index);
  }else if(change.action==='gunbreakerAmmo'){
   updateGunbreakerAmmo(data,change);
  }else if(change.action==='addManualSourceAbilities'){
@@ -184,7 +191,11 @@ export function mergeSheetData(original,change,{npc=false}={}){
      const bonus=numeric(value);
      if(!Number.isInteger(bonus)||Math.abs(bonus)>100000)bad('Enter a whole roll bonus.');
      safe[key]=bonus;
-    }else if(key==='sourceCategory'&&change.collection==='items'&&ALL_ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
+    }else if(key==='sourceCategory'&&change.collection==='weapons'){
+      if(!['Weapon','Ranged Weapon'].includes(value))bad('Choose Weapon or Ranged Weapon.');
+      safe.sourceCategory=value;
+    }
+    else if(key==='sourceCategory'&&change.collection==='items'&&ALL_ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
     else if(key==='shopSource'&&change.collection==='items'){
       if(!SHOP_SOURCE_IDS.includes(value))bad('Choose a valid item source.');
       safe.shopSource=value;
@@ -206,9 +217,9 @@ export function mergeSheetData(original,change,{npc=false}={}){
       const weight=typeof value==='number'?value:typeof value==='string'&&value.trim()?Number.parseFloat(value):0;
       if(Number.isFinite(weight)&&weight>=0&&weight<=1000000)safe.weight=weight;
      }
-    else if(key==='img'&&change.collection==='items')safe.img=usableItemImageUrl(value);
+    else if(key==='img'&&['items','weapons'].includes(change.collection))safe.img=usableItemImageUrl(value);
      else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount')safe[key]=normalizeInventoryText(value,key);
-    else if(key==='link'&&['items','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+    else if(key==='link'&&['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
       safe.link=text(value,2048);
       if(safe.link){try{const url=new URL(safe.link);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)bad('Link must be an http or https URL.');}
        catch{bad('Link must be a valid http or https URL.');}}
