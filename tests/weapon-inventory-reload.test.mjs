@@ -82,7 +82,7 @@ test('partial reload and inventory-empty fallback never produce free rounds or n
 });
 
 test('weapons expose reload control next to ammo and inventory migration only if legacy weapons exist',()=>{
- const weapons={id:'char',name:'Test',data:{weapons:[{name:'Crossbow',u_curr:1,u_max:5,ammoType:'Bolts'}],
+ const weapons={id:'char',name:'Test',data:{weapons:[{name:'Crossbow',sourceCategory:'Ranged Weapon',attack_type:'ranged',u_curr:1,u_max:5,ammoType:'Bolts'}],
   items:[{name:'Crossbow spare',sourceCategory:'Ranged Weapon',amount:1},{name:'Bolts',sourceCategory:'Ammunition',amount:10}]}};
  const html=renderSection(weapons,'combat',{weaponView:'Ranged Weapon'});
  assert.match(html,/data-weapon-reload="0"/);
