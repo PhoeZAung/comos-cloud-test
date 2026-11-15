@@ -51,9 +51,9 @@ export function renderItemEditorTabs(values={},renderField,renderSourceFields){
 export function collectItemEditorFields(form,keys,boolKeys=new Set()){
  const fields={};
  for(const key of keys){
+  if(key==='damage_types'){fields[key]=new FormData(form).getAll(key);continue;}
   const node=form.elements.namedItem(key);
   if(!node)continue;
-  if(key==='damage_types'){fields[key]=new FormData(form).getAll(key);continue;}
   if(boolKeys.has(key)){fields[key]=node.checked;continue;}
   if(key==='amount'||key==='weight'){
    if(node.value.trim()==='')continue;
