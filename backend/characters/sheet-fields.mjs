@@ -224,7 +224,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
       if(Number.isFinite(weight)&&weight>=0&&weight<=1000000)safe.weight=weight;
      }
     else if(key==='img'&&['items','weapons'].includes(change.collection))safe.img=usableItemImageUrl(value);
-     else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount')safe[key]=normalizeInventoryText(value,key);
+     else if(itemEditableColumns.includes(key)&&change.collection==='items'&&key!=='amount'&&!['ammo_ar_bonus','ammo_dmg_bonus'].includes(key))safe[key]=normalizeInventoryText(value,key);
     else if(key==='link'&&['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
       safe.link=text(value,2048);
       if(safe.link){try{const url=new URL(safe.link);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)bad('Link must be an http or https URL.');}
