@@ -16,17 +16,22 @@ const makeGroup=(keys,render)=>(title,names,cls='')=>{
 
 export function renderWeaponEditorTabs(keys,render,{npc=false}={}){
  const group=makeGroup(keys,render);
- const details=group('Weapon',['name','weight','amount','carried'])+
-  (keys.includes('desc')?'<div class="cs-ability-prose">'+render('desc')+'</div>':'');
- const combat=group('Attack',['attack_type','ability_mod','npcAttackBonus','attack_misc'])+
+ // Weapon keeps the existing Combat page's attack/damage calculations and
+ // adds the useful inventory fields without changing stored field names.
+ const weapon=group('Item',['sourceCategory','type','name','cost','rarity','weight','amount','carried','two_handed','img','link'])+
+  group('Attack',['attack_type','ability_mod','npcAttackBonus','attack_misc'])+
   group('Damage',['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'])+
-  group('Saving Throw',['saving_throw','save_type','save_success','save_dc_override']);
- const range=group('Range & Ammo',['range','misfire','u_curr','u_max'],'cs-weapon-ammo-fields')+
+  (keys.includes('desc')?'<div class="cs-ability-prose">'+render('desc')+'</div>':'');
+ const ranged=group('Range',['range','misfire']);
+ const ammunition=group('Ammunition',['ammoType','u_curr','u_max'],'cs-weapon-ammo-fields')+
   (!npc&&keys.includes('u_max')?'<output class="cs-ammo-summary" data-ammo-summary aria-live="polite"></output>':'');
+ const saves=group('Saving Throw',['saving_throw','save_type','save_success','save_dc_override'])+
+   '<details class="cs-save-help"><summary>How weapon saves work</summary><p>In Owlbear, a weapon\'s on-hit saving throw is resolved by the GM. It does not replace the normal attack or damage roll. Record the save type, DC and outcome here.</p></details>';
  return renderSheetEditorTabs('weapon',[
-  {id:'details',label:'Details',content:details},
-  {id:'combat',label:'Combat',content:combat},
-  {id:'range',label:'Range',content:range||'<p class="cs-caption">—</p>'}
+  {id:'weapon',label:'Weapon',content:weapon},
+  {id:'ranged',label:'Ranged',content:ranged||'<p class="cs-caption">No range set.</p>'},
+  {id:'ammunition',label:'Ammunition',content:ammunition||'<p class="cs-caption">No ammunition to track.</p>'},
+  {id:'saves',label:'Saves',content:saves}
  ],{label:'Weapon editor sections',className:'cs-weapon-editor'});
 }
 
@@ -38,15 +43,17 @@ export function renderAbilityEditorTabs(keys,render,{collection='activeAbilities
  const details=detailFields+(effects?'<div class="cs-ability-prose cs-ability-prose-sections">'+effects+'</div>':'')+
   group('Reference',['link']);
  const combat=group('Action',['action_type','range','duration','target'])+
-  group('Attack & Damage',['effect_type','attack_type','attack_misc','attack_bonus_override','damage','damage_types'])+
-  group('Saving Throw',['saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist']);
+  group('Attack & Damage',['effect_type','attack_type','attack_misc','attack_bonus_override','damage','damage_types']);
  const resources=group('Costs',['mp_cost','spell_failure'])+
   group('Uses',['uses_formula','u_curr','u_max','restoreOnLongRest'])+
   (()=>{const known=new Set(['name','lvl','school','type','ability_kind','desc','effect','at_higher_lvls','link','action_type','range','duration','target','effect_type','attack_type','attack_misc','attack_bonus_override','damage','damage_types','saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist','mp_cost','spell_failure','uses_formula','u_curr','u_max','restoreOnLongRest']);return group('Other',keys.filter(k=>!known.has(k)));})();
+ const saves=group('Target Save',['saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist'])+
+  '<details class="cs-save-help"><summary>How saves work in Owlbear</summary><p>Select a target NPC with a Fortitude, Reflex or Will bonus. Choose the save type and what a successful save does. Use the calculated DC or enter one; the GM controls approval. Auto HP changes require a supported save outcome.</p></details>';
  return renderSheetEditorTabs('ability',[
   {id:'details',label:'Details',content:details},
   {id:'combat',label:'Combat',content:combat},
-  {id:'resources',label:'Resources',content:resources}
+  {id:'resources',label:'Resources',content:resources},
+  {id:'saves',label:'Saves',content:saves}
  ],{label:collection==='spells'?'Spell editor sections':'Ability editor sections',className:'cs-ability-editor cs-manual-ability-editor'});
 }
 
