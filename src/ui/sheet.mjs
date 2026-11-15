@@ -270,7 +270,9 @@ function mountCharacterSheet(tabs,switchTo){
   const output=form?.querySelector('[data-ammo-summary]');
   if(!output)return;
   const state=weaponAmmoStatus(form.elements.namedItem('u_curr')?.value,form.elements.namedItem('u_max')?.value);
-  output.textContent=state.valid?state.label:state.message;
+  const type=form.elements.namedItem('ammoType')?.value?.trim()||'';
+  const stock=ammoStock(character?.data||{},type);
+  output.textContent=state.valid?(state.label+(type?' · Inventory '+stock.total:' · Choose Ammo Type')):state.message;
   output.dataset.invalid=String(!state.valid);
  }
  function updateWeaponEditorPreview(){
@@ -637,6 +639,20 @@ function mountCharacterSheet(tabs,switchTo){
   if(button.matches('[data-combat-view]')){if(dirty&&!confirm('Discard unsaved edits?'))return;combatView=button.dataset.combatView;draw();const url=new URL(location.href);url.searchParams.set('combatView',combatView);history.replaceState(null,'',url);return;}
   if(button.matches('[data-ability-category]')){if(dirty&&!confirm('Discard unsaved edits?'))return;ability=button.dataset.abilityCategory;draw();const url=new URL(location.href);url.searchParams.set('ability',ability);history.replaceState(null,'',url);return;}
   if(button.matches('[data-resource-favorite]')){const key=button.dataset.resourceFavorite;clearTimeout(resourceTimer);void save({action:'fields',fields:{...pendingResourceFields,[key]:character.data[key]!==true}});return;}
+  if(button.matches('[data-weapon-reload]')){
+   const index=Number(button.dataset.weaponReload),row=character.data.weapons?.[index];
+   if(!row||busy||conflict||dirty){status('Save your changes before reloading.');return;}
+   const previous=Number(row.u_curr||0);
+   void save({action:'reloadWeapon',index}).then(ok=>{
+    if(ok){const weapon=character?.data?.weapons?.[index];status('Reloaded '+Math.max(0,Number(weapon?.u_curr||0)-previous)+' '+(weapon?.ammoType||'rounds')+'.');}
+   });
+   return;
+  }
+  if(button.matches('[data-move-inventory-weapons]')){
+   if(busy||conflict||dirty){status('Save changes before moving weapons.');return;}
+   void save({action:'moveInventoryWeapons'}).then(ok=>{if(ok)status('Inventory weapons moved into Weapons. Ammunition remains in Inventory.');});
+   return;
+  }
   if(button.matches('[data-weapon-roll]')){void roll('Weapon',null,Number(button.dataset.weaponRoll));return;}
   if(button.matches('[data-favorite]')){const [collection,i]=button.dataset.favorite.split(':');void save({action:'entry',collection,index:Number(i),mode:'update',fields:{favorite:character.data[collection][Number(i)].favorite!==true}});return;}
   if(button.matches('[data-cast-entry]')){void roll('Spell',null,undefined,Number(button.dataset.castEntry.split(':')[1]));return;}
@@ -788,7 +804,7 @@ function mountCharacterSheet(tabs,switchTo){
  root.addEventListener('change',event=>{
   if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
  root.addEventListener('input',event=>{
-   if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=u_curr],[name=u_max]'))updateWeaponAmmoPreview();
+   if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=u_curr],[name=u_max],[name=ammoType]'))updateWeaponAmmoPreview();
    if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=attack_misc]'))updateWeaponEditorPreview();
    // Shopping dialog inputs do not represent unsaved character edits.
    if(event.target.closest('.cs-picker,.cs-catalog-preview'))return;
