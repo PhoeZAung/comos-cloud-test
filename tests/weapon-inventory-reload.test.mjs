@@ -19,7 +19,7 @@ test('carrying check penalty applies to DEX roll exactly once while DEX skills a
  assert.equal(skillTotal({name:'Acrobatics',stat:'dex',lvl:1},data),4+1-6);
  const plain=renderSection({id:'d',name:'Hero',data},'overview');
  assert.match(plain,/data-roll="DEX check" data-bonus="-2"/);
- assert.match(plain,/DEX check after load and armor penalties/);
+ assert.match(plain,/Load\/armor penalty/);
  assert.equal(abilityCheckBonus({...data,items:[]},'dex'),4);
 });
 
@@ -44,7 +44,7 @@ test('moving existing weapon inventory entries preserves equipped state, catalog
  assert.equal(moved.weapons[2].sourceCategory,'Ammunition');
  assert.equal(moved.weapons[2].amount,20);
  assert.equal(source.weapons,undefined,'migration must never mutate input snapshot');
- assert.throws(()=>mergeSheetData(moved,{action:'moveInventoryWeapons'}),/No weapons found/);
+ assert.throws(()=>mergeSheetData(moved,{action:'moveInventoryWeapons'}),/No weapons or ammunition found/);
 });
 
 test('reload exact matching ammo from inventory without consuming ordinary items',()=>{
