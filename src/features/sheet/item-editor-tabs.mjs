@@ -55,6 +55,7 @@ export function collectItemEditorFields(form,keys,boolKeys=new Set()){
   const node=form.elements.namedItem(key);
   if(!node)continue;
   if(boolKeys.has(key)){fields[key]=node.checked;continue;}
+  if(['ammo_ar_bonus','ammo_dmg_bonus'].includes(key)){fields[key]=node.value.trim()===''?0:Number(node.value);continue;}
   if(key==='amount'||key==='weight'){
    if(node.value.trim()==='')continue;
    fields[key]=Number(node.value);
