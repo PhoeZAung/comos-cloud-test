@@ -84,8 +84,8 @@ test('minimal shop UI uses a popup and custom item stands beside shop selection'
  assert.doesNotMatch(src,/Choose shops · select one or more catalogs/);
  const sheet=await readFile('src/ui/sheet.mjs','utf8');
  assert.match(sheet,/catalogMechanicalFacts\(\{\.\.\.item,catalog:item\.sourceCatalog/);
- assert.match(sheet,/const common=imported\?parts\.common\.map/);
- assert.match(sheet,/imported\?'<details class="cs-inventory-advanced-source"/);
+ assert.match(sheet,/renderItemEditorTabs\(values,render,sourceFieldsEditor\)/);
+ assert.match(sheet,/collectItemEditorFields\(event.target,dialogState.keys,boolKeys\)/);
 });
 
 
@@ -114,6 +114,8 @@ test('shop selection is remembered per character and custom item details stay mi
  assert.match(picker,/restoreTags\(\);paintSources\(\)/);
  const sheet=await readFile('src/ui/sheet.mjs','utf8');
  assert.match(sheet,/shopSelectionKey:id/);
- assert.match(sheet,/\['amount','cost','weight'\]/);
- assert.match(sheet,/imported\?\['carried'\]:\[\]/);
+ const editor=await readFile('src/features/sheet/item-editor-tabs.mjs','utf8');
+ assert.match(editor,/\['amount','cost','weight'\]/);
+ assert.match(editor,/Advanced source columns/);
+ assert.match(editor,/\['amount','cost','weight','img','link','carried'\]/);
 });
