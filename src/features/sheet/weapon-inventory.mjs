@@ -3,16 +3,26 @@ import {itemCategoryForItem} from './item-categories.mjs';
 /** Weapon entries live in the Weapons collection. Ammunition stays in Inventory.
  * Preserve the original catalog provenance and equipment state when moving.
  */
+/** Shared visual type used by Combat, add menu, and editor.
+ * Legacy ranged attacks without a sourceCategory still appear in Ranged.
+ */
+export function weaponKind(row={}){
+ const category=itemCategoryForItem(row);
+ if(category==='Ammunition')return 'Ammunition';
+ if(category==='Ranged Weapon')return 'Ranged Weapon';
+ if(category==='Weapon')return 'Weapon';
+ return String(row.attack_type||'').toLowerCase().includes('ranged')?'Ranged Weapon':'Weapon';
+}
 export function isWeaponInventoryItem(item){
- return item&&['Weapon','Ranged Weapon'].includes(itemCategoryForItem(item));
+ return item&&['Weapon','Ranged Weapon','Ammunition'].includes(itemCategoryForItem(item));
 }
 export function weaponFromInventory(item){
- if(!isWeaponInventoryItem(item))throw Error('Only weapons can be moved to Weapons.');
+ if(!isWeaponInventoryItem(item))throw Error('Only weapons and ammunition can be moved to Weapons.');
  const category=itemCategoryForItem(item);
  return {...item,
   sourceCategory:category,
-  attack_type:item.attack_type|| (category==='Ranged Weapon'?'ranged':'melee'),
-  damage:String(item.damage||item.dmg||'').slice(0,300),
+  ...(category==='Ammunition'?{}:{attack_type:item.attack_type|| (category==='Ranged Weapon'?'ranged':'melee')}),
+  ...(category==='Ammunition'?{}:{damage:String(item.damage||item.dmg||'').slice(0,300)}),
   u_curr:Number.isSafeInteger(item.u_curr)&&item.u_curr>=0?item.u_curr:0,
   u_max:Number.isSafeInteger(item.u_max)&&item.u_max>=0?item.u_max:0
  };
@@ -20,7 +30,7 @@ export function weaponFromInventory(item){
 export function moveInventoryWeapons(data){
  const items=Array.isArray(data.items)?data.items:[],weapons=Array.isArray(data.weapons)?data.weapons:[];
  const selected=items.filter(isWeaponInventoryItem);
- if(!selected.length)throw Error('No weapons found in Inventory to move.');
+ if(!selected.length)throw Error('No weapons or ammunition found in Inventory to move.');
  if(weapons.length+selected.length>1000)throw Error('Weapons list is full.');
  data.items=items.filter(item=>!isWeaponInventoryItem(item));
  data.weapons=[...weapons,...selected.map(weaponFromInventory)];
@@ -35,8 +45,8 @@ const validCount=v=>Number.isSafeInteger(Number(v))&&Number(v)>=0;
 export function ammoStock(data,ammoType){
  const target=normalizeAmmoName(ammoType);
  if(!target)return {name:'',total:0,stacks:[]};
- const stacks=(Array.isArray(data.items)?data.items:[])
-  .map((item,index)=>({item,index}))
+ const stacks=['weapons','items'].flatMap(collection=>(Array.isArray(data[collection])?data[collection]:[])
+  .map((item,index)=>({item,index,collection})))
   .filter(({item})=>itemCategoryForItem(item)==='Ammunition'&&normalizeAmmoName(item.name)===target&&validCount(item.amount));
  return {name:target,total:stacks.reduce((n,{item})=>n+Number(item.amount),0),stacks};
 }
@@ -57,6 +67,6 @@ export function reloadWeaponFromInventory(data,index){
   if(!remaining)break;
  }
  weapon.u_curr=current+loaded;
- // Keep emptied stacks (amount 0) so metadata and equipment indices remain stable.
+ // Keep empty stacks (amount 0) in place so saved indices and source metadata remain stable.
  return {loaded,current:weapon.u_curr,max,stockRemaining:stock.total-loaded,ammoType:weapon.ammoType};
 }

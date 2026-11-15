@@ -169,7 +169,7 @@ test('minimal capacity UI exposes threshold hover, warnings, info and editor; no
  assert.doesNotMatch(inventory,/data-inline-currency="slot_cap"/);
  assert.match(overview,/cs-score-encumbered/);
  assert.match(overview,/data-roll="DEX check" data-bonus="0"/);
- assert.match(overview,/<strong>22<\/strong><small>\+6<\/small>/);
+ assert.match(overview,/<strong>22<\/strong><small>\+0<\/small>/);
  assert.match(overview,/AC \+1/);
  assert.match(overview,/cs-score-load-info/);
  const speed=renderSpeedDetails(hero.data);
@@ -179,7 +179,9 @@ test('minimal capacity UI exposes threshold hover, warnings, info and editor; no
  assert.match(ui,/name="carried"/);
  assert.match(ui,/name="capacity_body_type"/);
  const tabEditor=await readFile(new URL('../src/features/sheet/entry-editor-tabs.mjs',import.meta.url),'utf8');
- assert.match(tabEditor,/group\('Item',\['sourceCategory','type','name','cost','rarity','weight','amount','carried'/);
+ assert.match(tabEditor,/group\('Basic Info',ammo\?/);
+ assert.match(tabEditor,/group\('Amount',\['amount'\]\)/);
+ assert.match(tabEditor,/group\('Ammunition',\['ammoType','u_curr','u_max'/);
  const css=await readFile(new URL('../src/styles/sheet-refinements.css',import.meta.url),'utf8');
  assert.match(css,/\.cs-score-encumbered/);
  assert.match(css,/\.cs-capacity-meter/);

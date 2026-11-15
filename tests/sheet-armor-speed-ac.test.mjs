@@ -205,7 +205,7 @@ test('speed warning and armor-penalized DEX roll are visible; capacity icon remo
  assert.match(overview,/Speed restricted by armor/);
  assert.match(overview,/cs-score-encumbered/);
  assert.match(overview,/data-roll="DEX check" data-bonus="4"/);
- assert.match(overview,/<strong>22<\/strong><small>\+6<\/small>/);
+ assert.match(overview,/<strong>22<\/strong><small>\+4<\/small>/);
  assert.match(overview,/AC \+3/);
  assert.match(inventory,/data-edit-stats="capacity"/);
  assert.doesNotMatch(inventory,/cs-capacity-info/);

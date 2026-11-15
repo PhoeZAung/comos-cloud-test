@@ -192,7 +192,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
      if(!Number.isInteger(bonus)||Math.abs(bonus)>100000)bad('Enter a whole roll bonus.');
      safe[key]=bonus;
     }else if(key==='sourceCategory'&&change.collection==='weapons'){
-      if(!['Weapon','Ranged Weapon'].includes(value))bad('Choose Weapon or Ranged Weapon.');
+      if(!['Weapon','Ranged Weapon','Ammunition'].includes(value))bad('Choose Weapon, Ranged Weapon or Ammunition.');
       safe.sourceCategory=value;
     }
     else if(key==='sourceCategory'&&change.collection==='items'&&ALL_ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
