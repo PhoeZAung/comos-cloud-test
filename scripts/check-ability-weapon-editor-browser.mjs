@@ -16,7 +16,11 @@ import {createUserDeletionRoutes} from '../backend/characters/user-deletion.mjs'
 const db=await openDatabase(':memory:'),users=createUserRepository(db),admin=users.create({displayName:'Test Admin'}),player=users.create({displayName:'Test Player'}),id=randomUUID(),checks=[],errors=[];
 const output=await mkdtemp(path.join(tmpdir(),'cosmos-sheet-entry-'));let origin,failArchive=false,archives=0;
 createCharactersService(db).save({op:'save',id,revision:0,name:'Test Character',ownerId:player.id,sources:[]});
-db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(id,JSON.stringify({str:14,dex:12,hp_max:10,hp_curr:10,mp_class:4,mp_curr:4,weapons:[{name:'Celestial Gunblade',damage:'1d8',attack_type:'melee',u_curr:2,u_max:6,desc:'A blade of starlight.'}],activeAbilities:[{name:'Celestial Ward',type:'Su',action_type:'Swift',desc:'Raise a shield.',effect:'Absorb the next strike.',at_higher_lvls:'The shield grows stronger.',u_curr:2,u_max:3}]}));
+db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(id,JSON.stringify({str:14,dex:12,hp_max:10,hp_curr:10,mp_class:4,mp_curr:4,weapons:[{name:'Celestial Gunblade',damage:'1d8',attack_type:'melee',u_curr:2,u_max:6,desc:'A blade of starlight.'}],items:[
+ {name:'Steel Blade',sourceCategory:'Weapon',amount:1,weight:4,cost:'12 Gil',dmg:'1d8',crit:'20/x2',rarity:'Uncommon',shopSource:'pathfinder-1e',sourceCategoryDetail:'Weapons',sourceItemId:'pf1e:sword',sourceCatalog:{raw:{Weight:'4 lb'}},desc:'A steel blade.'},
+ {name:'Round Shield',sourceCategory:'Armor',amount:1,weight:6,acBonus:'2',spellFailure:'15%',desc:'A small shield.'},
+ {name:'Rope',sourceCategory:'Gear',amount:2,weight:1,cost:'3 Gil',desc:'Useful rope.'}
+ ],activeAbilities:[{name:'Celestial Ward',type:'Su',action_type:'Swift',desc:'Raise a shield.',effect:'Absorb the next strike.',at_higher_lvls:'The shield grows stronger.',u_curr:2,u_max:3}]}));
 const sessions={restore:async()=>({user:users.get(admin.id),subject:'admin'})};let directory,removeUser;
 const mime={'.mjs':'text/javascript','.js':'text/javascript','.html':'text/html','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.json':'application/json'};
 const server=createServer(async(req,res)=>{
@@ -63,6 +67,71 @@ try{
  assert.equal(await editor.locator('[data-weapon-dmg-mod]').innerText(),'STR: +3');
  await editor.locator('[data-dialog-close]').first().click();
  checks.push('weapon AR Mod and DMG Mod bold labels show only effective ability modifiers, never total attack roll');
+
+ await page.locator('[data-sheet-tab=items]').click();
+ const popup=page.locator('[data-item-description-dialog]');
+ await page.locator('[data-item-description="items:0"]').click();
+ await popup.locator('[data-item-popup-edit]').click();
+ await editor.waitFor({state:'visible'});
+ assert.equal(await editor.locator('[role=tab][data-item-edit-tab]').count(),2);
+ assert.equal(await editor.locator('[data-item-edit-tab=details]').getAttribute('aria-selected'),'true');
+ assert.equal(await editor.locator('[data-item-edit-tab=stats]').innerText(),'Weapon Stats');
+ await editor.locator('[name=name]').fill('Steel Blade +1');
+ await editor.locator('[name=amount]').fill('3');
+ await editor.locator('[data-item-edit-tab=stats]').click();
+ assert.equal(await editor.locator('[data-item-edit-panel=details]').isVisible(),false);
+ assert.equal(await editor.locator('[data-item-edit-panel=stats]').isVisible(),true);
+ await editor.locator('[name=dmg]').fill('2d6');
+ await editor.locator('[name=crit]').fill('19-20/x2');
+ await editor.locator('[name=special]').fill('Tested enchantment');
+ assert.equal(await editor.locator('[type=submit]').isVisible(),true,'Save stays visible when Stats is selected');
+ await editor.locator('[type=submit]').click();
+ await editor.waitFor({state:'hidden'});
+ assert.equal(readData().items[0].name,'Steel Blade +1');
+ assert.equal(readData().items[0].amount,3);
+ assert.equal(readData().items[0].dmg,'2d6');
+ assert.equal(readData().items[0].crit,'19-20/x2');
+ assert.equal(readData().items[0].rarity,'Uncommon','unrendered imported metadata remains unchanged');
+ assert.equal(readData().items[0].sourceCategoryDetail,'Weapons');
+ checks.push('imported weapon item saves across Item Details and Weapon Stats tabs without losing hidden source metadata');
+
+ await page.locator('[data-item-description="items:1"]').click();
+ await popup.locator('[data-item-popup-edit]').click();
+ await editor.waitFor({state:'visible'});
+ assert.equal(await editor.locator('[data-item-edit-tab=stats]').innerText(),'Armor Stats');
+ await editor.locator('[data-item-edit-tab=stats]').click();
+ await editor.locator('[name=acBonus]').fill('3');
+ await editor.locator('[name=spellFailure]').fill('20%');
+ await editor.locator('[type=submit]').click();
+ await editor.waitFor({state:'hidden'});
+ assert.equal(readData().items[1].acBonus,'3');
+ assert.equal(readData().items[1].spellFailure,'20%');
+ checks.push('armor save works from Stats tab with Item Details hidden');
+
+ await page.locator('[data-item-description="items:2"]').click();
+ await popup.locator('[data-item-popup-edit]').click();
+ await editor.waitFor({state:'visible'});
+ assert.equal(await editor.locator('[data-item-edit-tab=stats]').innerText(),'Gear Stats');
+ assert.equal(await editor.locator('[data-item-edit-panel=details] [name=amount]').count(),1);
+ assert.equal(await editor.locator('[data-item-edit-panel=details] [name=cost]').count(),1);
+ assert.equal(await editor.locator('[data-item-edit-panel=details] [name=weight]').count(),1);
+ assert.equal(await editor.locator('[data-item-edit-panel=details] [name=rarity]').count(),0);
+ await editor.locator('[name=name]').fill('');
+ await editor.locator('[data-item-edit-tab=stats]').click();
+ await editor.locator('[type=submit]').click();
+ assert.equal(await editor.isVisible(),true,'invalid name keeps editor open');
+ assert.equal(await editor.locator('[data-item-edit-tab=details]').getAttribute('aria-selected'),'true','validation switches to Item Details');
+ assert.match(await editor.locator('[data-dialog-status]').innerText(),/Enter an item name/);
+ await editor.locator('[name=name]').fill('Silk Rope');
+ await editor.locator('[name=weight]').fill('2');
+ await editor.locator('[data-item-edit-tab=stats]').click();
+ await editor.locator('[name=special]').fill('Custom stats');
+ await editor.locator('[type=submit]').click();
+ await editor.waitFor({state:'hidden'});
+ assert.equal(readData().items[2].name,'Silk Rope');
+ assert.equal(readData().items[2].weight,2);
+ assert.equal(readData().items[2].special,'Custom stats');
+ checks.push('custom item Save works with minimal fields and validation from either tab');
 
  await page.locator('[data-sheet-tab=abilities]').click();
  const categories=['activeAbilities','passiveAbilities','feats','racialAbilities'];
