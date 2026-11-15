@@ -19,7 +19,8 @@ createCharactersService(db).save({op:'save',id,revision:0,name:'Test Character',
 db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(id,JSON.stringify({str:14,dex:12,hp_max:10,hp_curr:10,mp_class:4,mp_curr:4,weapons:[{name:'Celestial Gunblade',damage:'1d8',attack_type:'melee',u_curr:2,u_max:6,desc:'A blade of starlight.'}],items:[
  {name:'Steel Blade',sourceCategory:'Weapon',amount:1,weight:4,cost:'12 Gil',dmg:'1d8',crit:'20/x2',rarity:'Uncommon',shopSource:'pathfinder-1e',sourceCategoryDetail:'Weapons',sourceItemId:'pf1e:sword',sourceCatalog:{raw:{Weight:'4 lb'}},desc:'A steel blade.'},
  {name:'Round Shield',sourceCategory:'Armor',amount:1,weight:6,acBonus:'2',spellFailure:'15%',desc:'A small shield.'},
- {name:'Rope',sourceCategory:'Gear',amount:2,weight:1,cost:'3 Gil',desc:'Useful rope.'}
+ {name:'Rope',sourceCategory:'Gear',amount:2,weight:1,cost:'3 Gil',desc:'Useful rope.'},
+ {name:'Celestial Cartridge',sourceCategory:'Ammunition',amount:8,weight:0.02}
  ],activeAbilities:[{name:'Celestial Ward',type:'Su',action_type:'Swift',desc:'Raise a shield.',effect:'Absorb the next strike.',at_higher_lvls:'The shield grows stronger.',u_curr:2,u_max:3}]}));
 const sessions={restore:async()=>({user:users.get(admin.id),subject:'admin'})};let directory,removeUser;
 const mime={'.mjs':'text/javascript','.js':'text/javascript','.html':'text/html','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.json':'application/json'};
@@ -53,9 +54,9 @@ try{
  await page.locator('[data-entry-preview="weapons:0"]').waitFor();
  await page.locator('[data-edit-entry="weapons:0"]').click();
  const editor=page.locator('[data-sheet-dialog]');
- assert.deepEqual(await editor.locator('[data-entry-edit-tab]').allTextContents(),['Details','Combat','Range']);
- assert.equal(await editor.locator('[data-entry-edit-tab=details]').getAttribute('aria-selected'),'true');
- await editor.locator('[data-entry-edit-tab=combat]').click();
+ assert.deepEqual(await editor.locator('[data-entry-edit-tab]').allTextContents(),['Weapon','Ranged','Ammunition','Saves']);
+ assert.equal(await editor.locator('[data-entry-edit-tab=weapon]').getAttribute('aria-selected'),'true');
+ await editor.locator('[data-entry-edit-tab=weapon]').click();
  await editor.locator('[data-weapon-ar-mod]').waitFor();
  assert.match(await editor.locator('[name=ability_mod]').locator('xpath=..').innerText(),/Attack Stat/);
  assert.match(await editor.locator('[name=damage_ability]').locator('xpath=..').innerText(),/Damage Stat/);
@@ -69,12 +70,18 @@ try{
  assert.equal(await editor.locator('[data-weapon-dmg-mod]').innerText(),'STR: +2');
  await editor.locator('[name=damage_style]').selectOption('two_handed');
  assert.equal(await editor.locator('[data-weapon-dmg-mod]').innerText(),'STR: +3');
- await editor.locator('[data-entry-edit-tab=range]').click();
- assert.equal(await editor.locator('[data-entry-edit-panel=combat]').isVisible(),false);
- assert.equal(await editor.locator('[data-entry-edit-panel=range]').isVisible(),true);
+ await editor.locator('[name=sourceCategory]').selectOption('Ranged Weapon');
+ await editor.locator('[name=type]').fill('Gunblade');
+ await editor.locator('[data-entry-edit-tab=ranged]').click();
+ assert.equal(await editor.locator('[name=misfire]').isVisible(),true);
+ await editor.locator('[name=misfire]').fill('1–2');
+ await editor.locator('[data-entry-edit-tab=ammunition]').click();
+ assert.equal(await editor.locator('[data-entry-edit-panel=weapon]').isVisible(),false);
+ assert.equal(await editor.locator('[data-entry-edit-panel=ammunition]').isVisible(),true);
  assert.match(await editor.locator('[name=u_curr]').locator('xpath=..').innerText(),/Ammo/);
  assert.match(await editor.locator('[name=u_max]').locator('xpath=..').innerText(),/Max Ammo/);
- assert.equal(await editor.locator('[data-ammo-summary]').innerText(),'2 / 6');
+ await editor.locator('[name=ammoType]').fill('Celestial Cartridge');
+ assert.match(await editor.locator('[data-ammo-summary]').innerText(),/2 \/ 6 · Inventory 8/);
  await editor.locator('[name=u_curr]').fill('9');
  assert.match(await editor.locator('[data-ammo-summary]').innerText(),/Ammo cannot exceed Max Ammo/);
  await editor.locator('[data-sheet-form] button[type=submit]').click();
@@ -82,14 +89,23 @@ try{
  assert.match(await editor.locator('[data-dialog-status]').innerText(),/Ammo cannot exceed Max Ammo/);
  await editor.locator('[name=u_curr]').fill('4');
  await editor.locator('[name=u_max]').fill('8');
- assert.equal(await editor.locator('[data-ammo-summary]').innerText(),'4 / 8');
- await editor.locator('[name=misfire]').fill('1–2');
+ assert.match(await editor.locator('[data-ammo-summary]').innerText(),/4 \/ 8 · Inventory 8/);
+ await editor.locator('[data-entry-edit-tab=saves]').click();
+ assert.equal(await editor.locator('[name=save_type]').isVisible(),true);
+ assert.match(await editor.locator('.cs-save-help summary').innerText(),/How weapon saves work/);
  await editor.locator('[data-sheet-form] button[type=submit]').click();
  await editor.waitFor({state:'hidden'});
+ assert.equal(readData().weapons[0].sourceCategory,'Ranged Weapon');
+ assert.equal(readData().weapons[0].type,'Gunblade');
  assert.equal(readData().weapons[0].u_curr,4);
  assert.equal(readData().weapons[0].u_max,8);
  assert.equal(readData().weapons[0].misfire,'1–2');
- checks.push('weapon editor tabs save attack/damage/range, show friendly Ammo counts and reject ammo above max');
+ assert.equal(readData().weapons[0].ammoType,'Celestial Cartridge');
+ await page.locator('[data-weapon-reload="0"]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-sheet-status]')?.textContent?.includes('Reloaded'));
+ assert.equal(readData().weapons[0].u_curr,8);
+ assert.equal(readData().items[3].amount,4);
+ checks.push('weapon four-tab editor saves stats and reload consumes exact inventory ammunition');
 
  await page.locator('[data-sheet-tab=items]').click();
  const popup=page.locator('[data-item-description-dialog]');
@@ -157,6 +173,13 @@ try{
  checks.push('custom item Save works with minimal fields and validation from either tab');
 
  await page.locator('[data-sheet-tab=combat]').click();
+ await page.locator('[data-move-inventory-weapons]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-sheet-status]')?.textContent?.includes('moved into Weapons'));
+ assert.equal(readData().weapons.length,2);
+ assert.equal(readData().weapons[1].name,'Steel Blade +1');
+ assert.equal(readData().weapons[1].sourceItemId,'pf1e:sword');
+ assert.equal(readData().items.length,3,'armor, rope and ammo stay in Inventory');
+ checks.push('legacy purchased weapons move into Combat without losing provenance, ammo or equipment data');
  await page.locator('[data-sheet-tab=abilities]').click();
  const categories=['activeAbilities','passiveAbilities','feats','racialAbilities'];
  for(const category of categories){
@@ -167,20 +190,23 @@ try{
   assert.equal(await page.locator('.cs-ability-add-menu').count(),0);
   await button.click();await editor.waitFor({state:'visible'});
   assert.equal(await editor.locator('[data-editor-premade]').isVisible(),true);
-  assert.deepEqual(await editor.locator('[data-entry-edit-tab]').allTextContents(),['Details','Combat','Resources']);
+  assert.deepEqual(await editor.locator('[data-entry-edit-tab]').allTextContents(),['Details','Combat','Resources','Saves']);
   assert.equal(await editor.locator('[data-entry-edit-panel=details] [name=name]').count(),1);
   const labels=await editor.locator('.cs-ability-prose-card .cs-rich-heading label').allTextContents();
   assert.deepEqual(labels,['Description','Effect','Higher Levels']);
   assert.doesNotMatch(await editor.innerText(),/Sp = spell-like|Advanced Settings/);
   await editor.locator('[data-entry-edit-tab=combat]').click();
   assert.equal(await editor.locator('[name=action_type]').isVisible(),true);
+  await editor.locator('[data-entry-edit-tab=saves]').click();
+  assert.equal(await editor.locator('[name=save_type]').isVisible(),true);
+  assert.match(await editor.locator('.cs-save-help summary').innerText(),/How saves work in Owlbear/);
   await editor.locator('[data-entry-edit-tab=resources]').click();
   assert.equal(await editor.locator('[name=u_curr]').isVisible(),true);
   assert.equal(await editor.locator('[name=u_max]').isVisible(),true);
   await editor.locator('[data-entry-edit-tab=details]').click();
   await editor.locator('[data-dialog-close]').first().click();
  }
- checks.push('every ability category has minimal Details, Combat and Resources tabs');
+ checks.push('every ability category has Details, Combat, Resources and Saves tabs');
  await page.locator('[data-ability-category=activeAbilities]').click();
  await page.locator('[data-edit-entry="activeAbilities:0"]').click();
  await editor.waitFor({state:'visible'});
@@ -190,13 +216,20 @@ try{
  await editor.locator('[data-entry-edit-tab=resources]').click();
  await editor.locator('[name=u_max]').fill('5');
  await editor.locator('[name=u_curr]').fill('3');
+ await editor.locator('[data-entry-edit-tab=saves]').click();
+ await editor.locator('[name=save_type]').selectOption('ref');
+ await editor.locator('[name=save_success]').selectOption('half');
+ await editor.locator('[name=save_dc_override]').fill('14');
  await editor.locator('[data-sheet-form] button[type=submit]').click();
  await editor.waitFor({state:'hidden'});
  assert.equal(readData().activeAbilities[0].name,'Celestial Ward II');
  assert.equal(readData().activeAbilities[0].action_type,'Move');
  assert.equal(readData().activeAbilities[0].u_curr,3);
  assert.equal(readData().activeAbilities[0].u_max,5);
- checks.push('ability Save persists changes across Details, Combat and Resources');
+ assert.equal(readData().activeAbilities[0].save_type,'ref');
+ assert.equal(readData().activeAbilities[0].save_success,'half');
+ assert.equal(readData().activeAbilities[0].save_dc_override,14);
+ checks.push('ability Save persists changes across Details, Combat, Resources and Saves');
  const add=page.locator('[data-collection=activeAbilities] [data-add-manual-ability]');
  await add.click();
  page.once('dialog',dialog=>dialog.accept());
