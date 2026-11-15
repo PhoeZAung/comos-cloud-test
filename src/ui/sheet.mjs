@@ -24,6 +24,7 @@ import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCateg
 import {spellLevel,damageTypeLine,weaponDamageAbilities,weaponDamageStyles,weaponDamageFormulas} from '../features/sheet/calculations.mjs';
 import {inventoryEditorFields,inventoryEditorKeys,inventoryFieldLabel,inventoryItemDetails,inventoryItemValue,inventorySourceFields,usableItemImageUrl,normalizeInventoryText} from '../features/sheet/inventory-fields.mjs';
 import {catalogMechanicalFacts} from '../features/sheet/catalog-shop-preview.mjs';
+import {renderItemEditorTabs,collectItemEditorFields} from '../features/sheet/item-editor-tabs.mjs';
 import {FFD20_SHOP_PRICE_MODE} from '../features/sheet/shop-pricing.mjs';
 import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
@@ -207,11 +208,22 @@ function mountCharacterSheet(tabs,switchTo){
  function schedule(){clearTimeout(timer);if(closed)return;timer=setTimeout(async()=>{await refresh();schedule();},5000);}
  function openDialog(title,keys,values,change,{help=''}={}){
   if(busy||conflict){status(conflict?'Refresh to load the latest sheet before editing.':'Saving…');return;}
-  root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;dialogState={keys,change,values:{...values}};dialog().classList.add('cs-star-border');dialog().dataset.editor=change.collection||'';root.querySelector('#cs-dialog-title').textContent=title;
+  root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;root.querySelector('[data-sheet-form]').noValidate=change.collection==='items';dialogState={keys,change,values:{...values}};dialog().classList.add('cs-star-border');dialog().dataset.editor=change.collection||'';root.querySelector('#cs-dialog-title').textContent=title;
   root.querySelector('[data-editor-premade]').hidden=!abilityTabs.includes(change.collection);
   root.querySelector('[data-dialog-fields]').innerHTML=keys===groupFields.identity?renderIdentityEditor(values):(help?'<p class="cs-caption">'+e(help)+'</p>':'')+renderEntryFields(keys,values,change.collection);
   updateWeaponEditorPreview();
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
+ }
+ function activateItemEditorTab(name,focus=false){
+  const host=dialog()?.querySelector('[data-item-editor]');
+  if(!host||!['details','stats'].includes(name))return;
+  for(const tab of host.querySelectorAll('[data-item-edit-tab]')){
+   const active=tab.dataset.itemEditTab===name;
+   tab.setAttribute('aria-selected',String(active));
+   tab.tabIndex=active?0:-1;
+   if(active&&focus)tab.focus();
+  }
+  for(const panel of host.querySelectorAll('[data-item-edit-panel]'))panel.hidden=panel.dataset.itemEditPanel!==name;
  }
  function updateWeaponEditorPreview(){
   if(dialogState?.change?.collection!=='weapons'||dialogState.keys.includes('npcAttackBonus'))return;
@@ -250,13 +262,7 @@ function mountCharacterSheet(tabs,switchTo){
   if(collection==='npcHealth')return '<div class="cs-form-grid">'+keys.map(key=>'<label class="cs-field"><span>'+e(readable(key))+'</span><input type="number" name="'+key+'" step="1" value="'+e(values[key]??'')+'" placeholder="Not set"></label>').join('')+'</div>';
   if(collection==='npcText')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field cs-field-wide"><span>${npcTextLabels[key]}</span><textarea name="${key}" rows="2" maxlength="4000">${e(values[key]??'')}</textarea></label>`).join('')+'</div>';
   const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons',item:collection==='items',longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
-  if(collection==='items'){
-   const parts=inventoryEditorFields(values.sourceCategory||'Misc'),group=(title,keys)=>'<fieldset class="cs-editor-group cs-inventory-field-group"><legend>'+e(title)+'</legend>'+keys.map(render).join('')+'</fieldset>';
-   const imported=Boolean(values.sourceItemId||values.sourceCatalog||Object.keys(inventorySourceFields(values)).length);
-   const hidden=new Set(['shopSource','sourceCategoryDetail','itemLevel','pf2eBulk','rarity','type','secondaryType']);
-   const common=imported?parts.common.map(([,key])=>key).filter(key=>!hidden.has(key)):['amount','cost','weight'];
-   return '<div class="cs-form-grid cs-inventory-editor">'+render('sourceCategory')+render('name')+group('Item details',[...common,...(imported&&parts.allowTwoHanded?['two_handed']:[]),...(imported?['carried']:[])])+(parts.extras.length?group(parts.category+' stats',parts.extras.map(([,key])=>key)):'')+(imported?'<details class="cs-inventory-advanced-source"><summary>Advanced source columns</summary>'+sourceFieldsEditor(values)+'</details>':'')+'<div class="cs-ability-prose">'+render('desc')+render('special')+'</div></div>';
-  }
+  if(collection==='items')return renderItemEditorTabs(values,render,sourceFieldsEditor);
   if(collection==='weapons'&&keys.includes('npcAttackBonus'))return '<div class="cs-form-grid cs-weapon-editor">'+keys.map(render).join('')+'<p class="cs-caption">Special on-hit weapon saves are GM-managed; they do not cancel normal weapon damage.</p></div>';
   if(collection==='weapons')return '<div class="cs-form-grid cs-weapon-editor">'+render('name')+'<fieldset class="cs-editor-group"><legend>Attack Roll</legend>'+['attack_type','ability_mod','attack_misc','range','misfire'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Damage</legend>'+['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Usage</legend>'+['u_curr','u_max'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Special on-hit save (manual)</legend>'+['saving_throw','save_type','save_success','save_dc_override'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset><fieldset class="cs-editor-group"><legend>Carried weight</legend>'+['weight','amount','carried'].filter(k=>keys.includes(k)).map(render).join('')+'</fieldset>'+render('desc')+'</div>';
   const narrative=keys.filter(k=>['desc','effect','at_higher_lvls'].includes(k));
@@ -467,6 +473,7 @@ function mountCharacterSheet(tabs,switchTo){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
+   if(button.matches('[data-item-edit-tab]')){activateItemEditorTab(button.dataset.itemEditTab);return;}
    if(button.matches('[data-add-source-field]')){
     const area=root.querySelector('[data-source-fields]');
     if(area&&area.children.length<100){
@@ -677,7 +684,13 @@ function mountCharacterSheet(tabs,switchTo){
    if(input.value.trim()===''||!Number.isSafeInteger(value)||value<(field==='slot_cap'?1:0)||value>100000000){status('Enter a valid whole number'+(field==='slot_cap'?' of at least 1':' of at least 0')+'.');return;}
    if(value!==old)void save({action:'fields',fields:{[field]:value}});
   },{signal:control.signal});
-  root.addEventListener('submit',event=>{
+  root.addEventListener('keydown',event=>{
+  const tab=event.target.closest?.('[data-item-edit-tab]');
+  if(!tab)return;
+  const next=event.key==='ArrowRight'?'stats':event.key==='ArrowLeft'?'details':event.key==='Home'?'details':event.key==='End'?'stats':null;
+  if(next){event.preventDefault();activateItemEditorTab(next,true);}
+ },{signal:control.signal});
+ root.addEventListener('submit',event=>{
   if(event.target.matches('[data-rename-form]')){
     event.preventDefault();
     const name=event.target.elements.charName.value.trim();
@@ -689,8 +702,32 @@ function mountCharacterSheet(tabs,switchTo){
    }
    if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
-  const fields={};for(const key of dialogState.keys){if(key==='damage_types'){fields[key]=new FormData(event.target).getAll(key);continue;}const node=event.target.elements[key];if(dialogState.change.action==='npcStats'||dialogState.change.action==='npcText'){fields[key]=node.value;continue;}if(dialogState.change.collection==='npcHealth'){fields[key]=node.value===''?null:Number(node.value);continue;}if(dialogState.change.collection==='items'){fields[key]=boolKeys.has(key)?node.checked:['weight','amount'].includes(key)?Number(node.value):node.value;continue;}if(['caster_level','mp_cost','spell_failure','save_dc_override','attack_bonus_override'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
-  if(dialogState.change.collection==='items')fields.sourceFields=sourceFieldsFromEditor();
+  const fields={};
+  if(dialogState.change.collection==='items'){
+   const name=event.target.elements.namedItem('name');
+   if(!name||!name.value.trim()){
+    activateItemEditorTab('details');
+    const message=root.querySelector('[data-dialog-status]');
+    if(message)message.textContent='Enter an item name before saving.';
+    name?.focus();return;
+   }
+   const amount=event.target.elements.namedItem('amount');
+   if(amount&&(amount.value===''||!Number.isInteger(Number(amount.value))||Number(amount.value)<0)){
+    activateItemEditorTab('details');
+    const message=root.querySelector('[data-dialog-status]');
+    if(message)message.textContent='Enter a valid item amount before saving.';
+    amount.focus();return;
+   }
+   Object.assign(fields,collectItemEditorFields(event.target,dialogState.keys,boolKeys));
+   if(event.target.querySelector('[data-source-fields]'))fields.sourceFields=sourceFieldsFromEditor();
+  }else for(const key of dialogState.keys){
+   if(key==='damage_types'){fields[key]=new FormData(event.target).getAll(key);continue;}
+   const node=event.target.elements[key];
+   if(dialogState.change.action==='npcStats'||dialogState.change.action==='npcText'){fields[key]=node.value;continue;}
+   if(dialogState.change.collection==='npcHealth'){fields[key]=node.value===''?null:Number(node.value);continue;}
+   if(['caster_level','mp_cost','spell_failure','save_dc_override','attack_bonus_override'].includes(key)&&node.value===''){fields[key]='';continue;}
+   fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);
+  }
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
@@ -738,6 +775,7 @@ function mountCharacterSheet(tabs,switchTo){
     dialogState.values.sourceFields=sourceFieldsFromEditor();
    dialogState.values[select.name]=select.value;dialogState.keys=inventoryEditorKeys(dialogState.values.sourceCategory);
     dialogFields.innerHTML=renderEntryFields(dialogState.keys,dialogState.values,'items');
+    activateItemEditorTab('details');
     dirty=true;status('Unsaved changes');
    }else root.querySelector('[data-category-icon]').textContent=itemCategorySymbol(select.value);
   }

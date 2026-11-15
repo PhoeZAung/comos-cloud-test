@@ -503,3 +503,50 @@
  .cs-currency .cs-capacity-metric .cs-capacity-value small{font-size:9px}
  .cs-currency .cs-capacity-metric .cs-capacity-meter{left:6px;width:calc(100% - 12px)}
 }
+
+
+/* Inventory editing: two compact Cosmos-themed panels and one shared Save. */
+.cs-dialog[data-editor="items"]{width:min(650px,calc(100vw - 24px))}
+.cs-item-editor{min-width:0}
+.cs-item-editor-tabs{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;
+ margin:14px 0 16px;padding:5px;border:1px solid var(--line);
+ border-radius:12px;background:var(--bg);
+}
+.cs-item-editor-tabs [role="tab"]{
+ display:flex;align-items:center;justify-content:center;min-width:0;min-height:40px;
+ padding:8px 10px;border:1px solid transparent;border-radius:9px;
+ background:transparent;color:var(--muted);font:600 13px/1.3 system-ui;
+ cursor:pointer;transition:background .15s ease,border-color .15s ease,color .15s ease;
+}
+.cs-item-editor-tabs [role="tab"][aria-selected="true"]{
+ border-color:color-mix(in srgb,var(--accent) 65%,var(--line));
+ background:color-mix(in srgb,var(--accent) 13%,var(--surface));
+ color:var(--text);box-shadow:0 2px 10px #0002;
+}
+.cs-item-editor-tabs [role="tab"]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cs-item-editor [data-item-edit-panel][hidden]{display:none!important}
+.cs-item-editor [data-item-edit-panel]{min-width:0}
+.cs-item-editor .cs-inventory-editor{align-items:start}
+.cs-item-editor .cs-inventory-field-group{
+ grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;padding:14px;border:1px solid var(--line);border-radius:12px;
+ background:color-mix(in srgb,var(--accent) 3%,var(--surface));
+}
+.cs-item-editor .cs-inventory-field-group legend{padding:0 7px;color:var(--accent);font:600 13px system-ui}
+.cs-item-editor .cs-inventory-field-group .cs-field-wide{grid-column:1/-1}
+.cs-item-editor .cs-ability-prose,.cs-item-editor .cs-inventory-advanced-source{grid-column:1/-1}
+.cs-item-editor .cs-item-stats-empty{grid-column:1/-1}
+.cs-dialog[data-editor="items"] .cs-dialog-actions{
+ position:sticky;bottom:-20px;z-index:4;
+ padding:12px 0 4px;margin-top:14px;
+ border-top:1px solid var(--line);
+ background:var(--surface);
+}
+.cs-dialog[data-editor="items"] [data-dialog-status]:not(:empty){color:var(--accent);padding-top:8px}
+@media(max-width:480px){
+ .cs-item-editor .cs-inventory-field-group{grid-template-columns:minmax(0,1fr);padding:12px}
+ .cs-item-editor-tabs [role="tab"]{font-size:12px;padding:8px 5px}
+ .cs-dialog[data-editor="items"] .cs-dialog-actions{bottom:-16px}
+}
+@media(prefers-reduced-motion:reduce){.cs-item-editor-tabs [role="tab"]{transition:none}}
