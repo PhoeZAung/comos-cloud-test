@@ -3,6 +3,16 @@ import {itemCategoryForItem} from './item-categories.mjs';
 /** Weapon entries live in the Weapons collection. Ammunition stays in Inventory.
  * Preserve the original catalog provenance and equipment state when moving.
  */
+/** Shared visual type used by Combat, add menu, and editor.
+ * Legacy ranged attacks without a sourceCategory still appear in Ranged.
+ */
+export function weaponKind(row={}){
+ const category=itemCategoryForItem(row);
+ if(category==='Ammunition')return 'Ammunition';
+ if(category==='Ranged Weapon')return 'Ranged Weapon';
+ if(category==='Weapon')return 'Weapon';
+ return String(row.attack_type||'').toLowerCase().includes('ranged')?'Ranged Weapon':'Weapon';
+}
 export function isWeaponInventoryItem(item){
  return item&&['Weapon','Ranged Weapon','Ammunition'].includes(itemCategoryForItem(item));
 }
