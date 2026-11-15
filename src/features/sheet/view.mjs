@@ -90,12 +90,12 @@ function capacityTile(enc){
  const thresholds='Light: up to '+num(enc.lightMax)+' lb; Medium: above '+num(enc.lightMax)+' through '+num(enc.mediumMax)+' lb; Heavy: above '+num(enc.mediumMax)+' through '+num(enc.maximum)+' lb.';
  const details=thresholds+' Strength '+enc.strength+', '+enc.size+' '+enc.bodyType+'. Modifier '+(enc.capacityModifier>=0?'+':'')+num(enc.capacityModifier)+' lb. Lift overhead '+num(enc.liftOverhead)+' lb, lift from ground '+num(enc.liftGround)+' lb, push/drag '+num(enc.pushDrag)+' lb. Effective armor check penalty '+enc.checkPenalty+'; max DEX bonus to AC '+(Number.isFinite(enc.maxDex)?'+'+enc.maxDex:'unrestricted')+', run ×'+enc.runMultiplier+'.';
  const help=e(details),max=Math.max(enc.maximum,1);
- return '<div class="cs-currency-metric cs-capacity-metric" data-load="'+enc.load+'">'+
+ return '<div class="cs-currency-metric cs-capacity-metric" data-load="'+enc.load+'" title="'+help+'">'+
  '<div class="cs-capacity-heading"><span>Capacity</span><button type="button" class="cs-capacity-edit" data-edit-stats="capacity" aria-label="Edit capacity modifiers and body type" title="Edit capacity modifiers">✎</button></div>'+
- '<div class="cs-capacity-value" aria-label="'+num(enc.weight)+' of '+num(enc.maximum)+' pounds"><strong>'+num(enc.weight)+'</strong><span>/</span><strong>'+num(enc.maximum)+' <small>lb</small></strong></div>'+
+ '<div class="cs-capacity-value" aria-label="'+num(enc.weight)+' of '+num(enc.maximum)+' pounds"><strong>'+num(enc.weight)+'</strong><span>/</span><strong>'+num(enc.maximum)+'</strong><small>lb</small></div>'+
  '<meter class="cs-capacity-meter" min="0" max="'+max+'" low="'+enc.lightMax+'" high="'+enc.mediumMax+'" optimum="0" value="'+Math.min(enc.weight,max)+'" title="'+e(thresholds)+'" aria-label="Carried weight: '+enc.label+' load">'+num(enc.weight)+' / '+num(enc.maximum)+'</meter>'+
- '<div class="cs-load-key"><span title="Light 0–'+num(enc.lightMax)+' lb">Light</span><span title="Medium above '+num(enc.lightMax)+'–'+num(enc.mediumMax)+' lb">Medium</span><span title="Heavy above '+num(enc.mediumMax)+'–'+num(enc.maximum)+' lb">Heavy</span></div>'+
- '<small class="cs-capacity-state" title="'+help+'">'+enc.label+' · '+(enc.load==='over'?num(enc.overBy)+' lb over':num(enc.remaining)+' lb remaining')+'</small></div>';
+
+ '<small class="cs-capacity-state sr-only" aria-live="polite">'+enc.label+' · '+(enc.load==='over'?num(enc.overBy)+' lb over':num(enc.remaining)+' lb remaining')+'</small></div>';
 }
 export function renderSection(character,section,{ability='activeAbilities',combatView='defense',itemView='inventory',itemTag='All',spellLevel='all',onlyBoxes=null,notesTab='personal'}={}){
  const d=character.data||{},s=sheetStats(d);const card=(title,content,action='')=>onlyBoxes&&!onlyBoxes.includes(boxKey(title))?'':baseCard(title,content,boxStar(boxKey(title),d)+action);
