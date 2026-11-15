@@ -14,23 +14,25 @@ const makeGroup=(keys,render)=>(title,names,cls='')=>{
  return fields.length?'<fieldset class="cs-editor-group cs-tab-field-group '+cls+'"><legend>'+esc(title)+'</legend>'+fields.map(render).join('')+'</fieldset>':'';
 };
 
-export function renderWeaponEditorTabs(keys,render,{npc=false}={}){
+export function renderWeaponEditorTabs(keys,render,{npc=false,category='Weapon'}={}){
  const group=makeGroup(keys,render);
- // Weapon keeps the existing Combat page's attack/damage calculations and
- // adds the useful inventory fields without changing stored field names.
- const weapon=group('Item',['sourceCategory','type','name','cost','rarity','weight','amount','carried','two_handed','img','link'])+
+ const ammo=category==='Ammunition',ranged=category==='Ranged Weapon';
+ const basic=group('Basic Info',ammo?['sourceCategory','name','cost','rarity','weight','carried','img','link']:['sourceCategory','name','type','cost','rarity','weight','amount','carried','two_handed','img','link'])+
+  (keys.includes('desc')?'<div class="cs-ability-prose">'+render('desc')+'</div>':'');
+ const stats=ammo?group('Amount',['amount']):
   group('Attack',['attack_type','ability_mod','npcAttackBonus','attack_misc'])+
   group('Damage',['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'])+
-  (keys.includes('desc')?'<div class="cs-ability-prose">'+render('desc')+'</div>':'');
- const ranged=group('Range',['range','misfire']);
- const ammunition=group('Ammunition',['ammoType','u_curr','u_max'],'cs-weapon-ammo-fields')+
+  (ranged?group('Range',['range','misfire']):'');
+ const ammunition=ammo?'<p class="cs-caption">Ammunition stock is tracked by Amount in Weapon Stats.</p>':
+  group('Ammunition',['ammoType','u_curr','u_max'],'cs-weapon-ammo-fields')+
   (!npc&&keys.includes('u_max')?'<output class="cs-ammo-summary" data-ammo-summary aria-live="polite"></output>':'');
- const saves=group('Saving Throw',['saving_throw','save_type','save_success','save_dc_override'])+
+ const saves=ammo?'<p class="cs-caption">Ammunition has no saving throw of its own.</p>':
+  group('Saving Throw',['saving_throw','save_type','save_success','save_dc_override'])+
    '<details class="cs-save-help"><summary>How weapon saves work</summary><p>In Owlbear, a weapon\'s on-hit saving throw is resolved by the GM. It does not replace the normal attack or damage roll. Record the save type, DC and outcome here.</p></details>';
  return renderSheetEditorTabs('weapon',[
-  {id:'weapon',label:'Weapon',content:weapon},
-  {id:'ranged',label:'Ranged',content:ranged||'<p class="cs-caption">No range set.</p>'},
-  {id:'ammunition',label:'Ammunition',content:ammunition||'<p class="cs-caption">No ammunition to track.</p>'},
+  {id:'details',label:'Basic Info',content:basic},
+  {id:'stats',label:'Weapon Stats',content:stats},
+  {id:'ammunition',label:'Ammunition',content:ammunition},
   {id:'saves',label:'Saves',content:saves}
  ],{label:'Weapon editor sections',className:'cs-weapon-editor'});
 }
@@ -52,8 +54,8 @@ export function renderAbilityEditorTabs(keys,render,{collection='activeAbilities
  return renderSheetEditorTabs('ability',[
   {id:'details',label:'Details',content:details},
   {id:'combat',label:'Combat',content:combat},
-  {id:'resources',label:'Resources',content:resources},
-  {id:'saves',label:'Saves',content:saves}
+  {id:'saves',label:'Saves',content:saves},
+  {id:'resources',label:'Resources',content:resources}
  ],{label:collection==='spells'?'Spell editor sections':'Ability editor sections',className:'cs-ability-editor cs-manual-ability-editor'});
 }
 
