@@ -47,7 +47,7 @@ const ammoEffectFromItem=(item,name)=>({
  dmgBonus:safeBonus(item?.ammo_dmg_bonus),
  damageTypes:[
   ...(Array.isArray(item?.damage_types)?item.damage_types:typeof item?.damageType==='string'?[item.damageType]:[])
- ].flatMap(type=>type==='Other'&&typeof item?.damage_type_other==='string'&&item.damage_type_other.trim()?[item.damage_type_other.trim().slice(0,80)]:knownDamageTypes.has(type)?[type]:[]).slice(0,20)
+ ].flatMap(type=>type==='Other'&&typeof item?.damage_type_other==='string'&&item.damage_type_other.trim()?[item.damage_type_other.trim().slice(0,80)]:[...knownDamageTypes].filter(known=>known.toLowerCase()===String(type).trim().toLowerCase())).slice(0,20)
 });
 /** Match ammunition by exact normalized name; a loaded magazine retains its
  * source effects even after the matching inventory stack reaches zero.
