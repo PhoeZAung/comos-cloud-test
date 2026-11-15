@@ -14,19 +14,21 @@ const panel=(html,name)=>{
 };
 const names=html=>[...html.matchAll(/<input name="([^"]+)"/g)].map(x=>x[1]);
 
-test('weapon tabs keep range, misfire and both ammo controls together, without duplicate inputs',()=>{
- const keys=['name','attack_type','ability_mod','attack_misc','damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','range','misfire','u_curr','u_max','weight','amount','carried','desc','saving_throw','save_type','save_success','save_dc_override'];
+test('weapon tabs separate weapon stats, range, ammunition and saves without duplicate inputs',()=>{
+ const keys=['name','sourceCategory','type','cost','rarity','img','link','ammoType','attack_type','ability_mod','attack_misc','damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','range','misfire','u_curr','u_max','weight','amount','carried','desc','saving_throw','save_type','save_success','save_dc_override'];
  const html=renderWeaponEditorTabs(keys,field);
- assert.equal((html.match(/role="tab"/g)||[]).length,3);
- assert.deepEqual([...html.matchAll(/data-entry-edit-tab="([^"]+)"[^>]*>\s*([^<]+)/g)].map(x=>x[2]),['Details','Combat','Range']);
- assert.equal((html.match(/role="tabpanel"/g)||[]).length,3);
- assert.match(html,/data-entry-edit-panel="range"[^>]*hidden/);
- assert.match(panel(html,'details'),/name="name"/);
- assert.match(panel(html,'combat'),/name="damage"/);
- for(const key of ['range','misfire','u_curr','u_max']){
-  assert.match(panel(html,'range'),new RegExp('name="'+key+'"'));
-  assert.doesNotMatch(panel(html,'combat'),new RegExp('name="'+key+'"'));
- }
+ assert.equal((html.match(/role="tab"/g)||[]).length,4);
+ assert.deepEqual([...html.matchAll(/data-entry-edit-tab="([^"]+)"[^>]*>\s*([^<]+)/g)].map(x=>x[2]),['Weapon','Ranged','Ammunition','Saves']);
+ assert.equal((html.match(/role="tabpanel"/g)||[]).length,4);
+ assert.match(html,/data-entry-edit-panel="ammunition"[^>]*hidden/);
+ assert.match(panel(html,'weapon'),/name="name"/);
+ assert.match(panel(html,'weapon'),/name="damage"/);
+ assert.match(panel(html,'weapon'),/name="sourceCategory"/);
+ assert.match(panel(html,'weapon'),/name="type"/);
+ for(const key of ['range','misfire'])assert.match(panel(html,'ranged'),new RegExp('name="'+key+'"'));
+ for(const key of ['ammoType','u_curr','u_max'])assert.match(panel(html,'ammunition'),new RegExp('name="'+key+'"'));
+ for(const key of ['saving_throw','save_type','save_success','save_dc_override'])assert.match(panel(html,'saves'),new RegExp('name="'+key+'"'));
+ assert.doesNotMatch(panel(html,'weapon'),/name="range"|name="u_curr"|name="saving_throw"/);
  assert.match(html,/data-ammo-summary/);
  assert.deepEqual(names(html).sort(),keys.sort());
 });
@@ -34,7 +36,7 @@ test('weapon tabs keep range, misfire and both ammo controls together, without d
 test('NPC weapon fields remain editable in themed tabs without invented ammo values',()=>{
  const keys=['name','attack_type','npcAttackBonus','damage','crit_range','crit_mult','damage_types','dr_bypass','saving_throw','save_type','save_success','save_dc_override','desc'];
  const html=renderWeaponEditorTabs(keys,field,{npc:true});
- assert.match(panel(html,'combat'),/name="npcAttackBonus"/);
+ assert.match(panel(html,'weapon'),/name="npcAttackBonus"/);
  assert.doesNotMatch(html,/data-ammo-summary/);
  assert.deepEqual(names(html).sort(),keys.sort());
 });
@@ -42,9 +44,11 @@ test('NPC weapon fields remain editable in themed tabs without invented ammo val
 test('ability tabs group text, combat rules and resources without losing a field',()=>{
  const keys=['name','lvl','school','ability_kind','action_type','range','duration','target','effect_type','attack_type','attack_misc','attack_bonus_override','damage','damage_types','saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist','mp_cost','spell_failure','uses_formula','u_curr','u_max','restoreOnLongRest','desc','effect','at_higher_lvls','link'];
  const html=renderAbilityEditorTabs(keys,field,{collection:'activeAbilities'});
- assert.deepEqual([...html.matchAll(/data-entry-edit-tab="([^"]+)"[^>]*>\s*([^<]+)/g)].map(x=>x[2]),['Details','Combat','Resources']);
+ assert.deepEqual([...html.matchAll(/data-entry-edit-tab="([^"]+)"[^>]*>\s*([^<]+)/g)].map(x=>x[2]),['Details','Combat','Resources','Saves']);
  for(const key of ['name','ability_kind','desc','effect','at_higher_lvls','link'])assert.match(panel(html,'details'),new RegExp('name="'+key+'"'));
- for(const key of ['attack_type','damage','save_type','save_dc_override','range'])assert.match(panel(html,'combat'),new RegExp('name="'+key+'"'));
+ for(const key of ['attack_type','damage','range'])assert.match(panel(html,'combat'),new RegExp('name="'+key+'"'));
+ for(const key of ['saving_throw','save_type','save_dc_override','save_success_damage','spell_resist'])assert.match(panel(html,'saves'),new RegExp('name="'+key+'"'));
+ assert.match(panel(html,'saves'),/How saves work in Owlbear/);
  for(const key of ['mp_cost','spell_failure','uses_formula','u_curr','u_max','restoreOnLongRest'])assert.match(panel(html,'resources'),new RegExp('name="'+key+'"'));
  assert.deepEqual(names(html).sort(),keys.sort());
  assert.doesNotMatch(html,/Advanced Settings|Sp = spell-like|No spell resistance/);
