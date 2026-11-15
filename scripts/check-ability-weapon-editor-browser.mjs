@@ -44,6 +44,7 @@ const server=createServer(async(req,res)=>{
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));origin='http://127.0.0.1:'+server.address().port;
 directory=createDirectoryRoutes({db,sessions,adminUids:['admin'],origin});removeUser=createUserDeletionRoutes({db,sessions,adminUids:['admin'],origin});
 
+const readData=()=>JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json);
 let page;const browser=await chromium.launch({headless:true});
 try{
  page=await browser.newPage({viewport:{width:800,height:850}});
