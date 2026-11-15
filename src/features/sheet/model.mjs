@@ -35,6 +35,16 @@ export function sheetStats(d={}){
   will:total('will_bonus',['wis','will_base','will_enhance','will_temp'],mod('wis')+n('will_base')+n('will_enhance')+n('will_temp'))
  };
 }
+/** Ability checks use the actual load/armor check penalty for DEX.
+ * Do not change the base DEX modifier, Reflex save, attack or skills (which
+ * already apply their own penalty exactly once).
+ */
+export function abilityCheckBonus(data={},ability='dex'){
+ const key=String(ability).toLowerCase();
+ if(!abilities.includes(key))throw Error('Invalid ability check.');
+ const base=data[key]===undefined||data[key]===''?0:modifier(data[key]);
+ return base+(key==='dex'?carryingCapacity(data).checkPenalty:0);
+}
 export function skillTotal(row,d){
  const ranks=number(row.lvl??row.ranks),stat=String(row.stat||'').toLowerCase();
  const base=d[stat]===undefined||d[stat]===''?0:modifier(d[stat]);

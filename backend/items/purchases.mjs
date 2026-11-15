@@ -1,5 +1,6 @@
 import {gilUnits} from './catalog.mjs';
 import {catalogInventoryItem} from './inventory.mjs';
+import {isWeaponInventoryItem,weaponFromInventory} from '../../src/features/sheet/weapon-inventory.mjs';
 import {shopUnitPriceGil,FFD20_SHOP_PRICE_MODE} from '../../src/features/sheet/shop-pricing.mjs';
 const fail=(message,status=400)=>Object.assign(Error(message),{httpStatus:status,error:'invalid_purchase'});
 const uuid=v=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
@@ -28,12 +29,15 @@ export function createPurchaseService(db,items){
    const converted=item.priceGil===null&&change.pricingMode===FFD20_SHOP_PRICE_MODE;
    const data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(c.id)?.data_json||'{}'),funds=balance(data);
    if(funds===null)throw fail('Set a valid gil balance in the sheet first.');if(funds<total)throw fail('Not enough gil.');
-   const inventory=Array.isArray(data.items)?data.items:[],now=new Date().toISOString();
-   if(inventory.length>=1000)throw fail('Inventory has too many entries.');
+   const now=new Date().toISOString();
    const bought=catalogInventoryItem(item,change.quantity);
    if(converted){bought.originalPriceText=item.costText;bought.cost=String(unitPriceGil)+' Gil';}
-   inventory.push({...bought,unitPriceGil,purchasedForGil:total/100,purchasedAt:now});
-   data.items=inventory;data.currency_gil=(funds-total)/100;data.gil=data.currency_gil;
+   const purchased={...bought,unitPriceGil,purchasedForGil:total/100,purchasedAt:now};
+   const weapon=isWeaponInventoryItem(purchased),section=weapon?'weapons':'items';
+   const inventory=Array.isArray(data[section])?data[section]:[];
+   if(inventory.length>=1000)throw fail(weapon?'Weapons list is full.':'Inventory has too many entries.');
+   data[section]=[...inventory,weapon?weaponFromInventory(purchased):purchased];
+   data.currency_gil=(funds-total)/100;data.gil=data.currency_gil;
    const json=JSON.stringify(data);if(Buffer.byteLength(json)>500000)throw fail('Character inventory is too large.');
    db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(c.id,json);
    db.prepare('UPDATE characters SET revision=revision+1,updated_at=? WHERE id=?').run(now,c.id);

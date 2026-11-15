@@ -52,6 +52,6 @@ test('item preview has the same moving glow and single scroll container as abili
  assert.match(css,/\.cs-item-description-dialog>\.cs-item-description-scroll\{[^}]*overflow-y:auto/);
  assert.match(css,/\.cs-item-description-dialog \[data-item-description-text\],[\s\S]*?max-height:none;overflow:visible/);
  const ui=await readFile(new URL('../src/ui/sheet.mjs',import.meta.url),'utf8');
- assert.match(ui,/if\(key==='img'&&item\)return/);
+ assert.match(ui,/if\(key==='img'&&\(item\|\|weapon\)\)return/);
  assert.match(ui,/usableItemImageUrl\(value\)/);
 });
