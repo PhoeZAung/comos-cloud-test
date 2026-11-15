@@ -156,6 +156,11 @@ test('minimal capacity UI exposes threshold hover, warnings, info and editor; no
  const hero={id:'x',name:'Hero',data:{...base,items:[item(54)]}};
  const inventory=renderSection(hero,'items'),overview=renderSection(hero,'overview');
  assert.match(inventory,/data-edit-stats="capacity"/);
+ assert.match(inventory,/<span>Gil<\/span><button[^>]*data-inline-currency="currency_gil"/);
+ assert.match(inventory,/<span>Moogle<\/span><button[^>]*data-inline-currency="currency_moogle"/);
+ assert.match(inventory,/<span>Capacity<\/span><button[^>]*class="cs-capacity-value"[^>]*data-edit-stats="capacity"/);
+ assert.doesNotMatch(inventory,/cs-capacity-heading|cs-load-key|cs-capacity-edit/);
+ assert.match(inventory,/cs-capacity-state sr-only/);
  assert.match(inventory,/cs-capacity-meter/);
  assert.match(inventory,/data-load="heavy"/);
  assert.match(inventory,/54.*80.*lb/);
@@ -177,4 +182,7 @@ test('minimal capacity UI exposes threshold hover, warnings, info and editor; no
  const css=await readFile(new URL('../src/styles/sheet-refinements.css',import.meta.url),'utf8');
  assert.match(css,/\.cs-score-encumbered/);
  assert.match(css,/\.cs-capacity-meter/);
+ assert.match(css,/\.cs-currency \.cs-capacity-metric \.cs-capacity-value/);
+ assert.match(css,/position:absolute;bottom:4px;left:12px/);
+ assert.match(css,/\.cs-capacity-state\.sr-only/);
 });
