@@ -448,7 +448,7 @@ function mountCharacterSheet(tabs,switchTo){
  }
  function editEntry(key,index,{category=null}={}){
   const row=character.data[key]?.[index]||{};
-  if(key==='weapons'&&index===null&&['Weapon','Ranged Weapon','Ammunition'].includes(category))row.sourceCategory=category;
+  if(key==='weapons'&&index===null&&['Weapon','Ranged Weapon','Ammunition'].includes(category)){row.sourceCategory=category;row.attack_type=category==='Ranged Weapon'?'ranged':'melee';}
   const npcWeapon=key==='weapons'&&character.kind==='npc';
   const keys=key==='npcSkills'?['name','bonus']:npcWeapon?['name','attack_type','npcAttackBonus','damage','crit_range','crit_mult','damage_types','dr_bypass','saving_throw','save_type','save_success','save_dc_override','desc']:key==='skills'?['lvl','temp','cs',...(skillSupportsSpecialization(row.name)?['subName']:[])]:key==='items'?inventoryEditorKeys(itemCategoryForItem(row)):key==='weapons'?weaponFieldsFor(weaponKind(row)):key==='spells'?['name','lvl','school','type','attack_type','effect_type','attack_misc','range','duration','target','saving_throw','save_type','save_success','save_success_damage','spell_resist','damage','damage_types','casting_ability','caster_level','sr_bonus','save_dc_override','dc_formula','attack_bonus_override','dc_misc','mp_cost','spell_failure','link','desc','at_higher_lvls']:row.rulesOwned?['name','action_type','effect_type','ability_kind','saving_throw','save_type','save_success','save_success_damage','spell_resist','attack_type','attack_misc','attack_bonus_override','damage','damage_types','casting_ability','dc_misc','caster_level','sr_bonus','save_dc_override','dc_formula','uses_formula','restoreOnLongRest','link','desc','effect','at_higher_lvls'] :['name','action_type','effect_type','ability_kind','saving_throw','save_type','save_success','save_success_damage','spell_resist','attack_type','attack_misc','attack_bonus_override','damage','damage_types','casting_ability','dc_misc','caster_level','sr_bonus','save_dc_override','dc_formula',...(row.uses_formula?['uses_formula']:[]),'u_max','u_curr','restoreOnLongRest','link','desc','effect','at_higher_lvls'];
   if(character.data.gunbreakerAmmo!==undefined&&row.rulesOwned&&row.sourceRuleId===MAGICKED_AMMO_ID)for(const k of ['uses_formula','restoreOnLongRest']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
@@ -881,6 +881,8 @@ function mountCharacterSheet(tabs,switchTo){
     const values={...dialogState.values,...Object.fromEntries(formData.entries()),sourceCategory:select.value};
     for(const key of ['carried','two_handed'])if(form.elements.namedItem(key))values[key]=form.elements.namedItem(key).checked;
     values.damage_types=formData.getAll('damage_types');
+    if(select.value==='Ranged Weapon'&&values.attack_type==='melee')values.attack_type='ranged';
+    else if(select.value==='Weapon'&&values.attack_type==='ranged')values.attack_type='melee';
     dialogState.values=values;dialogState.keys=weaponFieldsFor(select.value);
     dialogFields.innerHTML=renderEntryFields(dialogState.keys,dialogState.values,'weapons');
     activateEntryEditorTab('details');
