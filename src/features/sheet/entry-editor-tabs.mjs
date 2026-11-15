@@ -17,24 +17,29 @@ const makeGroup=(keys,render)=>(title,names,cls='')=>{
 export function renderWeaponEditorTabs(keys,render,{npc=false,category='Weapon'}={}){
  const group=makeGroup(keys,render);
  const ammo=category==='Ammunition',ranged=category==='Ranged Weapon';
- const basic=group('Basic Info',ammo?['sourceCategory','name','cost','rarity','weight','carried','img','link']:['sourceCategory','name','type','cost','rarity','weight','amount','carried','two_handed','img','link'])+
+ const basic=group('Basic Info',['sourceCategory','name','cost'])+
+  '<details class="cs-weapon-advanced"><summary>Advanced Settings</summary><div class="cs-form-grid">'+
+   group('Additional details',['rarity','weight',...(!ammo?['amount','two_handed']:[]),'carried','img','link'])+'</div></details>'+
   (keys.includes('desc')?'<div class="cs-ability-prose">'+render('desc')+'</div>':'');
- const stats=ammo?group('Amount',['amount']):
-  group('Attack',['attack_type','ability_mod','npcAttackBonus','attack_misc'])+
-  group('Damage',['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','damage_types','dr_bypass'])+
-  (ranged?group('Range',['range','misfire']):'');
- const ammunition=ammo?'<p class="cs-caption">Ammunition stock is tracked by Amount in Weapon Stats.</p>':
-  group('Ammunition',['ammoType','u_curr','u_max'],'cs-weapon-ammo-fields')+
+ const damageTypes=group('Damage Type',['damage_types','damage_type_other'],'cs-weapon-damage-type-group');
+ const stats=group('Attack',['attack_type','ability_mod','npcAttackBonus','attack_misc'])+
+  group('Damage',['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','dr_bypass'])+
+  damageTypes+(ranged?group('Range',['range','misfire']):'');
+ const ammunition=group('Ammunition',['ammoType','u_curr','u_max'],'cs-weapon-ammo-fields')+
   (!npc&&keys.includes('u_max')?'<output class="cs-ammo-summary" data-ammo-summary aria-live="polite"></output>':'');
- const saves=ammo?'<p class="cs-caption">Ammunition has no saving throw of its own.</p>':
-  group('Saving Throw',['saving_throw','save_type','save_success','save_dc_override'])+
-   '<details class="cs-save-help"><summary>How weapon saves work</summary><p>In Owlbear, a weapon\'s on-hit saving throw is resolved by the GM. It does not replace the normal attack or damage roll. Record the save type, DC and outcome here.</p></details>';
- return renderSheetEditorTabs('weapon',[
+ const ammoStats=group('Ammunition Stats',['amount','ammo_ar_bonus','ammo_dmg_bonus'])+damageTypes;
+ const saves=group('Saving Throw',['saving_throw','save_type','save_success','save_dc_override'])+
+  '<details class="cs-save-help"><summary>How weapon saves work</summary><p>In Owlbear, a weapon\'s on-hit saving throw is resolved by the GM. It does not replace the normal attack or damage roll. Record the save type, DC and outcome here.</p></details>';
+ const sections=ammo?[
+  {id:'details',label:'Basic Info',content:basic},
+  {id:'ammo-stats',label:'Ammunition Stats',content:ammoStats}
+ ]:[
   {id:'details',label:'Basic Info',content:basic},
   {id:'stats',label:'Weapon Stats',content:stats},
   {id:'ammunition',label:'Ammunition',content:ammunition},
   {id:'saves',label:'Saves',content:saves}
- ],{label:'Weapon editor sections',className:'cs-weapon-editor'});
+ ];
+ return renderSheetEditorTabs('weapon',sections,{label:'Weapon editor sections',className:'cs-weapon-editor'});
 }
 
 export function renderAbilityEditorTabs(keys,render,{collection='activeAbilities'}={}){
