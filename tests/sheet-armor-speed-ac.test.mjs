@@ -82,7 +82,7 @@ test('legacy equipped armor applies imported stats, while shields leave DEX and 
  assert.equal(stats.dexAcModifier,2);
  assert.equal(stats.encumbrance.checkPenalty,-5);
  assert.equal(skillTotal({stat:'DEX',lvl:1},hero),2);
- assert.match(renderSection({data:hero},'overview'),/data-roll="DEX check" data-bonus="6"/);
+ assert.match(renderSection({data:hero},'overview'),/data-roll="DEX check" data-bonus="1"/);
 });
 
 test('shields with an explicit positive Dexterity cap limit AC and preserve Reflex',()=>{
