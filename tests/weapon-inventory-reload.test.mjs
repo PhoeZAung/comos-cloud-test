@@ -7,7 +7,7 @@ import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {renderSection,entryDetail} from '../src/features/sheet/view.mjs';
 
 test('carrying check penalty applies to DEX roll exactly once while DEX skills and AC retain their calculations',()=>{
- const data={str:10,dex:18,items:[{name:'Stones',sourceCategory:'Gear',weight:40,amount:1}]};
+ const data={str:10,dex:18,items:[{name:'Stones',sourceCategory:'Gear',weight:90,amount:1}]};
  const enc=sheetStats(data).encumbrance;
  assert.equal(enc.load,'heavy');
  assert.equal(enc.checkPenalty,-6);
