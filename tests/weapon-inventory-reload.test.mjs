@@ -32,8 +32,8 @@ test('moving existing weapon inventory entries preserves equipped state, catalog
  ]};
  const before=carriedWeight(source).total;
  const moved=mergeSheetData(source,{action:'moveInventoryWeapons'});
- assert.equal(moved.weapons.length,2);
- assert.equal(moved.items.length,2);
+ assert.equal(moved.weapons.length,3);
+ assert.equal(moved.items.length,1);
  assert.equal(carriedWeight(moved).total,before);
  assert.equal(moved.weapons[0].equip_slot,'ranged');
  assert.equal(moved.weapons[0].sourceItemId,'p1');
@@ -41,6 +41,8 @@ test('moving existing weapon inventory entries preserves equipped state, catalog
  assert.equal(moved.weapons[0].damage,'1d8');
  assert.equal(moved.weapons[0].attack_type,'ranged');
  assert.equal(moved.weapons[1].amount,2);
+ assert.equal(moved.weapons[2].sourceCategory,'Ammunition');
+ assert.equal(moved.weapons[2].amount,20);
  assert.equal(source.weapons,undefined,'migration must never mutate input snapshot');
  assert.throws(()=>mergeSheetData(moved,{action:'moveInventoryWeapons'}),/No weapons found/);
 });
@@ -82,18 +84,55 @@ test('partial reload and inventory-empty fallback never produce free rounds or n
 test('weapons expose reload control next to ammo and inventory migration only if legacy weapons exist',()=>{
  const weapons={id:'char',name:'Test',data:{weapons:[{name:'Crossbow',u_curr:1,u_max:5,ammoType:'Bolts'}],
   items:[{name:'Crossbow spare',sourceCategory:'Ranged Weapon',amount:1},{name:'Bolts',sourceCategory:'Ammunition',amount:10}]}};
- const html=renderSection(weapons,'combat');
+ const html=renderSection(weapons,'combat',{weaponView:'Ranged Weapon'});
  assert.match(html,/data-weapon-reload="0"/);
  assert.match(html,/Reload Crossbow from Inventory/);
  assert.match(html,/data-move-inventory-weapons/);
- assert.match(html,/Move weapons \(1\)/);
+ assert.match(html,/Move gear \(2\)/);
  const detail=entryDetail(weapons.data.weapons[0],weapons.data,'weapons');
  assert.match(detail,/Ammo Type/);
  assert.match(detail,/Max Ammo/);
- const without={...weapons,data:{...weapons.data,items:weapons.data.items.slice(1)}};
+ const without={...weapons,data:{...weapons.data,items:[]}};
  assert.doesNotMatch(renderSection(without,'combat'),/data-move-inventory-weapons/);
 });
 
+
+test('three armory tiles show separate melee, ranged and ammunition sections, without stray braces',()=>{
+ const data={weapons:[
+  {name:'Short Sword',sourceCategory:'Weapon',attack_type:'melee',damage:'1d6'},
+  {name:'Crossbow',sourceCategory:'Ranged Weapon',attack_type:'ranged',damage:'1d8',u_curr:1,u_max:5,ammoType:'Bolts'},
+  {name:'Bolts',sourceCategory:'Ammunition',amount:6}
+ ],items:[{name:'Legacy Bolts',sourceCategory:'Ammunition',amount:4}]};
+ const char={id:'test',name:'Hero',data};
+ const melee=renderSection(char,'combat',{weaponView:'Weapon'});
+ assert.match(melee,/data-weapon-view="Weapon" aria-pressed="true"/);
+ assert.match(melee,/Short Sword/);assert.doesNotMatch(melee,/data-weapon-roll="1"/);
+ assert.match(melee,/data-weapon-add-toggle/);
+ assert.match(melee,/data-add-weapon-kind="Weapon"/);
+ assert.match(melee,/data-add-weapon-kind="Ranged Weapon"/);
+ assert.match(melee,/data-add-weapon-kind="Ammunition"/);
+ const ranged=renderSection(char,'combat',{weaponView:'Ranged Weapon'});
+ assert.match(ranged,/Crossbow/);
+ assert.match(ranged,/data-weapon-reload="1"/);
+ assert.doesNotMatch(ranged,/\}\s*<button[^>]+data-entry-send/);
+ const ammo=renderSection(char,'combat',{weaponView:'Ammunition'});
+ assert.match(ammo,/Bolts/);assert.match(ammo,/Legacy Bolts/);
+ assert.match(ammo,/× 6/);assert.match(ammo,/× 4/);
+ assert.doesNotMatch(ammo,/data-weapon-roll/);
+ assert.match(ammo,/data-edit-weapon-ammo="weapons:2"/);
+ assert.match(ammo,/data-edit-weapon-ammo="items:0"/);
+});
+
+test('ammo rounds can be supplied by a dedicated Weapons ammunition entry',()=>{
+ const initial={weapons:[{name:'Bow',u_curr:0,u_max:5,ammoType:'Arrows'},
+  {name:'Arrows',sourceCategory:'Ammunition',amount:3}],items:[]};
+ assert.equal(ammoStock(initial,'Arrows').total,3);
+ const result=mergeSheetData(initial,{action:'reloadWeapon',index:0});
+ assert.equal(result.weapons[0].u_curr,3);
+ assert.equal(result.weapons[1].amount,0);
+ assert.equal(initial.weapons[1].amount,3);
+ assert.throws(()=>mergeSheetData(result,{action:'reloadWeapon',index:0}),/No Arrows left/);
+});
 test('backend validates newly editable weapon item category and ammo name',()=>{
  const base={weapons:[{name:'Bow',damage:'1d6',u_curr:0,u_max:0}]};
  const changed=mergeSheetData(base,{action:'entry',collection:'weapons',mode:'update',index:0,fields:{
@@ -102,7 +141,9 @@ test('backend validates newly editable weapon item category and ammo name',()=>{
  assert.equal(changed.weapons[0].sourceCategory,'Ranged Weapon');
  assert.equal(changed.weapons[0].ammoType,'Arrows');
  assert.equal(changed.weapons[0].type,'Bow');
- assert.throws(()=>mergeSheetData(base,{action:'entry',collection:'weapons',mode:'update',index:0,fields:{sourceCategory:'Misc'}}),/Choose Weapon or Ranged Weapon/);
+ assert.throws(()=>mergeSheetData(base,{action:'entry',collection:'weapons',mode:'update',index:0,fields:{sourceCategory:'Misc'}}),/Choose Weapon, Ranged Weapon or Ammunition/);
+ const ammo=mergeSheetData(base,{action:'entry',collection:'weapons',mode:'add',fields:{name:'Arrows',sourceCategory:'Ammunition',amount:10}});
+ assert.equal(ammo.weapons[1].amount,10);
 });
 
 
