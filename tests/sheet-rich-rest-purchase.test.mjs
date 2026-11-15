@@ -85,7 +85,9 @@ test('Buying copies structured shop fields into their actual inventory editor co
    const receipt=createPurchaseService(db,items).purchase(user.id,{op:'buy',requestId:randomUUID(),characterId,itemId:item.id,quantity:2,revision:1,itemRevision:1});
    assert.equal(receipt.quantity,2);
    const data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(characterId).data_json);
-   const bought=data.items[0];
+   const bought=data.weapons[0];
+   assert.equal(data.items?.length??0,0,'purchased weapons belong in Weapons, not Inventory');
+   assert.equal(bought.damage,'1d8');
    assert.equal(bought.amount,2);
    assert.equal(bought.weight,2);
    assert.equal(bought.dmg,'1d8');
