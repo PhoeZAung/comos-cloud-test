@@ -55,7 +55,7 @@ const weaponFieldsFor=category=>category==='Ammunition'
 const weaponEditorLabels=Object.freeze({
  name:'Weapon Name',sourceCategory:'Item Tag',type:'Weapon Type',cost:'Cost',rarity:'Rarity',ammoType:'Ammo Type',img:'Image URL',link:'Source Link',attack_type:'Attack Type',ability_mod:'Attack Stat',npcAttackBonus:'Attack Bonus',attack_misc:'Extra Attack Bonus',
  damage:'Damage Dice',damage_ability:'Damage Stat',damage_style:'Damage Style',extra_damage:'Extra Damage',crit_range:'Critical Range',crit_mult:'Critical Multiplier',
- damage_types:'Damage Types',dr_bypass:'Bypasses Resistance',u_curr:'Ammo',u_max:'Max Ammo',weight:'Weight (lb)',amount:'Quantity',
+ damage_types:'Damage Types',dr_bypass:'Bypasses Resistance',u_curr:'Ammo',u_max:'Max Ammo',weight:'Weight (lb)',amount:'Amount',
  saving_throw:'Saving Throw',save_dc_override:'Save DC',save_success:'On Successful Save',desc:'Description'
 });
 const abilityEditorLabels=Object.freeze({
@@ -659,10 +659,19 @@ function mountCharacterSheet(tabs,switchTo){
   if(button.matches('[data-resource-favorite]')){const key=button.dataset.resourceFavorite;clearTimeout(resourceTimer);void save({action:'fields',fields:{...pendingResourceFields,[key]:character.data[key]!==true}});return;}
   if(button.matches('[data-weapon-reload]')){
    const index=Number(button.dataset.weaponReload),row=character.data.weapons?.[index];
-   if(!row||busy||conflict||dirty){status('Save your changes before reloading.');return;}
-   const previous=Number(row.u_curr||0);
+   if(!row||busy||conflict||dirty){notify('Save your changes before reloading.');return;}
+   const type=String(row.ammoType||'').trim();
+   if(!type){notify('Choose an Ammo Type before reloading.');return;}
+   const max=Number(row.u_max??0),previous=Number(row.u_curr??0);
+   if(!Number.isSafeInteger(max)||max<=0){notify('Set Max Ammo before reloading '+row.name+'.');return;}
+   if(previous>=max){notify(row.name+' is already loaded.');return;}
+   if(ammoStock(character.data,type).total<=0){notify('No more '+type+' ammunition.');return;}
    void save({action:'reloadWeapon',index}).then(ok=>{
-    if(ok){const weapon=character?.data?.weapons?.[index];status('Reloaded '+Math.max(0,Number(weapon?.u_curr||0)-previous)+' '+(weapon?.ammoType||'rounds')+'.');}
+    if(!ok){notify(root.querySelector('[data-sheet-status]')?.textContent||'Reload failed.');return;}
+    const weapon=character?.data?.weapons?.[index];
+    const loaded=Math.max(0,Number(weapon?.u_curr||0)-previous);
+    const message='Reloaded '+loaded+' × '+type+(ammoStock(character.data,type).total===0?' · No more '+type+' left.':'');
+    notify(message);
    });
    return;
   }
