@@ -95,8 +95,8 @@ try{
  assert.equal(await editor.locator('[name=save_type]').isVisible(),true);
  assert.match(await editor.locator('.cs-save-help summary').innerText(),/How weapon saves work/);
  await editor.locator('[data-sheet-form] button[type=submit]').click();
- await editor.waitFor({state:'hidden'});
- assert.equal(readData().weapons[0].sourceCategory,'Ranged Weapon');
+  await editor.waitFor({state:'hidden',timeout:12000}).catch(async()=>{throw Error('Weapon save stayed open. Dialog status: '+await editor.locator('[data-dialog-status]').innerText()+'; sheet status: '+await page.locator('[data-sheet-status]').innerText());});
+  assert.equal(readData().weapons[0].sourceCategory,'Ranged Weapon');
  assert.equal(readData().weapons[0].type,undefined);
  assert.equal(readData().weapons[0].u_curr,4);
  assert.equal(readData().weapons[0].u_max,8);
