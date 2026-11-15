@@ -4,6 +4,7 @@ import {abilityCheckBonus,sheetStats,skillTotal} from '../src/features/sheet/mod
 import {carriedWeight} from '../src/features/sheet/carrying.mjs';
 import {isWeaponInventoryItem,weaponFromInventory,ammoStock,moveInventoryWeapons,reloadWeaponFromInventory} from '../src/features/sheet/weapon-inventory.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
+import {readFile} from 'node:fs/promises';
 import {renderSection,entryDetail} from '../src/features/sheet/view.mjs';
 
 test('carrying check penalty applies to DEX roll exactly once while DEX skills and AC retain their calculations',()=>{
@@ -102,4 +103,10 @@ test('backend validates newly editable weapon item category and ammo name',()=>{
  assert.equal(changed.weapons[0].ammoType,'Arrows');
  assert.equal(changed.weapons[0].type,'Bow');
  assert.throws(()=>mergeSheetData(base,{action:'entry',collection:'weapons',mode:'update',index:0,fields:{sourceCategory:'Misc'}}),/Choose Weapon or Ranged Weapon/);
+});
+
+
+test('changing the weapon item tag does not assume inventory-only icon exists',async()=>{
+ const src=await readFile('src/ui/sheet.mjs','utf8');
+ assert.match(src,/select\.name==='sourceCategory'\)\{const icon=root\.querySelector\('\[data-category-icon\]'\);if\(icon\)icon\.textContent/);
 });
