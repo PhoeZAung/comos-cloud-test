@@ -94,6 +94,6 @@ test('raw auto extraction is preserved and only these 50 are marked reviewed',()
  const source=KINGMAKER_BESTIARY_AUTO_002.find(x=>x.name==='Ghostly Guard');
  assert.match(source.text.attackDetail,/CHAPTER 3/);
  assert.equal(source.verified,'automated-needs-review');
- assert.equal(KINGMAKER_STAGED_ENTRIES[50].verified,'automated-needs-review');
+ assert.equal(KINGMAKER_STAGED_ENTRIES[70].verified,'automated-needs-review');
  assert.ok(kingmakerProgress().find(x=>x.id==='bestiary').reviewed>=50);
 });
