@@ -12,8 +12,12 @@ export async function applyNpcTokenReceipt(OBR,{tokenId,receiptId,effect}){
    found=true;
    const saved=item.metadata[BATTLE],seen=Array.isArray(saved.appliedRollIds)?saved.appliedRollIds:[];
    if(seen.includes(receiptId)){outcome={duplicate:true,before:null,after:null};return;}
-   const change=applyCombatHp({hp:saved.hp,hpMax:saved.hpMax,hpTemp:saved.hpTemp||0},effect);
-   saved.hp=change.after.hp;saved.hpTemp=change.after.hpTemp;
+   // A stale receipt may arrive after the GM stopped tracking this NPC.
+   // Record it once without converting missing HP into zero-damage bookkeeping.
+   const tracked=saved.trackHp!==false&&Number.isFinite(saved.hpMax)&&saved.hpMax>0;
+   const initial={hp:Number.isFinite(saved.hp)?saved.hp:0,hpMax:tracked?saved.hpMax:0,hpTemp:Number.isFinite(saved.hpTemp)?saved.hpTemp:0};
+   const change=tracked?applyCombatHp(initial,effect):{before:initial,after:{...initial},applied:0,untracked:true};
+   if(tracked){saved.hp=change.after.hp;saved.hpTemp=change.after.hpTemp;}
    saved.appliedRollIds=[...seen.slice(-31),receiptId];
    outcome={duplicate:false,...change};
   }
