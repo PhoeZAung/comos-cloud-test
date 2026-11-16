@@ -1,7 +1,8 @@
 import {mergeRollHistory} from '../features/room-rolls.mjs';
+import {historyPage,nextHistoryLimit} from './history-window.mjs';
 export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},onView=()=>{}}={}){
- let selected='character',admin=false,connected=false,loading=false,again=false,closed=false,generation=0,personal=[],shared=[],signature='',sheets=[];
- const buttons=()=>[...root.querySelectorAll('[data-panel-tab]')],panels=[...root.querySelectorAll('[data-panel-view]')],first=root.querySelector('[data-panel-tab="character"]'),initiativeButton=root.querySelector('[data-panel-tab="initiative"]'),list=root.querySelector('[data-roll-history]'),status=root.querySelector('[data-history-status]'),historyDetails=root.querySelector('[data-history-details]');
+ let selected='character',admin=false,connected=false,loading=false,again=false,closed=false,generation=0,personal=[],shared=[],signature='',sheets=[],rollLimit=5,allRolls=[];
+ const buttons=()=>[...root.querySelectorAll('[data-panel-tab]')],panels=[...root.querySelectorAll('[data-panel-view]')],first=root.querySelector('[data-panel-tab="character"]'),initiativeButton=root.querySelector('[data-panel-tab="initiative"]'),list=root.querySelector('[data-roll-history]'),status=root.querySelector('[data-history-status]'),historyDetails=root.querySelector('[data-history-details]'),rollMore=root.querySelector('[data-roll-load-more]');
  const historyVisible=()=>selected==='settings'&&historyDetails.open;
  function selectedSheetId(){return selected.startsWith('sheet:')?selected.slice(6):sheets[0]?.id||null;}
  function syncTabs(){
@@ -53,9 +54,13 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
   else syncTabs();
  }
  function render(rows){
-  const next=JSON.stringify(rows);status.textContent=rows.length?'':'No rolls yet.';if(signature===next&&list.children.length===rows.length)return;signature=next;
+  allRolls=rows;
+  const {rows:visible,hasMore,remaining}=historyPage(rows,rollLimit);
+  if(rollMore){rollMore.hidden=!hasMore;rollMore.textContent='Load 5 more'+(remaining?' ('+remaining+' older)':'');}
+  const next=JSON.stringify([rollLimit,rows]);status.textContent=rows.length?'':'No rolls yet.';
+  if(signature===next&&list.children.length===visible.length)return;signature=next;
   list.replaceChildren();
-  for(const row of rows){
+  for(const row of visible){
    const item=document.createElement('li'),header=document.createElement('header'),name=document.createElement('strong'),time=document.createElement('time'),label=document.createElement('p');
    name.textContent=row.character;time.dateTime=new Date(row.time).toISOString();time.textContent=new Date(row.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});time.title=new Date(row.time).toLocaleString();header.append(name,time);label.textContent=(row.player?row.player+' · ':'')+row.label;item.append(header,label);
    for(const part of row.parts){const line=document.createElement('div'),total=document.createElement('strong'),details=document.createElement('span');line.className='history-result';total.textContent=part.label+' '+part.total;details.textContent=part.expression+(part.faces.length?' · '+part.faces.join(', '):'');line.append(total,details);item.append(line);}
@@ -76,6 +81,8 @@ export function mountPanel(root,{history,onSheetTab=()=>{},onCloseSheet=()=>{},o
  const keydown=event=>{const button=event.target.closest('[data-panel-tab]');if(!button||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const visible=buttons().filter(node=>!node.hidden),at=visible.indexOf(button),index=event.key==='Home'?0:event.key==='End'?visible.length-1:(at+(event.key==='ArrowRight'?1:visible.length-1))%visible.length;select(visible[index].dataset.panelTab);visible[index].focus();};root.addEventListener('keydown',keydown);
  root.querySelector('[data-refresh-history]').onclick=()=>void refresh();
  historyDetails.addEventListener('toggle',()=>{if(historyVisible())void refresh();});
+ const loadMore=()=>{rollLimit=nextHistoryLimit(rollLimit);render(allRolls);};
+ rollMore?.addEventListener('click',loadMore);
  const timer=setInterval(()=>void refresh(),5000);select('character');
- return {select,syncSheets,admin(value){admin=value===true;root.querySelector('[data-admin-settings]').hidden=!admin;},connected(value){generation++;connected=value===true;if(!connected){personal=[];list.replaceChildren();}void refresh();},shared(value){shared=Array.isArray(value)?value:[];if(historyVisible())render(mergeRollHistory(personal,shared));},invalidate(){void refresh();},close(){closed=true;clearInterval(timer);root.removeEventListener('click',click);root.removeEventListener('keydown',keydown);}};
+ return {select,syncSheets,admin(value){admin=value===true;root.querySelector('[data-admin-settings]').hidden=!admin;},connected(value){generation++;connected=value===true;if(!connected){personal=[];list.replaceChildren();}void refresh();},shared(value){shared=Array.isArray(value)?value:[];if(historyVisible())render(mergeRollHistory(personal,shared));},invalidate(){void refresh();},close(){closed=true;clearInterval(timer);rollMore?.removeEventListener('click',loadMore);root.removeEventListener('click',click);root.removeEventListener('keydown',keydown);}};
 }
