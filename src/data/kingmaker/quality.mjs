@@ -69,29 +69,22 @@ export function withKingmakerReviewFlags(entry,names=[]){
 }
 
 
-// Remove only positively identified text spillover from the Cosmos-facing
-// *text* fields. Original staged files remain unchanged as the audit trail.
-// This never infers missing values, edits stats/attacks/skills, or verifies NPCs.
+// Clean only identifiable PDF bleed in the Cosmos-facing *text* fields.
+// Keep original auto-staged files unchanged. Never alter stats or mark verified.
 const SAFE_TRIM_FIELDS=new Set([
  'senses','aura','defenses','energyResistances','immunities',
  'weaknesses','specialAttacks','languages','gear','combatGear',
  'feats','qualities','attackDetail','skillDetail','spellLikeAbilities',
  'spellsKnown','spellsPrepared','acDetail','hpDetail','saveDetail','drBypass'
 ]);
-const PRINTED_SIDEBAR=/\b(?:KINGMAKER BESTIARY|CHAPTER [1-4]:|INTRODUCTION|NPC CODEX|HAZARDS AND TRAPS|COMPANIONS|INDEX)\b/g;
 function escapedName(name){
  return name.toUpperCase().replace(/[’‘]/g,"'").replace(/[^A-Z0-9 ]/g,'\\$&').replace(/ +/g,'\\s+');
 }
-function confirmedSpilloverCut(value,names,ownName){
+function confirmedNeighborCut(value,names,ownName){
  let cut=value.length;
- for(const m of value.matchAll(PRINTED_SIDEBAR)){
-  if(m.index>0)cut=Math.min(cut,m.index);
- }
  const normalized=value.replace(/[’‘]/g,"'");
  for(const name of names){
   if(name===ownName||name.length<5||!normalized.includes(name.toUpperCase().replace(/[’‘]/g,"'")))continue;
-  // The source PDF prints monster names in uppercase. Require that case,
-  // along with word boundaries; ordinary mentions must be preserved.
   const pattern=new RegExp('(?:^|\\s)('+escapedName(name)+')(?=\\s+[A-Z]|$)','g');
   for(const match of normalized.matchAll(pattern)){
    const start=match.index+match[0].indexOf(match[1]);
@@ -100,24 +93,32 @@ function confirmedSpilloverCut(value,names,ownName){
  }
  return cut;
 }
+// The sidebar can interrupt a legitimate feat, skill or spell list; *never*
+// truncate a field at navigation. Remove the page marker in-place instead.
+function withoutSidebar(value){
+ return value
+  .replace(/(?:\b\d{1,3}\s+)?KINGMAKER BESTIARY(?:\s+(?:BESTIARY|BESTIA|BES))(?:\s*\(FIRST EDITI(?:ON)?\))?/g,' ')
+  .replace(/\(?First Editi(?:o(?:n)?)?\)?\s*INTRODUCTION\b/g,' ')
+  .replace(/\bCHAPTER\s+[1-4]\s*:?/g,' ')
+  .replace(/\b(?:INTRODUCTION|NPC CODEX|HAZARDS AND TRAPS|COMPANIONS|INDEX)\b/g,' ')
+  .replace(/\s+/g,' ').trim();
+}
 export function withKingmakerCleanText(entry,names=[]){
  if(entry.verified==='transcribed-from-PDF')return entry;
- const cleaned={...entry.text};
- const trimmed=[];
+ const cleaned={...entry.text},changed=[];
  for(const [key,value] of Object.entries(cleaned)){
   if(!SAFE_TRIM_FIELDS.has(key)||typeof value!=='string')continue;
-  const cut=confirmedSpilloverCut(value,names,entry.name);
-  if(cut===value.length)continue;
-  let replacement=value.slice(0,cut).trim();
-  // The source PDF prints its page number before the sidebar book title.
-  if(/\bKINGMAKER BESTIARY\b/.test(value.slice(cut)))
-   replacement=replacement.replace(/\s+\d{1,3}\s*$/,'').trim();
-  if(!replacement)continue; // Never turn an unknown field into an empty fact.
+  // A known adjacent CREATURE HEADING can end the field and introduce prose.
+  // Anything more ambiguous remains present with a review flag.
+  const cut=confirmedNeighborCut(value,names,entry.name);
+  const trimmed=cut<value.length&&value.slice(0,cut).trim()?value.slice(0,cut).trim():value;
+  const replacement=withoutSidebar(trimmed);
+  if(!replacement||replacement===value)continue;
   cleaned[key]=replacement;
-  trimmed.push(key);
+  changed.push(key);
  }
- if(!trimmed.length)return entry;
+ if(!changed.length)return entry;
  return {...entry,text:cleaned,
   reviewFlags:[...new Set([...(entry.reviewFlags||[]),
-   ...trimmed.map(key=>'PDF text trimmed in '+key+' (requires source review)')])]};
+   ...changed.map(key=>'PDF text cleaned in '+key+' (requires source review)')])]};
 }
