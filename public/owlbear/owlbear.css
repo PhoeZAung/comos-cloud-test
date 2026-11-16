@@ -316,9 +316,10 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 .initiative-tab .battle-name.has-hidden-eye .battle-locate{padding-right:24px}
 .initiative-tab .battle-hidden-eye{position:absolute;right:4px;top:50%;transform:translateY(-50%);display:block;z-index:1;pointer-events:none;flex:none;color:#e5c5ff;filter:drop-shadow(0 0 5px #b178f1)}
 .initiative-tab .battle-hidden-eye[hidden]{display:none!important}
+.initiative-tab th:nth-child(3){width:76px}
 .initiative-tab .battle-hp-cell{padding:3px 2px}
 .initiative-tab .battle-hp-controls{display:flex;align-items:center;justify-content:center;gap:2px;min-width:0}
-.initiative-tab .battle-hp-controls .battle-resource.hp{flex:1 1 auto;min-width:24px;width:0}
+.initiative-tab .battle-hp-controls .battle-resource.hp{flex:1 1 auto;min-width:39px;width:0}
 .initiative-tab .battle-hp-privacy{display:flex;flex:0 0 20px;align-items:center;justify-content:center;height:28px;min-width:20px;padding:1px;border:1px solid #756a85;border-radius:5px;background:#262233;color:#dcd7e7;cursor:pointer}
 .initiative-tab .battle-hp-privacy[hidden]{display:none!important}
 .initiative-tab .battle-hp-privacy.is-hidden{color:#ffacbc;border-color:#d06b86;background:#432535}
