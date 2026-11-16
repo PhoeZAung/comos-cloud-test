@@ -67,3 +67,58 @@ export function withKingmakerReviewFlags(entry,names=[]){
  const flags=[...new Set([...(entry.reviewFlags||[]),...kingmakerLayoutIssues(entry,names)])];
  return {...entry,reviewFlags:flags};
 }
+
+
+// Clean only identifiable PDF bleed in the Cosmos-facing *text* fields.
+// Keep original auto-staged files unchanged. Never alter stats or mark verified.
+const SAFE_TRIM_FIELDS=new Set([
+ 'senses','aura','defenses','energyResistances','immunities',
+ 'weaknesses','specialAttacks','languages','gear','combatGear',
+ 'feats','qualities','attackDetail','skillDetail','spellLikeAbilities',
+ 'spellsKnown','spellsPrepared','acDetail','hpDetail','saveDetail','drBypass'
+]);
+function escapedName(name){
+ return name.toUpperCase().replace(/[’‘]/g,"'").replace(/[^A-Z0-9 ]/g,'\\$&').replace(/ +/g,'\\s+');
+}
+function confirmedNeighborCut(value,names,ownName){
+ let cut=value.length;
+ const normalized=value.replace(/[’‘]/g,"'");
+ for(const name of names){
+  if(name===ownName||name.length<5||!normalized.includes(name.toUpperCase().replace(/[’‘]/g,"'")))continue;
+  const pattern=new RegExp('(?:^|\\s)('+escapedName(name)+')(?=\\s+[A-Z]|$)','g');
+  for(const match of normalized.matchAll(pattern)){
+   const start=match.index+match[0].indexOf(match[1]);
+   if(start>0)cut=Math.min(cut,start);
+  }
+ }
+ return cut;
+}
+// The sidebar can interrupt a legitimate feat, skill or spell list; *never*
+// truncate a field at navigation. Remove the page marker in-place instead.
+function withoutSidebar(value){
+ return value
+  .replace(/(?:\b\d{1,3}\s+)?KINGMAKER BESTIARY(?:\s+(?:BESTIARY|BESTIA|BES))(?:\s*\(FIRST EDITI(?:ON)?\))?/g,' ')
+  .replace(/\(?First Editi(?:o(?:n)?)?\)?\s*INTRODUCTION\b/g,' ')
+  .replace(/\bCHAPTER\s+[1-4]\s*:?/g,' ')
+  .replace(/\b(?:INTRODUCTION|NPC CODEX|HAZARDS AND TRAPS|COMPANIONS|INDEX)\b/g,' ')
+  .replace(/\s+/g,' ').trim();
+}
+export function withKingmakerCleanText(entry,names=[]){
+ if(entry.verified==='transcribed-from-PDF')return entry;
+ const cleaned={...entry.text},changed=[];
+ for(const [key,value] of Object.entries(cleaned)){
+  if(!SAFE_TRIM_FIELDS.has(key)||typeof value!=='string')continue;
+  // A known adjacent CREATURE HEADING can end the field and introduce prose.
+  // Anything more ambiguous remains present with a review flag.
+  const cut=confirmedNeighborCut(value,names,entry.name);
+  const trimmed=cut<value.length&&value.slice(0,cut).trim()?value.slice(0,cut).trim():value;
+  const replacement=withoutSidebar(trimmed);
+  if(!replacement||replacement===value)continue;
+  cleaned[key]=replacement;
+  changed.push(key);
+ }
+ if(!changed.length)return entry;
+ return {...entry,text:cleaned,
+  reviewFlags:[...new Set([...(entry.reviewFlags||[]),
+   ...changed.map(key=>'PDF text cleaned in '+key+' (requires source review)')])]};
+}

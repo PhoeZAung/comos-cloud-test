@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {KINGMAKER_STAGED_ENTRIES,kingmakerProgress} from '../src/data/kingmaker/catalog.mjs';
-import {kingmakerLayoutIssues,withKingmakerReviewFlags} from '../src/data/kingmaker/quality.mjs';
+import {kingmakerLayoutIssues,withKingmakerReviewFlags,withKingmakerCleanText} from '../src/data/kingmaker/quality.mjs';
 import {extractKingmakerChapter} from '../scripts/kingmaker-extract-layout.mjs';
 
 const get=name=>KINGMAKER_STAGED_ENTRIES.find(e=>e.name===name);
@@ -59,4 +59,44 @@ test('two-column PDF headings near the cropped column boundary are not skipped',
  ].join('\n')}];
  const rows=extractKingmakerChapter(pages,'bestiary');
  assert.deepEqual(rows.map(e=>e.name),['Irlgaunt','Grimstalker']);
+});
+
+
+test('stage view trims confirmed neighboring monster prose without touching numeric data',()=>{
+ const bugbear=get('Bugbear Tormentor');
+ assert.equal(bugbear.text.gear,'daggers (6), masterwork sickles (2)');
+ assert.ok(!bugbear.text.gear.includes('CAUTHOOJ'));
+ assert.equal(bugbear.stats.cr,3);
+ assert.equal(bugbear.hp,39);
+ assert.ok(bugbear.reviewFlags.some(f=>f.includes('PDF text cleaned in gear')));
+ const frog=get('Giant Frog Companion');
+ assert.equal(frog.text.skillDetail,'Perception +7, Swim +15');
+ assert.equal(frog.stats.cr,undefined,'unranked animal companion stays unranked');
+ const warden=get('Boggard Warden');
+ assert.ok(!warden.text.combatGear.includes('KINGMAKER'));
+ assert.ok(warden.reviewFlags.some(f=>f.includes('PDF text cleaned in combatGear')));
+});
+test('does not trim ordinary prose, curated monsters, or unrelated fields',()=>{
+ const rec={name:'Longtail',verified:'automated-needs-review',hp:27,stats:{cr:3,ac:15},
+  text:{gear:'A hunter uses a BOG STRIDER figurine in his campsite',languages:'Common'},
+  weapons:[{name:'Spear',damage:'1d8'}],reviewFlags:[]};
+ const cleaned=withKingmakerCleanText(rec,['Longtail','Bog Strider']);
+ assert.equal(cleaned.text.gear,'A hunter uses a BOG STRIDER figurine in his campsite');
+ assert.strictEqual(cleaned,rec,'unexpected narrative heading is not stripped');
+ assert.strictEqual(withKingmakerCleanText({...rec,verified:'transcribed-from-PDF'},['Bog Strider']).text,rec.text);
+});
+
+
+test('sidebar cleanup removes labels but retains feat and spell continuations',()=>{
+ const murder=get('Murder Of Crows');
+ assert.match(murder.text.feats,/Mobility, Skill Focus \(Perception\), Toughness/);
+ assert.ok(!murder.text.feats.includes('CHAPTER 4'));
+ assert.ok(!murder.text.feats.includes('COMPANIONS'));
+ const pyro=get('Goblin Pyro');
+ assert.match(pyro.text.spellLikeAbilities,/burning hands/);
+ assert.match(pyro.text.spellLikeAbilities,/acid splash/);
+ assert.ok(!pyro.text.spellLikeAbilities.includes('COMPANIONS'));
+ const giant=get('Kargstaad’s Giant');
+ assert.match(giant.text.feats,/Improved Overrun, Improved Sunder/);
+ assert.ok(!giant.text.feats.includes('KINGMAKER BESTIARY'));
 });
