@@ -81,6 +81,8 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
   assert.equal(items.list({sourceId:'pf1e-pfdata'}).items.length,1,'exclude error placeholder');
   assert.equal(items.list({sourceId:'pf1e-openref'}).items.length,1,'exclude rules sections');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.length,2,'expand grouped legacy equipment tables');
+  assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Ranged Weapon').length,1,'recognize ranged weapon group');
+  assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Weapon').length,1,'recognize melee weapon group');
  }finally{db.close();await rm(root,{recursive:true,force:true});}
 });
 test('reject modified source links, false edition, malformed package and unsupported key',()=>{
