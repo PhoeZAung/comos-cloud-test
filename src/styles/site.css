@@ -166,3 +166,20 @@ header .install-control{margin-right:0;margin-left:auto}header .install-control+
 .admin-sheet-panel-header strong{font-size:15px;overflow-wrap:anywhere}
 .admin-sheet-panel iframe{display:block;width:100%;height:min(85vh,900px);min-height:520px;border:0}
 @media(max-width:600px){.admin-sheet-tabs button{max-width:145px;padding:9px}.admin-sheet-panel iframe{min-height:500px}}
+
+
+/* Kingmaker source chapters. Progress tracks verified GitHub staging, not a
+   QNAP import, so the bars remain truthful until final production deployment. */
+.npc-chapter-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}
+.npc-chapter-tabs button{min-height:42px;padding:9px 14px;border:1px solid var(--line);
+ border-radius:9px;background:var(--surface);color:var(--text);font:600 13px system-ui;cursor:pointer}
+.npc-chapter-tabs button[aria-pressed=true]{border-color:var(--accent);
+ background:color-mix(in srgb,var(--accent) 13%,var(--surface))}
+.npc-chapter-tabs button:disabled{opacity:.5;cursor:not-allowed}
+.npc-progress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+ gap:10px;margin:14px 0 18px}
+.npc-progress-card{display:grid;gap:8px;padding:12px;border:1px solid var(--line);
+ border-radius:11px;background:var(--surface)}
+.npc-progress-card strong{font-size:13px}
+.npc-progress-card progress{display:block;width:100%;height:12px;accent-color:var(--accent)}
+.npc-progress-card small{color:var(--muted);font-size:11px;line-height:1.4}

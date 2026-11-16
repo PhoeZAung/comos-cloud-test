@@ -6,11 +6,20 @@ export function mountNpcDirectory(){
  const root=document.querySelector('[data-npc-directory]');
  const control=new AbortController(),{signal}=control;
  root.innerHTML=`<div class="npc-directory-toolbar"><h1>NPCs</h1><button type="button" class="button primary" data-add-npc hidden>Add NPC</button></div>
+ <nav class="npc-chapter-tabs" aria-label="Kingmaker source chapters">
+  <button type="button" data-npc-chapter="bestiary" aria-pressed="false">Bestiary</button>
+  <button type="button" data-npc-chapter="npc-codex" aria-pressed="true">NPC Codex</button>
+  <button type="button" data-npc-chapter="companions" aria-pressed="false">Companions</button>
+  <button type="button" data-npc-chapter="hazards" disabled title="Hazards and Traps are deferred">Hazards & Traps · Later</button>
+ </nav><section class="npc-progress-grid" data-npc-progress aria-label="Kingmaker chapter extraction progress"><p>Checking source progress…</p></section>
  <form class="npc-directory-search" role="search" data-find-npc hidden><label class="sr-only" for="npc-search">Search NPCs by name</label><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4 4"/></svg><input id="npc-search" type="search" maxlength="80" placeholder="Search NPCs by name…" autocomplete="off"><button type="button" data-clear-npc-search aria-label="Clear NPC search" hidden>×</button></form>
  <p data-npc-status role="status"></p><div data-npc-list></div><button class="button" type="button" data-more-npcs hidden>More NPCs</button>
  <dialog class="npc-create-dialog" aria-labelledby="npc-create-title"><form data-npc-create>
  <h2 id="npc-create-title">Add NPC</h2>
  <label>NPC name<input name="name" maxlength="80" autocomplete="off"></label>
+  <label>Library<select name="category" aria-label="NPC library">
+   <option value="bestiary">Bestiary</option><option value="npc-codex" selected>NPC Codex</option><option value="companions">Companions</option>
+  </select></label>
  <label class="npc-note-drop" data-npc-drop><strong>Drop a Markdown note here</strong><span>or choose a file</span><input class="sr-only" name="file" type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" aria-label="Choose Markdown note"><span data-npc-filename></span></label>
  <label>Stat block<textarea name="markdown" rows="8" maxlength="${NPC_NOTE_LIMIT}" placeholder="Paste a stat block or choose a Markdown note"></textarea></label>
  <p data-npc-preview role="status"></p><p data-npc-error role="alert"></p>
@@ -23,7 +32,33 @@ export function mountNpcDirectory(){
  const save=form.querySelector('[type=submit]');
  const searchInput=search.querySelector('input'),clear=search.querySelector('[data-clear-npc-search]');
  const drop=form.querySelector('[data-npc-drop]'),filename=form.querySelector('[data-npc-filename]');
- let query='',cursor=null,generation=0,requestId,searchTimer,autoName='',saving=false;
+ const progressRoot=root.querySelector('[data-npc-progress]'),chapterButtons=[...root.querySelectorAll('[data-npc-chapter]')];
+ let query='',cursor=null,generation=0,requestId,searchTimer,autoName='',saving=false,category='npc-codex';
+ function showProgress(progress){
+  if(!Array.isArray(progress))return;
+  progressRoot.replaceChildren();
+  for(const item of progress){
+   const card=document.createElement('article');
+   card.className='npc-progress-card';
+   card.dataset.progressCategory=item.id;
+   const heading=document.createElement('strong');heading.textContent=item.name;
+   const meter=document.createElement('progress');
+   meter.max=item.total||1;meter.value=Math.min(item.total||1,item.staged||0);
+   meter.setAttribute('aria-label',item.name+' source extraction progress');
+   const desc=document.createElement('small');
+   desc.textContent=item.deferred?'Deferred — not extracting yet':
+    'GitHub staged '+(item.staged||0)+' / '+item.total+' · Cosmos imported '+(item.imported||0);
+   card.append(heading,meter,desc);progressRoot.append(card);
+  }
+ }
+ function selectCategory(id){
+  if(id==='hazards'||!['bestiary','npc-codex','companions'].includes(id))return;
+  category=id;query=searchInput.value='';
+  clear.hidden=true;cursor=null;list.replaceChildren();more.hidden=true;
+  for(const button of chapterButtons)button.setAttribute('aria-pressed',String(button.dataset.npcChapter===id));
+  ++generation;void load();
+ }
+ chapterButtons.forEach(button=>button.addEventListener('click',()=>selectCategory(button.dataset.npcChapter),{signal}));
 
  async function request(url,body){
   const response=await fetch(url,{signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})});
@@ -35,9 +70,10 @@ export function mountNpcDirectory(){
   const turn=++generation;
   more.disabled=true;status.textContent='Loading NPCs…';
   try{
-   const result=await request(endpoint+'?'+new URLSearchParams({q:query,cursor:next}));
+   const result=await request(endpoint+'?'+new URLSearchParams({q:query,cursor:next,category}));
    if(signal.aborted||turn!==generation)return;
    if(!next)list.replaceChildren();
+   showProgress(result.progress);
    for(const character of result.characters){
     const article=document.createElement('article'),link=document.createElement('a');
     article.className='directory-character';link.className='directory-sheet-link';
@@ -45,7 +81,8 @@ export function mountNpcDirectory(){
     article.append(link);list.append(article);
    }
    cursor=result.nextCursor;more.hidden=!cursor;
-   status.textContent=list.children.length?'':query?'No NPCs match this search.':'No NPCs yet.';
+   status.textContent=list.children.length?'':query?'No matching entries in '+category.replaceAll('-',' ')+'.':
+    'No imported entries in this category yet. Staged GitHub records will appear after the final QNAP import.';
    add.hidden=search.hidden=false;
   }catch(reason){if(!signal.aborted&&turn===generation)status.textContent=reason.message;}
   finally{if(turn===generation)more.disabled=false;}
@@ -59,7 +96,7 @@ export function mountNpcDirectory(){
  }
  add.addEventListener('click',()=>{
   if(saving)return;
-  form.reset();requestId=recordId();autoName='';save.disabled=false;
+  form.reset();form.elements.category.value=category;requestId=recordId();autoName='';save.disabled=false;
   preview.textContent=error.textContent=filename.textContent='';
   dialog.showModal();name.focus();
  },{signal});
@@ -105,7 +142,7 @@ export function mountNpcDirectory(){
   event.preventDefault();if(save.disabled)return;
   saving=save.disabled=true;error.textContent='';
   try{
-   const result=await request(endpoint,{name:name.value,markdown:markdown.value,requestId});
+   const result=await request(endpoint,{name:name.value,markdown:markdown.value,category:form.elements.category.value,requestId});
    if(!signal.aborted)location.assign('sheet.html?characterId='+encodeURIComponent(result.character.id));
   }catch(reason){if(!signal.aborted)error.textContent=reason.message;}
   finally{saving=save.disabled=false;}
