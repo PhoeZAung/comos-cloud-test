@@ -96,7 +96,10 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
   });
   if(result.kind==='heal'||result.kind==='temp_hp')check(!targetNpc,'Healing requires a party character.');
   const beforeNpc=Number(value.targetHp),maxNpc=Number(value.targetHpMax),tempNpc=Number(value.targetHpTemp||0);
-  if(targetNpc)check([beforeNpc,maxNpc,tempNpc].every(Number.isFinite)&&maxNpc>=0&&Math.abs(beforeNpc)<=1000000&&maxNpc<=1000000&&tempNpc>=0&&tempNpc<=1000000,'NPC health is unavailable.');
+  // Blank/untracked HP is not zero HP: resolve the hit and damage dice, but
+  // never subtract from a fictional zero or mutate the Owlbear token.
+  const npcTrackHp=targetNpc&&value.targetTrackHp!==false&&Number.isFinite(maxNpc)&&maxNpc>0;
+  if(npcTrackHp)check([beforeNpc,maxNpc,tempNpc].every(Number.isFinite)&&Math.abs(beforeNpc)<=1000000&&maxNpc<=1000000&&tempNpc>=0&&tempNpc<=1000000,'NPC health is unavailable.');
   const sourceName=safeName(source.name),targetName=safeName(target?.name||value.targetName);
   const base={id:value.requestId,roomId:id,battle:r.battle,round:value.round,actorId:receipt.character_id,actorTokenId:value.actorTokenId,actor:sourceName,
    targetTokenId:value.targetTokenId,targetId:target?.id||null,target:targetName,targetNpc,
@@ -104,7 +107,7 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
    roll:Math.max(0,Number(roll.damage?.total)||0),
    amount:result.amount,critical:result.critical,hit:result.hit,reason:result.reason,
    mitigation:result.mitigation||[],
-   defense,ac:targetNpc?null:ac,time:Date.now()};
+   defense,ac:targetNpc?null:ac,hpUntracked:targetNpc&&!npcTrackHp,time:Date.now()};
   db.exec('BEGIN IMMEDIATE');
   try{
    const existing=effectRow(value.requestId);
@@ -113,9 +116,9 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
     db.exec('COMMIT');return {event:existing,alreadyApplied:true,needsNpcUpdate:existing.status==='pending'};
    }
    let diff;
-   if(targetNpc)diff=applyCombatHp({hp:beforeNpc,hpMax:maxNpc,hpTemp:tempNpc},result);
+   if(targetNpc)diff=npcTrackHp?applyCombatHp({hp:beforeNpc,hpMax:maxNpc,hpTemp:tempNpc},result):{before:null,after:null,applied:0};
    else diff=applyCombatHp({hp:targetStats.hp,hpMax:targetStats.hpMax,hpTemp:targetStats.hpTemp},result);
-   const event={...base,before:diff.before,after:diff.after,applied:diff.applied,status:targetNpc?'pending':'applied'};
+   const event={...base,before:diff.before,after:diff.after,applied:diff.applied,status:npcTrackHp?'pending':'applied'};
    if(!targetNpc){
     targetData.hp_curr=diff.after.hp;targetData.hp_temp=diff.after.hpTemp;
     db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify(targetData),target.id);
