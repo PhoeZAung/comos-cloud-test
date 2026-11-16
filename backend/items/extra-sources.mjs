@@ -25,6 +25,14 @@ function validUrl(value,repository){
    url.pathname.startsWith('/'+owner+'/'+name+'/blob/');
  }catch{return false;}
 }
+function isTrustedPf2eItemPage(value){
+ try{
+  const url=new URL(value);
+  return url.protocol==='https:'&&url.hostname==='2e.aonprd.com'&&
+   /^\/(?:Equipment|Weapons|Armor|Shields)\.aspx$/i.test(url.pathname)&&
+   /^\?ID=\d+$/i.test(url.search)&&!url.hash&&!url.username&&!url.password;
+ }catch{return false;}
+}
 export function validateExtraCatalog(catalog,key){
  const info=EXTRA_ITEM_SOURCES[key];
  if(!info||!plain(catalog)||catalog.schemaVersion!=='cosmos.extra-item-catalog.v1'||
@@ -39,7 +47,8 @@ export function validateExtraCatalog(catalog,key){
     typeof row.originalPriceText!=='string'||row.originalPriceText.length>160||
     row.priceGil!==null||row.sourceId!==info.sourceId||row.sourceSystem!==info.system||
     row.sourceVersion!==catalog.version||!validUrl(row.sourceUrl,info.repository)||
-    row.detailUrl!==row.sourceUrl||Object.keys(row).length>65)throw Error('Invalid item in extra catalog: '+key);
+    !(row.detailUrl===row.sourceUrl||(key==='pf2e-json'&&isTrustedPf2eItemPage(row.detailUrl)))||
+    Object.keys(row).length>65)throw Error('Invalid item in extra catalog: '+key);
   seen.add(row.itemKey);
  }
  return catalog.items;
