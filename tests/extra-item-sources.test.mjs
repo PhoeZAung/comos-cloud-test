@@ -20,12 +20,19 @@ const examples={
    weight:{value:2},price:2
   }}},
  'pf1e-pfdata':{'json/equipment_misc.json':{
-  abacus:{name:'Abacus',description:['Counting device.'],sources:['Core Rulebook'],price:'2 gp'},
+  abacus:{name:'Abacus',description:['## Abacus','‹SOURCE Ultimate Equipment/77›',
+   '**Price** 2 gp; **Weight** 2 lbs.','Counting device.'],sources:['Core Rulebook']},
   not_found:{name:'Unknown',description:['Error']}
  }},
  'pf1e-openref':{'docs/data/books/ultimate-equipment/0.json':[
   {i:1,t:'section',n:'Rules',b:'Rules section'},
-  {i:2,t:'item',n:'Abacus',b:'<p>Counting device.</p>',u:'items/abacus'}
+  {i:2,t:'item',n:'Abacus',b:'<p>Counting device.</p>',u:'items/abacus',
+   x:{item_details:{price:'2 gp',weight:'2 lbs.'}}},
+  {i:3,t:'item',n:'Agile Breastplate',b:'<p>Armored breastplate.</p>',
+   x:{item_details:{price:'400 gp',weight:'25 lbs.'},item_misc:[
+    {field:'Armor Bonus',value:'+6'}, {field:'MaxDex Bonus',value:'+3'},
+    {field:'Arcane SpellFailure Chance',value:'25%'},
+    {field:'ArmorCheck Penalty',value:'-4'}]}}
  ]},
  'pf2e-pf2ools':{'data/core/Core Rulebook/weapon/Longsword.json':{
   type:'weapon',name:{display:'Longsword'},data:{price:'1 gp',entries:['One-handed sword.']}
@@ -81,7 +88,16 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
   const foundry=items.list({sourceId:'pf1e-foundry'}).items[0];
   assert.equal(catalogInventoryItem(items.get(foundry.id),1).weight,2);
   assert.equal(items.list({sourceId:'pf1e-pfdata'}).items.length,1,'exclude error placeholder');
-  assert.equal(items.list({sourceId:'pf1e-openref'}).items.length,1,'exclude rules sections');
+  assert.equal(items.list({sourceId:'pf1e-openref'}).items.length,2,'exclude rules sections');
+  const pfData=items.list({sourceId:'pf1e-pfdata'}).items[0];
+  assert.equal(pfData.costText,'2 gp','extract PF Data Markdown price');
+  assert.equal(catalogInventoryItem(items.get(pfData.id),1).weight,2);
+  assert.ok(!items.get(pfData.id).description.includes('‹SOURCE'),'hide duplicate source heading');
+  const openArmor=items.list({sourceId:'pf1e-openref',q:'Agile Breastplate'}).items[0];
+  assert.equal(openArmor.costText,'400 gp','extract Open Reference item_details price');
+  const armorItem=catalogInventoryItem(items.get(openArmor.id),1);
+  assert.equal(armorItem.weight,25);assert.equal(armorItem.acBonus,'+6');
+  assert.equal(armorItem.maxDex,'+3');assert.equal(armorItem.spellFailure,'25%');
   assert.equal(items.list({sourceId:'pf2e-orc',q:'Healing Potion'}).items[0].name,'Healing Potion','resolve ORC item i18n key');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.length,2,'expand grouped legacy equipment tables');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Ranged Weapon').length,1,'recognize ranged weapon group');
