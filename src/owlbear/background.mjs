@@ -10,7 +10,7 @@ import {recommendTarget} from './target-recommendation.mjs';
 import {COMBAT_CHANNEL,VALIDATION,validationFrom} from './combat-effects.mjs';
 import {applyNpcTokenReceipt} from './combat-npc.mjs';
 import {uniqueNpcForToken,npcBattleStats,rollNpcInitiative} from './npc-battle.mjs';
-import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,battleForViewer,battleHpForViewer,turnForViewer,tokenName,normalizeName} from './battle-state.mjs';
+import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,battleForViewer,battleHpForViewer,turnForViewer,advanceVisibleTurn,tokenName,normalizeName} from './battle-state.mjs';
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative',RECOMMEND_SETTING=PREFIX+'/recommend-target';
 async function start(){
  let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
@@ -79,7 +79,7 @@ async function start(){
   if(!ready)return;const generation=epoch,l=layoutFrom(room),active=new Set(),add=[],updates=[],remove=[];
   if(recoverBars){const old=await OBR.scene.local.getItems(item=>!!item.metadata[BAR]);if(generation!==epoch||!ready)return;if(old.length)await OBR.scene.local.deleteItems(old.map(item=>item.id));bars.clear();recoverBars=false;}
   if(l.initiative)for(const row of rows()){
-   if((!gm&&!row.visible)||!row.available||!row.trackHp||!gm&&!row.siteId&&!l.npcHp)continue;const item=items.find(item=>item.id===row.id);if(!item)continue;active.add(row.id);
+   if((!gm&&!row.visible)||!row.available||!row.trackHp||!gm&&!row.siteId&&(!l.npcHp||row.hpHidden))continue;const item=items.find(item=>item.id===row.id);if(!item)continue;active.add(row.id);
    const desired=healthItems(item,row),signature=JSON.stringify(desired.map(({id,lastModified,lastModifiedUserId,...value})=>value)),old=bars.get(row.id);
    if(old?.signature===signature)continue;
    if(old){desired.forEach((value,index)=>updates.push({...value,id:old.ids[index]}));bars.set(row.id,{ids:old.ids,signature});}
@@ -134,7 +134,7 @@ async function start(){
    roomId:OBR.room.id,requestId:request.requestId,actorSheetId,actorTokenId:actor.id,
    targetTokenId:target.id,targetSheetId:target.siteId||null,targetName:target.name,
    gmOnly:actor.visible===false||target.visible===false,
-   targetAc:target[request.defense],targetHp:target.hp,targetHpMax:target.hpMax,targetHpTemp:target.hpTemp??0,
+   targetAc:target[request.defense],targetHp:target.hp,targetHpMax:target.hpMax,targetHpTemp:target.hpTemp??0,targetTrackHp:target.trackHp===true,
    defense:request.defense,round:request.round,
    targetNpcId:target.isNpc?items.find(item=>item.id===target.id)?.metadata?.[BATTLE]?.npcId||null:null
   };
@@ -197,15 +197,22 @@ async function start(){
     if(!battle)throw Error('Combatant not found.');await OBR.scene.items.updateItems([battle.id],drafts=>{for(const item of drafts){if(item.metadata[BATTLE]?.enabled)item.metadata[BATTLE][d.key]=d.value;}});return;
   }
   if(!ready)throw Error('Open a scene first.');
+  if(d.type==='npc-hp-visibility'){
+   if(typeof d.id!=='string'||typeof d.hidden!=='boolean')throw Error('Choose an NPC and whether to hide HP.');
+   const row=rows().find(row=>row.id===d.id);
+   if(!row||row.siteId||!row.trackHp||!row.available)throw Error('Only NPCs with tracked HP can use the individual HP privacy toggle.');
+   await OBR.scene.items.updateItems([row.id],drafts=>{
+    for(const item of drafts)if(item.id===row.id&&item.metadata?.[BATTLE]?.enabled===true&&!item.metadata[BATTLE].siteId)item.metadata[BATTLE].hpHidden=d.hidden;
+   });
+   schedule();return;
+  }
   if(d.type==='initiative'){
    if(!Number.isFinite(d.value)||Math.abs(d.value)>9999)throw Error('Enter a valid initiative.');
    await OBR.scene.items.updateItems([d.id],drafts=>{for(const item of drafts)if(item.metadata[BATTLE]?.enabled)item.metadata[BATTLE].initiative=d.value;});return;
   }
   if(d.type==='turn'){
-   const sorted=rows();if(!sorted.length)return;const turn=scene[TURN]||{},index=Math.max(0,sorted.findIndex(row=>row.id===turn.id));let next=index,round=Math.max(1,Number(turn.round)||1);
-   if(d.direction===-1){next=(index-1+sorted.length)%sorted.length;if(index===0)round=Math.max(1,round-1);}
-   else{next=(index+1)%sorted.length;if(next===0)round++;}
-   const value={id:sorted[next].id,round};await OBR.scene.setMetadata({[TURN]:value});scene={...scene,[TURN]:value};schedule();await focus.locate(value.id);return;
+   const sorted=rows();const value=advanceVisibleTurn(sorted,scene[TURN]||{},d.direction);
+   if(!value)return;await OBR.scene.setMetadata({[TURN]:value});scene={...scene,[TURN]:value};schedule();await focus.locate(value.id);return;
   }
   if(d.type==='add'){
    const item=items.find(item=>item.id===d.id);if(!item||item.type!=='IMAGE'||item.layer!=='CHARACTER')throw Error('Select a character token.');

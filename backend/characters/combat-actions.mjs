@@ -7,6 +7,8 @@ const validId=value=>typeof value==='string'&&/^[\da-f-]{36}$/i.test(value);
 const validRoom=value=>typeof value==='string'&&value.length>=1&&value.length<=128&&/^[a-z\d_-]+$/i.test(value);
 const check=(condition,message)=>{if(!condition)throw Error(message);};
 const safeName=value=>String(value||'').slice(0,80).replace(/[\u0000-\u001f]/g,'');
+// NPC HP remains GM-only even on direct combat responses, not only history.
+const viewerEvent=(event,isAdmin)=>{if(isAdmin||!event?.targetNpc)return event;const {before,after,...publicEvent}=event;return publicEvent;};
 function init(db){
  db.exec(`CREATE TABLE IF NOT EXISTS cosmos_combat_rooms(
   room_id TEXT PRIMARY KEY, weapon_validation INTEGER NOT NULL DEFAULT 0,
@@ -61,7 +63,7 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
   if(previous){
    check(previous.roomId===id&&previous.targetTokenId===value.targetTokenId&&
     previous.actorTokenId===value.actorTokenId&&previous.actorId===receipt.character_id,'Roll was already applied to a different target.');
-   return {event:previous,alreadyApplied:true,needsNpcUpdate:previous.status==='pending'};
+   return {event:viewerEvent(previous,isAdmin),alreadyApplied:true,needsNpcUpdate:previous.status==='pending'};
   }
   const source=db.prepare('SELECT id,name,kind,archived FROM characters WHERE id=?').get(receipt.character_id);
   check(source&&!source.archived,'Acting character is unavailable.');
@@ -96,7 +98,10 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
   });
   if(result.kind==='heal'||result.kind==='temp_hp')check(!targetNpc,'Healing requires a party character.');
   const beforeNpc=Number(value.targetHp),maxNpc=Number(value.targetHpMax),tempNpc=Number(value.targetHpTemp||0);
-  if(targetNpc)check([beforeNpc,maxNpc,tempNpc].every(Number.isFinite)&&maxNpc>=0&&Math.abs(beforeNpc)<=1000000&&maxNpc<=1000000&&tempNpc>=0&&tempNpc<=1000000,'NPC health is unavailable.');
+  // Blank/untracked HP is not zero HP: resolve the hit and damage dice, but
+  // never subtract from a fictional zero or mutate the Owlbear token.
+  const npcTrackHp=targetNpc&&value.targetTrackHp!==false&&value.targetHp!==null&&value.targetHp!==undefined&&value.targetHpMax!==null&&value.targetHpMax!==undefined&&Number.isFinite(beforeNpc)&&Number.isFinite(maxNpc)&&maxNpc>0;
+  if(npcTrackHp)check([beforeNpc,maxNpc,tempNpc].every(Number.isFinite)&&Math.abs(beforeNpc)<=1000000&&maxNpc<=1000000&&tempNpc>=0&&tempNpc<=1000000,'NPC health is unavailable.');
   const sourceName=safeName(source.name),targetName=safeName(target?.name||value.targetName);
   const base={id:value.requestId,roomId:id,battle:r.battle,round:value.round,actorId:receipt.character_id,actorTokenId:value.actorTokenId,actor:sourceName,
    targetTokenId:value.targetTokenId,targetId:target?.id||null,target:targetName,targetNpc,
@@ -104,18 +109,18 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
    roll:Math.max(0,Number(roll.damage?.total)||0),
    amount:result.amount,critical:result.critical,hit:result.hit,reason:result.reason,
    mitigation:result.mitigation||[],
-   defense,ac:targetNpc?null:ac,time:Date.now()};
+   defense,ac:targetNpc?null:ac,hpUntracked:targetNpc&&!npcTrackHp,time:Date.now()};
   db.exec('BEGIN IMMEDIATE');
   try{
    const existing=effectRow(value.requestId);
    if(existing){
     check(existing.roomId===id&&existing.targetTokenId===value.targetTokenId&&existing.actorTokenId===value.actorTokenId&&existing.actorId===receipt.character_id,'Roll was already applied to a different target.');
-    db.exec('COMMIT');return {event:existing,alreadyApplied:true,needsNpcUpdate:existing.status==='pending'};
+    db.exec('COMMIT');return {event:viewerEvent(existing,isAdmin),alreadyApplied:true,needsNpcUpdate:existing.status==='pending'};
    }
    let diff;
-   if(targetNpc)diff=applyCombatHp({hp:beforeNpc,hpMax:maxNpc,hpTemp:tempNpc},result);
+   if(targetNpc)diff=npcTrackHp?applyCombatHp({hp:beforeNpc,hpMax:maxNpc,hpTemp:tempNpc},result):{before:null,after:null,applied:0};
    else diff=applyCombatHp({hp:targetStats.hp,hpMax:targetStats.hpMax,hpTemp:targetStats.hpTemp},result);
-   const event={...base,before:diff.before,after:diff.after,applied:diff.applied,status:targetNpc?'pending':'applied'};
+   const event={...base,before:diff.before,after:diff.after,applied:diff.applied,status:npcTrackHp?'pending':'applied'};
    if(!targetNpc){
     targetData.hp_curr=diff.after.hp;targetData.hp_temp=diff.after.hpTemp;
     db.prepare('UPDATE character_details SET data_json=? WHERE character_id=?').run(JSON.stringify(targetData),target.id);
@@ -123,7 +128,7 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
    }
    db.prepare('INSERT INTO cosmos_combat_events(id,room_id,battle,roll_id,user_id,status,event_json,created_at) VALUES(?,?,?,?,?,?,?,?)')
     .run(value.requestId,id,r.battle,value.requestId,receipt.user_id,event.status,JSON.stringify(event),event.time);
-   db.exec('COMMIT');return {event,alreadyApplied:false,needsNpcUpdate:targetNpc};
+   db.exec('COMMIT');return {event:viewerEvent(event,isAdmin),alreadyApplied:false,needsNpcUpdate:targetNpc&&npcTrackHp};
   }catch(error){db.exec('ROLLBACK');throw error;}
  }
  function finalize(id,userId,isAdmin,value){
@@ -133,14 +138,14 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
   check(isAdmin||stored.user_id===userId,'Not your combat action.');
   const event=JSON.parse(stored.event_json);
   check(event.targetNpc,'Only NPC token effects require finalization.');
-  if(stored.status==='applied')return event;
+  if(stored.status==='applied')return viewerEvent(event,isAdmin);
   check(stored.status==='pending'&&event.battle===r.battle,'The combat event is no longer pending.');
-  const {before,after}=value;
+  const before=value.before??event.before,after=value.after??event.after;
   check(before&&after&&['hp','hpMax','hpTemp'].every(k=>Number.isFinite(before[k])&&Number.isFinite(after[k])),'Invalid NPC HP confirmation.');
   const confirmed={...event,before,after,status:'applied',applied:event.kind==='damage'?(before.hp-after.hp)+(before.hpTemp-after.hpTemp):event.kind==='heal'?after.hp-before.hp:after.hpTemp-before.hpTemp};
   db.prepare('UPDATE cosmos_combat_events SET status=?,event_json=? WHERE id=? AND room_id=?')
    .run('applied',JSON.stringify(confirmed),value.requestId,id);
-  return confirmed;
+  return viewerEvent(confirmed,isAdmin);
  }
  function end(id,isAdmin){
   check(isAdmin,'Only the GM administrator can end a battle.');

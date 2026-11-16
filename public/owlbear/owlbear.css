@@ -294,14 +294,35 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
 
 
 /* Linked combatant status: a visible color cue plus accessible title in Initiative. */
-.initiative-tab tr[data-link-status="character"]{--cosmos-link-color:#5ce0a7}
-.initiative-tab tr[data-link-status="npc"]{--cosmos-link-color:#80c4ff}
-.initiative-tab tr[data-link-status="unlinked"]{--cosmos-link-color:#a8a5ae}
-.initiative-tab tr[data-link-status="missing"]{--cosmos-link-color:#ffd27b}
+.initiative-tab tr[data-link-status="character"]{--cosmos-link-color:#ffffff}
+.initiative-tab tr[data-link-status="npc"]{--cosmos-link-color:#07070a}
+.initiative-tab tr[data-link-status="unlinked"]{--cosmos-link-color:#ff435d}
+.initiative-tab tr[data-link-status="missing"]{--cosmos-link-color:#ff435d}
 .initiative-tab .battle-locate{display:flex;align-items:center;gap:6px;border-left:3px solid var(--cosmos-link-color,transparent);padding-left:5px}
 .initiative-tab .battle-locate-label{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .initiative-tab .battle-link-indicator{display:block;flex:none;width:9px;height:9px;border-radius:50%;background:var(--cosmos-link-color,#a8a5ae);box-shadow:0 0 0 2px #140f1d;opacity:.98}
 .initiative-tab tr[data-link-status="missing"] .battle-locate-label{color:#ffdb8f}
 .initiative-tab tr[data-link-status="unlinked"] .battle-locate-label{color:#bbb5c5}
-.initiative-tab tr[data-link-status="character"] .battle-link-indicator{box-shadow:0 0 0 2px #140f1d,0 0 7px #5ce0a766}
-.initiative-tab tr[data-link-status="npc"] .battle-link-indicator{box-shadow:0 0 0 2px #140f1d,0 0 7px #80c4ff66}
+.initiative-tab tr[data-link-status="character"] .battle-link-indicator{box-shadow:0 0 0 1px #554f64,0 0 6px #ffffff73}
+.initiative-tab tr[data-link-status="npc"] .battle-link-indicator{box-shadow:0 0 0 2px #e6e2ef,0 0 6px #ffffff55}
+
+/* Linked Party = white, linked NPC = black, unlinked/broken = red.
+ * Light outlines keep the black dot visible on the dark initiative panel. */
+.initiative-tab tr[data-link-status="npc"] .battle-locate{border-left-color:#050507;box-shadow:inset 2px 0 0 #eeecf4}
+.initiative-tab tr[data-link-status="missing"] .battle-locate-label,
+.initiative-tab tr[data-link-status="unlinked"] .battle-locate-label{color:#ffc7cf}
+/* Position the hidden-from-players eye outside the clipped token-name button. */
+.initiative-tab .battle-name{position:relative}
+.initiative-tab .battle-name.has-hidden-eye .battle-locate{padding-right:24px}
+.initiative-tab .battle-hidden-eye{position:absolute;right:4px;top:50%;transform:translateY(-50%);display:block;z-index:1;pointer-events:none;flex:none;color:#e5c5ff;filter:drop-shadow(0 0 5px #b178f1)}
+.initiative-tab .battle-hidden-eye[hidden]{display:none!important}
+.initiative-tab th:nth-child(3){width:76px}
+.initiative-tab .battle-hp-cell{padding:3px 2px}
+.initiative-tab .battle-hp-controls{display:flex;align-items:center;justify-content:center;gap:2px;min-width:0}
+.initiative-tab .battle-hp-controls .battle-resource.hp{flex:1 1 auto;min-width:39px;width:0}
+.initiative-tab .battle-hp-privacy{display:flex;flex:0 0 20px;align-items:center;justify-content:center;height:28px;min-width:20px;padding:1px;border:1px solid #756a85;border-radius:5px;background:#262233;color:#dcd7e7;cursor:pointer}
+.initiative-tab .battle-hp-privacy[hidden]{display:none!important}
+.initiative-tab .battle-hp-privacy.is-hidden{color:#ffacbc;border-color:#d06b86;background:#432535}
+.initiative-tab .battle-hp-privacy .eye-slash{display:none}
+.initiative-tab .battle-hp-privacy.is-hidden .eye-slash{display:block}
+.initiative-tab .battle-hp-privacy:hover,.initiative-tab .battle-hp-privacy:focus-visible{outline:1px solid #e0cbff}
