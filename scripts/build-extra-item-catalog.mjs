@@ -5,6 +5,7 @@ import {createHash} from 'node:crypto';
 import {gzipSync} from 'node:zlib';
 import {EXTRA_ITEM_SOURCES,validateExtraCatalog} from '../backend/items/extra-sources.mjs';
 import {readableDescription} from './build-pf2e-catalog.mjs';
+import {mapFoundry1e,mapPfData,mapOrc2e,mapLegacyPf2e} from './extra-item-values.mjs';
 
 // Only the six real, item-bearing compendiums in the pinned PF1e Foundry archive.
 const foundryPacks=new Set(['pf-items','pf-goods-services','pf-magic','pf-wondrous','pf-artifacts','pf-technology']);
@@ -72,26 +73,14 @@ function entriesFor(source,file,strings={}){
   if(!match||!foundryPacks.has(match[1]))return [];
   const row=JSON.parse(strings.body);
   if(!obj(row)||!['loot','weapon','equipment','consumable','container','armor','shield','ammo'].includes(str(row.type).toLowerCase()))return [];
-  const s=row.system||{};
-  const html=str(s.description?.value);
-  const cleaned=html.replace(/^\s*<p[^>]*>\s*<strong>Source<\/strong>[\s\S]*?<\/p>/i,'');
-  return [{name:row.name,id:row._id,category:category(row.type==='equipment'&&s.subType==='weapon'?'weapon':row.type,match[1]),
-   description:plainText(cleaned||html),price:money(s.price),
-   weight:weight(s.weight?.value),damage:str(s.damage?.parts?.[0]?.[0]||s.damage?.value),
-   crit:str(s.critRange),range:s.range?.value,armor:s.armor?.value}];
+  return [mapFoundry1e(row,match[1])];
  }
  if(source==='pf1e-pfdata'){
   if(!/\bjson\/(equipment|magic|item)[-_][^/]+\.json$/i.test(rel))return [];
   const data=JSON.parse(strings.body);
   if(!obj(data))return [];
-  return Object.entries(data).filter(([id,row])=>id!=='not_found'&&obj(row)&&str(row.name)).map(([id,row])=>{
-   const original=plainText(row.description);
-   const description=original.split('\n').filter(line=>!/^\s*(?:#{1,4}\s|‹SOURCE\b)/i.test(line)).join('\n').trim();
-   return {id,name:row.name,category:category(base,base),description,
-    price:money(row.price||row.cost)||labeled(original,'(?:Price|Cost)'),
-    weight:weight(row.weight)??pounds(labeled(original,'Weight')),
-    damage:row.damage,crit:row.critical,range:row.range};
-  });
+  return Object.entries(data).filter(([id,row])=>id!=='not_found'&&obj(row)&&str(row.name)&&!row.redirect)
+   .map(([id,row])=>({id,...mapPfData(row,rel)}));
  }
  if(source==='pf1e-openref'){
   if(!/\bbooks\/[^/]+\/\d+\.json$/i.test(rel))return [];
@@ -133,26 +122,12 @@ function entriesFor(source,file,strings={}){
   const row=JSON.parse(strings.body);
   if(!obj(row))return [];
   const id=str(row.id)||base.replace(/\.json$/,'');
-  const translate=value=>str(strings.locales[str(value)]||value);
-  const local=field=>str(strings.locales[id+'.'+field]||strings.locales['item.'+id+'.'+field]);
-  const name=translate(row.name)||local('name');
-  const description=translate(row.text)||local('text');
-  const ranged=Number.isFinite(row.weapon?.range)&&row.weapon.range>0;
-  const thrown=Array.isArray(row.traits)&&row.traits.includes('thrown')?Number(row.traitValues?.thrown):0;
-  const kind=category(row.kind||row.category||row.type,'item');
-  const basic={id,name,description,category:kind==='Weapon'&&(ranged||thrown>0)?'Ranged Weapon':kind,
-   price:Number.isSafeInteger(row.priceCp)?row.priceCp/100+' gp':'',weight:null,
-   pf2eBulk:str(row.bulk),damage:str(row.weapon?.damage?.dice),
-   damageType:str(row.weapon?.damage?.type),
-   range:ranged?row.weapon.range+' ft.':thrown>0?thrown+' ft. (thrown)':'',
-   proficiency:str(row.weapon?.category),
-   armor:row.armor?.acBonus,maxDex:row.armor?.dexCap,
-   checkPenalty:row.armor?.checkPenalty,traits:row.traits,
-   level:row.level,review:row.review};
+  const basic=mapOrc2e({...row,id},strings.locales);
   return [basic,...(Array.isArray(row.variants)?row.variants.filter(obj).map((variant,i)=>({
-   ...basic,id:id+':variant:'+i,name:local('variants.'+i+'.name')||str(variant.name)||name+' ('+(i+1)+')',
+   ...basic,id:id+':variant:'+i,
+   name:str(strings.locales[id+'.variants.'+i+'.name']||variant.name||'')||basic.name+' ('+(i+1)+')',
    price:Number.isSafeInteger(variant.priceCp)?variant.priceCp/100+' gp':basic.price,
-   level:variant.level??row.level,variant:variant
+   itemLevel:variant.level??basic.itemLevel
   })):[])];
  }
  if(source==='pf2e-json'){
@@ -164,19 +139,7 @@ function entriesFor(source,file,strings={}){
   if(!obj(data))return [];
   const groups=Object.entries(data).filter(([key,value])=>Array.isArray(value)&&!['sources','index'].includes(key));
   return groups.flatMap(([group,items])=>items.filter(row=>obj(row)&&str(row.name).trim())
-   .map((row,i)=>{
-    const type=str(row.type||row.category||group);
-    const name=row.name.trim();
-    const price=money(row.price??row.Price??row.cost);
-    const entry={
-     id:str(row.link)||group+':'+i,name,category:category(type+' '+group,rel),
-     description:plainText(row.text||row.description||row.entries),
-     price,weight:null,level:row.level??row.Level,
-     damage:row.damage,traits:row.traits||row.weaponTraits,
-     armor:row.acBonus,range:row.range
-    };
-    return entry;
-   }));
+   .map((row,i)=>({id:row.id||row.link||group+':'+i,...mapLegacyPf2e(row,group,rel)})));
  }
  return [];
 }
@@ -215,15 +178,17 @@ export async function buildExtraCatalog(source,input,version,output){
     category:entry.category,description:str(entry.description).slice(0,30000),
     originalPriceText:str(entry.price).slice(0,160),priceGil:null,sourceUrl:link,detailUrl:link,
     sourceRepository:info.repository,sourceProvider:info.label.split(' · ')[1],
-    sourceFile:rel,sourceCategoryDetail:str(entry.category),mechanicsMode:'informational-only'
+    sourceFile:rel,sourceCategoryDetail:str(entry.originalCategory||entry.category),mechanicsMode:'informational-only'
    };
    if(info.system==='pathfinder-1e'&&entry.weight!==null&&entry.weight!==undefined&&Number.isFinite(entry.weight))
     sourceRow.weight=entry.weight;
-   for(const [field,val] of Object.entries({dmg:entry.damage,crit:entry.crit,range:entry.range,
+   for(const [field,val] of Object.entries({dmg:entry.damage,dmgS:entry.dmgS,crit:entry.crit,range:entry.range,
     acBonus:entry.armor,maxDex:entry.maxDex,checkPenalty:entry.checkPenalty,
     spellFailure:entry.spellFailure,speed30Ft:entry.speed30Ft,speed20Ft:entry.speed20Ft,
     proficiency:entry.proficiency,damageType:entry.damageType,pf2eBulk:entry.pf2eBulk,
-    traits:entry.traits,level:entry.level,review:entry.review})){
+    dcSave:entry.dcSave,craftDc:entry.craftDc,duration:entry.duration,cl:entry.cl,
+    effect:entry.effect,rarity:entry.rarity,usageType:entry.usageType,
+    traits:entry.traits,itemLevel:entry.itemLevel??entry.level,review:entry.review})){
     if(typeof val==='string'&&val.trim()&&val.length<=200)sourceRow[field]=val;
     else if(typeof val==='number'&&Number.isFinite(val))sourceRow[field]=String(val);
     else if(Array.isArray(val))sourceRow[field]=val.map(String).join(', ').slice(0,200);
