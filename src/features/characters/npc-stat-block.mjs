@@ -33,6 +33,7 @@ export const npcTextGroups=Object.freeze([
  {title:'Defenses & exceptions',keys:['defenses','weaknesses','drBypass','energyResistances','immunities','vulnerabilities','saveSpecial','spellNotes','acDetail','saveDetail','hpDetail']},
  {title:'Offense & equipment',keys:['specialAttacks','specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','attackDetail','maneuverDetail','movementDetail','skillDetail','qualities','feats','gear','combatGear','tactics']}
 ]);
+export const npcTextLimit=key=>['specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','description'].includes(key)?16000:4000;
 export const npcNumericKeys=Object.freeze(npcStatGroups.flatMap(group=>group.keys));
 export const npcTextKeys=Object.freeze(npcTextGroups.flatMap(group=>group.keys));
 export function normalizeNpcSheet(data={}){
