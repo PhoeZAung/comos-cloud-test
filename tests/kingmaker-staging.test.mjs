@@ -105,7 +105,7 @@ test('NPC catalog filters three tags while preserving old manually created NPCs'
   assert.equal(answer.data.characters[0].tag,'companion');
   answer=await run('/api/v1/admin/npcs?category=hazards');
   assert.deepEqual(answer.data.characters,[]);
-  await assert.rejects(run('/api/v1/admin/npcs?category=invalid'),/Invalid NPC chapter/);
+  await assert.rejects(run('/api/v1/admin/npcs?category=invalid'),/Invalid NPC catalog category/);
  }finally{db.close();}
 });
 
