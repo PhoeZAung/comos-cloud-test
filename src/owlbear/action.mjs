@@ -99,10 +99,12 @@ function openSheet(id,npc=false){
 }
 function renderSheetChoices(){
  const query=pickerSearch.value.trim().toLocaleLowerCase();
- const filtered=pickerCandidates.filter(c=>c.name.toLocaleLowerCase().includes(query));
+ // The Add Sheet picker never reveals the entire NPC directory on open.
+ // Players' sheets are shown normally; GM-only NPCs appear solely as matches.
+ const filtered=pickerCandidates.filter(c=>(!c.npc||query.length>0)&&c.name.toLocaleLowerCase().includes(query));
  choices.replaceChildren();
- pickerStatus.textContent=filtered.length+' of '+pickerCandidates.length+' available sheets';
- if(!filtered.length){const note=document.createElement('p');note.textContent=query?'No matching characters.':'No other characters available.';choices.append(note);}
+ pickerStatus.textContent=query?filtered.length+' matching sheets':filtered.length+' characters · Search to find NPCs';
+ if(!filtered.length){const note=document.createElement('p');note.textContent=query?'No matching characters or NPCs.':'Search to find an NPC sheet.';choices.append(note);}
  for(const character of filtered){
   const button=document.createElement('button');
   button.type='button';button.dataset.pickSheet=character.id;

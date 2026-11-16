@@ -334,3 +334,7 @@ html[data-notes-electric="true"] .cs-notes-electric::after{inset:-6px;background
 .cs-shop-source-tabs{display:flex;flex-wrap:wrap;gap:6px}
 .cs-inventory-group-filters{display:flex;flex-wrap:wrap;gap:4px}
 .cs-source-field-row{display:grid;gap:8px}
+
+
+
+.cs-npc-tabs [aria-selected=true]{color:var(--accent)}

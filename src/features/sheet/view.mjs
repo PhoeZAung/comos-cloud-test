@@ -149,28 +149,50 @@ function renderNpcSheet(data={}){
   return known?`<button class="cs-score" type="button" data-roll="${key.toUpperCase()} check" data-bonus="${Math.floor((score-10)/2)}"><span>${key.toUpperCase()}</span><strong>${score}</strong><small>${signed(Math.floor((score-10)/2))}</small></button>`:
    `<div class="cs-score cs-score-unset"><span>${key.toUpperCase()}</span><strong>—</strong><small>Not set</small></div>`;
  }).join('');
+
  const statCards=npcStatGroups.map((group,index)=>{
   const values=group.keys.filter(key=>!abilities.includes(key)).map(stat).join('');
   return baseCard(group.title,'<div class="cs-metrics">'+values+'</div>'+(index===npcStatGroups.length-1?'<div class="cs-scores">'+scores+'</div>':''),
    edit('npcStats:'+index,group.title));
- }).join('');
+ });
  const knownHp=Number.isFinite(data.hp_curr)&&Number.isFinite(data.hp_max);
  const health=knownHp?resource('HP',data.hp_curr,data.hp_max,'hp_curr',data.hp_temp,false,{showEdit:false}):
   '<section class="cs-card"><h2>HP</h2><div class="cs-metrics"><div class="cs-metric cs-metric-unset"><span>Current / max HP</span><strong>— / —</strong></div><div class="cs-metric cs-metric-unset"><span>Temporary HP</span><strong>—</strong></div></div></section>';
  const skillRows=(data.npcSkills||[]).map((skill,index)=>`<div class="cs-skill"><button type="button" class="cs-skill-roll" data-roll="${e(skill.name)}" data-bonus="${e(skill.bonus)}"><span>${e(skill.name)}</span><strong>${signed(skill.bonus)}</strong>${icons.dice}</button><button type="button" class="cs-entry-name-edit" data-edit-entry="npcSkills:${index}" aria-label="Edit ${e(skill.name)}">${icons.edit}</button></div>`).join('');
  const detailCards=npcTextGroups.map((group,index)=>{
   const values=group.keys.map(key=>`<div><dt>${e(npcTextLabels[key])}</dt><dd class="${details[key]?'':'cs-npc-empty'}">${details[key]?e(details[key]):'—'}</dd></div>`).join('');
-  return '<section class="cs-card cs-npc-details"><details '+(index===1?'open':'')+'><summary>'+e(group.title)+'</summary><dl class="cs-pairs">'+values+'</dl></details>'+
+  return '<section class="cs-card cs-npc-details"><details '+(index===0?'open':'')+'><summary>'+e(group.title)+'</summary><dl class="cs-pairs">'+values+'</dl></details>'+
     edit('npcText:'+index,group.title)+'</section>';
- }).join('');
+ });
  const weapons=collectionBlock('weapons',data,'',{npc:true});
  const actions=(data.activeAbilities||[]).map((row,index)=>entry('activeAbilities',row,index,data)).join('');
+ const known=number=>Number.isFinite(number)?String(number):'—';
+ const identity=[details.alignment,details.size,details.creatureType,details.subtypes].filter(Boolean).join(' · ');
+ const citation=[details.source,Number.isFinite(stats.sourcePage)?'p. '+stats.sourcePage:'',details.sourceReference].filter(Boolean).join(' · ');
+ const glance=[
+  ['CR',known(stats.cr)],['XP',known(stats.xp)],['HP',knownHp?data.hp_curr+' / '+data.hp_max:'—'],
+  ['AC',known(stats.ac)],['Init',Number.isFinite(stats.initiative)?signed(stats.initiative):'—'],
+  ['Speed',Number.isFinite(stats.speed)?stats.speed+' ft':'—'],
+  ['Perception',Number.isFinite(stats.perception)?signed(stats.perception):'—']
+ ].map(([label,value])=>`<div class="cs-npc-glance-stat cs-metric"><span>${e(label)}</span><strong>${e(value)}</strong></div>`).join('');
+ const tabs=[['combat','Combat & Defense'],['abilities','Abilities & Skills'],['details','Details & Lore']];
+ const nav='<nav class="cs-npc-tabs cs-tabs" role="tablist" aria-label="NPC sheet sections">'+tabs.map(([key,label],index)=>
+  '<button type="button" role="tab" data-npc-tab="'+key+'" aria-selected="'+(index===0)+'" tabindex="'+(index===0?'0':'-1')+'">'+label+'</button>').join('')+'</nav>';
  return `<div class="cs-npc-sheet">
-  <div class="cs-grid">${statCards}<div>${health}${edit('npcHealth','NPC HP')}</div></div>
-  ${weapons}
-  <section class="cs-card"><div class="cs-card-title"><h2>Skills</h2><button type="button" class="cs-icon" data-add-entry="npcSkills" aria-label="Add skill">+</button></div><div class="cs-skills">${skillRows}</div></section>
-  <section class="cs-collection"><div class="cs-section-tools"><h2>Abilities</h2><button type="button" class="cs-icon" data-add-entry="activeAbilities" aria-label="Add ability">+</button></div>${actions}</section>
-  <div class="cs-npc-detail-groups">${detailCards}</div>
+  <header class="cs-npc-overview cs-card"><div class="cs-npc-identity">${identity?e(identity):'NPC · Pathfinder First Edition'}</div>${citation?`<div class="cs-npc-citation">${e(citation)}</div>`:''}<div class="cs-npc-glance cs-metrics">${glance}</div></header>
+  ${nav}
+  <section class="cs-npc-panel" data-npc-panel="combat" role="tabpanel" aria-label="Combat and defense">
+   <div class="cs-npc-combat-grid cs-grid"><div>${health}${edit('npcHealth','NPC HP')}</div>${statCards[0]}${statCards[1]}${statCards[2]}</div>
+   ${weapons}
+  </section>
+  <section class="cs-npc-panel" data-npc-panel="abilities" role="tabpanel" aria-label="Abilities and skills" hidden>
+   ${statCards[3]}
+   <section class="cs-card"><div class="cs-card-title"><h2>Skills</h2><button type="button" class="cs-icon" data-add-entry="npcSkills" aria-label="Add skill">+</button></div><div class="cs-skills">${skillRows||'<p class="cs-caption">No skills entered yet.</p>'}</div></section>
+   <section class="cs-collection"><div class="cs-section-tools"><h2>Abilities</h2><button type="button" class="cs-icon" data-add-entry="activeAbilities" aria-label="Add ability">+</button></div>${actions||'<p class="cs-caption">No special abilities entered yet.</p>'}</section>
+  </section>
+  <section class="cs-npc-panel" data-npc-panel="details" role="tabpanel" aria-label="Details and lore" hidden>
+   <div class="cs-npc-detail-groups">${detailCards.join('')}</div>
+  </section>
  </div>`;
 }
 function resource(label,current,max,key,temp,favorite=false,{spellAbility=null,showEdit=true}={}){return `<section class="cs-resource ${key==='mp_curr'?'cs-resource-mp':'cs-resource-hp'}"><div><h2>${label}</h2><span>/ ${max}</span>${showEdit?edit(key==='hp_curr'?'hp':'mp',label):''}<button type="button" class="cs-favorite" data-resource-favorite="${key==='hp_curr'?'hp_favorite':'mp_favorite'}" aria-label="Favorite ${label}" aria-pressed="${favorite===true}">${icons.favorites}</button></div><div class="cs-resource-controls"><button type="button" data-resource="${key}" data-delta="-1" aria-label="Decrease ${label}">−</button><input type="number" data-resource-input="${key}" value="${current}" aria-label="Current ${label}" step="any"><button type="button" data-resource="${key}" data-delta="1" aria-label="Increase ${label}">+</button></div>${spellAbility?'<select class="cs-spell-ability-select" data-spell-ability aria-label="Spell ability">'+abilities.map(a=>'<option value="'+a+'"'+(spellAbility===a?' selected':'')+'>'+a.toUpperCase()+'</option>').join('')+'</select>':''}${key==='hp_curr'?(number(temp)>0?'<div class="cs-temp-hp"><span>Temp HP</span><button type="button" class="cs-icon" data-temp-hp-delta="-1" aria-label="Decrease temporary HP">−</button><input type="number" min="0" step="1" data-resource-input="hp_temp" value="'+number(temp)+'" aria-label="Temporary HP"><button type="button" class="cs-icon" data-temp-hp-delta="1" aria-label="Increase temporary HP">+</button></div>':'<button type="button" class="cs-text-button" data-add-temp-hp>Add temp HP</button>'):''}</section>`;}
