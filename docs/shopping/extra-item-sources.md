@@ -13,6 +13,32 @@ These are **new optional source catalogs**, not replacements for existing invent
 | PF2e · ORC | pf2e-orc | [TiMarron/orc-rules-data](https://github.com/TiMarron/orc-rules-data) | Remaster catalog; text/variant coverage may be incomplete |
 | PF2e · JSON | pf2e-json | [jimbarnesrtp/pf2](https://github.com/jimbarnesrtp/pf2) | Legacy comparison only; publisher warns AoN HTML extraction is broken |
 
+## Category and value mapping (same workflow as PF2e Foundry)
+
+The five sources with actual item content are converted into validated, compressed, backend-only JSON catalogs and imported by stable **source-specific IDs**. Extracted fields are informational and user-editable, not automatically applied as bonuses on character sheets.
+
+| Cosmos category | Mapped information (when available in the source) |
+| --- | --- |
+| Weapon, Ranged Weapon, Ammunition | Damage dice, critical range/multiplier, type, range, proficiency |
+| Armor | Armor bonus, max Dex, armor check penalty, spell failure, speed at 30/20 ft. |
+| Consumables and Alchemical Items | Healing/damage text, save DC, duration, use/activation details |
+| Magic Items, Artifacts, Enhancements | Description, caster level, source traits and explicit effects |
+| Gear, Services, Vehicles | Price, PF1e pounds, description, available movement/service fields |
+
+- PF1e Foundry uses actual system and actions values; exact sizeRoll(N, D, @size) dice are converted to NdD for readability. Unsupported formulas remain informational, never guessed.
+- PF Data uses its embedded Markdown Price, Cost, Weight, Armor Bonus, and other fields rather than assuming separate JSON properties.
+- Open Reference uses structured item_details and item_misc to identify armor/weapon information.
+- PF2e ORC maps the explicit weapon and armor structures, original copper-piece price, and **PF2e Bulk**, which is never falsely converted to pounds.
+- Legacy PF2e JSON maps weapon, ranged weapon, shield and armor groups and uses a validated original 2e AoN item link when provided.
+- No item is dropped simply for matching another item's name. Players selecting two source catalogs see both records, each with its own source label and independent choice.
+- No invented spell effects, missing damage dice or unsupported equipment modifiers. Source data stays distinct from each user's editable inventory copy.
+
+**Buying versus viewing:** an original 10 gp listing is retained as source cost text, but this import deliberately does not create an unconditional Gil price for every game system. Consistent with the existing PF2e Foundry import, the shop does not assume that a gold piece equals Gil for PF2e or Pathfinder. FFd20's 1 gp = 1 Gil rule applies only to FFd20 sheets, and Gil-paid checkout must use valid explicitly resolved Gil prices.
+
+### Real upstream conversion audit (November 16, 2026)
+
+The first full pinned-archive run converted **6,471 PF1e Foundry**, **7,818 PF Data**, **3,883 Open Reference**, **1,211 PF2e ORC**, and **728 legacy PF2e JSON** item records. The pinned Pf2ools data contains no items and is skipped. These are **candidate source counts**, not live QNAP row counts or verified purchase prices. Source metadata and incomplete fields are retained independently; no name-based deduplication occurs. Current-run totals and coverage are in the cosmos-extra-item-real-audit GitHub Actions artifact for PR #153. Conversion and all repository tests must pass on the final commit before production staging.
+
 ## Important limitations
 
 - The upstream datasets use **different data structures**. The converter accepts a strict subset of each, filters out feats/spells/creatures, and refuses empty archives. Review extraction counts and sample items before enabling any package. Missing data is not invented.
