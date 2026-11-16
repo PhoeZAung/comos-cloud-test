@@ -90,10 +90,11 @@ test('ghosts and goblins have source-correct status rules and separated spell sl
  assert.equal(dog.npcSkills.find(s=>s.name==='Fly').bonus,8);
 });
 
-test('raw auto extraction is preserved and only these 50 are marked reviewed',()=>{
+test('raw Bestiary auto extraction is preserved while NPC Codex review progresses',()=>{
  const source=KINGMAKER_BESTIARY_AUTO_002.find(x=>x.name==='Ghostly Guard');
  assert.match(source.text.attackDetail,/CHAPTER 3/);
  assert.equal(source.verified,'automated-needs-review');
- assert.equal(KINGMAKER_STAGED_ENTRIES[105].verified,'automated-needs-review');
+ assert.equal(KINGMAKER_STAGED_ENTRIES[105].verified,'transcribed-from-PDF');
+ assert.equal(KINGMAKER_STAGED_ENTRIES[115].verified,'automated-needs-review');
  assert.ok(kingmakerProgress().find(x=>x.id==='bestiary').reviewed>=50);
 });
