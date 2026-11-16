@@ -14,7 +14,7 @@ function stableId(ownerId,chapter,key){
 }
 export function planKingmakerImport(db,ownerId,{entries=KINGMAKER_STAGED_ENTRIES}={}){
  if(!ownerId||!db.prepare('SELECT 1 FROM users WHERE id=? AND deleted_at IS NULL').get(ownerId))throw Error('Supply a valid Cosmos user ID for the NPC owner.');
- const own=db.prepare(`SELECT c.id,c.name,d.data_json AS data FROM characters c
+ const own=db.prepare(`SELECT c.id,c.name,c.archived,d.data_json AS data FROM characters c
  JOIN character_details d ON d.character_id=c.id
  WHERE c.owner_id=? AND c.kind='npc'`).all(ownerId);
  const imported=new Set(),manual=new Set();
