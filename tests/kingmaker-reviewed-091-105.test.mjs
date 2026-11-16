@@ -59,10 +59,10 @@ test('all 105 Bestiary creatures stay reviewed while NPC Codex advances in separ
  assert.equal(bestiary.length,105);
  assert.equal(bestiary.filter(e=>e.verified==='transcribed-from-PDF').length,105);
  assert.equal(bestiary.filter(e=>(e.reviewFlags||[]).length>0).length,0);
- assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[105,10,0,0]);
+ assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[105,105,0,7]);
  assert.deepEqual(kingmakerProgress().map(x=>x.staged),[105,105,0,7]);
  assert.deepEqual(kingmakerProgress().map(x=>x.imported),[0,0,0,0]);
- assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.verified==='automated-needs-review').length,102);
+ assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.verified==='automated-needs-review').length,0);
  const pages=[57,58,59,59,60,61,61,62,62,63,64,64,65,65,65];
  const cr=[16,17,2,16,15,10,19,14,15,17,10,18,8,7,6];
  const hp=[216,174,22,230,220,126,312,199,225,261,90,261,94,77,54];
@@ -83,8 +83,8 @@ test('chapter-scoped importer selects only reviewed Bestiary, without an unrevie
  assert.equal(bestiary.length,105);
  assert.ok(bestiary.every(x=>x.verified==='transcribed-from-PDF'));
  assert.equal(selectKingmakerEntries('npc-codex').length,105);
- assert.equal(selectKingmakerEntries('npc-codex').filter(x=>x.verified==='transcribed-from-PDF').length,10);
- assert.equal(selectKingmakerEntries('npc-codex').filter(x=>x.verified==='automated-needs-review').length,95);
+ assert.equal(selectKingmakerEntries('npc-codex').filter(x=>x.verified==='transcribed-from-PDF').length,105);
+ assert.equal(selectKingmakerEntries('npc-codex').filter(x=>x.verified==='automated-needs-review').length,0);
  assert.equal(selectKingmakerEntries('companions').length,7);
  assert.throws(()=>selectKingmakerEntries('hazards'),/Invalid Kingmaker chapter/);
 });
