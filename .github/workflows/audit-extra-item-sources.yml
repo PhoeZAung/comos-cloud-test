@@ -34,8 +34,15 @@ jobs:
               "https://codeload.github.com/$OWNER/$REPO/tar.gz/$REV" -o "$TARGET/source.tar.gz"
             tar -xzf "$TARGET/source.tar.gz" -C "$TARGET"
             test -d "$TARGET/$REPO-$REV"
+            case "$KEY" in
+              pf1e-foundry) MIN=6000;;
+              pf1e-pfdata) MIN=7000;;
+              pf1e-openref) MIN=3500;;
+              pf2e-orc) MIN=1000;;
+              pf2e-json) MIN=600;;
+            esac
             node scripts/build-extra-item-catalog.mjs \
-              "$KEY" "$TARGET/$REPO-$REV" "$REV" "$OUT/extra-$KEY.json.gz"
+              "$KEY" "$TARGET/$REPO-$REV" "$REV" "$OUT/extra-$KEY.json.gz" "$MIN"
             rm -rf "$TARGET"
             echo "::endgroup::"
           done <<'SOURCES'
