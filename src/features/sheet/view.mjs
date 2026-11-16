@@ -174,15 +174,15 @@ function renderNpcSheet(data={}){
   ['AC',known(stats.ac)],['Init',Number.isFinite(stats.initiative)?signed(stats.initiative):'—'],
   ['Speed',Number.isFinite(stats.speed)?stats.speed+' ft':'—'],
   ['Perception',Number.isFinite(stats.perception)?signed(stats.perception):'—']
- ].map(([label,value])=>`<div class="cs-npc-glance-stat"><span>${e(label)}</span><strong>${e(value)}</strong></div>`).join('');
+ ].map(([label,value])=>`<div class="cs-npc-glance-stat cs-metric"><span>${e(label)}</span><strong>${e(value)}</strong></div>`).join('');
  const tabs=[['combat','Combat & Defense'],['abilities','Abilities & Skills'],['details','Details & Lore']];
- const nav='<nav class="cs-npc-tabs" role="tablist" aria-label="NPC sheet sections">'+tabs.map(([key,label],index)=>
+ const nav='<nav class="cs-npc-tabs cs-tabs" role="tablist" aria-label="NPC sheet sections">'+tabs.map(([key,label],index)=>
   '<button type="button" role="tab" data-npc-tab="'+key+'" aria-selected="'+(index===0)+'" tabindex="'+(index===0?'0':'-1')+'">'+label+'</button>').join('')+'</nav>';
  return `<div class="cs-npc-sheet">
-  <header class="cs-npc-overview"><div class="cs-npc-identity">${identity?e(identity):'NPC · Pathfinder First Edition'}</div>${citation?`<div class="cs-npc-citation">${e(citation)}</div>`:''}<div class="cs-npc-glance">${glance}</div></header>
+  <header class="cs-npc-overview cs-card"><div class="cs-npc-identity">${identity?e(identity):'NPC · Pathfinder First Edition'}</div>${citation?`<div class="cs-npc-citation">${e(citation)}</div>`:''}<div class="cs-npc-glance cs-metrics">${glance}</div></header>
   ${nav}
   <section class="cs-npc-panel" data-npc-panel="combat" role="tabpanel" aria-label="Combat and defense">
-   <div class="cs-npc-combat-grid"><div>${health}${edit('npcHealth','NPC HP')}</div>${statCards[0]}${statCards[1]}${statCards[2]}</div>
+   <div class="cs-npc-combat-grid cs-grid"><div>${health}${edit('npcHealth','NPC HP')}</div>${statCards[0]}${statCards[1]}${statCards[2]}</div>
    ${weapons}
   </section>
   <section class="cs-npc-panel" data-npc-panel="abilities" role="tabpanel" aria-label="Abilities and skills" hidden>
