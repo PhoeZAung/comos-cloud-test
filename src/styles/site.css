@@ -183,3 +183,9 @@ header .install-control{margin-right:0;margin-left:auto}header .install-control+
 .npc-progress-card strong{font-size:13px}
 .npc-progress-card progress{display:block;width:100%;height:12px;accent-color:var(--accent)}
 .npc-progress-card small{color:var(--muted);font-size:11px;line-height:1.4}
+
+/* Three GM NPC catalog groups; tags are display-only for legacy records. */
+.npc-catalog-row{display:flex;flex-wrap:wrap;align-items:center;gap:9px;justify-content:space-between}
+.npc-library-tag{display:inline-flex;align-items:center;min-height:24px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.025em}
+.npc-library-tag[data-npc-tag="bestiary"]{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--text)}
+.npc-library-tag[data-npc-tag="companion"]{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--text)}
