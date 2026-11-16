@@ -674,3 +674,11 @@
 .cs-inventory-carry-toggle{flex-shrink:0;border:1px solid var(--line,rgba(255,255,255,.24));border-radius:8px;background:transparent;color:inherit;font:inherit;font-size:12px;padding:8px;cursor:pointer}
 .cs-inventory-carry-toggle:hover{background:rgba(127,127,127,.12)}
 .cs-equip-override{display:flex;align-items:center;gap:8px;padding:8px 12px;margin:0 0 6px;font-size:12px}
+
+/* Favorites are always editable even when stars are hidden elsewhere. */
+.cs-sheet .cs-favorites-view .cs-favorite{display:inline-flex;visibility:visible;opacity:1}
+.cs-favorites-view .cs-favorite-ammunition .cs-entry-actions{display:flex;align-items:center;gap:8px}
+.cs-notes-draft-recovery{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 0;font-size:12px}
+.cs-notes-draft-recovery button{font:inherit}
+.cs-notes-autosave-status{font-size:12px;opacity:.72}
+.cs-syncbar [data-sheet-copy-draft]:not([hidden]){display:inline-flex}
