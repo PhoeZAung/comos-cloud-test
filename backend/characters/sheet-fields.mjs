@@ -1,7 +1,7 @@
 import {SHOP_SOURCE_IDS} from '../../src/features/sheet/shop-sources.mjs';
 import {moveInventoryWeapons,reloadWeaponFromInventory} from '../../src/features/sheet/weapon-inventory.mjs';
 import {randomUUID} from 'node:crypto';
-import {npcStatLabels,npcTextLabels,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
+import {npcStatLabels,npcTextLabels,npcTextLimit,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {abilityKinds,srModes} from '../../src/features/sheet/pathfinder-defenses.mjs';
@@ -40,7 +40,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
   for(const [key,value] of Object.entries(change.fields)){
    if(value===''||value===null){data.npcStats[key]=null;if(abilities.includes(key))delete data[key];continue;}
    const score=numeric(value);
-   if(Math.abs(score)>100000||key!=='cr'&&!Number.isInteger(score))bad('Enter a valid '+npcStatLabels[key]+' value.');
+   if(Math.abs(score)>(key==='xp'?100000000:100000)||key!=='cr'&&!Number.isInteger(score))bad('Enter a valid '+npcStatLabels[key]+' value.');
    data.npcStats[key]=score;
    if(abilities.includes(key))data[key]=score;
   }
@@ -49,7 +49,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
  if(change.action==='npcText'){
   if(!npc||!plain(change.fields)||Object.keys(change.fields).some(key=>!Object.hasOwn(npcTextLabels,key)))bad('Invalid NPC details.');
   data.npcText??={};
-  for(const [key,value] of Object.entries(change.fields))data.npcText[key]=value===null||value===''?null:text(value,4000,npcTextLabels[key]);
+  for(const [key,value] of Object.entries(change.fields))data.npcText[key]=value===null||value===''?null:text(value,npcTextLimit(key),npcTextLabels[key]);
   return data;
  }
  if(change.action==='placeAbility'){
