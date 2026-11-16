@@ -32,7 +32,7 @@ test('automatic records retain source pages and honest review flags; known unkno
   assert.equal(data.npcCategory,entry.chapter);
   assert.equal(data.npcImportKey,entry.slug);
   assert.equal(data.npcStats.sourcePage,entry.printedPage);
-  assert.equal(data.hp_curr,entry.hp??null);
+  assert.equal(data.hp_curr,entry.hpCurrent??entry.hp??null);
   assert.equal(data.npcVerified,entry.verified==='transcribed-from-PDF');
   assert.deepEqual(data.npcVariants,entry.variants||[]);
   if(entry.verified==='automated-needs-review')assert.equal(data.npcVerified,false);
@@ -61,8 +61,8 @@ test('dry-run never writes; applied import is explicitly authorized, idempotent 
   assert.equal(plan.create.length,217);
   assert.equal(plan.unreviewed,KINGMAKER_STAGED_ENTRIES.filter(e=>e.verified==='automated-needs-review').length);
   assert.equal(db.prepare('SELECT COUNT(*) AS n FROM characters').get().n,before);
-  assert.throws(()=>applyKingmakerImport(db,owner.id),/unreviewed NPCs/);
-  const applied=applyKingmakerImport(db,owner.id,{allowNeedsReview:true});
+  assert.equal(plan.unreviewed,0,'all 217 staged entries now PDF-reviewed');
+  const applied=applyKingmakerImport(db,owner.id);
   assert.equal(applied.created,217);
   assert.equal(db.prepare("SELECT COUNT(*) AS n FROM characters WHERE kind='npc'").get().n,217);
   assert.deepEqual(kingmakerProgress(Object.fromEntries(db.prepare(`SELECT json_extract(d.data_json,'$.npcCategory') AS category,COUNT(*) AS n FROM characters c JOIN character_details d ON d.character_id=c.id GROUP BY category`).all().map(x=>[x.category,x.n]))).map(p=>p.imported),[105,105,0,7]);

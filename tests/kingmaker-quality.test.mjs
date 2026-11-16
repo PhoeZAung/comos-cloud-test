@@ -51,7 +51,9 @@ test('report still tracks all staged records separately from review readiness',(
  assert.ok(p[0].reviewed>=50,'review progress cannot regress below 50');
  assert.deepEqual(p.map(x=>x.imported),[0,0,0,0]);
  assert.equal(p[0].flagged,0);
- assert.ok(p[1].flagged>=1);
+ assert.deepEqual(p.map(x=>x.reviewed),[105,105,0,7]);
+ assert.equal(p[1].flagged,0);
+ assert.equal(p[3].flagged,0);
 });
 
 test('two-column PDF headings near the cropped column boundary are not skipped',()=>{

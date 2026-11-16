@@ -1,17 +1,34 @@
-# Kingmaker NPC Codex (First Edition) — source-review tracker
+# Kingmaker NPC and companion source review — November 16, 2026
 
-## Source and publishing boundaries
+The Kingmaker Bestiary (First Edition) content is split into Cosmos NPC catalog tabs. It contains 105 Bestiary creatures, 105 NPC Codex characters and seven named companions; Hazards & Traps are deliberately deferred.
 
-Source: user-supplied **Bestiary.pdf**, Chapter 2: NPC Codex, beginning on printed p. 66. **Only the first 10 of 105 NPC Codex entries have now been reviewed against the actual PDF.** The 105 Bestiary creatures remain source-reviewed and live in QNAP following the separate successful import. Hazards remain deferred; seven companions remain auto-staged but unreviewed.
+| Chapter | Staged | PDF-reviewed | Live QNAP records (confirmed) |
+|---|---:|---:|---|
+| Bestiary | 105 | 105 | 105 created earlier per GM confirmation |
+| NPC Codex | 105 | 105 | Not yet imported |
+| Companions | 7 | 7 (14 level progressions) | Not yet imported |
+| Hazards & Traps | Deferred | Deferred | Deferred |
 
-| Category | Total | PDF reviewed | Unreviewed | Live QNAP import |
-|---|---:|---:|---:|---|
-| Bestiary | 105 | 105 | 0 | User confirmed 105 created |
-| NPC Codex | 105 | 10 | 95 | **Do not import yet** |
-| Hazards & Traps | Deferred | 0 | — | Deferred |
-| Companions | 7 | 0 | 7 | **Do not import yet** |
+## Review and code integration
 
-NPC catalog progress bars now measure **source-reviewed / total**, not just raw auto-staged entries; NPC Codex shows 10/105 after the next QNAP code publication.
+- The first ten NPCs were previously source-reviewed on `main`; remaining NPCs 11–105 are in the ten reviewed modules `npc-codex-reviewed-011-020.mjs` through `npc-codex-reviewed-101-105.mjs`.
+- All seven companion records are in `companions-reviewed-001-007.mjs`; each preserves both printed progression stat blocks (1st and higher levels). Ekundayo's Dog animal companion remains a distinct stat note attached to his level-six progression, not an eighth top-level companion.
+- `catalog.mjs` applies the reviewed overlays by stable source key without modifying the raw extraction, unrelated NPCs, or the existing Bestiary.
+- All chapter-scoped import defaults remain guarded by `npcVerified`; importing an unreviewed source entry without an explicit bypass remains forbidden.
+- `hpCurrent` is kept distinct from maximum HP for source-reviewed NPCs that need it; companion alternative levels carry their own HP in `npcVariants`.
+- Local cumulative NPC verification: 78 tests passed. Companion overlay verification: 2 tests passed. Full Cosmos CI must run on the consolidated branch before merging.
+
+## Publishing sequence — do not skip
+
+1. Merge the reviewed GitHub branch only after complete repository tests and cloud build pass.
+2. Deploy the **exact merged commit** to QNAP via the documented commit-pinned procedure in `docs/QNAP_PHONE_DEPLOY.md`. GitHub merges alone do not update the NAS.
+3. Before importing new records, back up `/data/comos.sqlite` to a safe, verified path. Use chapter-scoped **dry runs**, `npc-codex` first and `companions` second, with the owner ID already used for the Bestiary import.
+4. Stop if the preview reports `existingNameConflicts`, ambiguous records, or unreviewed entries. Preserve existing manually managed NPCs; resolve conflicts before proceeding. Do not use a blanket overwrite or an unreviewed-entry bypass.
+5. Import only these two chapters after clean previews and explicit backup/confirmation, then verify counts and data in the three catalog tabs. The Bestiary 105 already on QNAP must remain unchanged.
+6. Export Obsidian Markdown separately after the completed QNAP imports.
+
+**Status:** consolidated in [pull request #150](https://github.com/PhoeZAung/comos-cloud-test/pull/150). The existence of this branch is not a claim that code or records have been deployed to QNAP.
+---
 
 ## Reviewed batch 001–010
 
@@ -28,15 +45,4 @@ NPC catalog progress bars now measure **source-reviewed / total**, not just raw 
 | 9 | Auchs | 72 | 73 | Removed next character's heading from gear, confirmed stats |
 | 10 | Avinash Jurrg | 72–73 | 73–74 | Split innate and bard spells, complete gear, regeneration 5 (fire/acid) |
 
-## Technical implementation
 
-- Raw source file: src/data/kingmaker/npc-codex-auto-batch-001.mjs (unchanged).
-- Reviewed overrides: src/data/kingmaker/npc-codex-reviewed-001-010.mjs.
-- Catalog merges only matching NPC Codex slugs and marks those **10** as source-reviewed, without changing the 105 Bestiary overlays, existing manually managed NPCs or companions.
-- Agai's enlarged form remains in entry.variants and survives the Cosmos NPC adapter as npcVariants.
-- The standard chapter-scoped importer must continue to refuse importing the 95 unreviewed NPCs. **Do not bypass source review or run a live QNAP NPC import yet.**
-- Obsidian Markdown export will follow chapter imports and QNAP publication as previously planned.
-
-## Next batch
-
-NPC Codex 011–020, beginning with **The Beast** (printed p. 73 / PDF p. 74), will be a separate review batch. Continue to check alternate forms, abilities spanning columns and spell headings.

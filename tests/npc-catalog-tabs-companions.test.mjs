@@ -38,7 +38,7 @@ test('all previously reviewed Kingmaker creatures retain the Bestiary catalog ta
  assert.equal(companions.length,7);
  assert.ok(codex.every(entry=>kingmakerNpcData(entry).npcLibraryTag==='npc'));
  assert.ok(companions.every(entry=>kingmakerNpcData(entry).npcLibraryTag==='companion'));
- assert.ok(companions.every(entry=>kingmakerNpcData(entry).npcVerified===false));
+ assert.ok(companions.every(entry=>kingmakerNpcData(entry).npcVerified===true));
 });
 
 test('companion sheets track independent current, max and temporary HP while NPC and Bestiary stay HP-less',()=>{

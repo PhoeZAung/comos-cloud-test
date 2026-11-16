@@ -26,8 +26,8 @@ test('PDF heading Strength persists across both reviewed and unreviewed records'
  ]){
   const entry=lookup(name,chapter);
   assert.equal(entry.stats.str,str,name);
-  assert.equal(entry.verified,name==='Zorek'?'automated-needs-review':'transcribed-from-PDF',name);
-  assert.match(entry.text.importNotes,name==='Zorek'?/Strength extracted from PDF/:/Source-reviewed printed/,name);
+  assert.equal(entry.verified,'transcribed-from-PDF',name);
+  assert.match(entry.text.importNotes,/Source-reviewed printed/,name);
  }
  for(const [chapter,name] of [
   ['bestiary','Ghostly Guard'],
