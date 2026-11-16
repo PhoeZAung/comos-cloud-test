@@ -34,10 +34,12 @@ export function advanceVisibleTurn(sorted=[],turn={},direction=1){
  const index=Math.max(0,sorted.findIndex(row=>row.id===turn?.id));
  const step=direction===-1?-1:1;
  let round=Math.max(1,Number(turn?.round)||1);
+ let position=index;
  for(let offset=1;offset<=sorted.length;offset++){
-  const raw=index+step*offset,position=((raw%sorted.length)+sorted.length)%sorted.length;
-  if(raw>=sorted.length)round++;
-  else if(raw<0)round=Math.max(1,round-1);
+  const previous=position;
+  position=(position+step+sorted.length)%sorted.length;
+  if(step===1&&position===0&&previous===sorted.length-1)round++;
+  else if(step===-1&&position===sorted.length-1&&previous===0)round=Math.max(1,round-1);
   if(sorted[position].visible!==false)return {id:sorted[position].id,round};
  }
  return null;
