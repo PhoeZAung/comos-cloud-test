@@ -99,6 +99,10 @@ export function parseNpcStatBlock(markdown=''){
   if(abilityList){
    const ability=/^\s*-\s+\*\*(.+?)\*\*:?\s+(.+)/.exec(raw);
    if(ability&&activeAbilities.length<100)activeAbilities.push({name:ability[1].replace(/:$/,'').slice(0,120),desc:clean(ability[2]).slice(0,12000),...( /\((?:Sp|SL)\)/i.test(ability[1])?{ability_kind:'sp'}:/\(Su\)/i.test(ability[1])?{ability_kind:'su'}:/\(Ex\)/i.test(ability[1])?{ability_kind:'ex'}:{} )});
+  else if(activeAbilities.length&&/^\s{2,}\S/.test(raw)&&!/^\s*[|#-]/.test(raw)){
+   const previous=activeAbilities.at(-1);
+   previous.desc=(previous.desc+'\n'+clean(raw)).slice(0,12000);
+  }
   }
   const table=/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|/.exec(line);
   const inline=/^(Init(?:iative)?|AC|HP|XP|Hit Dice|HD|Page|CR|Fort|Ref|Will|Speed|Space|Reach|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Aura|Defensive Abilities|Special Attacks|Special Abilities|Spell-Like Abilities|Spells Prepared|Spells Known|Description|Reference|Combat Gear|Environment|Organization|Treasure|Tactics|DR|SR|Resist|Immune|Weaknesses|Caster Level|CL|Spell DC|Perception)\s*:?\s+(.+)$/i.exec(line);
@@ -123,8 +127,8 @@ export function parseNpcStatBlock(markdown=''){
   reach:valueAtStart(get('reach'))??namedValue(get('space'),'Reach'),
   flySpeed:namedValue(get('speed'),'fly'),swimSpeed:namedValue(get('speed'),'swim'),
   climbSpeed:namedValue(get('speed'),'climb'),burrowSpeed:namedValue(get('speed'),'burrow'),
-  fastHealing:namedValue(get('defensive abilities'),'fast healing'),
-  regeneration:namedValue(get('defensive abilities'),'regeneration')
+  fastHealing:namedValue(get('defensive abilities'),'fast healing')??namedValue(hp,'fast healing'),
+  regeneration:namedValue(get('defensive abilities'),'regeneration')??namedValue(hp,'regeneration')
  };
  for(const key of ['dex','con','int','wis','cha'])values[key]=valueAtStart(get(key))??namedValue(scores,key);
  const defensiveText=[get('defensive abilities'),get('dr'),get('sr')].filter(Boolean).join('; ');
@@ -143,7 +147,7 @@ export function parseNpcStatBlock(markdown=''){
   hpDetail:hp,acDetail:ac,saveDetail:[saves,get('ref'),get('will')].filter(Boolean).join('; '),maneuverDetail:[bab,get('cmb'),get('cmd')].filter(Boolean).join('; '),
   movementDetail:get('speed'),attackDetail:[get('melee'),get('ranged')].filter(Boolean).join('; '),skillDetail:get('skills'),
   drBypass:importedDr?.bypass,energyResistances:get('resist'),immunities:get('immune'),vulnerabilities:get('weaknesses')};
- for(const [key,value] of Object.entries(details))if(value)npcText[key]=value.slice(0,4000);
+ for(const [key,value] of Object.entries(details))if(value)npcText[key]=value.slice(0,npcTextLimit(key));
  const skillText=[...splitEntries(get('skills'))];
  const perception=/\bPerception\s+[+-]\d+/i.exec(init)?.[0];
  if(perception&&!skillText.some(row=>/^perception\s/i.test(row)))skillText.push(perception);
