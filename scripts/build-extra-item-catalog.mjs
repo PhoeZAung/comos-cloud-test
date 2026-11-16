@@ -26,6 +26,22 @@ const money=value=>{
 };
 const weight=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0?value:
  typeof value==='string'&&/^\d+(?:\.\d+)?$/.test(value)?Number(value):null;
+// Parse only explicit player-facing amounts in source text; do not infer a price.
+const labeled=(description,label)=>{
+ const pattern=new RegExp('(?:^|[\\n;])\\s*\\*\\*'+label+'\\*\\*\\s*:?\\s*([^;\\n]+)','i');
+ return pattern.exec(description)?.[1]?.trim()||'';
+};
+const pounds=value=>{
+ const match=/^\s*(\d[\d,]*(?:\.\d+)?)\s*(?:lbs?\.?|pounds?)\b/i.exec(str(value).trim());
+ if(!match)return null;
+ const n=Number(match[1].replaceAll(',',''));
+ return Number.isFinite(n)&&n>=0&&n<=1000000?n:null;
+};
+const normalizedField=value=>str(value).toLowerCase().replace(/[^a-z0-9]/g,'');
+const referenceColumn=(cells,...labels)=>{
+ const normalized=new Set(labels.map(normalizedField));
+ return str(cells.find(row=>normalized.has(normalizedField(row.field)))?.value);
+};
 function plainText(value){
  if(typeof value==='string')return readableDescription(value.replace(/\{@[^}\s]+\s+([^}]+)\}/g,'$1'));
  if(Array.isArray(value))return value.map(plainText).filter(Boolean).join('\n');
@@ -68,20 +84,41 @@ function entriesFor(source,file,strings={}){
   if(!/\bjson\/(equipment|magic|item)[-_][^/]+\.json$/i.test(rel))return [];
   const data=JSON.parse(strings.body);
   if(!obj(data))return [];
-  return Object.entries(data).filter(([id,row])=>id!=='not_found'&&obj(row)&&str(row.name)).map(([id,row])=>({
-   id,name:row.name,category:category(base,base),description:plainText(row.description),
-   price:money(row.price||row.cost),weight:weight(row.weight),damage:row.damage,crit:row.critical,
-   range:row.range
-  }));
+  return Object.entries(data).filter(([id,row])=>id!=='not_found'&&obj(row)&&str(row.name)).map(([id,row])=>{
+   const original=plainText(row.description);
+   const description=original.split('\n').filter(line=>!/^\s*(?:#{1,4}\s|‹SOURCE\b)/i.test(line)).join('\n').trim();
+   return {id,name:row.name,category:category(base,base),description,
+    price:money(row.price||row.cost)||labeled(original,'(?:Price|Cost)'),
+    weight:weight(row.weight)??pounds(labeled(original,'Weight')),
+    damage:row.damage,crit:row.critical,range:row.range};
+  });
  }
  if(source==='pf1e-openref'){
   if(!/\bbooks\/[^/]+\/\d+\.json$/i.test(rel))return [];
   const data=JSON.parse(strings.body);
   if(!Array.isArray(data))return [];
-  return data.filter(row=>obj(row)&&['item','vehicle'].includes(row.t)&&str(row.n)).map(row=>({
-   id:row.i,name:row.n,category:category(row.t,rel),description:plainText(row.b),
-   price:money(row.cost),weight:weight(row.weight),rawUrl:row.u
-  }));
+  return data.filter(row=>obj(row)&&['item','vehicle'].includes(row.t)&&str(row.n)).map(row=>{
+   const cells=Array.isArray(row.x?.item_misc)?row.x.item_misc.filter(obj):[];
+   const field=(...labels)=>referenceColumn(cells,...labels);
+   const armor=field('Armor Bonus','Armor/ShieldBonus','Armor/Shield Bonus');
+   const weaponClass=field('Weapon Class','Proficiency');
+   const isArmor=Boolean(armor||field('Armor Type'));
+   const isWeapon=Boolean(weaponClass||field('Damage (M)','Damage'));
+   const itemCategory=row.t==='vehicle'?'Vehicles & Mounts':isArmor?'Armor':
+     isWeapon?(/ranged/i.test(weaponClass)?'Ranged Weapon':'Weapon'):'Gear';
+   return {
+    id:row.i,name:row.n,category:itemCategory,description:plainText(row.b),
+    price:money(row.x?.item_details?.price)||field('Price')||money(row.cost),
+    weight:pounds(row.x?.item_details?.weight)||pounds(field('Weight'))||weight(row.weight),
+    damage:field('Damage (M)','Damage (Medium)','Damage'),
+    crit:field('Critical'),range:field('Range'),
+    armor,maxDex:field('MaxDex Bonus','Max Dex Bonus','Maximum Dex Bonus'),
+    checkPenalty:field('ArmorCheck Penalty','Armor Check Penalty'),
+    spellFailure:field('Arcane SpellFailure Chance','Arcane Spell Failure Chance'),
+    speed30Ft:field('Speed (30 ft.)'),speed20Ft:field('Speed (20 ft.)'),
+    proficiency:weaponClass,rawUrl:row.u
+   };
+  });
  }
  if(source==='pf2e-pf2ools'){
   if(!/\bdata\/core\//i.test(rel)||/\b(homebrew|license|source|sourcegroup)\b/i.test(rel))return [];
@@ -174,7 +211,9 @@ export async function buildExtraCatalog(source,input,version,output){
    if(info.system==='pathfinder-1e'&&entry.weight!==null&&entry.weight!==undefined&&Number.isFinite(entry.weight))
     sourceRow.weight=entry.weight;
    for(const [field,val] of Object.entries({dmg:entry.damage,crit:entry.crit,range:entry.range,
-    acBonus:entry.armor,traits:entry.traits,level:entry.level,review:entry.review})){
+    acBonus:entry.armor,maxDex:entry.maxDex,checkPenalty:entry.checkPenalty,
+    spellFailure:entry.spellFailure,speed30Ft:entry.speed30Ft,speed20Ft:entry.speed20Ft,
+    proficiency:entry.proficiency,traits:entry.traits,level:entry.level,review:entry.review})){
     if(typeof val==='string'&&val.length<=200)sourceRow[field]=val;
     else if(typeof val==='number'&&Number.isFinite(val))sourceRow[field]=String(val);
     else if(Array.isArray(val))sourceRow[field]=val.map(String).join(', ').slice(0,200);
