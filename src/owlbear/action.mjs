@@ -23,7 +23,7 @@ let popup,nonce,connection,activeCharacterId=null,tabWindow,tabNonce,tabConnecti
 let autoConnecting=false,pendingExistingGrant=null,autoAttemptAt=0,autoAttemptGeneration=0;
 let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,characterRequest=null,npcRequest=null,characters=[],npcs=[],pickerCandidates=[];
 const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheetTab:id=>showSheet(id),onCloseSheet:id=>closeSheet(id),onView:()=>{saveScroll(activeCharacterId);}});
-const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command));
+const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command),{historyRoot:document});
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID();
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
