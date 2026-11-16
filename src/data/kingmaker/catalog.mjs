@@ -1,15 +1,20 @@
 import {normalizeNpcSheet} from '../../features/characters/npc-stat-block.mjs';
 import {KINGMAKER_BESTIARY_BATCH_001} from './bestiary-batch-001.mjs';
+import {KINGMAKER_BESTIARY_AUTO_002} from './bestiary-auto-batch-002.mjs';
+import {KINGMAKER_NPC_CODEX_AUTO_001} from './npc-codex-auto-batch-001.mjs';
+import {KINGMAKER_COMPANIONS_AUTO_001} from './companions-auto-batch-001.mjs';
 
-// Provisional stat-block totals counted from the chapter text; confirmed
-// entries will be reconciled against all chapter headings as extraction grows.
+// Stat-block totals from the source PDF's chapter headings (companions count named characters, with progression variants).
 export const KINGMAKER_CHAPTERS=Object.freeze([
- {id:'bestiary',name:'Bestiary',chapter:1,total:103},
+ {id:'bestiary',name:'Bestiary',chapter:1,total:105},
  {id:'npc-codex',name:'NPC Codex',chapter:2,total:105},
  {id:'hazards',name:'Hazards & Traps',chapter:3,total:null,deferred:true},
  {id:'companions',name:'Companions',chapter:4,total:7}
 ]);
-export const KINGMAKER_STAGED_ENTRIES=Object.freeze([...KINGMAKER_BESTIARY_BATCH_001]);
+export const KINGMAKER_STAGED_ENTRIES=Object.freeze([
+ ...KINGMAKER_BESTIARY_BATCH_001,...KINGMAKER_BESTIARY_AUTO_002,
+ ...KINGMAKER_NPC_CODEX_AUTO_001,...KINGMAKER_COMPANIONS_AUTO_001
+]);
 export const KINGMAKER_BOOK_ID='kingmaker-bestiary-first-edition';
 
 // Convert a staged record to the same shape as an editable Cosmos NPC sheet.
@@ -23,6 +28,8 @@ export function kingmakerNpcData(entry){
   npcCategory:entry.chapter,npcImportSource:KINGMAKER_BOOK_ID,
   npcImportKey:entry.slug,npcSourcePdfPage:entry.pdfPage,
   npcNeedsRulesReference:entry.needsRulesReference===true,
+  npcVerified:entry.verified==='transcribed-from-PDF',npcReviewFlags:entry.reviewFlags||[],
+  npcVariants:entry.variants||[],
   hp_curr:entry.hp,hp_max:entry.hp,
   npcStats:{...entry.stats,sourcePage:page},
   npcText:{...entry.text,source:entry.source,sourceReference:
@@ -34,7 +41,9 @@ export function kingmakerNpcData(entry){
 export function kingmakerProgress(imported={}){
  return KINGMAKER_CHAPTERS.map(chapter=>{
   const staged=KINGMAKER_STAGED_ENTRIES.filter(item=>item.chapter===chapter.id).length;
-  return {...chapter,staged,imported:Number(imported[chapter.id]||0),
+  const reviewed=KINGMAKER_STAGED_ENTRIES.filter(item=>item.chapter===chapter.id&&item.verified==='transcribed-from-PDF').length;
+  const flagged=KINGMAKER_STAGED_ENTRIES.filter(item=>item.chapter===chapter.id&&(item.reviewFlags||[]).length>0).length;
+  return {...chapter,staged,reviewed,flagged,imported:Number(imported[chapter.id]||0),
    percent:chapter.total?Math.round(100*staged/chapter.total):0};
  });
 }

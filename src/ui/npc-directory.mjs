@@ -47,7 +47,7 @@ export function mountNpcDirectory(){
    meter.setAttribute('aria-label',item.name+' source extraction progress');
    const desc=document.createElement('small');
    desc.textContent=item.deferred?'Deferred — not extracting yet':
-    'GitHub staged '+(item.staged||0)+' / '+item.total+' · Cosmos imported '+(item.imported||0);
+    'GitHub staged '+(item.staged||0)+' / '+item.total+' · Source-reviewed '+(item.reviewed||0)+' · Needs review '+(item.staged-item.reviewed||0)+' · Cosmos imported '+(item.imported||0);
    card.append(heading,meter,desc);progressRoot.append(card);
   }
  }
