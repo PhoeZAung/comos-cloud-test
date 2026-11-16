@@ -182,12 +182,12 @@ function renderNpcSheet(data={}){
   const score=stats[key],bonus=Math.floor((score-10)/2);
   return '<button class="cs-score" type="button" data-roll="'+key.toUpperCase()+' check" data-bonus="'+bonus+'"><span>'+key.toUpperCase()+'</span><strong>'+score+'</strong><small>'+signed(bonus)+'</small></button>';
  }).join('');
- const skillRows=(data.npcSkills||[]).filter(row=>row&&String(row.name||'').trim()&&Number.isFinite(row.bonus)).map((skill,index)=>
+ const skillRows=(data.npcSkills||[]).map((skill,index)=>({skill,index})).filter(({skill})=>skill&&String(skill.name||'').trim()&&Number.isFinite(skill.bonus)).map(({skill,index})=>
   '<div class="cs-skill"><button type="button" class="cs-skill-roll" data-roll="'+e(skill.name)+'" data-bonus="'+skill.bonus+'"><span>'+e(skill.name)+'</span><strong>'+signed(skill.bonus)+'</strong>'+icons.dice+'</button><button type="button" class="cs-entry-name-edit" data-edit-entry="npcSkills:'+index+'" aria-label="Edit '+e(skill.name)+'">'+icons.edit+'</button></div>').join('');
  const abilityRows=(data.activeAbilities||[]).map((row,index)=>entry('activeAbilities',row,index,data)).join('');
  const featRows=(data.feats||[]).map((row,index)=>entry('feats',row,index,data)).join('');
  const otherAbilities=pairs(['specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','qualities','spellNotes']);
- const creatureInfo=pairs(['summary','raceClassLevels','alignment','size','creatureType','subtypes','languages','description','environment','organization','treasure']);
+ const creatureInfo=pairs(['raceClassLevels','alignment','size','creatureType','subtypes','languages','description','environment','organization','treasure']);
  const coreMovement=metrics(['speed','flySpeed','swimSpeed','climbSpeed','burrowSpeed','space','perception'])+pairs(['senses','aura','movementDetail']);
  const coreGear=pairs(['gear','combatGear']);
  const tabs=[['combat','Combat'],['core','Core'],['abilities','Abilities']];
@@ -207,7 +207,7 @@ function renderNpcSheet(data={}){
   (creatureInfo?'<section class="cs-card cs-npc-details"><details><summary>Creature details</summary>'+creatureInfo+'</details>'+edit('npcCreatureInfo','creature details')+'</section>':'')+
   '</section>'+
   '<section class="cs-npc-panel" data-npc-panel="abilities" role="tabpanel" aria-label="Abilities" hidden>'+
-  '<section class="cs-card"><div class="cs-card-title"><h2>Skills</h2><button type="button" class="cs-icon" data-add-entry="npcSkills" aria-label="Add skill">+</button></div><div class="cs-skills">'+skillRows+'</div>'+(details.skillDetail?'<div class="cs-npc-printed-skills">'+pairs(['skillDetail'])+'</div>':'')+'</section>'+
+  '<section class="cs-card"><div class="cs-card-title"><h2>Skills</h2><button type="button" class="cs-icon" data-add-entry="npcSkills" aria-label="Add skill">+</button></div><div class="cs-skills">'+skillRows+'</div>'+(!skillRows&&details.skillDetail?'<div class="cs-npc-printed-skills">'+pairs(['skillDetail'])+'</div>':'')+'</section>'+
   '<section class="cs-collection"><div class="cs-section-tools"><h2>Abilities</h2><button type="button" class="cs-icon" data-add-entry="activeAbilities" aria-label="Add ability">+</button></div>'+abilityRows+
   (otherAbilities?'<div class="cs-npc-ability-prose">'+otherAbilities+edit('npcAbilityText','ability details')+'</div>':'')+'</section>'+
   card('Feats',featRows+(details.feats?pairs(['feats']):''),edit('npcFeats','feats')+'<button type="button" class="cs-icon" data-add-entry="feats" aria-label="Add feat">+</button>')+
