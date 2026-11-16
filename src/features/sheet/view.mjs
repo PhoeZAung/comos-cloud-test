@@ -136,68 +136,82 @@ export function renderSection(character,section,{ability='activeAbilities',comba
  if(party)return tabs+'<div class="cs-notes-electric"><section class="cs-party-notes" data-party-notes="'+e(party.id)+'" role="tabpanel" aria-label="'+e(party.name)+' notes"><p class="cs-notes-status" role="status">Connecting…</p><textarea data-party-notes-input aria-label="'+e(party.name)+' shared notes" rows="14" maxlength="24000" readonly></textarea></section></div>';
  return tabs+'<div class="cs-notes-electric">'+card('Personal notes',`<form data-notes><label class="sr-only" for="cs-notes">Character notes</label><textarea id="cs-notes" name="notesArea" rows="8" maxlength="12000" placeholder="A few things to remember…">${e(d.notesArea||'')}</textarea><button class="button primary" type="submit">Save notes</button><small class="cs-notes-autosave-status" data-notes-autosave-status role="status">Auto-saves after typing</small></form>`)+'</div>';
 }
+
+const npcRollableStats=new Set(['fort','ref','will','initiative','cmb','perception','meleeAttack','rangedAttack']);
+function npcMetric(stats,key){
+ const value=stats[key];
+ if(!Number.isFinite(value))return '';
+ const label=e(npcStatLabels[key]||key);
+ const roll=npcRollableStats.has(key);
+ const display=roll?signed(value):String(value)+(['speed','flySpeed','swimSpeed','climbSpeed','burrowSpeed','reach'].includes(key)?' ft':'');
+ return roll?'<button class="cs-metric" type="button" data-roll="'+label+'" data-bonus="'+value+'"><span>'+label+'</span><strong>'+e(display)+'</strong></button>':
+  '<div class="cs-metric"><span>'+label+'</span><strong>'+e(display)+'</strong></div>';
+}
+function npcTextPairs(details,keys){
+ return keys.filter(key=>typeof details[key]==='string'&&details[key].trim()).map(key=>
+  '<div><dt>'+e(npcTextLabels[key]||key)+'</dt><dd>'+e(details[key])+'</dd></div>').join('');
+}
+export function renderNpcCombatDetails(data={},kind='defense'){
+ const stats=data.npcStats||{},details=data.npcText||{};
+ const metrics=keys=>keys.map(key=>npcMetric(stats,key)).filter(Boolean).join('');
+ const pairs=keys=>{const rows=npcTextPairs(details,keys);return rows?'<dl class="cs-pairs">'+rows+'</dl>':'';};
+ const group=(title,keys)=>{
+  const rows=metrics(keys);
+  return rows?'<section class="cs-npc-popup-group"><h3>'+e(title)+'</h3><div class="cs-popup-metrics">'+rows+'</div></section>':'';
+ };
+ const notes=(title,keys)=>{
+  const rows=pairs(keys);
+  return rows?'<section class="cs-npc-popup-group"><h3>'+e(title)+'</h3>'+rows+'</section>':'';
+ };
+ if(kind==='attack')return '<div class="cs-npc-combat-popup">'+
+  group('Attack rolls',['initiative','bab','cmb','meleeAttack','rangedAttack','reach','casterLevel','spellPenetration','spellDC'])+
+  notes('Attack details',['attackDetail','maneuverDetail','specialAttacks','tactics','spellNotes'])+
+  '<div class="cs-npc-popup-edit">'+edit('npcCombatAttack','attack stats')+edit('npcCombatAttackText','attack details')+'</div></div>';
+ return '<div class="cs-npc-combat-popup">'+
+  group('Armor class',['ac','touch','flat','cmd','dr','sr'])+
+  group('Saving throws',['fort','ref','will'])+
+  notes('Defenses & modifiers',['acDetail','saveDetail','defenses','weaknesses','drBypass','energyResistances','immunities','vulnerabilities','saveSpecial'])+
+  '<div class="cs-npc-popup-edit">'+edit('npcCombatDefense','defense and saves')+edit('npcCombatDefenseText','defense details')+'</div></div>';
+}
 function renderNpcSheet(data={}){
  const stats=data.npcStats||{},details=data.npcText||{};
- const saves=new Set(['fort','ref','will','initiative','cmb','perception','meleeAttack','rangedAttack']);
- const stat=key=>{
-  const value=stats[key],label=npcStatLabels[key],known=Number.isFinite(value);
-  if(!known)return '';
-  if(saves.has(key))return `<button class="cs-metric" type="button" data-roll="${e(label)}" data-bonus="${value}"><span>${e(label)}</span><strong>${signed(value)}</strong></button>`;
-  return `<div class="cs-metric${known?'':' cs-metric-unset'}"><span>${e(label)}</span><strong>${known?e(value)+(key.toLowerCase().includes('speed')||key==='reach'?' ft':''):'—'}</strong></div>`;
- };
+ const card=(title,body,button='')=>'<section class="cs-card cs-npc-core-card"><div class="cs-card-title"><h2>'+e(title)+'</h2>'+button+'</div>'+body+'</section>';
+ const pairs=keys=>{const rows=npcTextPairs(details,keys);return rows?'<dl class="cs-pairs">'+rows+'</dl>':'';};
+ const metrics=keys=>{const rows=keys.map(key=>npcMetric(stats,key)).filter(Boolean).join('');return rows?'<div class="cs-metrics">'+rows+'</div>':'';};
  const scores=abilities.filter(key=>Number.isFinite(stats[key])).map(key=>{
-  const score=stats[key],known=Number.isFinite(score);
-  return known?`<button class="cs-score" type="button" data-roll="${key.toUpperCase()} check" data-bonus="${Math.floor((score-10)/2)}"><span>${key.toUpperCase()}</span><strong>${score}</strong><small>${signed(Math.floor((score-10)/2))}</small></button>`:
-   `<div class="cs-score cs-score-unset"><span>${key.toUpperCase()}</span><strong>—</strong><small>Not set</small></div>`;
+  const score=stats[key],bonus=Math.floor((score-10)/2);
+  return '<button class="cs-score" type="button" data-roll="'+key.toUpperCase()+' check" data-bonus="'+bonus+'"><span>'+key.toUpperCase()+'</span><strong>'+score+'</strong><small>'+signed(bonus)+'</small></button>';
  }).join('');
-
- const statCards=npcStatGroups.map((group,index)=>{
-  const values=group.keys.filter(key=>!abilities.includes(key)&&key!=='sourcePage'&&Number.isFinite(stats[key])).map(stat).join('');
-  const content=(values?'<div class="cs-metrics">'+values+'</div>':'')+(index===npcStatGroups.length-1&&scores?'<div class="cs-scores">'+scores+'</div>':'');
-  const action=edit('npcStats:'+index,group.title);
-  return content?baseCard(group.title,content,action):'<section class="cs-card cs-npc-add-only"><div class="cs-card-title"><h2>'+e(group.title)+'</h2>'+action+'</div></section>';
- });
- const knownHp=Number.isFinite(data.hp_curr)&&Number.isFinite(data.hp_max);
- const hpFields=[['Current HP',data.hp_curr],['Max HP',data.hp_max],['Temp HP',data.hp_temp]].filter(([,value])=>Number.isFinite(value));
- const health=knownHp?resource('HP',data.hp_curr,data.hp_max,'hp_curr',data.hp_temp,false,{showEdit:false}):
-  hpFields.length?baseCard('HP','<div class="cs-metrics">'+hpFields.map(([label,value])=>'<div class="cs-metric"><span>'+e(label)+'</span><strong>'+e(value)+'</strong></div>').join('')+'</div>'):
-  '<section class="cs-card cs-npc-add-only"><h2>HP</h2></section>';
- const skillRows=(data.npcSkills||[]).map((skill,index)=>`<div class="cs-skill"><button type="button" class="cs-skill-roll" data-roll="${e(skill.name)}" data-bonus="${e(skill.bonus)}"><span>${e(skill.name)}</span><strong>${signed(skill.bonus)}</strong>${icons.dice}</button><button type="button" class="cs-entry-name-edit" data-edit-entry="npcSkills:${index}" aria-label="Edit ${e(skill.name)}">${icons.edit}</button></div>`).join('');
- const detailCards=npcTextGroups.map((group,index)=>{
-  if(index===3)return '';
-  const values=group.keys.filter(key=>typeof details[key]==='string'&&details[key].trim()).map(key=>'<div><dt>'+e(npcTextLabels[key])+'</dt><dd>'+e(details[key])+'</dd></div>').join('');
-  const action=edit('npcText:'+index,group.title);
-  return '<section class="cs-card cs-npc-details'+(values?'':' cs-npc-add-only')+'"><details '+(index===0&&values?'open':'')+'><summary>'+e(group.title)+'</summary>'+(values?'<dl class="cs-pairs">'+values+'</dl>':'')+'</details>'+action+'</section>';
- });
- const weapons=collectionBlock('weapons',data,'',{npc:true});
- const actions=(data.activeAbilities||[]).map((row,index)=>entry('activeAbilities',row,index,data)).join('');
- const known=number=>Number.isFinite(number)?String(number):null;
- const identity=[details.alignment,details.size,details.creatureType,details.subtypes].filter(Boolean).join(' · ');
- const glance=[
-  ['CR',known(stats.cr)],['XP',known(stats.xp)],['HP',knownHp?data.hp_curr+' / '+data.hp_max:null],
-  ['AC',known(stats.ac)],['Init',Number.isFinite(stats.initiative)?signed(stats.initiative):null],
-  ['Speed',Number.isFinite(stats.speed)?stats.speed+' ft':null],
-  ['Perception',Number.isFinite(stats.perception)?signed(stats.perception):null]
- ].filter(([,value])=>value!==null).map(([label,value])=>`<div class="cs-npc-glance-stat cs-metric"><span>${e(label)}</span><strong>${e(value)}</strong></div>`).join('');
- const tabs=[['combat','Combat & Defense'],['abilities','Abilities & Skills'],['details','Details & Lore']];
- const nav='<nav class="cs-npc-tabs cs-tabs" role="tablist" aria-label="NPC sheet sections">'+tabs.map(([key,label],index)=>
-  '<button type="button" role="tab" data-npc-tab="'+key+'" aria-selected="'+(index===0)+'" tabindex="'+(index===0?'0':'-1')+'">'+label+'</button>').join('')+'</nav>';
- return `<div class="cs-npc-sheet">
-  ${identity||glance?`<header class="cs-npc-overview cs-card">${identity?'<div class="cs-npc-identity">'+e(identity)+'</div>':''}${glance?'<div class="cs-npc-glance cs-metrics">'+glance+'</div>':''}</header>`:''}
-  ${nav}
-  <section class="cs-npc-panel" data-npc-panel="combat" role="tabpanel" aria-label="Combat and defense">
-   <div class="cs-npc-combat-grid cs-grid"><div>${health}${edit('npcHealth','NPC HP')}</div>${statCards[0]}${statCards[1]}${statCards[2]}</div>
-   ${weapons}
-  </section>
-  <section class="cs-npc-panel" data-npc-panel="abilities" role="tabpanel" aria-label="Abilities and skills" hidden>
-   ${statCards[3]}
-   <section class="cs-card"><div class="cs-card-title"><h2>Skills</h2><button type="button" class="cs-icon" data-add-entry="npcSkills" aria-label="Add skill">+</button></div><div class="cs-skills">${skillRows}</div></section>
-   <section class="cs-collection"><div class="cs-section-tools"><h2>Abilities</h2><button type="button" class="cs-icon" data-add-entry="activeAbilities" aria-label="Add ability">+</button></div>${actions}</section>
-  </section>
-  <section class="cs-npc-panel" data-npc-panel="details" role="tabpanel" aria-label="Details and lore" hidden>
-   <div class="cs-npc-detail-groups">${detailCards.filter(Boolean).join('')}</div>
-  </section>
- </div>`;
+ const skillRows=(data.npcSkills||[]).filter(row=>row&&String(row.name||'').trim()&&Number.isFinite(row.bonus)).map((skill,index)=>
+  '<div class="cs-skill"><button type="button" class="cs-skill-roll" data-roll="'+e(skill.name)+'" data-bonus="'+skill.bonus+'"><span>'+e(skill.name)+'</span><strong>'+signed(skill.bonus)+'</strong>'+icons.dice+'</button><button type="button" class="cs-entry-name-edit" data-edit-entry="npcSkills:'+index+'" aria-label="Edit '+e(skill.name)+'">'+icons.edit+'</button></div>').join('');
+ const abilityRows=(data.activeAbilities||[]).map((row,index)=>entry('activeAbilities',row,index,data)).join('');
+ const featRows=(data.feats||[]).map((row,index)=>entry('feats',row,index,data)).join('');
+ const otherAbilities=pairs(['specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','qualities','spellNotes']);
+ const creatureInfo=pairs(['summary','raceClassLevels','alignment','size','creatureType','subtypes','languages','description','environment','organization','treasure']);
+ const coreMovement=metrics(['speed','flySpeed','swimSpeed','climbSpeed','burrowSpeed','space','perception'])+pairs(['senses','aura','movementDetail']);
+ const coreGear=pairs(['gear','combatGear']);
+ const tabs=[['combat','Combat'],['core','Core'],['abilities','Abilities']];
+ const nav='<nav class="cs-npc-tabs cs-tabs" role="tablist" aria-label="NPC sheet sections">'+tabs.map((row,index)=>
+  '<button type="button" role="tab" data-npc-tab="'+row[0]+'" aria-selected="'+(index===0)+'" tabindex="'+(index===0?'0':'-1')+'">'+row[1]+'</button>').join('')+'</nav>';
+ const acKnown=Number.isFinite(stats.ac);
+ const attack='<button type="button" class="cs-combat-tile cs-attack-tile" data-combat-details="attack" aria-label="Show NPC attacks" title="Attack rolls">'+icons.sword+'<span class="sr-only">Attacks</span></button>';
+ const defense='<button type="button" class="cs-combat-tile cs-ac-tile" data-combat-details="defense" aria-label="Show NPC defenses and saving throws'+(acKnown?'; AC '+stats.ac:'')+'" title="AC, defenses and saves"><svg class="cs-ac-outline" viewBox="0 0 100 116" aria-hidden="true"><path d="M50 4 92 19v35c0 27-42 57-42 57S8 81 8 54V19Z"/></svg><span class="cs-combat-label">AC</span>'+(acKnown?'<strong>'+stats.ac+'</strong>':'')+'</button>';
+ return '<div class="cs-npc-sheet">'+nav+
+  '<section class="cs-npc-panel" data-npc-panel="combat" role="tabpanel" aria-label="Combat">'+
+  '<div class="cs-npc-combat-summary cs-combat-summary">'+attack+defense+'</div>'+
+  collectionBlock('weapons',data,'',{npc:true})+'</section>'+
+  '<section class="cs-npc-panel" data-npc-panel="core" role="tabpanel" aria-label="Core" hidden>'+
+  card('Ability scores',scores?'<div class="cs-scores">'+scores+'</div>':'',edit('npcAbilityScores','ability scores'))+
+  card('Movement & senses',coreMovement,edit('npcCoreStats','movement')+edit('npcCoreSenses','senses'))+
+  card('Gear',coreGear,edit('npcGear','gear'))+
+  (creatureInfo?'<section class="cs-card cs-npc-details"><details><summary>Creature details</summary>'+creatureInfo+'</details>'+edit('npcCreatureInfo','creature details')+'</section>':'')+
+  '</section>'+
+  '<section class="cs-npc-panel" data-npc-panel="abilities" role="tabpanel" aria-label="Abilities" hidden>'+
+  '<section class="cs-card"><div class="cs-card-title"><h2>Skills</h2><button type="button" class="cs-icon" data-add-entry="npcSkills" aria-label="Add skill">+</button></div><div class="cs-skills">'+skillRows+'</div>'+(details.skillDetail?'<div class="cs-npc-printed-skills">'+pairs(['skillDetail'])+'</div>':'')+'</section>'+
+  '<section class="cs-collection"><div class="cs-section-tools"><h2>Abilities</h2><button type="button" class="cs-icon" data-add-entry="activeAbilities" aria-label="Add ability">+</button></div>'+abilityRows+
+  (otherAbilities?'<div class="cs-npc-ability-prose">'+otherAbilities+edit('npcAbilityText','ability details')+'</div>':'')+'</section>'+
+  card('Feats',featRows+(details.feats?pairs(['feats']):''),edit('npcFeats','feats')+'<button type="button" class="cs-icon" data-add-entry="feats" aria-label="Add feat">+</button>')+
+  '</section></div>';
 }
 function resource(label,current,max,key,temp,favorite=false,{spellAbility=null,showEdit=true}={}){return `<section class="cs-resource ${key==='mp_curr'?'cs-resource-mp':'cs-resource-hp'}"><div><h2>${label}</h2><span>/ ${max}</span>${showEdit?edit(key==='hp_curr'?'hp':'mp',label):''}<button type="button" class="cs-favorite" data-resource-favorite="${key==='hp_curr'?'hp_favorite':'mp_favorite'}" aria-label="Favorite ${label}" aria-pressed="${favorite===true}">${icons.favorites}</button></div><div class="cs-resource-controls"><button type="button" data-resource="${key}" data-delta="-1" aria-label="Decrease ${label}">−</button><input type="number" data-resource-input="${key}" value="${current}" aria-label="Current ${label}" step="any"><button type="button" data-resource="${key}" data-delta="1" aria-label="Increase ${label}">+</button></div>${spellAbility?'<select class="cs-spell-ability-select" data-spell-ability aria-label="Spell ability">'+abilities.map(a=>'<option value="'+a+'"'+(spellAbility===a?' selected':'')+'>'+a.toUpperCase()+'</option>').join('')+'</select>':''}${key==='hp_curr'?(number(temp)>0?'<div class="cs-temp-hp"><span>Temp HP</span><button type="button" class="cs-icon" data-temp-hp-delta="-1" aria-label="Decrease temporary HP">−</button><input type="number" min="0" step="1" data-resource-input="hp_temp" value="'+number(temp)+'" aria-label="Temporary HP"><button type="button" class="cs-icon" data-temp-hp-delta="1" aria-label="Increase temporary HP">+</button></div>':'<button type="button" class="cs-text-button" data-add-temp-hp>Add temp HP</button>'):''}</section>`;}
 const search=()=>'<label class="cs-search"><span class="sr-only">Find an entry</span><input type="search" data-sheet-search placeholder="Find an entry…"></label>';
