@@ -36,7 +36,7 @@ test('Bestiary entries 21–30 have source-checked identity and core stats',()=>
   assert.equal(sheet(name).npcVerified,true);
  }
  assert.deepEqual(kingmakerProgress({}).map(p=>p.staged),[105,105,0,7]);
- assert.deepEqual(kingmakerProgress({}).map(p=>p.reviewed),[30,0,0,0]);
+ assert.deepEqual(kingmakerProgress({}).map(p=>p.reviewed),[40,0,0,0]);
  assert.equal(KINGMAKER_STAGED_ENTRIES.length,217);
  assert.equal(new Set(KINGMAKER_STAGED_ENTRIES.map(e=>e.chapter+':'+e.slug)).size,217);
 });
