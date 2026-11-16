@@ -13,6 +13,14 @@ export function parseCatalogKey(value){
   ?{sourceId:parts[0],sourceVersion:parts[1]}:null;
 }
 const gameNames={'pathfinder-1e':'Pathfinder 1e','pathfinder-2e':'Pathfinder 2e',ffd20:'FFd20',cosmos:'Cosmos'};
+const extraShopNames=Object.freeze({
+ 'pf1e-foundry':'PF1e · Foundry',
+ 'pf1e-pfdata':'PF1e · PF Data',
+ 'pf1e-openref':'PF1e · Open Ref',
+ 'pf2e-pf2ools':'PF2e · Pf2ools',
+ 'pf2e-orc':'PF2e · ORC',
+ 'pf2e-json':'PF2e · JSON'
+});
 const first=(...values)=>values.find(value=>typeof value==='string'&&value.trim())?.trim()||'';
 function githubRepository(url){
  try{
@@ -51,6 +59,7 @@ export function shopCatalogLabel(item={}){
 export function shopCatalogShortLabel(item={}){
  const catalog=item.catalog||item.sourceCatalog||{};
  const sourceId=String(item.sourceId||item.source_id||catalog.sourceId||'');
+ if(extraShopNames[sourceId])return extraShopNames[sourceId];
  const system=shopSourceForItem({...item,sourceId,sourceSystem:catalog.sourceSystem||item.sourceSystem});
  const namedSystem=String(catalog.sourceSystem||item.sourceSystem||'').toLowerCase();
  const game=/^(?:dnd|dnd-?5e|dungeons-and-dragons-?5e)(?:[-_.]?2024)?$/.test(namedSystem)
@@ -70,6 +79,7 @@ export function shopCatalogShortLabel(item={}){
 }
 
 export function shopCatalogChoiceLabel(item={},catalogs=[]){
+ if(extraShopNames[item.sourceId])return extraShopNames[item.sourceId];
  if(item.sourceId==='pathfinder-shopping')return 'PF1e · AoN';
  if(item.sourceId==='pathfinder-2e-shopping')return 'PF2e · Foundry';
  if(item.sourceId==='legacy-master')return 'Cosmos';
@@ -89,12 +99,12 @@ export function visibleShopCatalogs(catalogs=[]){
  for(const catalog of catalogs){
   if(!catalog||typeof catalog.id!=='string'||!Number.isFinite(catalog.count))continue;
   const sourceId=String(catalog.sourceId||'');
-  const core=['legacy-master','pathfinder-shopping','pathfinder-2e-shopping'].includes(sourceId);
+  const core=['legacy-master','pathfinder-shopping','pathfinder-2e-shopping'].includes(sourceId)||Boolean(extraShopNames[sourceId]);
   const groupKey=core?sourceId:catalog.id;
-  const label=sourceId==='legacy-master'?'Cosmos':sourceId==='pathfinder-shopping'?'PF1e · AoN':sourceId==='pathfinder-2e-shopping'?'PF2e · Foundry':catalog.shortLabel||shopCatalogShortLabel(catalog);
+  const label=extraShopNames[sourceId]|| (sourceId==='legacy-master'?'Cosmos':sourceId==='pathfinder-shopping'?'PF1e · AoN':sourceId==='pathfinder-2e-shopping'?'PF2e · Foundry':catalog.shortLabel||shopCatalogShortLabel(catalog));
   const previous=merged.get(groupKey);
   if(previous){previous.count+=catalog.count;previous.catalogIds.push(catalog.id);}
   else merged.set(groupKey,{...catalog,id:groupKey,label,shortLabel:label,catalogIds:[catalog.id],count:catalog.count});
  }
- return [...merged.values()].filter(source=>source.count>=50||['legacy-master','pathfinder-shopping','pathfinder-2e-shopping'].includes(source.sourceId));
+ return [...merged.values()].filter(source=>source.count>=50||['legacy-master','pathfinder-shopping','pathfinder-2e-shopping'].includes(source.sourceId)||Boolean(extraShopNames[source.sourceId]));
 }

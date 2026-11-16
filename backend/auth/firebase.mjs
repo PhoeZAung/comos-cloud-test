@@ -16,6 +16,7 @@ import {importApprovedShoppingBatch} from '../items/approved-shopping.mjs';
 import {importBulkShoppingBatch} from '../items/bulk-shopping.mjs';
 import {importPf1eOfflineCatalog} from '../items/pf1e-offline.mjs';
 import {importPf2eCatalog} from '../items/pf2e-offline.mjs';
+import {importExtraItemCatalogs} from '../items/extra-sources.mjs';
 import {createPurchaseService} from '../items/purchases.mjs';
 import {createItemsService} from '../items/service.mjs';
 import {createItemsRoutes} from '../items/routes.mjs';
@@ -83,6 +84,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     await importPf1eOfflineCatalog(db);
     // Optional third-party catalog failures must not take the live Cosmos server down.
     try{await importPf2eCatalog(db);}catch(error){console.error('Optional PF2e item catalog skipped:',error?.message||String(error));}
+    await importExtraItemCatalogs(db);
     const itemService=createItemsService(db);
     const directory=createDirectoryRoutes({db,sessions,adminUids,items:itemService,origin:config.origin});
     const itemsRoutes=createItemsRoutes({sessions,items:itemService,purchases:createPurchaseService(db,itemService),origin:config.origin,adminUids});
