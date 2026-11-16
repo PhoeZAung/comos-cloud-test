@@ -11,7 +11,7 @@ export const npcStatLabels={
  str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma'
 };
 export const npcTextLabels={
- summary:'Identity',source:'Source',sourceReference:'Printed rules reference',raceClassLevels:'Race, class & levels',alignment:'Alignment',size:'Size',creatureType:'Creature type',subtypes:'Subtypes',
+ summary:'Identity',source:'Source',sourceReference:'Printed rules reference',printedStatBlock:'Original stat block (GM archive)',importNotes:'Extraction & verification notes',raceClassLevels:'Race, class & levels',alignment:'Alignment',size:'Size',creatureType:'Creature type',subtypes:'Subtypes',
  senses:'Senses',aura:'Aura',languages:'Languages',defenses:'Defensive abilities',weaknesses:'Weaknesses',
  specialAttacks:'Special attacks',specialAbilities:'Special abilities (full rules)',spellLikeAbilities:'Spell-like abilities',spellsPrepared:'Spells prepared',spellsKnown:'Spells known',qualities:'Special qualities',gear:'Gear',combatGear:'Combat gear',feats:'Feats',
  drBypass:'DR bypass (e.g. silver and good)',energyResistances:'Energy resistances (e.g. fire 10)',immunities:'Immunities',vulnerabilities:'Vulnerabilities',
@@ -29,11 +29,12 @@ export const npcStatGroups=Object.freeze([
  {title:'Challenge & ability scores',keys:['cr','xp','hitDice','sourcePage','str','dex','con','int','wis','cha']}
 ]);
 export const npcTextGroups=Object.freeze([
- {title:'Identity & creature',keys:['summary','source','sourceReference','raceClassLevels','alignment','size','creatureType','subtypes','senses','aura','languages','description','environment','organization','treasure']},
+ {title:'Identity & creature',keys:['summary','raceClassLevels','alignment','size','creatureType','subtypes','senses','aura','languages','description','environment','organization','treasure']},
  {title:'Defenses & exceptions',keys:['defenses','weaknesses','drBypass','energyResistances','immunities','vulnerabilities','saveSpecial','spellNotes','acDetail','saveDetail','hpDetail']},
- {title:'Offense & equipment',keys:['specialAttacks','specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','attackDetail','maneuverDetail','movementDetail','skillDetail','qualities','feats','gear','combatGear','tactics']}
+ {title:'Offense & equipment',keys:['specialAttacks','specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','attackDetail','maneuverDetail','movementDetail','skillDetail','qualities','feats','gear','combatGear','tactics']},
+ {title:'Source & import review',keys:['source','sourceReference','printedStatBlock','importNotes']}
 ]);
-export const npcTextLimit=key=>['specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','description'].includes(key)?16000:4000;
+export const npcTextLimit=key=>['specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','description','printedStatBlock'].includes(key)?16000:4000;
 export const npcNumericKeys=Object.freeze(npcStatGroups.flatMap(group=>group.keys));
 export const npcTextKeys=Object.freeze(npcTextGroups.flatMap(group=>group.keys));
 export function normalizeNpcSheet(data={}){
