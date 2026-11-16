@@ -761,8 +761,10 @@ function mountCharacterSheet(tabs,switchTo){
      const index=rawIndex===undefined?null:Number(rawIndex);
      if(index!==null&&(!Number.isInteger(index)||index<0||index>=groups.length))return;
      const labels=kind==='npcStats'?npcStatLabels:npcTextLabels,selection=index===null?null:groups[index];
+     const visibleKeys=(selection?.keys||Object.keys(labels)).filter(key=>!['source','sourcePage','sourceReference','printedStatBlock','importNotes'].includes(key));
+     if(!visibleKeys.length)return;
      openDialog(selection?.title||(kind==='npcStats'?'NPC stats':'Stat block details'),
-      selection?.keys||Object.keys(labels),character.data[kind]||{},{action:kind,collection:kind});return;
+      visibleKeys,character.data[kind]||{},{action:kind,collection:kind});return;
     }
     if(group==='npcHealth'){openDialog('NPC HP',['hp_curr','hp_max','hp_temp'],character.data,{action:'fields',collection:'npcHealth'});return;}
    }
