@@ -1,10 +1,40 @@
 import OBR from '@owlbear-rodeo/sdk';
 import {localChannel} from './local-channel.mjs';
 import {resourceEditor,defenses,person,portrait} from './tracker-view.mjs';
-const root=document.querySelector('[data-status-cards]'),cards=new Map();let state={party:[],admin:false},bus;
+const root=document.querySelector('[data-status-cards]'),cards=new Map();
+const handle=document.querySelector('[data-party-drag]');let state={party:[],admin:false},bus,drag=null;
+const move=(dx,dy)=>{if(!state.admin||!bus||!Number.isFinite(dx)||!Number.isFinite(dy))return;
+ bus.send({type:'party-move',dx:Math.round(dx),dy:Math.round(dy),requestId:crypto.randomUUID()});};
+function stopDrag(commit=false){
+ if(!drag)return;
+ const gesture=drag;drag=null;handle.textContent='⠿ Move';handle.removeAttribute('data-dragging');
+ if(commit&&(Math.abs(gesture.dx)>=3||Math.abs(gesture.dy)>=3))move(gesture.dx,gesture.dy);
+}
+handle.addEventListener('pointerdown',event=>{
+ if(!state.admin||event.button!==0)return;
+ drag={id:event.pointerId,x:event.screenX,y:event.screenY,dx:0,dy:0};
+ handle.setPointerCapture(event.pointerId);handle.dataset.dragging='true';event.preventDefault();
+});
+handle.addEventListener('pointermove',event=>{
+ if(!drag||drag.id!==event.pointerId)return;
+ drag.dx=event.screenX-drag.x;drag.dy=event.screenY-drag.y;
+ handle.textContent='Move '+Math.round(drag.dx)+', '+Math.round(drag.dy);
+});
+handle.addEventListener('pointerup',event=>{
+ if(!drag||drag.id!==event.pointerId)return;
+ drag.dx=event.screenX-drag.x;drag.dy=event.screenY-drag.y;stopDrag(true);
+});
+handle.addEventListener('pointercancel',()=>stopDrag(false));
+handle.addEventListener('lostpointercapture',()=>stopDrag(false));
+handle.addEventListener('keydown',event=>{
+ const deltas={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};
+ const direction=deltas[event.key];if(!direction||!state.admin)return;
+ event.preventDefault();move(direction[0]*(event.shiftKey?80:24),direction[1]*(event.shiftKey?80:24));
+});
 document.body.classList.toggle('vertical',new URLSearchParams(location.search).has('vertical'));
 const edits=resourceEditor(()=>state,b=>bus.send(b));
 function render(){
+ handle.hidden=!state.admin;if(!state.admin)stopDrag(false);
  const active=new Set();for(const [index,row] of state.party.entries()){
   active.add(row.id);let card=cards.get(row.id);
   if(!card){const node=document.createElement('article');node.className='party-person';node.innerHTML='<div class="party-portrait">'+person+'</div><div class="party-info"><strong class="party-name"></strong><div class="party-values"><button class="hp" data-key="hp"></button><button class="mp" data-key="mp"></button></div><button class="party-ac" aria-expanded="false"></button><div class="party-defenses" hidden></div></div>';card={node,photo:node.querySelector('.party-portrait')};cards.set(row.id,card);
