@@ -47,7 +47,7 @@ export function mountInitiative(view,send){
    card.input.disabled=!state.admin;card.input.setAttribute('aria-label',row.name+' initiative');
    const locateButton=card.node.querySelector('.battle-locate');locateButton.querySelector('.battle-locate-label').textContent=row.name;
    const hidden=row.visible===false&&state.gm===true;
-   const eye=card.node.querySelector('.battle-hidden-eye');eye.hidden=!hidden;eye.setAttribute('title','Hidden from players (GM only)');
+   const eye=card.node.querySelector('.battle-hidden-eye');eye.toggleAttribute('hidden',!hidden);eye.setAttribute('title','Hidden from players (GM only)');
    card.node.querySelector('.battle-name').classList.toggle('has-hidden-eye',hidden);
    locateButton.setAttribute('aria-label','Center camera on '+row.name+(hidden?' (hidden from players)':'')+' · '+linkStatus.label);
    locateButton.title=(hidden?'Hidden from players · ':'')+'Center camera on '+row.name+' · '+linkStatus.label;
