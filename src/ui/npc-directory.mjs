@@ -54,7 +54,7 @@ export function mountNpcDirectory(){
   const parsed=parseNpcStatBlock(markdown.value),data=parsed.data,stats=data.npcStats;
   const suggestedName=parsed.name||fallbackName;
   if((!name.value.trim()||name.value===autoName)&&suggestedName)name.value=autoName=suggestedName;
-  const highlights=[data.hp_max!==undefined?data.hp_max+' HP':'',stats.ac!==undefined?'AC '+stats.ac:'',data.weapons.length?data.weapons.length+' attacks':'',data.npcSkills.length?data.npcSkills.length+' skills':''];
+  const highlights=[Number.isFinite(data.hp_max)?data.hp_max+' HP':'',Number.isFinite(stats.ac)?'AC '+stats.ac:'',data.weapons.length?data.weapons.length+' attacks':'',data.npcSkills.length?data.npcSkills.length+' skills':''];
   preview.textContent=highlights.filter(Boolean).join(' · ');
  }
  add.addEventListener('click',()=>{
