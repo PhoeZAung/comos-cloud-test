@@ -170,6 +170,7 @@ export function renderNpcCombatDetails(data={},kind='defense'){
  return '<div class="cs-npc-combat-popup">'+
   group('Armor class',['ac','touch','flat','cmd','dr','sr'])+
   group('Saving throws',['fort','ref','will'])+
+  group('Healing & recovery',['fastHealing','regeneration'])+
   notes('Defenses & modifiers',['acDetail','saveDetail','defenses','weaknesses','drBypass','energyResistances','immunities','vulnerabilities','saveSpecial'])+
   '<div class="cs-npc-popup-edit">'+edit('npcCombatDefense','defense and saves')+edit('npcCombatDefenseText','defense details')+'</div></div>';
 }
@@ -190,6 +191,12 @@ function renderNpcSheet(data={}){
  const creatureInfo=pairs(['raceClassLevels','alignment','size','creatureType','subtypes','languages','description','environment','organization','treasure']);
  const coreMovement=metrics(['speed','flySpeed','swimSpeed','climbSpeed','burrowSpeed','space','perception'])+pairs(['senses','aura','movementDetail']);
  const coreGear=pairs(['gear','combatGear']);
+ // Hit dice are template reference information; never show shared current/max HP here.
+ // Printed HP entries such as "94 (11d10+33)" contribute only the dice formula.
+ const printedHp=String(details.hpDetail||'');
+ const diceFormula=printedHp.match(/\b\d{1,3}d\d{1,4}(?:\s*[+-]\s*\d{1,5})?/i)?.[0].replace(/\s+/g,'')||'';
+ const hitDiceLabel=diceFormula||(Number.isFinite(stats.hitDice)?String(stats.hitDice)+' HD':'');
+ const hitDiceInfo=hitDiceLabel?'<div class="cs-npc-hit-dice"><strong>'+e(hitDiceLabel)+'</strong></div>':'';
  const tabs=[['combat','Combat'],['core','Core'],['abilities','Abilities']];
  const nav='<nav class="cs-npc-tabs cs-tabs" role="tablist" aria-label="NPC sheet sections">'+tabs.map((row,index)=>
   '<button type="button" role="tab" data-npc-tab="'+row[0]+'" aria-selected="'+(index===0)+'" tabindex="'+(index===0?'0':'-1')+'">'+row[1]+'</button>').join('')+'</nav>';
@@ -204,6 +211,7 @@ function renderNpcSheet(data={}){
   card('Ability scores',scores?'<div class="cs-scores">'+scores+'</div>':'',edit('npcAbilityScores','ability scores'))+
   card('Movement & senses',coreMovement,edit('npcCoreStats','movement')+edit('npcCoreSenses','senses'))+
   card('Gear',coreGear,edit('npcGear','gear'))+
+  (hitDiceInfo?card('Hit Dice',hitDiceInfo,edit('npcHitDiceStats','hit dice count')+edit('npcHitDiceText','hit dice formula')):'')+
   (creatureInfo?'<section class="cs-card cs-npc-details"><details><summary>Creature details</summary>'+creatureInfo+'</details>'+edit('npcCreatureInfo','creature details')+'</section>':'')+
   '</section>'+
   '<section class="cs-npc-panel" data-npc-panel="abilities" role="tabpanel" aria-label="Abilities" hidden>'+
@@ -278,7 +286,7 @@ export function entryDetail(row,data={},key='',{npc=false}={}){
    group('Attack',[['Attack Type',attackTypes[parts.type]],['Attack Stat',npc?'':parts.ability.toUpperCase()],['Attack Bonus',signed(parts.total)]])+
    group('Damage',[['Damage Dice',row.damage||row.dmg],['Damage Stat',damageDetails?.ability?damageDetails.ability.toUpperCase()+' '+signed(damageDetails.abilityBonus):''],['Extra Damage',row.extra_damage],['Roll',damageDetails?.normal],['Formula Error',damageError],['Critical Range',row.crit_range],['Critical Multiplier',row.crit_mult],['Damage Type',Array.isArray(row.damage_types)?row.damage_types.join(' · '):''],['DR Bypass',row.dr_bypass]])+
    group('Ranged',[['Range',row.range],['Misfire',row.misfire]])+
-   group('Ammunition',[['Ammo Type',row.ammoType],['Ammo',usage.maxUses>0?usage.currentUses:'—'],['Max Ammo',usage.maxUses>0?usage.maxUses:'—']])+
+   group('Ammunition',npc?[['Ammo Type',row.ammoType]]:[['Ammo Type',row.ammoType],['Ammo',usage.maxUses>0?usage.currentUses:'—'],['Max Ammo',usage.maxUses>0?usage.maxUses:'—']])+
    group('Saves',[['Save Type',row.save_type&&row.save_type!=='none'?row.save_type.toUpperCase():'—'],['On Success',row.save_success],['Save DC',row.save_dc_override||'—']])+
    '</div>'+(row.desc?'<div class="cs-entry-prose"><section><h3>Description</h3><div class="cs-prose">'+formatSheetText(row.desc)+'</div></section></div>':'');
  }
