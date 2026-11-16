@@ -26,7 +26,7 @@ export function npcCatalogTag(value){
  return NPC_CATALOG_TABS.find(item=>item.id===tab).tag;
 }
 export function npcTagForData(data={}){
- return npcCatalogTag(data?.npcCategory);
+ return npcCatalogTag(npcCatalogTab(data?.npcCategory)||'npc');
 }
 export function isNpcCompanion(data={}){
  return npcTagForData(data)==='companion';
