@@ -118,6 +118,8 @@ try{
  await toolbar.locator('[data-sheet-popout]').click();
  const newWindow=await popupPromise;await newWindow.close();
  await toolbar.locator('[data-add-sheet]').click();
+ assert.equal(await page.locator('[data-pick-sheet="npc-1"]').count(),0,'NPC directory must be hidden until a name search begins');
+ assert.match(await page.locator('[data-sheet-search-status]').textContent(),/Search to find NPCs/);
  await page.locator('[data-sheet-search]').fill('long NPC');await page.locator('[data-sheet-search-go]').click();
  assert.equal(await page.locator('[data-pick-sheet="npc-1"]').isVisible(),true);
  await page.locator('[data-sheet-search]').fill('not a character');
