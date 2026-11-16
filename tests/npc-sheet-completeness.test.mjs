@@ -112,7 +112,7 @@ test('NPC sword and shield dialogs show only entered attack, defense and save va
 test('NPC shield shows only populated fast healing and regeneration with their existing defensive notes',()=>{
  const data=normalizeNpcSheet({npcStats:{ac:17,fastHealing:5,regeneration:8},npcText:{defenses:'Regeneration stops after fire damage.'}});
  const shield=renderNpcCombatDetails(data,'defense');
- assert.match(shield,/Healing & recovery/);
+ assert.match(shield,/Healing &amp; recovery/);
  assert.match(shield,/Fast healing per round/);
  assert.match(shield,/Regeneration per round/);
  assert.match(shield,/Regeneration stops after fire damage/);
