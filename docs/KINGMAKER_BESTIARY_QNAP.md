@@ -33,7 +33,29 @@ Only if the preview is correct, the app is healthy, and the owner ID has been ve
 docker exec cosmos-app node scripts/import-kingmaker.mjs --db /data/comos.sqlite --owner '<YOUR_COSMOS_USER_ID>' --chapter bestiary --apply --confirm-kingmaker
 ```
 
-The importer takes its own consistent SQLite backup **before** applying the insert transaction. It creates only missing Kingmaker records and stops on naming conflicts. **Never add `--allow-needs-review` for this Bestiary import.** The other chapters still need source review (NPC Codex 0/105, Companions 0/7); Hazards & Traps are deferred.
+The importer takes its own consistent SQLite backup **before** applying the insert transaction. It creates only missing Kingmaker records and stops on naming conflicts by default.
+
+### Existing manually managed NPC with same name
+
+For example, a pre-existing manually managed **Black Tear Cutthroat** in NPC must not be renamed or overwritten to accommodate the Bestiary import. If the default dry run reports `bestiary:black-tear-cutthroat` as a conflict, use the **explicit optional** `--rename-import-conflicts` mode:
+
+```sh
+docker exec cosmos-app node scripts/import-kingmaker.mjs --db /data/comos.sqlite --owner '<YOUR_COSMOS_USER_ID>' --chapter bestiary --rename-import-conflicts
+```
+
+Check `existingNameConflicts=[]`, `unreviewed=0`, `toCreate=105` (for a first import) and `renamedNewEntries`, which should include exactly:
+
+```json
+{"key":"bestiary:black-tear-cutthroat","from":"Black Tear Cutthroat","to":"Black Tear Cutthroat (Bestiary)"}
+```
+
+Only if that preview is correct, run:
+
+```sh
+docker exec cosmos-app node scripts/import-kingmaker.mjs --db /data/comos.sqlite --owner '<YOUR_COSMOS_USER_ID>' --chapter bestiary --rename-import-conflicts --apply --confirm-kingmaker
+```
+
+This changes **only the new Bestiary entry's display name**, not the existing manual NPC's ID, name or sheet data. The source import slug stays unchanged, so repeating the import remains idempotent. The optional mode will still refuse the import if the suffixed name is already taken. Do not add `--allow-needs-review` for this Bestiary import. The other chapters still need source review (NPC Codex 0/105, Companions 0/7); Hazards & Traps are deferred.
 
 ## 3. Confirm results
 
