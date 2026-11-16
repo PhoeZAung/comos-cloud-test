@@ -45,6 +45,9 @@ test('Individual NPC HP privacy overrides room-wide sharing, without hiding HP f
  assert.equal(players[0].hp,null);
  assert.equal(players[0].hpMax,null);
  assert.equal(players[0].trackHp,false);
+ for(const key of ['mp','mpMax','ac','touch','flat','cmd'])
+  assert.equal(players[0][key],null,'hidden NPC '+key+' must not reach players');
+ assert.equal(gm[0].ac,10,'GM retains real NPC AC');
  assert.equal(Object.hasOwn(players[0],'hpHidden'),false,'do not expose GM-only HP settings');
  assert.equal(players[1].hp,8);
  assert.equal(players[1].hpMax,12);
