@@ -122,6 +122,7 @@ export const KINGMAKER_NPC_CODEX_REVIEWED_001_010=Object.freeze({
   stats:{str:25},
   text:{
    sourceReference:'Female human natural weretiger rogue 14 (Pathfinder Bestiary 2, p. 183).',
+   raceClassLevels:'Female human natural weretiger rogue 14 (Pathfinder Bestiary 2, p. 183).',
    senses:'Low-light vision; scent.',
    acDetail:'27, touch 17, flat-footed 22 (+5 armor, +3 deflection, +4 Dex, +1 dodge, +5 natural, −1 size).',
    hpDetail:'150 (14d8+84).',
