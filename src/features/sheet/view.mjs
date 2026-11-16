@@ -1,4 +1,5 @@
 import {npcStatLabels,npcTextLabels,npcStatGroups,npcTextGroups} from '../characters/npc-stat-block.mjs';
+import {npcTagForData} from '../characters/npc-library.mjs';
 import {abilityGroup,abilityLayout} from './ability-groups.mjs';
 import {actionType} from './entry-options.mjs';
 import {themes} from '../site-themes.mjs';
@@ -56,9 +57,10 @@ const metric=(label,value,{roll=false}={})=>`<div class="cs-metric-wrap"><${roll
 export function renderSheetFrame(character,section='overview',{admin=false,compact=false,ability='activeAbilities',combatView='defense',itemView='inventory',itemTag='All',spellLevel='all',weaponView='Weapon',showStars=false,discordEnabled=true,notesTab='personal',owlbear=false}={}){
  const npc=character.kind==='npc';
  const d=character.data||{},classes=characterClasses(d).filter(c=>c.name),total=totalClassLevel(classes)||number(d.character_level||d.level),portrait=typeof d.portrait==='string'&&/^data:image\/(jpeg|png|webp);base64,[\w+/=]+$/i.test(d.portrait)&&d.portrait.length<=160000?d.portrait:'';
+ const npcTag=npc?npcTagForData(d):null,companion=npcTag==='companion';
  return `<div class="cs-sheet ${showStars?'':'cs-star-controls-off'}${d.sheet_background_enabled&&portrait?' cs-has-background':''}" data-sheet>${d.sheet_background_enabled&&portrait?'<img class="cs-sheet-backdrop" src="'+e(portrait)+'" alt="" aria-hidden="true">':''}
 <div class="cs-titlebar">
-<div class="cs-identity"><label class="cs-portrait-trigger" title="Change portrait"><span class="cs-portrait-visual">${portrait?'<img class="cs-portrait" src="'+e(portrait)+'" alt="Character portrait">':icons.overview}</span><span class="cs-portrait-change" aria-hidden="true">Change</span><input type="file" data-sheet-portrait accept="image/jpeg,image/png,image/webp" aria-label="Change character portrait"></label><div><span class="cs-kicker">${npc?'NPC':e(d.race||'Character')+' · Total level '+(total||'—')}</span><div class="cs-name-row"><h1>${e(character.name)}</h1>${d.manualCharacter===true?'<button class="cs-icon cs-rename-character" type="button" data-rename-character aria-label="Rename character" title="Rename character">'+icons.edit+'</button>':''}</div><p class="cs-classline">${classes.map((c,i)=>'<span title="Class '+(i+1)+' Lv">'+e(c.name)+' '+e(c.level)+(c.archetype?' · '+e(c.archetype):'')+'</span>').join(' / ')}</p></div></div>
+<div class="cs-identity"><label class="cs-portrait-trigger" title="Change portrait"><span class="cs-portrait-visual">${portrait?'<img class="cs-portrait" src="'+e(portrait)+'" alt="Character portrait">':icons.overview}</span><span class="cs-portrait-change" aria-hidden="true">Change</span><input type="file" data-sheet-portrait accept="image/jpeg,image/png,image/webp" aria-label="Change character portrait"></label><div><span class="cs-kicker">${npc?(companion?'Companion':npcTag==='bestiary'?'Bestiary':'NPC'):e(d.race||'Character')+' · Total level '+(total||'—')}</span><div class="cs-name-row"><h1>${e(character.name)}</h1>${d.manualCharacter===true?'<button class="cs-icon cs-rename-character" type="button" data-rename-character aria-label="Rename character" title="Rename character">'+icons.edit+'</button>':''}</div><p class="cs-classline">${classes.map((c,i)=>'<span title="Class '+(i+1)+' Lv">'+e(c.name)+' '+e(c.level)+(c.archetype?' · '+e(c.archetype):'')+'</span>').join(' / ')}</p></div></div>
 <div class="cs-quick-tools cs-roll-tools"><button class="cs-icon" type="button" data-toggle-stars aria-label="${showStars?'Hide':'Show'} favorite controls" aria-pressed="${showStars}" title="Favorite controls">${icons.favorites}</button>${npc?'':'<button class="cs-icon" type="button" data-open-rest aria-label="Rest" title="Rest">'+icons.moon+'</button>'}${!compact&&(owlbear||!npc&&character.owned!==false)?'<button class="cs-icon cs-sheet-tab-add" type="button" data-add-sheet aria-label="Open another character sheet" title="Open another character sheet">+</button>':''}${!compact?'<a class="cs-icon" data-sheet-popout aria-label="Open standalone character sheet window" title="Pop out character sheet (separate window)" href="sheet.html?characterId='+encodeURIComponent(character.id)+'&compact=1" target="_blank" rel="noopener noreferrer">'+icons.external+'</a>':''}</div>
 <div class="cs-settings"><button type="button" class="cs-icon cs-settings-trigger" data-recovery-menu aria-label="Main settings" title="Main settings" aria-expanded="false" aria-controls="cs-recovery-panel">${icons.recovery}</button>
 <div class="cs-recovery-panel" id="cs-recovery-panel" data-recovery-panel hidden><div class="cs-settings-tabs" role="tablist" aria-label="Settings"><button type="button" role="tab" aria-selected="true" data-setting-tab="main">Main</button><button type="button" role="tab" aria-selected="false" data-setting-tab="theme">Theme</button><button type="button" role="tab" aria-selected="false" data-setting-tab="site">Site</button></div>
@@ -73,7 +75,7 @@ export function renderSheetFrame(character,section='overview',{admin=false,compa
  ${section==='items'?'<nav class="cs-tabs cs-subtabs cs-item-tabs" aria-label="Item sections">'+[['inventory','Inventory',icons.items],['equip','Equip',icons.shield]].map(([id,label,icon])=>'<button type="button" data-item-view="'+id+'" aria-pressed="'+(itemView===id)+'" aria-label="'+label+'" title="'+label+'">'+icon+'</button>').join('')+'</nav>':''}
  ${section==='abilities'?'<nav class="cs-ability-wheel" aria-label="Ability categories">'+abilityTabs.map(key=>'<button type="button" data-ability-category="'+key+'" aria-pressed="'+(ability===key)+'">'+icons[key]+'<span>'+titles[key]+'</span><small>'+abilityTabCount(d,key)+'</small></button>').join('')+'</nav>':''}
 `}
-<div data-sheet-panel>${npc?renderNpcSheet(character.data):renderSection(character,section,{ability,combatView,itemView,itemTag,spellLevel,weaponView,notesTab})}</div><div class="cs-roll-result" role="status" data-roll-result hidden></div>
+<div data-sheet-panel>${npc?renderNpcSheet(character.data,{companion}):renderSection(character,section,{ability,combatView,itemView,itemTag,spellLevel,weaponView,notesTab})}</div><div class="cs-roll-result" role="status" data-roll-result hidden></div>
  <dialog class="cs-dialog cs-rename-dialog" data-rename-dialog aria-labelledby="cs-rename-title"><form data-rename-form><h2 id="cs-rename-title">Rename character</h2><label class="cs-field"><span>Character name</span><input type="text" name="charName" maxlength="80" required autocomplete="off" value="${e(character.name)}"></label><p role="status" data-rename-status></p><div class="cs-dialog-actions"><button class="button" type="button" data-rename-cancel>Cancel</button><button class="button primary" type="submit">Save name</button></div></form></dialog>
   <dialog class="cs-dialog" data-sheet-dialog aria-labelledby="cs-dialog-title"><div class="cs-sheet-dialog-scroll"><form data-sheet-form><div class="cs-card-title cs-editor-heading"><h2 id="cs-dialog-title"></h2><button type="button" class="button cs-editor-premade" data-editor-premade hidden>Add Premade</button><button type="button" class="cs-icon" data-dialog-close aria-label="Close">×</button></div><div data-dialog-fields></div><p role="status" data-dialog-status></p><div class="cs-dialog-actions"><button class="button" type="button" data-dialog-close>Cancel</button><button class="button primary" type="submit">Save</button></div></form></div></dialog>
  <dialog class="cs-dialog cs-equipment-dialog" data-equipment-dialog aria-label="Choose item"><div class="cs-equip-picker-toolbar"><label class="sr-only" for="cs-equip-search">Search items</label><input id="cs-equip-search" type="search" data-equip-search placeholder="Search items…" autocomplete="off"><button type="button" class="cs-icon cs-equip-unequip" data-equip-unequip aria-label="Unequip item" title="Unequip" hidden><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></button><button type="button" class="cs-icon" data-equipment-close aria-label="Close equipment picker">×</button></div><label class="cs-checkbox cs-equip-override"><input type="checkbox" data-equip-allow-any><span>Show all items (manual slot override)</span></label><div class="cs-equip-choices" data-equip-choices></div><p class="cs-equip-error" role="status" data-equip-status></p></dialog>
@@ -174,7 +176,36 @@ export function renderNpcCombatDetails(data={},kind='defense'){
   notes('Defenses & modifiers',['acDetail','saveDetail','defenses','weaknesses','drBypass','energyResistances','immunities','vulnerabilities','saveSpecial'])+
   '<div class="cs-npc-popup-edit">'+edit('npcCombatDefense','defense and saves')+edit('npcCombatDefenseText','defense details')+'</div></div>';
 }
-function renderNpcSheet(data={}){
+
+function renderCompanionHealth(data={}){
+ const current=Number.isFinite(data.hp_curr)?data.hp_curr:null;
+ const max=Number.isFinite(data.hp_max)?data.hp_max:null;
+ const temp=Number.isFinite(data.hp_temp)?data.hp_temp:null;
+ const ready=current!==null&&max!==null;
+ return '<section class="cs-card cs-companion-health" aria-label="Companion hit points">'+
+  '<div class="cs-card-title"><h2>Hit points</h2>'+edit('npcHealth','companion hit points')+'</div>'+
+  (ready?'<div class="cs-companion-hp-summary"><span>HP</span><strong>'+e(current)+' / '+e(max)+'</strong></div>'+
+   '<div class="cs-resource-controls"><button type="button" data-resource="hp_curr" data-delta="-1" aria-label="Decrease companion HP">−</button>'+
+   '<input type="number" step="1" data-resource-input="hp_curr" aria-label="Current companion HP" value="'+e(current)+'">'+
+   '<button type="button" data-resource="hp_curr" data-delta="1" aria-label="Increase companion HP">+</button></div>'
+   :'<p class="cs-caption">Set current and maximum HP using Edit.</p>')+
+  (temp!==null?'<small class="cs-companion-temp-hp">Temporary HP: '+e(temp)+'</small>':'')+'</section>';
+}
+function renderCompanionProgression(data={}){
+ const variants=Array.isArray(data.npcVariants)?data.npcVariants.slice(0,30):[];
+ if(!variants.length)return '';
+ const rows=variants.map(variant=>{
+  const level=Number.isInteger(variant?.level)?'Level '+variant.level:'Progression';
+  const hp=Number.isFinite(variant?.hp)?' · printed HP '+variant.hp:'';
+  return '<li>'+e(level+hp)+'</li>';
+ }).join('');
+ return '<section class="cs-card cs-companion-progressions">'+
+  '<div class="cs-card-title"><h2>Printed progressions</h2></div>'+
+  '<ul>'+rows+'</ul>'+
+  (data.npcVerified===true?'':'<p class="cs-caption">Reference only — companion progressions need source review before play.</p>')+
+  '</section>';
+}
+function renderNpcSheet(data={}, {companion=false}={}){
  const stats=data.npcStats||{},details=data.npcText||{};
  const card=(title,body,button='')=>'<section class="cs-card cs-npc-core-card"><div class="cs-card-title"><h2>'+e(title)+'</h2>'+button+'</div>'+body+'</section>';
  const pairs=keys=>{const rows=npcTextPairs(details,keys);return rows?'<dl class="cs-pairs">'+rows+'</dl>':'';};
@@ -203,14 +234,16 @@ function renderNpcSheet(data={}){
  const acKnown=Number.isFinite(stats.ac);
  const attack='<button type="button" class="cs-combat-tile cs-attack-tile" data-combat-details="attack" aria-label="Show NPC attacks" title="Attack rolls">'+icons.sword+'<span class="sr-only">Attacks</span></button>';
  const defense='<button type="button" class="cs-combat-tile cs-ac-tile" data-combat-details="defense" aria-label="Show NPC defenses and saving throws'+(acKnown?'; AC '+stats.ac:'')+'" title="AC, defenses and saves"><svg class="cs-ac-outline" viewBox="0 0 100 116" aria-hidden="true"><path d="M50 4 92 19v35c0 27-42 57-42 57S8 81 8 54V19Z"/></svg><span class="cs-combat-label">AC</span>'+(acKnown?'<strong>'+stats.ac+'</strong>':'')+'</button>';
- return '<div class="cs-npc-sheet">'+nav+
+ return '<div class="cs-npc-sheet'+(companion?' cs-companion-sheet':'')+'">'+nav+
   '<section class="cs-npc-panel" data-npc-panel="combat" role="tabpanel" aria-label="Combat">'+
+  (companion?renderCompanionHealth(data):'')+
   '<div class="cs-npc-combat-summary cs-combat-summary">'+attack+defense+'</div>'+
   collectionBlock('weapons',data,'',{npc:true})+'</section>'+
   '<section class="cs-npc-panel" data-npc-panel="core" role="tabpanel" aria-label="Core" hidden>'+
   card('Ability scores',scores?'<div class="cs-scores">'+scores+'</div>':'',edit('npcAbilityScores','ability scores'))+
   card('Movement & senses',coreMovement,edit('npcCoreStats','movement')+edit('npcCoreSenses','senses'))+
   card('Gear',coreGear,edit('npcGear','gear'))+
+  (companion?renderCompanionProgression(data):'')+
   (hitDiceInfo?card('Hit Dice',hitDiceInfo,edit('npcHitDiceStats','hit dice count')+edit('npcHitDiceText','hit dice formula')):'')+
   (creatureInfo?'<section class="cs-card cs-npc-details"><details><summary>Creature details</summary>'+creatureInfo+'</details>'+edit('npcCreatureInfo','creature details')+'</section>':'')+
   '</section>'+
