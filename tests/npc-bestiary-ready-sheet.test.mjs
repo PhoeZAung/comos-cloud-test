@@ -50,25 +50,28 @@ test('high-CR XP and longer printed special-ability prose survive server validat
  assert.throws(()=>mergeSheetData(data,{action:'npcStats',fields:{xp:100000001}},{npc:true}),/valid|number/);
 });
 
-test('NPC sheet has quick stats and only three focused tabs with existing GM edit controls retained',()=>{
+test('NPC sheet uses only Combat, Core and Abilities with sword before shield, no shared HP or summary',()=>{
  const data=normalizeNpcSheet({hp_curr:28,hp_max:30,npcStats:{cr:5,xp:1600,initiative:6,ac:19,speed:30}});
  const html=renderSheetFrame({id:'npc-fixture',kind:'npc',name:'Test Creature',data},'overview',{admin:true});
- for(const id of ['combat','abilities','details'])assert.match(html,new RegExp('data-npc-tab="'+id+'"'));
+ for(const id of ['combat','core','abilities'])assert.match(html,new RegExp('data-npc-tab="'+id+'"'));
  assert.equal((html.match(/data-npc-tab="/g)||[]).length,3);
  assert.equal((html.match(/data-npc-panel="/g)||[]).length,3);
  assert.match(html,/data-npc-panel="combat"/);
+ assert.match(html,/data-npc-panel="core"[^>]*hidden/);
  assert.match(html,/data-npc-panel="abilities"[^>]*hidden/);
- assert.match(html,/data-npc-panel="details"[^>]*hidden/);
- assert.match(html,/cs-npc-glance/);
- assert.match(html,/XP/);
- assert.match(html,/data-edit-stats="npcStats:0"/);
- assert.match(html,/data-edit-stats="npcStats:3"/);
- assert.match(html,/data-edit-stats="npcText:1"/);
+ assert.ok(html.indexOf('data-combat-details="attack"')<html.indexOf('data-combat-details="defense"'),'sword is left of shield');
+ assert.match(html,/data-combat-details="defense"[^>]*aria-label="Show NPC defenses and saving throws; AC 19"/);
+ assert.match(html,/cs-ac-outline/);
+ assert.match(html,/data-add-entry="weapons"/);
+ assert.match(html,/data-edit-stats="npcAbilityScores"/);
+ assert.match(html,/data-edit-stats="npcCoreStats"/);
+ assert.match(html,/data-edit-stats="npcGear"/);
  assert.match(html,/data-add-entry="npcSkills"/);
  assert.match(html,/data-add-entry="activeAbilities"/);
- assert.match(html,/data-edit-stats="npcHealth"/);
+ assert.match(html,/data-edit-stats="npcFeats"/);
+ assert.doesNotMatch(html,/cs-npc-glance|data-edit-stats="npcHealth"|cs-resource-hp|data-resource="hp_curr"/);
+ assert.doesNotMatch(html,/>XP<|>CR<|>Current HP<|>Max HP</);
 });
-
 test('NPC tabs stay selected across server sync; empty picker does not list NPCs before searching',async()=>{
  const sheet=await readFile(new URL('../src/ui/sheet.mjs',import.meta.url),'utf8');
  const picker=await readFile(new URL('../src/owlbear/action.mjs',import.meta.url),'utf8');
