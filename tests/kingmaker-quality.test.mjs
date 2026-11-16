@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {KINGMAKER_STAGED_ENTRIES,kingmakerProgress} from '../src/data/kingmaker/catalog.mjs';
 import {kingmakerLayoutIssues,withKingmakerReviewFlags} from '../src/data/kingmaker/quality.mjs';
+import {extractKingmakerChapter} from '../scripts/kingmaker-extract-layout.mjs';
 
 const get=name=>KINGMAKER_STAGED_ENTRIES.find(e=>e.name===name);
 
@@ -46,4 +47,16 @@ test('report still tracks all staged records separately from review readiness',(
  assert.deepEqual(p.map(x=>x.imported),[0,0,0,0]);
  assert.ok(p[0].flagged>=1);
  assert.ok(p[1].flagged>=1);
+});
+
+test('two-column PDF headings near the cropped column boundary are not skipped',()=>{
+ const right=(left,title,cr)=>left.padEnd(57)+title.padEnd(53)+'CR '+cr;
+ const pages=[{page:40,text:[
+  right('OFFENSE','IRLGAUNT','13'),
+  'Speed 20 ft.'.padEnd(57)+'XP 25,600',
+  right('STATISTICS','GRIMSTALKER','5'),
+  'Str 20, Dex 12'.padEnd(57)+'XP 1,600'
+ ].join('\n')}];
+ const rows=extractKingmakerChapter(pages,'bestiary');
+ assert.deepEqual(rows.map(e=>e.name),['Irlgaunt','Grimstalker']);
 });
