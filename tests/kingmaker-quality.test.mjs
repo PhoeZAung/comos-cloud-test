@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {KINGMAKER_STAGED_ENTRIES,kingmakerProgress} from '../src/data/kingmaker/catalog.mjs';
 import {kingmakerLayoutIssues,withKingmakerReviewFlags,withKingmakerCleanText} from '../src/data/kingmaker/quality.mjs';
 import {extractKingmakerChapter} from '../scripts/kingmaker-extract-layout.mjs';
+import {KINGMAKER_BESTIARY_AUTO_002} from '../src/data/kingmaker/bestiary-auto-batch-002.mjs';
 
 const get=name=>KINGMAKER_STAGED_ENTRIES.find(e=>e.name===name);
 
@@ -15,13 +16,17 @@ test('preserve previously hand-checked entries without changing their data',()=>
  assert.equal(curated[0].stats.ac,15);
 });
 
-test('flag obvious PDF page header and neighboring creature bleed',()=>{
- const warden=get('Boggard Warden');
- assert.ok(warden.reviewFlags.some(f=>f.includes('layout bleed')&&f.includes('combatGear')));
- const tormentor=get('Bugbear Tormentor');
- assert.ok(tormentor.reviewFlags.some(f=>f.toUpperCase().includes('CAUTHOOJ')));
- assert.equal(warden.verified,'automated-needs-review');
- assert.equal(tormentor.verified,'automated-needs-review');
+test('raw extraction retains detectable PDF spills while reviewed overlay resolves them',()=>{
+ const rawName=name=>KINGMAKER_BESTIARY_AUTO_002.find(e=>e.name===name);
+ const rawWarden=withKingmakerReviewFlags(rawName('Boggard Warden'),['Boggard Warden']);
+ assert.ok(rawWarden.reviewFlags.some(f=>f.includes('layout bleed')&&f.includes('combatGear')));
+ const rawTormentor=withKingmakerReviewFlags(rawName('Bugbear Tormentor'),['Cauthooj']);
+ assert.ok(rawTormentor.reviewFlags.some(f=>f.toUpperCase().includes('CAUTHOOJ')));
+ for(const name of ['Boggard Warden','Bugbear Tormentor']){
+  const checked=get(name);
+  assert.equal(checked.verified,'transcribed-from-PDF');
+  assert.deepEqual(checked.reviewFlags,[]);
+ }
 });
 
 test('quality checks preserve input stat blocks and remain idempotent',()=>{
@@ -43,7 +48,7 @@ test('report still tracks all staged records separately from review readiness',(
  assert.equal(new Set(KINGMAKER_STAGED_ENTRIES.map(e=>e.chapter+':'+e.slug)).size,217);
  const p=kingmakerProgress();
  assert.deepEqual(p.map(x=>x.staged),[105,105,0,7]);
- assert.deepEqual(p.map(x=>x.reviewed),[10,0,0,0]);
+ assert.deepEqual(p.map(x=>x.reviewed),[20,0,0,0]);
  assert.deepEqual(p.map(x=>x.imported),[0,0,0,0]);
  assert.ok(p[0].flagged>=1);
  assert.ok(p[1].flagged>=1);
@@ -62,20 +67,22 @@ test('two-column PDF headings near the cropped column boundary are not skipped',
 });
 
 
-test('stage view trims confirmed neighboring monster prose without touching numeric data',()=>{
+test('stage view shows source-reviewed corrections without changing the raw extraction',()=>{
  const bugbear=get('Bugbear Tormentor');
- assert.equal(bugbear.text.gear,'daggers (6), masterwork sickles (2)');
- assert.ok(!bugbear.text.gear.includes('CAUTHOOJ'));
+ assert.equal(bugbear.text.gear,'Daggers (6), masterwork sickles (2).');
  assert.equal(bugbear.stats.cr,3);
  assert.equal(bugbear.hp,39);
- assert.ok(bugbear.reviewFlags.some(f=>f.includes('PDF text cleaned in gear')));
+ assert.ok(!bugbear.text.gear.includes('CAUTHOOJ'));
+ assert.ok(KINGMAKER_BESTIARY_AUTO_002.find(e=>e.name===bugbear.name).text.gear.includes('CAUTHOOJ'));
  const frog=get('Giant Frog Companion');
  assert.equal(frog.text.skillDetail,'Perception +7, Swim +15');
- assert.equal(frog.stats.cr,undefined,'unranked animal companion stays unranked');
+ assert.equal(frog.stats.cr,undefined,'unranked animal companion remains unranked');
+ assert.equal(frog.stats.xp,undefined,'no XP manufactured');
  const warden=get('Boggard Warden');
  assert.ok(!warden.text.combatGear.includes('KINGMAKER'));
- assert.ok(warden.reviewFlags.some(f=>f.includes('PDF text cleaned in combatGear')));
+ assert.equal(warden.stats.str,18);
 });
+
 test('does not trim ordinary prose, curated monsters, or unrelated fields',()=>{
  const rec={name:'Longtail',verified:'automated-needs-review',hp:27,stats:{cr:3,ac:15},
   text:{gear:'A hunter uses a BOG STRIDER figurine in his campsite',languages:'Common'},
