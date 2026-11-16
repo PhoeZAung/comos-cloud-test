@@ -759,12 +759,14 @@ function mountCharacterSheet(tabs,switchTo){
     const npcEditors={
      npcCombatAttack:{kind:'npcStats',title:'Attack rolls',keys:['initiative','bab','cmb','meleeAttack','rangedAttack','reach','casterLevel','spellPenetration','spellDC']},
      npcCombatAttackText:{kind:'npcText',title:'Attack details',keys:['attackDetail','maneuverDetail','specialAttacks','tactics','spellNotes']},
-     npcCombatDefense:{kind:'npcStats',title:'AC and saving throws',keys:['ac','touch','flat','fort','ref','will','cmd','dr','sr']},
+     npcCombatDefense:{kind:'npcStats',title:'AC, saves and recovery',keys:['ac','touch','flat','fort','ref','will','cmd','dr','sr','fastHealing','regeneration']},
      npcCombatDefenseText:{kind:'npcText',title:'Defense details',keys:['acDetail','saveDetail','defenses','weaknesses','drBypass','energyResistances','immunities','vulnerabilities','saveSpecial']},
      npcAbilityScores:{kind:'npcStats',title:'Ability scores',keys:['str','dex','con','int','wis','cha']},
      npcCoreStats:{kind:'npcStats',title:'Movement and perception',keys:['speed','flySpeed','swimSpeed','climbSpeed','burrowSpeed','space','perception']},
      npcCoreSenses:{kind:'npcText',title:'Senses and movement',keys:['senses','aura','movementDetail']},
      npcGear:{kind:'npcText',title:'Gear',keys:['gear','combatGear']},
+     npcHitDiceStats:{kind:'npcStats',title:'Hit Dice',keys:['hitDice']},
+     npcHitDiceText:{kind:'npcText',title:'Printed hit dice formula',keys:['hpDetail']},
      npcCreatureInfo:{kind:'npcText',title:'Creature details',keys:['summary','raceClassLevels','alignment','size','creatureType','subtypes','languages','description','environment','organization','treasure']},
      npcAbilityText:{kind:'npcText',title:'Special abilities',keys:['specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','qualities','spellNotes']},
      npcFeats:{kind:'npcText',title:'Feats',keys:['feats']}
