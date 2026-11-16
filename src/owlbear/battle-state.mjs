@@ -6,7 +6,7 @@ export function battleRows(items,party){
  const shared=new Map(party.map(row=>[row.id,row]));
  return items.filter(item=>item.type==='IMAGE'&&item.layer==='CHARACTER'&&item.metadata?.[BATTLE]?.enabled===true).slice(0,100).map(item=>{
   const state=item.metadata[BATTLE],site=shared.get(state.siteId),number=(key,fallback=0)=>Number.isFinite(state[key])?Math.max(-9999999,Math.min(9999999,state[key])):fallback;
-  return {trackHp:site?site.hpMax>0:state.trackHp!==false&&number('hpMax',1)>0,id:item.id,name:site?.name||tokenName(item),siteId:site?.id||null,linked:!!state.siteId||!!state.npcId,available:!state.siteId||!!site,revision:site?.revision,initiative:number('initiative'),order:Number.isSafeInteger(state.order)?state.order:0,hp:site?.hp??number('hp',1),hpMax:site?.hpMax??number('hpMax',1),hpTemp:site?.hpTemp??number('hpTemp',0),mp:site?.mp??number('mp'),mpMax:site?.mpMax??number('mpMax'),ac:site?.ac??number('ac',10),touch:site?.touch??number('touch',10),flat:site?.flat??number('flat',10),cmd:site?.cmd??number('cmd',10),visible:item.visible!==false,isNpc:!!state.npcId};
+  return {trackHp:site?site.hpMax>0:state.trackHp!==false&&number('hpMax',1)>0,hpHidden:!site&&state.hpHidden===true,id:item.id,name:site?.name||tokenName(item),siteId:site?.id||null,linked:!!state.siteId||!!state.npcId,available:!state.siteId||!!site,revision:site?.revision,initiative:number('initiative'),order:Number.isSafeInteger(state.order)?state.order:0,hp:site?.hp??number('hp',1),hpMax:site?.hpMax??number('hpMax',1),hpTemp:site?.hpTemp??number('hpTemp',0),mp:site?.mp??number('mp'),mpMax:site?.mpMax??number('mpMax'),ac:site?.ac??number('ac',10),touch:site?.touch??number('touch',10),flat:site?.flat??number('flat',10),cmd:site?.cmd??number('cmd',10),visible:item.visible!==false,isNpc:!!state.npcId};
  }).sort((a,b)=>b.initiative-a.initiative||a.order-b.order||a.id.localeCompare(b.id));
 }
 
@@ -15,11 +15,30 @@ export function battleForViewer(rows,gm=false){return gm?rows:rows.filter(row=>r
 export function turnForViewer(turn,battle,gm=false){const current=turn||{};return gm||!current.id||battle.some(row=>row.id===current.id)?current:{round:current.round,id:null};}
 
 
-// Only the GM's original rows may contain enemy HP when NPC HP sharing is off.
-// Party characters always retain HP; hiding it in markup would still leak values.
+// Hide NPC HP at the source of player-facing state, not just in markup.
+// Per-NPC privacy always wins over room-wide "Show NPC HP".
+// The GM still receives real HP to continue running combat.
 export function battleHpForViewer(battle,{gm=false,npcHp=false}={}){
- if(gm||npcHp)return battle;
- return battle.map(row=>row.siteId?row:{
-  ...row,hp:null,hpMax:null,hpTemp:null,trackHp:false
+ if(gm)return battle;
+ return battle.map(row=>{
+  if(row.siteId)return row;
+  const {hpHidden,...visible}=row;
+  return npcHp&&!hpHidden&&row.trackHp?visible:{...visible,hp:null,hpMax:null,hpTemp:null,trackHp:false};
  });
+}
+/** Move to the next player-visible combatant, never making a hidden token
+ * the active turn. Keep round progression when the traversal wraps. */
+export function advanceVisibleTurn(sorted=[],turn={},direction=1){
+ if(!Array.isArray(sorted)||!sorted.length)return null;
+ const candidates=sorted.some(row=>row.visible!==false);if(!candidates)return null;
+ const index=Math.max(0,sorted.findIndex(row=>row.id===turn?.id));
+ const step=direction===-1?-1:1;
+ let round=Math.max(1,Number(turn?.round)||1);
+ for(let offset=1;offset<=sorted.length;offset++){
+  const raw=index+step*offset,position=((raw%sorted.length)+sorted.length)%sorted.length;
+  if(raw>=sorted.length)round++;
+  else if(raw<0)round=Math.max(1,round-1);
+  if(sorted[position].visible!==false)return {id:sorted[position].id,round};
+ }
+ return null;
 }
