@@ -367,3 +367,5 @@ html[data-notes-electric="true"] .cs-notes-electric::after{inset:-6px;background
  .cs-npc-tabs button{font-size:11px;padding:8px 4px}
  .cs-npc-glance{grid-template-columns:repeat(auto-fit,minmax(76px,1fr))}
 }
+
+.cs-npc-citation{font-size:11px;line-height:1.4;color:var(--muted);margin:-3px 0 8px;overflow-wrap:anywhere}
