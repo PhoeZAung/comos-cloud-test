@@ -352,7 +352,7 @@ OBR.onReady(async()=>{
    for(const key of ['weapon','ability'])document.querySelector('[data-combat-validation="'+key+'"]').checked=data.validation?.[key]===true;
    document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
    for(const key of ['party','initiative','npcHp'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout?.[key]===true;
-   document.querySelector('[data-layout="partyDock"]').value=data.layout.partyDock;
+   document.querySelector('[data-layout="partyColumns"]').value=String(data.layout?.partyColumns??3);
    document.querySelector('[data-tracker-status]').textContent=data.feed==='Live'?'Connected':data.feed;
   }
   if(data?.type==='room-rolls')panel.shared(data.rolls);
