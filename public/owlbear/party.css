@@ -9,3 +9,19 @@
 .party-values button.editable{cursor:pointer;text-decoration:underline dotted #d9b8ff88;text-underline-offset:3px}
 .party-values button.editable:hover,.party-values button.editable:focus-visible{color:#fff;background:#5b436855;border-radius:4px}
 .party-values button:disabled{cursor:default;text-decoration:none}
+
+
+/* Floating Party HUD: wrap by available popover width (GM chooses 1–6
+   cards per row); keep a compact drag grip separate from HP/MP inputs. */
+.overlay-body{height:100dvh}
+.party-drag-bar{height:24px;padding:2px 5px;display:flex;align-items:center;
+ justify-content:space-between;gap:5px;background:#191626e9;color:#d9c7f7;
+ font:600 11px system-ui;user-select:none}
+.party-drag-handle{font-size:11px;padding:2px 8px;height:21px;
+ background:#302642;border:1px solid #9074b6;border-radius:5px;
+ color:#f0e0ff;cursor:grab;touch-action:none;user-select:none}
+.party-drag-handle:active{cursor:grabbing}
+.status-cards,.vertical .status-cards{height:calc(100dvh - 24px);
+ display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start;
+ align-content:flex-start;gap:5px;padding:4px;overflow:auto}
+.party-person,.vertical .party-person{flex:0 0 155px}
