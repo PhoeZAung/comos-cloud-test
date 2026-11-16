@@ -189,3 +189,47 @@ test('ambiguous save text and missing NPC save bonus never auto-apply HP',()=>{
  assert.equal(actions.history(roomId,true).length,0);
  f.db.close();
 });
+
+test('attacking a blank-HP NPC rolls hit and damage but never subtracts from zero or requires token finalization',()=>{
+ const f=fixture(),id=f.insert({kind:'weapon',rolls:[16],total:24,damage:{total:14}});
+ const request=f.request(id,{targetTokenId:'unknown-hp-npc',targetSheetId:null,targetName:'Mysterious Assassin',targetAc:14,
+  targetHp:null,targetHpMax:null,targetHpTemp:0,targetTrackHp:false});
+ const first=f.actions.apply(roomId,'player1',false,request);
+ assert.equal(first.event.hit,true);
+ assert.equal(first.event.amount,14,'still show rolled damage');
+ assert.equal(first.event.applied,0,'do not subtract HP');
+ assert.equal(first.event.hpUntracked,true);
+ assert.equal(first.event.status,'applied','no pending token HP write');
+ assert.equal(first.needsNpcUpdate,false);
+ assert.equal(first.event.before,undefined);
+ assert.equal(first.event.after,undefined);
+ const repeated=f.actions.apply(roomId,'player1',false,request);
+ assert.equal(repeated.alreadyApplied,true);
+ assert.equal(repeated.needsNpcUpdate,false);
+ const gm=f.actions.history(roomId,true)[0];
+ assert.equal(gm.amount,14);
+ assert.equal(gm.after,null);
+ assert.equal(gm.before,null);
+ f.db.close();
+});
+
+test('NPC HP is absent from the player combat-apply and finalize responses, but GM history keeps it',()=>{
+ const f=fixture(),id=f.insert({kind:'weapon',rolls:[14],total:21,damage:{total:7}});
+ const request=f.request(id,{targetTokenId:'secret-boss',targetSheetId:null,targetName:'Secret Boss',targetAc:15,targetHp:30,targetHpMax:40,targetHpTemp:0,targetTrackHp:true});
+ const result=f.actions.apply(roomId,'player1',false,request);
+ assert.equal(result.event.amount,7);
+ assert.equal(result.needsNpcUpdate,true);
+ assert.equal(result.event.before,undefined);
+ assert.equal(result.event.after,undefined);
+ assert.equal(JSON.stringify(result).includes('"hp":30'),false);
+ const final=f.actions.finalize(roomId,'player1',false,{requestId:id,before:{hp:30,hpMax:40,hpTemp:0},after:{hp:23,hpMax:40,hpTemp:0}});
+ assert.equal(final.status,'applied');
+ assert.equal(final.before,undefined);
+ assert.equal(final.after,undefined);
+ const gm=f.actions.history(roomId,true)[0];
+ assert.equal(gm.before.hp,30);
+ assert.equal(gm.after.hp,23);
+ const retry=f.actions.apply(roomId,'player1',false,request);
+ assert.equal(retry.event.after,undefined);
+ f.db.close();
+});
