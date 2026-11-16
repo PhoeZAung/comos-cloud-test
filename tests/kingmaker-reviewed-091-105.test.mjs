@@ -58,7 +58,7 @@ test('all 105 Bestiary creatures are source-reviewed; NPC Codex and Companions r
  const bestiary=KINGMAKER_STAGED_ENTRIES.filter(e=>e.chapter==='bestiary');
  assert.equal(bestiary.length,105);
  assert.equal(bestiary.filter(e=>e.verified==='transcribed-from-PDF').length,105);
- assert.equal(bestiary.filter(e=>e.reviewFlags.length>0).length,0);
+ assert.equal(bestiary.filter(e=>(e.reviewFlags||[]).length>0).length,0);
  assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[105,0,0,0]);
  assert.deepEqual(kingmakerProgress().map(x=>x.staged),[105,105,0,7]);
  assert.deepEqual(kingmakerProgress().map(x=>x.imported),[0,0,0,0]);
