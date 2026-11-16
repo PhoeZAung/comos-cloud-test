@@ -45,7 +45,7 @@ test('NPC import preserves printed totals, iterative attacks, conditions and ind
  assert.doesNotMatch(JSON.stringify(data),/unrelated narrative secret/);
  const html=renderSheetFrame({id:'npc',name,kind:'npc',data});
  assert.match(renderNpcCombatDetails(data,'defense'),/data-roll="Reflex" data-bonus="8"/);
- assert.match(html,/data-roll="Knowledge \\(nobility\\)" data-bonus="7"/);
+ assert.ok(html.includes('data-roll="Knowledge (nobility)" data-bonus="7"'));
  assert.match(html,/data-weapon-roll="2"/);assert.doesNotMatch(html,/data-level-up|data-sheet-tab="items"/);
 });
 
