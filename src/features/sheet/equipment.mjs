@@ -12,7 +12,7 @@ export function equipmentSlotCompatible(item,slot){
  const category=itemCategoryForItem(item),type=normalizeSlot([item.type,item.secondaryType,item.slot,item.sourceCategoryDetail].filter(Boolean).join(' ')),name=normalizeSlot(item.name);
  if(category==='Ammunition'||['Food','Consumables','Alchemical Items','Materials & Crafting','Services & Other','Collection'].includes(category))return false;
  if(slot==='ranged')return category==='Ranged Weapon'||category==='Weapon'&&/bow|crossbow|thrown|ranged|firearm|gun/.test(type);
- if(['hands','hand2'].includes(slot))return ['Weapon','Ranged Weapon'].includes(category)||category==='Armor'&&/shield|buckler/.test(type)||category==='Gear'&&/tool|staff|rod|wand|torch|instrument|lantern|rope|weapon/.test(type+' '+name);
+ if(['hands','hand2'].includes(slot))return ['Weapon','Ranged Weapon'].includes(category)||item.two_handed===true||category==='Armor'&&/shield|buckler/.test(type+' '+name)||['Gear','Misc','Magic Items'].includes(category)&&/sword|blade|axe|dagger|staff|rod|wand|torch|shield|buckler|bow|crossbow|firearm|spear|hammer|tool|instrument|lantern|rope|weapon/.test(type+' '+name);
  if(category==='Armor')return ['head','chest','arms','body','legs','feet'].includes(slot)&&!(/shield|buckler/.test(type))&&(['chest','body'].includes(slot)||slotKeywords[slot]?.some(word=>type.includes(word)||name.includes(word)));
  if(!['Magic Items','Artifacts','Enchantment','Enhancements','Gear','Misc'].includes(category))return false;
  const words=slotKeywords[slot]||[];
