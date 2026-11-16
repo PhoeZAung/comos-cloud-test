@@ -5,6 +5,7 @@ import {execFileSync} from 'node:child_process';
 import {mkdir,writeFile,stat} from 'node:fs/promises';
 import path from 'node:path';
 import {extractKingmakerChapter} from './kingmaker-extract-layout.mjs';
+import {withKingmakerReviewFlags} from '../src/data/kingmaker/quality.mjs';
 
 const args=process.argv.slice(2),option=name=>{const at=args.indexOf(name);return at<0?null:args[at+1];};
 const pdf=option('--pdf'),out=option('--out');
@@ -17,12 +18,25 @@ const chapters=[
 ];
 await mkdir(out,{recursive:true});
 const report={sourceFile:path.basename(pdf),totalPages:pages.length,chapters:{}};
-for(const [category,first,last,expected] of chapters){
- const entries=extractKingmakerChapter(pages.filter(p=>p.page>=first&&p.page<=last),category);
- if(entries.length!==expected)throw Error(category+' heading count mismatch: '+entries.length+' instead of '+expected+'. Review the layout; no files updated.');
+// Parse both chapters before checking for headings accidentally spliced into
+// another entry's field (these can span a page or chapter boundary).
+const parsed=chapters.map(([category,first,last,expected])=>({
+ category,expected,
+ entries:extractKingmakerChapter(pages.filter(p=>p.page>=first&&p.page<=last),category)
+}));
+for(const chapter of parsed){
+ if(chapter.entries.length!==chapter.expected)
+  throw Error(chapter.category+' heading count mismatch: '+chapter.entries.length+
+   ' instead of '+chapter.expected+'. Review the layout; no files updated.');
+}
+const knownNames=parsed.flatMap(chapter=>chapter.entries.map(entry=>entry.name));
+for(const chapter of parsed){
+ const {category,expected}=chapter;
+ const entries=chapter.entries.map(entry=>withKingmakerReviewFlags(entry,knownNames));
  report.chapters[category]={found:entries.length,expected,
   missingCore:entries.filter(e=>e.hp===null||!Number.isFinite(e.stats.ac)||!Number.isFinite(e.stats.cr)).map(e=>e.name),
-  flagged:entries.filter(e=>e.reviewFlags.length).length};
+  flagged:entries.filter(e=>e.reviewFlags.length).length,
+  layoutFlagged:entries.filter(e=>e.reviewFlags.some(flag=>flag.startsWith('PDF layout bleed'))).length};
  await writeFile(path.join(out,category+'.json'),JSON.stringify(entries,null,2)+'\n','utf8');
 }
 await writeFile(path.join(out,'review-report.json'),JSON.stringify(report,null,2)+'\n','utf8');
