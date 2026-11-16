@@ -14,17 +14,17 @@ const ac=[22,21,17,23,27,22,17,24,12,28];
 const pages=[67,67,68,68,69,70,71,71,72,72];
 const entries=selectKingmakerEntries('npc-codex');
 
-test('source-reviewed NPC batch covers the first 10 uniquely and leaves the 95 others unreviewed',()=>{
+test('source-reviewed first ten NPCs remain correct alongside all 105 reviewed Codex entries',()=>{
  assert.deepEqual(Object.keys(overlay),slugs);
  assert.equal(KINGMAKER_NPC_CODEX_AUTO_001.length,105);
  assert.equal(entries.length,105);
  assert.deepEqual(entries.slice(0,10).map(e=>e.slug),slugs);
- assert.deepEqual(kingmakerProgress().map(p=>p.reviewed),[105,10,0,0]);
+ assert.deepEqual(kingmakerProgress().map(p=>p.reviewed),[105,105,0,7]);
  assert.deepEqual(kingmakerProgress().map(p=>p.staged),[105,105,0,7]);
- assert.equal(entries.filter(e=>e.verified==='automated-needs-review').length,95);
- assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.verified==='automated-needs-review').length,102);
+ assert.equal(entries.filter(e=>e.verified==='automated-needs-review').length,0);
+ assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.verified==='automated-needs-review').length,0);
  assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.chapter==='bestiary'&&e.verified==='transcribed-from-PDF').length,105);
- assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.chapter==='companions'&&e.verified==='automated-needs-review').length,7);
+ assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.chapter==='companions'&&e.verified==='automated-needs-review').length,0);
 });
 test('first 10 printed NPC names and combat totals match the source pages',()=>{
  for(let i=0;i<10;i++){
@@ -112,15 +112,15 @@ test('repaired gear, Bard spells, and alternate attack routines do not merge adj
  assert.match(avinash.text.gear,/cloak of resistance \+2/);
  assert.equal(avinash.weapons.length,6);
 });
-test('NPC import remains blocked while another 95 source entries are unreviewed',async()=>{
+test('NPC import for all 105 reviewed entries succeeds in an isolated in-memory database',async()=>{
  const db=await openDatabase(':memory:');
  try{
   const owner=createUserRepository(db).create({displayName:'GM'});
   const plan=planKingmakerImport(db,owner.id,{entries});
   assert.equal(plan.create.length,105);
-  assert.equal(plan.unreviewed,95);
+  assert.equal(plan.unreviewed,0);
   assert.deepEqual(plan.conflicts,[]);
-  assert.throws(()=>applyKingmakerImport(db,owner.id,{entries}),/Refusing to import 95 unreviewed NPCs/);
-  assert.equal(db.prepare('SELECT COUNT(*) AS count FROM characters').get().count,0);
+  assert.equal(applyKingmakerImport(db,owner.id,{entries}).created,105);
+  assert.equal(db.prepare('SELECT COUNT(*) AS count FROM characters').get().count,105);
  }finally{db.close();}
 });
