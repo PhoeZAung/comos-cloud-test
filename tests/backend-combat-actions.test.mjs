@@ -102,7 +102,7 @@ test('saved NPC defenses reduce non-bypassing weapon damage before token update'
  }));
  const roll=f.insert({kind:'weapon',rolls:[14],total:22,damage:{total:13},
   resolution:{abilityKind:'weapon',damageTypes:['Slashing'],drBypass:['silver'],srApplies:false}});
- const result=f.actions.apply(roomId,'player1',false,f.request(roll,{
+ const result=f.actions.apply(roomId,'admin',true,f.request(roll,{
   targetTokenId:'silver-token',targetSheetId:null,targetNpcId:npcId,
   targetAc:18,targetHp:40,targetHpMax:40,targetHpTemp:0
  }));
@@ -121,7 +121,7 @@ test('spell-like effects are checked against NPC SR using server-side caster-lev
  const actions=createCombatActions(f.db,{rollSr:()=>6}); // 6 + CL 9 + 2 penetration = 17, fails SR 18
  const roll=f.insert({kind:'ability',effectType:'damage',damage:{total:12},
   resolution:{abilityKind:'sp',casterLevel:9,srBonus:2,srApplies:true}});
- const result=actions.apply(roomId,'player1',false,f.request(roll,{
+ const result=actions.apply(roomId,'admin',true,f.request(roll,{
   targetTokenId:'spirit-token',targetSheetId:null,targetNpcId:npcId,targetAc:18,targetHp:40,targetHpMax:40,targetHpTemp:0
  }));
  assert.equal(result.event.reason,'Spell resisted');
@@ -141,7 +141,7 @@ test('NPC Reflex save halves fire spell damage before energy resistance and pers
   resolution:{abilityKind:'spell',srApplies:false,saveType:'ref',saveSuccess:'half',damageTypes:['Fire']}},'Fireball');
  const args=f.request(receipt,{targetTokenId:'warden-token',targetSheetId:null,targetNpcId:npcId,
   targetAc:14,targetHp:40,targetHpMax:40,targetHpTemp:0});
- const first=actions.apply(roomId,'player1',false,args);
+ const first=actions.apply(roomId,'admin',true,args);
  assert.equal(first.event.amount,7);
  assert.equal(first.event.after.hp,33);
  assert.equal(first.event.mitigation.find(x=>x.type==='save').total,17);
@@ -161,7 +161,7 @@ test('NPC Fortitude successful save uses Slay Living alternative damage from rec
  const id=f.insert({kind:'spell',dc:19,effectType:'damage',
   attack:{rolls:[13],total:22},damage:{total:51},saveSuccessDamage:{total:16},
   resolution:{abilityKind:'spell',srApplies:false,saveType:'fort',saveSuccess:'alternate'}},'Slay Living');
- const result=actions.apply(roomId,'player1',false,f.request(id,{
+ const result=actions.apply(roomId,'admin',true,f.request(id,{
   targetTokenId:'guard-token',targetSheetId:null,targetNpcId:npcId,targetAc:12,
   defense:'touch',targetHp:70,targetHpMax:70,targetHpTemp:0
  }));
