@@ -102,7 +102,7 @@ test('NPC sword and shield dialogs show only entered attack, defense and save va
  assert.doesNotMatch(defense,/Spell resistance \(SR\)|Source page/);
  assert.match(attack,/Attack rolls/);
  assert.match(attack,/Melee attack bonus/);
- assert.match(attack,/bite \+9/);
+ assert.ok(attack.includes('bite +9'));
  assert.match(attack,/data-edit-stats="npcCombatAttack"/);
  assert.doesNotMatch(attack,/data-roll="Reflex"/);
  const unknown=renderNpcCombatDetails(normalizeNpcSheet({}),'defense');
