@@ -280,7 +280,7 @@ export function entryDetail(row,data={},key='',{npc=false}={}){
   let damageDetails,damageError;
   try{damageDetails=weaponDamageFormulas(row,data);}catch(error){damageError=error.message;}
   const pairs=values=>'<dl class="cs-pairs">'+values.filter(([,v])=>v!==undefined&&v!=='').map(([title,value])=>'<div><dt>'+e(title)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>';
-  const group=(title,values)=>'<section><h3>'+title+'</h3>'+pairs(values)+'</section>';
+  const group=(title,values)=>{const populated=values.filter(([,v])=>v!==undefined&&v!==null&&v!==''&&(!npc||v!=='—'));return npc&&!populated.length?'':'<section><h3>'+title+'</h3>'+pairs(npc?populated:values)+'</section>';};
   return '<div class="cs-weapon-detail-grid">'+
    group('Weapon',[['Item Tag',row.sourceCategory],['Type',row.type],['Cost',row.cost],['Weight',row.weight==null?'':row.weight+' lb'],['Quantity',row.amount??1]])+
    group('Attack',[['Attack Type',attackTypes[parts.type]],['Attack Stat',npc?'':parts.ability.toUpperCase()],['Attack Bonus',signed(parts.total)]])+
