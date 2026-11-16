@@ -151,6 +151,7 @@ async function applyCombatRequest(request){
   targetHp:request.targetSheetId?target.hp:npc.hp,
   targetHpMax:request.targetSheetId?target.hpMax:npc.hpMax,
   targetHpTemp:request.targetSheetId?target.hpTemp:npc.hpTemp||0,
+  targetTrackHp:request.targetSheetId?target.trackHp:npc.trackHp!==false&&Number(npc.hpMax)>0,
   targetNpcId:request.targetSheetId?null:npc.npcId||null
  });
  let event=applied.event;
