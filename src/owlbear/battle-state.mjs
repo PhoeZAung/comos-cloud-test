@@ -1,5 +1,16 @@
 export const BATTLE='com.cosmos.character-sheets/battle',TURN='com.cosmos.character-sheets/turn',LAYOUT='com.cosmos.character-sheets/layout',BAR='com.cosmos.character-sheets/health-bar';
-export function layoutFrom(metadata){const raw=metadata?.[LAYOUT]||{};return {party:raw.party!==false,initiative:raw.initiative===true,partyDock:['top','bottom','left','right'].includes(raw.partyDock)?raw.partyDock:'top',initiativeDock:raw.initiativeDock==='right'?'right':'left',npcHp:raw.npcHp===true};}
+export function layoutFrom(metadata){
+ const raw=metadata?.[LAYOUT]||{},oldDock=['top','bottom','left','right'].includes(raw.partyDock)?raw.partyDock:'top';
+ const clamp=value=>Math.max(0,Math.min(1,value));
+ return {
+  party:raw.party!==false,initiative:raw.initiative===true,
+  // Legacy docking is used only to initialize new, freely movable coordinates.
+  partyX:clamp(Number.isFinite(raw.partyX)?raw.partyX:oldDock==='left'?0:oldDock==='right'?1:.5),
+  partyY:clamp(Number.isFinite(raw.partyY)?raw.partyY:oldDock==='bottom'?1:.06),
+  partyColumns:Number.isInteger(raw.partyColumns)&&raw.partyColumns>=1&&raw.partyColumns<=6?raw.partyColumns:3,
+  initiativeDock:raw.initiativeDock==='right'?'right':'left',npcHp:raw.npcHp===true
+ };
+}
 export const tokenName=item=>String(item.text?.plainText?.trim()||item.name||'Character').slice(0,80);
 export const normalizeName=value=>String(value).trim().toLocaleLowerCase();
 export function battleRows(items,party){
@@ -23,7 +34,11 @@ export function battleHpForViewer(battle,{gm=false,npcHp=false}={}){
  return battle.map(row=>{
   if(row.siteId)return row;
   const {hpHidden,...visible}=row;
-  return npcHp&&!hpHidden&&row.trackHp?visible:{...visible,hp:null,hpMax:null,hpTemp:null,trackHp:false};
+  // The per-NPC eye hides combat stats, not just the HP label. Never send
+  // hidden AC or defense breakdowns over the player-facing room channel.
+  if(hpHidden)return {...visible,hp:null,hpMax:null,hpTemp:null,trackHp:false,
+   mp:null,mpMax:null,ac:null,touch:null,flat:null,cmd:null};
+  return npcHp&&row.trackHp?visible:{...visible,hp:null,hpMax:null,hpTemp:null,trackHp:false};
  });
 }
 /** Move to the next player-visible combatant, never making a hidden token
