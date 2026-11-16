@@ -33,7 +33,7 @@ import {FFD20_SHOP_PRICE_MODE} from '../features/sheet/shop-pricing.mjs';
 import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
 import {applyRichFormat,formatSheetText} from '../features/sheet/rich-text.mjs';
-import {escape as e,sections,renderCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
+import {escape as e,sections,renderCombatDetails,renderNpcCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
 import {isEquipmentSlot,equippedInSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','languages','senses','speed_mod','speed_burrow','speed_climb','speed_fly','speed_swim'],
@@ -192,7 +192,7 @@ function mountCharacterSheet(tabs,switchTo){
  let spellFilter=new URL(location.href).searchParams.get('spellLevel')||'all';if(spellFilter!=='all'){spellFilter=Number(spellFilter);if(!Number.isInteger(spellFilter)||spellFilter<0||spellFilter>9)spellFilter='all';}
  let itemView=new URL(location.href).searchParams.get('itemView')==='equip'?'equip':'inventory';
  let weaponView=['Weapon','Ranged Weapon','Ammunition'].includes(new URL(location.href).searchParams.get('weaponView'))?new URL(location.href).searchParams.get('weaponView'):'Weapon';
- let npcView=['combat','abilities','details'].includes(restoredView.npcView)?restoredView.npcView:'combat';
+ let npcView=['combat','core','abilities'].includes(restoredView.npcView)?restoredView.npcView:restoredView.npcView==='details'?'core':'combat';
  document.body.classList.toggle('sheet-compact',compact);
  if(!id){root.innerHTML='<h1>Character sheet</h1><p>Choose a character to open its sheet.</p><a class="button" href="characters.html">Characters</a>';return ()=>control.abort();}
  const endpoint='/api/v1/character-records/'+encodeURIComponent(id);
@@ -273,7 +273,7 @@ function mountCharacterSheet(tabs,switchTo){
   root.querySelector('[data-editor-premade]').hidden=!abilityTabs.includes(change.collection);
   root.querySelector('[data-dialog-fields]').innerHTML=keys===groupFields.identity?renderIdentityEditor(values):(help?'<p class="cs-caption">'+e(help)+'</p>':'')+renderEntryFields(keys,values,change.collection);
   updateWeaponEditorPreview();updateWeaponAmmoPreview();
-  root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
+  root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';if(!dialog().open)dialog().showModal();
  }
  function activateItemEditorTab(name,focus=false){
   const host=dialog()?.querySelector('[data-item-editor]');
@@ -539,7 +539,7 @@ function mountCharacterSheet(tabs,switchTo){
   const tab=event.target.closest('[data-npc-tab]');
   if(!tab||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
   event.preventDefault();
-  const keys=['combat','abilities','details'],index=keys.indexOf(tab.dataset.npcTab);
+  const keys=['combat','core','abilities'],index=keys.indexOf(tab.dataset.npcTab);
   const next=event.key==='Home'?0:event.key==='End'?keys.length-1:
    (index+(event.key==='ArrowRight'?1:keys.length-1))%keys.length;
   activateNpcTab(keys[next],{focus:true});
@@ -642,8 +642,8 @@ function mountCharacterSheet(tabs,switchTo){
    if(button.matches('[data-ammo-operation]')){const operation=button.dataset.ammoOperation,change={action:'gunbreakerAmmo',operation};if(operation==='configure')change.profileId=root.querySelector('[data-ammo-profile]').value;if(['reload','fire','spend','brutal-shell'].includes(operation))change.rounds=Number(root.querySelector('[data-ammo-rounds]')?.value);void save(change);return;}
    if(button.matches('[data-combat-details]')){
     const kind=button.dataset.combatDetails;
-    root.querySelector('#cs-dialog-title').textContent=kind==='attack'?'Attack rolls':'Defenses';
-    root.querySelector('[data-dialog-fields]').innerHTML=renderCombatDetails(character.data,kind);
+    root.querySelector('#cs-dialog-title').textContent=kind==='attack'?'Attack rolls':'Defenses & saving throws';
+    root.querySelector('[data-dialog-fields]').innerHTML=character.kind==='npc'?renderNpcCombatDetails(character.data,kind):renderCombatDetails(character.data,kind);
     root.querySelector('[data-dialog-status]').textContent='';
     root.querySelector('[data-sheet-form] button[type=submit]').hidden=true;dialog().showModal();return;
    }
@@ -756,6 +756,23 @@ function mountCharacterSheet(tabs,switchTo){
   if(button.matches('[data-edit-stats]')){
    const group=button.dataset.editStats;
    if(character.kind==='npc'){
+    const npcEditors={
+     npcCombatAttack:{kind:'npcStats',title:'Attack rolls',keys:['initiative','bab','cmb','meleeAttack','rangedAttack','reach','casterLevel','spellPenetration','spellDC']},
+     npcCombatAttackText:{kind:'npcText',title:'Attack details',keys:['attackDetail','maneuverDetail','specialAttacks','tactics','spellNotes']},
+     npcCombatDefense:{kind:'npcStats',title:'AC and saving throws',keys:['ac','touch','flat','fort','ref','will','cmd','dr','sr']},
+     npcCombatDefenseText:{kind:'npcText',title:'Defense details',keys:['acDetail','saveDetail','defenses','weaknesses','drBypass','energyResistances','immunities','vulnerabilities','saveSpecial']},
+     npcAbilityScores:{kind:'npcStats',title:'Ability scores',keys:['str','dex','con','int','wis','cha']},
+     npcCoreStats:{kind:'npcStats',title:'Movement and perception',keys:['speed','flySpeed','swimSpeed','climbSpeed','burrowSpeed','space','perception']},
+     npcCoreSenses:{kind:'npcText',title:'Senses and movement',keys:['senses','aura','movementDetail']},
+     npcGear:{kind:'npcText',title:'Gear',keys:['gear','combatGear']},
+     npcCreatureInfo:{kind:'npcText',title:'Creature details',keys:['summary','raceClassLevels','alignment','size','creatureType','subtypes','languages','description','environment','organization','treasure']},
+     npcAbilityText:{kind:'npcText',title:'Special abilities',keys:['specialAbilities','spellLikeAbilities','spellsPrepared','spellsKnown','qualities','spellNotes']},
+     npcFeats:{kind:'npcText',title:'Feats',keys:['feats']}
+    };
+    if(npcEditors[group]){
+     const {kind,title,keys}=npcEditors[group];
+     openDialog(title,keys,character.data[kind]||{},{action:kind,collection:kind});return;
+    }
     if(group==='npcStats'||group==='npcText'||group.startsWith('npcStats:')||group.startsWith('npcText:')){
      const [kind,rawIndex]=group.split(':'),groups=kind==='npcStats'?npcStatGroups:npcTextGroups;
      const index=rawIndex===undefined?null:Number(rawIndex);
