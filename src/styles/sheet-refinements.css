@@ -720,3 +720,38 @@
 .cs-npc-sheet .cs-entry-list,.cs-npc-sheet .cs-skills{gap:5px}
 .cs-npc-sheet .cs-entry{padding:8px}
 @media(max-width:480px){.cs-npc-sheet .cs-npc-tabs button{flex:1 1 auto;padding:7px 8px}.cs-npc-sheet .cs-npc-combat-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,165px),1fr))}}
+
+
+/* NPC template: combat shortcuts first; per-encounter HP lives on combatants, not this sheet. */
+.cs-npc-sheet .cs-npc-panel{display:grid;gap:8px;min-width:0}
+.cs-npc-sheet .cs-npc-panel[hidden]{display:none!important}
+.cs-npc-sheet .cs-npc-combat-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:440px;width:100%;margin:2px auto 8px}
+.cs-npc-sheet .cs-npc-combat-summary .cs-combat-tile{min-height:108px;padding:10px;border-radius:12px}
+.cs-npc-sheet .cs-npc-combat-summary .cs-attack-tile>svg{width:42px;height:42px}
+.cs-npc-sheet .cs-npc-combat-summary .cs-ac-tile strong{font-size:29px}
+.cs-npc-sheet .cs-npc-combat-summary .cs-ac-tile{border:0;background:transparent}
+.cs-npc-sheet .cs-npc-core-card{min-width:0}
+.cs-npc-sheet .cs-npc-core-card .cs-card-title{justify-content:flex-start}
+.cs-npc-sheet .cs-npc-core-card .cs-card-title h2{margin-right:auto}
+.cs-npc-sheet .cs-npc-core-card .cs-pairs{margin:0}
+.cs-npc-sheet .cs-npc-core-card .cs-pairs>div{padding:5px 0}
+.cs-npc-sheet .cs-npc-core-card .cs-scores{margin:0;grid-template-columns:repeat(auto-fit,minmax(65px,1fr))}
+.cs-npc-sheet .cs-npc-core-card .cs-score{padding:7px;gap:3px}
+.cs-npc-sheet .cs-npc-core-card .cs-score strong{font-size:19px}
+.cs-npc-sheet .cs-npc-core-card .cs-score small{font-size:12px}
+.cs-npc-sheet .cs-npc-core-card .cs-metrics{grid-template-columns:repeat(auto-fit,minmax(85px,1fr))}
+.cs-npc-sheet .cs-npc-core-card .cs-metric{padding:8px 4px}
+.cs-npc-sheet .cs-npc-core-card .cs-metric strong{font-size:16px}
+.cs-npc-sheet .cs-npc-ability-prose,.cs-npc-sheet .cs-npc-printed-skills{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
+.cs-npc-sheet .cs-npc-ability-prose .cs-pairs,.cs-npc-sheet .cs-npc-printed-skills .cs-pairs{margin:0}
+.cs-npc-sheet .cs-npc-ability-prose .cs-pairs>div,.cs-npc-sheet .cs-npc-printed-skills .cs-pairs>div{padding:5px 0}
+.cs-npc-combat-popup{display:grid;gap:10px}
+.cs-npc-popup-group h3{margin:4px 0 6px;font-size:.83rem;color:var(--muted)}
+.cs-npc-combat-popup .cs-popup-metrics{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:6px;margin:0}
+.cs-npc-combat-popup .cs-metric{min-height:54px;padding:6px;border-radius:8px}
+.cs-npc-combat-popup .cs-metric span{font-size:.69rem}
+.cs-npc-combat-popup .cs-metric strong{font-size:1rem}
+.cs-npc-combat-popup .cs-pairs{margin:0}
+.cs-npc-combat-popup .cs-pairs>div{padding:5px 0}
+.cs-npc-popup-edit{display:flex;gap:5px;justify-content:flex-end;border-top:1px solid var(--line);padding-top:6px}
+@media(max-width:480px){.cs-npc-sheet .cs-npc-combat-summary{gap:8px}.cs-npc-sheet .cs-npc-combat-summary .cs-combat-tile{min-height:90px}.cs-npc-sheet .cs-npc-core-card .cs-scores{grid-template-columns:repeat(3,minmax(0,1fr))}}
