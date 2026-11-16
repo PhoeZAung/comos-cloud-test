@@ -50,17 +50,10 @@ test('NPC import keeps absent fields null and parses explicit existing defenses'
 });
 test('NPC sheet hides unset stats and details while retaining the GM edit buttons',()=>{
  const html=renderSheetFrame(character(normalizeNpcSheet({})),'overview',{admin:true});
- for(const label of ['Damage reduction (DR)','Spell resistance (SR)','Fortitude','Reflex','Will','Save modifiers','Special save rules'])
-  assert.doesNotMatch(html,new RegExp('(?:<span>|<dt>)'+label.replace(/[.*+?^${}()|[\]\\]/g,'\\test('NPC sheet renders every unset defense explicitly instead of hiding it',()=>{
- const html=renderSheetFrame(character(normalizeNpcSheet({})),'overview',{admin:true});
- for(const label of ['Damage reduction (DR)','Spell resistance (SR)','Fortitude','Reflex','Will','Save modifiers','Special save rules'])
-  assert.ok(html.includes(label),label+' visible');
- assert.match(html,/cs-metric-unset/);
- assert.match(html,/data-edit-stats="npcStats:0"/);
- assert.match(html,/data-edit-stats="npcText:1"/);
- assert.match(html,/—/);
- assert.doesNotMatch(html,/data-roll="Fortitude"/,'unset save may not be rolled as +0');
-});')+'(?:</span>|</dt>)'),label+' is hidden without a value');
+ for(const label of ['Damage reduction (DR)','Spell resistance (SR)','Fortitude','Reflex','Will','Save modifiers','Special save rules']){
+  assert.equal(html.includes('<span>'+label+'</span>'),false,label+' stat hidden');
+  assert.equal(html.includes('<dt>'+label+'</dt>'),false,label+' detail hidden');
+ }
  assert.doesNotMatch(html,/cs-metric-unset|cs-score-unset|cs-npc-empty/);
  assert.match(html,/data-edit-stats="npcStats:0"/);
  assert.match(html,/data-edit-stats="npcText:1"/);
