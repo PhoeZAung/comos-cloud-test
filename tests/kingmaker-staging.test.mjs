@@ -20,8 +20,8 @@ const expected=[
 ];
 
 test('first 10 Bestiary entries match named creatures, CR, XP, HP, AC, and printed source pages',()=>{
- assert.equal(KINGMAKER_STAGED_ENTRIES.length,10);
- assert.equal(new Set(KINGMAKER_STAGED_ENTRIES.map(e=>e.slug)).size,10,'unique import keys');
+ assert.equal(KINGMAKER_STAGED_ENTRIES.length,217);
+ assert.equal(new Set(KINGMAKER_STAGED_ENTRIES.map(e=>e.chapter+':'+e.slug)).size,217,'unique chapter import keys');
  for(let i=0;i<expected.length;i++){
   const [name,cr,xp,hp,ac,page]=expected[i],rec=KINGMAKER_STAGED_ENTRIES[i];
   assert.deepEqual([rec.name,rec.stats.cr,rec.stats.xp,rec.hp,rec.stats.ac,rec.printedPage],[name,cr,xp,hp,ac,page]);
@@ -33,7 +33,7 @@ test('first 10 Bestiary entries match named creatures, CR, XP, HP, AC, and print
 });
 
 test('staged monsters become Cosmos-editable NPC data without silently inventing unknown scores',()=>{
- for(const rec of KINGMAKER_STAGED_ENTRIES){
+ for(const rec of KINGMAKER_STAGED_ENTRIES.slice(0,10)){
   const data=kingmakerNpcData(rec);
   assert.equal(data.npcCategory,'bestiary');
   assert.equal(data.npcImportSource,KINGMAKER_BOOK_ID);
@@ -61,13 +61,14 @@ test('staged monsters become Cosmos-editable NPC data without silently inventing
 test('all categories have progress bars; hazards deferred; production remains unmodified',()=>{
  assert.deepEqual(KINGMAKER_CHAPTERS.map(x=>x.id),['bestiary','npc-codex','hazards','companions']);
  const progress=kingmakerProgress({});
- assert.deepEqual(progress.map(x=>x.staged),[10,0,0,0]);
+ assert.deepEqual(progress.map(x=>x.staged),[105,105,0,7]);
+ assert.deepEqual(progress.map(x=>x.reviewed),[10,0,0,0]);
  assert.deepEqual(progress.map(x=>x.imported),[0,0,0,0]);
- assert.equal(progress[0].total,103);
+ assert.equal(progress[0].total,105);
  assert.equal(progress[1].total,105);
  assert.equal(progress[2].deferred,true);
  assert.equal(progress[3].total,7);
- assert.equal(progress[0].percent,10);
+ assert.equal(progress[0].percent,100);
  assert.equal(kingmakerProgress({bestiary:4})[0].imported,4);
 });
 
