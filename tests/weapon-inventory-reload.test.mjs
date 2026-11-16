@@ -19,7 +19,7 @@ test('plain Dexterity checks remain unpenalized while load applies to skills and
  assert.equal(skillTotal({name:'Acrobatics',stat:'dex',lvl:1},data),4+1-6);
  const plain=renderSection({id:'d',name:'Hero',data},'overview');
  assert.match(plain,/data-roll="DEX check" data-bonus="4"/);
- assert.match(plain,/Load\/armor penalty/);
+ assert.match(plain,/Skill penalty/);
  assert.equal(abilityCheckBonus({...data,items:[]},'dex'),4);
 });
 
