@@ -32,7 +32,7 @@ test('automatic records retain source pages and honest review flags; known unkno
   assert.equal(data.npcCategory,entry.chapter);
   assert.equal(data.npcImportKey,entry.slug);
   assert.equal(data.npcStats.sourcePage,entry.printedPage);
-  assert.equal(data.hp_curr,entry.hp??null);
+  assert.equal(data.hp_curr,entry.hpCurrent??entry.hp??null);
   assert.equal(data.npcVerified,entry.verified==='transcribed-from-PDF');
   assert.deepEqual(data.npcVariants,entry.variants||[]);
   if(entry.verified==='automated-needs-review')assert.equal(data.npcVerified,false);
