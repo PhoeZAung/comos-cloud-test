@@ -151,7 +151,7 @@ async function* walk(dir){
   else if(entry.isFile()&&entry.name.endsWith('.json'))yield path;
  }
 }
-export async function buildExtraCatalog(source,input,version,output){
+export async function buildExtraCatalog(source,input,version,output,{minItems=1}={}){
  const info=EXTRA_ITEM_SOURCES[source];
  if(!info||!/^[a-f0-9]{40}$/.test(version))throw Error('Select a supported source and exact 40-digit upstream commit SHA.');
  const base=resolve(input),files=[],rows=[],seen=new Set();
@@ -198,6 +198,8 @@ export async function buildExtraCatalog(source,input,version,output){
   }
  }
  if(!rows.length)throw Error('No compatible item entries found; refusing to stage an empty catalog.');
+ if(!Number.isSafeInteger(minItems)||minItems<1||rows.length<minItems)
+  throw Error('Incomplete '+source+' catalog ('+rows.length+' items; minimum '+minItems+'). Not staging.');
  if(rows.length>50000)throw Error('Extra catalog exceeds 50,000 items.');
  rows.sort((a,b)=>a.name.localeCompare(b.name)||a.itemKey.localeCompare(b.itemKey));
  const catalog={schemaVersion:'cosmos.extra-item-catalog.v1',sourceKey:source,sourceId:info.sourceId,
@@ -212,9 +214,9 @@ export async function buildExtraCatalog(source,input,version,output){
  return catalog;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
- const [source,input,revision,out]=process.argv.slice(2);
+ const [source,input,revision,out,minItems]=process.argv.slice(2);
  if(!source||!input||!revision||!out){
   console.error('Usage: node scripts/build-extra-item-catalog.mjs <source-key> <extracted-upstream-root> <40-character-commit-SHA> <output.json.gz>');
   process.exitCode=2;
- }else await buildExtraCatalog(source,input,revision,out);
+ }else await buildExtraCatalog(source,input,revision,out,{minItems:minItems?Number(minItems):1});
 }
