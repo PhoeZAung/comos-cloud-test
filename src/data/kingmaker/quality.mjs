@@ -91,7 +91,7 @@ function confirmedSpilloverCut(value,names,ownName){
   if(name===ownName||name.length<5)continue;
   // The source PDF prints monster names in uppercase. Require that case,
   // along with word boundaries; ordinary mentions must be preserved.
-  const pattern=new RegExp('(?:^|\\s)('+escapedName(name)+')(?=\\s|$)','g');
+  const pattern=new RegExp('(?:^|\\s)('+escapedName(name)+')(?=\\s+[A-Z]|$)','g');
   const normalized=value.replace(/[’‘]/g,"'");
   for(const match of normalized.matchAll(pattern)){
    const start=match.index+match[0].indexOf(match[1]);
