@@ -150,10 +150,10 @@ test('NPC ammo quantity stays on weapon row but is not repeated in detail popup'
  assert.match(playerDetails,/<dt>Max Ammo<\/dt>/);
 });
 
-test('bestairy import preserves long special ability and spell text, plus wrapped key abilities',()=>{
+test('bestiary import preserves long special ability and spell text, plus wrapped key abilities',()=>{
  const special='A powerful magical effect. '.repeat(320)+'END-SPECIAL.';
  const spell='A 30-foot cone with a DC 18 save. '.repeat(180)+'END-SPELL.';
- const markdown='# Elder Guardian\\n| HP | 74 (8d10+20), fast healing 5 |\\n| Special Abilities | '+special+' |\\n| Spell-Like Abilities | '+spell+' |\\n**Key abilities (as printed):**\\n- **Stone Gaze:** Fort DC 18; 30 ft range.\\n    Creatures that fail the save are petrified.\\n## GM notes\\n    Do not import campaign secrets.';
+ const markdown='# Elder Guardian\n| HP | 74 (8d10+20), fast healing 5 |\n| Special Abilities | '+special+' |\n| Spell-Like Abilities | '+spell+' |\n**Key abilities (as printed):**\n- **Stone Gaze:** Fort DC 18; 30 ft range.\n    Creatures that fail the save are petrified.\n## GM notes\n    Do not import campaign secrets.';
  const data=parseNpcStatBlock(markdown).data;
  assert.equal(data.npcStats.fastHealing,5);
  assert.match(data.npcText.specialAbilities,/END-SPECIAL/);
