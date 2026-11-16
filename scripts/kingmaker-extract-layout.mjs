@@ -7,10 +7,10 @@ const number=s=>{const m=/[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?/.exec(clean(
 const stop=/^(?:DEFENSE|OFFENSE|STATISTICS|SPECIAL ABILITIES|TACTICS|ECOLOGY|DESCRIPTION|During Combat|Before Combat|Morale|Melee\b|Ranged\b|Space\b|Special Attacks\b|Speed\b|AC\b|hp\b|Fort\b|Init\b|Str\b|Base Atk\b|Feats\b|Skills\b|Languages\b|SQ\b|Combat Gear\b|Other Gear\b|Gear\b|Defensive Abilities\b|Weaknesses\b|Aura\b|Immune\b|DR\b|SR\b|Resist\b|Spell-Like Abilities\b|.+ Spells Prepared\b|Spells Prepared\b)/i;
 function half(line){
  const src=line.slice(0,142);
- const c=[...src.matchAll(/ {3,}(\S)/g)].map(m=>m.index+m[0].length-1).filter(x=>x>=58&&x<=82);
+ const c=[...src.matchAll(/ {3,}(\S)/g)].map(m=>m.index+m[0].length-1).filter(x=>x>=57&&x<=82);
  const cut=c.at(-1);
  if(cut!==undefined&&!/^CR\s+(?:\d+(?:\/\d+)?|—)\s*$/.test(src.slice(cut).trim()))return [src.slice(0,cut).trim(),src.slice(cut).trim()];
- if(src.search(/\S/)>=58)return ["",src.trim()];
+ if(src.search(/\S/)>=57)return ["",src.trim()];
  return [src.trim(),""];
 }
 function chapterText(pages){
