@@ -192,6 +192,7 @@ function mountCharacterSheet(tabs,switchTo){
  let spellFilter=new URL(location.href).searchParams.get('spellLevel')||'all';if(spellFilter!=='all'){spellFilter=Number(spellFilter);if(!Number.isInteger(spellFilter)||spellFilter<0||spellFilter>9)spellFilter='all';}
  let itemView=new URL(location.href).searchParams.get('itemView')==='equip'?'equip':'inventory';
  let weaponView=['Weapon','Ranged Weapon','Ammunition'].includes(new URL(location.href).searchParams.get('weaponView'))?new URL(location.href).searchParams.get('weaponView'):'Weapon';
+ let npcView=['combat','abilities','details'].includes(restoredView.npcView)?restoredView.npcView:'combat';
  document.body.classList.toggle('sheet-compact',compact);
  if(!id){root.innerHTML='<h1>Character sheet</h1><p>Choose a character to open its sheet.</p><a class="button" href="characters.html">Characters</a>';return ()=>control.abort();}
  const endpoint='/api/v1/character-records/'+encodeURIComponent(id);
@@ -200,7 +201,7 @@ function mountCharacterSheet(tabs,switchTo){
  const equipmentDialog=()=>root.querySelector('[data-equipment-dialog]');let selectedEquipmentSlot=null;
  const canOpenTabs=()=>character.kind!=='npc'&&character.owned!==false;
  const openPicker=()=>root.querySelector('.cs-picker[open]');
- const currentView=()=>({section,ability,combatView,itemView,itemTag,spellLevel:spellFilter,weaponView,notesTab,lastFightSection,scrollY:window.scrollY,showStars,weaponsCollapsed});
+ const currentView=()=>({section,ability,combatView,itemView,itemTag,spellLevel:spellFilter,weaponView,notesTab,lastFightSection,npcView,scrollY:window.scrollY,showStars,weaponsCollapsed});
  async function canSwitch(){
   if(busy||conflict||remainingInvalid||dragState){status('Finish saving this sheet before switching.');return false;}
   if(dirty&&!confirm('Discard unsaved edits on this sheet?'))return false;
@@ -213,10 +214,21 @@ function mountCharacterSheet(tabs,switchTo){
   const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:AbortSignal.any([control.signal,AbortSignal.timeout(body?20000:15000)]),credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
+ function activateNpcTab(value,{focus=false}={}){
+  const selected=root.querySelector('[data-npc-tab="'+value+'"]');
+  if(!selected)return;
+  npcView=value;
+  for(const tab of root.querySelectorAll('[data-npc-tab]')){
+   const active=tab===selected;
+   tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;
+  }
+  for(const panel of root.querySelectorAll('[data-npc-panel]'))panel.hidden=panel.dataset.npcPanel!==value;
+  if(focus)selected.focus();
+ }
  function draw(){if(closed)return;if(character.kind==='npc'&&!document.body.hasAttribute('data-owlbear-sheet')){const back=document.querySelector('header .back');if(back){back.href='admin-npcs.html';back.textContent='← NPCs';}}disposeHold();disposeNotesElectric();disposePersonalNotes.dispose();disposeSettings?.();disposePartyNotes?.();disposePartyNotes=undefined;const notesTicket=++notesGeneration;if(!(character.partyTags||[]).some(tag=>tag.id===notesTab))notesTab='personal';if(section==='items'&&itemView==='inventory'){
   const visible=visibleInventoryCategory(inventoryCategoryCounts(character.data.items),itemTag);
   if(visible!==itemTag){itemTag=visible;const url=new URL(location.href);url.searchParams.set('itemTag',visible);history.replaceState(null,'',url);}
- }clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,weaponView,showStars,discordEnabled,notesTab,owlbear:document.body.hasAttribute('data-owlbear-sheet')});
+ }clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,weaponView,showStars,discordEnabled,notesTab,owlbear:document.body.hasAttribute('data-owlbear-sheet')});activateNpcTab(npcView);
  if(canOpenTabs()){
   tabs.add(character);
   root.querySelector('[data-sheet]').insertAdjacentHTML('afterbegin',tabs.render(id));
@@ -523,6 +535,15 @@ function mountCharacterSheet(tabs,switchTo){
   remainingPromise=(async()=>{try{if(Object.keys(resources).length&&!await save({action:'fields',fields:resources},true))return false;return patch?await save({action:'entry',collection:patch.collection,index:patch.index,mode:'update',fields:{u_curr:patch.value}},true):true;}finally{remainingPromise=null;}})();return remainingPromise;
  }
  async function useEntry(collection,index,spendUse){if(remainingInvalid){status('Enter valid remaining uses first.');return;}clearTimeout(remainingTimer);if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy||conflict)return;if(collection==='spells')return roll('Spell',null,undefined,index);return roll('Ability',null,undefined,undefined,{collection,index,spendUse});}
+ root.addEventListener('keydown',event=>{
+  const tab=event.target.closest('[data-npc-tab]');
+  if(!tab||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+  event.preventDefault();
+  const keys=['combat','abilities','details'],index=keys.indexOf(tab.dataset.npcTab);
+  const next=event.key==='Home'?0:event.key==='End'?keys.length-1:
+   (index+(event.key==='ArrowRight'?1:keys.length-1))%keys.length;
+  activateNpcTab(keys[next],{focus:true});
+ },{signal:control.signal});
  root.addEventListener('click',event=>{
    const popout=event.target.closest('[data-sheet-popout]');
    if(popout){
@@ -532,6 +553,7 @@ function mountCharacterSheet(tabs,switchTo){
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
    if(button.matches('[data-sheet-copy-draft]')){if(!saveFailureDraft)return;const text=JSON.stringify(saveFailureDraft,null,2);void (navigator.clipboard?.writeText(text)??Promise.reject(Error('Clipboard unavailable'))).then(()=>status('Unsaved edit copied.')).catch(()=>{window.prompt('Copy your unsaved edit before loading the latest sheet:',text);});return;}
+   if(button.matches('[data-npc-tab]')){activateNpcTab(button.dataset.npcTab);return;}
    if(button.matches('[data-item-edit-tab]')){activateItemEditorTab(button.dataset.itemEditTab);return;}
    if(button.matches('[data-entry-edit-tab]')){activateEntryEditorTab(button.dataset.entryEditTab);return;}
    if(button.matches('[data-add-source-field]')){
