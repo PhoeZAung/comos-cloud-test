@@ -115,7 +115,7 @@ test('shop selection is remembered per character and custom item details stay mi
  const sheet=await readFile('src/ui/sheet.mjs','utf8');
  assert.match(sheet,/shopSelectionKey:id/);
  const editor=await readFile('src/features/sheet/item-editor-tabs.mjs','utf8');
- assert.match(editor,/\['amount','cost','weight'\]/);
+ assert.match(editor,/\['amount','cost','weight','carried'\]/);
  assert.match(editor,/Advanced source columns/);
  assert.match(editor,/\['amount','cost','weight','img','link','carried'\]/);
 });
