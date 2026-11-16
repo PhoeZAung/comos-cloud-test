@@ -64,13 +64,17 @@ test('GM HP privacy command is allowed through the background message router',as
  assert.match(view,/battle-hp-privacy/);
 });
 
-test('Party overlay avoids being re-raised on simple resizes and stays out of Cosmos action panel',async()=>{
+test('GM Party overlay stays visible while Cosmos action is open, accepts reposition and resize',async()=>{
  const background=await readFile(new URL('../src/owlbear/background.mjs',import.meta.url),'utf8');
- assert.match(background,/OBR\.action\.onOpenChange/);
- assert.match(background,/OBR\.action\.isOpen\(\)/);
- assert.match(background,/cosmosActionOpen\?\{\.\.\.dimensions,party:null\}:dimensions/);
+ assert.doesNotMatch(background,/cosmosActionOpen\?\{\.\.\.dimensions,party:null\}:dimensions/,'do not hide Party from GM');
+ assert.match(background,/d\.type==='party-move'/);
+ assert.match(background,/moveParty\(/);
  assert.match(background,/OBR\.popover\.setWidth\(id,width\)/);
  assert.match(background,/OBR\.popover\.setHeight\(id,height\)/);
- assert.match(background,/anchorPosition:\{left:anchor\.left,top:anchor\.top\}/,'Party HUD is docked to its viewport edge');
- assert.match(background,/stopActionOpen\(\)/);
+ assert.match(background,/anchorPosition:\{left:anchor\.left,top:anchor\.top\}/);
+ const html=await readFile(new URL('../scripts/build-owlbear.mjs',import.meta.url),'utf8');
+ assert.match(html,/data-layout="partyColumns"/);
+ assert.doesNotMatch(html,/data-layout="partyDock"/);
+ assert.match(html,/data-party-drag/);
+ assert.match(html,/<details class="cosmos-admin-settings" data-admin-settings hidden>/);
 });
