@@ -69,7 +69,8 @@ test('Party overlay avoids being re-raised on simple resizes and stays out of Co
  assert.match(background,/OBR\.action\.onOpenChange/);
  assert.match(background,/OBR\.action\.isOpen\(\)/);
  assert.match(background,/cosmosActionOpen\?\{\.\.\.dimensions,party:null\}:dimensions/);
- assert.match(background,/OBR\.popover\.setWidth\(id,rectangle\.width\)/);
- assert.match(background,/OBR\.popover\.setHeight\(id,rectangle\.height\)/);
+ assert.match(background,/OBR\.popover\.setWidth\(id,width\)/);
+ assert.match(background,/OBR\.popover\.setHeight\(id,height\)/);
+ assert.match(background,/anchorPosition:\{left:anchor\.left,top:anchor\.top\}/,'Party HUD is docked to its viewport edge');
  assert.match(background,/stopActionOpen\(\)/);
 });
