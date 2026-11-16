@@ -148,7 +148,7 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
   assert.equal(orcArmor.acBonus,'4');assert.equal(orcArmor.maxDex,'1');assert.equal(orcArmor.checkPenalty,'-2');
 
   assert.equal(items.list({sourceId:'pf2e-json'}).items.length,2,'expand grouped legacy equipment tables');
-  const legacySword=items.list({sourceId:'pf2e-json',q:'Longsword'}).items[0];
+  const legacySword=items.get(items.list({sourceId:'pf2e-json',q:'Longsword'}).items[0].id);
   assert.equal(legacySword.catalog.detailUrl,'https://2e.aonprd.com/Weapons.aspx?ID=20',
    'show the original item page when the source supplies one');
   assert.ok(legacySword.catalog.sourceUrl.startsWith('https://github.com/'));
