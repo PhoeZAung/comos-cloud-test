@@ -522,6 +522,7 @@ function mountCharacterSheet(tabs,switchTo){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
+   if(button.matches('[data-sheet-copy-draft]')){if(!saveFailureDraft)return;const text=JSON.stringify(saveFailureDraft,null,2);void (navigator.clipboard?.writeText(text)??Promise.reject(Error('Clipboard unavailable'))).then(()=>status('Unsaved edit copied.')).catch(()=>{window.prompt('Copy your unsaved edit before loading the latest sheet:',text);});return;}
    if(button.matches('[data-item-edit-tab]')){activateItemEditorTab(button.dataset.itemEditTab);return;}
    if(button.matches('[data-entry-edit-tab]')){activateEntryEditorTab(button.dataset.entryEditTab);return;}
    if(button.matches('[data-add-source-field]')){
@@ -795,7 +796,7 @@ function mountCharacterSheet(tabs,switchTo){
     return;
    }
    if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
-  if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
+  if(event.target.matches('[data-notes]')){disposePersonalNotes.cancelPending();void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}}).then(ok=>{if(ok)disposePersonalNotes.clearDraft();});return;}
   const fields={};
   if(dialogState.change.collection==='items'){
    const name=event.target.elements.namedItem('name');
@@ -915,5 +916,5 @@ function mountCharacterSheet(tabs,switchTo){
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML=sheetLoading();
  void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();const scroll=tabs.view(id)?.scrollY;if(scroll!==undefined)window.scrollTo(0,scroll);schedule();if(!document.body.hasAttribute('data-owlbear-sheet')&&typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed){root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.name==='TimeoutError'?'The character server took too long to respond. Please retry.':err.message)+'</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';root.querySelector('[data-retry-sheet]').onclick=()=>location.reload();}});
- return ()=>{disposeHold();disposeNotesElectric();clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
+ return ()=>{disposeHold();disposeNotesElectric();disposePersonalNotes.dispose();clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }
