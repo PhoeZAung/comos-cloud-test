@@ -1,3 +1,4 @@
+import {KINGMAKER_STAGED_ENTRIES,kingmakerNpcData,kingmakerProgress} from '../src/data/kingmaker/catalog.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {KINGMAKER_BESTIARY_REVIEWED_091_100 as batchA} from '../src/data/kingmaker/bestiary-reviewed-091-100.mjs';
@@ -51,4 +52,26 @@ test('dangerous abilities, spell levels, and absent undead scores correctly repr
  assert.equal(entries['cyclops-zombie'].stats.int,null);
  assert.equal(entries['zombie-hulk'].stats.con,null);
  assert.equal(entries['zombie-hulk'].stats.int,null);
+});
+test('all 105 Bestiary creatures are source-reviewed; NPC Codex and Companions remain staged only',()=>{
+ const bestiary=KINGMAKER_STAGED_ENTRIES.filter(e=>e.chapter==='bestiary');
+ assert.equal(bestiary.length,105);
+ assert.equal(bestiary.filter(e=>e.verified==='transcribed-from-PDF').length,105);
+ assert.equal(bestiary.filter(e=>e.reviewFlags.length>0).length,0);
+ assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[105,0,0,0]);
+ assert.deepEqual(kingmakerProgress().map(x=>x.staged),[105,105,0,7]);
+ assert.deepEqual(kingmakerProgress().map(x=>x.imported),[0,0,0,0]);
+ assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.verified==='automated-needs-review').length,112);
+ const pages=[57,58,59,59,60,61,61,62,62,63,64,64,65,65,65];
+ const cr=[16,17,2,16,15,10,19,14,15,17,10,18,8,7,6];
+ const hp=[216,174,22,230,220,126,312,199,225,261,90,261,94,77,54];
+ const ac=[34,30,14,31,29,24,34,28,30,32,30,32,20,21,15];
+ const last=bestiary.slice(90);
+ for(let i=0;i<15;i++){
+  const e=last[i],slug=expected[i];
+  assert.deepEqual([e.slug,e.printedPage,e.pdfPage,e.stats.cr,e.hp,e.stats.ac],[slug,pages[i],pages[i]+1,cr[i],hp[i],ac[i]]);
+  assert.equal(e.verified,'transcribed-from-PDF');
+  assert.equal(kingmakerNpcData(e).npcVerified,true);
+  assert.equal(e.needsRulesReference,true);
+ }
 });
