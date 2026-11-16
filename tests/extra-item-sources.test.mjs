@@ -83,6 +83,21 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
    const label=listing.find(x=>x.sourceId===EXTRA_ITEM_SOURCES[source].sourceId);
    assert.equal(label?.shortLabel,EXTRA_ITEM_SOURCES[source].label);
   }
+  // Matching item names from multiple chosen shops are ALWAYS separate choices.
+  // The player decides which version to take; the importer never deduplicates by name.
+  const foundryAndData=items.list({q:'Abacus',catalogs:[
+   'pf1e-foundry~'+sha,'pf1e-pfdata~'+sha
+  ]}).items;
+  assert.equal(foundryAndData.length,2,'two selected catalogs show two same-named items');
+  assert.deepEqual(new Set(foundryAndData.map(item=>item.sourceId)),
+    new Set(['pf1e-foundry','pf1e-pfdata']));
+  assert.notEqual(foundryAndData[0].id,foundryAndData[1].id,'each source has its own item ID');
+  const allThree=items.list({q:'Abacus',catalogs:[
+   'pf1e-foundry~'+sha,'pf1e-pfdata~'+sha,'pf1e-openref~'+sha
+  ]}).items;
+  assert.equal(allThree.length,3,'third selected shop adds its own Abacus');
+  assert.equal(items.list({q:'Abacus'}).items.length,4,
+    'all-source browsing still includes the existing GM-owned Abacus');
   assert.equal(items.get(id).description,'Player customization');
   assert.equal(items.get(id).priceGil,10);
   const foundry=items.list({sourceId:'pf1e-foundry'}).items[0];
