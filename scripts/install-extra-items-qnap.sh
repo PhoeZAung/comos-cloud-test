@@ -8,8 +8,9 @@ export PATH
 cd "$BASE"
 KEY="${1:-all}"
 case "$KEY" in
- all) SOURCES='pf1e-foundry pf1e-pfdata pf1e-openref pf2e-pf2ools pf2e-orc pf2e-json';;
- pf1e-foundry|pf1e-pfdata|pf1e-openref|pf2e-pf2ools|pf2e-orc|pf2e-json) SOURCES="$KEY";;
+ all) SOURCES='pf1e-foundry pf1e-pfdata pf1e-openref pf2e-orc pf2e-json';;
+ pf1e-foundry|pf1e-pfdata|pf1e-openref|pf2e-orc|pf2e-json) SOURCES="$KEY";;
+ pf2e-pf2ools) echo "SKIP: pinned Pf2ools repo has no item records. No empty catalog will be installed.";exit 0;;
  *) echo "Unknown catalog: $KEY" >&2;exit 2;;
 esac
 DATA=$(docker inspect --format '{{range .Mounts}}{{if eq .Destination "/data"}}{{.Source}}{{end}}{{end}}' cosmos-app)
