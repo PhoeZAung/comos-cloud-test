@@ -6,8 +6,8 @@ import {gzipSync} from 'node:zlib';
 import {EXTRA_ITEM_SOURCES,validateExtraCatalog} from '../backend/items/extra-sources.mjs';
 import {readableDescription} from './build-pf2e-catalog.mjs';
 
-const foundryPacks=new Set(['pf-items','pf-goods-services','pf-magic','pf-magicitems','pf-wondrous',
- 'pf-artifacts','pf-tech','pf-technology','pf-cursed-items','pf-intelligent-items','pf-scaling-items']);
+// Only the six real, item-bearing compendiums in the pinned PF1e Foundry archive.
+const foundryPacks=new Set(['pf-items','pf-goods-services','pf-magic','pf-wondrous','pf-artifacts','pf-technology']);
 const pf2Types=new Set(['item','weapon','armor','shield','consumable','equipment',
  'adventuringgear','gear','ammunition','ammo','rune','magicitem','wornitem','wand',
  'staff','potion','snare','treasure','alchemicalitem','talisman','helditem','material']);
@@ -59,7 +59,7 @@ function entriesFor(source,file,strings={}){
   const s=row.system||{};
   const html=str(s.description?.value);
   const cleaned=html.replace(/^\s*<p[^>]*>\s*<strong>Source<\/strong>[\s\S]*?<\/p>/i,'');
-  return [{name:row.name,id:row._id,category:category(row.type,match[1]),
+  return [{name:row.name,id:row._id,category:category(row.type==='equipment'&&s.subType==='weapon'?'weapon':row.type,match[1]),
    description:plainText(cleaned||html),price:money(s.price),
    weight:weight(s.weight?.value),damage:str(s.damage?.parts?.[0]?.[0]||s.damage?.value),
    crit:str(s.critRange),range:s.range?.value,armor:s.armor?.value}];
@@ -92,13 +92,14 @@ function entriesFor(source,file,strings={}){
    price:money(data.data?.price),weight:null,traits:data.tags}];
  }
  if(source==='pf2e-orc'){
-  if(!/\bdata\/item\/[^/]+\.json$/i.test(rel))return [];
+  if(!/\bdata\/items\/item\.[^/]+\.json$/i.test(rel))return [];
   const row=JSON.parse(strings.body);
   if(!obj(row))return [];
   const id=str(row.id)||base.replace(/\.json$/,'');
-  const local=(field)=>str(strings.locales[id+'.'+field]||strings.locales['item.'+id+'.'+field]);
-  const name=local('name')||str(row.name);
-  const description=local('text')||str(row.text);
+  const translate=value=>str(strings.locales[str(value)]||value);
+  const local=field=>str(strings.locales[id+'.'+field]||strings.locales['item.'+id+'.'+field]);
+  const name=translate(row.name)||local('name');
+  const description=translate(row.text)||local('text');
   const basic={id,name,description,category:category(row.kind||row.category||row.type,'item'),
    price:Number.isSafeInteger(row.priceCp)?row.priceCp/100+' gp':'',weight:null,
    traits:row.traits,level:row.level,review:row.review};
