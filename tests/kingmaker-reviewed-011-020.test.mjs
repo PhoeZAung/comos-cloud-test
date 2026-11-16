@@ -34,7 +34,7 @@ test('second PDF-checked Bestiary batch has exactly ten unique, contiguous entri
   assert.deepEqual(e.reviewFlags,[]);
   assert.equal(e.needsRulesReference,true);
  }
- assert.deepEqual(kingmakerProgress().map(e=>e.reviewed),[20,0,0,0]);
+ assert.deepEqual(kingmakerProgress().map(e=>e.reviewed),[30,0,0,0]);
  assert.deepEqual(kingmakerProgress().map(e=>e.staged),[105,105,0,7]);
 });
 
