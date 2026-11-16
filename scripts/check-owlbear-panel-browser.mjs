@@ -13,9 +13,9 @@ const stubs={
  scene:{items:{getItems:async()=>window.sceneItems||[],updateItems:async(ids,update)=>{const found=(window.sceneItems||[]).filter(i=>ids.includes(i.id));update(found);}}},
  broadcast:{sendMessage:async()=>{}},player:{getSelection:async()=>window.selectedTokens||[],deselect:async ids=>{window.unselectedTargets.push(...ids);window.selectedTokens=(window.selectedTokens||[]).filter(id=>!ids.includes(id));}}};`,
  './panel-size.mjs':`export async function panelSize(){}`,
- './local-channel.mjs':`export async function localChannel(OBR,receive){window.deliver=receive;return {send(value){if(value.type==='hello')receive(window.roomState);if(value.type==='roll-receipt')window.receipts.push(value);if(['turn','initiative','stats','highlight','locate','recommend-setting'].includes(value.type))window.commands.push(value);},close(){}};}`,
+ './local-channel.mjs':`export async function localChannel(OBR,receive){window.deliver=receive;return {send(value){if(value.type==='hello')receive(window.roomState);if(value.type==='roll-receipt')window.receipts.push(value);if(['turn','initiative','stats','highlight','locate','recommend-setting','npc-hp-visibility'].includes(value.type))window.commands.push(value);},close(){}};}`,
  './connection.mjs':`export function connection(){return {close(){},async call(method){if(method==='list'){window.listCalls++;return [{id:'character-1',name:'Astra'},{id:'character-2',name:'Nyx'}];}if(method==='npc-list')return [{id:'npc-1',name:'A very long NPC name that should scroll rather than squeeze characters'}];if(method==='roll-history'){window.historyCalls++;return {rolls:window.rollRows};}
- if(method==='combat-history')return {events:[]};
+ if(method==='combat-history')return {events:window.combatRows||[]};
  if(method==='combat-apply')return {event:{kind:'damage',amount:4,hit:true,before:{hp:10,hpMax:12,hpTemp:0},after:{hp:6,hpMax:12,hpTemp:0},status:'pending'},needsNpcUpdate:true};
  if(method==='combat-finalize')return {kind:'damage',applied:4,status:'applied',after:{hp:6,hpMax:12,hpTemp:0}};
  if(method==='api')return {status:200,data:{roll:{total:22,expression:'1d20+5',rolls:[17]}}};throw Error('Unexpected account request');}};}`,
@@ -51,6 +51,27 @@ try{
  await page.evaluate(()=>window.deliver({type:'grant',token:'a'.repeat(64)}));await page.waitForFunction(()=>document.querySelector('[data-connect-prompt]')?.hidden===true);assert.equal(await page.locator('[data-panel-tab="character"]').getAttribute('aria-selected'),'true');await page.locator('[data-panel-tab="settings"]').click();await page.waitForSelector('.roll-history li');checks.push('successful connection returns to Character and hides Connect');
  assert.equal(await page.locator('.history-result strong').first().textContent(),'Attack 27');assert.equal(await page.locator('.history-result strong').nth(1).textContent(),'Damage 8');assert.equal(await page.locator('.roll-history img').count(),0);checks.push('connected history renders original totals/faces and escapes user labels');
  await page.evaluate(()=>{window.rollRows=[{...window.rollRows[0],id:'roll-2',label:'Saving throw',parts:[{label:'Roll',total:17,expression:'1d20+3',faces:[14]}]},...window.rollRows];});await page.locator('[data-refresh-history]').click();await page.waitForFunction(()=>document.querySelectorAll('.roll-history li').length===3);checks.push('refresh adds newest saved roll without rolling again');
+ await page.evaluate(()=>{
+  const now=Date.now();
+  window.rollRows=Array.from({length:12},(_,i)=>({id:'roll-extra-'+i,character:'Astra',label:'Sword '+i,time:now-i*1000,parts:[{label:'Attack',total:20+i,expression:'1d20+5',faces:[15]}]}));
+ });
+ await page.locator('[data-refresh-history]').click();
+ await page.waitForFunction(()=>document.querySelectorAll('[data-roll-history] li').length===5);
+ assert.equal(await page.locator('[data-roll-load-more]').isVisible(),true);
+ await page.locator('[data-roll-load-more]').click();
+ assert.equal(await page.locator('[data-roll-history] li').count(),10);
+ checks.push('Roll History begins at five and reveals five more without changing stored receipts');
+ await page.evaluate(()=>{
+  const now=Date.now();window.combatRows=Array.from({length:12},(_,i)=>({id:'combat-'+i,battle:1,round:1,kind:'damage',source:'weapon',hit:true,actor:'Astra',target:'Goblin',action:'Attack',applied:12-i,time:now-i*1000}));
+  window.deliver({type:'combat-refresh'});
+ });
+ await page.waitForFunction(()=>document.querySelectorAll('[data-combat-events] li').length===5);
+ assert.equal(await page.locator('[data-combat-history]').getAttribute('open'),null);
+ await page.locator('[data-combat-history] summary').click();
+ assert.equal(await page.locator('[data-combat-events] li').count(),5);
+ await page.locator('[data-combat-load-more]').click();
+ assert.equal(await page.locator('[data-combat-events] li').count(),10);
+ checks.push('Combat History opens below Roll History in Settings and loads five older entries at a time');
  await page.evaluate(()=>window.deliver({...window.roomState,admin:true}));await page.locator('[data-panel-tab="settings"]').click();assert.equal(await page.locator('[data-admin-controls]').isVisible(),true);assert.equal(await page.locator('[data-admin-settings]').isVisible(),true);assert.equal(await page.locator('[data-recommend-target]').isVisible(),true);await page.locator('[data-recommend-target]').check();assert.equal((await page.evaluate(()=>window.commands)).at(-1).type,'recommend-setting');checks.push('verified admin can configure target recommendations within Settings');
  assert.equal(await page.evaluate(()=>window.listCalls),1);checks.push('admin state does not duplicate the character roster request');
  await page.locator('[data-panel-tab="character"]').click();
@@ -104,6 +125,17 @@ try{
 
  await page.evaluate(()=>window.deliver({...window.roomState,admin:true,battle:[{id:'token-1',name:'Goblin',initiative:13,hp:17,hpMax:20,mp:4,mpMax:6,ac:14,touch:12,flat:11,cmd:17,trackHp:true,available:true}],turn:{id:'token-1',round:2}}));
  await page.locator('[data-panel-tab="initiative"]').click();assert.equal(await page.locator('.initiative-input').isEnabled(),true);await page.locator('[data-turn="1"]').click();assert.equal((await page.evaluate(()=>window.commands)).at(-1).type,'turn');checks.push('authorized GM can change initiative and send turn commands');
+ await page.locator('.battle-hp-privacy').click();
+ const hiddenCommand=(await page.evaluate(()=>window.commands)).at(-1);
+ assert.deepEqual([hiddenCommand.type,hiddenCommand.id,hiddenCommand.hidden],['npc-hp-visibility','token-1',true]);
+ await page.evaluate(()=>window.deliver({...window.roomState,admin:true,gm:true,battle:[
+  {id:'token-1',name:'Secret Goblin',initiative:13,hp:17,hpMax:20,mp:4,mpMax:6,ac:14,touch:12,flat:11,cmd:17,trackHp:true,available:true,hpHidden:true,visible:false}
+ ],turn:{id:'token-1',round:2}}));
+ const secret=await page.locator('.battle-locate-label').evaluate(node=>getComputedStyle(node).textDecorationLine);
+ assert.match(secret,/line-through/);
+ assert.equal(await page.locator('.battle-hidden-eye').count(),0);
+ assert.equal(await page.locator('.battle-hp-privacy').getAttribute('aria-pressed'),'true');
+ checks.push('NPC HP button dispatches visibility action, and GM-only hidden names appear crossed out');
  await page.locator('[data-panel-tab="settings"]').click();
  await page.evaluate(()=>window.deliver(window.roomState));assert.equal(await page.locator('[data-admin-settings]').isVisible(),false);assert.equal(await page.locator('[data-admin-controls]').isVisible(),false);assert.equal(await page.locator('[data-panel-tab="settings"]').getAttribute('aria-selected'),'true');checks.push('revoked admin immediately loses privileged settings while retaining regular Settings');assert.equal(await page.locator('[data-npc-characters] [data-character]').count(),0);
  assert.equal(await page.locator('[data-turn="1"]').isVisible(),false);checks.push('role revocation disables initiative controls');
