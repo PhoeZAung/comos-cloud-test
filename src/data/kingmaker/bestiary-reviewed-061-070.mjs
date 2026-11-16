@@ -8,6 +8,7 @@ export const KINGMAKER_BESTIARY_REVIEWED_061_070=Object.freeze({
   text:{
    defenses:'DR 10/bludgeoning; immune acid and cold.',
    immunities:'Acid, cold.',
+   drBypass:'Bludgeoning.',
    maneuverDetail:'CMB +19; CMD 38 (42 vs. trip).',
    movementDetail:'Land 40 ft., climb 40 ft.',
    specialAbilities:'Gastrolith (Ex): once every 1d4 rounds, spit a stone-and-acid projectile as a thrown splash weapon (range increment 30 ft.), dealing 2d6+8 bludgeoning and 2d6 acid on direct hit; creatures within 10 ft. of impact take 1d6 acid. Can use the ranged gastrolith alongside all regular melee attacks. Stone Step (Ex): ignore natural difficult terrain while on rocky or subterranean ground; magical difficult terrain still applies.',
@@ -84,6 +85,7 @@ export const KINGMAKER_BESTIARY_REVIEWED_061_070=Object.freeze({
  'lerritan':{
   text:{
    raceClassLevels:'',
+   drBypass:'Bludgeoning.',
    maneuverDetail:'CMB +38 (+40 bull rush, +40 sunder); CMD 54 (56 vs. bull rush or sunder).',
    skillDetail:'Climb +37, Craft (weapons) +30, Intimidate +32, Knowledge (nature) +30, Knowledge (planes) +30, Knowledge (religion) +30, Perception +35, Sense Motive +35.',
    specialAbilities:'Tenacious Flames (Su): within 100 ft., burn damage continues indefinitely until actively extinguished; leaving aura starts a 1d4-round end duration, while reentry extends it. Attempts to end burn take a –4 penalty without stop-drop-roll bonus. Volcanic Eruption (Su): 30-ft.-radius blast around lerritan deals 12d12 fire, Reflex DC 32 half; affected creatures become grappled by cooling lava for 1 round on success or 1 minute on failure, escape DC 32.',
