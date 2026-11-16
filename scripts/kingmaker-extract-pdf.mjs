@@ -1,5 +1,6 @@
 // Offline, repeatable extraction from a locally supplied Kingmaker Bestiary PDF.
 // Requires Poppler's pdftotext on PATH; PDF itself is NEVER uploaded to GitHub.
+// Crop the 603x783pt source page to its two-column body (excludes side rail and footers).
 // Usage: node scripts/kingmaker-extract-pdf.mjs --pdf /path/Bestiary.pdf --out /tmp/kingmaker-extracted
 import {execFileSync} from 'node:child_process';
 import {mkdir,writeFile,stat} from 'node:fs/promises';
@@ -11,7 +12,7 @@ const args=process.argv.slice(2),option=name=>{const at=args.indexOf(name);retur
 const pdf=option('--pdf'),out=option('--out');
 if(!pdf||!out||!pdf.toLowerCase().endsWith('.pdf'))throw Error('Usage: node scripts/kingmaker-extract-pdf.mjs --pdf FILE.pdf --out DIRECTORY');
 await stat(pdf);
-const source=execFileSync('pdftotext',['-enc','UTF-8','-layout',pdf,'-'],{maxBuffer:32*1024*1024,encoding:'utf8'});
+const source=execFileSync('pdftotext',['-enc','UTF-8','-layout','-x','65','-y','50','-W','460','-H','690',pdf,'-'],{maxBuffer:32*1024*1024,encoding:'utf8'});
 const pages=source.split('\f').map((text,index)=>({page:index+1,text})).filter(page=>page.text.trim());
 const chapters=[
  ['bestiary',10,66,105],['npc-codex',68,134,105]
