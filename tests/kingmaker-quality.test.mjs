@@ -100,9 +100,11 @@ test('sidebar cleanup removes labels but retains feat and spell continuations',(
  assert.ok(!murder.text.feats.includes('CHAPTER 4'));
  assert.ok(!murder.text.feats.includes('COMPANIONS'));
  const pyro=get('Goblin Pyro');
- assert.match(pyro.text.spellLikeAbilities,/burning hands/);
- assert.match(pyro.text.spellLikeAbilities,/acid splash/);
- assert.ok(!pyro.text.spellLikeAbilities.includes('COMPANIONS'));
+ assert.match(pyro.text.spellsKnown,/burning hands/);
+ assert.match(pyro.text.spellsKnown,/acid splash/);
+ assert.match(pyro.text.spellLikeAbilities,/elemental ray/);
+ assert.ok(!pyro.text.spellsKnown.includes('COMPANIONS'));
+ assert.ok(!pyro.text.spellLikeAbilities.includes('HAZARDS'));
  const giant=get('Kargstaad’s Giant');
  assert.match(giant.text.feats,/Improved Overrun, Improved Sunder/);
  assert.ok(!giant.text.feats.includes('KINGMAKER BESTIARY'));
