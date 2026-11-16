@@ -15,7 +15,7 @@ test('all source chapter heading counts are covered without double-importing the
  const keys=KINGMAKER_STAGED_ENTRIES.map(e=>e.chapter+':'+e.slug);
  assert.equal(new Set(keys).size,217);
  assert.deepEqual(kingmakerProgress({}).map(p=>p.staged),[105,105,0,7]);
- assert.deepEqual(kingmakerProgress({}).map(p=>p.reviewed),[30,0,0,0]);
+ assert.deepEqual(kingmakerProgress({}).map(p=>p.reviewed),[40,0,0,0]);
  assert.ok(KINGMAKER_COMPANIONS_AUTO_001.every(e=>e.variants?.length===2));
  assert.equal(KINGMAKER_COMPANIONS_AUTO_001.flatMap(e=>e.variants).length,14);
 });
@@ -59,7 +59,7 @@ test('dry-run never writes; applied import is explicitly authorized, idempotent 
   const before=db.prepare('SELECT COUNT(*) AS n FROM characters').get().n;
   const plan=planKingmakerImport(db,owner.id);
   assert.equal(plan.create.length,217);
-  assert.equal(plan.unreviewed,187);
+  assert.equal(plan.unreviewed,177);
   assert.equal(db.prepare('SELECT COUNT(*) AS n FROM characters').get().n,before);
   assert.throws(()=>applyKingmakerImport(db,owner.id),/unreviewed NPCs/);
   const applied=applyKingmakerImport(db,owner.id,{allowNeedsReview:true});
