@@ -642,7 +642,7 @@ function mountCharacterSheet(tabs,switchTo){
    if(button.matches('[data-ammo-operation]')){const operation=button.dataset.ammoOperation,change={action:'gunbreakerAmmo',operation};if(operation==='configure')change.profileId=root.querySelector('[data-ammo-profile]').value;if(['reload','fire','spend','brutal-shell'].includes(operation))change.rounds=Number(root.querySelector('[data-ammo-rounds]')?.value);void save(change);return;}
    if(button.matches('[data-combat-details]')){
     const kind=button.dataset.combatDetails;
-    root.querySelector('#cs-dialog-title').textContent=kind==='attack'?'Attack rolls':'Defenses & saving throws';
+    root.querySelector('#cs-dialog-title').textContent=kind==='attack'?'Attack rolls':character.kind==='npc'?'Defenses & saving throws':'Defenses';
     root.querySelector('[data-dialog-fields]').innerHTML=character.kind==='npc'?renderNpcCombatDetails(character.data,kind):renderCombatDetails(character.data,kind);
     root.querySelector('[data-dialog-status]').textContent='';
     root.querySelector('[data-sheet-form] button[type=submit]').hidden=true;dialog().showModal();return;
