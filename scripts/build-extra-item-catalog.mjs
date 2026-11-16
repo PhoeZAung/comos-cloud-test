@@ -139,7 +139,7 @@ function entriesFor(source,file,strings={}){
   if(!obj(data))return [];
   const groups=Object.entries(data).filter(([key,value])=>Array.isArray(value)&&!['sources','index'].includes(key));
   return groups.flatMap(([group,items])=>items.filter(row=>obj(row)&&str(row.name).trim())
-   .map((row,i)=>({id:row.id||row.link||group+':'+i,...mapLegacyPf2e(row,group,rel)})));
+   .map((row,i)=>({...mapLegacyPf2e(row,group,rel),id:row.id||row.link||group+':'+i})));
  }
  return [];
 }
