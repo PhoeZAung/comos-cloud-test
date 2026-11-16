@@ -351,3 +351,15 @@ button,.button,select,input{font:600 12px system-ui;color:#eef0fb;background:#1c
  background:#292139;color:#edddff;font-size:12px;text-align:center
 }
 .history-more[hidden]{display:none!important}
+
+
+/* Admin is now a collapsible disclosure so the histories remain reachable. */
+.cosmos-admin-settings{flex:none}
+.cosmos-admin-settings>summary{padding:8px 2px;cursor:pointer;
+ font-size:13px;font-weight:700;color:#e8d9ff}
+.cosmos-admin-settings[open]>summary{margin-bottom:6px}
+.cosmos-admin-settings .party-column-setting{display:flex;align-items:center;
+ gap:4px;white-space:nowrap;color:#c6b7d9;font-size:11px}
+.cosmos-admin-settings .party-column-setting select{width:45px;min-width:45px;
+ padding:4px;text-align:center}
+.initiative-tab .battle-hp-controls .battle-hp-privacy{order:-1}
