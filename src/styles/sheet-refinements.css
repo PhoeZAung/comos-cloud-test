@@ -687,7 +687,7 @@
 /* NPCs: compact, value-only presentation that inherits the active Cosmos theme. */
 .cs-npc-sheet{gap:9px}
 .cs-npc-sheet .cs-card{padding:10px;border-radius:10px}
-.cs-npc-sheet .cs-card-title{align-items:center;gap:6px;margin-bottom:6px}
+.cs-npc-sheet .cs-card-title{align-items:center;gap:6px;min-height:28px;margin-bottom:6px}
 .cs-npc-sheet .cs-card-title h2,.cs-npc-sheet .cs-collection h2,.cs-npc-sheet .cs-resource h2{font-size:.87rem;line-height:1.25}
 .cs-npc-sheet .cs-npc-overview{display:grid;gap:6px}
 .cs-npc-sheet .cs-npc-identity{font-size:.78rem;color:var(--muted);line-height:1.4}
@@ -712,10 +712,11 @@
 .cs-npc-sheet .cs-npc-details>details[open]>summary{padding-bottom:6px;margin-bottom:6px}
 .cs-npc-sheet .cs-npc-details>.cs-icon{top:7px;right:8px}
 .cs-npc-sheet .cs-npc-details .cs-pairs{gap:5px}
+.cs-npc-sheet .cs-npc-details .cs-pairs>div{padding:4px 0}
 .cs-npc-sheet .cs-npc-details .cs-pairs dt{font-size:.72rem}
 .cs-npc-sheet .cs-npc-details .cs-pairs dd{font-size:.84rem;line-height:1.35}
 .cs-npc-sheet .cs-collection{padding:10px;border-radius:10px}
-.cs-npc-sheet .cs-section-tools{gap:7px;margin-bottom:6px}
+.cs-npc-sheet .cs-section-tools{gap:7px;min-height:28px;margin-bottom:6px}
 .cs-npc-sheet .cs-entry-list,.cs-npc-sheet .cs-skills{gap:5px}
 .cs-npc-sheet .cs-entry{padding:8px}
 @media(max-width:480px){.cs-npc-sheet .cs-npc-tabs button{flex:1 1 auto;padding:7px 8px}.cs-npc-sheet .cs-npc-combat-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,165px),1fr))}}
