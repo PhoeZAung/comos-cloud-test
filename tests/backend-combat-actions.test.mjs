@@ -210,7 +210,7 @@ test('attacking a blank-HP NPC rolls hit and damage but never subtracts from zer
  const missingCurrent=f.actions.apply(roomId,'player1',false,{...request,requestId:missingCurrentId,targetHpMax:35,targetTrackHp:true});
  assert.equal(missingCurrent.event.hpUntracked,true,'null current HP remains untracked with a known maximum');
  assert.equal(missingCurrent.event.applied,0);
- const gm=f.actions.history(roomId,true)[0];
+ const gm=f.actions.history(roomId,true).find(event=>event.id===id);
  assert.equal(gm.amount,14);
  assert.equal(gm.after,null);
  assert.equal(gm.before,null);
