@@ -336,36 +336,10 @@ html[data-notes-electric="true"] .cs-notes-electric::after{inset:-6px;background
 .cs-source-field-row{display:grid;gap:8px}
 
 
-/* Kingmaker/PF1 NPC sheet: small tabletop-friendly tabs, at-a-glance combat
-   stats and independently editable sections, without player character clutter. */
-.cs-npc-sheet{display:grid;gap:12px;min-width:0}
-.cs-npc-overview{border:1px solid var(--line);border-radius:12px;
- background:color-mix(in srgb,var(--accent) 6%,var(--surface));padding:11px}
-.cs-npc-identity{font-size:12px;font-weight:650;color:var(--muted);
- margin-bottom:8px;overflow-wrap:anywhere}
-.cs-npc-glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:5px}
-.cs-npc-glance-stat{display:flex;flex-direction:column;gap:2px;
- border:1px solid var(--line);border-radius:7px;padding:6px 8px;
- background:color-mix(in srgb,var(--surface) 80%,var(--bg))}
-.cs-npc-glance-stat span{font-size:10px;color:var(--muted);font-weight:650;letter-spacing:.02em}
-.cs-npc-glance-stat strong{font-size:15px;line-height:1.3;font-variant-numeric:tabular-nums}
-.cs-npc-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.cs-npc-tabs button{border:1px solid var(--line);border-radius:9px;
- background:var(--surface);color:var(--text);padding:10px 6px;
- font-size:12px;font-weight:700;cursor:pointer;min-height:42px}
-.cs-npc-tabs button[aria-selected=true]{border-color:var(--accent);
- background:color-mix(in srgb,var(--accent) 12%,var(--surface));box-shadow:inset 0 -2px var(--accent)}
-.cs-npc-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.cs-npc-panel{display:grid;gap:12px;min-width:0}
-.cs-npc-panel[hidden]{display:none!important}
-.cs-npc-combat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.cs-npc-combat-grid>div{display:grid;gap:6px;align-content:start}
-.cs-npc-sheet .cs-card,.cs-npc-sheet .cs-collection{min-width:0}
-.cs-npc-sheet .cs-npc-details .cs-pairs dd{white-space:pre-wrap;overflow-wrap:anywhere}
-@media(max-width:700px){
- .cs-npc-combat-grid{grid-template-columns:1fr}
- .cs-npc-tabs button{font-size:11px;padding:8px 4px}
- .cs-npc-glance{grid-template-columns:repeat(auto-fit,minmax(76px,1fr))}
-}
 
-.cs-npc-citation{font-size:11px;line-height:1.4;color:var(--muted);margin:-3px 0 8px;overflow-wrap:anywhere}
+.cs-npc-tabs{display:flex;gap:6px}
+.cs-npc-tabs button{flex:1;min-width:0;padding:9px 4px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text)}
+.cs-npc-tabs [aria-selected=true]{border-color:var(--accent)}
+.cs-npc-panel[hidden]{display:none!important}
+.cs-npc-glance{display:flex;flex-wrap:wrap;gap:7px}
+.cs-npc-glance-stat{flex:1 1 85px}
