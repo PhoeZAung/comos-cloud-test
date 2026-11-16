@@ -6,8 +6,8 @@ import {gzipSync} from 'node:zlib';
 import {EXTRA_ITEM_SOURCES,validateExtraCatalog} from '../backend/items/extra-sources.mjs';
 import {readableDescription} from './build-pf2e-catalog.mjs';
 
-const foundryPacks=new Set(['pf-items','pf-goods-services','pf-magic','pf-wondrous',
- 'pf-artifacts','pf-technology','pf-cursed-items','pf-intelligent-items','pf-scaling-items']);
+const foundryPacks=new Set(['pf-items','pf-goods-services','pf-magic','pf-magicitems','pf-wondrous',
+ 'pf-artifacts','pf-tech','pf-technology','pf-cursed-items','pf-intelligent-items','pf-scaling-items']);
 const pf2Types=new Set(['item','weapon','armor','shield','consumable','equipment',
  'adventuringgear','gear','ammunition','ammo','rune','magicitem','wornitem','wand',
  'staff','potion','snare','treasure','alchemicalitem','talisman','helditem','material']);
@@ -55,6 +55,7 @@ function entriesFor(source,file,strings={}){
   const match=/src\/packs\/(pf-[^/]+)\/[^/]+\.json$/i.exec(rel);
   if(!match||!foundryPacks.has(match[1]))return [];
   const row=JSON.parse(strings.body);
+  if(!obj(row)||!['loot','weapon','equipment','consumable','container','armor','shield','ammo'].includes(str(row.type).toLowerCase()))return [];
   const s=row.system||{};
   const html=str(s.description?.value);
   const cleaned=html.replace(/^\s*<p[^>]*>\s*<strong>Source<\/strong>[\s\S]*?<\/p>/i,'');
