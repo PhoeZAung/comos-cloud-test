@@ -1,6 +1,6 @@
 import {escape} from '../features/sheet/view.mjs';
 
-const viewKeys=['section','ability','combatView','itemView','itemTag','spellLevel','notesTab','lastFightSection'];
+const viewKeys=['section','ability','combatView','itemView','itemTag','spellLevel','weaponView','notesTab','lastFightSection'];
 export function sheetTabURL(current,id,view={}){
  const url=new URL(current);
  url.searchParams.set('characterId',id);
