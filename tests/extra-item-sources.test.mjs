@@ -41,7 +41,21 @@ const examples={
   'data/items/item.healing-potion.json':{id:'item.healing-potion',type:'item',
    name:'item.healing-potion.name',text:'item.healing-potion.text',category:'consumable',
    level:1,priceCp:400,review:'auto'},
-  'i18n/en.json':{'item.healing-potion.name':'Healing Potion','item.healing-potion.text':'Heals hit points'}
+  'data/items/item.longsword.json':{id:'item.longsword',type:'item',name:'item.longsword.name',
+   text:'item.longsword.text',category:'weapon',priceCp:100,bulk:'1',
+   weapon:{category:'martial',damage:{dice:'1d8',type:'slashing'}}},
+  'data/items/item.shortbow.json':{id:'item.shortbow',type:'item',name:'item.shortbow.name',
+   text:'item.shortbow.text',category:'weapon',priceCp:300,bulk:'1',
+   weapon:{category:'martial',damage:{dice:'1d6',type:'piercing'},range:60}},
+  'data/items/item.chain-mail.json':{id:'item.chain-mail',type:'item',name:'item.chain-mail.name',
+   text:'item.chain-mail.text',category:'armor',priceCp:600,bulk:'2',
+   armor:{category:'medium',acBonus:4,dexCap:1,checkPenalty:-2}},
+  'i18n/en.json':{
+   'item.healing-potion.name':'Healing Potion','item.healing-potion.text':'Heals hit points',
+   'item.longsword.name':'Longsword','item.longsword.text':'A long sword.',
+   'item.shortbow.name':'Shortbow','item.shortbow.text':'A short bow.',
+   'item.chain-mail.name':'Chain Mail','item.chain-mail.text':'Protective armor.'}
+
  },
  'pf2e-json':{'json/weapons-pf2.json':{
   name:'Pathfinder 2.0 Weapons list',date:'February 10, 2020',
@@ -114,6 +128,14 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
   assert.equal(armorItem.weight,25);assert.equal(armorItem.acBonus,'+6');
   assert.equal(armorItem.maxDex,'+3');assert.equal(armorItem.spellFailure,'25%');
   assert.equal(items.list({sourceId:'pf2e-orc',q:'Healing Potion'}).items[0].name,'Healing Potion','resolve ORC item i18n key');
+  const orcSword=catalogInventoryItem(items.get(items.list({sourceId:'pf2e-orc',q:'Longsword'}).items[0].id),1);
+  assert.equal(orcSword.dmg,'1d8');assert.equal(orcSword.damageType,'slashing');
+  assert.equal(orcSword.pf2eBulk,'1');assert.equal(orcSword.weight,undefined,'Bulk is not pounds');
+  const orcBow=items.get(items.list({sourceId:'pf2e-orc',q:'Shortbow'}).items[0].id);
+  assert.equal(orcBow.category,'Ranged Weapon');assert.equal(catalogInventoryItem(orcBow,1).range,'60 ft.');
+  const orcArmor=catalogInventoryItem(items.get(items.list({sourceId:'pf2e-orc',q:'Chain Mail'}).items[0].id),1);
+  assert.equal(orcArmor.acBonus,'4');assert.equal(orcArmor.maxDex,'1');assert.equal(orcArmor.checkPenalty,'-2');
+
   assert.equal(items.list({sourceId:'pf2e-json'}).items.length,2,'expand grouped legacy equipment tables');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Ranged Weapon').length,1,'recognize ranged weapon group');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Weapon').length,1,'recognize melee weapon group');
