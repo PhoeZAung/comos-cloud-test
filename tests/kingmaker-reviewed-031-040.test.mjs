@@ -35,7 +35,7 @@ test('Bestiary 31–40 are source-checked with exact printed pages and stats',()
   assert.equal(sheet(name).npcVerified,true);
  }
  assert.deepEqual(kingmakerProgress().map(x=>x.staged),[105,105,0,7]);
- assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[40,0,0,0]);
+ assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[50,0,0,0]);
  assert.equal(KINGMAKER_STAGED_ENTRIES.length,217);
 });
 
