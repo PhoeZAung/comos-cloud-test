@@ -259,7 +259,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
          updated.equip_slot='';updated.equipped=false;
        }
      }
-     if(change.collection==='items'&&safe.carried===false&&updated.equip_slot)bad('Unequip this item before storing it.');
+     if(change.collection==='items'&&safe.carried===false&&rows[change.index]?.carried!==false&&updated.equip_slot)bad('Unequip this item before storing it.');
       rows[change.index]=updated;
    }
   }
