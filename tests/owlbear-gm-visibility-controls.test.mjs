@@ -66,6 +66,12 @@ test('Untracked NPC token ignores damage even when receipt reaches Owlbear',asyn
  const repeated=await applyNpcTokenReceipt(OBR,{tokenId:'minion',receiptId:'roll-1',effect});
  assert.equal(repeated.duplicate,true);
  assert.equal(token.metadata[BATTLE].hp,0);
+ const missingCurrent={id:'missing',metadata:{[BATTLE]:{enabled:true,trackHp:true,hp:null,hpMax:30,hpTemp:0}}};
+ const missingObr={scene:{items:{updateItems:async(ids,fn)=>fn([missingCurrent])}}};
+ const missing=await applyNpcTokenReceipt(missingObr,{tokenId:'missing',receiptId:'roll-null',effect});
+ assert.equal(missing.untracked,true);
+ assert.equal(missingCurrent.metadata[BATTLE].hp,null);
+ assert.equal(battleRows([{id:'missing',type:'IMAGE',layer:'CHARACTER',metadata:missingCurrent.metadata}],[])[0].trackHp,false);
 });
 
 test('Connection colors are white for Party, black for NPC, red for unlinked and broken',async()=>{
