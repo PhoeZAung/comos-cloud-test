@@ -44,6 +44,6 @@ test('unreviewed bulk records gain numeric Strength without becoming source-veri
   'Thorn River Bandit is now part of the 21–30 reviewed batch');
  assert.equal(KINGMAKER_BESTIARY_AUTO_002.find(e=>e.name==='Thorn River Bandit').stats.str,undefined,
   'automated source file stays intact for audit');
- assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[40,0,0,0]);
+ assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[50,0,0,0]);
  assert.deepEqual(kingmakerProgress().map(x=>x.staged),[105,105,0,7]);
 });
