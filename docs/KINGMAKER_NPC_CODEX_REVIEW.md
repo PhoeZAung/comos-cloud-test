@@ -27,7 +27,7 @@ The Kingmaker Bestiary (First Edition) content is split into Cosmos NPC catalog 
 5. Import only these two chapters after clean previews and explicit backup/confirmation, then verify counts and data in the three catalog tabs. The Bestiary 105 already on QNAP must remain unchanged.
 6. Export Obsidian Markdown separately after the completed QNAP imports.
 
-**Status:** the reviewed content exists in GitHub branch form; this documentation is not a claim that the new code or records have already been deployed to QNAP.
+**Status:** consolidated in [pull request #150](https://github.com/PhoeZAung/comos-cloud-test/pull/150). The existence of this branch is not a claim that code or records have been deployed to QNAP.
 ---
 
 ## Reviewed batch 001–010
