@@ -148,6 +148,11 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
   assert.equal(orcArmor.acBonus,'4');assert.equal(orcArmor.maxDex,'1');assert.equal(orcArmor.checkPenalty,'-2');
 
   assert.equal(items.list({sourceId:'pf2e-json'}).items.length,2,'expand grouped legacy equipment tables');
+  const legacySword=items.list({sourceId:'pf2e-json',q:'Longsword'}).items[0];
+  assert.equal(legacySword.catalog.detailUrl,'https://2e.aonprd.com/Weapons.aspx?ID=20',
+   'show the original item page when the source supplies one');
+  assert.ok(legacySword.catalog.sourceUrl.startsWith('https://github.com/'));
+
   assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Ranged Weapon').length,1,'recognize ranged weapon group');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Weapon').length,1,'recognize melee weapon group');
  }finally{db.close();await rm(root,{recursive:true,force:true});}
@@ -165,6 +170,8 @@ test('reject modified source links, false edition, malformed package and unsuppo
  assert.throws(()=>validateExtraCatalog({...sample,items:sample.items.map(x=>({...x,priceGil:4}))},'pf2e-orc'),/Invalid item/);
  assert.throws(()=>validateExtraCatalog({...sample,items:sample.items.map(x=>({...x,sourceUrl:'https://evil.invalid'}))},'pf2e-orc'),/Invalid item/);
  assert.throws(()=>validateExtraCatalog({...sample,sourceSystem:'pathfinder-1e'},'pf2e-orc'),/header/);
+ const badPage={...sample,items:sample.items.map(x=>({...x,detailUrl:'https://evil.invalid/Equipment.aspx?ID=1'}))};
+ assert.throws(()=>validateExtraCatalog(badPage,'pf2e-orc'),/Invalid item/);
  assert.throws(()=>validateExtraCatalog(sample,'nonexistent'),/header/);
 });
 test('shop labels are concise and versions group while unrelated small catalogs remain hidden',()=>{
