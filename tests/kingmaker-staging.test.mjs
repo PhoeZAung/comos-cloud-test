@@ -36,6 +36,7 @@ test('staged monsters become Cosmos-editable NPC data without silently inventing
  for(const rec of KINGMAKER_STAGED_ENTRIES.slice(0,10)){
   const data=kingmakerNpcData(rec);
   assert.equal(data.npcCategory,'bestiary');
+  assert.equal(data.npcLibraryTag,'bestiary');
   assert.equal(data.npcImportSource,KINGMAKER_BOOK_ID);
   assert.equal(data.npcImportKey,rec.slug);
   assert.equal(data.hp_max,rec.hp);
@@ -72,7 +73,7 @@ test('all categories have progress bars; hazards deferred; production remains un
  assert.equal(kingmakerProgress({bestiary:4})[0].imported,4);
 });
 
-test('NPC directory filters by chapter and keeps legacy manual NPCs in NPC Codex',async()=>{
+test('NPC catalog filters three tags while preserving old manually created NPCs',async()=>{
  const db=await openDatabase(':memory:');
  try{
   const owner=createUserRepository(db).create({displayName:'GM'});
@@ -94,11 +95,14 @@ test('NPC directory filters by chapter and keeps legacy manual NPCs in NPC Codex
   let answer=await run('/api/v1/admin/npcs?category=bestiary');
   assert.equal(answer.status,200);
   assert.deepEqual(answer.data.characters.map(c=>c.id),[bestiaryId]);
+  assert.equal(answer.data.characters[0].tag,'bestiary');
   assert.deepEqual(answer.data.progress.map(p=>p.imported),[1,0,0,0]);
   answer=await run('/api/v1/admin/npcs');
   assert.deepEqual(answer.data.characters.map(c=>c.id),[legacyId]);
+  assert.equal(answer.data.characters[0].tag,'npc');
   answer=await run('/api/v1/admin/npcs?category=companions');
   assert.deepEqual(answer.data.characters.map(c=>c.id),[companionId]);
+  assert.equal(answer.data.characters[0].tag,'companion');
   answer=await run('/api/v1/admin/npcs?category=hazards');
   assert.deepEqual(answer.data.characters,[]);
   await assert.rejects(run('/api/v1/admin/npcs?category=invalid'),/Invalid NPC chapter/);
@@ -110,12 +114,12 @@ test('NPC directory uses category-aware search and progress; no automatic QNAP i
  const html=await readFile(new URL('../src/ui/npc-directory.mjs',import.meta.url),'utf8');
  const api=await readFile(new URL('../backend/characters/npcs.mjs',import.meta.url),'utf8');
  assert.match(html,/data-npc-chapter="bestiary"/);
- assert.match(html,/data-npc-chapter="npc-codex"/);
+ assert.match(html,/data-npc-chapter="npc"/);
  assert.match(html,/data-npc-chapter="companions"/);
- assert.match(html,/data-npc-chapter="hazards" disabled/);
+ assert.doesNotMatch(html,/data-npc-chapter="hazards"/);
  assert.match(html,/document.createElement\('progress'\)/);
  assert.match(html,/GitHub staged/);
  assert.match(html,/Cosmos imported/);
  assert.match(api,/kingmakerProgress\(imported\)/);
- assert.match(api,/body.category\|\|'npc-codex'/);
+ assert.match(api,/body.category\|\|'npc'/);
 });
