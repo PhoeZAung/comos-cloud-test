@@ -34,9 +34,13 @@ const examples={
   'data/item/healing-potion.json':{id:'healing-potion',type:'item',kind:'potion',level:1,priceCp:400,review:'auto'},
   'i18n/en.json':{'healing-potion.name':'Healing Potion','healing-potion.text':'Heals hit points'}
  },
- 'pf2e-json':{'json/items.json':[
-  {id:'sword',name:'Longsword',type:'weapon',description:'A sturdy sword',price:'1 gp'}
- ]}
+ 'pf2e-json':{'json/weapons-pf2.json':{
+  name:'Pathfinder 2.0 Weapons list',date:'February 10, 2020',
+  meleeWeapons:[{name:'Longsword',link:'https://2e.aonprd.com/Weapons.aspx?ID=20',
+   category:'Martial',damage:'1d8 S',price:'1 gp',text:'A sturdy sword'}],
+  rangedWeapons:[{name:'Shortbow',link:'https://2e.aonprd.com/Weapons.aspx?ID=75',
+   category:'Martial',damage:'1d6 P',price:'3 gp',text:'A ranged bow'}]
+ }}
 };
 async function createSource(root,files){
  for(const [path,data] of Object.entries(files)){
@@ -76,6 +80,7 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
   assert.equal(catalogInventoryItem(items.get(foundry.id),1).weight,2);
   assert.equal(items.list({sourceId:'pf1e-pfdata'}).items.length,1,'exclude error placeholder');
   assert.equal(items.list({sourceId:'pf1e-openref'}).items.length,1,'exclude rules sections');
+  assert.equal(items.list({sourceId:'pf2e-json'}).items.length,2,'expand grouped legacy equipment tables');
  }finally{db.close();await rm(root,{recursive:true,force:true});}
 });
 test('reject modified source links, false edition, malformed package and unsupported key',()=>{
