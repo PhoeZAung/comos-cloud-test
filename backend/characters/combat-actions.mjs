@@ -100,7 +100,7 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
   const beforeNpc=Number(value.targetHp),maxNpc=Number(value.targetHpMax),tempNpc=Number(value.targetHpTemp||0);
   // Blank/untracked HP is not zero HP: resolve the hit and damage dice, but
   // never subtract from a fictional zero or mutate the Owlbear token.
-  const npcTrackHp=targetNpc&&value.targetTrackHp!==false&&Number.isFinite(maxNpc)&&maxNpc>0;
+  const npcTrackHp=targetNpc&&value.targetTrackHp!==false&&value.targetHp!==null&&value.targetHp!==undefined&&value.targetHpMax!==null&&value.targetHpMax!==undefined&&Number.isFinite(beforeNpc)&&Number.isFinite(maxNpc)&&maxNpc>0;
   if(npcTrackHp)check([beforeNpc,maxNpc,tempNpc].every(Number.isFinite)&&Math.abs(beforeNpc)<=1000000&&maxNpc<=1000000&&tempNpc>=0&&tempNpc<=1000000,'NPC health is unavailable.');
   const sourceName=safeName(source.name),targetName=safeName(target?.name||value.targetName);
   const base={id:value.requestId,roomId:id,battle:r.battle,round:value.round,actorId:receipt.character_id,actorTokenId:value.actorTokenId,actor:sourceName,
