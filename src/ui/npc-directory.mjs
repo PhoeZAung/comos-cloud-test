@@ -43,8 +43,8 @@ export function mountNpcDirectory(){
    card.dataset.progressCategory=item.id;
    const heading=document.createElement('strong');heading.textContent=item.name;
    const meter=document.createElement('progress');
-   meter.max=item.total||1;meter.value=Math.min(item.total||1,item.staged||0);
-   meter.setAttribute('aria-label',item.name+' source extraction progress');
+   meter.max=item.total||1;meter.value=Math.min(item.total||1,item.reviewed||0);
+   meter.setAttribute('aria-label',item.name+' source-review progress');
    const desc=document.createElement('small');
    desc.textContent=item.deferred?'Deferred — not extracting yet':
     'GitHub staged '+(item.staged||0)+' / '+item.total+' · Source-reviewed '+(item.reviewed||0)+' · Needs review '+(item.staged-item.reviewed||0)+' · Cosmos imported '+(item.imported||0);
