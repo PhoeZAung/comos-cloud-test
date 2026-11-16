@@ -21,12 +21,12 @@ mkdir -p "$BASE/releases"
 FAILED=''
 for S in $SOURCES;do
  case "$S" in
- pf1e-foundry) OWNER=baileymh;REPO=pf1e-content;REV=baf5232c5dc16af99d49ae1bf57ead6473b46bbb;;
- pf1e-pfdata) OWNER=jasontankapps;REPO=pathfinder-data-1-e;REV=08ea71f24375908d0190c822fd1fd080797667a9;;
- pf1e-openref) OWNER=Nietsneflow;REPO=open-reference;REV=725d98f4b8ccb77b3c54a0a867d6f4c7ba4ac45e;;
+ pf1e-foundry) OWNER=baileymh;REPO=pf1e-content;REV=baf5232c5dc16af99d49ae1bf57ead6473b46bbb;MIN=6000;;
+ pf1e-pfdata) OWNER=jasontankapps;REPO=pathfinder-data-1-e;REV=08ea71f24375908d0190c822fd1fd080797667a9;MIN=7000;;
+ pf1e-openref) OWNER=Nietsneflow;REPO=open-reference;REV=725d98f4b8ccb77b3c54a0a867d6f4c7ba4ac45e;MIN=3500;;
  pf2e-pf2ools) OWNER=Pf2ools;REPO=pf2ools-data;REV=f57b901363482fba45512dec8320682ef5083946;;
- pf2e-orc) OWNER=TiMarron;REPO=orc-rules-data;REV=52b41061785df0b6dac97a9b1ae16e3fe68c1186;;
- pf2e-json) OWNER=jimbarnesrtp;REPO=pf2;REV=c062e1ac0647d19316b756b9206b09263d1cf453;;
+ pf2e-orc) OWNER=TiMarron;REPO=orc-rules-data;REV=52b41061785df0b6dac97a9b1ae16e3fe68c1186;MIN=1000;;
+ pf2e-json) OWNER=jimbarnesrtp;REPO=pf2;REV=c062e1ac0647d19316b756b9206b09263d1cf453;MIN=600;;
  esac
  OUT="$DATA/extra-$S.json.gz"
  if [ -e "$OUT" ];then echo "PRESERVED: $OUT already exists; not overwritten";continue;fi
@@ -46,7 +46,7 @@ for S in $SOURCES;do
  # Use the built, network-isolated Cosmos converter; no untrusted upstream scripts run.
  if ! docker run --rm --network none \
    -v "$ROOT:/source:ro" -v "$DATA:/data" --entrypoint node cosmos:staging \
-   ./scripts/build-extra-item-catalog.mjs "$S" /source "$REV" "/data/extra-$S.json.gz";then
+   ./scripts/build-extra-item-catalog.mjs "$S" /source "$REV" "/data/extra-$S.json.gz" "$MIN";then
   echo "FAILED: $S converter; no database changes" >&2;FAILED="$FAILED $S";continue
  fi
  echo "STAGED: $S. Database is unchanged until Cosmos is restarted with the approved importer code."
