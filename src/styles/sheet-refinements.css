@@ -667,3 +667,10 @@
 .cs-weapon-editor .cs-weapon-damage-type-group{grid-column:1/-1}
 .cs-weapon-editor .cs-other-damage-field{display:none}
 .cs-weapon-editor:has(input[name="damage_types"][value="Other"]) .cs-other-damage-field{display:flex;flex-direction:column}
+
+/* Inventory carry controls remain separate from the item-details button. */
+.cs-inventory-row{display:flex;align-items:center;gap:8px}
+.cs-inventory-row>.cs-inventory-open{flex:1;min-width:0}
+.cs-inventory-carry-toggle{flex-shrink:0;border:1px solid var(--line,rgba(255,255,255,.24));border-radius:8px;background:transparent;color:inherit;font:inherit;font-size:12px;padding:8px;cursor:pointer}
+.cs-inventory-carry-toggle:hover{background:rgba(127,127,127,.12)}
+.cs-equip-override{display:flex;align-items:center;gap:8px;padding:8px 12px;margin:0 0 6px;font-size:12px}

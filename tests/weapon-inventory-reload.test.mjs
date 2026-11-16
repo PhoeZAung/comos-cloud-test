@@ -7,19 +7,19 @@ import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {readFile} from 'node:fs/promises';
 import {renderSection,entryDetail} from '../src/features/sheet/view.mjs';
 
-test('carrying check penalty applies to DEX roll exactly once while DEX skills and AC retain their calculations',()=>{
+test('plain Dexterity checks remain unpenalized while load applies to skills and AC',()=>{
  const data={str:10,dex:18,items:[{name:'Stones',sourceCategory:'Gear',weight:90,amount:1}]};
  const enc=sheetStats(data).encumbrance;
  assert.equal(enc.load,'heavy');
  assert.equal(enc.checkPenalty,-6);
- assert.equal(abilityCheckBonus(data,'dex'),-2);
+ assert.equal(abilityCheckBonus(data,'dex'),4);
  assert.equal(abilityCheckBonus(data,'str'),0);
  assert.equal(sheetStats(data).mods.dex,4);
  assert.equal(sheetStats(data).dexAcModifier,1);
  assert.equal(skillTotal({name:'Acrobatics',stat:'dex',lvl:1},data),4+1-6);
  const plain=renderSection({id:'d',name:'Hero',data},'overview');
- assert.match(plain,/data-roll="DEX check" data-bonus="-2"/);
- assert.match(plain,/Load\/armor penalty/);
+ assert.match(plain,/data-roll="DEX check" data-bonus="4"/);
+ assert.match(plain,/Skill penalty/);
  assert.equal(abilityCheckBonus({...data,items:[]},'dex'),4);
 });
 

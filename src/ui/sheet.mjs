@@ -27,6 +27,7 @@ import {catalogMechanicalFacts} from '../features/sheet/catalog-shop-preview.mjs
 import {renderItemEditorTabs,collectItemEditorFields} from '../features/sheet/item-editor-tabs.mjs';
 import {renderWeaponEditorTabs,renderAbilityEditorTabs,weaponAmmoStatus} from '../features/sheet/entry-editor-tabs.mjs';
 import {ammoStock,isWeaponInventoryItem,weaponKind} from '../features/sheet/weapon-inventory.mjs';
+import {characterClasses} from '../features/characters/ffd20.mjs';
 import {FFD20_SHOP_PRICE_MODE} from '../features/sheet/shop-pricing.mjs';
 import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
@@ -43,7 +44,7 @@ const groupFields={
 const labels={uncanny_dodge:'Uncanny Dodge',spell_failure:'Armor spell failure override (%)',npcAttackBonus:'Attack bonus',bonus:'Skill bonus',two_handed:'Two-handed (reserves both hands)',mp_cost:'MP Amount (blank = spell level)',casting_ability:'Casting ability',caster_level:'Caster level override',dc_misc:'Save DC adjustment',mp_adjustment:'MP cost adjustment',save_dc_override:'Save DC override (exact value)',attack_bonus_override:'Total attack bonus override',dc_formula:'Save DC formula',uses_formula:'Usage formula',damage:'Dice Roll',str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',speed_mod:'Speed Mod (ft)',speed_burrow:'Burrow (ft)',speed_climb:'Climb (ft)',speed_fly:'Fly (ft)',speed_swim:'Swim (ft)',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Manual Armor (fallback without equipped armor)',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Legacy capacity',capacity_modifier:'Capacity modifier (lb, +/-)',capacity_body_type:'Body type',carried:'Carried (counts toward weight)',weight:'Weight (lb)',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',effect:'Effect',save_type:'Saving throw',save_success:'Successful save',save_success_damage:'Alternate successful-save damage',ability_kind:'Ability category',dr_bypass:'DR bypass properties',sr_bonus:'Spell penetration bonus',favored_class_options:'Favored class options',link:'Link (URL)',action_type:'Action type',damage_types:'Damage Type',misfire:'Misfire',u_curr:'Uses',u_max:'Max Usage',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Ability Mod',extra_damage:'Extra damage (not multiplied on crit)',attack_misc:'Attack bonus',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
 const readable=k=>labels[k]||k.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
 const safeItemReference=value=>{try{const url=new URL(value);return ['https:','http:'].includes(url.protocol)&&!url.username&&!url.password?url.href:'';}catch{return '';}};
-const textKeys=new Set(['name','desc','effect','misfire','damage_type_other','action_type','damage','extra_damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','dr_bypass','ammoType','cost','img','sourceCategory','rarity','at_higher_lvls','subName','languages','senses','resistances','proficiencies','favored_class_options','link','dc_formula','uses_formula']);
+const textKeys=new Set(['sourceClass','name','desc','effect','misfire','damage_type_other','action_type','damage','extra_damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','dr_bypass','ammoType','cost','img','sourceCategory','rarity','at_higher_lvls','subName','languages','senses','resistances','proficiencies','favored_class_options','link','dc_formula','uses_formula']);
 const boolKeys=new Set(['cs','equipped','two_handed','restoreOnLongRest','carried']);
 function richEditor(key,value,label,maxLength=12000){
  const controls=[['bold','Bold','B'],['italic','Italic','I'],['heading','Heading','H'],['bullet','Bullet list','•'],['left','Align left','L'],['center','Center','≣'],['right','Align right','R']];
@@ -59,15 +60,22 @@ const weaponEditorLabels=Object.freeze({
  saving_throw:'Saving Throw',save_dc_override:'Save DC',save_success:'On Successful Save',desc:'Description'
 });
 const abilityEditorLabels=Object.freeze({
- name:'Ability Name',ability_kind:'Ability Type',lvl:'Level',action_type:'Action',effect_type:'Effect Type',
+ name:'Ability Name',sourceClass:'Casting class',ability_kind:'Ability Type',lvl:'Level',action_type:'Action',effect_type:'Effect Type',
  attack_type:'Attack Type',attack_misc:'Extra Attack Bonus',attack_bonus_override:'Attack Bonus',saving_throw:'Saving Throw',
  save_dc_override:'Save DC',save_success:'On Successful Save',save_success_damage:'Damage on Save',spell_resist:'Spell Resistance',
  sr_bonus:'Spell Resistance Bonus',spell_failure:'Spell Failure %',casting_ability:'Casting Stat',caster_level:'Caster Level',
  dc_formula:'DC Formula',dc_misc:'Extra DC Bonus',mp_cost:'MP Cost',u_curr:'Uses Left',u_max:'Max Uses',
  uses_formula:'Uses Formula',restoreOnLongRest:'Restore on Rest',at_higher_lvls:'Higher Levels'
 });
-function field(key,value,{weapon=false,item=false,ability=false,ammoNames=[],longDescription=false,source='cosmos'}={}){
- if(key==='capacity_body_type')return '<label class="cs-field"><span>Body type</span><select name="capacity_body_type"><option value="biped"'+(value!=='quadruped'?' selected':'')+'>Biped</option><option value="quadruped"'+(value==='quadruped'?' selected':'')+'>Quadruped</option></select></label>';
+function field(key,value,{weapon=false,item=false,ability=false,ammoNames=[],classNames=[],longDescription=false,source='cosmos'}={}){
+ if(key==='sourceClass'){
+   const selected=String(value||''),names=[...new Set([...classNames,selected].filter(Boolean))];
+   return '<label class="cs-field"><span>Casting class</span><select name="sourceClass"><option value=""'+(!selected?' selected':'')+'>'+(classNames.length>1?'Choose class (multiclass)':'Automatic')+'</option>'+names.map(name=>'<option value="'+e(name)+'"'+(name===selected?' selected':'')+'>'+e(name)+'</option>').join('')+'</select></label>';
+  }
+  if(key==='casting_ability'){
+   return '<label class="cs-field"><span>Casting stat</span><select name="casting_ability"><option value=""'+(!value?' selected':'')+'>Automatic (class)</option>'+abilities.map(key=>'<option value="'+key+'"'+(key===value?' selected':'')+'>'+key.toUpperCase()+'</option>').join('')+'</select></label>';
+  }
+  if(key==='capacity_body_type')return '<label class="cs-field"><span>Body type</span><select name="capacity_body_type"><option value="biped"'+(value!=='quadruped'?' selected':'')+'>Biped</option><option value="quadruped"'+(value==='quadruped'?' selected':'')+'>Quadruped</option></select></label>';
  if(key==='carried')return '<label class="cs-checkbox"><input type="checkbox" name="carried" '+(value!==false?'checked':'')+'><span>Carried (counts toward weight)</span></label>';
  if(key==='ability_kind')return '<label class="cs-field"><span>Ability category</span><select name="ability_kind">'+Object.entries(abilityKinds).map(([id,label])=>'<option value="'+id+'"'+((value||'other')===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>';
  if(key==='spell_resist')return '<label class="cs-field"><span>Spell Resistance</span><select name="spell_resist">'+Object.entries(srModes).map(([id,label])=>'<option value="'+id+'"'+((String(value||'').toLowerCase().startsWith('no')?'no':'yes')===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>';
@@ -313,7 +321,7 @@ function mountCharacterSheet(tabs,switchTo){
   if(collection==='npcHealth')return '<div class="cs-form-grid">'+keys.map(key=>'<label class="cs-field"><span>'+e(readable(key))+'</span><input type="number" name="'+key+'" step="1" value="'+e(values[key]??'')+'" placeholder="Not set"></label>').join('')+'</div>';
   if(collection==='npcText')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field cs-field-wide"><span>${npcTextLabels[key]}</span><textarea name="${key}" rows="2" maxlength="4000">${e(values[key]??'')}</textarea></label>`).join('')+'</div>';
   const ammoNames=[...new Set([...(character?.data?.items||[]),...(character?.data?.weapons||[])].filter(item=>itemCategoryForItem(item)==='Ammunition').map(item=>String(item.name||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
-  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons'||values._weaponEditor===true,ability:['spells',...abilityTabs].includes(collection),item:collection==='items',ammoNames,longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
+  const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons'||values._weaponEditor===true,ability:['spells',...abilityTabs].includes(collection),item:collection==='items',ammoNames,classNames:characterClasses(character?.data||{}).filter(c=>c.name).map(c=>c.name),longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
   if(collection==='items'&&values._weaponEditor===true)return renderWeaponEditorTabs(keys,render,{category:'Ammunition'});
   if(collection==='items')return renderItemEditorTabs(values,render,sourceFieldsEditor);
   if(collection==='weapons')return renderWeaponEditorTabs(keys,render,{npc:keys.includes('npcAttackBonus'),category:values.sourceCategory||'Weapon'});
@@ -385,7 +393,8 @@ function mountCharacterSheet(tabs,switchTo){
   selectedEquipmentSlot=slot;
   const search=picker.querySelector('[data-equip-search]');
   search.value='';
-  picker.querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,'',slot);
+  picker.querySelector('[data-equip-allow-any]').checked=false;
+   picker.querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,'',slot);
   picker.querySelector('[data-equip-status]').textContent='';
   picker.querySelector('[data-equip-unequip]').hidden=!equippedInSlot(character.data,slot);
   picker.showModal();
@@ -448,11 +457,11 @@ function mountCharacterSheet(tabs,switchTo){
   const row=character.data[key]?.[index]||{};
   if(key==='weapons'&&index===null&&['Weapon','Ranged Weapon','Ammunition'].includes(category)){row.sourceCategory=category;row.attack_type=category==='Ranged Weapon'?'ranged':'melee';}
   const npcWeapon=key==='weapons'&&character.kind==='npc';
-  const keys=key==='npcSkills'?['name','bonus']:npcWeapon?['name','attack_type','npcAttackBonus','damage','crit_range','crit_mult','damage_types','dr_bypass','saving_throw','save_type','save_success','save_dc_override','desc']:key==='skills'?['lvl','temp','cs',...(skillSupportsSpecialization(row.name)?['subName']:[])]:key==='items'?(ammoEditor?weaponFieldsFor('Ammunition'):inventoryEditorKeys(itemCategoryForItem(row))):key==='weapons'?weaponFieldsFor(weaponKind(row)):key==='spells'?['name','lvl','school','type','attack_type','effect_type','attack_misc','range','duration','target','saving_throw','save_type','save_success','save_success_damage','spell_resist','damage','damage_types','casting_ability','caster_level','sr_bonus','save_dc_override','dc_formula','attack_bonus_override','dc_misc','mp_cost','spell_failure','link','desc','at_higher_lvls']:row.rulesOwned?['name','action_type','effect_type','ability_kind','saving_throw','save_type','save_success','save_success_damage','spell_resist','attack_type','attack_misc','attack_bonus_override','damage','damage_types','casting_ability','dc_misc','caster_level','sr_bonus','save_dc_override','dc_formula','uses_formula','restoreOnLongRest','link','desc','effect','at_higher_lvls'] :['name','action_type','effect_type','ability_kind','saving_throw','save_type','save_success','save_success_damage','spell_resist','attack_type','attack_misc','attack_bonus_override','damage','damage_types','casting_ability','dc_misc','caster_level','sr_bonus','save_dc_override','dc_formula',...(row.uses_formula?['uses_formula']:[]),'u_max','u_curr','restoreOnLongRest','link','desc','effect','at_higher_lvls'];
+  const keys=key==='npcSkills'?['name','bonus']:npcWeapon?['name','attack_type','npcAttackBonus','damage','crit_range','crit_mult','damage_types','dr_bypass','saving_throw','save_type','save_success','save_dc_override','desc']:key==='skills'?['lvl','temp','cs',...(skillSupportsSpecialization(row.name)?['subName']:[])]:key==='items'?(ammoEditor?weaponFieldsFor('Ammunition'):inventoryEditorKeys(itemCategoryForItem(row))):key==='weapons'?weaponFieldsFor(weaponKind(row)):key==='spells'?['name','lvl','sourceClass','school','type','attack_type','effect_type','attack_misc','range','duration','target','saving_throw','save_type','save_success','save_success_damage','spell_resist','damage','damage_types','casting_ability','caster_level','sr_bonus','save_dc_override','dc_formula','attack_bonus_override','dc_misc','mp_cost','spell_failure','link','desc','at_higher_lvls']:row.rulesOwned?['name','action_type','effect_type','ability_kind','saving_throw','save_type','save_success','save_success_damage','spell_resist','attack_type','attack_misc','attack_bonus_override','damage','damage_types','casting_ability','dc_misc','caster_level','sr_bonus','save_dc_override','dc_formula','uses_formula','restoreOnLongRest','link','desc','effect','at_higher_lvls'] :['name','action_type','effect_type','ability_kind','saving_throw','save_type','save_success','save_success_damage','spell_resist','attack_type','attack_misc','attack_bonus_override','damage','damage_types','casting_ability','dc_misc','caster_level','sr_bonus','save_dc_override','dc_formula',...(row.uses_formula?['uses_formula']:[]),'u_max','u_curr','restoreOnLongRest','link','desc','effect','at_higher_lvls'];
   if(character.data.gunbreakerAmmo!==undefined&&row.rulesOwned&&row.sourceRuleId===MAGICKED_AMMO_ID)for(const k of ['uses_formula','restoreOnLongRest']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   if(isLimitBreak(row))for(const k of ['uses_formula','restoreOnLongRest','u_curr','u_max']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   if(abilityGroup(character.data,row,key))for(const k of ['uses_formula','restoreOnLongRest','u_curr','u_max']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
-  const values={u_max:row.u_max??0,u_curr:row.u_curr??row.u_max??0,...row,_weaponEditor:ammoEditor,action_type:actionType(row.action_type??row.type),damage_types:selectedDamageTypes(row.damage_types??(key==='items'&&ammoEditor?[String(inventoryItemValue(row,'damageType')||'')]:[])),sourceCategory:key==='weapons'?weaponKind(row):itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||(key==='weapons'&&index===null?weaponDefaultAbilities(row.attack_type||'melee',character.data).attack:'auto')).toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
+  const values={u_max:row.u_max??0,u_curr:row.u_curr??row.u_max??0,...row,_weaponEditor:ammoEditor,action_type:actionType(row.action_type??row.type),damage_types:selectedDamageTypes(row.damage_types??(key==='items'&&ammoEditor?[String(inventoryItemValue(row,'damageType')||'')]:[])),sourceCategory:key==='weapons'?weaponKind(row):itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||(key==='weapons'&&index===null?weaponDefaultAbilities(row.attack_type||'melee',character.data).attack:'auto')).toLowerCase(),casting_ability:key==='spells'?(row.casting_ability??''):(row.casting_ability||character.data.spell_dc_base||'int'),caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
   if(['spells',...abilityTabs].includes(key))values.effect_type=effectType(row)==='none'&&!row.effect_type&&String(row.damage||row.dmg||'').trim()?'damage':effectType(row);
   if(key==='weapons'&&!npcWeapon&&values.sourceCategory!=='Ammunition'){
    values.damage_ability=row.damage_ability??(index===null?weaponDefaultAbilities(values.attack_type,character.data).damage:'none');
@@ -637,7 +646,13 @@ function mountCharacterSheet(tabs,switchTo){
    itemView=button.dataset.itemView==='inventory'?'inventory':'equip';
    draw();const url=new URL(location.href);url.searchParams.set('itemView',itemView);history.replaceState(null,'',url);return;
   }
-  if(button.matches('[data-item-description]')){openItemDescription(button.dataset.itemDescription);return;}
+  if(button.matches('[data-inventory-carry]')){
+    const index=Number(button.dataset.inventoryCarry),row=character?.data?.items?.[index];
+    if(!Number.isInteger(index)||!row||row.equip_slot&&row.equipped!==false)return;
+    void save({action:'entry',collection:'items',mode:'update',index,fields:{carried:row.carried===false}});
+    return;
+   }
+   if(button.matches('[data-item-description]')){openItemDescription(button.dataset.itemDescription);return;}
   if(button.matches('[data-item-description-close]')){itemDescriptionDialog()?.close();return;}
   if(button.matches('[data-equip-slot]')){openEquipmentPicker(button.dataset.equipSlot);return;}
   if(button.matches('[data-equip-change]')){openEquipmentPicker(button.dataset.equipChange);return;}
@@ -649,7 +664,7 @@ function mountCharacterSheet(tabs,switchTo){
    const slot=selectedEquipmentSlot,raw=button.dataset.equipChoice,[collection,rawIndex]=raw.split(':'),index=Number(rawIndex),item=character.data[collection]?.[index];
    if(!isEquipmentSlot(slot)||!['items','weapons'].includes(collection)||!Number.isInteger(index)||index<0||!item||!String(item.name||'').trim()||Number(item.amount??1)<1)return;
    if(button.getAttribute('aria-pressed')==='true'){equipmentDialog()?.close();return;}
-   void save({action:'equip',slot,collection,index});return;
+   void save({action:'equip',slot,collection,index,allowIncompatible:equipmentDialog()?.querySelector('[data-equip-allow-any]')?.checked===true});return;
   }
   if(button.matches('[data-equipment-close]')){equipmentDialog()?.close();return;}
   if(button.matches('[data-combat-view]')){if(dirty&&!confirm('Discard unsaved edits?'))return;combatView=button.dataset.combatView;draw();const url=new URL(location.href);url.searchParams.set('combatView',combatView);history.replaceState(null,'',url);return;}
@@ -833,7 +848,8 @@ function mountCharacterSheet(tabs,switchTo){
   void save({...dialogState.change,fields});
  },{signal:control.signal});
  root.addEventListener('change',event=>{
-  if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
+  if(event.target.matches('[data-equip-allow-any]')){const picker=equipmentDialog();picker.querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,picker.querySelector('[data-equip-search]').value,selectedEquipmentSlot,{showIncompatible:event.target.checked});return;}
+   if(!event.target.matches('[data-add-damage-type]')||!event.target.value)return;const select=event.target,type=select.value;root.querySelector('[data-damage-tags]').insertAdjacentHTML('beforeend',damageTag(type));select.selectedOptions[0].disabled=true;select.value='';dirty=true;},{signal:control.signal});
  root.addEventListener('input',event=>{
    if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=u_curr],[name=u_max],[name=ammoType]'))updateWeaponAmmoPreview();
    if(event.target.closest('.cs-weapon-editor')&&event.target.matches('[name=attack_misc]'))updateWeaponEditorPreview();
@@ -842,7 +858,7 @@ function mountCharacterSheet(tabs,switchTo){
   if(event.target.matches('[data-owlbear-section-slider]')){const output=root.querySelector('[data-owlbear-nav-label]');if(output)output.textContent=['Favorites','Character','Combat','Skills','Inventory','Notes'][Number(event.target.value)]||'Character';return;}
    if(event.target.matches('[data-ammo-profile],[data-ammo-rounds]')){dirty=true;status('Choose an ammunition action to save.');return;}
   if(event.target.matches('[data-equip-search]')){
-   equipmentDialog().querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,event.target.value,selectedEquipmentSlot);
+   equipmentDialog().querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,event.target.value,selectedEquipmentSlot,{showIncompatible:equipmentDialog()?.querySelector('[data-equip-allow-any]')?.checked===true});
    return;
   }
   if(event.target.matches('[data-ability-remaining]')){clearTimeout(remainingTimer);const [collection,index]=event.target.dataset.abilityRemaining.split(':'),value=Number(event.target.value);dirty=true;status('Unsaved uses');if(event.target.value!==''&&Number.isInteger(value)&&value>=0&&value<=Number(event.target.max)){remainingInvalid=false;pendingRemaining={collection,index:Number(index),value};remainingTimer=setTimeout(()=>void persistRemaining(),650);}else{remainingInvalid=true;pendingRemaining=null;status('Enter whole uses between 0 and maximum.');}return;}

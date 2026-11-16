@@ -20,13 +20,13 @@ import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields,inventoryF
 import {entryCalculations,weaponDamageAbilities,weaponDamageStyles} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
 import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
-import {isEquipmentSlot,equipmentRows,occupiesSlot} from '../../src/features/sheet/equipment.mjs';
+import {isEquipmentSlot,equipmentRows,occupiesSlot,equipmentSlotCompatible} from '../../src/features/sheet/equipment.mjs';
 export const numericFields=[...abilities,'hp_curr','hp_temp','hp_max','hp_max_temp','mp','mp_curr','mp_temp','mp_class','mp_bonus','mp_max','mp_total_max','mp_max_temp','mp_max_spell_level','init_temp','bab','bab_temp','speed_mod','speed_burrow','speed_climb','speed_fly','speed_swim','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp','touch_temp','flat_temp','cmd_temp','ar_melee_temp','ar_ranged_temp','ar_touch_temp','ar_ranged_touch_temp','cmb_temp','fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp','currency_gil','currency_moogle','slot_cap','capacity_modifier'];
 const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
 const textFields=['languages','senses','resistances','proficiencies','favored_class_options','notesArea'];
 const enumFields={uncanny_dodge:['auto','on','off'],size_category:sizes,capacity_body_type:['biped','quadruped'],speed_fly_maneuverability:['','clumsy','poor','average','good','perfect'],spell_dc_base:abilities,ar_melee_ability:abilities,ar_ranged_ability:abilities,ar_touch_ability:abilities,ar_ranged_touch_ability:abilities};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
-const entryText=['name','desc','effect','misfire','ammoType','damage_type_other','rarity','cost','img','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
+const entryText=['sourceClass','name','desc','effect','misfire','ammoType','damage_type_other','rarity','cost','img','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','save_success_damage','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage','ability_kind','dr_bypass'];
 const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','ammo_ar_bonus','ammo_dmg_bonus','dc_misc','mp_adjustment','caster_level','mp_cost','sr_bonus','save_dc_override','attack_bonus_override'];
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 const bad=message=>{throw Error(message);};
@@ -230,7 +230,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
       if(safe.link){try{const url=new URL(safe.link);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)bad('Link must be an http or https URL.');}
        catch{bad('Link must be a valid http or https URL.');}}
      }
-     else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=change.collection==='items'&&key==='desc'?normalizeInventoryText(value,key):text(value,key==='name'?120:key==='desc'&&['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(change.collection)?100000:12000,key==='desc'?'Description':key);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
+     else if(entryText.includes(key)){if(key==='sourceClass'&&change.collection==='spells'&&value!==''&&!characterClasses(data).some(c=>c.name?.toLowerCase()===String(value).toLowerCase())&&value!==rows[change.index]?.sourceClass)bad('Choose one of this character\'s spellcasting classes.');if(key==='casting_ability'&&value!==''&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=change.collection==='items'&&key==='desc'?normalizeInventoryText(value,key):text(value,key==='name'?120:key==='desc'&&['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(change.collection)?100000:12000,key==='desc'?'Description':key);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
     else if(entryNumber.includes(key)){if(['ammo_ar_bonus','ammo_dmg_bonus'].includes(key)&&!((change.collection==='weapons'||change.collection==='items')&&isAmmunition))bad('Ammo bonuses belong to ammunition entries.');if(['mp_cost','caster_level','save_dc_override','attack_bonus_override'].includes(key)&&(value===''||value===null)){safe[key]='';continue;}
     if(key==='attack_bonus_override'&&!['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection))bad('Only spells and abilities can override attack bonus.');
     safe[key]=numeric(value);
@@ -259,7 +259,8 @@ export function mergeSheetData(original,change,{npc=false}={}){
          updated.equip_slot='';updated.equipped=false;
        }
      }
-     rows[change.index]=updated;
+     if(change.collection==='items'&&safe.carried===false&&rows[change.index]?.carried!==false&&updated.equip_slot)bad('Unequip this item before storing it.');
+      rows[change.index]=updated;
    }
   }
   data[change.collection]=rows;
@@ -276,10 +277,11 @@ export function mergeSheetData(original,change,{npc=false}={}){
   if(change.index!==null&&(!Number.isInteger(change.index)||change.index<0||change.index>=rows.length))bad('Choose an item from your inventory.');
   let selected=change.index===null?null:rows[change.index];
   if(selected&&(!String(selected.name||'').trim()||!Number.isFinite(Number(selected.amount??1))||Number(selected.amount??1)<1))bad('Only inventory items with quantity 1 or more can be equipped.');
+   if(selected&&!equipmentSlotCompatible(selected,change.slot)&&change.allowIncompatible!==true)bad('This item does not match the equipment slot. Enable manual override to equip it.');
   const targets=selected?.two_handed===true&&['hands','hand2'].includes(change.slot)?['hands','hand2']:[change.slot];
   if(selected&&Number(selected.amount??1)>1){if(rows.length>=1000)bad('Inventory is full; separate this stack before equipping.');rows.push({...selected,amount:Number(selected.amount)-1,equipped:false,equip_slot:''});selected.amount=1;}
   for(const {item} of equipmentRows(data))if(targets.some(slot=>occupiesSlot(item,slot))){item.equip_slot='';item.equipped=false;}
-  if(selected){selected.equip_slot=selected.two_handed===true&&['hands','hand2'].includes(change.slot)?'hands':change.slot;selected.equipped=true;}
+  if(selected){selected.carried=true;selected.equip_slot=selected.two_handed===true&&['hands','hand2'].includes(change.slot)?'hands':change.slot;selected.equipped=true;}
   data[collection]=rows;
  }else if(change.action==='damage'||change.action==='heal'){
   const amount=numeric(change.amount);if(amount<=0)bad('Enter a positive amount.');const current=sheetStats(data);

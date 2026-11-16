@@ -14,7 +14,7 @@ test('equipping one item from a stack preserves quantity and metadata without du
  const both=mergeSheetData(next,{action:'equip',slot:'ring2',index:2});assert.equal(both.items[2].amount,1);assert.equal(both.items[3].amount,1);assert.equal(equippedInSlot(both,'ring1').index,1);assert.equal(equippedInSlot(both,'ring2').index,2);assert.equal(d.items.length,2);
 });
 test('Grouped equipment preserves existing slot IDs without carrying inventory onto Equip',()=>{
- const next=mergeSheetData(d,{action:'equip',slot:'legs',index:0});
+ const next=mergeSheetData(d,{action:'equip',slot:'legs',index:0,allowIncompatible:true});
  const html=renderEquipment(next);
  assert.equal(equipmentSlots.length,17);
  for(const label of ['Hand 2','Ranged','Legs','Accessories'])assert.match(html,new RegExp(label));

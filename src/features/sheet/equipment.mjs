@@ -1,5 +1,25 @@
 // Shared equipment slot IDs and occupancy rules; layouts can change without losing saved assignments.
+import {itemCategoryForItem} from './item-categories.mjs';
 const accessories=['headband','eyes','shoulders','neck','belt','wrists','ring1','ring2'];
+const slotKeywords=Object.freeze({head:['helmet','helm','hat','crown','cap','hood'],headband:['headband','circlet','diadem'],eyes:['goggles','lens','glasses','eyes'],shoulders:['cloak','cape','mantle','shoulder'],neck:['necklace','amulet','pendant','neck'],chest:['chest','vest','shirt','armor','armour','breastplate'],arms:['bracer','sleeve','arm'],body:['robe','body','armor','armour','dress'],belt:['belt','sash','waist'],wrists:['bracelet','bracer','wrist'],legs:['pants','greaves','legging','leg'],feet:['boots','shoes','slipper','feet'],ring1:['ring'],ring2:['ring']});
+const normalizeSlot=value=>String(value||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+/** Conservative equipment filtering, with an explicit manual override for
+ * imported/creative items whose catalog type does not identify their slot. */
+export function equipmentSlotCompatible(item,slot){
+ if(!item||!isEquipmentSlot(slot))return false;
+ if(miscEquipmentSlotIds.includes(slot))return true;
+ if(item.equip_slot===slot||item.two_handed===true&&item.equip_slot==='hands'&&slot==='hand2')return true;
+ const category=itemCategoryForItem(item),type=normalizeSlot([item.type,item.secondaryType,item.slot,item.sourceCategoryDetail].filter(Boolean).join(' ')),name=normalizeSlot(item.name);
+ if(category==='Ammunition'||['Food','Consumables','Alchemical Items','Materials & Crafting','Services & Other','Collection'].includes(category))return false;
+ if(slot==='ranged')return category==='Ranged Weapon'||category==='Weapon'&&/bow|crossbow|thrown|ranged|firearm|gun/.test(type);
+ if(['hands','hand2'].includes(slot))return ['Weapon','Ranged Weapon'].includes(category)||item.two_handed===true||category==='Armor'&&/shield|buckler/.test(type+' '+name)||['Gear','Misc','Magic Items'].includes(category)&&/sword|blade|axe|dagger|staff|rod|wand|torch|shield|buckler|bow|crossbow|firearm|spear|hammer|tool|instrument|lantern|rope|weapon/.test(type+' '+name);
+ if(category==='Armor')return ['head','chest','arms','body','legs','feet'].includes(slot)&&!(/shield|buckler/.test(type))&&(['chest','body'].includes(slot)||slotKeywords[slot]?.some(word=>type.includes(word)||name.includes(word)));
+ if(!['Magic Items','Artifacts','Enchantment','Enhancements','Gear','Misc'].includes(category))return false;
+ const words=slotKeywords[slot]||[];
+ const matched=words.some(word=>(type+' '+name).split(' ').some(token=>token===word||token.startsWith(word)));
+ return matched;
+}
+
 export const equipmentSlots=Object.freeze([
  {id:'head',label:'Head',side:'left',y:50,target:[200,52]},
  {id:'headband',label:'Headband'},{id:'eyes',label:'Eyes'},{id:'shoulders',label:'Shoulders'},{id:'neck',label:'Necklace'},
@@ -26,17 +46,18 @@ export function equippedInSlot(source,slot){if(!isEquipmentSlot(slot))return nul
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 /** Compact, searchable item-only list for the chosen equipment slot. */
-export function renderEquipChoices(data={},query='',slot=''){
+export function renderEquipChoices(data={},query='',slot='',{showIncompatible=false}={}){
  const search=String(query).trim().toLocaleLowerCase();
  const selected=equippedInSlot(data,slot);
  const choices=equipmentRows(data)
   .filter(({item})=>item&&String(item.name||'').trim()&&Number(item.amount??1)>=1)
   .filter(({item})=>String(item.name).toLocaleLowerCase().includes(search))
+   .filter(({item})=>showIncompatible||equipmentSlotCompatible(item,slot))
   .sort((a,b)=>String(a.item.name).localeCompare(String(b.item.name)));
  return choices.map(({item,index,collection})=>{
   const active=selected?.collection===collection&&selected.index===index;
   return '<button type="button" class="cs-equip-choice" data-equip-choice="'+collection+':'+index+'" aria-pressed="'+active+'"><span>'+e(item.name)+'</span>'+(active?'<span class="cs-equip-choice-check" aria-hidden="true">✓</span>':'')+'</button>';
- }).join('')||'<p class="cs-equip-empty">No items found</p>';
+ }).join('')||'<p class="cs-equip-empty">No compatible items found. Turn on manual override to show all.</p>';
 }
 
 

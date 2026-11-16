@@ -82,7 +82,7 @@ test('legacy equipped armor applies imported stats, while shields leave DEX and 
  assert.equal(stats.dexAcModifier,2);
  assert.equal(stats.encumbrance.checkPenalty,-5);
  assert.equal(skillTotal({stat:'DEX',lvl:1},hero),2);
- assert.match(renderSection({data:hero},'overview'),/data-roll="DEX check" data-bonus="1"/);
+ assert.match(renderSection({data:hero},'overview'),/data-roll="DEX check" data-bonus="6"/);
 });
 
 test('shields with an explicit positive Dexterity cap limit AC and preserve Reflex',()=>{
@@ -191,10 +191,10 @@ test('armor edit presents Armor Bonus without removing imported acBonus schema',
  const revised=mergeSheetData(initial,{action:'entry',collection:'items',mode:'update',index:0,fields:{acBonus:'6',maxDex:'2'}});
  assert.equal(sheetStats(revised).encumbrance.armorBonus,6);
  assert.equal(sheetStats(revised).dexAcModifier,2);
- const hidden=mergeSheetData(revised,{action:'entry',collection:'items',mode:'update',index:0,fields:{carried:false}});
- assert.equal(hidden.items[0].equipped,true);
- assert.equal(hidden.items[0].carried,false);
- assert.equal(sheetStats(hidden).encumbrance.armorBonus,6);
+ assert.throws(()=>mergeSheetData(revised,{action:'entry',collection:'items',mode:'update',index:0,fields:{carried:false}}),/Unequip/);
+ assert.equal(sheetStats(revised).encumbrance.armorBonus,6);
+ const old={...revised,items:[{...revised.items[0],carried:false}]};
+ assert.equal(mergeSheetData(old,{action:'entry',collection:'items',mode:'update',index:0,fields:{carried:false,acBonus:'7'}}).items[0].acBonus,'7');
 });
 
 test('speed warning and armor-penalized DEX roll are visible; capacity icon removed',async()=>{
@@ -204,8 +204,8 @@ test('speed warning and armor-penalized DEX roll are visible; capacity icon remo
  assert.match(overview,/class="cs-speed-cap-info"/);
  assert.match(overview,/Speed restricted by armor/);
  assert.match(overview,/cs-score-encumbered/);
- assert.match(overview,/data-roll="DEX check" data-bonus="4"/);
- assert.match(overview,/<strong>22<\/strong><small>\+4<\/small>/);
+ assert.match(overview,/data-roll="DEX check" data-bonus="6"/);
+ assert.match(overview,/<strong>22<\/strong><small>\+6<\/small>/);
  assert.match(overview,/AC \+3/);
  assert.match(inventory,/data-edit-stats="capacity"/);
  assert.doesNotMatch(inventory,/cs-capacity-info/);

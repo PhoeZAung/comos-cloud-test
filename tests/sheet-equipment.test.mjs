@@ -18,7 +18,7 @@ const inventory={str:12,dex:14,items:[
  {name:'Broken boots',amount:0,sourceItemId:'item-e'},
  {name:'Historical armor',amount:1,equipped:true,sourceItemId:'legacy'}
 ]};
-const equip=(data,slot,index)=>mergeSheetData(data,{action:'equip',slot,index});
+const equip=(data,slot,index)=>mergeSheetData(data,{action:'equip',slot,index,allowIncompatible:true});
 test('Equipment uses three bordered groups and all seventeen slots without extra panels',()=>{
  assert.deepEqual(equipmentSlots.map(slot=>slot.label),[
   'Head','Headband','Eyes','Shoulders','Necklace','Chest','Arms','Body','Belt','Wrists','Hand 1','Hand 2','Ranged','Legs','Ring 1','Ring 2','Feet'
@@ -95,14 +95,14 @@ test('searchable equipment chooser shows item names only and preserves selected 
  ],weapons:[{name:'Iron Sword',amount:1}]};
  const full=renderEquipChoices(gear,'','head');
  assert.match(full,/data-equip-choice="items:2" aria-pressed="true"/);
- assert.match(full,/data-equip-choice="weapons:0" aria-pressed="false"/);
- assert.match(full,/&lt;img onerror=alert\(1\)&gt;/);
+ assert.doesNotMatch(full,/data-equip-choice="weapons:0"/);
+ const all=renderEquipChoices(gear,'','head',{showIncompatible:true});assert.match(all,/&lt;img onerror=alert\(1\)&gt;/);assert.match(all,/data-equip-choice="weapons:0"/);
  assert.doesNotMatch(full,/<img|Broken Boots|data-equip-slot-select|data-equip-item-select|Qty | · Weapon/);
  const results=renderEquipChoices(gear,'iron','head');
- assert.match(results,/Iron Helm|Iron Sword/);
+ assert.match(results,/Iron Helm/);assert.doesNotMatch(results,/Iron Sword/);
  assert.doesNotMatch(results,/Leather Boots/);
- assert.equal((results.match(/data-equip-choice=/g)||[]).length,2);
- assert.match(renderEquipChoices(gear,'never-matches','head'),/No items found/);
+ assert.equal((results.match(/data-equip-choice=/g)||[]).length,1);
+ assert.match(renderEquipChoices(gear,'never-matches','head'),/No compatible items found/);
 });
 test('Unequipped gear stays in Inventory and can still be removed',()=>{
  const first=equip(inventory,'head',0);

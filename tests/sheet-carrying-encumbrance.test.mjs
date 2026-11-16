@@ -168,8 +168,8 @@ test('minimal capacity UI exposes threshold hover, warnings, info and editor; no
  assert.match(inventory,/Over that is overloaded|overloaded|Heavy/);
  assert.doesNotMatch(inventory,/data-inline-currency="slot_cap"/);
  assert.match(overview,/cs-score-encumbered/);
- assert.match(overview,/data-roll="DEX check" data-bonus="0"/);
- assert.match(overview,/<strong>22<\/strong><small>\+0<\/small>/);
+ assert.match(overview,/data-roll="DEX check" data-bonus="6"/);
+ assert.match(overview,/<strong>22<\/strong><small>\+6<\/small>/);
  assert.match(overview,/AC \+1/);
  assert.match(overview,/cs-score-load-info/);
  const speed=renderSpeedDetails(hero.data);

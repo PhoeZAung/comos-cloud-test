@@ -29,22 +29,21 @@ export function sheetStats(d={}){
   touch:armorClass('touch_ac_total',['dex','ac_deflect','ac_dodge','touch_temp'],10+dexAcModifier+size+n('ac_deflect')+dodgeAcBonus+n('touch_temp')),
   flat:armorClass('flat_ac_total',['dex','ac_armor','ac_natural','ac_deflect','ac_dodge','flat_temp'],10+flatDexModifier+size+armorBonus+n('ac_natural')+n('ac_deflect')+flatDodgeBonus+n('flat_temp')),
   cmd:total('cmd_total',['str','dex','ac_deflect','ac_dodge','cmd_temp'],10+bab+mod('str')+mod('dex')+special+n('ac_deflect')+dodgeAcBonus+n('cmd_temp')),
-  cmb:total('cmb',['str','dex','bab','cmb_temp'],bab+mod('str')+mod('dex')+special+n('cmb_temp')),
+  cmb:total('cmb',['str','dex','bab','cmb_temp'],bab+(si>=0&&si<=2?mod('dex'):mod('str'))+special+n('cmb_temp')),
   melee:attack('ar_melee','str'),ranged:attack('ar_ranged','dex'),touchAttack:attack('ar_touch','str'),rangedTouch:attack('ar_ranged_touch','dex'),
   fort:total('fort_bonus',['con','fort_base','fort_enhance','fort_temp'],mod('con')+n('fort_base')+n('fort_enhance')+n('fort_temp')),
   ref:total('ref_bonus',['dex','ref_base','ref_enhance','ref_temp'],mod('dex')+n('ref_base')+n('ref_enhance')+n('ref_temp')),
   will:total('will_bonus',['wis','will_base','will_enhance','will_temp'],mod('wis')+n('will_base')+n('will_enhance')+n('will_temp'))
  };
 }
-/** Ability checks use the actual load/armor check penalty for DEX.
- * Do not change the base DEX modifier, Reflex save, attack or skills (which
- * already apply their own penalty exactly once).
+/** Plain ability checks use their ability modifier. Armor/load penalties apply
+ * to relevant skills; maximum Dexterity applies to AC, not ability checks.
  */
 export function abilityCheckBonus(data={},ability='dex'){
  const key=String(ability).toLowerCase();
  if(!abilities.includes(key))throw Error('Invalid ability check.');
  const base=data[key]===undefined||data[key]===''?0:modifier(data[key]);
- return base+(key==='dex'?carryingCapacity(data).checkPenalty:0);
+ return base;
 }
 export function skillTotal(row,d){
  const ranks=number(row.lvl??row.ranks),stat=String(row.stat||'').toLowerCase();
