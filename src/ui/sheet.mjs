@@ -202,7 +202,7 @@ function mountCharacterSheet(tabs,switchTo){
  const itemDescriptionDialog=()=>root.querySelector('[data-item-description-dialog]');
  const setBusy=value=>{busy=value;root.querySelector('[data-sheet]')?.classList.toggle('cs-saving',value);root.querySelectorAll('button,input,select,textarea').forEach(node=>{if(value){node.dataset.busyDisabled=String(node.disabled);node.disabled=true;}else if(node.dataset.busyDisabled!==undefined){node.disabled=node.dataset.busyDisabled==='true';delete node.dataset.busyDisabled;}});};
  async function request(body,revision){
-  const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:body?control.signal:AbortSignal.any([control.signal,AbortSignal.timeout(15000)]),credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
+  const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:AbortSignal.any([control.signal,AbortSignal.timeout(body?20000:15000)]),credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
  function draw(){if(closed)return;if(character.kind==='npc'&&!document.body.hasAttribute('data-owlbear-sheet')){const back=document.querySelector('header .back');if(back){back.href='admin-npcs.html';back.textContent='← NPCs';}}disposeHold();disposeNotesElectric();disposePersonalNotes.dispose();disposeSettings?.();disposePartyNotes?.();disposePartyNotes=undefined;const notesTicket=++notesGeneration;if(!(character.partyTags||[]).some(tag=>tag.id===notesTab))notesTab='personal';if(section==='items'&&itemView==='inventory'){
@@ -219,19 +219,30 @@ function mountCharacterSheet(tabs,switchTo){
  async function save(change,skipPending=false){
   if(!skipPending){if(change.action==='fields')for(const key of Object.keys(change.fields||{}))delete pendingResourceFields[key];if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return false;}
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
-  try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;dialog()?.close();
+  try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;saveFailureDraft=null;dialog()?.close();
    if(change.action==='addCatalogItem'){
     itemTag='All';const url=new URL(location.href);url.searchParams.delete('itemTag');history.replaceState(null,'',url);
    }
    draw();status('Saved · Synced'+(admin?' · Admin':''));return true;}
-  catch(err){if(closed)return false;if(err.status===409){conflict=true;root.querySelector('[data-sheet-refresh]').hidden=false;}status(err.message);const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=err.message;const equipStatus=root.querySelector('[data-equip-status]');if(equipStatus)equipStatus.textContent=err.message;return false;}
+  catch(err){
+    if(closed)return false;
+    const timedOut=err.name==='TimeoutError'||err.name==='AbortError'&&!control.signal.aborted;
+    saveFailureDraft={characterId:id,revision:character.revision,section,change,savedAt:new Date().toISOString()};
+    const copy=root.querySelector('[data-sheet-copy-draft]');if(copy)copy.hidden=false;
+    if(err.status===409||timedOut){conflict=true;const refresh=root.querySelector('[data-sheet-refresh]');if(refresh)refresh.hidden=false;}
+    const messageText=timedOut?'Save timed out. The server might have received it. Copy your unsaved edit, then Load latest before retrying.':err.message;
+    status(messageText);
+    const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=messageText;
+    const equipStatus=root.querySelector('[data-equip-status]');if(equipStatus)equipStatus.textContent=messageText;
+    return false;
+   }
   finally{if(!closed)setBusy(false);}
  }
  async function refresh(force=false){
   if(closed||busy||deletePending||polling||dragState||document.hidden||(!force&&document.activeElement?.matches('[data-party-notes-input]'))||(!force&&(dirty||conflict||openPicker()||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))))return;
   if(force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
   polling=true;const previousRevision=character?.revision;
-  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||openPicker()||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
+  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||openPicker()||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))return;character=result.character;admin=result.admin===true;conflict=false;saveFailureDraft=null;draw();}else if(force){conflict=false;saveFailureDraft=null;root.querySelector('[data-sheet-refresh]')?.setAttribute('hidden','');root.querySelector('[data-sheet-copy-draft]')?.setAttribute('hidden','');}status('Synced'+(admin?' · Admin':''));}
   catch(err){if(!closed)status(err.message);}
   finally{polling=false;}
  }
