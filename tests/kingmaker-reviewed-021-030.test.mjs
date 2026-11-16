@@ -75,7 +75,7 @@ test('mixed caster levels, spells and save-dependent special abilities are disti
  assert.equal(priestess.npcStats.reach,5);
  assert.match(priestess.npcText.movementDetail,/glaive reaches 10 ft/);
  assert.match(priestess.npcText.spellsKnown,/4th/);
- assert.match(priestess.npcText.qualities,/not bloodline arcana/);
+ assert.match(priestess.npcText.qualities,/does not receive normal bloodline arcana/);
 
  const sister=sheet('Sister Of The Bloodshot Eye');
  assert.equal(sister.npcSkills.find(s=>s.name==='Knowledge (religion)').bonus,9);
