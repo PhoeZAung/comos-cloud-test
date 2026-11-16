@@ -1,11 +1,11 @@
-// Kingmaker Bestiary (First Edition), PDF-reviewed entries 51–70.
-// Book pp. 34–45 / PDF pp. 35–46. Keep raw automatic arrays untouched.
+// Kingmaker Bestiary (First Edition), PDF-reviewed entries 51–60.
+// Book pp. 34–40 / PDF pp. 35–41. Keep raw automatic arrays untouched.
 // Source-backed corrections preserve attack alternatives and separate special
 // ability notes; full external Bestiary rules still require GM consultation.
 const melee=(name,npcAttackBonus,damage,props={})=>({name,attack_type:'melee',npcAttackBonus,damage,...props});
 const ranged=(name,npcAttackBonus,damage,props={})=>({name,attack_type:'ranged',npcAttackBonus,damage,...props});
 const ability=(name,ability_kind,desc)=>({name,ability_kind,desc});
-export const KINGMAKER_BESTIARY_REVIEWED_051_070=Object.freeze({
+export const KINGMAKER_BESTIARY_REVIEWED_051_060=Object.freeze({
  'gogiteth':{
   text:{
    specialAttacks:'Carry off prey, constrict 4d6+7, skittering assault.',
