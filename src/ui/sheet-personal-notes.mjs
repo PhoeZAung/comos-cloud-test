@@ -8,7 +8,7 @@ export function mountPersonalNotes(root,{characterId,save}={}){
  const abort=new AbortController(),key='cosmos-notes-draft:'+characterId;
  let timer=null,saving=false;
  const storage=()=>{try{return sessionStorage;}catch{return null;}};
- const stored=()=>{try{const value=storage()?.getItem(key);return value&&value.length<=12000?value:null;}catch{return null;}};
+ const stored=()=>{try{const value=storage()?.getItem(key);return value!==null&&value!==undefined&&value.length<=12000?value:null;}catch{return null;}};
  const cache=value=>{try{storage()?.setItem(key,value.slice(0,12000));}catch{}};
  const remove=()=>{try{storage()?.removeItem(key);}catch{}};
  const announce=message=>{const p=form.querySelector('[data-notes-autosave-status]');if(p)p.textContent=message;};
