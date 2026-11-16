@@ -168,6 +168,7 @@ function renderNpcSheet(data={}){
  const actions=(data.activeAbilities||[]).map((row,index)=>entry('activeAbilities',row,index,data)).join('');
  const known=number=>Number.isFinite(number)?String(number):'—';
  const identity=[details.alignment,details.size,details.creatureType,details.subtypes].filter(Boolean).join(' · ');
+ const citation=[details.source,Number.isFinite(stats.sourcePage)?'p. '+stats.sourcePage:'',details.sourceReference].filter(Boolean).join(' · ');
  const glance=[
   ['CR',known(stats.cr)],['XP',known(stats.xp)],['HP',knownHp?data.hp_curr+' / '+data.hp_max:'—'],
   ['AC',known(stats.ac)],['Init',Number.isFinite(stats.initiative)?signed(stats.initiative):'—'],
@@ -178,7 +179,7 @@ function renderNpcSheet(data={}){
  const nav='<nav class="cs-npc-tabs" role="tablist" aria-label="NPC sheet sections">'+tabs.map(([key,label],index)=>
   '<button type="button" role="tab" data-npc-tab="'+key+'" aria-selected="'+(index===0)+'" tabindex="'+(index===0?'0':'-1')+'">'+label+'</button>').join('')+'</nav>';
  return `<div class="cs-npc-sheet">
-  <header class="cs-npc-overview"><div class="cs-npc-identity">${identity?e(identity):'NPC · Pathfinder First Edition'}</div><div class="cs-npc-glance">${glance}</div></header>
+  <header class="cs-npc-overview"><div class="cs-npc-identity">${identity?e(identity):'NPC · Pathfinder First Edition'}</div>${citation?`<div class="cs-npc-citation">${e(citation)}</div>`:''}<div class="cs-npc-glance">${glance}</div></header>
   ${nav}
   <section class="cs-npc-panel" data-npc-panel="combat" role="tabpanel" aria-label="Combat and defense">
    <div class="cs-npc-combat-grid"><div>${health}${edit('npcHealth','NPC HP')}</div>${statCards[0]}${statCards[1]}${statCards[2]}</div>
