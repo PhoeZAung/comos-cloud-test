@@ -163,4 +163,5 @@ export const KINGMAKER_BESTIARY_REVIEWED_051_070=Object.freeze({
    importNotes:'PDF-reviewed printed pp. 39–40 (PDF pp. 40–41). Restored fast healing, no-trip condition and twelve distinct heads/attack entries. Head regrowth uses cited hydra rules.'
   },
   weapons:Array.from({length:12},(_,i)=>melee('Bite head '+(i+1),15,'1d8+4'))
- });
+ }
+});
