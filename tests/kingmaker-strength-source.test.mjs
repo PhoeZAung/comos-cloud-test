@@ -16,7 +16,7 @@ test('105+105 PDF heading name fingerprints prevent misaligned numeric Strength 
  assert.throws(()=>validateKingmakerStrengthOrder(sourceBestiary.slice(1),KINGMAKER_NPC_CODEX_AUTO_001),/source order changed/);
 });
 
-test('unreviewed bulk records gain numeric Strength without becoming source-verified',()=>{
+test('PDF heading Strength persists across both reviewed and unreviewed records',()=>{
  const lookup=(name,chapter)=>KINGMAKER_STAGED_ENTRIES.find(e=>e.name===name&&e.chapter===chapter);
  for(const [chapter,name,str] of [
   ['npc-codex','Aecora Silverfire',20],
@@ -26,8 +26,8 @@ test('unreviewed bulk records gain numeric Strength without becoming source-veri
  ]){
   const entry=lookup(name,chapter);
   assert.equal(entry.stats.str,str,name);
-  assert.equal(entry.verified,'automated-needs-review',name);
-  assert.match(entry.text.importNotes,/Strength extracted from PDF/,name);
+  assert.equal(entry.verified,name==='Zorek'?'automated-needs-review':'transcribed-from-PDF',name);
+  assert.match(entry.text.importNotes,name==='Zorek'?/Strength extracted from PDF/:/Source-reviewed printed/,name);
  }
  for(const [chapter,name] of [
   ['bestiary','Ghostly Guard'],
