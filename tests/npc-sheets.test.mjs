@@ -9,7 +9,7 @@ import {createDirectoryRoutes} from '../backend/characters/directory.mjs';
 import {createOwlbearRoutes} from '../backend/auth/owlbear.mjs';
 import {publishRoll} from '../backend/characters/rolls.mjs';
 import {parseNpcStatBlock} from '../src/features/characters/npc-stat-block.mjs';
-import {renderSheetFrame} from '../src/features/sheet/view.mjs';
+import {renderSheetFrame,renderNpcCombatDetails} from '../src/features/sheet/view.mjs';
 import {requestSheetDice} from '../src/owlbear/rolls.mjs';
 
 const note=`# Captain Test
@@ -44,7 +44,8 @@ test('NPC import preserves printed totals, iterative attacks, conditions and ind
  assert.equal(data.activeAbilities[0].name,'Parry');assert.match(data.npcText.saveDetail,/vs\. fear/);
  assert.doesNotMatch(JSON.stringify(data),/unrelated narrative secret/);
  const html=renderSheetFrame({id:'npc',name,kind:'npc',data});
- assert.match(html,/data-roll="Reflex" data-bonus="8"/);assert.match(html,/data-roll="Knowledge \(nobility\)" data-bonus="7"/);
+ assert.match(renderNpcCombatDetails(data,'defense'),/data-roll="Reflex" data-bonus="8"/);
+ assert.ok(html.includes('data-roll="Knowledge (nobility)" data-bonus="7"'));
  assert.match(html,/data-weapon-roll="2"/);assert.doesNotMatch(html,/data-level-up|data-sheet-tab="items"/);
 });
 
