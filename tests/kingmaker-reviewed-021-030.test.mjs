@@ -75,7 +75,7 @@ test('mixed caster levels, spells and save-dependent special abilities are disti
  assert.equal(priestess.npcStats.reach,5);
  assert.match(priestess.npcText.movementDetail,/glaive reaches 10 ft/);
  assert.match(priestess.npcText.spellsKnown,/4th/);
- assert.match(priestess.npcText.qualities,/does not receive normal bloodline arcana/);
+ assert.match(priestess.npcText.qualities,/but not bloodline arcana/);
 
  const sister=sheet('Sister Of The Bloodshot Eye');
  assert.equal(sister.npcSkills.find(s=>s.name==='Knowledge (religion)').bonus,9);
@@ -90,7 +90,7 @@ test('multiple attack routines, regeneration and dragonfly unknown score remain 
  assert.equal(envoy.npcStats.sr,29);
  assert.equal(envoy.npcStats.fastHealing,5);
  assert.equal(envoy.weapons.length,10);
- assert.deepEqual(envoy.weapons.filter(w=>w.name.includes('kukri')).map(w=>w.npcAttackBonus),[29,29,24,19,14]);
+ assert.deepEqual(envoy.weapons.filter(w=>w.name.startsWith('+4 speed kukri')).map(w=>w.npcAttackBonus),[29,29,24,19,14]);
  assert.equal(envoy.weapons.filter(w=>w.name.includes('natural alternative')&&w.name.includes('Claw')).length,2);
  assert.match(envoy.npcText.energyResistances,/Cold 30, electricity 30/);
  assert.ok(envoy.activeAbilities.some(a=>a.name.includes('Dexterity Drain')));
