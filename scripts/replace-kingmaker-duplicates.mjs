@@ -67,7 +67,7 @@ export function planKingmakerDuplicateCleanup(db,ownerId){
   if(!target.replacement||target.replacement.id===target.manual?.id)
    throw Error('Missing or invalid reviewed replacement for '+target.name);
  }
- const toDelete=targets.filter(t=>t.manual).map(t=>({id:t.manual.id,name:t.name,chapter:t.chapter}));
+ const toDelete=targets.filter(t=>t.manual).map(t=>({id:t.manual.id,name:t.manual.name,chapter:t.chapter}));
  const toRename=targets.filter(t=>t.replacement.name!==t.name)
   .map(t=>({id:t.replacement.id,from:t.replacement.name,to:t.name,chapter:t.chapter,slug:t.slug}));
  const linkedReferences=[],rollTransfers=[],blockingReferences=[];
