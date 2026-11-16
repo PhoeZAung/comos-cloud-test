@@ -342,4 +342,4 @@ html[data-notes-electric="true"] .cs-notes-electric::after{inset:-6px;background
 .cs-npc-tabs [aria-selected=true]{border-color:var(--accent)}
 .cs-npc-panel[hidden]{display:none!important}
 .cs-npc-glance{display:flex;flex-wrap:wrap;gap:7px}
-.cs-npc-glance-stat{flex:1 1 85px}
+
