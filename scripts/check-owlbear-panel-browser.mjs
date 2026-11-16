@@ -46,6 +46,17 @@ try{
  await page.locator('[data-panel-tab="initiative"]').click();assert.match(await page.locator('[data-initiative-panel]').textContent(),/Goblin/);assert.equal(await page.locator('.initiative-input').isDisabled(),true);checks.push('player initiative tab renders battle read-only');
  await page.locator('.battle-locate').hover();assert.deepEqual((await page.evaluate(()=>window.commands)).at(-1),{type:'highlight',id:'token-1'});await page.locator('[data-panel-tab="settings"]').hover();assert.deepEqual((await page.evaluate(()=>window.commands)).at(-1),{type:'highlight',id:null});checks.push('hover and exit highlight the matching map token without changing initiative');
  await page.locator('.battle-locate').click();assert.deepEqual((await page.evaluate(()=>window.commands)).at(-1),{type:'locate',id:'token-1'});checks.push('players can click initiative names to focus their own Owlbear camera');
+ await page.evaluate(()=>window.deliver({...window.roomState,battle:[{
+  id:'hidden-stats',name:'Masked Foe',initiative:7,hp:null,hpMax:null,mp:null,mpMax:null,ac:null,touch:null,flat:null,cmd:null,trackHp:false,available:true
+ }],turn:{id:'hidden-stats',round:2}}));
+ assert.equal(await page.locator('.battle-resource.hp').textContent(),'—');
+ assert.equal(await page.locator('.battle-resource.mp').textContent(),'—');
+ assert.equal(await page.locator('.battle-ac').textContent(),'—');
+ assert.equal(await page.locator('.battle-ac').isDisabled(),true);
+ assert.equal(await page.locator('.battle-defenses').textContent(),'');
+ assert.doesNotMatch(await page.locator('[data-initiative-panel]').textContent(),/null/);
+ checks.push('player receives dashes instead of hidden HP, MP, AC and defenses');
+ await page.evaluate(()=>window.deliver({...window.roomState,battle:[{id:'token-1',name:'Goblin',initiative:13,hp:17,hpMax:20,mp:4,mpMax:6,ac:14,touch:12,flat:11,cmd:17,trackHp:true,available:true}],turn:{id:'token-1',round:2}}));
  await page.locator('[data-panel-tab="settings"]').click();await page.locator('[data-history-details] summary').click();await page.waitForFunction(()=>document.querySelector('[data-history-status]')?.textContent?.includes('Connect Cosmos'));assert.match(await page.locator('[data-history-status]').textContent(),/Connect Cosmos/);assert.equal(await page.evaluate(()=>window.historyCalls),0);checks.push('disconnected history asks for account without fetching private receipts');
  await page.evaluate(()=>window.deliver({type:'room-rolls',rolls:[{id:'other-1',character:'Onyx',player:'Bob',time:1,label:'Stealth',parts:[{label:'Roll',total:16,expression:'1d20+4',faces:[12]}]}]}));assert.match(await page.locator('.roll-history').textContent(),/Bob/);checks.push('public rolls from another player appear before account connection');
  await page.evaluate(()=>window.deliver({type:'grant',token:'a'.repeat(64)}));await page.waitForFunction(()=>document.querySelector('[data-connect-prompt]')?.hidden===true);assert.equal(await page.locator('[data-panel-tab="character"]').getAttribute('aria-selected'),'true');await page.locator('[data-panel-tab="settings"]').click();await page.waitForSelector('.roll-history li');checks.push('successful connection returns to Character and hides Connect');
@@ -135,6 +146,11 @@ try{
  assert.match(secret,/line-through/);
  assert.equal(await page.locator('.battle-hidden-eye').count(),0);
  assert.equal(await page.locator('.battle-hp-privacy').getAttribute('aria-pressed'),'true');
+ assert.equal(await page.locator('.battle-resource.hp').textContent(),'17');
+ assert.equal(await page.locator('.battle-resource.mp').textContent(),'4');
+ assert.equal(await page.locator('.battle-ac').textContent(),'14');
+ const controls=await page.locator('.battle-hp-controls').evaluate(node=>[...node.children].map(child=>child.className.baseVal||child.className));
+ assert.match(controls[0],/battle-hp-privacy/,'eye button precedes HP');
  checks.push('NPC HP button dispatches visibility action, and GM-only hidden names appear crossed out');
  await page.locator('[data-panel-tab="settings"]').click();
  await page.evaluate(()=>window.deliver(window.roomState));assert.equal(await page.locator('[data-admin-settings]').isVisible(),false);assert.equal(await page.locator('[data-admin-controls]').isVisible(),false);assert.equal(await page.locator('[data-panel-tab="settings"]').getAttribute('aria-selected'),'true');checks.push('revoked admin immediately loses privileged settings while retaining regular Settings');assert.equal(await page.locator('[data-npc-characters] [data-character]').count(),0);
