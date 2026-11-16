@@ -1,6 +1,6 @@
 // Explicit, idempotent Kingmaker NPC import. NEVER runs during app startup or deploy.
-// Preview: node scripts/import-kingmaker.mjs --db /data/comos.sqlite --owner USER_ID
-// Final release ONLY: add --apply --allow-needs-review (backup is mandatory).
+// Preview verified Bestiary only: node scripts/import-kingmaker.mjs --db /data/comos.sqlite --owner USER_ID --chapter bestiary
+// Final import: add --apply --confirm-kingmaker (backup is mandatory); never bypass review for Bestiary.
 import {createHash} from 'node:crypto';
 import {existsSync} from 'node:fs';
 import {backup} from 'node:sqlite';
@@ -11,6 +11,12 @@ import {KINGMAKER_BOOK_ID,KINGMAKER_STAGED_ENTRIES,kingmakerNpcData} from '../sr
 function stableId(ownerId,chapter,key){
  const hex=createHash('sha256').update(['kingmaker',KINGMAKER_BOOK_ID,ownerId,chapter,key].join('|')).digest('hex');
  return hex.slice(0,8)+'-'+hex.slice(8,12)+'-4'+hex.slice(13,16)+'-a'+hex.slice(17,20)+'-'+hex.slice(20,32);
+}
+export function selectKingmakerEntries(chapter,entries=KINGMAKER_STAGED_ENTRIES){
+ if(chapter==null)return entries;
+ if(!['bestiary','npc-codex','companions'].includes(chapter))
+  throw Error('Invalid Kingmaker chapter. Choose bestiary, npc-codex, or companions.');
+ return entries.filter(entry=>entry.chapter===chapter);
 }
 export function planKingmakerImport(db,ownerId,{entries=KINGMAKER_STAGED_ENTRIES}={}){
  if(!ownerId||!db.prepare('SELECT 1 FROM users WHERE id=? AND deleted_at IS NULL').get(ownerId))throw Error('Supply a valid Cosmos user ID for the NPC owner.');
@@ -58,13 +64,15 @@ export function applyKingmakerImport(db,ownerId,{allowNeedsReview=false,entries=
 async function cli(){
  const args=process.argv.slice(2);
  const opt=name=>{const index=args.indexOf(name);return index>=0?args[index+1]:null;};
- const dbPath=opt('--db'),owner=opt('--owner'),apply=args.includes('--apply'),allowNeedsReview=args.includes('--allow-needs-review');
+ const dbPath=opt('--db'),owner=opt('--owner'),chapter=opt('--chapter'),apply=args.includes('--apply'),allowNeedsReview=args.includes('--allow-needs-review');
+ if(args.includes('--chapter')&&!chapter)throw Error('Provide a value after --chapter.');
+ const selected=selectKingmakerEntries(chapter);
  if(!dbPath||!owner||!existsSync(dbPath))throw Error('Usage: node scripts/import-kingmaker.mjs --db EXISTING_DB --owner USER_ID [--apply --allow-needs-review]');
  if(apply&&!args.includes('--confirm-kingmaker'))throw Error('Use --confirm-kingmaker to explicitly authorize the final database changes.');
  const db=await openDatabase(dbPath);
  try{
-  const plan=planKingmakerImport(db,owner);
-  console.log(JSON.stringify({mode:apply?'apply':'dry-run',toCreate:plan.create.length,alreadyImported:plan.skipped.length,
+  const plan=planKingmakerImport(db,owner,{entries:selected});
+  console.log(JSON.stringify({mode:apply?'apply':'dry-run',chapter:chapter||'all',toCreate:plan.create.length,alreadyImported:plan.skipped.length,
    existingNameConflicts:plan.conflicts,unreviewed:plan.unreviewed,
    byChapter:Object.fromEntries(['bestiary','npc-codex','companions'].map(k=>[k,plan.create.filter(e=>e.chapter===k).length]))},null,2));
   if(!apply)return;
@@ -74,7 +82,7 @@ async function cli(){
   const dest=dbPath+'.before-kingmaker-'+safeStamp+'.sqlite';
   await backup(db,dest);
   console.log('SQLite backup saved: '+dest);
-  console.log('Import result:',JSON.stringify(applyKingmakerImport(db,owner,{allowNeedsReview})));
+  console.log('Import result:',JSON.stringify(applyKingmakerImport(db,owner,{allowNeedsReview,entries:selected})));
  }finally{db.close();}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){

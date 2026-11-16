@@ -19,7 +19,6 @@ test('105+105 PDF heading name fingerprints prevent misaligned numeric Strength 
 test('unreviewed bulk records gain numeric Strength without becoming source-verified',()=>{
  const lookup=(name,chapter)=>KINGMAKER_STAGED_ENTRIES.find(e=>e.name===name&&e.chapter===chapter);
  for(const [chapter,name,str] of [
-  ['bestiary','Zombie Hulk',25],
   ['npc-codex','Aecora Silverfire',20],
   ['npc-codex','Agai',14],
   ['npc-codex','Alasen',25],
@@ -38,6 +37,8 @@ test('unreviewed bulk records gain numeric Strength without becoming source-veri
   const entry=lookup(name,chapter);
   assert.ok(entry.stats.str==null,'a printed dash stays null or undefined, never numeric zero');
  }
+ assert.equal(lookup('Zombie Hulk','bestiary').stats.str,25,'last Bestiary creature retains extracted Strength');
+ assert.equal(lookup('Zombie Hulk','bestiary').verified,'transcribed-from-PDF','entire Bestiary chapter is now source-reviewed');
  assert.equal(KINGMAKER_STAGED_ENTRIES.find(e=>e.chapter==='bestiary'&&e.name==='Thorn River Bandit').verified,'transcribed-from-PDF',
   'Thorn River Bandit is now part of the 21–30 reviewed batch');
  assert.equal(KINGMAKER_STAGED_ENTRIES.find(e=>e.name==='Goblin Pyro'&&e.chapter==='bestiary').verified,'transcribed-from-PDF',
