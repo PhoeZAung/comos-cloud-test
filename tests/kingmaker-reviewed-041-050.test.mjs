@@ -95,6 +95,6 @@ test('raw Bestiary auto extraction is preserved while NPC Codex review progresse
  assert.match(source.text.attackDetail,/CHAPTER 3/);
  assert.equal(source.verified,'automated-needs-review');
  assert.equal(KINGMAKER_STAGED_ENTRIES[105].verified,'transcribed-from-PDF');
- assert.equal(KINGMAKER_STAGED_ENTRIES[115].verified,'automated-needs-review');
+ assert.equal(KINGMAKER_STAGED_ENTRIES[115].verified,'transcribed-from-PDF');
  assert.ok(kingmakerProgress().find(x=>x.id==='bestiary').reviewed>=50);
 });
