@@ -6,7 +6,7 @@ import {mkdir,writeFile,stat} from 'node:fs/promises';
 import path from 'node:path';
 import {extractKingmakerChapter} from './kingmaker-extract-layout.mjs';
 
-const args=process.argv.slice(2),option=name=>args[args.indexOf(name)+1];
+const args=process.argv.slice(2),option=name=>{const at=args.indexOf(name);return at<0?null:args[at+1];};
 const pdf=option('--pdf'),out=option('--out');
 if(!pdf||!out||!pdf.toLowerCase().endsWith('.pdf'))throw Error('Usage: node scripts/kingmaker-extract-pdf.mjs --pdf FILE.pdf --out DIRECTORY');
 await stat(pdf);
