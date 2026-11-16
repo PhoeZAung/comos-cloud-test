@@ -646,7 +646,13 @@ function mountCharacterSheet(tabs,switchTo){
    itemView=button.dataset.itemView==='inventory'?'inventory':'equip';
    draw();const url=new URL(location.href);url.searchParams.set('itemView',itemView);history.replaceState(null,'',url);return;
   }
-  if(button.matches('[data-item-description]')){openItemDescription(button.dataset.itemDescription);return;}
+  if(button.matches('[data-inventory-carry]')){
+    const index=Number(button.dataset.inventoryCarry),row=character?.data?.items?.[index];
+    if(!Number.isInteger(index)||!row||row.equip_slot&&row.equipped!==false)return;
+    void save({action:'entry',collection:'items',mode:'update',index,fields:{carried:row.carried===false}});
+    return;
+   }
+   if(button.matches('[data-item-description]')){openItemDescription(button.dataset.itemDescription);return;}
   if(button.matches('[data-item-description-close]')){itemDescriptionDialog()?.close();return;}
   if(button.matches('[data-equip-slot]')){openEquipmentPicker(button.dataset.equipSlot);return;}
   if(button.matches('[data-equip-change]')){openEquipmentPicker(button.dataset.equipChange);return;}
