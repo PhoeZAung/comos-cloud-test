@@ -64,19 +64,34 @@ async function start(){
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
   if(!rectangle){if(old){await OBR.popover.close(id);popovers.delete(id);}return;}
-  const value=JSON.stringify(rectangle);if(old===value)return;
+  const {x,y,width,height,vertical=false}=rectangle;
+  // Anchor the persistent Party strip by viewport edge, so adding a party
+  // member changes only its dimensions, not its popover stacking position.
+  const dock=id===PARTY?layoutFrom(room).partyDock:null;
+  const anchor=dock?{
+   left:dock==='left'?x:dock==='right'?x+width:x+width/2,
+   top:dock==='bottom'?y+height:y,
+   horizontal:dock==='left'?'LEFT':dock==='right'?'RIGHT':'CENTER',
+   vertical:dock==='bottom'?'BOTTOM':'TOP'
+  }:{left:x,top:y,horizontal:'LEFT',vertical:'TOP'};
+  const value=JSON.stringify({...rectangle,anchor});if(old===value)return;
   if(id===PARTY&&old){
-   // In-place resize prevents raising the persistent HUD above other menus.
-   // No OBR popover z-index or raise/lower API is available.
+   // In-place resize avoids raising this persistent HUD over other dialogs.
+   // Owlbear's SDK has no cross-extension z-index or raise/lower API.
    const previous=JSON.parse(old);
-   if(previous.x===rectangle.x&&previous.y===rectangle.y&&previous.vertical===rectangle.vertical){
-    if(previous.width!==rectangle.width)await OBR.popover.setWidth(id,rectangle.width);
-    if(previous.height!==rectangle.height)await OBR.popover.setHeight(id,rectangle.height);
+   if(previous.vertical===vertical&&JSON.stringify(previous.anchor)===JSON.stringify(anchor)){
+    if(previous.width!==width)await OBR.popover.setWidth(id,width);
+    if(previous.height!==height)await OBR.popover.setHeight(id,height);
     popovers.set(id,value);return;
    }
   }
-  const {x,y,width,height,vertical=false}=rectangle,url=new URL(path,location.origin);if(vertical)url.searchParams.set('vertical','1');
-  await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',anchorPosition:{left:x,top:y},anchorOrigin:{horizontal:'LEFT',vertical:'TOP'},transformOrigin:{horizontal:'LEFT',vertical:'TOP'},hidePaper:true,disableClickAway:true,marginThreshold:8});popovers.set(id,value);
+  const url=new URL(path,location.origin);if(vertical)url.searchParams.set('vertical','1');
+  await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',
+   anchorPosition:{left:anchor.left,top:anchor.top},
+   anchorOrigin:{horizontal:anchor.horizontal,vertical:anchor.vertical},
+   transformOrigin:{horizontal:anchor.horizontal,vertical:anchor.vertical},
+   hidePaper:true,disableClickAway:true,marginThreshold:8});
+  popovers.set(id,value);
  }
  function geometry(){
   const dimensions=dockedPanels(view,{...layoutFrom(room),initiative:false},party.length,battleForViewer(rows(),gm).length,ready);
