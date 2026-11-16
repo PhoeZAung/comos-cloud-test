@@ -61,7 +61,7 @@ function parseRaw(name,cr,raw,category,page){
  const g=(label,max=4)=>field(lines,label,max),fixed=raw.replaceAll("−","-").replaceAll("–","-");
  const stats={},txt={},flags=[];
  const put=(key,value)=>{if(Number.isFinite(value))stats[key]=value;};
- const xp=g("XP",1),hp=g("hp",2),ac=g("AC",2),init=g("Init",2),fort=g("Fort",2),base=g("Base Atk",2),speed=g("Speed",2),scores=g("Str",2);
+ const xp=g("XP",1),hp=g("hp",2),ac=g("AC",2),init=g("Init",2),fort=g("Fort",2),base=g("Base Atk",2),speed=g("Speed",2),scores="Str "+g("Str",2); // field() strips its matching label; restore it for Strength
  const frac=/^(\d+)\/(\d+)$/.exec(cr);
  put("cr",frac?Number(frac[1])/Number(frac[2]):number(cr));
  put("xp",number(xp));put("initiative",number(init));put("ac",number(ac));
