@@ -1,0 +1,59 @@
+name: Audit external Pathfinder equipment data
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'backend/items/extra-sources.mjs'
+      - 'scripts/build-extra-item-catalog.mjs'
+      - 'scripts/audit-extra-item-catalogs.mjs'
+      - '.github/workflows/audit-extra-item-sources.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-data-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Fetch pinned data and test converters (no database or deployment)
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="$RUNNER_TEMP/cosmos-real-items"
+          mkdir -p "$OUT"
+          while read -r KEY OWNER REPO REV; do
+            [ -n "$KEY" ] || continue
+            echo "::group::Download and convert $KEY"
+            TARGET="$OUT/$KEY"
+            mkdir -p "$TARGET"
+            curl -fL --retry 3 --connect-timeout 30 --max-time 300 \
+              "https://codeload.github.com/$OWNER/$REPO/tar.gz/$REV" -o "$TARGET/source.tar.gz"
+            tar -xzf "$TARGET/source.tar.gz" -C "$TARGET"
+            test -d "$TARGET/$REPO-$REV"
+            node scripts/build-extra-item-catalog.mjs \
+              "$KEY" "$TARGET/$REPO-$REV" "$REV" "$OUT/extra-$KEY.json.gz"
+            rm -rf "$TARGET"
+            echo "::endgroup::"
+          done <<'SOURCES'
+          pf1e-foundry baileymh pf1e-content baf5232c5dc16af99d49ae1bf57ead6473b46bbb
+          pf1e-pfdata jasontankapps pathfinder-data-1-e 08ea71f24375908d0190c822fd1fd080797667a9
+          pf1e-openref Nietsneflow open-reference 725d98f4b8ccb77b3c54a0a867d6f4c7ba4ac45e
+          pf2e-orc TiMarron orc-rules-data 52b41061785df0b6dac97a9b1ae16e3fe68c1186
+          pf2e-json jimbarnesrtp pf2 c062e1ac0647d19316b756b9206b09263d1cf453
+          SOURCES
+          node scripts/audit-extra-item-catalogs.mjs "$OUT" | tee "$RUNNER_TEMP/cosmos-source-audit.log"
+      - name: Archive aggregate counts and missing fields (no source copyrighted text)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cosmos-extra-item-real-audit
+          path: |
+            ${{ runner.temp }}/cosmos-real-items/extra-item-audit.md
+            ${{ runner.temp }}/cosmos-real-items/extra-item-audit.json
+            ${{ runner.temp }}/cosmos-source-audit.log
+          if-no-files-found: warn
+          retention-days: 14
