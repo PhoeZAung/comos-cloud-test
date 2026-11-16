@@ -137,9 +137,18 @@ function entriesFor(source,file,strings={}){
   const local=field=>str(strings.locales[id+'.'+field]||strings.locales['item.'+id+'.'+field]);
   const name=translate(row.name)||local('name');
   const description=translate(row.text)||local('text');
-  const basic={id,name,description,category:category(row.kind||row.category||row.type,'item'),
+  const ranged=Number.isFinite(row.weapon?.range)&&row.weapon.range>0;
+  const thrown=Array.isArray(row.traits)&&row.traits.includes('thrown')?Number(row.traitValues?.thrown):0;
+  const kind=category(row.kind||row.category||row.type,'item');
+  const basic={id,name,description,category:kind==='Weapon'&&(ranged||thrown>0)?'Ranged Weapon':kind,
    price:Number.isSafeInteger(row.priceCp)?row.priceCp/100+' gp':'',weight:null,
-   traits:row.traits,level:row.level,review:row.review};
+   pf2eBulk:str(row.bulk),damage:str(row.weapon?.damage?.dice),
+   damageType:str(row.weapon?.damage?.type),
+   range:ranged?row.weapon.range+' ft.':thrown>0?thrown+' ft. (thrown)':'',
+   proficiency:str(row.weapon?.category),
+   armor:row.armor?.acBonus,maxDex:row.armor?.dexCap,
+   checkPenalty:row.armor?.checkPenalty,traits:row.traits,
+   level:row.level,review:row.review};
   return [basic,...(Array.isArray(row.variants)?row.variants.filter(obj).map((variant,i)=>({
    ...basic,id:id+':variant:'+i,name:local('variants.'+i+'.name')||str(variant.name)||name+' ('+(i+1)+')',
    price:Number.isSafeInteger(variant.priceCp)?variant.priceCp/100+' gp':basic.price,
@@ -213,8 +222,9 @@ export async function buildExtraCatalog(source,input,version,output){
    for(const [field,val] of Object.entries({dmg:entry.damage,crit:entry.crit,range:entry.range,
     acBonus:entry.armor,maxDex:entry.maxDex,checkPenalty:entry.checkPenalty,
     spellFailure:entry.spellFailure,speed30Ft:entry.speed30Ft,speed20Ft:entry.speed20Ft,
-    proficiency:entry.proficiency,traits:entry.traits,level:entry.level,review:entry.review})){
-    if(typeof val==='string'&&val.length<=200)sourceRow[field]=val;
+    proficiency:entry.proficiency,damageType:entry.damageType,pf2eBulk:entry.pf2eBulk,
+    traits:entry.traits,level:entry.level,review:entry.review})){
+    if(typeof val==='string'&&val.trim()&&val.length<=200)sourceRow[field]=val;
     else if(typeof val==='number'&&Number.isFinite(val))sourceRow[field]=String(val);
     else if(Array.isArray(val))sourceRow[field]=val.map(String).join(', ').slice(0,200);
    }
