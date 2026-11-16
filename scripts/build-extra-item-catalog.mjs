@@ -176,7 +176,8 @@ export async function buildExtraCatalog(source,input,version,output){
    const sourceRow={
     itemKey:key,name,sourceId:info.sourceId,sourceSystem:info.system,sourceVersion:version,
     category:entry.category,description:str(entry.description).slice(0,30000),
-    originalPriceText:str(entry.price).slice(0,160),priceGil:null,sourceUrl:link,detailUrl:link,
+    originalPriceText:str(entry.price).slice(0,160),priceGil:null,sourceUrl:link,
+    detailUrl:source==='pf2e-json'&&/^https:\/\/2e\.aonprd\.com\/(?:Equipment|Weapons|Armor|Shields)\.aspx\?ID=\d+$/i.test(entry.originalLink||'')?entry.originalLink:link,
     sourceRepository:info.repository,sourceProvider:info.label.split(' · ')[1],
     sourceFile:rel,sourceCategoryDetail:str(entry.originalCategory||entry.category),mechanicsMode:'informational-only'
    };
