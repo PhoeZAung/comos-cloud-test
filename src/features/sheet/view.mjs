@@ -114,7 +114,7 @@ export function renderSection(character,section,{ability='activeAbilities',comba
   const boxes=d.favorite_boxes||[];const extra=(boxes.some(k=>['ability-scores','identity','proficiencies','bio'].includes(k))?renderSection(character,'overview',{onlyBoxes:boxes}):'')+['skills','inventory','equipment','notes'].filter(k=>boxes.includes(k)).map(k=>renderSection(character,k==='inventory'||k==='equipment'?'items':k,{itemView:k==='inventory'?'inventory':'equip'})).join('')+(boxes.includes('offense')?card('Offense','<div class="cs-metrics">'+[['Initiative',s.initiative],['Melee',s.melee],['Ranged',s.ranged],['Touch attack',s.touchAttack],['Ranged touch',s.rangedTouch],['CMB',s.cmb]].map(([k,v])=>metric(k,v,{roll:true})).join('')+'</div>'+collectionBlock('weapons',d,'',{weaponView})):'')+(boxes.includes('defense')?card('Defense','<div class="cs-metrics">'+[['AC',s.ac],['Touch',s.touch],['Flat-footed',s.flat],['CMD',s.cmd]].map(([k,v])=>metric(k,v)).join('')+'</div>'):'')+(boxes.includes('saving-throws')?card('Saving throws','<div class="cs-metrics">'+metric('Fortitude',s.fort,{roll:true})+metric('Reflex',s.ref,{roll:true})+metric('Will',s.will,{roll:true})+'</div>'):'')+(boxes.includes('resistances')?card('Resistances','<p class="cs-prose">'+e(d.resistances||'—')+'</p>'):'');
   const skillFavorites=sheetSkills(d).map((row,index)=>({row,index})).filter(({row})=>row.favorite).map(({row,index})=>skillRow(row,index,d,{favoriteOnly:true})).join('');
   const resources=[...(d.hp_favorite?[resource('HP',s.hp,s.hpMax,'hp_curr',s.hpTemp,true)]:[]),...(d.mp_favorite?[resource('MP',s.mp,s.mpMax,'mp_curr',undefined,true)]:[])].join('');
-  return '<h2>Favorites</h2>'+(resources?'<div class="cs-resources">'+resources+'</div>':'')+extra+skillFavorites+(groups||(!resources&&!extra&&!skillFavorites?'<p class="cs-caption">Star HP, MP, a weapon, spell or ability to keep it here.</p>':''));
+  return '<div class="cs-favorites-view"><h2>Favorites</h2>'+(resources?'<div class="cs-resources">'+resources+'</div>':'')+extra+skillFavorites+(groups||(!resources&&!extra&&!skillFavorites?'<p class="cs-caption">Star HP, MP, a weapon, spell or ability to keep it here.</p>':''))+'</div>';
  }
  if(section==='combat')return `<div class="cs-resources">${resource('HP',s.hp,s.hpMax,'hp_curr',s.hpTemp,d.hp_favorite)}${resource('MP',s.mp,s.mpMax,'mp_curr',undefined,d.mp_favorite)}</div>
  <section class="cs-card cs-battle-block" aria-label="Combat statistics">
@@ -212,6 +212,9 @@ export function actionIcon(row){
 }
 
 function entry(key,row,index,d,{reorder=false,npc=false}={}){
+ if(key==='weapons'&&weaponKind(row)==='Ammunition'){
+  return '<article class="cs-entry cs-ammunition-row cs-favorite-ammunition"><div class="cs-entry-heading"><strong>'+e(row.name||'Unnamed ammunition')+'</strong><span class="cs-usage-count">× '+e(row.amount??1)+'</span><div class="cs-entry-actions"><button type="button" class="cs-icon" data-edit-weapon-ammo="weapons:'+index+'" aria-label="Edit '+e(row.name||'ammunition')+'">'+icons.edit+'</button><button type="button" class="cs-favorite" data-favorite="weapons:'+index+'" aria-pressed="true" aria-label="Unfavorite '+e(row.name||'ammunition')+'">'+icons.favorites+'</button></div></div></article>';
+ }
  if(key==='items'){
   const equipped=!!row.equip_slot&&row.equipped!==false;
   const quantity=inventoryItemValue(row,'amount')??1;
