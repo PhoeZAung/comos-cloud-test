@@ -68,13 +68,13 @@ test('stage view trims confirmed neighboring monster prose without touching nume
  assert.ok(!bugbear.text.gear.includes('CAUTHOOJ'));
  assert.equal(bugbear.stats.cr,3);
  assert.equal(bugbear.hp,39);
- assert.ok(bugbear.reviewFlags.some(f=>f.includes('PDF text trimmed in gear')));
+ assert.ok(bugbear.reviewFlags.some(f=>f.includes('PDF text cleaned in gear')));
  const frog=get('Giant Frog Companion');
  assert.equal(frog.text.skillDetail,'Perception +7, Swim +15');
  assert.equal(frog.stats.cr,undefined,'unranked animal companion stays unranked');
  const warden=get('Boggard Warden');
  assert.ok(!warden.text.combatGear.includes('KINGMAKER'));
- assert.ok(warden.reviewFlags.some(f=>f.includes('PDF text trimmed in combatGear')));
+ assert.ok(warden.reviewFlags.some(f=>f.includes('PDF text cleaned in combatGear')));
 });
 test('does not trim ordinary prose, curated monsters, or unrelated fields',()=>{
  const rec={name:'Longtail',verified:'automated-needs-review',hp:27,stats:{cr:3,ac:15},
@@ -84,4 +84,19 @@ test('does not trim ordinary prose, curated monsters, or unrelated fields',()=>{
  assert.equal(cleaned.text.gear,'A hunter uses a BOG STRIDER figurine in his campsite');
  assert.strictEqual(cleaned,rec,'unexpected narrative heading is not stripped');
  assert.strictEqual(withKingmakerCleanText({...rec,verified:'transcribed-from-PDF'},['Bog Strider']).text,rec.text);
+});
+
+
+test('sidebar cleanup removes labels but retains feat and spell continuations',()=>{
+ const murder=get('Murder Of Crows');
+ assert.match(murder.text.feats,/Mobility, Skill Focus \(Perception\), Toughness/);
+ assert.ok(!murder.text.feats.includes('CHAPTER 4'));
+ assert.ok(!murder.text.feats.includes('COMPANIONS'));
+ const pyro=get('Goblin Pyro');
+ assert.match(pyro.text.spellLikeAbilities,/burning hands/);
+ assert.match(pyro.text.spellLikeAbilities,/acid splash/);
+ assert.ok(!pyro.text.spellLikeAbilities.includes('COMPANIONS'));
+ const giant=get('Kargstaad’s Giant');
+ assert.match(giant.text.feats,/Improved Overrun, Improved Sunder/);
+ assert.ok(!giant.text.feats.includes('KINGMAKER BESTIARY'));
 });
