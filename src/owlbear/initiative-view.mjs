@@ -17,7 +17,7 @@ export function mountInitiative(view,send,{historyRoot=view}={}){
    active.add(row.id);let card=cards.get(row.id);
    if(!card){
     const node=document.createElement('tr');
-    node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"><button type="button" class="battle-locate"><span class="battle-link-indicator" aria-hidden="true"></span><span class="battle-locate-label"></span></button></td><td class="battle-hp-cell"><span class="battle-hp-controls"><button data-key="hp" class="battle-resource hp"></button><button type="button" class="battle-hp-privacy" title="Hide NPC HP from players" aria-label="Hide NPC HP from players" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="M3 3 21 21"/></svg></button></span></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
+    node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"><button type="button" class="battle-locate"><span class="battle-link-indicator" aria-hidden="true"></span><span class="battle-locate-label"></span></button></td><td class="battle-hp-cell"><span class="battle-hp-controls"><button type="button" class="battle-hp-privacy" title="Hide NPC HP, MP and AC from players" aria-label="Hide NPC HP, MP and AC from players" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="M3 3 21 21"/></svg></button><button data-key="hp" class="battle-resource hp"></button></span></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
     card={node,input:node.querySelector('input')};cards.set(row.id,card);
     const name=node.querySelector('.battle-locate');name.setAttribute('aria-label','Center camera on '+row.name);name.title='Center camera on '+row.name;name.onclick=()=>send({type:'locate',id:row.id});
     name.onpointerenter=()=>send({type:'highlight',id:row.id});
@@ -29,7 +29,7 @@ export function mountInitiative(view,send,{historyRoot=view}={}){
     card.hpPrivacy=node.querySelector('.battle-hp-privacy');
     card.hpPrivacy.onclick=()=>{
      const current=state.battle?.find(entry=>entry.id===row.id);
-     if(!state.admin||!current||!current.trackHp||current.siteId)return;
+     if(!state.admin||!current||current.siteId||!current.available)return;
      send({type:'npc-hp-visibility',id:row.id,hidden:current.hpHidden!==true,requestId:crypto.randomUUID()});
     };
     node.querySelector('.battle-ac').onclick=()=>{
@@ -54,21 +54,24 @@ export function mountInitiative(view,send,{historyRoot=view}={}){
    locateButton.setAttribute('aria-label','Center camera on '+row.name+(hidden?' (hidden from players)':'')+' · '+linkStatus.label);
    locateButton.title=(hidden?'Hidden from players · ':'')+'Center camera on '+row.name+' · '+linkStatus.label;
    const indicator=locateButton.querySelector('.battle-link-indicator');indicator.title=linkStatus.label;indicator.dataset.linkStatus=linkStatus.kind;
-   const hpPrivacy=card.hpPrivacy,canHideHp=state.admin===true&&!row.siteId&&row.trackHp===true&&row.available!==false;
+   const hpPrivacy=card.hpPrivacy,canHideHp=state.admin===true&&!row.siteId&&row.available!==false;
    hpPrivacy.hidden=!canHideHp;hpPrivacy.disabled=!canHideHp;
    hpPrivacy.classList.toggle('is-hidden',row.hpHidden===true);
    hpPrivacy.setAttribute('aria-pressed',String(row.hpHidden===true));
-   hpPrivacy.setAttribute('aria-label',(row.hpHidden===true?'Show':'Hide')+' '+row.name+' HP to players');
-   hpPrivacy.title=(row.hpHidden===true?'NPC HP hidden from players · click to show':'Click to hide NPC HP from players')+(state.layout?.npcHp!==true?' · room-wide NPC HP sharing is off':'');
+   hpPrivacy.setAttribute('aria-label',(row.hpHidden===true?'Show':'Hide')+' '+row.name+' HP, MP and AC to players');
+   hpPrivacy.title=(row.hpHidden===true?'NPC HP, MP and AC hidden from players · click to show':'Click to hide NPC HP, MP and AC from players')+(state.layout?.npcHp!==true?' · room-wide NPC HP sharing is off':'');
    for(const key of ['hp','mp']){
-    const button=card[key],untracked=key==='hp'&&(!row.trackHp||row.hp===null);
+    const button=card[key],untracked=row[key]===null||key==='hp'&&!row.trackHp;
     button.textContent=untracked?'—':String(row[key]);
-    button.title=untracked?(row.hp===null?'HP hidden by GM':'HP not tracked'):'Current '+key.toUpperCase()+' · max '+row[key==='hp'?'hpMax':'mpMax'];
+    button.title=untracked?(row[key]===null?key.toUpperCase()+' hidden by GM':'HP not tracked'):'Current '+key.toUpperCase()+' · max '+row[key==='hp'?'hpMax':'mpMax'];
     button.disabled=!state.admin||!row.available||untracked;
     button.classList.toggle('saving',edits.pending(row.id,key));
    }
-   card.node.querySelector('.battle-ac').textContent=row.ac;
-   card.node.querySelector('.battle-defenses').textContent=defenses(row);
+   const ac=card.node.querySelector('.battle-ac'),defenseView=card.node.querySelector('.battle-defenses');
+   ac.textContent=row.ac===null?'—':row.ac;
+   ac.disabled=row.ac===null;
+   if(ac.disabled){defenseView.hidden=true;ac.setAttribute('aria-expanded','false');}
+   defenseView.textContent=row.ac===null?'':defenses(row);
   }
   for(const [id,card] of cards)if(!active.has(id)){card.node.remove();cards.delete(id);}
   view.querySelector('[data-round]').textContent='Round '+Math.max(1,Number(state.turn?.round)||1);
