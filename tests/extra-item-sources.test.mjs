@@ -31,8 +31,10 @@ const examples={
   type:'weapon',name:{display:'Longsword'},data:{price:'1 gp',entries:['One-handed sword.']}
  }},
  'pf2e-orc':{
-  'data/item/healing-potion.json':{id:'healing-potion',type:'item',kind:'potion',level:1,priceCp:400,review:'auto'},
-  'i18n/en.json':{'healing-potion.name':'Healing Potion','healing-potion.text':'Heals hit points'}
+  'data/items/item.healing-potion.json':{id:'item.healing-potion',type:'item',
+   name:'item.healing-potion.name',text:'item.healing-potion.text',category:'consumable',
+   level:1,priceCp:400,review:'auto'},
+  'i18n/en.json':{'item.healing-potion.name':'Healing Potion','item.healing-potion.text':'Heals hit points'}
  },
  'pf2e-json':{'json/weapons-pf2.json':{
   name:'Pathfinder 2.0 Weapons list',date:'February 10, 2020',
@@ -80,6 +82,7 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
   assert.equal(catalogInventoryItem(items.get(foundry.id),1).weight,2);
   assert.equal(items.list({sourceId:'pf1e-pfdata'}).items.length,1,'exclude error placeholder');
   assert.equal(items.list({sourceId:'pf1e-openref'}).items.length,1,'exclude rules sections');
+  assert.equal(items.list({sourceId:'pf2e-orc',q:'Healing Potion'}).items[0].name,'Healing Potion','resolve ORC item i18n key');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.length,2,'expand grouped legacy equipment tables');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Ranged Weapon').length,1,'recognize ranged weapon group');
   assert.equal(items.list({sourceId:'pf2e-json'}).items.filter(x=>x.category==='Weapon').length,1,'recognize melee weapon group');
@@ -90,8 +93,8 @@ test('reject modified source links, false edition, malformed package and unsuppo
   sourceId:'pf2e-orc',sourceSystem:'pathfinder-2e',version:sha,itemCount:1,items:[{
   itemKey:'abc123',name:'Healing Potion',sourceId:'pf2e-orc',
   sourceSystem:'pathfinder-2e',sourceVersion:sha,category:'Consumables',
-  sourceUrl:'https://github.com/TiMarron/orc-rules-data/blob/'+sha+'/data/item/healing-potion.json',
-  detailUrl:'https://github.com/TiMarron/orc-rules-data/blob/'+sha+'/data/item/healing-potion.json',
+  sourceUrl:'https://github.com/TiMarron/orc-rules-data/blob/'+sha+'/data/items/item.healing-potion.json',
+  detailUrl:'https://github.com/TiMarron/orc-rules-data/blob/'+sha+'/data/items/item.healing-potion.json',
   description:'Heals',originalPriceText:'4 gp',priceGil:null
  }]};
  assert.equal(validateExtraCatalog(sample,'pf2e-orc').length,1);
