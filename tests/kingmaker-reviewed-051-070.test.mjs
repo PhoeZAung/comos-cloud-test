@@ -38,7 +38,7 @@ test('20 source-checked creatures 51–70 retain printed pages, CR, HP and AC',(
  }
  assert.equal(KINGMAKER_STAGED_ENTRIES.length,217);
  assert.deepEqual(kingmakerProgress().map(x=>x.staged),[105,105,0,7]);
- assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[70,0,0,0]);
+ assert.deepEqual(kingmakerProgress().map(x=>x.reviewed),[105,0,0,0]);
  assert.deepEqual(kingmakerProgress().map(x=>x.imported),[0,0,0,0]);
 });
 
@@ -116,6 +116,6 @@ test('unreviewed raw arrays remain unchanged, no production import performed',()
  assert.match(raw.text.skillDetail,/KINGMAKER BESTIARY/);
  assert.equal(raw.verified,'automated-needs-review');
  assert.equal(raw.stats.str,undefined);
- assert.equal(KINGMAKER_STAGED_ENTRIES[70].verified,'automated-needs-review');
- assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.verified==='automated-needs-review').length,147);
+ assert.equal(KINGMAKER_STAGED_ENTRIES[105].verified,'automated-needs-review');
+ assert.equal(KINGMAKER_STAGED_ENTRIES.filter(e=>e.verified==='automated-needs-review').length,112);
 });
