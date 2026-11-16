@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {KINGMAKER_STAGED_ENTRIES,kingmakerNpcData,kingmakerProgress} from '../src/data/kingmaker/catalog.mjs';
 import {KINGMAKER_BESTIARY_AUTO_002} from '../src/data/kingmaker/bestiary-auto-batch-002.mjs';
 import {KINGMAKER_BESTIARY_REVIEWED_011_020} from '../src/data/kingmaker/bestiary-reviewed-011-020.mjs';
+import {extractKingmakerChapter} from '../scripts/kingmaker-extract-layout.mjs';
 
 const expectations=[
  // Name, printed page, CR (null = not ranked), XP, HP, AC, Strength
@@ -91,4 +92,20 @@ test('overlays remove copied adjoining creature prose but preserve the raw auto 
  assert.equal(reviewed.npcSkills.find(s=>s.name==='Swim').bonus,15);
  assert.match(reviewed.text.skillDetail,/Swim \+15$/);
  assert.equal(KINGMAKER_STAGED_ENTRIES.length,217);
+});
+
+
+test('offline PDF extractor retains Strength with all six ability scores',()=>{
+ const pages=[{page:16,text:[
+  'BOG STRIDER CR 2',
+  'XP 600',
+  'N Medium monstrous humanoid',
+  'STATISTICS',
+  'Str 14, Dex 14, Con 14, Int 11, Wis 13, Cha 9'
+ ].join('\n')}];
+ const parsed=extractKingmakerChapter(pages,'bestiary');
+ assert.equal(parsed.length,1);
+ assert.deepEqual(
+  ['str','dex','con','int','wis','cha'].map(key=>parsed[0].stats[key]),
+  [14,14,14,11,13,9]);
 });
