@@ -11,6 +11,7 @@ import {baseLandSpeed} from '../features/sheet/movement.mjs';
 import {actionTypes,actionType,damageTypes,selectedDamageTypes} from '../features/sheet/entry-options.mjs';
 import {mountHoldButton,confirmCharacterDelete,crumpleSheet} from './sheet-delete.mjs';
 import {mountNotesElectric} from './sheet-notes-electric.mjs';
+import {mountPersonalNotes} from './sheet-personal-notes.mjs';
 import {openInventoryPicker,openCharacterPicker} from './sheet-pickers.mjs';
 import {createSheetTabs,sheetTabURL} from './sheet-tabs.mjs';
 import {mountSheetSettings} from './sheet-settings.mjs';
@@ -179,8 +180,9 @@ export function mountSheet(){
 
 function mountCharacterSheet(tabs,switchTo){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
+ const restoredView=tabs.view(id)||{};
  const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
- let deletePending=false,weaponsCollapsed=false,disposeHold=()=>{},disposeNotesElectric=()=>{};let showStars=false,disposeSettings,disposePartyNotes,notesGeneration=0;let notesTab=new URL(location.href).searchParams.get('notesTab')||'personal';
+ let deletePending=false,weaponsCollapsed=restoredView.weaponsCollapsed===true,disposeHold=()=>{},disposeNotesElectric=()=>{},disposePersonalNotes={dispose(){},cancelPending(){},clearDraft(){}};let showStars=restoredView.showStars===true,disposeSettings,disposePartyNotes,notesGeneration=0,saveFailureDraft=null;let notesTab=new URL(location.href).searchParams.get('notesTab')||'personal';
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
  const rememberedFight=new URL(location.href).searchParams.get('lastFightSection');
@@ -198,7 +200,7 @@ function mountCharacterSheet(tabs,switchTo){
  const equipmentDialog=()=>root.querySelector('[data-equipment-dialog]');let selectedEquipmentSlot=null;
  const canOpenTabs=()=>character.kind!=='npc'&&character.owned!==false;
  const openPicker=()=>root.querySelector('.cs-picker[open]');
- const currentView=()=>({section,ability,combatView,itemView,itemTag,spellLevel:spellFilter,notesTab,lastFightSection,scrollY:window.scrollY});
+ const currentView=()=>({section,ability,combatView,itemView,itemTag,spellLevel:spellFilter,weaponView,notesTab,lastFightSection,scrollY:window.scrollY,showStars,weaponsCollapsed});
  async function canSwitch(){
   if(busy||conflict||remainingInvalid||dragState){status('Finish saving this sheet before switching.');return false;}
   if(dirty&&!confirm('Discard unsaved edits on this sheet?'))return false;
@@ -208,10 +210,10 @@ function mountCharacterSheet(tabs,switchTo){
  const itemDescriptionDialog=()=>root.querySelector('[data-item-description-dialog]');
  const setBusy=value=>{busy=value;root.querySelector('[data-sheet]')?.classList.toggle('cs-saving',value);root.querySelectorAll('button,input,select,textarea').forEach(node=>{if(value){node.dataset.busyDisabled=String(node.disabled);node.disabled=true;}else if(node.dataset.busyDisabled!==undefined){node.disabled=node.dataset.busyDisabled==='true';delete node.dataset.busyDisabled;}});};
  async function request(body,revision){
-  const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:body?control.signal:AbortSignal.any([control.signal,AbortSignal.timeout(15000)]),credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
+  const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:AbortSignal.any([control.signal,AbortSignal.timeout(body?20000:15000)]),credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
- function draw(){if(closed)return;if(character.kind==='npc'&&!document.body.hasAttribute('data-owlbear-sheet')){const back=document.querySelector('header .back');if(back){back.href='admin-npcs.html';back.textContent='← NPCs';}}disposeHold();disposeNotesElectric();disposeSettings?.();disposePartyNotes?.();disposePartyNotes=undefined;const notesTicket=++notesGeneration;if(!(character.partyTags||[]).some(tag=>tag.id===notesTab))notesTab='personal';if(section==='items'&&itemView==='inventory'){
+ function draw(){if(closed)return;if(character.kind==='npc'&&!document.body.hasAttribute('data-owlbear-sheet')){const back=document.querySelector('header .back');if(back){back.href='admin-npcs.html';back.textContent='← NPCs';}}disposeHold();disposeNotesElectric();disposePersonalNotes.dispose();disposeSettings?.();disposePartyNotes?.();disposePartyNotes=undefined;const notesTicket=++notesGeneration;if(!(character.partyTags||[]).some(tag=>tag.id===notesTab))notesTab='personal';if(section==='items'&&itemView==='inventory'){
   const visible=visibleInventoryCategory(inventoryCategoryCounts(character.data.items),itemTag);
   if(visible!==itemTag){itemTag=visible;const url=new URL(location.href);url.searchParams.set('itemTag',visible);history.replaceState(null,'',url);}
  }clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,weaponView,showStars,discordEnabled,notesTab,owlbear:document.body.hasAttribute('data-owlbear-sheet')});
@@ -221,23 +223,34 @@ function mountCharacterSheet(tabs,switchTo){
   const strip=root.querySelector('.cs-sheet-tab-list'),active=strip?.querySelector('.is-active');
   if(active)strip.scrollLeft=active.getBoundingClientRect().left-strip.getBoundingClientRect().left;
  }
- root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);disposeNotesElectric=mountNotesElectric(root);disposeHold=mountHoldButton(root.querySelector('[data-delete-character]'),()=>void deleteCharacter(),{signal:control.signal});syncWeapons();const notesRoot=root.querySelector('[data-party-notes]');if(notesRoot)void import('./party-notes.mjs').then(module=>{if(!closed&&notesTicket===notesGeneration&&notesRoot.isConnected)disposePartyNotes=module.mountPartyNotes(notesRoot,{characterId:id,tagId:notesRoot.dataset.partyNotes});}).catch(()=>{if(notesRoot.isConnected)notesRoot.querySelector('[role=status]').textContent='Could not open party notes.';});document.title=character.name+' · Cosmos';dirty=false;}
+ root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);disposeNotesElectric=mountNotesElectric(root);disposePersonalNotes=mountPersonalNotes(root,{characterId:id,save});disposeHold=mountHoldButton(root.querySelector('[data-delete-character]'),()=>void deleteCharacter(),{signal:control.signal});syncWeapons();const notesRoot=root.querySelector('[data-party-notes]');if(notesRoot)void import('./party-notes.mjs').then(module=>{if(!closed&&notesTicket===notesGeneration&&notesRoot.isConnected)disposePartyNotes=module.mountPartyNotes(notesRoot,{characterId:id,tagId:notesRoot.dataset.partyNotes});}).catch(()=>{if(notesRoot.isConnected)notesRoot.querySelector('[role=status]').textContent='Could not open party notes.';});document.title=character.name+' · Cosmos';dirty=false;}
  async function save(change,skipPending=false){
   if(!skipPending){if(change.action==='fields')for(const key of Object.keys(change.fields||{}))delete pendingResourceFields[key];if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return false;}
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
-  try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;dialog()?.close();
+  try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;saveFailureDraft=null;dialog()?.close();
    if(change.action==='addCatalogItem'){
     itemTag='All';const url=new URL(location.href);url.searchParams.delete('itemTag');history.replaceState(null,'',url);
    }
    draw();status('Saved · Synced'+(admin?' · Admin':''));return true;}
-  catch(err){if(closed)return false;if(err.status===409){conflict=true;root.querySelector('[data-sheet-refresh]').hidden=false;}status(err.message);const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=err.message;const equipStatus=root.querySelector('[data-equip-status]');if(equipStatus)equipStatus.textContent=err.message;return false;}
+  catch(err){
+    if(closed)return false;
+    const timedOut=err.name==='TimeoutError'||err.name==='AbortError'&&!control.signal.aborted;
+    saveFailureDraft={characterId:id,revision:character.revision,section,change,savedAt:new Date().toISOString()};
+    const copy=root.querySelector('[data-sheet-copy-draft]');if(copy)copy.hidden=false;
+    if(err.status===409||timedOut){conflict=true;const refresh=root.querySelector('[data-sheet-refresh]');if(refresh)refresh.hidden=false;}
+    const messageText=timedOut?'Save timed out. The server might have received it. Copy your unsaved edit, then Load latest before retrying.':err.message;
+    status(messageText);
+    const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=messageText;
+    const equipStatus=root.querySelector('[data-equip-status]');if(equipStatus)equipStatus.textContent=messageText;
+    return false;
+   }
   finally{if(!closed)setBusy(false);}
  }
  async function refresh(force=false){
   if(closed||busy||deletePending||polling||dragState||document.hidden||(!force&&document.activeElement?.matches('[data-party-notes-input]'))||(!force&&(dirty||conflict||openPicker()||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))))return;
   if(force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
   polling=true;const previousRevision=character?.revision;
-  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||openPicker()||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
+  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||openPicker()||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))return;character=result.character;admin=result.admin===true;conflict=false;saveFailureDraft=null;draw();}else if(force){conflict=false;saveFailureDraft=null;root.querySelector('[data-sheet-refresh]')?.setAttribute('hidden','');root.querySelector('[data-sheet-copy-draft]')?.setAttribute('hidden','');}status('Synced'+(admin?' · Admin':''));}
   catch(err){if(!closed)status(err.message);}
   finally{polling=false;}
  }
@@ -518,6 +531,7 @@ function mountCharacterSheet(tabs,switchTo){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
+   if(button.matches('[data-sheet-copy-draft]')){if(!saveFailureDraft)return;const text=JSON.stringify(saveFailureDraft,null,2);void (navigator.clipboard?.writeText(text)??Promise.reject(Error('Clipboard unavailable'))).then(()=>status('Unsaved edit copied.')).catch(()=>{window.prompt('Copy your unsaved edit before loading the latest sheet:',text);});return;}
    if(button.matches('[data-item-edit-tab]')){activateItemEditorTab(button.dataset.itemEditTab);return;}
    if(button.matches('[data-entry-edit-tab]')){activateEntryEditorTab(button.dataset.entryEditTab);return;}
    if(button.matches('[data-add-source-field]')){
@@ -797,7 +811,7 @@ function mountCharacterSheet(tabs,switchTo){
     return;
    }
    if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
-  if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
+  if(event.target.matches('[data-notes]')){disposePersonalNotes.cancelPending();void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}}).then(ok=>{if(ok)disposePersonalNotes.clearDraft();});return;}
   const fields={};
   if(dialogState.change.collection==='items'){
    const name=event.target.elements.namedItem('name');
@@ -918,5 +932,5 @@ function mountCharacterSheet(tabs,switchTo){
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML=sheetLoading();
  void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();const scroll=tabs.view(id)?.scrollY;if(scroll!==undefined)window.scrollTo(0,scroll);schedule();if(!document.body.hasAttribute('data-owlbear-sheet')&&typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed){root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.name==='TimeoutError'?'The character server took too long to respond. Please retry.':err.message)+'</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';root.querySelector('[data-retry-sheet]').onclick=()=>location.reload();}});
- return ()=>{disposeHold();disposeNotesElectric();clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
+ return ()=>{disposeHold();disposeNotesElectric();disposePersonalNotes.dispose();clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }
