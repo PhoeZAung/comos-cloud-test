@@ -15,6 +15,7 @@ const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/i
 async function start(){
  let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
  let recommendEnabled=false;try{recommendEnabled=localStorage.getItem(RECOMMEND_SETTING)==='true';}catch{}
+ let cosmosActionOpen=false,stopActionOpen=()=>{};
  const npcIntCache=new Map(),approvals=new Map();
  const popovers=new Map(),bars=new Map(),commits=new Map(),focus=initiativeFocus(OBR,buildShape);focus.setShowHidden(gm);let syncMenu=()=>Promise.resolve(),npcDirectory=null,npcDirectoryAt=0;
  const error=e=>void OBR.notification.show(e.message||String(e),'ERROR');
@@ -56,15 +57,45 @@ async function start(){
    connected:!!grant,feed,party,battle:viewerBattle,turn,layout:layoutFrom(room),ready});
  };
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
+ // Owlbear owns the stacking order of extension popovers. Close the Party HUD
+ // while the Cosmos action is open so it cannot obscure the sheet or initiative.
+ stopActionOpen=OBR.action.onOpenChange(open=>{cosmosActionOpen=open===true;schedule();});
+ try{cosmosActionOpen=await OBR.action.isOpen();}catch{}
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
   if(!rectangle){if(old){await OBR.popover.close(id);popovers.delete(id);}return;}
-  const value=JSON.stringify(rectangle);if(old===value)return;
-  const {x,y,width,height,vertical=false}=rectangle,url=new URL(path,location.origin);if(vertical)url.searchParams.set('vertical','1');
-  await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',anchorPosition:{left:x,top:y},anchorOrigin:{horizontal:'LEFT',vertical:'TOP'},transformOrigin:{horizontal:'LEFT',vertical:'TOP'},hidePaper:true,disableClickAway:true,marginThreshold:8});popovers.set(id,value);
+  const {x,y,width,height,vertical=false}=rectangle;
+  // Anchor the persistent Party strip by viewport edge, so adding a party
+  // member changes only its dimensions, not its popover stacking position.
+  const dock=id===PARTY?layoutFrom(room).partyDock:null;
+  const anchor=dock?{
+   left:dock==='left'?x:dock==='right'?x+width:x+width/2,
+   top:dock==='bottom'?y+height:y,
+   horizontal:dock==='left'?'LEFT':dock==='right'?'RIGHT':'CENTER',
+   vertical:dock==='bottom'?'BOTTOM':'TOP'
+  }:{left:x,top:y,horizontal:'LEFT',vertical:'TOP'};
+  const value=JSON.stringify({...rectangle,anchor});if(old===value)return;
+  if(id===PARTY&&old){
+   // In-place resize avoids raising this persistent HUD over other dialogs.
+   // Owlbear's SDK has no cross-extension z-index or raise/lower API.
+   const previous=JSON.parse(old);
+   if(previous.vertical===vertical&&JSON.stringify(previous.anchor)===JSON.stringify(anchor)){
+    if(previous.width!==width)await OBR.popover.setWidth(id,width);
+    if(previous.height!==height)await OBR.popover.setHeight(id,height);
+    popovers.set(id,value);return;
+   }
+  }
+  const url=new URL(path,location.origin);if(vertical)url.searchParams.set('vertical','1');
+  await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',
+   anchorPosition:{left:anchor.left,top:anchor.top},
+   anchorOrigin:{horizontal:anchor.horizontal,vertical:anchor.vertical},
+   transformOrigin:{horizontal:anchor.horizontal,vertical:anchor.vertical},
+   hidePaper:true,disableClickAway:true,marginThreshold:8});
+  popovers.set(id,value);
  }
  function geometry(){
-  return dockedPanels(view,{...layoutFrom(room),initiative:false},party.length,battleForViewer(rows(),gm).length,ready);
+  const dimensions=dockedPanels(view,{...layoutFrom(room),initiative:false},party.length,battleForViewer(rows(),gm).length,ready);
+  return cosmosActionOpen?{...dimensions,party:null}:dimensions;
  }
  function healthItems(item,row){
   const ratio=grid/(item.grid?.dpi||grid),sx=ratio*Math.abs(item.scale?.x||1),sy=ratio*Math.abs(item.scale?.y||1),angle=(item.rotation||0)*Math.PI/180;
@@ -243,7 +274,7 @@ async function start(){
   // Center only this viewer's camera. Players cannot locate GM-hidden combatants.
   if(d?.type==='locate'){const row=ready?battleForViewer(rows(),gm).find(row=>row.id===d.id):null;if(row)void focus.locate(row.id).catch(error=>console.warn('Initiative locate:',error.message));return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
-  if(!['layout','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove'].includes(d?.type))return;
+  if(!['layout','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
  });
  async function refreshAccess(){const current=grant;if(!current)return;try{const cap=await current.call('capabilities'),owned=cap.scope==='sheet'?await current.call('list'):[];if(grant!==current)return;admin=cap.admin===true;editableIds=new Set(owned.map(row=>row.id));publish();}catch{if(grant!==current)return;admin=false;editableIds.clear();publish();}}
@@ -293,6 +324,6 @@ async function start(){
  await syncMenu();
  // Close widgets left by the retired standalone Party extension in this browser.
  await Promise.allSettled([INIT,'com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
- publish();window.addEventListener('pagehide',()=>{stopped=true;stopApprovals();history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();void focus.close();clearTimeout(timer);},{once:true});
+ publish();window.addEventListener('pagehide',()=>{stopped=true;stopActionOpen();stopApprovals();history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();void focus.close();clearTimeout(timer);},{once:true});
 }
 OBR.onReady(()=>void start().catch(e=>console.error('Cosmos:',e)));

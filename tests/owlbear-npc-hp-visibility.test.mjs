@@ -29,11 +29,15 @@ test('NPC HP sharing defaults to off and stays in room display metadata',()=>{
  assert.equal(layoutFrom({[LAYOUT]:{npcHp:'true'}}).npcHp,false);
 });
 
-test('GM-only invisible eye marker appears for invisible combatants, not in player rows',async()=>{
+test('GM-only crossed-out names mark invisible combatants without exposing them to players',async()=>{
  const source=await readFile('src/owlbear/initiative-view.mjs','utf8');
- assert.match(source,/class="battle-hidden-eye"/);
+ assert.match(source,/classList\.toggle\('hidden-from-players',hidden\)/);
+ assert.doesNotMatch(source,/class="battle-hidden-eye"/);
  assert.match(source,/row\.visible===false&&state\.gm===true/);
  assert.match(source,/hidden from players/);
+ const css=await readFile('public/owlbear/owlbear.css','utf8');
+ assert.match(css,/\.battle-name\.hidden-from-players \.battle-locate-label/);
+ assert.match(css,/text-decoration:line-through/);
  const background=await readFile('src/owlbear/background.mjs','utf8');
  assert.match(background,/battleHpForViewer\(visible,\{gm,npcHp:layoutFrom\(room\)\.npcHp\}\)/);
  assert.match(background,/!gm&&!row\.siteId&&\(!l\.npcHp\|\|row\.hpHidden\)/);

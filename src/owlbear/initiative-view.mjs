@@ -1,12 +1,15 @@
 import {resourceEditor,defenses} from './tracker-view.mjs';
 import {initiativeLinkStatus} from './initiative-link.mjs';
 import {combatEventVerdict} from '../features/sheet/combat-verdict.mjs';
+import {historyPage,nextHistoryLimit} from './history-window.mjs';
 
 // Shared initiative UI for the extension tab and legacy standalone view.
 // State and permissions always come from the Owlbear background controller.
-export function mountInitiative(view,send){
+export function mountInitiative(view,send,{historyRoot=view}={}){
  const root=view.querySelector('tbody'),cards=new Map();
- let state={battle:[],party:[],turn:{},admin:false,approvals:[]},events=[];
+ let state={battle:[],party:[],turn:{},admin:false,approvals:[]},events=[],combatLimit=5;
+ const combatHistory=historyRoot.querySelector('[data-combat-history]')||view.querySelector('[data-combat-history]');
+ const combatList=combatHistory.querySelector('[data-combat-events]'),combatMore=combatHistory.querySelector('[data-combat-load-more]');
  const edits=resourceEditor(()=>state,value=>send(value));
  function render(){
   const active=new Set(),visible=Array.isArray(state.battle)?state.battle:[],turn=state.turn?.id===undefined?visible[0]?.id:state.turn.id;
@@ -14,7 +17,7 @@ export function mountInitiative(view,send){
    active.add(row.id);let card=cards.get(row.id);
    if(!card){
     const node=document.createElement('tr');
-    node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"><button type="button" class="battle-locate"><span class="battle-link-indicator" aria-hidden="true"></span><span class="battle-locate-label"></span></button><svg class="battle-hidden-eye" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M3 3l18 18"/><path d="M10.7 10.7a2 2 0 002.6 2.6"/><path d="M9.9 5.4A11 11 0 0112 5c4.6 0 8 3 10 7a15.8 15.8 0 01-3.4 4.3"/><path d="M6.2 6.2A16.8 16.8 0 002 12c2 4 5.5 7 10 7a10.6 10.6 0 005.1-1.3"/></svg></td><td class="battle-hp-cell"><span class="battle-hp-controls"><button data-key="hp" class="battle-resource hp"></button><button type="button" class="battle-hp-privacy" title="Hide NPC HP from players" aria-label="Hide NPC HP from players" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="M3 3 21 21"/></svg></button></span></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
+    node.innerHTML='<td><input class="initiative-input" type="number" step="1" aria-label="Initiative"></td><td class="battle-name"><button type="button" class="battle-locate"><span class="battle-link-indicator" aria-hidden="true"></span><span class="battle-locate-label"></span></button></td><td class="battle-hp-cell"><span class="battle-hp-controls"><button data-key="hp" class="battle-resource hp"></button><button type="button" class="battle-hp-privacy" title="Hide NPC HP from players" aria-label="Hide NPC HP from players" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="M3 3 21 21"/></svg></button></span></td><td><button data-key="mp" class="battle-resource mp"></button></td><td class="ac-cell"><button class="battle-ac" aria-expanded="false"></button><div class="battle-defenses" hidden></div></td>';
     card={node,input:node.querySelector('input')};cards.set(row.id,card);
     const name=node.querySelector('.battle-locate');name.setAttribute('aria-label','Center camera on '+row.name);name.title='Center camera on '+row.name;name.onclick=()=>send({type:'locate',id:row.id});
     name.onpointerenter=()=>send({type:'highlight',id:row.id});
@@ -47,8 +50,7 @@ export function mountInitiative(view,send){
    card.input.disabled=!state.admin;card.input.setAttribute('aria-label',row.name+' initiative');
    const locateButton=card.node.querySelector('.battle-locate');locateButton.querySelector('.battle-locate-label').textContent=row.name;
    const hidden=row.visible===false&&state.gm===true;
-   const eye=card.node.querySelector('.battle-hidden-eye');eye.toggleAttribute('hidden',!hidden);eye.setAttribute('title','Hidden from players (GM only)');
-   card.node.querySelector('.battle-name').classList.toggle('has-hidden-eye',hidden);
+   card.node.querySelector('.battle-name').classList.toggle('hidden-from-players',hidden);
    locateButton.setAttribute('aria-label','Center camera on '+row.name+(hidden?' (hidden from players)':'')+' · '+linkStatus.label);
    locateButton.title=(hidden?'Hidden from players · ':'')+'Center camera on '+row.name+' · '+linkStatus.label;
    const indicator=locateButton.querySelector('.battle-link-indicator');indicator.title=linkStatus.label;indicator.dataset.linkStatus=linkStatus.kind;
@@ -84,8 +86,9 @@ export function mountInitiative(view,send){
    reject.type='button';reject.textContent='Reject';reject.dataset.rejectCombat=request.requestId;
    line.append(description,approve,reject);list.append(line);
   }
-  const eventList=view.querySelector('[data-combat-events]');eventList.replaceChildren();
-  for(const event of events){
+  const {rows:recent,hasMore,remaining}=historyPage(events,combatLimit);
+  combatList.replaceChildren();
+  for(const event of recent){
    const li=document.createElement('li'),headline=document.createElement('strong'),details=document.createElement('small');
    if(event.kind==='end'){
     headline.textContent='Battle ended';details.textContent='Battle '+event.battle;
@@ -96,9 +99,10 @@ export function mountInitiative(view,send){
       ' '+(event.hpUntracked?event.amount+' · HP not tracked · GM decides':event.applied??0)+(event.hit===false?' ('+(event.reason||'missed')+')':'')+(event.critical?' · Critical':'')+
       (event.mitigation||[]).map(part=>part.type==='sr'?' · SR '+part.total+'/'+part.sr+(part.passed?' passed':' resisted'):part.type==='dr'?' · DR '+(part.reduced||0)+' blocked':part.type==='energy'?' · '+part.energy+' '+(part.before-part.after)+' resisted':part.type==='save'?' · '+(part.save==='fort'?'Fort':part.save==='ref'?'Ref':'Will')+' '+part.total+' vs DC '+part.dc+(part.passed?' saved':' failed'):part.type==='review'?' · GM review needed':'').join('');
    }
-   li.append(headline,details);eventList.append(li);
+   li.append(headline,details);combatList.append(li);
   }
-  view.querySelector('[data-combat-empty]').hidden=events.length>0;
+  combatHistory.querySelector('[data-combat-empty]').hidden=events.length>0;
+  if(combatMore){combatMore.hidden=!hasMore;combatMore.textContent='Load 5 more'+(remaining?' ('+remaining+' older)':'');}
  }
  const decisionClick=event=>{
   const end=event.target.closest('[data-end-battle]');
@@ -122,6 +126,8 @@ export function mountInitiative(view,send){
   for(const node of root.querySelectorAll('.battle-defenses'))node.hidden=true;
   for(const button of root.querySelectorAll('.battle-ac'))button.setAttribute('aria-expanded','false');
  };
+ const loadCombatMore=()=>{combatLimit=nextHistoryLimit(combatLimit);render();};
+ combatMore?.addEventListener('click',loadCombatMore);
  view.querySelector('footer').addEventListener('click',turnClick);
  view.addEventListener('click',decisionClick);
  view.querySelector('.battle-scroll').addEventListener('scroll',scroll);
@@ -130,6 +136,6 @@ export function mountInitiative(view,send){
   state(next){state=next;edits.confirm(next);render();},
   history(value){events=Array.isArray(value)?value.slice(0,120):[];render();},
   result(data){const handled=edits.result(data);render();return handled;},
-  close(){edits.close();view.removeEventListener('click',decisionClick);view.querySelector('footer').removeEventListener('click',turnClick);view.querySelector('.battle-scroll').removeEventListener('scroll',scroll);}
+  close(){edits.close();combatMore?.removeEventListener('click',loadCombatMore);view.removeEventListener('click',decisionClick);view.querySelector('footer').removeEventListener('click',turnClick);view.querySelector('.battle-scroll').removeEventListener('scroll',scroll);}
  };
 }
