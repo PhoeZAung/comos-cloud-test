@@ -122,7 +122,7 @@ function entriesFor(source,file,strings={}){
     const name=row.name.trim();
     const price=money(row.price??row.Price??row.cost);
     const entry={
-     id:str(row.link)||group+':'+i,name,category:category(type,rel),
+     id:str(row.link)||group+':'+i,name,category:category(type+' '+group,rel),
      description:plainText(row.text||row.description||row.entries),
      price,weight:null,level:row.level??row.Level,
      damage:row.damage,traits:row.traits||row.weaponTraits,
