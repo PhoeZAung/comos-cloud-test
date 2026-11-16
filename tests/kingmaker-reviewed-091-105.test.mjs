@@ -1,3 +1,4 @@
+import {selectKingmakerEntries} from '../scripts/import-kingmaker.mjs';
 import {KINGMAKER_STAGED_ENTRIES,kingmakerNpcData,kingmakerProgress} from '../src/data/kingmaker/catalog.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -74,4 +75,15 @@ test('all 105 Bestiary creatures are source-reviewed; NPC Codex and Companions r
   assert.equal(kingmakerNpcData(e).npcVerified,true);
   assert.equal(e.needsRulesReference,true);
  }
+});
+
+test('chapter-scoped importer selects only reviewed Bestiary, without an unreviewed import bypass',()=>{
+ assert.equal(selectKingmakerEntries(null).length,217);
+ const bestiary=selectKingmakerEntries('bestiary');
+ assert.equal(bestiary.length,105);
+ assert.ok(bestiary.every(x=>x.verified==='transcribed-from-PDF'));
+ assert.equal(selectKingmakerEntries('npc-codex').length,105);
+ assert.ok(selectKingmakerEntries('npc-codex').every(x=>x.verified==='automated-needs-review'));
+ assert.equal(selectKingmakerEntries('companions').length,7);
+ assert.throws(()=>selectKingmakerEntries('hazards'),/Invalid Kingmaker chapter/);
 });
