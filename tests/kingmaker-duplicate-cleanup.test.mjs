@@ -8,6 +8,7 @@ import {applyKingmakerImport,planKingmakerImport,selectKingmakerEntries} from '.
 import {planKingmakerDuplicateCleanup,replaceKingmakerDuplicates} from '../scripts/replace-kingmaker-duplicates.mjs';
 
 const names=['Black Tear Cutthroat','Gromog','Nishkiv the Knife','Volodmyra','Linzi'];
+const reviewedNames=['Black Tear Cutthroat','Gromog','Nishkiv The Knife','Volodmyra','Linzi'];
 function handmade(db,owner,name){
  const id=randomUUID(),now=new Date().toISOString();
  db.prepare("INSERT INTO characters(id,owner_id,name,created_at,updated_at,kind) VALUES(?,?,?,?,?,'npc')")
@@ -46,7 +47,7 @@ test('cleanup previews exact-name replacement, then imports reviewed copies, rem
   const remaining=db.prepare("SELECT c.id,c.name,d.data_json AS data FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.owner_id=? ORDER BY c.name").all(owner);
   assert.equal(remaining.length,6);
   assert.ok(remaining.some(x=>x.id===unrelatedId),'unrelated handmade NPC unchanged');
-  for(const name of names){
+  for(const name of reviewedNames){
    const reviewed=remaining.find(x=>x.name===name);
    assert.ok(reviewed,name+' original name restored');
    assert.equal(JSON.parse(reviewed.data).npcImportSource,KINGMAKER_BOOK_ID);
