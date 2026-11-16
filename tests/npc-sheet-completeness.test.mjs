@@ -48,7 +48,10 @@ test('NPC import keeps absent fields null and parses explicit existing defenses'
  assert.equal(result.npcStats.will,null);
  assert.equal(result.npcText.immunities,null);
 });
-test('NPC sheet renders every unset defense explicitly instead of hiding it',()=>{
+test('NPC sheet hides unset stats and details while retaining the GM edit buttons',()=>{
+ const html=renderSheetFrame(character(normalizeNpcSheet({})),'overview',{admin:true});
+ for(const label of ['Damage reduction (DR)','Spell resistance (SR)','Fortitude','Reflex','Will','Save modifiers','Special save rules'])
+  assert.doesNotMatch(html,new RegExp('(?:<span>|<dt>)'+label.replace(/[.*+?^${}()|[\]\\]/g,'\\test('NPC sheet renders every unset defense explicitly instead of hiding it',()=>{
  const html=renderSheetFrame(character(normalizeNpcSheet({})),'overview',{admin:true});
  for(const label of ['Damage reduction (DR)','Spell resistance (SR)','Fortitude','Reflex','Will','Save modifiers','Special save rules'])
   assert.ok(html.includes(label),label+' visible');
@@ -57,4 +60,26 @@ test('NPC sheet renders every unset defense explicitly instead of hiding it',()=
  assert.match(html,/data-edit-stats="npcText:1"/);
  assert.match(html,/—/);
  assert.doesNotMatch(html,/data-roll="Fortitude"/,'unset save may not be rolled as +0');
+});')+'(?:</span>|</dt>)'),label+' is hidden without a value');
+ assert.doesNotMatch(html,/cs-metric-unset|cs-score-unset|cs-npc-empty/);
+ assert.match(html,/data-edit-stats="npcStats:0"/);
+ assert.match(html,/data-edit-stats="npcText:1"/);
+ assert.doesNotMatch(html,/data-roll="Fortitude"/,'unset save may not be rolled as +0');
+ assert.doesNotMatch(html,/cs-npc-citation|Source &amp; import review|Source page/);
+});
+test('NPC sheet shows only populated XP and stats, with all weapons in one list',()=>{
+ const data=normalizeNpcSheet({
+  npcStats:{xp:3200,ac:19,sourcePage:11},
+  npcText:{source:'Bestiary',sourceReference:'p. 11',alignment:'LG'},
+  weapons:[{name:'Sword',attack_type:'melee',npcAttackBonus:4},{name:'Bow',attack_type:'ranged',npcAttackBonus:3}]
+ });
+ const html=renderSheetFrame(character(data),'overview',{admin:true});
+ assert.match(html,/XP/);
+ assert.match(html,/3,?200|3200/);
+ assert.match(html,/AC/);
+ assert.match(html,/Sword/);
+ assert.match(html,/Bow/);
+ assert.doesNotMatch(html,/data-weapon-view=/);
+ assert.match(html,/data-add-entry="weapons"/);
+ assert.doesNotMatch(html,/cs-npc-citation|Source &amp; import review|Source page/);
 });
