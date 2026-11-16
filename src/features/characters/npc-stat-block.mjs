@@ -48,9 +48,9 @@ export const NPC_NOTE_LIMIT=64000;
 
 const clean=text=>text.replace(/\*\*|__|`/g,'').replaceAll('−','-').trim();
 const valueAtStart=text=>{
- const match=/^[+\-]?\d+(?:\.\d+)?/.exec(text||'');
- const value=match?Number(match[0]):null;
- return Number.isFinite(value)&&Math.abs(value)<=100000?value:null;
+ const match=/^[+\-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?/.exec(text||'');
+ const value=match?Number(match[0].replaceAll(',','')):null;
+ return Number.isFinite(value)&&Math.abs(value)<=100000000?value:null;
 };
 function namedValue(text,label){
  return valueAtStart(new RegExp('(?:^|[\\s,;])'+label+'\\s*([+\\-]?\\d+)', 'i').exec(text||'')?.[1]);
@@ -99,14 +99,18 @@ export function parseNpcStatBlock(markdown=''){
    if(ability&&activeAbilities.length<100)activeAbilities.push({name:ability[1].replace(/:$/,'').slice(0,120),desc:clean(ability[2]).slice(0,12000),...( /\((?:Sp|SL)\)/i.test(ability[1])?{ability_kind:'sp'}:/\(Su\)/i.test(ability[1])?{ability_kind:'su'}:/\(Ex\)/i.test(ability[1])?{ability_kind:'ex'}:{} )});
   }
   const table=/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|/.exec(line);
-  const inline=/^(Init(?:iative)?|AC|HP|Fort|Ref|Will|Speed|Space|Reach|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Defensive Abilities|Special Attacks|DR|SR|Resist|Immune|Weaknesses|Caster Level|CL|Spell DC|Perception)\s*:?\s+(.+)$/i.exec(line);
+  const inline=/^(Init(?:iative)?|AC|HP|XP|Hit Dice|HD|Page|CR|Fort|Ref|Will|Speed|Space|Reach|Melee|Ranged|Str|Dex|Con|Int|Wis|Cha|BAB|CMB|CMD|Feats|Skills|Languages|SQ|Gear|Senses|Aura|Defensive Abilities|Special Attacks|Special Abilities|Spell-Like Abilities|Spells Prepared|Spells Known|Description|Reference|Combat Gear|Environment|Organization|Treasure|Tactics|DR|SR|Resist|Immune|Weaknesses|Caster Level|CL|Spell DC|Perception)\s*:?\s+(.+)$/i.exec(line);
   const row=table||inline;
   if(row&&!rows.has(row[1].toLowerCase()))rows.set(row[1].toLowerCase(),row[2]);
  }
  const get=key=>rows.get(key)||'';
  const init=get('init')||get('initiative'),ac=get('ac'),hp=get('hp'),saves=get('fort'),bab=get('bab'),scores=get('str');
  const npcStats={},values={
-  cr:namedValue(summary,'CR'),initiative:valueAtStart(init),ac:valueAtStart(ac),
+  cr:namedValue(summary,'CR')??valueAtStart(get('cr')),
+  xp:valueAtStart(get('xp')),space:valueAtStart(get('space')),
+  sourcePage:valueAtStart(get('page')),
+  hitDice:valueAtStart(get('hit dice'))??valueAtStart(get('hd'))??valueAtStart(/\((\d+)\s+HD\b/i.exec(hp)?.[1])??valueAtStart(/\((\d+)d\d+/i.exec(hp)?.[1]),
+  initiative:valueAtStart(init),ac:valueAtStart(ac),
   touch:namedValue(ac,'touch'),flat:namedValue(ac,'flat[- ]footed'),fort:valueAtStart(saves),
   ref:valueAtStart(get('ref'))??namedValue(saves,'Ref'),will:valueAtStart(get('will'))??namedValue(saves,'Will'),
   speed:valueAtStart(get('speed')),bab:valueAtStart(bab),cmb:valueAtStart(get('cmb'))??namedValue(bab,'CMB'),
@@ -128,8 +132,12 @@ export function parseNpcStatBlock(markdown=''){
  if(importedSr!==null)values.sr=importedSr;
  for(const [key,value] of Object.entries(values))if(value!==null)npcStats[key]=value;
  const npcText={};
- const details={summary,source,senses:get('senses')||/\bSenses\s+(.+)/i.exec(init)?.[1],languages:get('languages'),
-  defenses:get('defensive abilities'),specialAttacks:get('special attacks'),qualities:get('sq'),gear:get('gear'),feats:get('feats'),
+ const details={summary,source,sourceReference:get('reference'),senses:get('senses')||/\bSenses\s+(.+)/i.exec(init)?.[1],
+  aura:get('aura'),description:get('description'),environment:get('environment'),organization:get('organization'),treasure:get('treasure'),languages:get('languages'),
+  defenses:get('defensive abilities'),weaknesses:get('weaknesses'),specialAttacks:get('special attacks'),
+  specialAbilities:get('special abilities'),spellLikeAbilities:get('spell-like abilities'),
+  spellsPrepared:get('spells prepared'),spellsKnown:get('spells known'),
+  qualities:get('sq'),gear:get('gear'),combatGear:get('combat gear'),tactics:get('tactics'),feats:get('feats'),
   hpDetail:hp,acDetail:ac,saveDetail:[saves,get('ref'),get('will')].filter(Boolean).join('; '),maneuverDetail:[bab,get('cmb'),get('cmd')].filter(Boolean).join('; '),
   movementDetail:get('speed'),attackDetail:[get('melee'),get('ranged')].filter(Boolean).join('; '),skillDetail:get('skills'),
   drBypass:importedDr?.bypass,energyResistances:get('resist'),immunities:get('immune'),vulnerabilities:get('weaknesses')};
