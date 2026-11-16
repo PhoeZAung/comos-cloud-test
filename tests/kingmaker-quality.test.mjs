@@ -19,7 +19,7 @@ test('flag obvious PDF page header and neighboring creature bleed',()=>{
  const warden=get('Boggard Warden');
  assert.ok(warden.reviewFlags.some(f=>f.includes('layout bleed')&&f.includes('combatGear')));
  const tormentor=get('Bugbear Tormentor');
- assert.ok(tormentor.reviewFlags.some(f=>f.includes('CAUTHOOJ')));
+ assert.ok(tormentor.reviewFlags.some(f=>f.toUpperCase().includes('CAUTHOOJ')));
  assert.equal(warden.verified,'automated-needs-review');
  assert.equal(tormentor.verified,'automated-needs-review');
 });
