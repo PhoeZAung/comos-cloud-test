@@ -48,7 +48,7 @@ test('report still tracks all staged records separately from review readiness',(
  assert.equal(new Set(KINGMAKER_STAGED_ENTRIES.map(e=>e.chapter+':'+e.slug)).size,217);
  const p=kingmakerProgress();
  assert.deepEqual(p.map(x=>x.staged),[105,105,0,7]);
- assert.deepEqual(p.map(x=>x.reviewed),[40,0,0,0]);
+ assert.deepEqual(p.map(x=>x.reviewed),[50,0,0,0]);
  assert.deepEqual(p.map(x=>x.imported),[0,0,0,0]);
  assert.ok(p[0].flagged>=1);
  assert.ok(p[1].flagged>=1);
