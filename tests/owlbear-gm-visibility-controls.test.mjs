@@ -87,6 +87,7 @@ test('Connection colors are white for Party, black for NPC, red for unlinked and
  const ui=await readFile(new URL('../src/owlbear/initiative-view.mjs',import.meta.url),'utf8');
  assert.match(ui,/row\.visible===false&&state\.gm===true/);
  assert.match(ui,/battle-hidden-eye/);
+ assert.match(ui,/eye\.toggleAttribute\('hidden',!hidden\)/,'SVG visibility must toggle its actual attribute');
  assert.match(ui,/data-hp-icon|battle-hp-privacy/);
  assert.match(ui,/npc-hp-visibility/);
  const background=await readFile(new URL('../src/owlbear/background.mjs',import.meta.url),'utf8');
