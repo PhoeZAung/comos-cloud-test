@@ -106,11 +106,22 @@ test('all six formats stage item-only, source-specific, non-Gil catalogs',async(
   assert.deepEqual(new Set(foundryAndData.map(item=>item.sourceId)),
     new Set(['pf1e-foundry','pf1e-pfdata']));
   assert.notEqual(foundryAndData[0].id,foundryAndData[1].id,'each source has its own item ID');
+  // New sources can also be selected together with the existing PF1e AoN source.
+  const aonId=randomUUID();
+  items.save({op:'save',id:aonId,revision:0,name:'Abacus',
+   sourceId:'pathfinder-shopping',sourceVersion:'aon-existing',
+   category:'Gear',description:'Existing Archives of Nethys entry',priceGil:null});
+  const withAon=items.list({q:'Abacus',catalogs:[
+   'pf1e-foundry~'+sha,'pathfinder-shopping~aon-existing'
+  ]}).items;
+  assert.equal(withAon.length,2,'AoN and Foundry both appear in one selected search');
+  assert.ok(withAon.some(x=>x.id===aonId));
+  assert.ok(withAon.some(x=>x.sourceId==='pf1e-foundry'));
   const allThree=items.list({q:'Abacus',catalogs:[
    'pf1e-foundry~'+sha,'pf1e-pfdata~'+sha,'pf1e-openref~'+sha
   ]}).items;
   assert.equal(allThree.length,3,'third selected shop adds its own Abacus');
-  assert.equal(items.list({q:'Abacus'}).items.length,4,
+  assert.equal(items.list({q:'Abacus'}).items.length,5,
     'all-source browsing still includes the existing GM-owned Abacus');
   assert.equal(items.get(id).description,'Player customization');
   assert.equal(items.get(id).priceGil,10);
