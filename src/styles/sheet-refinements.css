@@ -759,3 +759,15 @@
 /* Show printed hit dice as compact rules reference, never as shared NPC HP. */
 .cs-npc-hit-dice{display:flex;align-items:center;gap:8px;margin:0;min-height:24px}
 .cs-npc-hit-dice strong{font-size:1rem;font-variant-numeric:tabular-nums;font-weight:650;color:var(--text)}
+
+/* Companion sheets keep private, persisted HP; NPC/Bestiary sheets remain HP-less templates. */
+.cs-companion-sheet .cs-companion-health{display:grid;gap:10px;padding:12px}
+.cs-companion-hp-summary{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.cs-companion-hp-summary span{color:var(--muted);font-weight:600;font-size:.85rem}
+.cs-companion-hp-summary strong{font-size:1.5rem;font-variant-numeric:tabular-nums}
+.cs-companion-health .cs-resource-controls{display:flex;align-items:center;gap:9px}
+.cs-companion-health .cs-resource-controls button{flex:0 0 44px;min-height:44px}
+.cs-companion-health .cs-resource-controls input{flex:1;min-width:0;text-align:center;font:inherit}
+.cs-companion-temp-hp{color:var(--muted)}
+.cs-companion-progressions ul{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:2px 0;list-style:none}
+.cs-companion-progressions li{padding:5px 9px;border:1px solid var(--line);border-radius:8px;font-size:.8rem}
