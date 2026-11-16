@@ -75,12 +75,18 @@ async function start(){
    }
   }
   const url=new URL(path,location.origin);if(vertical)url.searchParams.set('vertical','1');
+  // An anchor move needs a fresh Owlbear popover; unlike width and height,
+  // the public SDK has no setPosition method.
+  if(id===PARTY&&old)await OBR.popover.close(id);
   await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',
    anchorPosition:{left:anchor.left,top:anchor.top},
    anchorOrigin:{horizontal:anchor.horizontal,vertical:anchor.vertical},
    transformOrigin:{horizontal:anchor.horizontal,vertical:anchor.vertical},
    hidePaper:true,disableClickAway:true,marginThreshold:8});
   popovers.set(id,value);
+  // Bring the native Cosmos action back into focus after recreating the HUD.
+  // Other extensions still control their own stacking order in Owlbear.
+  if(id===PARTY)try{if(await OBR.action.isOpen())await OBR.action.open();}catch{}
  }
  function geometry(){
   return dockedPanels(view,{...layoutFrom(room),initiative:false},party.length,battleForViewer(rows(),gm).length,ready);
