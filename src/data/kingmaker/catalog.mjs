@@ -1,4 +1,5 @@
 import {normalizeNpcSheet} from '../../features/characters/npc-stat-block.mjs';
+import {npcCatalogTag} from '../../features/characters/npc-library.mjs';
 import {KINGMAKER_BESTIARY_BATCH_001} from './bestiary-batch-001.mjs';
 import {KINGMAKER_BESTIARY_AUTO_002} from './bestiary-auto-batch-002.mjs';
 import {KINGMAKER_BESTIARY_REVIEWED_011_020} from './bestiary-reviewed-011-020.mjs';
@@ -61,7 +62,7 @@ export function kingmakerNpcData(entry){
  const page=Number.isInteger(entry.printedPage)?entry.printedPage:null;
  return normalizeNpcSheet({
   manualCharacter:true,charName:entry.name,
-  npcCategory:entry.chapter,npcImportSource:KINGMAKER_BOOK_ID,
+  npcCategory:entry.chapter,npcLibraryTag:npcCatalogTag(entry.chapter),npcImportSource:KINGMAKER_BOOK_ID,
   npcImportKey:entry.slug,npcSourcePdfPage:entry.pdfPage,
   npcNeedsRulesReference:entry.needsRulesReference===true,
   npcVerified:entry.verified==='transcribed-from-PDF',npcReviewFlags:entry.reviewFlags||[],
