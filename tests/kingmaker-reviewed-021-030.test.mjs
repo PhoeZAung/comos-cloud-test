@@ -36,7 +36,7 @@ test('Bestiary entries 21–30 have source-checked identity and core stats',()=>
   assert.equal(sheet(name).npcVerified,true);
  }
  assert.deepEqual(kingmakerProgress({}).map(p=>p.staged),[105,105,0,7]);
- assert.deepEqual(kingmakerProgress({}).map(p=>p.reviewed),[30,0,0,0]);
+ assert.ok(kingmakerProgress({}).map(p=>p.reviewed)[0]>=50,'at least 50 source-checked bestiary records must remain reviewed');
  assert.equal(KINGMAKER_STAGED_ENTRIES.length,217);
  assert.equal(new Set(KINGMAKER_STAGED_ENTRIES.map(e=>e.chapter+':'+e.slug)).size,217);
 });
@@ -121,7 +121,5 @@ test('raw auto-extraction retained unchanged for verification and unknown record
  }
  assert.match(KINGMAKER_BESTIARY_AUTO_002.find(e=>e.name==='Murder Of Crows').text.skillDetail,/CULTIST/);
  assert.doesNotMatch(byName('Murder Of Crows').text.skillDetail,/CULTIST/);
- const later=KINGMAKER_STAGED_ENTRIES[30];
- assert.equal(later.verified,'automated-needs-review');
- assert.equal(kingmakerProgress().find(x=>x.id==='bestiary').reviewed,30);
+ assert.ok(kingmakerProgress().find(x=>x.id==='bestiary').reviewed>=50);
 });

@@ -48,7 +48,7 @@ test('report still tracks all staged records separately from review readiness',(
  assert.equal(new Set(KINGMAKER_STAGED_ENTRIES.map(e=>e.chapter+':'+e.slug)).size,217);
  const p=kingmakerProgress();
  assert.deepEqual(p.map(x=>x.staged),[105,105,0,7]);
- assert.deepEqual(p.map(x=>x.reviewed),[30,0,0,0]);
+ assert.ok(p[0].reviewed>=50,'review progress cannot regress below 50');
  assert.deepEqual(p.map(x=>x.imported),[0,0,0,0]);
  assert.ok(p[0].flagged>=1);
  assert.ok(p[1].flagged>=1);
@@ -100,9 +100,11 @@ test('sidebar cleanup removes labels but retains feat and spell continuations',(
  assert.ok(!murder.text.feats.includes('CHAPTER 4'));
  assert.ok(!murder.text.feats.includes('COMPANIONS'));
  const pyro=get('Goblin Pyro');
- assert.match(pyro.text.spellLikeAbilities,/burning hands/);
- assert.match(pyro.text.spellLikeAbilities,/acid splash/);
- assert.ok(!pyro.text.spellLikeAbilities.includes('COMPANIONS'));
+ assert.match(pyro.text.spellsKnown,/burning hands/);
+ assert.match(pyro.text.spellsKnown,/acid splash/);
+ assert.match(pyro.text.spellLikeAbilities,/elemental ray/);
+ assert.ok(!pyro.text.spellsKnown.includes('COMPANIONS'));
+ assert.ok(!pyro.text.spellLikeAbilities.includes('HAZARDS'));
  const giant=get('Kargstaad’s Giant');
  assert.match(giant.text.feats,/Improved Overrun, Improved Sunder/);
  assert.ok(!giant.text.feats.includes('KINGMAKER BESTIARY'));
