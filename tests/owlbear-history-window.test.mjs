@@ -55,7 +55,7 @@ test('Both history views paginate only their rendered rows, never truncate their
 
 test('GM HP privacy command is allowed through the background message router',async()=>{
  const background=await readFile(new URL('../src/owlbear/background.mjs',import.meta.url),'utf8');
- assert.match(background,/\['layout','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'\]/);
+ assert.match(background,/\['layout','party-move','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'\]/);
  assert.match(background,/d\.type==='npc-hp-visibility'/);
  assert.match(background,/item\.metadata\[BATTLE\]\.hpHidden=d\.hidden/);
  const view=await readFile(new URL('../src/owlbear/initiative-view.mjs',import.meta.url),'utf8');
