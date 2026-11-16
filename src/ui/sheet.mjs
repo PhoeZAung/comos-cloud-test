@@ -1,6 +1,6 @@
 import {SHOP_SOURCES,shopSourceForItem} from '../features/sheet/shop-sources.mjs';
 import {sourceCategorySuggestions} from '../features/sheet/source-categories.mjs';
-import {npcStatLabels,npcTextLabels,npcStatGroups,npcTextGroups} from '../features/characters/npc-stat-block.mjs';
+import {npcStatLabels,npcTextLabels,npcTextLimit,npcStatGroups,npcTextGroups} from '../features/characters/npc-stat-block.mjs';
 import {effectTypes,effectType} from '../features/sheet/effect-types.mjs';
 import {combatVerdict} from '../features/sheet/combat-verdict.mjs';
 import {saveTypes,saveOutcomes} from '../features/sheet/save-rules.mjs';
@@ -344,7 +344,7 @@ function mountCharacterSheet(tabs,switchTo){
  function renderEntryFields(keys,values,collection){
   if(collection==='npcStats')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field"><span>${npcStatLabels[key]}</span><input name="${key}" type="number" step="${key==='cr'?'any':'1'}" value="${e(values[key]??'')}"></label>`).join('')+'</div>';
   if(collection==='npcHealth')return '<div class="cs-form-grid">'+keys.map(key=>'<label class="cs-field"><span>'+e(readable(key))+'</span><input type="number" name="'+key+'" step="1" value="'+e(values[key]??'')+'" placeholder="Not set"></label>').join('')+'</div>';
-  if(collection==='npcText')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field cs-field-wide"><span>${npcTextLabels[key]}</span><textarea name="${key}" rows="2" maxlength="4000">${e(values[key]??'')}</textarea></label>`).join('')+'</div>';
+  if(collection==='npcText')return '<div class="cs-form-grid">'+keys.map(key=>`<label class="cs-field cs-field-wide"><span>${npcTextLabels[key]}</span><textarea name="${key}" rows="2" maxlength="${npcTextLimit(key)}">${e(values[key]??'')}</textarea></label>`).join('')+'</div>';
   const ammoNames=[...new Set([...(character?.data?.items||[]),...(character?.data?.weapons||[])].filter(item=>itemCategoryForItem(item)==='Ammunition').map(item=>String(item.name||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   const render=k=>field(k,collection==='items'&&!Object.hasOwn(values,k)?inventoryItemValue(values,k):values[k],{source:shopSourceForItem(values),weapon:collection==='weapons'||values._weaponEditor===true,ability:['spells',...abilityTabs].includes(collection),item:collection==='items',ammoNames,classNames:characterClasses(character?.data||{}).filter(c=>c.name).map(c=>c.name),longDescription:['activeAbilities','passiveAbilities','racialAbilities','feats','spells'].includes(collection)});
   if(collection==='items'&&values._weaponEditor===true)return renderWeaponEditorTabs(keys,render,{category:'Ammunition'});
