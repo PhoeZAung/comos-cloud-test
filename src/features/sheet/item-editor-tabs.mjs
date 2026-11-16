@@ -10,7 +10,7 @@ export function renderItemEditorTabs(values={},renderField,renderSourceFields){
  const parts=inventoryEditorFields(values.sourceCategory||'Misc');
  const imported=Boolean(values.sourceItemId||values.sourceCatalog||Object.keys(inventorySourceFields(values)).length);
  const group=(label,keys)=>'<fieldset class="cs-editor-group cs-inventory-field-group"><legend>'+escapeHtml(label)+'</legend>'+keys.map(renderField).join('')+'</fieldset>';
- const detailsKeys=imported?['amount','cost','weight','img','link','carried']:['amount','cost','weight'];
+ const detailsKeys=imported?['amount','cost','weight','img','link','carried']:['amount','cost','weight','carried'];
  const commonStats=imported?['cl','traits'].filter(k=>parts.common.some(([,key])=>key===k)):[];
  const categoryStats=parts.extras.map(([,key])=>key);
  if(parts.allowTwoHanded)categoryStats.push('two_handed');
