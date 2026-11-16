@@ -38,8 +38,8 @@ function plainText(value){
 function category(value,pack=''){
  const k=String(value||'').toLowerCase(),p=pack.toLowerCase();
  if(/artifact/.test(k+' '+p))return 'Artifacts';
- if(/weapon|melee|firearm/.test(k))return 'Weapon';
  if(/ranged/.test(k))return 'Ranged Weapon';
+ if(/weapon|melee|firearm/.test(k))return 'Weapon';
  if(/ammo|ammunition|arrow|bullet/.test(k))return 'Ammunition';
  if(/armor|armour|shield/.test(k))return 'Armor';
  if(/consumable|potion|scroll|wand|alchemical|drug/.test(k))return 'Consumables';
@@ -108,13 +108,27 @@ function entriesFor(source,file,strings={}){
   })):[])];
  }
  if(source==='pf2e-json'){
-  if(!/\bjson\//i.test(rel))return [];
+  // This legacy repository stores related items in named arrays inside
+  // json/weapons-pf2.json, json/consumables-pf2.json, etc.
+  const match=/^json\/(adv-gear-v2|advGear|alchemical|armor|artifacts|consumables|held-items|material|runes|services|shields|snares|staves|wands|weapons|worn-items)-pf2\.json$/i.exec(rel);
+  if(!match)return [];
   const data=JSON.parse(strings.body);
-  const rows=Array.isArray(data)?data:Array.isArray(data?.items)?data.items:[];
-  return rows.filter(row=>obj(row)&&str(row.name)&&pf2Types.has(str(row.type||row.category).toLowerCase()))
-   .map((row,i)=>({id:row.id||i,name:row.name,category:category(row.type||row.category),
-    description:plainText(row.description||row.entries),price:money(row.price||row.cost),
-    weight:null,level:row.level}));
+  if(!obj(data))return [];
+  const groups=Object.entries(data).filter(([key,value])=>Array.isArray(value)&&!['sources','index'].includes(key));
+  return groups.flatMap(([group,items])=>items.filter(row=>obj(row)&&str(row.name).trim())
+   .map((row,i)=>{
+    const type=str(row.type||row.category||group);
+    const name=row.name.trim();
+    const price=money(row.price??row.Price??row.cost);
+    const entry={
+     id:str(row.link)||group+':'+i,name,category:category(type,rel),
+     description:plainText(row.text||row.description||row.entries),
+     price,weight:null,level:row.level??row.Level,
+     damage:row.damage,traits:row.traits||row.weaponTraits,
+     armor:row.acBonus,range:row.range
+    };
+    return entry;
+   }));
  }
  return [];
 }
