@@ -36,6 +36,6 @@ test('GM-only invisible eye marker appears for invisible combatants, not in play
  assert.match(source,/hidden from players/);
  const background=await readFile('src/owlbear/background.mjs','utf8');
  assert.match(background,/battleHpForViewer\(visible,\{gm,npcHp:layoutFrom\(room\)\.npcHp\}\)/);
- assert.match(background,/!gm&&!row\.siteId&&!l\.npcHp/);
+ assert.match(background,/!gm&&!row\.siteId&&\(!l\.npcHp\|\|row\.hpHidden\)/);
  assert.match(background,/\['party','initiative','npcHp'\]/);
 });
