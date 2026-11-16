@@ -44,7 +44,7 @@ export function renderWeaponEditorTabs(keys,render,{npc=false,category='Weapon'}
 
 export function renderAbilityEditorTabs(keys,render,{collection='activeAbilities'}={}){
  const group=makeGroup(keys,render);
- const detailFields=group('Ability',['name','lvl','school','type','ability_kind']);
+ const detailFields=group('Ability',['name','lvl','sourceClass','school','type','ability_kind']);
  const effects=['desc','effect','at_higher_lvls'].filter(k=>keys.includes(k))
   .map(key=>'<section class="cs-ability-prose-card">'+render(key)+'</section>').join('');
  const details=detailFields+(effects?'<div class="cs-ability-prose cs-ability-prose-sections">'+effects+'</div>':'')+
