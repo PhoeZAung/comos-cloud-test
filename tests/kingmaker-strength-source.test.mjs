@@ -37,7 +37,7 @@ test('unreviewed bulk records gain numeric Strength without becoming source-veri
   ['npc-codex','Xae']
  ]){
   const entry=lookup(name,chapter);
-  assert.equal(entry.stats.str,undefined,'a printed dash is not converted to numeric zero');
+  assert.ok(entry.stats.str==null,'a printed dash stays null or undefined, never numeric zero');
  }
  assert.equal(KINGMAKER_STAGED_ENTRIES.find(e=>e.chapter==='bestiary'&&e.name==='Thorn River Bandit').verified,'transcribed-from-PDF',
   'Thorn River Bandit is now part of the 21–30 reviewed batch');
