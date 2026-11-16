@@ -755,3 +755,7 @@
 .cs-npc-combat-popup .cs-pairs>div{padding:5px 0}
 .cs-npc-popup-edit{display:flex;gap:5px;justify-content:flex-end;border-top:1px solid var(--line);padding-top:6px}
 @media(max-width:480px){.cs-npc-sheet .cs-npc-combat-summary{gap:8px}.cs-npc-sheet .cs-npc-combat-summary .cs-combat-tile{min-height:90px}.cs-npc-sheet .cs-npc-core-card .cs-scores{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Show printed hit dice as compact rules reference, never as shared NPC HP. */
+.cs-npc-hit-dice{display:flex;align-items:center;gap:8px;margin:0;min-height:24px}
+.cs-npc-hit-dice strong{font-size:1rem;font-variant-numeric:tabular-nums;font-weight:650;color:var(--text)}
