@@ -337,9 +337,4 @@ html[data-notes-electric="true"] .cs-notes-electric::after{inset:-6px;background
 
 
 
-.cs-npc-tabs{display:flex;gap:6px}
-.cs-npc-tabs button{flex:1;min-width:0;padding:9px 4px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text)}
-.cs-npc-tabs [aria-selected=true]{border-color:var(--accent)}
-.cs-npc-panel[hidden]{display:none!important}
-.cs-npc-glance{display:flex;flex-wrap:wrap;gap:7px}
-
+.cs-npc-tabs [aria-selected=true]{color:var(--accent)}
