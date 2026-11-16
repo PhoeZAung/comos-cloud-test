@@ -58,7 +58,8 @@ test('multiclass spell source class selects its profile and honors caster-level 
  assert.equal(entryCalculations(selected.spells[0],selected,'spells').ctx.CL,3);
  assert.equal(entryCalculations(selected.spells[0],selected,'spells').stat,'wis');
  assert.equal(entryCalculations(selected.spells[0],selected,'spells').dc,14);
- assert.equal(entryCalculations({...selected.spells[0],caster_level:9},selected,'spells').ctx.CL,9);
+ assert.equal(entryCalculations({...selected.spells[0],caster_level:9},selected,'spells').ctx.CL,3,'Verified class progression takes precedence');
+ assert.equal(entryCalculations({...selected.spells[0],caster_level:9},{...selected,castingProfiles:[]},'spells').ctx.CL,9,'Manual caster-level override works without a verified profile');
  assert.throws(()=>mergeSheetData(data,{action:'entry',collection:'spells',mode:'update',index:0,fields:{sourceClass:'Other Class'}}),/Choose one of/);
  const html=renderAbilityEditorTabs(['name','lvl','sourceClass','desc'],key=>'<input name="'+key+'">',{collection:'spells'});
  assert.match(html,/name="sourceClass"/);
