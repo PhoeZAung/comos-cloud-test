@@ -8,6 +8,8 @@ export function layoutFrom(metadata){
   partyX:clamp(Number.isFinite(raw.partyX)?raw.partyX:oldDock==='left'?0:oldDock==='right'?1:.5),
   partyY:clamp(Number.isFinite(raw.partyY)?raw.partyY:oldDock==='bottom'?1:.06),
   partyColumns:Number.isInteger(raw.partyColumns)&&raw.partyColumns>=1&&raw.partyColumns<=6?raw.partyColumns:3,
+  partyDock:['top','bottom','left','right'].includes(raw.partyDock)?raw.partyDock:'top',
+  partySize:['large','medium','small','compact'].includes(raw.partySize)?raw.partySize:'medium',
   initiativeDock:raw.initiativeDock==='right'?'right':'left',npcHp:raw.npcHp===true
  };
 }
