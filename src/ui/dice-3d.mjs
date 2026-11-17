@@ -31,7 +31,7 @@ async function run(result,theme,notation,custom,signal){
  status.textContent='Preparing dice…';
  try{
   if(!enginePromise)enginePromise=(async()=>{
-   const {default:DiceBox}=await import(new URL('./dice-box/lib/dice-box.es.js',import.meta.url).href);
+   const {default:DiceBox}=await import(new URL('/assets/dice-box/lib/dice-box.es.js',location.origin).href);
    engine=new DiceBox({container:'#cosmos-dice-stage',assetPath:'/assets/dice-box/',theme:'default',themeColor:'#c9b7ff',offscreen:false,scale:diceScale(),enableShadows:true,size:8.2,settleTimeout:3400,startingHeight:2.2,linearDamping:.34,angularDamping:.5,friction:.6,restitution:.9});
    await engine.init();return engine;
   })();
