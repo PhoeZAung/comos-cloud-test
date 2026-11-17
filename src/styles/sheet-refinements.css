@@ -175,6 +175,8 @@
 .cs-ability-group{border:1px solid color-mix(in srgb,var(--accent) 32%,transparent);border-radius:10px;margin:0;padding:4px 6px;background:color-mix(in srgb,var(--accent) 4%,transparent);min-width:0}
 .cs-group-header{display:flex;align-items:center;gap:8px;min-height:32px}
 .cs-group-header h3{margin:0;flex:1;min-width:0;font-size:13px;line-height:1.25;overflow-wrap:anywhere}
+.cs-group-header .cs-group-name-preview{width:100%;padding:4px 0;font:inherit;line-height:inherit}
+.cs-group-header .cs-group-name-preview strong{font-weight:inherit}
 .cs-group-header .cs-usage-count{font-size:12px;white-space:nowrap}
 .cs-group-header .cs-entry-name-edit{display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;padding:4px;border:0;background:transparent;color:var(--muted);cursor:pointer}
 .cs-group-header .cs-ability-grip{height:30px}

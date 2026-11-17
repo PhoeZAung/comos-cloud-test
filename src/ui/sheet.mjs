@@ -33,7 +33,7 @@ import {FFD20_SHOP_PRICE_MODE} from '../features/sheet/shop-pricing.mjs';
 import {sheetSkills,skillSupportsSpecialization,skillCanRoll,skillDisplayName} from '../features/sheet/skills.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes,weaponAttackParts,weaponDefaultAbilities} from '../features/sheet/model.mjs';
 import {applyRichFormat,formatSheetText} from '../features/sheet/rich-text.mjs';
-import {escape as e,sections,renderCombatDetails,renderNpcCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
+import {escape as e,sections,renderCombatDetails,renderNpcCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,abilityGroupPreview,titles,abilityTabs} from '../features/sheet/view.mjs';
 import {isEquipmentSlot,equippedInSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','languages','senses','speed_mod','speed_burrow','speed_climb','speed_fly','speed_swim'],
@@ -415,6 +415,15 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
    if(event.clientY<55)window.scrollBy(0,-10);else if(event.clientY>window.innerHeight-55)window.scrollBy(0,10);
   }
   function openEntryPreview(ref){const [key,i]=ref.split(':'),row=character.data[key]?.[Number(i)];if(!row)return;const popup=root.querySelector('[data-entry-popup]');popup.querySelector('h2').textContent=row.name||'Unnamed';popup.querySelector('[data-entry-popup-content]').innerHTML=entryDetail(row,character.data,key,{npc:character.kind==='npc'});popup.showModal();}
+ function openAbilityGroupPreview(id){
+  const group=(character.data.abilityGroups||[]).find(g=>g.id===id);
+  if(!group)return;
+  const popup=root.querySelector('[data-entry-popup]');
+  if(!popup)return;
+  popup.querySelector('h2').textContent=group.name||'Unnamed group';
+  popup.querySelector('[data-entry-popup-content]').innerHTML=abilityGroupPreview(group);
+  popup.showModal();
+ }
  async function deleteCharacter(){
   if(deletePending||busy||conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or discard unsaved changes before deleting this character.');return;}
   deletePending=true;if(!await confirmCharacterDelete({signal:control.signal,name:character.name})||closed){deletePending=false;return;}
@@ -687,6 +696,7 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
   if(button.matches('[data-delete-character]'))return;
   if(button.matches('[data-collapse-weapons]')){weaponsCollapsed=!weaponsCollapsed;syncWeapons();return;}
   if(button.matches('[data-entry-preview]')){openEntryPreview(button.dataset.entryPreview);return;}
+  if(button.matches('[data-ability-group-preview]')){openAbilityGroupPreview(button.dataset.abilityGroupPreview);return;}
   if(button.matches('[data-entry-popup-close]')){root.querySelector('[data-entry-popup]').close();return;}
   if(button.matches('[data-rich-format]')){
     const editor=button.closest('[data-rich-editor]')?.querySelector('textarea');if(!editor)return;

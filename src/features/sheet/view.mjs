@@ -277,7 +277,7 @@ export function collectionBlock(key,d,query='',{category='All',level=null,npc=fa
  const rows=Array.isArray(d[key])?d[key]:[],matches=rows.map((row,index)=>({row,index})).filter(({row})=>(!abilityTabs.includes(key)||!isLimitBreak(row))&&String(row.name||'').toLowerCase().includes(query.toLowerCase())&&(key!=='items'||category==='All'||(Object.hasOwn({...SHOP_ITEM_CATEGORY_GROUPS,...LEGACY_ITEM_GROUPS},category)?(SHOP_ITEM_CATEGORY_GROUPS[category]||LEGACY_ITEM_GROUPS[category]).includes(itemCategoryForItem(row)):itemCategoryForItem(row)===category))&&(key!=='spells'||level===null||levelOf(row.lvl)===level));
  if(abilityTabs.includes(key)){
   const list=id=>'<div class="cs-entry-list cs-ability-dropzone" data-ability-group="'+e(id)+'">'+matches.filter(({row})=>abilityGroup(d,row,key)?.id===id).map(({row,index})=>entry(key,row,index,d,{reorder:true})).join('')+'</div>';
-  const groupCard=g=>'<section class="cs-ability-group" data-ability-group-card="'+e(g.id)+'"><div class="cs-group-header"><button type="button" class="cs-ability-grip" data-group-drag="'+e(g.id)+'" aria-label="Move '+e(g.name)+' group; drag or use arrow keys" title="Drag group, or press arrow keys" aria-pressed="false">⠿</button>'+'<h3>'+e(g.name)+'</h3><span class="cs-usage-count">'+g.u_curr+' / '+g.u_max+'</span><button type="button" class="cs-entry-name-edit" data-edit-ability-group="'+e(g.id)+'" aria-label="Edit '+e(g.name)+' group" title="Edit group">'+icons.edit+'</button></div>'+list(g.id)+'</section>';
+  const groupCard=g=>'<section class="cs-ability-group" data-ability-group-card="'+e(g.id)+'"><div class="cs-group-header"><button type="button" class="cs-ability-grip" data-group-drag="'+e(g.id)+'" aria-label="Move '+e(g.name)+' group; drag or use arrow keys" title="Drag group, or press arrow keys" aria-pressed="false">⠿</button>'+'<h3><button type="button" class="cs-entry-preview cs-group-name-preview" data-ability-group-preview="'+e(g.id)+'" aria-haspopup="dialog" aria-label="Preview '+e(g.name)+' group"><strong>'+e(g.name)+'</strong></button></h3><span class="cs-usage-count">'+g.u_curr+' / '+g.u_max+'</span><button type="button" class="cs-entry-name-edit" data-edit-ability-group="'+e(g.id)+'" aria-label="Edit '+e(g.name)+' group" title="Edit group">'+icons.edit+'</button></div>'+list(g.id)+'</section>';
   const visible=new Set(matches.map(({index})=>index));
   return '<section class="cs-collection" data-collection="'+key+'"><div class="cs-section-tools"><h2>'+titles[key]+' <span class="cs-count">'+matches.length+'</span></h2><div class="cs-ability-collection-actions"><button type="button" class="cs-icon cs-add-manual-ability" data-add-manual-ability aria-label="Add '+e(titles[key])+'" title="Add manual ability">+</button><button type="button" class="button" data-add-ability-group="'+key+'">+ Group</button></div></div>'+(key==='activeAbilities'?renderLimits(d):'')+'<div class="cs-entry-list cs-ability-flow" data-ability-group="">'+abilityLayout(d,key).map(item=>item.group?groupCard(item.group):visible.has(item.index)?entry(key,item.row,item.index,d,{reorder:true}):'').join('')+'</div></section>';
  }
@@ -352,6 +352,45 @@ export function entryDetail(row,data={},key='',{npc=false}={}){
     calc+(rollable&&!calc?'<button class="button cs-dice-button" type="button" data-damage-roll="'+e(dice)+'" data-damage-label="'+e(row.name||'Damage')+'">'+icons.dice+' Roll '+e(dice)+'</button>':'')+
     grouped+prose+(Array.isArray(row.attrs)?'<dl class="cs-pairs">'+row.attrs.map(a=>'<div><dt>'+e(a.name)+'</dt><dd>'+e(a.val)+'</dd></div>').join('')+'</dl>':'');
 }
+
+/** Read-only group preview using the same popup layout as individual abilities. */
+export function abilityGroupPreview(group){
+ const section=(title,rows)=>{
+  const visible=rows.filter(([,value])=>value!==undefined&&value!==null&&value!==''&&(!Array.isArray(value)||value.length));
+  return visible.length?'<section class="cs-entry-detail-group"><h3>'+e(title)+'</h3><dl class="cs-pairs">'+visible.map(([name,value])=>'<div><dt>'+e(name)+'</dt><dd>'+e(Array.isArray(value)?value.join(' · '):value)+'</dd></div>').join('')+'</dl></section>':'';
+ };
+ const details=section('Details',[['Ability category',group.ability_kind]]);
+ const combat=section('Combat',[
+  ['Action type',actionType(group.action_type)||'None'],
+  ['Range',group.range],['Duration',group.duration],['Target',group.target],
+  ['HP effect',group.effect_type&&group.effect_type!=='none'?group.effect_type:undefined],
+  ['Attack',group.attack_type&&group.attack_type!=='none'?(attackTypes[group.attack_type]||group.attack_type):undefined],
+  ['Attack bonus',group.attack_bonus_override],['Extra attack bonus',group.attack_misc],
+  ['Dice Roll',group.damage],['Damage type',group.damage_types]
+ ]);
+ const saves=section('Saves',[
+  ['Saving throw',group.saving_throw],
+  ['Save type',({none:'None',fort:'Fortitude',ref:'Reflex',will:'Will'})[group.save_type]],
+  ['On successful save',({manual:'GM resolves',negates:'Negates',half:'Half effect',alternate:'Alternate dice'})[group.save_success]],
+  ['Damage on save',group.save_success_damage],['Save DC',group.save_dc_override],
+  ['DC formula',group.dc_formula],['Casting ability',group.casting_ability?String(group.casting_ability).toUpperCase():undefined],
+  ['DC adjustment',group.dc_misc],['Caster level',group.caster_level],
+  ['SR check bonus',group.sr_bonus],['Spell resistance',group.spell_resist]
+ ]);
+ const resources=section('Resources',[
+  ['Shared uses',(group.u_curr??0)+' / '+(group.u_max??0)],
+  ['Restore uses on rest',group.restoreOnLongRest!==false?'Yes':'No']
+ ]);
+ const prose=[['Description',group.desc],['Effect',group.effect],['At higher levels',group.at_higher_lvls]]
+  .filter(([,value])=>String(value||'').trim())
+  .map(([title,value])=>'<section><h3>'+e(title)+'</h3><div class="cs-prose">'+formatSheetText(value)+'</div></section>').join('');
+ const link=String(group.link||'').trim();
+ return '<div class="cs-entry-meta-groups cs-weapon-detail-grid">'+details+combat+saves+resources+'</div>'+
+  (prose?'<div class="cs-entry-prose">'+prose+'</div>':'')+
+  (link?'<p class="cs-inventory-reference"><a href="'+e(safeSheetLink(link))+'" target="_blank" rel="noopener noreferrer">Source link</a></p>':'')+
+  '<p class="cs-caption">Group settings are descriptive. Member abilities keep their own combat and save rules; only the usage pool is shared.</p>';
+}
+
 function skillRow(row,index,d,{favoriteOnly=false}={}){
  const name=skillDisplayName(row),locked=skillRequiresTraining(row)&&!skillCanRoll(row);
  const label=locked?'Trained only: add at least 1 skill rank before rolling '+name:'Roll '+name;
