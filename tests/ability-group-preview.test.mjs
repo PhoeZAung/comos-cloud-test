@@ -48,8 +48,10 @@ test('group preview renders saved details, combat, saves, resources and rich tex
  assert.ok(html.includes('href="https://example.com/rules"'));
  assert.ok(!html.includes('data-roll=')&&!html.includes('data-entry-use='));
  const legacy=abilityGroupPreview({name:'Legacy',u_curr:0,u_max:0});
- assert.ok(legacy.includes('<dt>Shared uses</dt><dd>0 / 0</dd>'));
- assert.ok(legacy.includes('<dt>Restore uses on rest</dt><dd>Yes</dd>'));
+ assert.ok(!legacy.includes('<h3>Resources</h3>'));
+ assert.ok(!legacy.includes('<dt>Shared uses</dt>'));
+ assert.ok(!legacy.includes('<dt>Restore uses on rest</dt>'));
+
 });
 
 test('group preview does not interpret saved HTML or unsafe links',()=>{

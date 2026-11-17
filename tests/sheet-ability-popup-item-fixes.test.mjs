@@ -40,7 +40,7 @@ test('ability preview presents exactly one Action type while leaving legacy wiza
  assert.match(legacy,/<dt>Action type<\/dt><dd>Move<\/dd>/);
  assert.doesNotMatch(legacy,/<dt>Type<\/dt>/);
  const cleared=entryDetail({name:'None',type:'Move',action_type:''},{},'passiveAbilities');
- assert.match(cleared,/<dt>Action type<\/dt><dd>None<\/dd>/);
+ assert.doesNotMatch(cleared,/<dt>Action type<\/dt>/);
  assert.equal(actionIcon({type:'Move',action_type:''}),'');
  const spell=entryDetail({name:'Spell',type:'Arcane',desc:'Description'},{},'spells');
  assert.match(spell,/<dt>Type<\/dt><dd>Arcane<\/dd>/);
