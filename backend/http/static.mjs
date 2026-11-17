@@ -27,7 +27,7 @@ export async function createStaticHandler(directory) {
       const criticalType=relative.startsWith('assets'+path.sep+'critical-fx'+path.sep)?{'.json':'application/json','.webp':'image/webp','.ogg':'audio/ogg'}[ext]:null;
       const type = types[ext] || criticalType || rollEffectType || (owlbearManifest?'application/json':null) || (relative.startsWith('assets'+path.sep+'dice-box'+path.sep)?({'.json':'application/json','.wasm':'application/wasm','.jpg':'image/jpeg','.jpeg':'image/jpeg'}[ext]):null);
       if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !type || !(await stat(target)).isFile()) throw new Error('Not public');
-      if(/^assets[/\\]sheet-chunks[/\\][a-z0-9_-]+-[a-z0-9]{8}\.mjs$/i.test(relative))
+      if(/^assets[/\\]sheet-chunks[/\\][a-z0-9_-]+-[A-Z0-9]{8}\.mjs$/.test(relative))
         res.setHeader('Cache-Control','public, max-age=31536000, immutable');
       res.setHeader('Content-Security-Policy', relative.startsWith('preview' + path.sep) ? previewPolicy : liveHeaders['Content-Security-Policy']);
       if(relative.startsWith('owlbear'+path.sep))res.setHeader('Content-Security-Policy',liveHeaders['Content-Security-Policy']+"; frame-ancestors 'self' https://owlbear.rodeo https://*.owlbear.rodeo https://owlbear.app https://*.owlbear.app");
