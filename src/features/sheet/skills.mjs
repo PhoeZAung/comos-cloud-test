@@ -6,7 +6,7 @@ export const fixedSkills=[{"name": "Acrobatics", "stat": "dex"}, {"name": "Appra
 // Keep their slots in fixedSkills: old wizard rank arrays and saved skill indexes
 // depend on the original order. Do not generate them on new sheets or show
 // the old predefined rows alongside the three editable Craft slots.
-const retiredCraftNames=new Set(fixedSkills.slice(47).filter(row=>/^Craft \\(/.test(row.name)).map(row=>row.name.toLowerCase()));
+const retiredCraftNames=new Set(fixedSkills.slice(47).filter(row=>row.name.startsWith('Craft (')).map(row=>row.name.toLowerCase()));
 export const isRetiredCraftSkill=row=>retiredCraftNames.has(String(row?.name||'').trim().toLowerCase());
 export function sheetSkills(data){
  const rows=Array.isArray(data.skills)?structuredClone(data.skills):[];const counts=new Map();for(const r of rows){const key=r.name+'::'+r.stat;counts.set(key,(counts.get(key)||0)+1);}const used=new Map();
