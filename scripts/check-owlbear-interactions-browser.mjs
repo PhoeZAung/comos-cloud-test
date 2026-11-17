@@ -35,7 +35,7 @@ try{
  await own.locator('.mp').click();await own.locator('input').fill('3');await own.locator('input').press('Enter');await own.locator('.mp').filter({hasText:'MP 3'}).waitFor();assert.equal(JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(mine).data_json).mp_curr,3);checks.push('party MP click saves and receives the new sheet revision');
  const denied=await grantRequest('/api/v1/owlbear/request',{method:'party-stats',value:{id:theirs,revision:1,stats:{hp:1}}},{authorization:'Bearer '+token});assert.equal(denied.status,403);await page.evaluate(()=>window.deliver({...window.state,editableIds:[]}));assert.equal(await own.locator('.hp').isEnabled(),false);checks.push('server rejects other-owner edits and UI removes revoked editing');
  assert.equal(await page.locator('[data-party-drag]').count(),0,'Party has no drag grip');
- await page.evaluate(()=>window.deliver({...window.state,editableIds:[mine]}));
+ await page.evaluate(id=>window.deliver({...window.state,editableIds:[id]}),mine);
  await own.locator('.party-ac').click();
  assert.equal(await own.locator('.party-defense-edit').isVisible(),true,'own AC details offer a tiny edit control');
  await own.locator('.party-defense-edit').click();
