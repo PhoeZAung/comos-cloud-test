@@ -4,7 +4,7 @@ import {adminMenu} from './admin-menu.mjs';
 import {roomHistory} from './room-history.mjs';
 import {connection} from './connection.mjs';
 import {publicPartyClient} from './public-party-client.mjs';
-import {dockedPanels,moveParty} from './docking.mjs';
+import {dockedPanels} from './docking.mjs';
 import {initiativeFocus} from './initiative-focus.mjs';
 import {recommendTarget} from './target-recommendation.mjs';
 import {COMBAT_CHANNEL,VALIDATION,validationFrom} from './combat-effects.mjs';
@@ -68,13 +68,13 @@ async function start(){
    // In-place resize avoids raising this persistent HUD over other dialogs.
    // Owlbear's SDK has no cross-extension z-index or raise/lower API.
    const previous=JSON.parse(old);
-   if(previous.vertical===vertical&&JSON.stringify(previous.anchor)===JSON.stringify(anchor)){
+   if(previous.vertical===vertical&&previous.size===rectangle.size&&JSON.stringify(previous.anchor)===JSON.stringify(anchor)){
     if(previous.width!==width)await OBR.popover.setWidth(id,width);
     if(previous.height!==height)await OBR.popover.setHeight(id,height);
     popovers.set(id,value);return;
    }
   }
-  const url=new URL(path,location.origin);if(vertical)url.searchParams.set('vertical','1');
+  const url=new URL(path,location.origin);if(vertical)url.searchParams.set('vertical','1');if(id===PARTY)url.searchParams.set('size',rectangle.size||'medium');
   // An anchor move needs a fresh Owlbear popover; unlike width and height,
   // the public SDK has no setPosition method.
   if(id===PARTY&&old)await OBR.popover.close(id);
@@ -210,19 +210,9 @@ async function start(){
    const l=layoutFrom(room);if(['party','initiative','npcHp'].includes(d.key)&&typeof d.value==='boolean')l[d.key]=d.value;
    else if(d.key==='partyColumns'&&Number.isInteger(Number(d.value))&&Number(d.value)>=1&&Number(d.value)<=6)l.partyColumns=Number(d.value);
    else if(d.key==='initiativeDock'&&['left','right'].includes(d.value))l.initiativeDock=d.value;
+   else if(d.key==='partyDock'&&['top','bottom','left','right'].includes(d.value))l.partyDock=d.value;
+   else if(d.key==='partySize'&&['large','medium','small','compact'].includes(d.value))l.partySize=d.value;
    else throw Error('Invalid display setting.');await OBR.room.setMetadata({[LAYOUT]:l});room={...room,[LAYOUT]:l};schedule();return;
-  }
-  if(d.type==='party-move'){
-   // Only verified Cosmos administrators acting as Owlbear GM may move the
-   // shared floating Party HUD. Convert iframe drag pixels to room fractions.
-   if(!Number.isFinite(d.dx)||!Number.isFinite(d.dy)||Math.abs(d.dx)>10000||Math.abs(d.dy)>10000)
-    throw Error('Invalid Party position.');
-   const current=layoutFrom(room),bounds=geometry().party;
-   if(!bounds)throw Error('Enable the Party HUD to move it.');
-   const position=moveParty(current,bounds,view,d.dx,d.dy);
-   if(!position)return;
-   const next={...current,...position};
-   await OBR.room.setMetadata({[LAYOUT]:next});room={...room,[LAYOUT]:next};schedule();return;
   }
   if(d.type==='stats'){
    if(!['hp','mp'].includes(d.key)||!Number.isFinite(d.value)||Math.abs(d.value)>=1e7||d.key==='mp'&&d.value<0)throw Error('Enter a valid current value.');
@@ -280,7 +270,7 @@ async function start(){
   // Center only this viewer's camera. Players cannot locate GM-hidden combatants.
   if(d?.type==='locate'){const row=ready?battleForViewer(rows(),gm).find(row=>row.id===d.id):null;if(row)void focus.locate(row.id).catch(error=>console.warn('Initiative locate:',error.message));return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
-  if(!['layout','party-move','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'].includes(d?.type))return;
+  if(!['layout','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
  });
  async function refreshAccess(){const current=grant;if(!current)return;try{const cap=await current.call('capabilities'),owned=cap.scope==='sheet'?await current.call('list'):[];if(grant!==current)return;admin=cap.admin===true;editableIds=new Set(owned.map(row=>row.id));publish();}catch{if(grant!==current)return;admin=false;editableIds.clear();publish();}}
