@@ -39,7 +39,7 @@ test('players can add catalog items without spending gil and Owlbear grants only
   service.save({op:'save',id:characterId,revision:0,name:user.display_name||user.displayName,ownerId:user.id,sources:[]});
   db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(characterId,JSON.stringify({currency_gil:7}));
  }
- const items=createItemsService(db),item=items.save({op:'save',id:randomUUID(),revision:0,name:'Travel rope',category:'Gear',description:'Climbing gear',sourceId:'test',sourceVersion:'1'});
+ const items=createItemsService(db),item=items.save({op:'save',id:randomUUID(),revision:0,name:'Travel rope',category:'Gear',description:'Climbing gear',sourceId:'test',sourceVersion:'1',priceGil:25});
  const sessions={restore:async cookie=>({subject:cookie,user:cookie==='owner'?owner:other})};
  const config={db,sessions,items,origin,adminUids:[]};
  const directory=createDirectoryRoutes(config),catalog=createItemsRoutes(config),library=createCharacterLibraryRoutes(config);
@@ -64,7 +64,7 @@ test('players can add catalog items without spending gil and Owlbear grants only
   const result=await proxy(path,'POST',change).then(r=>r.json());
   assert.equal(result.status,200);
   const data=result.data.character.data;
-  assert.equal(data.currency_gil,7);
+  assert.equal(data.currency_gil,7,'players can Loot a priced item for free even when they lack Gil');
   assert.equal(data.items[0].name,'Travel rope');
   assert.equal(data.items[0].amount,2);
   assert.equal(data.items[0].equipped,false);
