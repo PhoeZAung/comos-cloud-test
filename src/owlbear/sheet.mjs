@@ -25,14 +25,14 @@ window.fetch=async(input,options={})=>{
    });
   }
   await connection.call('roll-context',{requestId:body.requestId});
-  body.owlbearRolls=await requestSheetDice(character,body,notation=>connection.call('dice',{notation,requestId:body.requestId},100000));
+  body.owlbearRolls=await requestSheetDice(character,body,notation=>connection.call('dice',{notation,requestId:body.requestId},100000),{target:combat,onMiss:ac=>{body.owlbearMissAc=ac;}});
  }
  const result=await connection.call('api',{path:url.pathname+url.search,method,body},30000);
  if(combat&&result.status===200&&result.data?.roll){
   const roll=result.data.roll;
   roll.combat={target:combat.targetName,ac:combat.ac,defense:combat.defense,
    outcome:roll.spellFailure?.failed?'Spell failed':attackOutcome(roll,combat),
-   applied:false};
+   applied:false,simpleHitMiss:combat.simpleHitMiss===true};
   // Remove only the target used by this successful roll. Do not clear a new selection.
   try{
    const resolution=await connection.call('combat-complete',{requestId:body.requestId,targetId:combat.targetId});
