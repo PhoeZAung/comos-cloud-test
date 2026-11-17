@@ -5,6 +5,8 @@ import {renderSkillRows,renderSection} from '../src/features/sheet/view.mjs';
 import {skillTotal} from '../src/features/sheet/model.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {readFile} from 'node:fs/promises';
+import {newBuild} from '../src/features/characters/rules/build.mjs';
+import {renderBuild} from '../src/ui/rules-wizard.mjs';
 
 test('legacy Craft indices remain reserved but new sheets only create three customizable Craft slots',()=>{
  assert.equal(fixedSkills[0].name,'Acrobatics');
@@ -83,4 +85,13 @@ test('older expanded Craft records are retained in saved data but only three edi
  assert.doesNotMatch(view,/Craft \(Weapons\)/);
  assert.doesNotMatch(view,/Craft \(Electronic\)/);
  assert.doesNotMatch(view,/Trained only · 1 rank required/);
+});
+
+
+test('new character and level-up wizard offers three Craft rank controls, not predefined Craft variants',()=>{
+ const html=renderBuild(newBuild(),7,{mode:'create'});
+ const craft=(html.match(/aria-label="Craft ranks \d+"/g)||[]);
+ assert.equal(craft.length,3,'three generic Craft skills are available to specialize on the sheet');
+ assert.doesNotMatch(html,/>Craft \((?:Weapons|Electronic|Alchemy|Firearms)\)</,'no automatic Craft variants in the wizard');
+ assert.match(html,/aria-label="Computers ranks 47"/,'the appended Computers skill stays available at the same stable index');
 });
