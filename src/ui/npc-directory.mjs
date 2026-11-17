@@ -11,7 +11,7 @@ export function mountNpcDirectory(){
   <button type="button" data-npc-chapter="npc" aria-pressed="true">NPC</button>
   <button type="button" data-npc-chapter="bestiary" aria-pressed="false">Bestiary</button>
   <button type="button" data-npc-chapter="companions" aria-pressed="false">Companions</button>
- </nav><section class="npc-progress-grid" data-npc-progress aria-label="Kingmaker chapter extraction progress"><p>Checking source progress…</p></section>
+ </nav>
  <form class="npc-directory-search" role="search" data-find-npc hidden><label class="sr-only" for="npc-search">Search NPCs by name</label><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4 4"/></svg><input id="npc-search" type="search" maxlength="80" placeholder="Search NPCs by name…" autocomplete="off"><button type="button" data-clear-npc-search aria-label="Clear NPC search" hidden>×</button></form>
  <p data-npc-status role="status"></p><div data-npc-list></div><button class="button" type="button" data-more-npcs hidden>More NPCs</button>
  <dialog class="npc-create-dialog" aria-labelledby="npc-create-title"><form data-npc-create>
@@ -32,25 +32,8 @@ export function mountNpcDirectory(){
  const save=form.querySelector('[type=submit]');
  const searchInput=search.querySelector('input'),clear=search.querySelector('[data-clear-npc-search]');
  const drop=form.querySelector('[data-npc-drop]'),filename=form.querySelector('[data-npc-filename]');
- const progressRoot=root.querySelector('[data-npc-progress]'),chapterButtons=[...root.querySelectorAll('[data-npc-chapter]')];
+ const chapterButtons=[...root.querySelectorAll('[data-npc-chapter]')];
  let query='',cursor=null,generation=0,requestId,searchTimer,autoName='',saving=false,category='npc';
- function showProgress(progress){
-  if(!Array.isArray(progress))return;
-  progressRoot.replaceChildren();
-  for(const item of progress){
-   const card=document.createElement('article');
-   card.className='npc-progress-card';
-   card.dataset.progressCategory=item.id;
-   const heading=document.createElement('strong');heading.textContent=item.name;
-   const meter=document.createElement('progress');
-   meter.max=item.total||1;meter.value=Math.min(item.total||1,item.reviewed||0);
-   meter.setAttribute('aria-label',item.name+' source-review progress');
-   const desc=document.createElement('small');
-   desc.textContent=item.deferred?'Deferred — not extracting yet':
-    'GitHub staged '+(item.staged||0)+' / '+item.total+' · Source-reviewed '+(item.reviewed||0)+' · Needs review '+(item.staged-item.reviewed||0)+' · Cosmos imported '+(item.imported||0);
-   card.append(heading,meter,desc);progressRoot.append(card);
-  }
- }
  function selectCategory(id){
   if(!['npc','bestiary','companions'].includes(id))return;
   category=id;query=searchInput.value='';
@@ -78,7 +61,6 @@ export function mountNpcDirectory(){
    const result=await request(endpoint+'?'+new URLSearchParams({q:query,cursor:next,category}));
    if(signal.aborted||turn!==generation)return;
    if(!next)list.replaceChildren();
-   showProgress(result.progress);
    for(const character of result.characters){
     const article=document.createElement('article'),link=document.createElement('a'),tag=document.createElement('span');
     article.className='directory-character npc-catalog-row';link.className='directory-sheet-link';
