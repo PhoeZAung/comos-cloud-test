@@ -3,7 +3,7 @@ export function loadSheetEffect(name){
  if(!['electric','paper','laser'].includes(name))throw Error('Unknown sheet effect.');
  if(!modules.has(name)){
   // Local, prebuilt assets; no runtime registry or CDN request.
-  const base=new URL('./react-bits/'+name,import.meta.url);
+  const base=new URL('/assets/react-bits/'+name,location.origin);
   const link=document.createElement('link');link.rel='stylesheet';link.href=base.href+'.css';
   const styles=new Promise((resolve,reject)=>{link.onload=resolve;link.onerror=()=>reject(Error('Effect stylesheet unavailable.'));});
   document.head.append(link);
