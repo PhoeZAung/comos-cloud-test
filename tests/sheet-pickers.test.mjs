@@ -125,7 +125,7 @@ test('administrator can add priced and unpriced premade items to other player sh
   assert.equal(response.status,200,'a second copy remains a separate inventory record');
   assert.equal(data().items.length,2,'same-name entries must not be merged');
   assert.equal(data().currency_gil,1);
-  assert.equal((await request('gm',npcId,{...grant,revision:1})).status,400,'NPC sheets cannot receive player catalog item grants');
+  assert.equal((await request('gm',npcId,{...grant,revision:1})).status,403,'NPC sheets forbid player inventory grants even for GMs');
   assert.equal((await request('gm',playerId,{...grant,revision:4,quantity:0})).status,400,'invalid grant quantities remain rejected');
  }finally{await new Promise(resolve=>server.close(resolve));db.close();}
 });
