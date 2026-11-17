@@ -2,7 +2,7 @@
 // module graph. Never persist private character data or share it across pages.
 const firstId=new URL(location.href).searchParams.get('characterId');
 const firstRequestControl=new AbortController();
-const initialRequest=firstId&&/^[0-9a-f]{8}-[0-9a-f-]{27}$/i.test(firstId)
+const initialRequest=firstId&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(firstId)
  ?fetch('/api/v1/character-records/'+encodeURIComponent(firstId),{
    credentials:'same-origin',cache:'no-store',
    signal:AbortSignal.any([firstRequestControl.signal,AbortSignal.timeout(15000)])
