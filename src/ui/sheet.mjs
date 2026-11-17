@@ -209,7 +209,7 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
  const status=message=>{const node=root.querySelector('[data-sheet-status]');if(node)node.textContent=message;};
  const dialog=()=>root.querySelector('[data-sheet-dialog]');
  const equipmentDialog=()=>root.querySelector('[data-equipment-dialog]');let selectedEquipmentSlot=null;
- const canOpenTabs=()=>character.kind!=='npc'&&character.owned!==false;
+ const canOpenTabs=()=>character.kind!=='npc'&&(character.owned!==false||admin);
  const openPicker=()=>root.querySelector('.cs-picker[open]');
  const currentView=()=>({section,ability,combatView,itemView,itemTag,spellLevel:spellFilter,weaponView,notesTab,lastFightSection,npcView,scrollY:window.scrollY,showStars,weaponsCollapsed});
  async function canSwitch(){
@@ -617,8 +617,8 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
    }
    if(button.matches('[data-add-entry="items"]')){
     if(busy||conflict||openPicker())return;
-    if(character.owned===false){editEntry('items',null);return;}
-    openInventoryPicker(root,{signal:control.signal,shopSelectionKey:id,pricingMode:FFD20_SHOP_PRICE_MODE,onCustom:()=>editEntry('items',null),
+    if(character.owned===false&&!admin){status('Only an administrator can add items to another player’s character.');return;}
+    openInventoryPicker(root,{signal:control.signal,shopSelectionKey:id,pricingMode:FFD20_SHOP_PRICE_MODE,grantMode:admin&&character.owned===false,onCustom:()=>editEntry('items',null),
      getBalance:()=>character?.data?.currency_gil??character?.data?.gil??0,
      onAdd:async(itemId,quantity)=>await save({action:'addCatalogItem',itemId,quantity})?'':root.querySelector('[data-sheet-status]')?.textContent||'Could not add item.',
      onBuy:async(item,quantity,requestId,pricingMode)=>{
