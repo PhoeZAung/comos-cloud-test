@@ -2,6 +2,7 @@ import {abilityGroup} from '../../src/features/sheet/ability-groups.mjs';
 import {abilityKinds} from '../../src/features/sheet/pathfinder-defenses.mjs';
 import {effectType} from '../../src/features/sheet/effect-types.mjs';
 import {externalRollSource} from './external-rolls.mjs';
+import {attackOutcome} from '../../src/owlbear/combat-target.mjs';
 import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
@@ -26,6 +27,7 @@ export function weaponRoll(row,data,roll=serverRoll,options){
  const p=weaponAttackParts(row,data,options),profile=criticalProfile(row),ammunition=ammoEffectsForWeapon(data,row);
  const expression='1d20'+(p.total>=0?'+':'')+p.total,attack=roll(expression);
  const threat=p.type!=='cmb'&&attack.rolls[0]!==1&&attack.rolls[0]>=profile.minimum;
+ if(Number.isFinite(options?.missAc)&&attackOutcome({...attack,kind:'weapon'},{kind:'damage',ac:options.missAc})==='Miss')return {...attack,kind:'weapon',weaponName:String(row.name||'Weapon'),attackType:p.type,ammunition,critical:{...profile,threat:false},damage:null,damageError:''};
  const critical={...profile,threat};
  let formulas,damage=null,damageError='';
  try{formulas=weaponDamageFormulas(row,data,threat?profile.multiplier:0);}catch(error){damageError=error.message;}
@@ -37,7 +39,7 @@ export function weaponRoll(row,data,roll=serverRoll,options){
  }
  return {...attack,kind:'weapon',weaponName:String(row.name||'Weapon'),attackType:p.type,ammunition,critical,damage,damageError};
 }
-export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false}={}){
+export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false,missAc=null}={}){
  const c=entryCalculations(row,data,'spells');
  if(c.mp===null)throw Error('Set the spell level before casting.');
  const chance=c.spellFailure,failureRoll=chance>0?roll('1d100'):null;
@@ -45,6 +47,7 @@ export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false}={}){
  const base={kind:'spell',spellName:String(row.name||'Spell'),mpAmount:c.mp,dc:c.dc,range:c.range,description:String(row.desc||''),expression:'cast',...(spellFailure?{spellFailure}:{})};
  if(descriptionOnly||spellFailure?.failed)return {...base,descriptionOnly:descriptionOnly&&!spellFailure?.failed,rolls:[],bonus:0,total:0};
  const attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;
+ if(attack&&Number.isFinite(missAc)&&attackOutcome({...attack,kind:'weapon'},{kind:'damage',ac:missAc})==='Miss')return {...base,critical:{threat:false},attack,damage:null,rolls:attack.rolls,bonus:attack.bonus,total:attack.total};
  let damage=null,damageError='';
  if(row.damage||row.dmg){try{damage=roll(damageExpression(String(row.damage||row.dmg),c.ctx));}catch(error){damageError=error.message;}}
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
@@ -52,8 +55,9 @@ export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false}={}){
   roll(damageExpression(row.save_success_damage,c.ctx)):null;
  return {...base,critical,attack,damage,damageError,...(saveSuccessDamage?{saveSuccessDamage}:{}),rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
 }
-export function abilityRoll(row,data,key,roll=serverRoll){
+export function abilityRoll(row,data,key,roll=serverRoll,{missAc=null}={}){
  const c=entryCalculations(row,data,key),attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;
+ if(attack&&Number.isFinite(missAc)&&attackOutcome({...attack,kind:'weapon'},{kind:'damage',ac:missAc})==='Miss')return {critical:{threat:false},kind:'ability',abilityName:String(row.name||'Ability'),dc:c.dc,attack,damage:null,description:String(row.desc||''),expression:'ability',rolls:attack.rolls,bonus:attack.bonus,total:attack.total};
  // Invalid formulas fail before any use is spent or a receipt is committed.
  const damage=row.damage||row.dmg?roll(damageExpression(String(row.damage||row.dmg),c.ctx)):null;
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
@@ -90,11 +94,12 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  const weaponUsage=weapon&&mode==='use'?entryCalculations(row,character.data,'weapons'):null;
   if(weaponUsage&&(row.uses_formula||weaponUsage.maxUses>0)&&(!Number.isInteger(weaponUsage.currentUses)||weaponUsage.currentUses<1))throw Error('No weapon uses remaining.');
   const external=change.owlbearRolls===undefined?null:externalRollSource(change.owlbearRolls);
+ const missAc=external&&Number.isFinite(change.owlbearMissAc)&&Math.abs(change.owlbearMissAc)<=9999999?change.owlbearMissAc:null;
  const diceRoll=external?expression=>external.roll(expression):serverRoll;
  const npc=character.kind==='npc';
- const weaponDice=external?(row,data)=>weaponRoll(row,data,diceRoll,{npc}):npc?(row,data)=>makeWeaponRoll(row,data,diceRoll,{npc}):makeWeaponRoll;
- const spellDice=external?(row,data,_,options)=>spellRoll(row,data,diceRoll,options):makeSpellRoll;
- const abilityDice=external?(row,data,key)=>abilityRoll(row,data,key,diceRoll):makeAbilityRoll;
+ const weaponDice=external?(row,data)=>weaponRoll(row,data,diceRoll,{npc,missAc}):npc?(row,data)=>makeWeaponRoll(row,data,diceRoll,{npc}):makeWeaponRoll;
+ const spellDice=external?(row,data,_,options)=>spellRoll(row,data,diceRoll,{...options,missAc}):makeSpellRoll;
+ const abilityDice=external?(row,data,key)=>abilityRoll(row,data,key,diceRoll,{missAc}):makeAbilityRoll;
  let updated=null;
  const descriptionOnly=entry&&!skill&&(mode==='send'||mode==='use'&&!weapon&&!String(row.damage||row.dmg||'').trim());
  const delivery=change.discord?'pending':'off';

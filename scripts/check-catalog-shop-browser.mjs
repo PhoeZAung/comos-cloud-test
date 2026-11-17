@@ -133,7 +133,10 @@ try{
  await page.locator('[data-catalog-item="'+paid+'"]').waitFor();
  await page.locator('[data-catalog-item="'+paid+'"]').click();
  await page.locator('.cs-catalog-preview[open]').waitFor();
- assert.equal(await page.locator('.cs-catalog-amount [data-catalog-loot]').innerText(),'Loot','Loot appears beside Amount');
+ assert.equal(await page.locator('.cs-catalog-actions [data-catalog-loot]').innerText(),'Loot','Loot appears in the action footer');
+ const actions=await page.locator('.cs-catalog-actions button').evaluateAll(nodes=>nodes.map(node=>node.hasAttribute('data-catalog-back')?'Back to items':node.hasAttribute('data-catalog-loot')?'Loot':node.hasAttribute('data-catalog-confirm')?'Buy':'Other'));
+ assert.deepEqual(actions,['Back to items','Loot','Buy'],'Loot is placed between Back to items and Buy');
+ assert.equal(await page.locator('.cs-catalog-amount [data-catalog-loot]').count(),0,'Loot must not appear beside Amount');
  await page.locator('[data-catalog-purchase] input[name=quantity]').fill('8');
  assert.equal(await page.locator('[data-catalog-confirm]').isDisabled(),true,'Buy is still blocked by insufficient Gil');
  assert.equal(await page.locator('[data-catalog-loot]').isDisabled(),false,'Loot is permitted regardless of balance');

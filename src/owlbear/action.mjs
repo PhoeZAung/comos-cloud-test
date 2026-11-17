@@ -2,6 +2,7 @@ import OBR from '@owlbear-rodeo/sdk';
 import {peer} from './rpc.mjs';
 import {connection as connectGrant} from './connection.mjs';
 import {dicePlus} from './dice-plus.mjs';
+import {readSimpleHitMiss,saveSimpleHitMiss} from './roll-preferences.mjs';
 import {panelSize} from './panel-size.mjs';
 import {localChannel} from './local-channel.mjs';
 import {mountPanel} from './panel.mjs';
@@ -25,6 +26,9 @@ let disposeSize,trackerBus,grantToken='',showNpcs=false,loadGeneration=0,charact
 const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheetTab:id=>showSheet(id),onCloseSheet:id=>closeSheet(id),onView:()=>{saveScroll(activeCharacterId);}});
 const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command),{historyRoot:document});
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID();
+const simpleMiss=document.querySelector('[data-simple-hit-miss]');
+simpleMiss.checked=readSimpleHitMiss();
+simpleMiss.onchange=()=>saveSimpleHitMiss(simpleMiss.checked);
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function say(message){status.textContent=message;}
@@ -60,6 +64,9 @@ function showSheet(id){
  chosen.iframe.contentWindow?.postMessage({type:'cosmos:sheet-active',nonce:chosen.nonce},location.origin);
  restoreScroll(chosen);
 }
+root.addEventListener('click',()=>{
+ for(const sheet of openSheets.values())sheet.iframe.contentWindow?.postMessage({type:'cosmos:dismiss-combat',nonce:sheet.nonce},location.origin);
+});
 function syncSheetTabs(){
  panel.syncSheets([...openSheets.values()].map(sheet=>({id:sheet.id,name:sheet.name})));
 }
@@ -182,7 +189,7 @@ async function sheetRequest(method,value){
    if(combatPending.size>=100)combatPending.clear();
    combatPending.set(value.requestId,{...target,actorSheetId:value.characterId,source:value.kind,round:Math.max(1,Number(latestTurn.round)||1),at:Date.now()});
   }
-  return target;
+  return target?{...target,simpleHitMiss:simpleMiss.checked}:null;
  }
  if(method==='combat-complete'){
   const pending=combatPending.get(value?.requestId);
@@ -358,6 +365,8 @@ OBR.onReady(async()=>{
    document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
    for(const key of ['party','initiative','npcHp'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout?.[key]===true;
    document.querySelector('[data-layout="partyColumns"]').value=String(data.layout?.partyColumns??3);
+   document.querySelector('[data-layout="partySize"]').value=data.layout?.partySize||'medium';
+   for(const button of document.querySelectorAll('[data-party-dock]'))button.setAttribute('aria-pressed',String(button.dataset.partyDock===(data.layout?.partyDock||'top')));
    document.querySelector('[data-tracker-status]').textContent=data.feed==='Live'?'Connected':data.feed;
   }
   if(data?.type==='room-rolls')panel.shared(data.rolls);
@@ -373,6 +382,10 @@ OBR.onReady(async()=>{
  void autoConnect();
  combatHistoryTimer=setInterval(()=>void refreshCombatHistory(),7000);
  trackerBus.send({type:'hello'});
+ document.querySelector('[data-admin-controls]').addEventListener('click',event=>{
+  const dock=event.target.closest('[data-party-dock]');
+  if(dock)trackerBus.send({type:'layout',key:'partyDock',value:dock.dataset.partyDock,requestId:crypto.randomUUID()});
+ });
  document.querySelector('[data-admin-controls]').onchange=event=>{
   const node=event.target,key=node.dataset.layout;
   if(node.matches('[data-combat-validation]'))trackerBus.send({type:'combat-validation',key:node.dataset.combatValidation,enabled:node.checked,requestId:crypto.randomUUID()});

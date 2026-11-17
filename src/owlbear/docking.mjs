@@ -1,29 +1,28 @@
-// Coordinates are local Owlbear viewport pixels, unaffected by map pan/zoom.
-// The Party overlay can be dragged anywhere within the visible viewport.
+// Safe-area positions keep Party HUD clear of Owlbear's top toolbar,
+// right tools, extension actions and bottom dock. No draggable HUD state.
+export const PARTY_SIZES={
+ large:{cardWidth:194,cardHeight:90},medium:{cardWidth:155,cardHeight:74},
+ small:{cardWidth:128,cardHeight:60},compact:{cardWidth:112,cardHeight:44}
+};
 export function dockedPanels(view,layout,partyCount,battleCount,ready){
  const [vw,vh]=view,edge=12,top=Math.min(64,Math.max(edge,vh/8)),bottom=12;
- const availableWidth=Math.max(1,vw-edge*2),availableHeight=Math.max(1,vh-edge*2);
- const requestedColumns=Number.isInteger(layout.partyColumns)?Math.max(1,Math.min(6,layout.partyColumns)):3;
- const fittingColumns=Math.max(1,Math.floor(Math.max(1,availableWidth-3)/160));
+ const leftSafe=Math.min(170,Math.floor(vw*.18)),rightSafe=Math.min(88,Math.floor(vw*.13));
+ const topSafe=Math.min(76,Math.floor(vh*.12)),bottomSafe=Math.min(76,Math.floor(vh*.12));
+ const usableWidth=Math.max(1,vw-leftSafe-rightSafe),usableHeight=Math.max(1,vh-topSafe-bottomSafe);
+ const size=['large','medium','small','compact'].includes(layout.partySize)?layout.partySize:'medium';
+ const metrics=PARTY_SIZES[size],requestedColumns=Number.isInteger(layout.partyColumns)?Math.max(1,Math.min(6,layout.partyColumns)):3;
+ const fittingColumns=Math.max(1,Math.floor(Math.max(1,usableWidth-3)/(metrics.cardWidth+5)));
  const columns=Math.max(1,Math.min(requestedColumns,Math.max(1,partyCount),fittingColumns));
  const rows=Math.ceil(Math.max(0,partyCount)/columns);
- const width=Math.min(availableWidth,columns*160+3);
- // 24px draggable title, 74px cards, 5px row gap and 8px outer padding.
- const height=Math.min(availableHeight,32+rows*74+Math.max(0,rows-1)*5);
- const fraction=value=>Math.max(0,Math.min(1,Number.isFinite(value)?value:0));
- const x=Math.round((vw-width)*fraction(layout.partyX));
- const y=Math.round((vh-height)*fraction(layout.partyY));
- const p={width,height,x,y,columns,vertical:false};
+ const width=Math.min(usableWidth,columns*(metrics.cardWidth+5)+3);
+ const height=Math.min(usableHeight,28+rows*metrics.cardHeight+Math.max(0,rows-1)*5);
+ const dock=['top','bottom','left','right'].includes(layout.partyDock)?layout.partyDock:'top';
+ const centerX=leftSafe+Math.max(0,Math.floor((usableWidth-width)/2));
+ const centerY=topSafe+Math.max(0,Math.floor((usableHeight-height)/2));
+ const x=Math.max(0,Math.min(vw-width,dock==='left'?leftSafe:dock==='right'?vw-rightSafe-width:centerX));
+ const y=Math.max(0,Math.min(vh-height,dock==='bottom'?vh-bottomSafe-height: dock==='top'?topSafe:centerY));
+ const party={width,height,x,y,columns,vertical:false,size,dock};
  const bw=Math.min(410,Math.max(1,vw-edge*2));
  const bh=Math.min(Math.max(150,94+battleCount*42),Math.max(1,vh-top-bottom));
- return {party:layout.party&&partyCount?p:null,battle:layout.initiative&&ready?{width:bw,height:bh,x:layout.initiativeDock==='right'?vw-edge-bw:edge,y:top}:null};
-}
-// Normalize a handle drag in pixels into a persisted viewport-relative position.
-export function moveParty(layout,rectangle,view,dx,dy){
- if(!rectangle||![dx,dy].every(Number.isFinite))return null;
- const [vw,vh]=view;
- const x=Math.max(0,Math.min(vw-rectangle.width,rectangle.x+dx));
- const y=Math.max(0,Math.min(vh-rectangle.height,rectangle.y+dy));
- return {partyX:vw>rectangle.width?x/(vw-rectangle.width):0,
-  partyY:vh>rectangle.height?y/(vh-rectangle.height):0};
+ return {party:layout.party&&partyCount?party:null,battle:layout.initiative&&ready?{width:bw,height:bh,x:layout.initiativeDock==='right'?vw-edge-bw:edge,y:top}:null};
 }

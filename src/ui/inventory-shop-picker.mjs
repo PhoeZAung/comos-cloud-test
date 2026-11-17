@@ -34,9 +34,9 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  preview.setAttribute('aria-labelledby','cs-catalog-preview-title');
  preview.innerHTML='<div class="cs-catalog-preview-scroll"><header class="cs-catalog-heading"><h2 id="cs-catalog-preview-title" data-catalog-title></h2><button class="cs-icon" type="button" data-catalog-back aria-label="Close item preview">×</button></header>'+
  '<form data-catalog-purchase><div class="cs-catalog-purchase-summary"><label class="cs-catalog-quantity">Qty<input type="number" name="quantity" min="1" max="999" step="1" value="1" required aria-label="'+(grantMode?'Quantity to add':'Quantity to buy')+'"></label>'+
- '<div class="cs-catalog-amount"><div class="cs-catalog-amount-head"><span>Amount</span><button type="button" class="button cs-catalog-loot" data-catalog-loot title="Add the item without spending Gil">Loot</button></div><strong data-catalog-total>—</strong><small data-catalog-unit></small></div></div>'+ 
+ '<div class="cs-catalog-amount"><span>Amount</span><strong data-catalog-total>—</strong><small data-catalog-unit></small></div></div>'+ 
  '<p class="cs-catalog-balance" data-catalog-balance></p><div data-catalog-description></div>'+
- '<p role="status" data-catalog-feedback></p><footer class="cs-catalog-actions"><button type="button" class="button" data-catalog-back>Back to items</button><button type="submit" class="button primary" data-catalog-confirm>Buy</button></footer></form></div>';
+ '<p role="status" data-catalog-feedback></p><footer class="cs-catalog-actions"><button type="button" class="button" data-catalog-back>Back to items</button><button type="button" class="button cs-catalog-loot" data-catalog-loot title="Take this item without spending Gil">Loot</button><button type="submit" class="button primary" data-catalog-confirm>Buy</button></footer></form></div>';
  shopDialog.id='cs-picker-shop-options';
  shopDialog.className='cs-dialog cs-shop-tag-dialog';
  shopDialog.setAttribute('aria-labelledby','cs-picker-shop-title');
