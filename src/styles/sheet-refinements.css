@@ -323,6 +323,11 @@
 .cs-catalog-quantity input{width:100%;box-sizing:border-box;min-height:40px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--text);padding:7px 9px;font:600 17px system-ui}
 .cs-catalog-amount strong{min-height:40px;display:flex;align-items:center;font:600 20px/1.2 system-ui;color:var(--text);overflow-wrap:anywhere}
 .cs-catalog-amount small{font:11px/1.4 system-ui;color:var(--muted);overflow-wrap:anywhere}
+
+.cs-catalog-amount-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cs-catalog-loot{padding:4px 9px!important;min-height:28px!important;font:600 12px/1.2 system-ui!important;white-space:nowrap}
+.cs-catalog-loot:disabled{opacity:.45;cursor:not-allowed}
+
 .cs-catalog-balance{margin:0 0 16px;font:12px/1.4 system-ui;color:var(--muted)}
 .cs-catalog-preview h3{font:600 13px/1.4 system-ui;margin:0 0 9px;color:var(--text)}
 .cs-catalog-category{display:inline-flex;align-items:center;color:var(--accent);font:600 11px system-ui;padding:5px 9px;border:1px solid var(--line);border-radius:8px;margin:0 0 13px}
@@ -404,7 +409,7 @@
 .cs-skill-untrained .cs-skill-roll:disabled strong{color:var(--muted);opacity:.6}
 .cs-skill-untrained .cs-skill-roll:disabled .cs-d20-symbol{opacity:.23;filter:grayscale(1)}
 .cs-skill-untrained .cs-skill-roll:disabled:hover{background:transparent}
-.cs-skill-training-note{display:block!important;margin-top:3px;color:var(--muted);font-size:.72rem;letter-spacing:.015em}
+
 .cs-skill-untrained [data-edit-entry]{opacity:1;filter:none;cursor:pointer;color:var(--accent)}
 .cs-skill-untrained .cs-favorite{opacity:1}
 

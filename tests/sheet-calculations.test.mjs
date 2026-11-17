@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {arithmetic,entryCalculations,damageExpression,diceTerms} from '../src/features/sheet/calculations.mjs';
-import {sheetSkills,fixedSkills} from '../src/features/sheet/skills.mjs';
+import {sheetSkills,fixedSkills,isRetiredCraftSkill} from '../src/features/sheet/skills.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {serverRoll,spellRoll} from '../backend/characters/rolls.mjs';
 import {skillTotal} from '../src/features/sheet/model.mjs';
@@ -43,7 +43,7 @@ test('manual sheets apply Fly and Stealth size adjustments independently of raci
  assert.equal(skillTotal({name:'Stealth',stat:'dex',temp:2,rulesBonus:2},data),7);
 });
 test('fixed skills materialize for new sheets, preserve imported records and cannot be added, deleted or renamed',()=>{
- const original={...d,skills:[{name:'Spellcraft',stat:'int',lvl:2,cs:true,temp:1,legacy:'keep'}]};const rows=sheetSkills(original);assert.equal(rows.length,fixedSkills.length);assert.equal(rows[0].legacy,'keep');assert.equal(sheetSkills({skills:rows}).length,rows.length);
+ const original={...d,skills:[{name:'Spellcraft',stat:'int',lvl:2,cs:true,temp:1,legacy:'keep'}]};const rows=sheetSkills(original);assert.equal(rows.length,fixedSkills.filter(row=>!isRetiredCraftSkill(row)).length);assert.equal(rows[0].legacy,'keep');assert.equal(sheetSkills({skills:rows}).length,rows.length);
  const changed=mergeSheetData(original,{action:'entry',collection:'skills',index:0,mode:'update',fields:{lvl:3,temp:2}});assert.equal(changed.skills[0].legacy,'keep');assert.equal(changed.skills[0].lvl,3);
  for(const change of [{mode:'add',fields:{name:'New',stat:'int'}},{mode:'remove',index:0},{mode:'update',index:0,fields:{name:'Renamed'}},{mode:'update',index:0,fields:{lvl:7}}])assert.throws(()=>mergeSheetData(original,{action:'entry',collection:'skills',...change}));
 });
