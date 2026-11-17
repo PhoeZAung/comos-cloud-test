@@ -1,12 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {fixedSkills,sheetSkills,skillCanRoll,skillRequiresTraining,skillDisplayName} from '../src/features/sheet/skills.mjs';
+import {fixedSkills,sheetSkills,skillCanRoll,skillRequiresTraining,skillDisplayName,isRetiredCraftSkill} from '../src/features/sheet/skills.mjs';
 import {renderSkillRows,renderSection} from '../src/features/sheet/view.mjs';
 import {skillTotal} from '../src/features/sheet/model.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {readFile} from 'node:fs/promises';
 
-test('FFD20 list includes the expanded Craft specialties and Computers without shifting old indexed skill ranks',()=>{
+test('legacy Craft indices remain reserved but new sheets only create three customizable Craft slots',()=>{
  assert.equal(fixedSkills[0].name,'Acrobatics');
  assert.equal(fixedSkills[16].name,'Knw: Arcana');
  assert.equal(fixedSkills[45].name,'Use Magic Device');
@@ -21,7 +21,11 @@ test('FFD20 list includes the expanded Craft specialties and Computers without s
  assert.equal(extended[0].lvl,3);
  assert.equal(extended[0].name,'Acrobatics');
  assert.equal(extended[45].name,'Use Magic Device');
- assert.equal(extended.length,59);
+ assert.equal(extended.length,47);
+ assert.equal(extended.filter(row=>row.name==='Craft').length,3);
+ assert.equal(extended.filter(isRetiredCraftSkill).length,0);
+ assert.equal(sheetSkills({}).filter(row=>row.name==='Craft').length,3);
+ assert.equal(sheetSkills({}).filter(isRetiredCraftSkill).length,0);
 });
 test('trained-only rules require actual ranks, never a class-skill, misc or racial bonus',()=>{
  for(const name of ['Computers','Disable Device','Drive','Handle Animal','Linguistics','Pilot','Profession',
@@ -44,7 +48,8 @@ test('grey out dice and entire locked skill control while leaving Edit and Favor
  const html=renderSkillRows(d);
  assert.match(html,/cs-skill-untrained/);
  assert.match(html,/data-training-locked="true"/);
- assert.match(html,/Trained only · 1 rank required/);
+ assert.doesNotMatch(html,/Trained only · 1 rank required/);
+ assert.doesNotMatch(html,/cs-skill-training-note/);
  const computer=html.slice(html.indexOf('Trained only: add at least 1 skill rank'));
  assert.match(computer,/disabled aria-disabled="true"/);
  assert.match(html,/data-edit-entry="skills:0"/);
@@ -55,11 +60,27 @@ test('grey out dice and entire locked skill control while leaving Edit and Favor
  assert.equal(skillCanRoll(sheetSkills(saved)[0]),true);
  assert.equal(skillTotal(saved.skills[0],saved),10,'rank +1, misc +6, class skill +3 are retained');
  const newHtml=renderSkillRows(saved);
- assert.doesNotMatch(newHtml.slice(newHtml.indexOf('Computers'),newHtml.indexOf('Craft (Alchemy)')+1),/trained only · 1 rank required/i);
+ assert.doesNotMatch(newHtml,/trained only · 1 rank required/i);
 });
 test('locked favorite skills also have disabled roll control and live edit link',()=>{
  const d={skills:[{name:'Pilot',stat:'dex',lvl:0,favorite:true}]};
  const out=renderSection({name:'Hero',id:'abc',kind:'player',data:d},'favorites');
  assert.match(out,/data-skill-index="0"[^>]*disabled/);
  assert.match(out,/data-edit-entry="skills:0"/);
+});
+
+
+test('older expanded Craft records are retained in saved data but only three editable slots are displayed',()=>{
+ const oldSkills=fixedSkills.map((row,i)=>({...row,lvl:i===58?2:0,subName:i===4?'Firearms':'',temp:0}));
+ const original={skills:oldSkills};
+ const normalized=sheetSkills(original);
+ assert.equal(normalized.length,59,'never shift legacy skill indexes or delete saved Craft ranks');
+ assert.equal(normalized[58].name,'Craft (Weapons)');
+ assert.equal(normalized[58].lvl,2,'legacy allocated ranks are preserved');
+ const view=renderSkillRows(original);
+ assert.equal((view.match(/data-edit-entry="skills:[456]"/g)||[]).length,3,'only the three original Craft rows can be edited');
+ assert.match(view,/Craft \(Firearms\)/,'manual specialization stays visible');
+ assert.doesNotMatch(view,/Craft \(Weapons\)/);
+ assert.doesNotMatch(view,/Craft \(Electronic\)/);
+ assert.doesNotMatch(view,/Trained only · 1 rank required/);
 });
