@@ -19,7 +19,7 @@ const server=createServer(async(req,res)=>{
  const send=(status,data)=>{res.writeHead(status,{'content-type':'application/json','cache-control':'no-store'});res.end(JSON.stringify(data));};
  if(pathname==='/'){
   res.writeHead(200,{'content-type':'text/html'});
-  res.end('<!doctype html><html><body><main></main><script type="module">import {openInventoryPicker} from "/src/ui/inventory-shop-picker.mjs";import {shopUnitPriceGil} from "/src/features/sheet/shop-pricing.mjs";window.purchases=[];window.freeAdds=[];window.receipts=[];window.customAdds=0;window.start=()=>openInventoryPicker(document.querySelector("main"),{signal:new AbortController().signal,pricingMode:"ffd20-gp-to-gil-v1",getBalance:()=>20,onCustom:()=>{window.customAdds++;},onAdd:async(id,qty)=>{window.freeAdds.push({id,qty});return "";},onBuy:async(item,qty,key,mode)=>{const price=shopUnitPriceGil(item,mode);window.purchases.push({id:item.id,qty,key,mode,price});return {itemName:item.name,totalGil:price*qty,remainingGil:20-price*qty};},onPurchased:async receipt=>window.receipts.push(receipt)});</script></body></html>');
+  res.end('<!doctype html><html><body><main></main><script type="module">import {openInventoryPicker} from "/src/ui/inventory-shop-picker.mjs";import {shopUnitPriceGil} from "/src/features/sheet/shop-pricing.mjs";window.purchases=[];window.freeAdds=[];window.receipts=[];window.customAdds=0;window.start=(grantMode=false)=>openInventoryPicker(document.querySelector("main"),{grantMode,signal:new AbortController().signal,pricingMode:"ffd20-gp-to-gil-v1",getBalance:()=>20,onCustom:()=>{window.customAdds++;},onAdd:async(id,qty)=>{window.freeAdds.push({id,qty});return "";},onBuy:async(item,qty,key,mode)=>{const price=shopUnitPriceGil(item,mode);window.purchases.push({id:item.id,qty,key,mode,price});return {itemName:item.name,totalGil:price*qty,remainingGil:20-price*qty};},onPurchased:async receipt=>window.receipts.push(receipt)});</script></body></html>');
  }else if(pathname.startsWith('/src/')&&pathname.endsWith('.mjs')&&!pathname.includes('..')){
   try{const content=await readFile('.'+pathname);res.writeHead(200,{'content-type':'text/javascript'});res.end(content);}catch{res.writeHead(404).end();}
  }else if(pathname==='/api/v1/item-catalog/catalogs')send(200,{catalogs});
@@ -111,6 +111,23 @@ try{
  const converted=await page.evaluate(()=>window.purchases.find(p=>p.id==='00000000-0000-4000-8000-000000000003'));
  assert.equal(converted.price,12);
  assert.equal(converted.mode,'ffd20-gp-to-gil-v1');
+ await page.waitForFunction(()=>document.querySelectorAll('.cs-catalog-picker').length===0);
+ await page.evaluate(()=>window.start(true));
+ await page.locator('[data-catalog-item="'+paid+'"]').waitFor();
+ await page.locator('[data-catalog-item="'+paid+'"]').click();
+ await page.locator('.cs-catalog-preview[open]').waitFor();
+ assert.equal(await page.locator('[data-catalog-confirm]').innerText(),'Add to character','GM mode grants even items with a Gil price');
+ assert.equal(await page.locator('[data-catalog-total]').innerText(),'No charge');
+ assert.match(await page.locator('[data-catalog-unit]').innerText(),/Listed unit price/,'the original price remains visible');
+ assert.match(await page.locator('[data-catalog-balance]').innerText(),/Player Gil will not change/);
+ assert.equal(await page.locator('[data-catalog-purchase] input[name=quantity]').getAttribute('aria-label'),'Quantity to add');
+ await page.locator('[data-catalog-purchase] input[name=quantity]').fill('7');
+ assert.equal(await page.locator('[data-catalog-confirm]').isDisabled(),false,'GM can grant over a players low balance');
+ await page.locator('[data-catalog-confirm]').click();
+ await page.waitForFunction(()=>window.freeAdds.length===2);
+ assert.deepEqual(await page.evaluate(()=>window.freeAdds[1]),{id:paid,qty:7});
+ assert.equal(await page.evaluate(()=>window.purchases.length),2,'GM must not invoke the purchase handler');
+ assert.equal(postCount,0,'GM grant never calls the payment endpoint');
  await page.waitForFunction(()=>document.querySelectorAll('.cs-catalog-picker').length===0);
  await page.evaluate(()=>window.start());
  await page.locator('[data-custom-item]').click();

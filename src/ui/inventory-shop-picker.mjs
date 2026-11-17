@@ -19,7 +19,7 @@ async function get(path,signal){
  if(!response.ok)throw Error(data.message||({401:'Sign in to Cosmos first.',404:'Item unavailable.',429:'Try again soon.'})[response.status]||'Could not load this item.');
  return data;
 }
-export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCustom,getBalance,pricingMode=null,shopSelectionKey=null}){
+export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCustom,getBalance,pricingMode=null,shopSelectionKey=null,grantMode=false}){
  const dialog=document.createElement('dialog'),preview=document.createElement('dialog'),shopDialog=document.createElement('dialog');
  dialog.className='cs-dialog cs-picker cs-catalog-picker';
  dialog.setAttribute('aria-label','Add an item');
@@ -33,7 +33,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  preview.className='cs-dialog cs-star-border cs-catalog-preview';
  preview.setAttribute('aria-labelledby','cs-catalog-preview-title');
  preview.innerHTML='<div class="cs-catalog-preview-scroll"><header class="cs-catalog-heading"><h2 id="cs-catalog-preview-title" data-catalog-title></h2><button class="cs-icon" type="button" data-catalog-back aria-label="Close item preview">×</button></header>'+
- '<form data-catalog-purchase><div class="cs-catalog-purchase-summary"><label class="cs-catalog-quantity">Qty<input type="number" name="quantity" min="1" max="999" step="1" value="1" required aria-label="Quantity to buy"></label>'+
+ '<form data-catalog-purchase><div class="cs-catalog-purchase-summary"><label class="cs-catalog-quantity">Qty<input type="number" name="quantity" min="1" max="999" step="1" value="1" required aria-label="'+(grantMode?'Quantity to add':'Quantity to buy')+'"></label>'+
  '<div class="cs-catalog-amount"><span>Amount</span><strong data-catalog-total>—</strong><small data-catalog-unit></small></div></div>'+
  '<p class="cs-catalog-balance" data-catalog-balance></p><div data-catalog-description></div>'+
  '<p role="status" data-catalog-feedback></p><footer class="cs-catalog-actions"><button type="button" class="button" data-catalog-back>Back to items</button><button type="submit" class="button primary" data-catalog-confirm>Buy</button></footer></form></div>';
@@ -79,13 +79,13 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  function updateAmount(){
   if(!selected)return;
   const qty=Number(input.value),unit=shopUnitPriceGil(selected,pricingMode),total=catalogPurchaseTotal({...selected,priceGil:unit},qty),priced=unit!==null;
-  preview.querySelector('[data-catalog-total]').innerHTML=priced?(total===null?'—':moneyHtml(total)):'No listed price';
-  preview.querySelector('[data-catalog-unit]').innerHTML=priced?'Unit: '+moneyHtml(unit):'No price set · item can be added without payment.';
+  preview.querySelector('[data-catalog-total]').innerHTML=grantMode?'No charge':priced?(total===null?'—':moneyHtml(total)):'No listed price';
+  preview.querySelector('[data-catalog-unit]').innerHTML=grantMode?(priced?'Listed unit price: '+moneyHtml(unit):'No listed price'):priced?'Unit: '+moneyHtml(unit):'No price set · item can be added without payment.';
   const raw=getBalance?.(),balance=Number(raw),known=raw!==null&&raw!==undefined&&Number.isFinite(balance)&&balance>=0;
   const insufficient=priced&&known&&total!==null&&Math.round(balance*100)<Math.round(total*100);
-  preview.querySelector('[data-catalog-balance]').innerHTML=(known?'<span class="cs-shop-balance-label">Balance</span> '+moneyHtml(balance):'')+(insufficient?' · Not enough Gil':priced?'':' · No payment required');
-  confirm.textContent=priced?'Buy':'Add without a price';
-  confirm.disabled=busy||!Number.isSafeInteger(qty)||qty<1||qty>999||priced&&(total===null||insufficient);
+  preview.querySelector('[data-catalog-balance]').innerHTML=grantMode?'GM grant · Player Gil will not change.':(known?'<span class="cs-shop-balance-label">Balance</span> '+moneyHtml(balance):'')+(insufficient?' · Not enough Gil':priced?'':' · No payment required');
+  confirm.textContent=grantMode?'Add to character':priced?'Buy':'Add without a price';
+  confirm.disabled=busy||!Number.isSafeInteger(qty)||qty<1||qty>999||!grantMode&&priced&&(total===null||insufficient);
  }
  async function load(append=false){
   if(!appliedChosen.size)return;
@@ -126,10 +126,10 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  form.addEventListener('submit',async event=>{
   event.preventDefault();
   const quantity=Number(input.value),unit=shopUnitPriceGil(selected,pricingMode),total=catalogPurchaseTotal({...selected,priceGil:unit},quantity),priced=unit!==null;
-  if(busy||!selected||!Number.isSafeInteger(quantity)||quantity<1||quantity>999||priced&&total===null)return;
-  busy=true;confirm.disabled=true;feedback.textContent=priced?'Buying…':'Adding item…';
+  if(busy||!selected||!Number.isSafeInteger(quantity)||quantity<1||quantity>999||!grantMode&&priced&&total===null)return;
+  busy=true;confirm.disabled=true;feedback.textContent=grantMode?'Granting item…':priced?'Buying…':'Adding item…';
   try{
-   if(priced){
+   if(priced&&!grantMode){
     const receipt=await onBuy(selected,quantity,requestId,pricingMode);
     if(preview.open)preview.close();
     if(dialog.open)dialog.close();

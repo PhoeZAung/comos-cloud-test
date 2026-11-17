@@ -68,3 +68,19 @@ test('Owlbear sheet activation triggers visible frame revision checks but no hid
  assert.match(sheet,/event\.data\?\.type!=='cosmos:sheet-active'/);
  assert.match(sheet,/status\('Checking for updates…'\);void refresh\(\)/);
 });
+
+
+test('GM character sheets mirror player controls in every section, including inventory and premade ability tools',()=>{
+ const character={id:'2e82bb73-113e-467e-8fd2-dabf401678ae',name:'Astra',kind:'player',owned:true,data:{}};
+ const gmCharacter={...character,owned:false};
+ for(const section of ['favorites','overview','combat','skills','items','abilities','spells','notes']){
+  const player=renderSheetFrame(character,section,{compact:true});
+  const gm=renderSheetFrame(gmCharacter,section,{compact:true,admin:true});
+  assert.equal(gm.replace('Synced · Admin','Synced'),player,section+' must be identical except for admin status');
+ }
+ const gmStandalone=renderSheetFrame(gmCharacter,'items',{admin:true});
+ assert.match(gmStandalone,/data-add-sheet/,'GMs keep standalone sheet tab controls');
+ assert.match(gmStandalone,/data-add-entry="items"/,'GMs retain inventory add button');
+ assert.match(gmStandalone,/data-editor-premade/,'GMs retain premade abilities');
+ assert.doesNotMatch(renderSheetFrame(gmCharacter,'items'),/data-add-sheet/,'non-admins are not granted cross-player tabs');
+});
