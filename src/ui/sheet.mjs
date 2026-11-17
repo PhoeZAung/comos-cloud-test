@@ -531,10 +531,12 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
  }
  // A combat verdict is transient: clicking anywhere on the extension page
  // dismisses it, including controls outside the result banner.
- document.addEventListener('click',()=>{
-  const result=root.querySelector('[data-roll-result]');
-  if(result&&!result.hidden&&result.dataset.combatResult){result.hidden=true;delete result.dataset.combatResult;}
- },{signal:control.signal,capture:true});
+ const dismissCombatResult=()=>{const result=root.querySelector('[data-roll-result]');if(result&&!result.hidden&&result.dataset.combatResult){result.hidden=true;delete result.dataset.combatResult;}};
+ document.addEventListener('click',dismissCombatResult,{signal:control.signal,capture:true});
+ window.addEventListener('message',event=>{
+  if(event.source!==window.parent||event.origin!==location.origin||event.data?.type!=='cosmos:dismiss-combat'||event.data.nonce!==location.hash.slice(1))return;
+  dismissCombatResult();
+ },{signal:control.signal});
  function selectSpellLevel(level,focus=false){spellFilter=level;draw();const url=new URL(location.href);url.searchParams.set('spellLevel',level);history.replaceState(null,'',url);if(focus){const tab=root.querySelector('[data-spell-level="'+level+'"]');tab.focus({preventScroll:true});tab.scrollIntoView({block:'nearest',inline:'nearest'});}}
  root.addEventListener('pointerdown',beginAbilityDrag,{signal:control.signal});
   root.addEventListener('pointermove',updateAbilityDrag,{signal:control.signal});
