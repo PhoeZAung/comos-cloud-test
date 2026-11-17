@@ -13,7 +13,7 @@ import {mountHoldButton,confirmCharacterDelete,crumpleSheet} from './sheet-delet
 import {mountNotesElectric} from './sheet-notes-electric.mjs';
 import {mountPersonalNotes} from './sheet-personal-notes.mjs';
 import {openInventoryPicker,openCharacterPicker} from './sheet-pickers.mjs';
-import {createSheetTabs,sheetTabURL} from './sheet-tabs.mjs';
+import {createSheetTabs,sheetTabURL,createSheetSnapshotCache} from './sheet-tabs.mjs';
 import {mountSheetSettings} from './sheet-settings.mjs';
 import {sheetLoading} from './sheet-loading.mjs';
 import {MAGICKED_AMMO_ID} from '../features/characters/rules/gunbreaker-ammo.mjs';
@@ -168,20 +168,28 @@ export function openCharacterSheetPopup(url,characterId,{display=window.screen,o
 }
 
 export function mountSheet(){
- const tabs=createSheetTabs();
- let dispose=mountCharacterSheet(tabs,switchTo);
+ const tabs=createSheetTabs(),cache=createSheetSnapshotCache();
+ function open(){
+  const id=new URL(location.href).searchParams.get('characterId');
+  return mountCharacterSheet(tabs,switchTo,{
+   snapshot:cache.get(id),
+   onSnapshot:loaded=>cache.set(loaded.character.id,loaded)
+  });
+ }
+ let dispose=open();
  function switchTo(id){
   dispose();
   history.replaceState(null,'',sheetTabURL(location.href,id,tabs.view(id)));
-  dispose=mountCharacterSheet(tabs,switchTo);
+  dispose=open();
  }
- return ()=>dispose();
+ return ()=>{dispose();cache.clear();};
 }
 
-function mountCharacterSheet(tabs,switchTo){
+function mountCharacterSheet(tabs,switchTo,{snapshot=null,onSnapshot=()=>{}}={}){
+
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
  const restoredView=tabs.view(id)||{};
- const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
+ const control=new AbortController();let closed=false,character=snapshot?.character||null,admin=snapshot?.admin===true,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
  let deletePending=false,weaponsCollapsed=restoredView.weaponsCollapsed===true,disposeHold=()=>{},disposeNotesElectric=()=>{},disposePersonalNotes={dispose(){},cancelPending(){},clearDraft(){}};let showStars=restoredView.showStars===true,disposeSettings,disposePartyNotes,notesGeneration=0,saveFailureDraft=null;let notesTab=new URL(location.href).searchParams.get('notesTab')||'personal';
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
@@ -235,7 +243,7 @@ function mountCharacterSheet(tabs,switchTo){
   const strip=root.querySelector('.cs-sheet-tab-list'),active=strip?.querySelector('.is-active');
   if(active)strip.scrollLeft=active.getBoundingClientRect().left-strip.getBoundingClientRect().left;
  }
- root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);disposeNotesElectric=mountNotesElectric(root);disposePersonalNotes=mountPersonalNotes(root,{characterId:id,save});disposeHold=mountHoldButton(root.querySelector('[data-delete-character]'),()=>void deleteCharacter(),{signal:control.signal});syncWeapons();const notesRoot=root.querySelector('[data-party-notes]');if(notesRoot)void import('./party-notes.mjs').then(module=>{if(!closed&&notesTicket===notesGeneration&&notesRoot.isConnected)disposePartyNotes=module.mountPartyNotes(notesRoot,{characterId:id,tagId:notesRoot.dataset.partyNotes});}).catch(()=>{if(notesRoot.isConnected)notesRoot.querySelector('[role=status]').textContent='Could not open party notes.';});document.title=character.name+' · Cosmos';dirty=false;}
+ root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);disposeNotesElectric=mountNotesElectric(root);disposePersonalNotes=mountPersonalNotes(root,{characterId:id,save});disposeHold=mountHoldButton(root.querySelector('[data-delete-character]'),()=>void deleteCharacter(),{signal:control.signal});syncWeapons();const notesRoot=root.querySelector('[data-party-notes]');if(notesRoot)void import('./party-notes.mjs').then(module=>{if(!closed&&notesTicket===notesGeneration&&notesRoot.isConnected)disposePartyNotes=module.mountPartyNotes(notesRoot,{characterId:id,tagId:notesRoot.dataset.partyNotes});}).catch(()=>{if(notesRoot.isConnected)notesRoot.querySelector('[role=status]').textContent='Could not open party notes.';});document.title=character.name+' · Cosmos';dirty=false;onSnapshot({character,admin});}
  async function save(change,skipPending=false){
   if(!skipPending){if(change.action==='fields')for(const key of Object.keys(change.fields||{}))delete pendingResourceFields[key];if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return false;}
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
@@ -258,7 +266,12 @@ function mountCharacterSheet(tabs,switchTo){
    }
   finally{if(!closed)setBusy(false);}
  }
+ function inactiveOwlbearSheet(){
+  if(!document.body.hasAttribute('data-owlbear-sheet'))return false;
+  try{return window.frameElement?.dataset.sheetInactive==='true';}catch{return false;}
+ }
  async function refresh(force=false){
+  if(!force&&inactiveOwlbearSheet())return;
   if(closed||busy||deletePending||polling||dragState||document.hidden||(!force&&document.activeElement?.matches('[data-party-notes-input]'))||(!force&&(dirty||conflict||openPicker()||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open))))return;
   if(force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open||root.querySelector('[data-entry-popup]')?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
   polling=true;const previousRevision=character?.revision;
@@ -971,9 +984,35 @@ function mountCharacterSheet(tabs,switchTo){
  },{signal:control.signal});
  root.addEventListener('toggle',event=>{const detail=event.target;if(detail.matches?.('.cs-accessory-panel')){root.querySelector('[data-accessory-open]')?.setAttribute('aria-expanded',String(detail.open));return;}if(!detail.matches?.('[data-entry-details]')||!detail.open)return;const [key,i]=detail.dataset.entryDetails.split(':');const row=character?.data[key]?.[Number(i)];if(row)detail.querySelector('[data-entry-detail-body]').innerHTML=entryDetail(row,character.data,key);},{capture:true,signal:control.signal});
  root.addEventListener('cancel',()=>{dirty=false;},{capture:true,signal:control.signal});
+ window.addEventListener('message',event=>{
+  if(event.source!==window.parent||event.origin!==location.origin||event.data?.type!=='cosmos:sheet-active'||event.data.nonce!==location.hash.slice(1))return;
+  if(character&&!document.hidden)void refresh();
+ },{signal:control.signal});
+
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void refresh();},{signal:control.signal});
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML=sheetLoading();
- void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();const scroll=tabs.view(id)?.scrollY;if(scroll!==undefined)window.scrollTo(0,scroll);schedule();if(!document.body.hasAttribute('data-owlbear-sheet')&&typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed){root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.name==='TimeoutError'?'The character server took too long to respond. Please retry.':err.message)+'</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';root.querySelector('[data-retry-sheet]').onclick=()=>location.reload();}});
+ const startUpdates=()=>{
+  const scroll=tabs.view(id)?.scrollY;
+  if(scroll!==undefined)window.scrollTo(0,scroll);
+  schedule();
+  if(!document.body.hasAttribute('data-owlbear-sheet')&&typeof EventSource!=='undefined'){
+   stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();
+  }
+ };
+ if(character){
+  // A quick tab return renders the last verified sheet immediately.
+  // Revision-aware checking runs without blocking paint or interaction.
+  draw();startUpdates();status('Checking for updates…');void refresh();
+ }else{
+  void request().then(result=>{
+   if(closed)return;
+   character=result.character;admin=result.admin===true;draw();startUpdates();
+  }).catch(err=>{
+   if(closed)return;
+   root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.name==='TimeoutError'?'The character server took too long to respond. Please retry.':err.message)+'</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';
+   root.querySelector('[data-retry-sheet]').onclick=()=>location.reload();
+  });
+ }
  return ()=>{disposeHold();disposeNotesElectric();disposePersonalNotes.dispose();clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }
