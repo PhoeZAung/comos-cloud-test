@@ -63,7 +63,7 @@ async function start(){
   // Anchor the persistent Party strip by viewport edge, so adding a party
   // member changes only its dimensions, not its popover stacking position.
   const anchor={left:x,top:y,horizontal:'LEFT',vertical:'TOP'};
-  const value=JSON.stringify({...rectangle,anchor});if(old===value)return;
+  const value=JSON.stringify({...rectangle,anchor,path});if(old===value)return;
   if(id===PARTY&&old){
    // In-place resize avoids raising this persistent HUD over other dialogs.
    // Owlbear's SDK has no cross-extension z-index or raise/lower API.
@@ -77,7 +77,7 @@ async function start(){
   const url=new URL(path,location.origin);if(vertical)url.searchParams.set('vertical','1');if(id===PARTY)url.searchParams.set('size',rectangle.size||'medium');
   // An anchor move needs a fresh Owlbear popover; unlike width and height,
   // the public SDK has no setPosition method.
-  if(id===PARTY&&old)await OBR.popover.close(id);
+  if(old&&(id===PARTY||id===PREFIX+'/party-ac-editor'))await OBR.popover.close(id);
   await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',
    anchorPosition:{left:anchor.left,top:anchor.top},
    anchorOrigin:{horizontal:anchor.horizontal,vertical:anchor.vertical},
