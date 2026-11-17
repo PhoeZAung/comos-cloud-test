@@ -28,3 +28,19 @@ test('live sheet has a small isolated entry and stylesheet, without an eager app
  for(const chunk of chunks)assert.equal((await stat(new URL('dist-live/assets/'+chunk.slice(2),root))).isFile(),true,chunk);
  await inspect(new URL('dist-live/assets/sheet.mjs',root));assert.ok(seen.size>=4);
 });
+
+
+test('split sheet chunks keep optional CSS, dice and visual assets at stable public URLs',async()=>{
+ const root=new URL('../',import.meta.url);
+ const required={
+  'src/ui/effects.mjs':["/assets/galaxy.mjs","/assets/splash.mjs"],
+  'src/ui/feedback.mjs':["/assets/feedback.css"],
+  'src/ui/dice-3d.mjs':["/assets/dice-box/lib/dice-box.es.js"],
+  'src/ui/react-bits-loader.mjs':["/assets/react-bits/"]
+ };
+ for(const [file,urls] of Object.entries(required)){
+  const code=await readFile(new URL(file,root),'utf8');
+  for(const url of urls)assert.ok(code.includes(url),file+' should reference '+url);
+  assert.doesNotMatch(code,/import\.meta\.url/,file+' must not infer public asset path from a generated chunk location');
+ }
+});
