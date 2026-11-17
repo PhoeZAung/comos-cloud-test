@@ -4,6 +4,7 @@ import {adminSession,adminJson} from './admin-requests.mjs';
 import {npcDirectoryPath} from '../characters/npcs.mjs';
 import {rollHistory} from '../characters/roll-history.mjs';
 import {createCombatActions} from '../characters/combat-actions.mjs';
+import {sheetStats} from '../../src/features/sheet/model.mjs';
 // Session credentials remain on the server. Grants are scoped, memory-only and
 // disappear on server restart; every use revalidates the original login session.
 export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
@@ -48,12 +49,22 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
    }
    if(body.method==='party-stats'){
     if(grant.scope!=='sheet'&&!session.admin)throw Error('Connect your Cosmos character sheets.');
-    const value=body.value||{},stats=value.stats,keys=['hp','mp'];
+    const value=body.value||{},stats=value.stats,keys=['hp','mp','ac','touch','flat','cmd'];
     if(!/^[0-9a-f-]{36}$/i.test(value.id||'')||!Number.isSafeInteger(value.revision)||!stats||Array.isArray(stats)||Object.keys(stats).length===0||Object.keys(stats).some(k=>!keys.includes(k)||!Number.isFinite(stats[k])||Math.abs(stats[k])>=1e7)||stats.mp!==undefined&&stats.mp<0)throw Error('Invalid character stats.');
     const row=db.prepare('SELECT c.archived,c.kind,c.owner_id,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.id),data=row?JSON.parse(row.data_json):null;
     if(!data||row.archived||row.kind==='npc'||data.owlbearStatusVisible!==true)throw Error('This character is not shared with the tracker.');
     if(!session.admin&&row.owner_id!==session.user.id)throw Error('You can only edit your own shared characters.');
     const fields={};if(stats.hp!==undefined)fields.hp_curr=stats.hp;if(stats.mp!==undefined)fields.mp_curr=stats.mp;
+    // AC fields are totals in the HUD, but saved as independent adjustment
+    // fields. Recompute with the adjustment zeroed to avoid changing base
+    // armor, ability modifiers or other derived defenses.
+    for(const [key,field] of Object.entries({ac:'ac_temp',touch:'touch_temp',flat:'flat_temp',cmd:'cmd_temp'})){
+     if(stats[key]===undefined)continue;
+     if(!Number.isSafeInteger(stats[key]))throw Error('Defense totals must be whole numbers.');
+     const baseline=sheetStats({...data,...fields,[field]:0})[key];
+     fields[field]=stats[key]-baseline;
+     if(!Number.isSafeInteger(fields[field])||Math.abs(fields[field])>=1e7)throw Error('Defense adjustment is outside the supported range.');
+    }
     target='/api/v1/character-records/'+value.id;method='POST';payload={op:'sheet',action:'fields',fields,revision:value.revision};
    }else if(grant.scope==='party-status'){
     if(!session.admin)throw Error('Administrator access required.');
