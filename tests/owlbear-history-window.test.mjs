@@ -55,7 +55,7 @@ test('Both history views paginate only their rendered rows, never truncate their
 
 test('GM HP privacy command is allowed through the background message router',async()=>{
  const background=await readFile(new URL('../src/owlbear/background.mjs',import.meta.url),'utf8');
- assert.match(background,/\['layout','party-move','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'\]/);
+ assert.match(background,/\['layout','party-ac-popup','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'\]/);
  assert.match(background,/d\.type==='npc-hp-visibility'/);
  assert.match(background,/item\.metadata\[BATTLE\]\.hpHidden=d\.hidden/);
  const view=await readFile(new URL('../src/owlbear/initiative-view.mjs',import.meta.url),'utf8');
@@ -64,17 +64,19 @@ test('GM HP privacy command is allowed through the background message router',as
  assert.match(view,/battle-hp-privacy/);
 });
 
-test('GM Party overlay stays visible while Cosmos action is open, accepts reposition and resize',async()=>{
+test('GM Party overlay stays visible, supports directional docking and safe resizing',async()=>{
  const background=await readFile(new URL('../src/owlbear/background.mjs',import.meta.url),'utf8');
  assert.doesNotMatch(background,/cosmosActionOpen\?\{\.\.\.dimensions,party:null\}:dimensions/,'do not hide Party from GM');
- assert.match(background,/d\.type==='party-move'/);
- assert.match(background,/moveParty\(/);
+ assert.match(background,/d\.key==='partyDock'/);
+ assert.match(background,/d\.key==='partySize'/);
+ assert.doesNotMatch(background,/party-move|moveParty/);
  assert.match(background,/OBR\.popover\.setWidth\(id,width\)/);
  assert.match(background,/OBR\.popover\.setHeight\(id,height\)/);
  assert.match(background,/anchorPosition:\{left:anchor\.left,top:anchor\.top\}/);
  const html=await readFile(new URL('../scripts/build-owlbear.mjs',import.meta.url),'utf8');
  assert.match(html,/data-layout="partyColumns"/);
- assert.doesNotMatch(html,/data-layout="partyDock"/);
- assert.match(html,/data-party-drag/);
+ assert.match(html,/data-party-dock="top"/);
+ assert.match(html,/data-layout="partySize"/);
+ assert.doesNotMatch(html,/data-party-drag/);
  assert.match(html,/<details class="cosmos-admin-settings" data-admin-settings hidden>/);
 });
