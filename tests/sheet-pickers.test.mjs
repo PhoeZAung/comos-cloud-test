@@ -74,3 +74,58 @@ test('players can add catalog items without spending gil and Owlbear grants only
   assert.equal((await post(path,{...change,revision:2})).status,404);
  }finally{await new Promise(resolve=>server.close(resolve));db.close();}
 });
+
+
+test('administrator can add priced and unpriced premade items to other player sheets without charging Gil',async()=>{
+ const db=await openDatabase(':memory:'),users=createUserRepository(db);
+ const gm=users.create({displayName:'GM'}),player=users.create({displayName:'Adventurer'}),outsider=users.create({displayName:'Outsider'});
+ const chars=createCharactersService(db),playerId=randomUUID(),npcId=randomUUID(),origin='https://cosmos.test';
+ for(const characterId of [playerId,npcId]){
+  chars.save({op:'save',id:characterId,revision:0,name:characterId===playerId?'Adventurer':'Monster',ownerId:player.id,sources:[]});
+  db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(characterId,JSON.stringify({currency_gil:1,currency_moogle:9,items:[],weapons:[]}));
+ }
+ db.prepare("UPDATE characters SET kind='npc' WHERE id=?").run(npcId);
+ const items=createItemsService(db);
+ const rope=items.save({op:'save',id:randomUUID(),revision:0,name:'Travel rope',category:'Gear',description:'Climbing gear',sourceId:'test',sourceVersion:'1',priceGil:22});
+ const sword=items.save({op:'save',id:randomUUID(),revision:0,name:'Longsword',category:'Weapon',description:'Slashing sword',sourceId:'test',sourceVersion:'1',priceGil:45});
+ const sessions={restore:async cookie=>{
+  const user={gm,player,outsider}[cookie];if(!user)throw Error('Unknown account');
+  return {subject:cookie,user};
+ }};
+ const routes=createDirectoryRoutes({db,sessions,adminUids:['gm'],origin,items});
+ const server=createApiServer({db,directoryRoutes:routes});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ const base='http://127.0.0.1:'+server.address().port;
+ const headers=account=>({cookie:'__Host-comos_session='+account,origin,'content-type':'application/json'});
+ const request=(account,characterId,change)=>fetch(base+'/api/v1/character-records/'+characterId,{
+  method:'POST',headers:headers(account),body:JSON.stringify(change)
+ });
+ const data=()=>JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(playerId).data_json);
+ try{
+  assert.equal((await fetch(base+'/api/v1/character-records/'+playerId,{headers:headers('gm')})).status,200);
+  assert.equal((await fetch(base+'/api/v1/character-records/'+playerId,{headers:headers('outsider')})).status,404);
+  const grant={op:'sheet',action:'addCatalogItem',itemId:rope.id,quantity:3,revision:1};
+  assert.equal((await request('outsider',playerId,grant)).status,404,'a non-admin must not grant to someone else');
+  let response=await request('gm',playerId,grant);
+  assert.equal(response.status,200,(await response.clone().json()).message);
+  let payload=await response.json();
+  assert.equal(payload.admin,true);assert.equal(payload.character.owned,false);
+  assert.equal(payload.character.data.items[0].name,'Travel rope');
+  assert.equal(payload.character.data.items[0].amount,3);
+  assert.equal(payload.character.data.currency_gil,1,'a GM grant never deducts Gil');
+  assert.equal(payload.character.data.currency_moogle,9);
+  response=await request('gm',playerId,{...grant,revision:2,itemId:sword.id,quantity:1});
+  assert.equal(response.status,200,(await response.clone().json()).message);
+  payload=await response.json();
+  assert.equal(payload.character.data.weapons[0].name,'Longsword','weapons are routed to the proper player section');
+  assert.equal(payload.character.data.items.length,1);
+  assert.equal(payload.character.data.currency_gil,1);
+  assert.equal((await request('gm',playerId,{...grant,revision:1})).status,409,'stale GM edits are rejected');
+  response=await request('gm',playerId,{...grant,revision:3,quantity:1});
+  assert.equal(response.status,200,'a second copy remains a separate inventory record');
+  assert.equal(data().items.length,2,'same-name entries must not be merged');
+  assert.equal(data().currency_gil,1);
+  assert.equal((await request('gm',npcId,{...grant,revision:1})).status,400,'NPC sheets cannot receive player catalog item grants');
+  assert.equal((await request('gm',playerId,{...grant,revision:4,quantity:0})).status,400,'invalid grant quantities remain rejected');
+ }finally{await new Promise(resolve=>server.close(resolve));db.close();}
+});
