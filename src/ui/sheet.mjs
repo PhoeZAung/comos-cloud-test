@@ -5,7 +5,7 @@ import {effectTypes,effectType} from '../features/sheet/effect-types.mjs';
 import {combatVerdict} from '../features/sheet/combat-verdict.mjs';
 import {saveTypes,saveOutcomes} from '../features/sheet/save-rules.mjs';
 import {abilityKinds,srModes} from '../features/sheet/pathfinder-defenses.mjs';
-import {abilityGroup} from '../features/sheet/ability-groups.mjs';
+import {abilityGroup,abilityGroupEditorKeys} from '../features/sheet/ability-groups.mjs';
 import {isLimitBreak} from '../features/sheet/limit-breaks.mjs';
 import {baseLandSpeed} from '../features/sheet/movement.mjs';
 import {actionTypes,actionType,damageTypes,selectedDamageTypes} from '../features/sheet/entry-options.mjs';
@@ -285,7 +285,7 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
  function openDialog(title,keys,values,change,{help=''}={}){
   if(busy||conflict){status(conflict?'Refresh to load the latest sheet before editing.':'Saving…');return;}
   root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;root.querySelector('[data-sheet-form]').noValidate=['items','weapons','spells',...abilityTabs].includes(change.collection);dialogState={keys,change,values:{...values}};dialog().classList.add('cs-star-border');dialog().dataset.editor=change.collection||'';root.querySelector('#cs-dialog-title').textContent=title;
-  root.querySelector('[data-editor-premade]').hidden=!abilityTabs.includes(change.collection);
+  root.querySelector('[data-editor-premade]').hidden=!abilityTabs.includes(change.collection)||change.action==='abilityGroup';
   root.querySelector('[data-dialog-fields]').innerHTML=keys===groupFields.identity?renderIdentityEditor(values):(help?'<p class="cs-caption">'+e(help)+'</p>':'')+renderEntryFields(keys,values,change.collection);
   updateWeaponEditorPreview();updateWeaponAmmoPreview();
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';if(!dialog().open)dialog().showModal();
@@ -490,7 +490,10 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
  }
  function editAbilityGroup(collection,id){
   const group=(character.data.abilityGroups||[]).find(g=>g.id===id);
-  openDialog(group?'Edit '+group.name:'Create ability group',['name','u_curr','u_max','restoreOnLongRest'],group||{name:'',u_curr:0,u_max:0,restoreOnLongRest:true},{action:'abilityGroup',mode:group?'update':'add',collection,id},{help:'Members share this usage pool. Set remaining and maximum uses. Deleting a group keeps its abilities.'});
+  const values={name:'',u_curr:0,u_max:0,restoreOnLongRest:true,attack_type:'none',effect_type:'none',...group};
+  values.damage_types=selectedDamageTypes(group?.damage_types||[]);
+  values.restoreOnLongRest=group?.restoreOnLongRest!==false;
+  openDialog(group?'Edit '+group.name:'Create ability group',abilityGroupEditorKeys,values,{action:'abilityGroup',mode:group?'update':'add',collection,id},{help:'Details, combat and saves describe this group. Members retain their own actions and effects; only uses are shared through Resources. Deleting a group keeps its abilities.'});
   if(group)root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button type="button" class="cs-delete" data-delete-ability-group="'+e(id)+'">Delete group</button>');
  }
  function editEntry(key,index,{category=null,ammoEditor=false}={}){

@@ -2,7 +2,7 @@ import {SHOP_SOURCE_IDS} from '../../src/features/sheet/shop-sources.mjs';
 import {moveInventoryWeapons,reloadWeaponFromInventory} from '../../src/features/sheet/weapon-inventory.mjs';
 import {randomUUID} from 'node:crypto';
 import {npcStatLabels,npcTextLabels,npcTextLimit,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
-import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout} from '../../src/features/sheet/ability-groups.mjs';
+import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout,abilityGroupEditorKeys} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
 import {abilityKinds,srModes} from '../../src/features/sheet/pathfinder-defenses.mjs';
 import {effectTypes} from '../../src/features/sheet/effect-types.mjs';
@@ -19,7 +19,7 @@ import {sheetSkills,skillSupportsSpecialization} from '../../src/features/sheet/
 import {itemEditableColumns,inventoryEditorKeys,inventoryEditorFields,inventoryFieldLabel,usableItemImageUrl,normalizeInventoryText} from '../../src/features/sheet/inventory-fields.mjs';
 import {entryCalculations,weaponDamageAbilities,weaponDamageStyles} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
-import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
+import {sheetStats,abilities,sizes,number,attackTypes} from '../../src/features/sheet/model.mjs';
 import {isEquipmentSlot,equipmentRows,occupiesSlot,equipmentSlotCompatible} from '../../src/features/sheet/equipment.mjs';
 export const numericFields=[...abilities,'hp_curr','hp_temp','hp_max','hp_max_temp','mp','mp_curr','mp_temp','mp_class','mp_bonus','mp_max','mp_total_max','mp_max_temp','mp_max_spell_level','init_temp','bab','bab_temp','speed_mod','speed_burrow','speed_climb','speed_fly','speed_swim','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp','touch_temp','flat_temp','cmd_temp','ar_melee_temp','ar_ranged_temp','ar_touch_temp','ar_ranged_touch_temp','cmb_temp','fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp','currency_gil','currency_moogle','slot_cap','capacity_modifier'];
 const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
@@ -97,10 +97,37 @@ export function mergeSheetData(original,change,{npc=false}={}){
    if(change.mode==='update'&&!group)bad('Group no longer exists.');
    if(change.mode==='add'&&groups.length>=100)bad('Maximum 100 groups.');
    const f=change.fields;
-   if(!plain(f)||Object.keys(f).some(k=>!['name','u_curr','u_max','restoreOnLongRest'].includes(k)))bad('Invalid group fields.');
+   if(!plain(f)||Object.keys(f).some(k=>!abilityGroupEditorKeys.includes(k)))bad('Invalid group fields.');
    const name=text(f.name,120).trim(),max=numeric(f.u_max),current=numeric(f.u_curr);
    if(!name||!Number.isInteger(max)||!Number.isInteger(current)||max<0||current<0||current>max||typeof f.restoreOnLongRest!=='boolean')bad('Enter a name and whole uses between zero and maximum.');
    const fields={name,u_max:max,u_curr:current,restoreOnLongRest:f.restoreOnLongRest};
+   const groupText=new Set(['desc','effect','at_higher_lvls','range','duration','target','damage','saving_throw','save_success_damage','dc_formula']);
+   const groupNumber=new Set(['attack_misc','dc_misc','sr_bonus']);
+   const groupEnums={ability_kind:abilityKinds,effect_type:effectTypes,save_type:saveTypes,save_success:saveOutcomes,spell_resist:srModes};
+   for(const [key,value] of Object.entries(f)){
+    if(['name','u_max','u_curr','restoreOnLongRest'].includes(key))continue;
+    if(groupText.has(key))fields[key]=text(value,key==='desc'?100000:key==='save_success_damage'?300:12000,key);
+    else if(key==='link'){
+     fields.link=text(value,2048,'Link');
+     if(fields.link){try{const url=new URL(fields.link);if(!['http:','https:'].includes(url.protocol)||url.username||url.password)bad('Link must be an http or https URL.');}catch{bad('Link must be a valid http or https URL.');}}
+    }else if(key==='action_type'){
+     if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');fields.action_type=value;
+    }else if(key==='attack_type'){
+     if(typeof value!=='string'||!['none',...Object.keys(attackTypes)].includes(value))bad('Choose a valid attack type.');fields.attack_type=value;
+    }else if(Object.hasOwn(groupEnums,key)){
+     if(typeof value!=='string'||!Object.hasOwn(groupEnums[key],value))bad('Choose a valid '+key+'.');fields[key]=value;
+    }else if(key==='damage_types'){
+     if(!Array.isArray(value)||value.length>damageTypes.length||value.some(t=>!damageTypes.includes(t))||new Set(value).size!==value.length)bad('Choose valid damage types.');fields.damage_types=[...value];
+    }else if(key==='casting_ability'){
+     if(value!==''&&!abilities.includes(value))bad('Choose a casting ability.');fields.casting_ability=value;
+    }else if(groupNumber.has(key))fields[key]=numeric(value);
+    else if(['attack_bonus_override','save_dc_override','caster_level'].includes(key)){
+     if(value===''||value===null){fields[key]='';continue;}
+     const n=numeric(value);
+     if(!Number.isInteger(n)||key==='caster_level'&&(n<1||n>99)||key==='save_dc_override'&&(n<1||n>100000)||key==='attack_bonus_override'&&Math.abs(n)>100000)bad('Enter a valid '+key+'.');
+     fields[key]=n;
+    }
+   }
    if(group)Object.assign(group,fields);else groups.push({id:randomUUID(),collection:change.collection,...fields});
   }else bad('Invalid group action.');
  }else if(change.action==='fields'){

@@ -1,5 +1,7 @@
 import {isLimitBreak} from './limit-breaks.mjs';
 export const abilityCollections=['activeAbilities','passiveAbilities','racialAbilities','feats'];
+// Group details use the same tabs as individual abilities; only uses are shared.
+export const abilityGroupEditorKeys=Object.freeze(["name","ability_kind","desc","effect","at_higher_lvls","link","action_type","range","duration","target","effect_type","attack_type","attack_misc","attack_bonus_override","damage","damage_types","saving_throw","save_type","save_success","save_success_damage","save_dc_override","dc_formula","casting_ability","dc_misc","caster_level","sr_bonus","spell_resist","u_curr","u_max","restoreOnLongRest"]);
 export function abilityGroup(data,row,collection){
  return abilityCollections.includes(collection)&&row?.abilityGroupId?(data.abilityGroups||[]).find(g=>g.id===row.abilityGroupId&&g.collection===collection)||null:null;
 }
