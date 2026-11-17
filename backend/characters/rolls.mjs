@@ -27,7 +27,7 @@ export function weaponRoll(row,data,roll=serverRoll,options){
  const p=weaponAttackParts(row,data,options),profile=criticalProfile(row),ammunition=ammoEffectsForWeapon(data,row);
  const expression='1d20'+(p.total>=0?'+':'')+p.total,attack=roll(expression);
  const threat=p.type!=='cmb'&&attack.rolls[0]!==1&&attack.rolls[0]>=profile.minimum;
- if(Number.isFinite(options?.missAc)&&attackOutcome(attack,{kind:'damage',ac:options.missAc})==='Miss')return {...attack,kind:'weapon',weaponName:String(row.name||'Weapon'),attackType:p.type,ammunition,critical:{...profile,threat:false},damage:null,damageError:''};
+ if(Number.isFinite(options?.missAc)&&attackOutcome({...attack,kind:'weapon'},{kind:'damage',ac:options.missAc})==='Miss')return {...attack,kind:'weapon',weaponName:String(row.name||'Weapon'),attackType:p.type,ammunition,critical:{...profile,threat:false},damage:null,damageError:''};
  const critical={...profile,threat};
  let formulas,damage=null,damageError='';
  try{formulas=weaponDamageFormulas(row,data,threat?profile.multiplier:0);}catch(error){damageError=error.message;}
@@ -47,7 +47,7 @@ export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false,missAc
  const base={kind:'spell',spellName:String(row.name||'Spell'),mpAmount:c.mp,dc:c.dc,range:c.range,description:String(row.desc||''),expression:'cast',...(spellFailure?{spellFailure}:{})};
  if(descriptionOnly||spellFailure?.failed)return {...base,descriptionOnly:descriptionOnly&&!spellFailure?.failed,rolls:[],bonus:0,total:0};
  const attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;
- if(attack&&Number.isFinite(missAc)&&attackOutcome(attack,{kind:'damage',ac:missAc})==='Miss')return {...base,critical:{threat:false},attack,damage:null,rolls:attack.rolls,bonus:attack.bonus,total:attack.total};
+ if(attack&&Number.isFinite(missAc)&&attackOutcome({...attack,kind:'weapon'},{kind:'damage',ac:missAc})==='Miss')return {...base,critical:{threat:false},attack,damage:null,rolls:attack.rolls,bonus:attack.bonus,total:attack.total};
  let damage=null,damageError='';
  if(row.damage||row.dmg){try{damage=roll(damageExpression(String(row.damage||row.dmg),c.ctx));}catch(error){damageError=error.message;}}
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
@@ -57,7 +57,7 @@ export function spellRoll(row,data,roll=serverRoll,{descriptionOnly=false,missAc
 }
 export function abilityRoll(row,data,key,roll=serverRoll,{missAc=null}={}){
  const c=entryCalculations(row,data,key),attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;
- if(attack&&Number.isFinite(missAc)&&attackOutcome(attack,{kind:'damage',ac:missAc})==='Miss')return {critical:{threat:false},kind:'ability',abilityName:String(row.name||'Ability'),dc:c.dc,attack,damage:null,description:String(row.desc||''),expression:'ability',rolls:attack.rolls,bonus:attack.bonus,total:attack.total};
+ if(attack&&Number.isFinite(missAc)&&attackOutcome({...attack,kind:'weapon'},{kind:'damage',ac:missAc})==='Miss')return {critical:{threat:false},kind:'ability',abilityName:String(row.name||'Ability'),dc:c.dc,attack,damage:null,description:String(row.desc||''),expression:'ability',rolls:attack.rolls,bonus:attack.bonus,total:attack.total};
  // Invalid formulas fail before any use is spent or a receipt is committed.
  const damage=row.damage||row.dmg?roll(damageExpression(String(row.damage||row.dmg),c.ctx)):null;
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
