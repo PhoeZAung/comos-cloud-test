@@ -34,7 +34,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  preview.setAttribute('aria-labelledby','cs-catalog-preview-title');
  preview.innerHTML='<div class="cs-catalog-preview-scroll"><header class="cs-catalog-heading"><h2 id="cs-catalog-preview-title" data-catalog-title></h2><button class="cs-icon" type="button" data-catalog-back aria-label="Close item preview">×</button></header>'+
  '<form data-catalog-purchase><div class="cs-catalog-purchase-summary"><label class="cs-catalog-quantity">Qty<input type="number" name="quantity" min="1" max="999" step="1" value="1" required aria-label="'+(grantMode?'Quantity to add':'Quantity to buy')+'"></label>'+
- '<div class="cs-catalog-amount"><span>Amount</span><strong data-catalog-total>—</strong><small data-catalog-unit></small></div></div>'+
+ '<div class="cs-catalog-amount"><div class="cs-catalog-amount-head"><span>Amount</span><button type="button" class="button cs-catalog-loot" data-catalog-loot title="Add the item without spending Gil">Loot</button></div><strong data-catalog-total>—</strong><small data-catalog-unit></small></div></div>'+ 
  '<p class="cs-catalog-balance" data-catalog-balance></p><div data-catalog-description></div>'+
  '<p role="status" data-catalog-feedback></p><footer class="cs-catalog-actions"><button type="button" class="button" data-catalog-back>Back to items</button><button type="submit" class="button primary" data-catalog-confirm>Buy</button></footer></form></div>';
  shopDialog.id='cs-picker-shop-options';
@@ -50,7 +50,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
  const categories=dialog.querySelector('[data-picker-categories]'),next=dialog.querySelector('[data-picker-next]');
  const shopPanel=shopDialog,shopToggle=dialog.querySelector('[data-picker-shop-toggle]');
  const setShopPopup=open=>{if(open&&!shopPanel.open){chosen=new Set(appliedChosen);shopPanel.returnValue='';paintSources();shopPanel.showModal();}else if(!open&&shopPanel.open)shopPanel.close();shopToggle.setAttribute('aria-expanded',String(open));};
- const form=preview.querySelector('[data-catalog-purchase]'),input=form.elements.quantity,confirm=form.querySelector('[data-catalog-confirm]'),feedback=preview.querySelector('[data-catalog-feedback]');
+ const form=preview.querySelector('[data-catalog-purchase]'),input=form.elements.quantity,confirm=form.querySelector('[data-catalog-confirm]'),loot=preview.querySelector('[data-catalog-loot]'),feedback=preview.querySelector('[data-catalog-feedback]');
  let catalogs=[],chosen=new Set(),appliedChosen=new Set(),counts={},items=[],selected=null,category='All',query='',cursor=null,busy=false,queuedLoad=false,requestId=null,selectionVersion=0;
  const priceText=item=>{const unit=shopUnitPriceGil(item,pricingMode);return unit===null?(item.costText?String(item.costText)+' · no Gil price':'No fixed price'):formatGil(unit);};
  const priceHtml=item=>{const unit=shopUnitPriceGil(item,pricingMode);return unit===null?esc(priceText(item)):moneyHtml(unit);};
@@ -86,6 +86,7 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   preview.querySelector('[data-catalog-balance]').innerHTML=grantMode?'GM grant · Player Gil will not change.':(known?'<span class="cs-shop-balance-label">Balance</span> '+moneyHtml(balance):'')+(insufficient?' · Not enough Gil':priced?'':' · No payment required');
   confirm.textContent=grantMode?'Add to character':priced?'Buy':'Add without a price';
   confirm.disabled=busy||!Number.isSafeInteger(qty)||qty<1||qty>999||!grantMode&&priced&&(total===null||insufficient);
+  loot.disabled=busy||!Number.isSafeInteger(qty)||qty<1||qty>999;
  }
  async function load(append=false){
   if(!appliedChosen.size)return;
@@ -123,27 +124,31 @@ export function openInventoryPicker(root,{signal,onAdd,onBuy,onPurchased,onCusto
   event.preventDefault();if(busy)return;query=event.currentTarget.elements.q.value.trim();if(!appliedChosen.size){status.textContent='Choose one or more shops first.';return;}void load();
  };
  input.addEventListener('input',()=>{requestId=crypto.randomUUID();updateAmount();});
- form.addEventListener('submit',async event=>{
-  event.preventDefault();
+ async function completeItemAction({takeAsLoot=false}={}){
   const quantity=Number(input.value),unit=shopUnitPriceGil(selected,pricingMode),total=catalogPurchaseTotal({...selected,priceGil:unit},quantity),priced=unit!==null;
-  if(busy||!selected||!Number.isSafeInteger(quantity)||quantity<1||quantity>999||!grantMode&&priced&&total===null)return;
-  busy=true;confirm.disabled=true;feedback.textContent=grantMode?'Granting item…':priced?'Buying…':'Adding item…';
+  if(busy||!selected||!Number.isSafeInteger(quantity)||quantity<1||quantity>999||!takeAsLoot&&!grantMode&&priced&&total===null)return;
+  busy=true;confirm.disabled=true;loot.disabled=true;
+  feedback.textContent=takeAsLoot?'Adding loot…':grantMode?'Granting item…':priced?'Buying…':'Adding item…';
   try{
-   if(priced&&!grantMode){
+   if(priced&&!grantMode&&!takeAsLoot){
     const receipt=await onBuy(selected,quantity,requestId,pricingMode);
     if(preview.open)preview.close();
     if(dialog.open)dialog.close();
     await onPurchased(receipt);
     showShopSpendAnimation(receipt);
    }else{
+    // Loot is explicitly free, even when a source item has a Gil price.
+    // The existing character-record action enforces ownership and revisions.
     const message=await onAdd(selected.id,quantity);
     if(message)throw Error(message);
     if(preview.open)preview.close();
     if(dialog.open)dialog.close();
    }
-  }catch(error){if(preview.open)feedback.textContent=error.message||'Could not buy this item.';}
+  }catch(error){if(preview.open)feedback.textContent=error.message||(takeAsLoot?'Could not add loot.':'Could not buy this item.');}
   finally{busy=false;if(preview.open)updateAmount();}
- });
+ }
+ form.addEventListener('submit',event=>{event.preventDefault();void completeItemAction();});
+ loot.addEventListener('click',()=>void completeItemAction({takeAsLoot:true}));
  preview.addEventListener('click',event=>{if(event.target.closest('[data-catalog-back]'))preview.close();});
  dialog.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button)return;
