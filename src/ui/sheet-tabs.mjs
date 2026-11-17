@@ -33,3 +33,27 @@ export function createSheetTabs(){
   }
  };
 }
+
+
+// Keep only a few recently displayed sheets in this browser tab. The snapshots
+// are never persisted; callers still revalidate revisions with the server.
+export function createSheetSnapshotCache({limit=3,maxAgeMs=120000,now=()=>Date.now()}={}){
+ const entries=new Map();
+ return {
+  get(id){
+   const entry=entries.get(id);
+   if(!entry)return null;
+   if(now()-entry.savedAt>maxAgeMs){entries.delete(id);return null;}
+   entries.delete(id);entries.set(id,entry);
+   return entry.snapshot;
+  },
+  set(id,snapshot){
+   if(typeof id!=='string'||!id||!snapshot?.character||snapshot.character.id!==id)return;
+   entries.delete(id);
+   entries.set(id,{savedAt:now(),snapshot});
+   while(entries.size>limit)entries.delete(entries.keys().next().value);
+  },
+  delete(id){entries.delete(id);},
+  clear(){entries.clear();}
+ };
+}

@@ -55,6 +55,9 @@ function showSheet(id){
  activeCharacterId=id;
  roster.hidden=true;frames.hidden=false;
  for(const sheet of openSheets.values()){const inactive=sheet!==chosen;sheet.iframe.dataset.sheetInactive=String(inactive);sheet.iframe.setAttribute('aria-hidden',String(inactive));}
+ // Revalidate the newly active frame. Inactive sheets remain mounted but
+ // must not keep competing with the visible sheet for data requests.
+ chosen.iframe.contentWindow?.postMessage({type:'cosmos:sheet-active',nonce:chosen.nonce},location.origin);
  restoreScroll(chosen);
 }
 function syncSheetTabs(){

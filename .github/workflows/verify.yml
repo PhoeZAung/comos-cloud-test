@@ -67,6 +67,9 @@ jobs:
       - name: Exercise admin group sheet tabs in Chromium
         if: github.event_name == 'pull_request'
         run: node scripts/check-admin-tabs-browser.mjs
+      - name: Verify warm sheet tab switching remains quick when server response is delayed
+        if: github.event_name == 'pull_request'
+        run: node scripts/check-multi-sheet-speed-browser.mjs
       - name: Exercise manual ability and weapon modifier editors in Chromium
         if: github.event_name == 'pull_request'
         run: node scripts/check-ability-weapon-editor-browser.mjs
