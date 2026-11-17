@@ -174,7 +174,7 @@ async function start(){
   return event;
  }
  async function command(d){
-  if(d.type!=='stats'&&!allowed())throw Error('Connect a Cosmos administrator account as GM.');
+  if(!['stats','party-ac-popup'].includes(d.type)&&!allowed())throw Error('Connect a Cosmos administrator account as GM.');
   if(d.epoch!==undefined&&d.epoch!==epoch)throw Error('The scene changed. Try again in this scene.');
   if(d.type==='combat-validation'){
    if(!['weapon','ability'].includes(d.key)||typeof d.enabled!=='boolean')throw Error('Choose a valid validation setting.');
@@ -214,12 +214,25 @@ async function start(){
    else if(d.key==='partySize'&&['large','medium','small','compact'].includes(d.value))l.partySize=d.value;
    else throw Error('Invalid display setting.');await OBR.room.setMetadata({[LAYOUT]:l});room={...room,[LAYOUT]:l};schedule();return;
   }
+  if(d.type==='party-ac-popup'){
+   const row=party.find(item=>item.id===d.id);
+   if(!row||!canEditParty(d.id))throw Error('Only the character owner or GM can edit these defenses.');
+   const bounds=geometry().party||{x:170,y:90},width=274,height=270;
+   const x=Math.max(0,Math.min(view[0]-width,Math.max(165,bounds.x+32)));
+   const y=Math.max(0,Math.min(view[1]-height,Math.max(75,bounds.y+28)));
+   await widget(PREFIX+'/party-ac-editor','/owlbear/party/ac-edit.html?characterId='+encodeURIComponent(d.id),{x,y,width,height});
+   return;
+  }
   if(d.type==='stats'){
-   if(!['hp','mp'].includes(d.key)||!Number.isFinite(d.value)||Math.abs(d.value)>=1e7||d.key==='mp'&&d.value<0)throw Error('Enter a valid current value.');
+   const changes=d.stats||{[d.key]:d.value};
+   if(!changes||typeof changes!=='object'||Array.isArray(changes)||!Object.keys(changes).length||
+     Object.entries(changes).some(([key,value])=>!['hp','mp','ac','touch','flat','cmd'].includes(key)||!Number.isFinite(value)||Math.abs(value)>=1e7||key==='mp'&&value<0||
+     ['ac','touch','flat','cmd'].includes(key)&&!Number.isSafeInteger(value)))throw Error('Enter valid character totals.');
    const battle=d.battle?rows().find(row=>row.id===d.id):null,siteId=battle?.siteId||(!d.battle?d.id:null);
+   if(d.battle&&d.stats)throw Error('Edit party defenses from the Party HUD.');
    if(battle?.linked&&!battle.available)throw Error('This sheet is no longer shared.');
    if(battle&&d.key==='hp'&&!battle.trackHp)throw Error('HP is not tracked for this combatant.');
-   if(siteId){const row=party.find(row=>row.id===siteId);if(!row)throw Error('This sheet is no longer shared.');if(!canEditParty(siteId))throw Error('Only the character owner or GM can edit this value.');return siteStats(siteId,d.revision??row.revision,{[d.key]:d.value});}
+   if(siteId){const row=party.find(row=>row.id===siteId);if(!row)throw Error('This sheet is no longer shared.');if(!canEditParty(siteId))throw Error('Only the character owner or GM can edit this value.');return siteStats(siteId,d.revision??row.revision,changes);}
    if(!allowed())throw Error('Only the GM can edit unlinked combatants.');
     if(!battle)throw Error('Combatant not found.');await OBR.scene.items.updateItems([battle.id],drafts=>{for(const item of drafts){if(item.metadata[BATTLE]?.enabled)item.metadata[BATTLE][d.key]=d.value;}});return;
   }
@@ -270,7 +283,7 @@ async function start(){
   // Center only this viewer's camera. Players cannot locate GM-hidden combatants.
   if(d?.type==='locate'){const row=ready?battleForViewer(rows(),gm).find(row=>row.id===d.id):null;if(row)void focus.locate(row.id).catch(error=>console.warn('Initiative locate:',error.message));return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
-  if(!['layout','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'].includes(d?.type))return;
+  if(!['layout','party-ac-popup','recommend-setting','combat-validation','combat-decision','end-battle','stats','initiative','turn','add','remove','npc-hp-visibility'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
  });
  async function refreshAccess(){const current=grant;if(!current)return;try{const cap=await current.call('capabilities'),owned=cap.scope==='sheet'?await current.call('list'):[];if(grant!==current)return;admin=cap.admin===true;editableIds=new Set(owned.map(row=>row.id));publish();}catch{if(grant!==current)return;admin=false;editableIds.clear();publish();}}
