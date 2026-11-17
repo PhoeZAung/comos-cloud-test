@@ -27,6 +27,9 @@ test('only content-hashed public sheet chunks are cacheable',async()=>{
   assert.equal(hashed.status,200);
   assert.equal(hashed.headers['Cache-Control'],'public, max-age=31536000, immutable');
   assert.equal(hashed.headers['Content-Type'],'text/javascript; charset=utf-8');
+  const missing=await get('/assets/sheet-chunks/sheet-NOFILE12.mjs');
+  assert.equal(missing.status,404);
+  assert.equal(missing.headers['Cache-Control'],'no-store','missing chunks must never be cached');
   for(const asset of ['/assets/sheet-chunks/sheet-unhashed.mjs','/assets/sheet-entry.mjs','/sheet.html']){
    const res=await get(asset);
    assert.equal(res.status,200);
