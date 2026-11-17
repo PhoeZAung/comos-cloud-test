@@ -2,50 +2,47 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {LAYOUT,layoutFrom,BATTLE,battleRows,battleHpForViewer} from '../src/owlbear/battle-state.mjs';
-import {dockedPanels,moveParty} from '../src/owlbear/docking.mjs';
+import {dockedPanels,PARTY_SIZES} from '../src/owlbear/docking.mjs';
 
-test('Party column count and freely-positioned coordinates persist in room layout',()=>{
+test('Party defaults to Medium, and accepts four size and direction presets',()=>{
  const defaults=layoutFrom({});
- assert.equal(defaults.party,true);
- assert.equal(defaults.partyColumns,3);
- assert.equal(defaults.partyX,.5);
- assert.equal(defaults.partyY,.06);
- const chosen=layoutFrom({[LAYOUT]:{partyColumns:5,partyX:.72,partyY:.34}});
- assert.deepEqual([chosen.partyColumns,chosen.partyX,chosen.partyY],[5,.72,.34]);
- assert.equal(layoutFrom({[LAYOUT]:{partyColumns:99,partyX:12,partyY:-20}}).partyColumns,3);
- assert.deepEqual([layoutFrom({[LAYOUT]:{partyX:12,partyY:-20}}).partyX,layoutFrom({[LAYOUT]:{partyX:12,partyY:-20}}).partyY],[1,0]);
- assert.deepEqual([layoutFrom({[LAYOUT]:{partyDock:'right'}}).partyX,layoutFrom({[LAYOUT]:{partyDock:'bottom'}}).partyY],[1,1]);
+ assert.equal(defaults.party,true);assert.equal(defaults.partySize,'medium');assert.equal(defaults.partyDock,'top');assert.equal(defaults.partyColumns,3);
+ for(const size of ['large','medium','small','compact'])assert.equal(layoutFrom({[LAYOUT]:{partySize:size}}).partySize,size);
+ for(const dock of ['top','bottom','left','right'])assert.equal(layoutFrom({[LAYOUT]:{partyDock:dock}}).partyDock,dock);
+ assert.equal(layoutFrom({[LAYOUT]:{partySize:'gigantic'}}).partySize,'medium');
+ assert.equal(layoutFrom({[LAYOUT]:{partyDock:'overlay'}}).partyDock,'top');
+ assert.equal(PARTY_SIZES.medium.cardWidth,155);
+ assert.ok(PARTY_SIZES.compact.cardWidth<PARTY_SIZES.small.cardWidth);
+ assert.ok(PARTY_SIZES.large.cardHeight>PARTY_SIZES.medium.cardHeight);
 });
 
-test('Party wraps to exactly the requested cards per row when viewport fits',()=>{
- const box=(cols,n)=>dockedPanels([1280,920],{party:true,partyColumns:cols,partyX:.25,partyY:.5,initiative:false},n,0,true).party;
- const two=box(2,5),three=box(3,5),five=box(5,5);
- assert.equal(two.columns,2);
- assert.equal(two.width,323);
- assert.equal(two.height,32+3*74+2*5);
- assert.equal(three.columns,3);
- assert.equal(three.width,483);
- assert.equal(three.height,32+2*74+5);
- assert.equal(five.columns,5);
- assert.equal(five.width,803);
- assert.equal(five.height,106);
- assert.equal(box(6,2).columns,2,'never reserve empty column slots');
+test('Party direction places cards within protected Owlbear top and side lanes',()=>{
+ const view=[1110,857],layout={party:true,partyColumns:5,partySize:'medium',initiative:false};
+ const positions=Object.fromEntries(['top','bottom','left','right'].map(dock=>[dock,dockedPanels(view,{...layout,partyDock:dock},5,0,true).party]));
+ for(const p of Object.values(positions)){
+  assert.equal(p.columns,5);assert.equal(p.width,803);
+  assert.ok(p.x>=170,'never cover top-left Owlbear extension buttons');
+  assert.ok(p.x+p.width<=1110-88,'never cover Owlbear right tool strip');
+  assert.ok(p.y>=76,'never cover Owlbear top toolbar');
+  assert.ok(p.y+p.height<=857-76,'leave room for Owlbear bottom controls');
+ }
+ assert.equal(positions.top.y,76);
+ assert.equal(positions.left.x,170);
+ assert.equal(positions.right.x,1110-88-803);
+ assert.ok(positions.bottom.y>positions.top.y);
+ assert.ok(positions.left.y>positions.top.y);
 });
 
-test('Party responds to narrower windows and clamps dragging inside viewport',()=>{
- const layout={party:true,partyColumns:5,partyX:.4,partyY:.3,initiative:false};
- const narrow=dockedPanels([330,520],layout,5,0,true).party;
- assert.equal(narrow.columns,1);
- assert.equal(narrow.width,163);
- assert.ok(narrow.height<=520);
- const wide=dockedPanels([1000,800],layout,5,0,true).party;
- const moved=moveParty(layout,wide,[1000,800],60,45);
- assert.ok(moved.partyX>layout.partyX);
- assert.ok(moved.partyY>layout.partyY);
- assert.deepEqual(moveParty(layout,wide,[1000,800],-9999,-9999),{partyX:0,partyY:0});
- assert.deepEqual(moveParty(layout,wide,[1000,800],9999,9999),{partyX:1,partyY:1});
- assert.equal(moveParty(layout,wide,[1000,800],NaN,0),null);
- assert.equal(dockedPanels([1000,800],{...layout,party:false},5,0,true).party,null);
+test('Party size controls card geometry, columns and safe bounds on narrow screens',()=>{
+ const size=(preset)=>dockedPanels([1280,920],{party:true,partySize:preset,partyColumns:3,partyDock:'top'},5,0,true).party;
+ const large=size('large'),medium=size('medium'),small=size('small'),compact=size('compact');
+ assert.equal(medium.width,483);assert.equal(medium.height,28+2*74+5);
+ assert.ok(large.width>medium.width);assert.ok(large.height>medium.height);
+ assert.ok(medium.width>small.width&&small.width>compact.width);
+ assert.ok(medium.height>small.height&&small.height>compact.height);
+ const narrow=dockedPanels([330,520],{party:true,partySize:'medium',partyColumns:6,partyDock:'right'},5,0,true).party;
+ assert.equal(narrow.columns,1);assert.ok(narrow.x>=0);assert.ok(narrow.x+narrow.width<=330);
+ assert.equal(dockedPanels([1000,800],{party:false},5,0,true).party,null);
 });
 
 test('NPC privacy eye sends no HP, MP or AC data to non-GM clients, including defenses',()=>{
@@ -59,20 +56,22 @@ test('NPC privacy eye sends no HP, MP or AC data to non-GM clients, including de
  assert.equal(Object.hasOwn(player[0],'hpHidden'),false);
 });
 
-test('Party overlay supports GM drag handle, while Admin settings is collapsed and column control is present',async()=>{
+test('Party HUD removes dragging, offers directional controls, and AC editor preserves existing rights',async()=>{
  const overlay=await readFile(new URL('../src/owlbear/party-overlay.mjs',import.meta.url),'utf8');
  const background=await readFile(new URL('../src/owlbear/background.mjs',import.meta.url),'utf8');
  const html=await readFile(new URL('../scripts/build-owlbear.mjs',import.meta.url),'utf8');
  const view=await readFile(new URL('../src/owlbear/initiative-view.mjs',import.meta.url),'utf8');
- assert.match(overlay,/data-party-drag/);
- assert.match(overlay,/pointerdown/);
- assert.match(overlay,/party-move/);
- assert.match(overlay,/handle\.hidden=!state\.admin/);
- assert.match(background,/if\(d\.type==='party-move'\)/);
- assert.match(background,/moveParty\(/);
- assert.doesNotMatch(background,/cosmosActionOpen\?\{\.\.\.dimensions,party:null\}/);
- assert.match(html,/data-layout="partyColumns"/);
- assert.doesNotMatch(html,/data-layout="partyDock"/);
+ assert.doesNotMatch(overlay,/data-party-drag|pointerCapture|pointerdown/);
+ assert.doesNotMatch(background,/party-move|moveParty/);
+ assert.doesNotMatch(html,/data-party-drag/);
+ assert.match(html,/data-layout="partySize"/);
+ for(const direction of ['top','bottom','left','right'])assert.match(html,new RegExp('data-party-dock="'+direction+'"'));
+ for(const size of ['large','medium','small','compact'])assert.match(html,new RegExp('<option value="'+size+'"'));
+ assert.match(html,/data-simple-hit-miss/);
+ assert.match(overlay,/party-defense-edit/);
+ assert.match(overlay,/type:'party-ac-popup'/);
+ assert.match(background,/type==='party-ac-popup'/);
+ assert.match(html,/party-ac-editor\.js/);
  assert.match(html,/<details class="cosmos-admin-settings" data-admin-settings hidden>/);
  assert.match(view,/battle-hp-privacy/);
  assert.match(view,/untracked=row\[key\]===null/);
