@@ -514,8 +514,9 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
  async function roll(label,expression,weaponIndex,spellIndex,abilityEntry,mode='use',skillIndex){
   clearTimeout(remainingTimer);if(remainingInvalid)return;if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy)return;setBusy(true);let node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
   try{const result=await request({op:'roll',...(skillIndex!==undefined?{kind:'skill',index:skillIndex}:abilityEntry?{kind:'ability',...abilityEntry}:spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:recordId(),...((weaponIndex!==undefined||spellIndex!==undefined||abilityEntry||skillIndex!==undefined)?{mode}:{}),discord:mode==='send'||discordEnabled,discordStats:preferences.discordRollStats});if(closed)return;const r=result.roll;if(r.characterRevision!==undefined){try{const fresh=await request();character=fresh.character;draw();node=root.querySelector('[data-roll-result]');node.hidden=false;}catch{status('Use saved · Sync pending');}}const failed=result.discord==='failed';if(mode==='send'){node.hidden=true;notify(failed?'Discord delivery failed':result.discord==='sent'?'Sent to Discord':'Discord delivery pending');}else if(r.descriptionOnly){node.hidden=true;notify(failed?'Use · Discord delivery failed':'Use');}else{const present=()=>{if(closed)return;const current=root.querySelector('[data-roll-result]');if(current){
-  current.textContent=formatRoll(label,r)+(failed?' · Discord delivery failed':'');
   const verdict=combatVerdict(r);
+  const simple=Boolean(r.combat?.simpleHitMiss&&verdict);
+  current.textContent=simple?'':formatRoll(label,r)+(failed?' · Discord delivery failed':'');
   if(verdict){
    current.dataset.combatResult=verdict.tone;
    const banner=document.createElement('strong');
@@ -528,6 +529,12 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
  }};if(document.body.hasAttribute('data-owlbear-sheet')||r.provider==='owlbear-dice-plus'){present();status('Rolled with Dice+');}else{node.hidden=false;node.textContent='Roll queued…';void showDice(r,{onResult:present});status('Rolled');}}document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
   catch(err){if(!closed)node.textContent=err.message;}finally{if(!closed)setBusy(false);}
  }
+ // A combat verdict is transient: clicking anywhere on the extension page
+ // dismisses it, including controls outside the result banner.
+ document.addEventListener('click',()=>{
+  const result=root.querySelector('[data-roll-result]');
+  if(result&&!result.hidden&&result.dataset.combatResult){result.hidden=true;delete result.dataset.combatResult;}
+ },{signal:control.signal,capture:true});
  function selectSpellLevel(level,focus=false){spellFilter=level;draw();const url=new URL(location.href);url.searchParams.set('spellLevel',level);history.replaceState(null,'',url);if(focus){const tab=root.querySelector('[data-spell-level="'+level+'"]');tab.focus({preventScroll:true});tab.scrollIntoView({block:'nearest',inline:'nearest'});}}
  root.addEventListener('pointerdown',beginAbilityDrag,{signal:control.signal});
   root.addEventListener('pointermove',updateAbilityDrag,{signal:control.signal});
