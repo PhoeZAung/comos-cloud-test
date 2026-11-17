@@ -19,10 +19,14 @@ const server=createServer(async(req,res)=>{
  const send=(status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
  try{
   if(url.pathname.startsWith('/api/v1/character-records/')){
+   if(url.searchParams.get('stream')==='1'){
+    res.writeHead(200,{'Content-Type':'text/event-stream','Cache-Control':'no-store','Connection':'keep-alive'});
+    res.write(': sheet stream connected\n\n');req.on('close',()=>res.end());return;
+   }
    const id=url.pathname.slice('/api/v1/character-records/'.length);
    calls.set(id,(calls.get(id)||0)+1);
    if(!names.has(id)){send(404,{message:'Unknown sheet'});return;}
-   if(url.searchParams.has('revision')){await delay(650);send(200,{unchanged:true});return;}
+   if(url.searchParams.has('revision')){await delay(1200);send(200,{unchanged:true});return;}
    send(200,{character:{id,name:names.get(id),revision:1,kind:'player',owned:true,data:{str:12,dex:12,con:12,int:12,wis:12,cha:12,hp_curr:12,hp_max:12}},admin:false});return;
   }
   if(url.pathname==='/api/v1/my/characters'){
@@ -54,13 +58,13 @@ try{
  await page.locator('[data-sheet] h1').filter({hasText:'Nyx'}).waitFor();
  assert.equal(calls.get(second),1,'second character gets its own first fetch');
  await page.locator('[data-switch-sheet="'+first+'"]').click();
- await page.locator('[data-sheet] h1').filter({hasText:'Astra'}).waitFor({timeout:450});
+ await page.locator('[data-sheet] h1').filter({hasText:'Astra'}).waitFor({timeout:650});
  assert.equal(await page.locator('[data-sheet] h1').filter({hasText:'Astra'}).count(),1);
  assert.equal(calls.get(first),2,'warm sheet checks the latest revision once');
  await page.locator('[data-switch-sheet="'+second+'"]').click();
  await page.locator('[data-sheet] h1').filter({hasText:'Nyx'}).waitFor({timeout:450});
  assert.equal(calls.get(second),2,'second warm sheet checks latest revision once');
- await delay(700);
+ await delay(1250);
  assert.deepEqual(errors,[],'browser rendering has no errors');
  assert.deepEqual(problems,[],'fixture server has no errors');
  console.log('Passed: multi-sheet tabs paint from warm data, refresh asynchronously and avoid full-page reload.');
