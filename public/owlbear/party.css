@@ -41,3 +41,14 @@ body[data-party-size="compact"] .party-ac{font-size:10px;line-height:11px;paddin
 body[data-party-size="compact"] .party-defenses{inset:auto 0 -1px;min-height:38px;padding:2px;font-size:9px}
 body[data-party-size="compact"] .party-defense-edit{min-width:18px;height:19px;padding:0}
 .party-defenses[hidden]{display:none}
+
+/* Four-defense editor is a separate Owlbear popover, never clipped by a tiny HUD. */
+.party-ac-popup{height:100dvh;overflow:auto;padding:9px;background:#191727;color:#f3efff}
+.party-ac-popup header{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px}
+.party-ac-popup header button{height:25px;width:26px;padding:0;font-size:20px}
+.party-ac-popup p{margin:6px 0;font-size:11px;color:#c9b5df;overflow-wrap:anywhere}
+.party-ac-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.party-ac-grid label{display:flex;flex-direction:column;gap:2px;font-size:11px;color:#dcc9ee}
+.party-ac-grid input{height:32px;font-size:14px;font-weight:650}
+.party-ac-popup [type=submit]{width:100%;min-height:33px;margin-top:10px;background:#56416f;font-weight:700}
+.party-ac-popup [role=status]{font-size:11px}
