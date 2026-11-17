@@ -64,6 +64,9 @@ function showSheet(id){
  chosen.iframe.contentWindow?.postMessage({type:'cosmos:sheet-active',nonce:chosen.nonce},location.origin);
  restoreScroll(chosen);
 }
+root.addEventListener('click',()=>{
+ for(const sheet of openSheets.values())sheet.iframe.contentWindow?.postMessage({type:'cosmos:dismiss-combat',nonce:sheet.nonce},location.origin);
+});
 function syncSheetTabs(){
  panel.syncSheets([...openSheets.values()].map(sheet=>({id:sheet.id,name:sheet.name})));
 }
