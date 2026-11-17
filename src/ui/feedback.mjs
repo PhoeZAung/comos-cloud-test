@@ -2,7 +2,7 @@ import {naturalResult,showCritical,unlockCriticalAudio,preloadCritical,chooseCri
 import {preferences} from './preferences.mjs';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let hideTimer,animation,presentations=Promise.resolve(),generation=0,activePresentation;
-function host(){if(!document.querySelector('[data-feedback-style]')){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('feedback.css',import.meta.url).href;link.dataset.feedbackStyle='';document.head.append(link);}let node=document.querySelector('[data-action-feedback]');if(!node){node=document.createElement('div');node.dataset.actionFeedback='';node.className='comos-feedback';node.setAttribute('role','status');node.setAttribute('aria-live','polite');document.body.append(node);}clearTimeout(hideTimer);node.hidden=false;return node;}
+function host(){if(!document.querySelector('[data-feedback-style]')){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('/assets/feedback.css',location.origin).href;link.dataset.feedbackStyle='';document.head.append(link);}let node=document.querySelector('[data-action-feedback]');if(!node){node=document.createElement('div');node.dataset.actionFeedback='';node.className='comos-feedback';node.setAttribute('role','status');node.setAttribute('aria-live','polite');document.body.append(node);}clearTimeout(hideTimer);node.hidden=false;return node;}
 export function notify(message){const node=host();node.innerHTML='<span>'+e(message)+'</span>';hideTimer=setTimeout(()=>node.hidden=true,2100);}
 export function showDice(result,{preview=false,onResult=()=>{}}={}){
  unlockCriticalAudio();

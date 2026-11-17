@@ -20,6 +20,23 @@ try {
  await cp(new URL('dist/features/',root),output+'/features',{recursive:true});
  await cp(new URL('dist/account/',root),output+'/account',{recursive:true});
  await build({entryPoints:[fileURLToPath(new URL('src/auth/live.mjs',root))],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:output+'/assets/auth.js',define:{COMOS_PUBLIC_AUTH:JSON.stringify(config)}});
+
+ // Cold character sheets previously downloaded dozens of uncached static
+ // modules. Bundle only the production sheet bootstrap, retaining separate
+ // chunks for optional modules such as effects, editors and notes.
+ // Keep the original source modules in dist for fixtures and debugging.
+ const sheetBundle=await build({
+  entryPoints:[fileURLToPath(new URL('src/ui/sheet-entry.mjs',root))],
+  bundle:true,splitting:true,format:'esm',platform:'browser',target:'es2022',
+  minify:true,metafile:true,
+  outdir:output+'/assets',entryNames:'sheet-entry',
+  chunkNames:'sheet-chunks/[name]-[hash]',outExtension:{'.js':'.mjs'}
+ });
+ const sheetFiles=Object.keys(sheetBundle.metafile.outputs);
+ const coldEntry=sheetFiles.find(p=>p.endsWith('/assets/sheet-entry.mjs'));
+ if(!coldEntry)throw Error('Bundled sheet bootstrap was not generated.');
+ console.log('Cold sheet bootstrap bundled: '+sheetFiles.length+' output files.');
+
  const policy=liveAuthPolicy(config);
  // assets/routes exists in the copied portable build.
  await cp(new URL('public/',root),output,{recursive:true});

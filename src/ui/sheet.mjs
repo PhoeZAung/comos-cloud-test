@@ -167,12 +167,14 @@ export function openCharacterSheetPopup(url,characterId,{display=window.screen,o
  return true;
 }
 
-export function mountSheet(){
+export function mountSheet({initialRequest=null}={}){
  const tabs=createSheetTabs(),cache=createSheetSnapshotCache();
+ let firstLoad=initialRequest;
  function open(){
   const id=new URL(location.href).searchParams.get('characterId');
+  const requested=firstLoad;firstLoad=null;
   return mountCharacterSheet(tabs,switchTo,{
-   snapshot:cache.get(id),
+   snapshot:cache.get(id),initialRequest:requested,
    onSnapshot:loaded=>cache.set(loaded.character.id,loaded)
   });
  }
@@ -185,7 +187,7 @@ export function mountSheet(){
  return ()=>{dispose();cache.clear();};
 }
 
-function mountCharacterSheet(tabs,switchTo,{snapshot=null,onSnapshot=()=>{}}={}){
+function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,onSnapshot=()=>{}}={}){
 
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
  const restoredView=tabs.view(id)||{};
@@ -1005,7 +1007,11 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,onSnapshot=()=>{}}={})
   // Revision-aware checking runs without blocking paint or interaction.
   draw();startUpdates();status('Checking for updates…');void refresh();
  }else{
-  void request().then(result=>{
+  const first=initialRequest?initialRequest.then(outcome=>{
+   if(!outcome.ok)throw outcome.error;
+   return outcome.value;
+  }):request();
+  void first.then(result=>{
    if(closed)return;
    character=result.character;admin=result.admin===true;draw();startUpdates();
   }).catch(err=>{
