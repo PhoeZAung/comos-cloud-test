@@ -491,6 +491,7 @@ function mountCharacterSheet(tabs,switchTo,{snapshot=null,initialRequest=null,on
  function editAbilityGroup(collection,id){
   const group=(character.data.abilityGroups||[]).find(g=>g.id===id);
   const values={name:'',u_curr:0,u_max:0,restoreOnLongRest:true,attack_type:'none',effect_type:'none',...group};
+  values.caster_level=group?.caster_level??'';
   values.damage_types=selectedDamageTypes(group?.damage_types||[]);
   values.restoreOnLongRest=group?.restoreOnLongRest!==false;
   openDialog(group?'Edit '+group.name:'Create ability group',abilityGroupEditorKeys,values,{action:'abilityGroup',mode:group?'update':'add',collection,id},{help:'Details, combat and saves describe this group. Members retain their own actions and effects; only uses are shared through Resources. Deleting a group keeps its abilities.'});
