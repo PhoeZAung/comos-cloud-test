@@ -49,10 +49,14 @@ origin='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,executablePath:process.env.COSMOS_BROWSER_EXECUTABLE||undefined});
 try{
  const page=await browser.newPage();
- const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const errors=[],modules=[];page.on('pageerror',e=>errors.push(e.message));
+ page.on('request',request=>{const url=new URL(request.url());if(url.pathname.endsWith('.mjs')&&url.pathname.startsWith('/assets/'))modules.push(url.pathname);});
  await page.goto(origin+'/sheet.html?characterId='+first);
  await page.locator('[data-sheet] h1').filter({hasText:'Astra'}).waitFor();
  assert.equal(calls.get(first),1,'first load makes one character request');
+ assert.ok(modules.includes('/assets/sheet-entry.mjs'),'load the bundled production sheet entry');
+ assert.ok(modules.some(path=>path.startsWith('/assets/sheet-chunks/')),'load deferred sheet chunk');
+ assert.ok(modules.length<=20,'cold entry must not fetch the former dozens of sheet modules: '+JSON.stringify(modules));
  await page.locator('[data-add-sheet]').click();
  await page.locator('[data-pick-character="'+second+'"]').click();
  await page.locator('[data-sheet] h1').filter({hasText:'Nyx'}).waitFor();
