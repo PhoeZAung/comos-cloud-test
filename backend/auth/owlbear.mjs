@@ -4,7 +4,7 @@ import {adminSession,adminJson} from './admin-requests.mjs';
 import {npcDirectoryPath} from '../characters/npcs.mjs';
 import {rollHistory} from '../characters/roll-history.mjs';
 import {createCombatActions} from '../characters/combat-actions.mjs';
-import {sheetStats} from '../../src/features/sheet/model.mjs';
+import {partyDefenseAdjustments} from '../characters/defense-adjustments.mjs';
 // Session credentials remain on the server. Grants are scoped, memory-only and
 // disappear on server restart; every use revalidates the original login session.
 export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
@@ -55,16 +55,7 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
     if(!data||row.archived||row.kind==='npc'||data.owlbearStatusVisible!==true)throw Error('This character is not shared with the tracker.');
     if(!session.admin&&row.owner_id!==session.user.id)throw Error('You can only edit your own shared characters.');
     const fields={};if(stats.hp!==undefined)fields.hp_curr=stats.hp;if(stats.mp!==undefined)fields.mp_curr=stats.mp;
-    // AC fields are totals in the HUD, but saved as independent adjustment
-    // fields. Recompute with the adjustment zeroed to avoid changing base
-    // armor, ability modifiers or other derived defenses.
-    for(const [key,field] of Object.entries({ac:'ac_temp',touch:'touch_temp',flat:'flat_temp',cmd:'cmd_temp'})){
-     if(stats[key]===undefined)continue;
-     if(!Number.isSafeInteger(stats[key]))throw Error('Defense totals must be whole numbers.');
-     const baseline=sheetStats({...data,...fields,[field]:0})[key];
-     fields[field]=stats[key]-baseline;
-     if(!Number.isSafeInteger(fields[field])||Math.abs(fields[field])>=1e7)throw Error('Defense adjustment is outside the supported range.');
-    }
+    Object.assign(fields,partyDefenseAdjustments(data,stats));
     target='/api/v1/character-records/'+value.id;method='POST';payload={op:'sheet',action:'fields',fields,revision:value.revision};
    }else if(grant.scope==='party-status'){
     if(!session.admin)throw Error('Administrator access required.');
