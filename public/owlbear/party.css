@@ -11,17 +11,33 @@
 .party-values button:disabled{cursor:default;text-decoration:none}
 
 
-/* Floating Party HUD: wrap by available popover width (GM chooses 1–6
-   cards per row); keep a compact drag grip separate from HP/MP inputs. */
-.overlay-body{height:100dvh}
-.party-drag-bar{height:24px;padding:2px 5px;display:flex;align-items:center;
- justify-content:space-between;gap:5px;background:#191626e9;color:#d9c7f7;
- font:600 11px system-ui;user-select:none}
-.party-drag-handle{font-size:11px;padding:2px 8px;height:21px;
- background:#302642;border:1px solid #9074b6;border-radius:5px;
- color:#f0e0ff;cursor:grab;touch-action:none;user-select:none}
-.party-drag-handle:active{cursor:grabbing}
-.status-cards,.vertical .status-cards{height:calc(100dvh - 24px);
- display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start;
- align-content:flex-start;gap:5px;padding:4px;overflow:auto}
-.party-person,.vertical .party-person{flex:0 0 155px}
+
+/* Fixed safe-area Party HUD, sized to match the Owlbear popover geometry. */
+.overlay-body{height:100dvh;overflow:hidden}
+.party-title-bar{height:20px;display:flex;align-items:center;padding:0 6px;background:#191626e9;color:#d9c7f7;font:600 11px system-ui}
+.status-cards,.vertical .status-cards{height:calc(100dvh - 20px);display:flex;flex-flow:row wrap;align-content:flex-start;align-items:flex-start;gap:5px;padding:4px;overflow:auto}
+.party-person,.vertical .party-person{flex:0 0 155px;width:155px;height:74px}
+.party-info{position:relative;min-width:0;flex:1}
+.party-defenses{position:absolute;inset:auto 0 1px;min-height:52px;display:flex;align-items:center;justify-content:center;gap:3px;pointer-events:auto;padding:4px;font-size:9px;box-shadow:0 2px 7px #0009}
+.party-defense-values{min-width:0}
+.party-defense-edit{padding:1px 3px;min-width:22px;height:22px;font-size:11px;flex:0 0 auto}
+body[data-party-size="large"] .party-person{flex-basis:194px;width:194px;height:90px;gap:10px;padding:8px}
+body[data-party-size="large"] .party-portrait{width:55px;height:55px;flex-basis:55px}
+body[data-party-size="large"] .party-name{font-size:13px}
+body[data-party-size="large"] .party-values button{font-size:12px}
+body[data-party-size="small"] .party-person{flex-basis:128px;width:128px;height:60px;padding:4px;gap:5px}
+body[data-party-size="small"] .party-portrait{width:34px;height:34px;flex-basis:34px}
+body[data-party-size="small"] .party-name{font-size:10px;line-height:13px}
+body[data-party-size="small"] .party-values button{font-size:10px;min-height:17px;padding:0}
+body[data-party-size="small"] .party-health{height:3px;margin:1px 0}
+body[data-party-size="small"] .party-ac{padding:0 3px;font-size:9px;line-height:11px}
+body[data-party-size="compact"] .party-person{flex-basis:112px;width:112px;height:44px;padding:2px 4px;gap:0;border-radius:6px}
+body[data-party-size="compact"] .party-portrait,body[data-party-size="compact"] .party-health{display:none!important}
+body[data-party-size="compact"] .party-info{width:100%;min-width:0}
+body[data-party-size="compact"] .party-name{font-size:10px;line-height:11px;max-width:100%}
+body[data-party-size="compact"] .party-values{gap:2px}
+body[data-party-size="compact"] .party-values button{padding:0;min-height:12px;line-height:12px;font-size:10px;text-decoration:none}
+body[data-party-size="compact"] .party-ac{font-size:10px;line-height:11px;padding:0 4px;min-width:unset}
+body[data-party-size="compact"] .party-defenses{inset:auto 0 -1px;min-height:38px;padding:2px;font-size:9px}
+body[data-party-size="compact"] .party-defense-edit{min-width:18px;height:19px;padding:0}
+.party-defenses[hidden]{display:none}
