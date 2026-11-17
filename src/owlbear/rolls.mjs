@@ -4,7 +4,7 @@ import {diceTerms,damageExpression,entryCalculations,armorSpellFailure,criticalP
 import {weaponAttackParts} from '../features/sheet/model.mjs';
 
 // Build only the same simple formulas that the Cosmos backend supports.
-export async function requestSheetDice(character,change,requestRoll){
+export async function requestSheetDice(character,change,requestRoll,{target=null,onMiss=()=>{}}={}){
  const data=character.data||{},responses=[];
  async function roll(expression){
   const terms=diceTerms(expression);
@@ -41,6 +41,10 @@ export async function requestSheetDice(character,change,requestRoll){
  const bonus=weapon?calculation.total:calculation.attack?.bonus;
  const attackExpression=bonus===undefined?null:'1d20'+(bonus>=0?'+':'')+bonus;
  const attack=attackExpression?await roll(attackExpression):null;
+ if(attack&&target?.kind==='damage'&&Number.isFinite(target.ac)){
+  const face=attack[0],total=face+bonus;
+  if(face===1||face!==20&&total<target.ac){onMiss(target.ac);return responses;}
+ }
  const profile=criticalProfile(row),cmb=weapon?calculation.type==='cmb':calculation.attack?.mode==='cmb';
  const threat=attack&&!cmb&&attack[0]!==1&&attack[0]>=profile.minimum;
  const formulas=weapon?weaponDamageFormulas(row,data,threat?profile.multiplier:0):{normal:hasDamage?damageExpression(String(row.damage||row.dmg),calculation.ctx):''};
