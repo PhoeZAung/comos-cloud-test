@@ -15,5 +15,16 @@ test('live sheet has a small isolated entry and stylesheet, without an eager app
  assert.match(html,/assets\/sheet-entry.mjs/);assert.match(html,/assets\/sheet.css/);assert.doesNotMatch(html,/src="assets\/(?:shell|auth|galaxy)/);
  const css=await readFile(new URL('dist-live/assets/sheet.css',root),'utf8');assert.ok(Buffer.byteLength(css)<73728,'standalone sheet CSS is '+Buffer.byteLength(css)+' bytes; must stay below 72 KiB including theme, settings and effects');assert.match(css,/data-theme=(?:"ocean"|ocean)/);
  const seen=new Set();async function inspect(url){if(seen.has(url.href))return;seen.add(url.href);const code=await readFile(url,'utf8');assert.doesNotMatch(code,/firebase\/|createGalaxy|createSplash|createRouter|\/api\/v1\/(?:items|feed|lore)/);for(const m of code.matchAll(/from\s*['"](\.[^'"]+)['"]/g))await inspect(new URL(m[1],url));}
- const entry=await readFile(new URL('dist-live/assets/sheet-entry.mjs',root),'utf8');assert.match(entry,/void import\('\.\/sheet\.mjs'\)\.then\(sheet=>/);assert.match(entry,/import\('\.\/preferences\.mjs'\)/);assert.ok(entry.indexOf("import('./preferences.mjs')")>entry.indexOf('sheet.mountSheet()'),'sheet mounts before optional preferences hydration');assert.doesNotMatch(entry,/^import /m);await inspect(new URL('dist-live/assets/sheet.mjs',root));assert.ok(seen.size>=4);
+ const entry=await readFile(new URL('dist-live/assets/sheet-entry.mjs',root),'utf8');
+ assert.ok(Buffer.byteLength(entry)<16000,'initial sheet entry stays tiny and only starts loading deferred chunks');
+ assert.match(entry,/\/api\/v1\/character-records\//,'the character request begins before deferred UI download');
+ assert.match(entry,/sheet-chunks\/sheet-[a-z0-9]+\.mjs/i);
+ assert.match(entry,/sheet-chunks\/preferences-[a-z0-9]+\.mjs/i);
+ assert.match(entry,/\.mountSheet\(\{initialRequest:/,'the initial request is reused after the UI loads');
+ assert.ok(entry.indexOf('/api/v1/character-records/')<entry.indexOf('sheet-chunks/sheet-'),'fetch character data before requesting the full sheet UI');
+ assert.doesNotMatch(entry,/createGalaxy|createSplash|createRouter/,'heavy effects and global router are excluded from the cold entry');
+ const chunks=[...entry.matchAll(/import\(['"](\.\/sheet-chunks\/[a-z0-9_-]+\.mjs)['"]\)/gi)].map(m=>m[1]);
+ assert.ok(chunks.length>=2,'optional sheet UI and effects are deferred');
+ for(const chunk of chunks)assert.equal((await stat(new URL('dist-live/assets/'+chunk.slice(2),root))).isFile(),true,chunk);
+ await inspect(new URL('dist-live/assets/sheet.mjs',root));assert.ok(seen.size>=4);
 });
