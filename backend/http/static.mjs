@@ -19,6 +19,10 @@ export async function createStaticHandler(directory) {
       if (name.includes('\\') || name.split('/').some(part => part.startsWith('.'))) throw new Error('Invalid path');
       const target = await realpath(path.resolve(root, '.' + name));
       const relative = path.relative(root, target);
+      // Only content-hashed, public sheet code chunks can be cached safely.
+      // Sheet HTML and the unhashed entrypoint remain no-store after releases.
+      if(/^assets[/\\]sheet-chunks[/\\][a-z0-9_-]+-[a-z0-9]{8}\.mjs$/i.test(relative))
+        res.setHeader('Cache-Control','public, max-age=31536000, immutable');
       const ext=path.extname(target);
       const owlbearManifest=relative==='owlbear'+path.sep+'manifest.json';
       const rollEffectType=relative.startsWith('assets'+path.sep+'roll-fx'+path.sep)?{'.gif':'image/gif','.ogg':'audio/ogg','.glb':'model/gltf-binary','.webp':'image/webp'}[ext]:null;
