@@ -102,7 +102,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin,items}){
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
      }else if(change.op==='sheet'){
       if(change.action==='addCatalogItem'){
-       if(npc||c.owner_id!==session.user.id)throw Object.assign(Error('Choose one of your own characters.'),{httpStatus:403});
+       if(npc||(!session.admin&&c.owner_id!==session.user.id))throw Object.assign(Error('Choose one of your own characters or use an administrator account.'),{httpStatus:403});
        if(!Number.isInteger(change.quantity)||change.quantity<1||change.quantity>999)throw Error('Choose a quantity from 1 to 999.');
        const item=items?.get(change.itemId);
        if(!item||item.archived)throw Object.assign(Error('This item is unavailable.'),{httpStatus:404});
