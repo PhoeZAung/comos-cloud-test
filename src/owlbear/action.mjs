@@ -2,6 +2,7 @@ import OBR from '@owlbear-rodeo/sdk';
 import {peer} from './rpc.mjs';
 import {connection as connectGrant} from './connection.mjs';
 import {dicePlus} from './dice-plus.mjs';
+import {readSimpleHitMiss,saveSimpleHitMiss} from './roll-preferences.mjs';
 import {panelSize} from './panel-size.mjs';
 import {localChannel} from './local-channel.mjs';
 import {mountPanel} from './panel.mjs';
@@ -26,8 +27,8 @@ const panel=mountPanel(root,{history:()=>connection.call('roll-history'),onSheet
 const initiativeView=mountInitiative(document.querySelector('[data-initiative-panel]'),command=>trackerBus?.send(command),{historyRoot:document});
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID();
 const simpleMiss=document.querySelector('[data-simple-hit-miss]');
-try{simpleMiss.checked=localStorage.getItem('cosmos-simple-hit-miss')==='true';}catch{}
-simpleMiss.onchange=()=>{try{localStorage.setItem('cosmos-simple-hit-miss',String(simpleMiss.checked));}catch{}};
+simpleMiss.checked=readSimpleHitMiss();
+simpleMiss.onchange=()=>saveSimpleHitMiss(simpleMiss.checked);
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function say(message){status.textContent=message;}
