@@ -109,7 +109,7 @@ test('NPC catalog filters three tags while preserving old manually created NPCs'
  }finally{db.close();}
 });
 
-test('NPC directory uses category-aware search and progress; no automatic QNAP import code runs on module load',async()=>{
+test('NPC directory uses category-aware search without completed import progress; no automatic QNAP import code runs on module load',async()=>{
  const {readFile}=await import('node:fs/promises');
  const html=await readFile(new URL('../src/ui/npc-directory.mjs',import.meta.url),'utf8');
  const api=await readFile(new URL('../backend/characters/npcs.mjs',import.meta.url),'utf8');
@@ -117,9 +117,9 @@ test('NPC directory uses category-aware search and progress; no automatic QNAP i
  assert.match(html,/data-npc-chapter="npc"/);
  assert.match(html,/data-npc-chapter="companions"/);
  assert.doesNotMatch(html,/data-npc-chapter="hazards"/);
- assert.match(html,/document.createElement\('progress'\)/);
- assert.match(html,/GitHub staged/);
- assert.match(html,/Cosmos imported/);
+ assert.doesNotMatch(html,/document.createElement\('progress'\)/);
+ assert.doesNotMatch(html,/GitHub staged/);
+ assert.doesNotMatch(html,/Cosmos imported/);
  assert.match(api,/kingmakerProgress\(imported\)/);
  assert.match(api,/body.category\|\|'npc'/);
 });

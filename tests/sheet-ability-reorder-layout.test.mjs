@@ -49,7 +49,7 @@ test('an explicit empty action shows no icon, even with a legacy type',()=>{
  assert.match(popup,/Attack &amp; damage|Attack & damage/);
  assert.ok(popup.indexOf('cs-entry-meta-groups')>0);
  assert.ok(popup.indexOf('cs-entry-meta-groups')<popup.indexOf('cs-entry-prose'));
- assert.match(popup,/None/);
+ assert.doesNotMatch(popup,/<dt>Action type<\/dt>/);
 });
 
 test('weapon collapse is an icon and Owlbear gets a dedicated slider to Notes',()=>{

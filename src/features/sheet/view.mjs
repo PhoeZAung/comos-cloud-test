@@ -400,7 +400,8 @@ export function abilityGroupPreview(group){
   .filter(([,value])=>hasPreviewValue(value))
   .map(([title,value])=>'<section><h3>'+e(title)+'</h3><div class="cs-prose">'+formatSheetText(value)+'</div></section>').join('');
  const link=hasPreviewValue(group.link)?String(group.link).trim():'';
- return '<div class="cs-entry-meta-groups cs-weapon-detail-grid">'+details+combat+saves+resources+'</div>'+
+ const panels=details+combat+saves+resources;
+ return (panels?'<div class="cs-entry-meta-groups cs-weapon-detail-grid">'+panels+'</div>':'')+
   (prose?'<div class="cs-entry-prose">'+prose+'</div>':'')+
   (link?'<p class="cs-inventory-reference"><a href="'+e(safeSheetLink(link))+'" target="_blank" rel="noopener noreferrer">Source link</a></p>':'')+
   '<p class="cs-caption">Group settings are descriptive. Member abilities keep their own combat and save rules; only the usage pool is shared.</p>';
@@ -430,7 +431,8 @@ function calculationDetails(row,data,key){
   const savedFormula=row.save_dc_override!==undefined&&row.save_dc_override!==''&&row.save_dc_override!==null?
    'Manual DC: '+row.save_dc_override:row.dc_formula||(
     spell?'10 + spell level '+(c.level??'?')+' + '+c.stat.toUpperCase()+' modifier + '+number(row.dc_misc):'—');
-  const details=[['Save DC',c.dc===null?'Not set':c.dc],['DC source',c.dcSource],['DC calculation',savedFormula],...(spell?[['MP cost',c.mp===null?'Set spell level':c.mp],['Armor spell failure',c.spellFailure+'%'],['Caster level',c.ctx.CL??'Set caster level for this spell'],['Casting ability',c.stat.toUpperCase()],['Dispel check',c.dispel===null?'—':'1d20 '+signed(c.dispel)],['DC to dispel this spell',c.dispelDC??'—']]:[]),...(c.attack?[['Attack',c.attack.mode.replaceAll('_',' ')+' '+signed(c.attack.bonus)+(c.attack.manual?' (manual total)':'')]]:[]),...(damage?[['Dice Roll',damage]]:[]),...(c.range?[['Range',c.range]]:[]),...(abilityTabs.includes(key)&&!abilityGroup(data,row,key)&&c.maxUses>0?[['Usage',c.currentUses+' / '+c.maxUses]]:[])];
+  const hasDc=hasPreviewValue(c.dc);
+  const details=[['Save DC',hasDc?c.dc:null],['DC source',hasDc?c.dcSource:null],['DC calculation',hasDc?savedFormula:null],...(spell?[['MP cost',c.mp===null?'Set spell level':c.mp],['Armor spell failure',c.spellFailure+'%'],['Caster level',c.ctx.CL??'Set caster level for this spell'],['Casting ability',c.stat.toUpperCase()],['Dispel check',c.dispel===null?'—':'1d20 '+signed(c.dispel)],['DC to dispel this spell',c.dispelDC??'—']]:[]),...(c.attack&&hasPreviewValue(c.attack.bonus)?[['Attack',c.attack.mode.replaceAll('_',' ')+' '+signed(c.attack.bonus)+(c.attack.manual?' (manual total)':'')]]:[]),...(damage?[['Dice Roll',damage]]:[]),...(c.range?[['Range',c.range]]:[]),...(abilityTabs.includes(key)&&!abilityGroup(data,row,key)&&c.maxUses>0?[['Usage',c.currentUses+' / '+c.maxUses]]:[])];
   const visible=details.filter(([,value])=>hasPreviewValue(value));
   if(!visible.length&&!(spell&&c.concentration!==null)&&!hasPreviewValue(row.link)&&!hasPreviewValue(damageError))return '';
   return '<section class="cs-entry-calcs"><dl class="cs-pairs">'+visible.map(([label,v])=>'<div><dt>'+e(label)+'</dt><dd>'+e(v)+'</dd></div>').join('')+'</dl><div class="cs-calculated-actions">'+(spell&&c.concentration!==null?'<button class="button" type="button" data-roll="'+e(row.name)+' concentration" data-bonus="'+c.concentration+'">Concentration '+signed(c.concentration)+'</button><button class="button" type="button" data-roll="'+e(row.name)+' caster level" data-bonus="'+c.ctx.CL+'">Caster level '+signed(c.ctx.CL)+'</button><button class="button" type="button" data-roll="'+e(row.name)+' dispel" data-bonus="'+c.dispel+'">Dispel '+signed(c.dispel)+'</button>':'')+(hasPreviewValue(row.link)?'<a class="cs-text-button" href="'+e(safeSheetLink(row.link))+'" target="_blank" rel="noopener noreferrer">Link ↗</a>':'')+'</div>'+(damageError?'<p class="cs-caption">'+e(damageError)+'</p>':'')+'</section>';
