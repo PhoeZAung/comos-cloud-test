@@ -1,4 +1,5 @@
 import {diceTerms} from '../../src/features/sheet/calculations.mjs';
+import {evaluateDiceMath} from '../../src/features/sheet/dice-math.mjs';
 
 // Dice+ is a client-side provider. Only die faces come from it; all modifiers,
 // formulas, criticals, resource costs and ownership remain server-controlled.
@@ -9,7 +10,17 @@ export function externalRollSource(responses){
   roll(expression){try{
    const response=responses[cursor++];
    if(!response||Object.keys(response).some(k=>!['expression','faces'].includes(k))||response.expression!==expression||!Array.isArray(response.faces)||response.faces.length>50)throw Error('External roll does not match the sheet formula.');
-   const terms=diceTerms(expression),rolls=[],breakdown=[];let index=0,bonus=0,total=0;
+   const terms=diceTerms(expression);let index=0;
+   if(terms.ast){
+    const computed=evaluateDiceMath(terms.ast,sides=>{
+     const face=response.faces[index++];
+     if(!Number.isInteger(face)||face<1||face>sides)throw Error('Invalid external die face.');
+     return face;
+    });
+    if(index!==response.faces.length)throw Error('Unexpected external dice.');
+    return {expression,...computed};
+   }
+   const rolls=[],breakdown=[];let bonus=0,total=0;
    for(const term of terms){
     if(term.count){
      const values=Array.from({length:term.count},()=>{const face=response.faces[index++];if(!Number.isInteger(face)||face<1||face>term.sides)throw Error('Invalid external die face.');return face;});

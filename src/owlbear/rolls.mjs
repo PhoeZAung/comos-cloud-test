@@ -3,12 +3,12 @@ import {skillTotal} from '../features/sheet/model.mjs';
 import {diceTerms,damageExpression,entryCalculations,armorSpellFailure,criticalProfile,weaponDamageFormulas} from '../features/sheet/calculations.mjs';
 import {weaponAttackParts} from '../features/sheet/model.mjs';
 
-// Build only the same simple formulas that the Cosmos backend supports.
+// Dice+ supplies only die faces for arithmetic formulas; the server applies PEMDAS and flooring.
 export async function requestSheetDice(character,change,requestRoll,{target=null,onMiss=()=>{}}={}){
  const data=character.data||{},responses=[];
  async function roll(expression){
   const terms=diceTerms(expression);
-  const notation=terms.map((t,i)=>(t.sign<0?'-':i?'+':'')+(t.count?t.count+'d'+t.sides:t.flat)).join('');
+  const notation=terms.ast?terms.filter(t=>t.count).map((t,i)=>(i?'+':'')+t.count+'d'+t.sides).join(''):terms.map((t,i)=>(t.sign<0?'-':i?'+':'')+(t.count?t.count+'d'+t.sides:t.flat)).join('');
   const result=await requestRoll(notation),groups=result?.groups;
   if(!Array.isArray(groups))throw Error('Dice+ returned no dice.');
   const expected=terms.filter(t=>t.count),faces=[];

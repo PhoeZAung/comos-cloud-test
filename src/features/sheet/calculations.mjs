@@ -1,4 +1,5 @@
 import {abilityUsageGroup} from './ability-groups.mjs';
+import {parseDiceMath} from './dice-math.mjs';
 import {isLimitBreak,limitBreakState} from './limit-breaks.mjs';
 import {spellMpAmount} from './spell-mp.mjs';
 import {abilities,attackType,number,sheetStats} from './model.mjs';
@@ -62,11 +63,35 @@ export function entryCalculations(row,data,key){
 export function damageExpression(source,values={}){
  if(typeof source!=='string'||source.length>300)throw Error('Damage formula is too long.');
  let out=source.replace(/\(([^()]+)\)(?=d\d)/gi,(_,f)=>String(arithmetic(f,values))).replace(/\{([A-Z_]+)\}/gi,(_,key)=>{const n=values[key.toUpperCase()];if(!Number.isFinite(n))throw Error('Set '+key.toUpperCase()+' for this damage formula.');return String(n);});
- out=out.replace(/\+\s*-/g,'-').replace(/-\s*-/g,'+').replace(/([a-z])\s+(?=\d*d\d+\b)/gi,'$1 + ');if(!/^[\d\sd+\-.a-z/]+$/i.test(out))throw Error('Use a dice expression with supported numeric variables.');return out;
+ out=out.replace(/\+\s*-/g,'-').replace(/-\s*-/g,'+').replace(/([a-z])\s+(?=\d*d\d+\b)/gi,'$1 + ');if(!/^[\d\sd+\-.*()a-z/]+$/i.test(out))throw Error('Use a dice expression with supported numeric variables.');
+ if(/[()*×÷]|\d\.\d|\d\s*\/\s*\d/.test(out))diceTerms(out,{requireDice:false});
+ return out;
 }
 export function diceTerms(source,{requireDice=true}={}){
- if(typeof source!=='string'||source.length>500)throw Error('Invalid dice expression.');const text=source.replaceAll('−','-').replace(/([a-z])\s+(?=\d*d\d+\b)/gi,'$1 + ').trim(),parts=text.match(/[+-]?[^+-]+/g)||[];if(!parts.length||parts.length>16||parts.join('')!==text)throw Error('Invalid dice expression.');let dice=0;
- const terms=parts.map(part=>{const sign=part.trim().startsWith('-')?-1:1,body=part.trim().replace(/^[+-]\s*/,'');let m=/^(\d*)d(\d+)(?:\s+([a-z][a-z /]*))?$/i.exec(body);if(m){const count=Number(m[1]||1),sides=Number(m[2]);dice+=count;if(count<1||dice>50||sides<2||sides>1000)throw Error('Use at most 50 dice, with 2–1,000 sides.');return {sign,count,sides,type:m[3]||''};}m=/^(\d+)(?:\s+([a-z][a-z /]*))?$/i.exec(body);if(!m||Number(m[1])>1000000)throw Error('Invalid dice term.');return {sign,flat:Number(m[1]),type:m[2]||''};});if(requireDice&&!dice)throw Error('A roll needs at least one die.');return terms;
+ if(typeof source!=='string'||source.length>500)throw Error('Invalid dice expression.');
+ const extended=/[()*×÷]|\d\.\d|\d\s*\/\s*\d/.test(source);
+ if(extended){
+  const parsed=parseDiceMath(source,{requireDice});
+  Object.defineProperty(parsed.terms,'ast',{value:parsed.ast});
+  return parsed.terms;
+ }
+ const text=source.replaceAll('−','-').replace(/([a-z])\s+(?=\d*d\d+\b)/gi,'$1 + ').trim(),parts=text.match(/[+-]?[^+-]+/g)||[];
+ if(!parts.length||parts.length>16||parts.join('')!==text)throw Error('Invalid dice expression.');
+ let dice=0;
+ const terms=parts.map(part=>{
+  const sign=part.trim().startsWith('-')?-1:1,body=part.trim().replace(/^[+-]\s*/,'');
+  let m=/^(\d*)d(\d+)(?:\s+([a-z][a-z /]*))?$/i.exec(body);
+  if(m){
+   const count=Number(m[1]||1),sides=Number(m[2]);dice+=count;
+   if(count<1||dice>50||sides<2||sides>1000)throw Error('Use at most 50 dice, with 2–1,000 sides.');
+   return {sign,count,sides,type:m[3]||''};
+  }
+  m=/^(\d+)(?:\s+([a-z][a-z /]*))?$/i.exec(body);
+  if(!m||Number(m[1])>1000000)throw Error('Invalid dice term.');
+  return {sign,flat:Number(m[1]),type:m[2]||''};
+ });
+ if(requireDice&&!dice)throw Error('A roll needs at least one die.');
+ return terms;
 }
 
 export function criticalProfile(row){
@@ -115,10 +140,16 @@ export function weaponDamageFormulas(row,data,multiplier){
  if(multiplier&&base){
   // The base part can be flat when the extra portion supplies the normal hit's dice.
   const terms=diceTerms(base,{requireDice:false});
-  critical=terms.map((term,index)=>{
-   const sign=term.sign<0?'- ':index?'+ ':'';
-   return sign+(term.count?term.count*multiplier+'d'+term.sides:term.flat*multiplier)+(term.type?' '+term.type:'');
-  }).join(' ');
+  if(terms.ast){
+   // Criticals roll independent copies of the base expression, preserving
+   // parentheses and multiplying the whole base while flooring only once.
+   critical=Array.from({length:multiplier},()=> '('+base+')').join(' + ');
+  }else{
+   critical=terms.map((term,index)=>{
+    const sign=term.sign<0?'- ':index?'+ ':'';
+    return sign+(term.count?term.count*multiplier+'d'+term.sides:term.flat*multiplier)+(term.type?' '+term.type:'');
+   }).join(' ');
+  }
  }
  const criticalFormula=multiplier?join(critical,extra):'';
  if(criticalFormula){try{diceTerms(criticalFormula);}catch(error){return {normal,critical:'',criticalError:error.message,ability,abilityBonus};}}

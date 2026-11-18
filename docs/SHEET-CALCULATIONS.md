@@ -41,3 +41,9 @@ Only rank, misc, class-skill and specialization fields can be edited through the
 Synthetic browser QA checked category selection, expanded spell DC 16 with INT 18 and spell level 2, 40ft Close range at caster level 6, damage resolving to 6d6 + 4, concentration +10, casting reducing 12 MP to 10, and the fixed skill list. The final ability card layout has no horizontal page overflow at 390px. Real Discord receipt and actual Owlbear room integration remain unverified as previously documented.
 
 Phone checks: refresh → sword → Abilities → choose a category → expand an entry. Edit a specific formula and verify its result changes with the relevant score/level. Open Spells, expand a known spell and inspect DC/cost/range; Cast on a test character and confirm MP changes once. Roll attack/damage separately. Open Skills and confirm the standard list, editable ranks/misc, and absence of Add/Delete controls.
+
+## Dice multiplication and PEMDAS (November 2026)
+
+Weapon, ability, and spell dice formulas accept multiplication (`*`), division (`/`), parentheses, and regular addition/subtraction in precedence order. For example, `1d8 * 1.5`, `(1d8 + 2) * 1.5`, and `2 * (1d6 fire + 1d4 cold)`. The **final combined result** rounds down using `Math.floor`, not each die or interim subtotal. A 3 rolled on `1d8 * 1.5` therefore produces 4, and a 3 on `(1d8+2)*1.5` produces 7.
+
+Typed-damage subtotals remain integer-valued and sum to the floored final roll. For complex weapon criticals, the base expression is rerolled the configured number of times (extra damage is not multiplied). Dice+ passes only validated die faces to the server; the Cosmos backend owns mathematical evaluation, result limits, combat effects, and receipts. Unchanged simple dice and typed expressions use the existing legacy evaluator for compatibility. The parser accepts only bounded dice, numeric values, operators and typed labels; no JavaScript evaluation is performed.

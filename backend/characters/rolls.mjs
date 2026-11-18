@@ -11,9 +11,12 @@ import {ammoEffectsForWeapon,weaponKind} from '../../src/features/sheet/weapon-i
 import {sheetSkills,skillCanRoll,skillDisplayName} from '../../src/features/sheet/skills.mjs';
 import {entryCalculations,damageExpression,diceTerms,damageTypeLine,criticalProfile,weaponDamageFormulas} from '../../src/features/sheet/calculations.mjs';
 import {randomInt} from 'node:crypto';
+import {evaluateDiceMath} from '../../src/features/sheet/dice-math.mjs';
 const relay='https://weathered-term-1e39.phoeaung2076.workers.dev';
 export function serverRoll(expression){
- const terms=diceTerms(expression),rolls=[],breakdown=[];let bonus=0,total=0;
+ const terms=diceTerms(expression);
+ if(terms.ast)return {expression,...evaluateDiceMath(terms.ast,sides=>randomInt(1,sides+1))};
+ const rolls=[],breakdown=[];let bonus=0,total=0;
  for(const term of terms){if(term.count){const values=Array.from({length:term.count},()=>randomInt(1,term.sides+1)),subtotal=term.sign*values.reduce((a,b)=>a+b,0);rolls.push(...values.map(v=>v*term.sign));total+=subtotal;breakdown.push({type:term.type,dice:term.count+'d'+term.sides,rolls:values,total:subtotal});}else{const n=term.sign*term.flat;bonus+=n;total+=n;breakdown.push({type:term.type,total:n});}}
  return {expression,rolls,bonus,total,breakdown};
 }
@@ -68,7 +71,7 @@ export function abilityRoll(row,data,key,roll=serverRoll,{missAc=null}={}){
 function diceLine(r,{typed=false}={}){
  const rolls=Array.isArray(r.rolls)?r.rolls.filter(Number.isFinite):[];
  const bonus=Number(r.bonus)||0,parts=[...rolls,...(bonus?[bonus]:[])];
- const calculation=parts.length<2&&parts[0]===r.total?String(r.total):parts.length?parts.map((n,i)=>i===0?String(n):n<0?' - '+Math.abs(n):' + '+n).join('')+' = '+r.total:String(r.total);
+ const calculation=/[()*×÷]|\d\.\d|\d\s*\/\s*\d/.test(String(r.expression||''))?String(r.expression)+' ['+rolls.join(', ')+'] = '+r.total:parts.length<2&&parts[0]===r.total?String(r.total):parts.length?parts.map((n,i)=>i===0?String(n):n<0?' - '+Math.abs(n):' + '+n).join('')+' = '+r.total:String(r.total);
  const elements=typed?damageTypeLine(r):'';
  return calculation+(elements?' — '+elements:'');
 }
