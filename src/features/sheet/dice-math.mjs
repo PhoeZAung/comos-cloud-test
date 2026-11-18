@@ -17,7 +17,7 @@ export function parseDiceMath(source,{requireDice=true}={}){
   skip();
   let result;
   const ch=input[pos];
-  if(ch==='+'||ch==='-'){pos++;result=node({op:ch==='+'?'positive':'negative',child:primary()});}
+  if(ch==='+'||ch==='-'){pos++;result=node({op:ch==='+'?'positive':'negative',child:power()});}
   else if(ch==='('){
    pos++;result=sum();skip();
    if(input[pos++]!==')')throw Error('Close the dice parentheses.');
@@ -43,10 +43,15 @@ export function parseDiceMath(source,{requireDice=true}={}){
   }
   depth--;return result;
  }
- function product(){
+ function power(){
   let left=primary();skip();
+  if(input[pos]==='^'){pos++;left=node({op:'^',left,right:power()});skip();}
+  return left;
+ }
+ function product(){
+  let left=power();skip();
   while(input[pos]==='*'||input[pos]==='/'){
-   const op=input[pos++];left=node({op,left,right:primary()});skip();
+   const op=input[pos++];left=node({op,left,right:power()});skip();
   }
   return left;
  }
@@ -102,6 +107,12 @@ export function evaluateDiceMath(ast,face){
    }else if(left.dice)parts=scale(left.parts,right.value);
    else if(right.dice)parts=scale(right.parts,left.value);
    else parts=[{raw:value,type:left.parts[0]?.type||right.parts[0]?.type||'',flat:true}];
+  }else if(node.op==='^'){
+   if(!Number.isInteger(right.value)||right.value<-10||right.value>10)throw Error('Exponent must be a whole number from -10 to 10.');
+   if(kinds(left.parts).size>1||kinds(right.parts).size)throw Error('Cannot exponentiate multiple typed damage groups.');
+   value=finite(left.value**right.value);
+   const types=[...kinds(left.parts)];
+   parts=[{raw:value,type:types[0]||'',flat:!left.dice&&!right.dice}];
   }else if(node.op==='/'){
    if(right.value===0)throw Error('Cannot divide by zero.');
    value=finite(left.value/right.value);

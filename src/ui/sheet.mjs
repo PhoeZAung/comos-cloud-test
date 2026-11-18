@@ -131,7 +131,7 @@ export function renderIdentityEditor(values={}){
  return '<div class="cs-identity-editor">'+group('Character details',details,'cs-identity-details')+'<fieldset class="cs-identity-group"><legend>Movement speeds</legend><p class="cs-caption">Base land speed: '+baseLandSpeed(values)+' ft (read-only)</p><div class="cs-identity-fields cs-identity-movement">'+movement.map(key=>field(key,values[key])).join('')+'</div></fieldset>'+'</div>';
 }
 export function rollDice(expression,random=limit=>{const range=4294967296,ceiling=range-range%limit;let x;do{x=crypto.getRandomValues(new Uint32Array(1))[0];}while(x>=ceiling);return x%limit+1;}){
- if(typeof expression==='string'&&/[()*×÷]|\d\.\d|\d\s*\/\s*\d/.test(expression))return {expression,...evaluateDiceMath(parseDiceMath(expression).ast,random)};
+ if(typeof expression==='string'&&/[()*×÷^]|\d\.\d|\d\s*\/\s*\d/.test(expression))return {expression,...evaluateDiceMath(parseDiceMath(expression).ast,random)};
  const match=/^\s*(\d{1,2})d(\d{1,4})(?:\s*([+-])\s*(\d{1,6}))?\s*$/i.exec(expression);if(!match)throw Error('Use dice such as 1d20+5 or 2d6.');
  const count=Number(match[1]),sides=Number(match[2]);if(count<1||count>50||sides<2||sides>1000)throw Error('Use 1–50 dice with 2–1,000 sides.');
  const rolls=Array.from({length:count},()=>random(sides)),bonus=Number(match[4]||0)*(match[3]==='-'?-1:1);return {expression,rolls,bonus,total:rolls.reduce((a,b)=>a+b,bonus)};

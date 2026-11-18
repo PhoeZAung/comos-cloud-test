@@ -26,6 +26,11 @@ test('multiplication, division, parentheses and addition use PEMDAS and floor on
  assert.equal(withFaces('1d8 / 2 - 3',[5]).total,-1);
  assert.equal(withFaces('(1d8+1d4)/2',[3,2]).total,2);
  assert.equal(withFaces('1d8 * 2 / 3',[5]).total,3);
+ assert.equal(withFaces('1d8^2',[3]).total,9);
+ assert.equal(withFaces('1d8+2^3',[3]).total,11);
+ assert.equal(withFaces('2^3^2 + 1d8',[3]).total,515);
+ assert.equal(withFaces('-1d8^2',[3]).total,-9);
+ assert.equal(withFaces('1d8^(-1)',[3]).total,0);
  assert.equal(withFaces('1d8 + 4 * (3 - 1)',[3]).total,11);
  assert.equal(withFaces('-1d8 / 2',[5]).total,-3);
  assert.equal(withFaces('1d8*1.5+1d4',[3,2]).total,6);
@@ -33,7 +38,7 @@ test('multiplication, division, parentheses and addition use PEMDAS and floor on
  assert.equal(damageExpression('({CL}/2)d6 * 1.5',{CL:5}),'2d6 * 1.5');
 });
 test('typed damage stays consistent when fractions are floored after the full expression',()=>{
- const out=withFaces('1d6 fire * 1.5 + 1d4 cold * 1.5',[3,5]);
+ const out=withFaces('1d6 fire * 1.5 + 1d8 cold * 1.5',[3,5]);
  assert.equal(out.total,12);
  assert.equal(out.breakdown.reduce((n,p)=>n+p.total,0),12);
  assert.deepEqual(out.breakdown.map(p=>p.type),['fire','cold']);
@@ -102,7 +107,7 @@ test('bounded dice math rejects malformed, arbitrary code, excessive values and 
   'globalThis.process.exit(1)','1d8 + alert(2)','1d8 ** 2','1d8 + 2.3.4',
   '1d8 + x','1d8 + 1e10','1d8 * 2000000','51d6 * 2',
   '1d2000*2','1d8 * (2+3','1d8 + 2)',
-  '1d8 / (3 - 3)','(1d8 fire)*(1d4 cold)',
+  '1d8 / (3 - 3)','1d8^11','(1d8 fire)*(1d4 cold)',
   '1d8 * '.repeat(30)+'1'
  ]){
   assert.throws(()=>{const parsed=parseDiceMath(expression);evaluateDiceMath(parsed.ast,()=>3);},expression);

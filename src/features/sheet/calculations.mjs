@@ -63,13 +63,13 @@ export function entryCalculations(row,data,key){
 export function damageExpression(source,values={}){
  if(typeof source!=='string'||source.length>300)throw Error('Damage formula is too long.');
  let out=source.replace(/\(([^()]+)\)(?=d\d)/gi,(_,f)=>String(arithmetic(f,values))).replace(/\{([A-Z_]+)\}/gi,(_,key)=>{const n=values[key.toUpperCase()];if(!Number.isFinite(n))throw Error('Set '+key.toUpperCase()+' for this damage formula.');return String(n);});
- out=out.replace(/\+\s*-/g,'-').replace(/-\s*-/g,'+').replace(/([a-z])\s+(?=\d*d\d+\b)/gi,'$1 + ');if(!/^[\d\sd+\-.*()a-z/]+$/i.test(out))throw Error('Use a dice expression with supported numeric variables.');
- if(/[()*×÷]|\d\.\d|\d\s*\/\s*\d/.test(out))diceTerms(out,{requireDice:false});
+ out=out.replace(/\+\s*-/g,'-').replace(/-\s*-/g,'+').replace(/([a-z])\s+(?=\d*d\d+\b)/gi,'$1 + ');if(!/^[\d\sd+\-.*()^a-z/]+$/i.test(out))throw Error('Use a dice expression with supported numeric variables.');
+ if(/[()*×÷^]|\d\.\d|\d\s*\/\s*\d/.test(out))diceTerms(out,{requireDice:false});
  return out;
 }
 export function diceTerms(source,{requireDice=true}={}){
  if(typeof source!=='string'||source.length>500)throw Error('Invalid dice expression.');
- const extended=/[()*×÷]|\d\.\d|\d\s*\/\s*\d/.test(source);
+ const extended=/[()*×÷^]|\d\.\d|\d\s*\/\s*\d/.test(source);
  if(extended){
   const parsed=parseDiceMath(source,{requireDice});
   Object.defineProperty(parsed.terms,'ast',{value:parsed.ast});

@@ -71,7 +71,7 @@ export function abilityRoll(row,data,key,roll=serverRoll,{missAc=null}={}){
 function diceLine(r,{typed=false}={}){
  const rolls=Array.isArray(r.rolls)?r.rolls.filter(Number.isFinite):[];
  const bonus=Number(r.bonus)||0,parts=[...rolls,...(bonus?[bonus]:[])];
- const calculation=/[()*×÷]|\d\.\d|\d\s*\/\s*\d/.test(String(r.expression||''))?String(r.expression)+' ['+rolls.join(', ')+'] = '+r.total:parts.length<2&&parts[0]===r.total?String(r.total):parts.length?parts.map((n,i)=>i===0?String(n):n<0?' - '+Math.abs(n):' + '+n).join('')+' = '+r.total:String(r.total);
+ const calculation=/[()*×÷^]|\d\.\d|\d\s*\/\s*\d/.test(String(r.expression||''))?String(r.expression)+' ['+rolls.join(', ')+'] = '+r.total:parts.length<2&&parts[0]===r.total?String(r.total):parts.length?parts.map((n,i)=>i===0?String(n):n<0?' - '+Math.abs(n):' + '+n).join('')+' = '+r.total:String(r.total);
  const elements=typed?damageTypeLine(r):'';
  return calculation+(elements?' — '+elements:'');
 }
