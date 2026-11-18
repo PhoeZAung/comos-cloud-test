@@ -210,7 +210,7 @@ export function mergeSheetData(original,change,{npc=false}={}){
     else if(key==='save_success_damage'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      safe[key]=text(value,300,'Alternate save damage dice');
     }
-    else if(key==='target_defense'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+    else if(key==='target_defense'&&['weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      if(typeof value!=='string'||!Object.hasOwn(targetDefenseChoices,value))bad('Choose a valid target defense.');
      safe.target_defense=value;
     }

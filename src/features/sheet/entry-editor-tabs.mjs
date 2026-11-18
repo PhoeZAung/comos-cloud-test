@@ -22,7 +22,7 @@ export function renderWeaponEditorTabs(keys,render,{npc=false,category='Weapon'}
    group('Additional details',['rarity','weight',...(!ammo?['amount','two_handed']:[]),'carried','img','link'])+'</div></details>'+
   (keys.includes('desc')?'<div class="cs-ability-prose">'+render('desc')+'</div>':'');
  const damageTypes=group('Damage Type',['damage_types','damage_type_other'],'cs-weapon-damage-type-group');
- const stats=group('Attack',['attack_type','ability_mod','npcAttackBonus','attack_misc'])+
+ const stats=group('Attack',['attack_type','ability_mod','npcAttackBonus','attack_misc','target_defense'])+
   group('Damage',['damage','damage_ability','damage_style','extra_damage','crit_range','crit_mult','dr_bypass'])+
   damageTypes+(ranged?group('Range',['range','misfire']):'');
  const ammunition=group('Ammunition',['ammoType','u_curr','u_max'],'cs-weapon-ammo-fields')+

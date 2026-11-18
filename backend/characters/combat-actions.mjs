@@ -75,7 +75,7 @@ export function createCombatActions(db,{rollSr=()=>randomInt(1,21),rollSave=()=>
    targetStats=sheetStats(targetData);targetSaveStats=targetStats;
   }
   let ac=targetNpc?value.targetAc:null,defense=value.defense;
-  check(['ac','touch','cmd'].includes(defense),'Invalid target defense.');
+  check(['ac','touch','flat','cmd'].includes(defense),'Invalid target defense.');
   if(!targetNpc)ac=targetStats[defense];
   let profile={dr:0,drBypass:'',sr:0,energyResistances:'',immunities:'',vulnerabilities:''};
   if(targetNpc&&validId(value.targetNpcId)){

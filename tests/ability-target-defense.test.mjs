@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {targetDefenseForAttack} from '../src/features/sheet/target-defense.mjs';
-import {renderAbilityEditorTabs} from '../src/features/sheet/entry-editor-tabs.mjs';
+import {renderAbilityEditorTabs,renderWeaponEditorTabs} from '../src/features/sheet/entry-editor-tabs.mjs';
 import {abilityGroupEditorKeys} from '../src/features/sheet/ability-groups.mjs';
 import {resolveCombatTarget,attackOutcome} from '../src/owlbear/combat-target.mjs';
 
@@ -23,6 +23,9 @@ test('automatic preserves legacy defense and selected AC can override attack typ
  assert.equal(targetDefenseForAttack({attack_type:'ranged',target_defense:'touch'}),'touch');
  assert.equal(targetDefenseForAttack({attack_type:'ranged_touch',target_defense:'ac'}),'ac');
  assert.equal(targetDefenseForAttack({attack_type:'cmb',target_defense:'touch'}),'cmd');
+ assert.equal(targetDefenseForAttack({attack_type:'ranged',target_defense:'flat'}),'flat');
+ assert.equal(targetDefenseForAttack({attack_type:'melee',target_defense:'cmd'}),'cmd');
+ assert.equal(targetDefenseForAttack({attack_type:'ranged',target_defense:'invalid'}),'ac');
 });
 
 test('saving and editing ability, spell and group target defense',()=>{
@@ -36,8 +39,12 @@ test('saving and editing ability, spell and group target defense',()=>{
  const group={name:'Gunfire',u_max:2,u_curr:2,restoreOnLongRest:true,target_defense:'touch'};
  data=mergeSheetData(data,{action:'abilityGroup',mode:'add',collection:'activeAbilities',fields:group});
  assert.equal(data.abilityGroups[0].target_defense,'touch');
- assert.throws(()=>mergeSheetData(data,{action:'entry',collection:'activeAbilities',mode:'update',index:0,fields:{target_defense:'flat'}}),/valid target defense/);
- assert.throws(()=>mergeSheetData(data,{action:'abilityGroup',mode:'add',collection:'activeAbilities',fields:{...group,target_defense:'cmd'}}),/valid target defense/);
+ data=mergeSheetData(data,{action:'entry',collection:'activeAbilities',mode:'update',index:0,fields:{target_defense:'flat'}});
+ assert.equal(data.activeAbilities[0].target_defense,'flat');
+ data=mergeSheetData(data,{action:'abilityGroup',mode:'add',collection:'activeAbilities',fields:{...group,name:'Grapple',target_defense:'cmd'}});
+ assert.equal(data.abilityGroups[1].target_defense,'cmd');
+ assert.throws(()=>mergeSheetData(data,{action:'entry',collection:'activeAbilities',mode:'update',index:0,fields:{target_defense:'invalid'}}),/valid target defense/);
+ assert.throws(()=>mergeSheetData(data,{action:'abilityGroup',mode:'add',collection:'activeAbilities',fields:{...group,target_defense:'invalid'}}),/valid target defense/);
 });
 
 test('Owlbear checks Touch AC instead of Normal AC for selected firearm ability',()=>{
@@ -51,4 +58,41 @@ test('Owlbear checks Touch AC instead of Normal AC for selected firearm ability'
  assert.deepEqual([normal.defense,normal.ac],['ac',25]);
  assert.equal(attackOutcome({kind:'ability',attack:{rolls:[11],total:16}},touch),'Hit');
  assert.equal(attackOutcome({kind:'ability',attack:{rolls:[11],total:16}},normal),'Miss');
+});
+
+test('weapon editor exposes target defense adjacent to attack bonus, excluding ammunition',()=>{
+ const render=(key)=>'<input name="'+key+'">';
+ for(const [npc,keys] of [[false,['attack_type','ability_mod','attack_misc','target_defense']],[true,['attack_type','npcAttackBonus','target_defense']]]){
+  const html=renderWeaponEditorTabs(keys,render,{npc});
+  assert.match(html,/data-entry-edit-tab="stats"/);
+  assert.match(html,/name="target_defense"/);
+  assert.ok(html.indexOf('name="target_defense"')>html.indexOf('name="'+(npc?'npcAttackBonus':'attack_misc')+'"'));
+ }
+ const ammo=renderWeaponEditorTabs(['name','target_defense','amount'],render,{category:'Ammunition'});
+ assert.doesNotMatch(ammo,/name="target_defense"/);
+});
+
+test('weapons preserve selected flat-footed and CMD defenses on player and NPC sheets',()=>{
+ let player={weapons:[]};
+ player=mergeSheetData(player,{action:'entry',collection:'weapons',mode:'add',fields:{name:'Heavy Crossbow',attack_type:'ranged',target_defense:'flat'}});
+ assert.equal(player.weapons[0].target_defense,'flat');
+ player=mergeSheetData(player,{action:'entry',collection:'weapons',mode:'update',index:0,fields:{target_defense:'cmd'}});
+ assert.equal(player.weapons[0].target_defense,'cmd');
+ let npc={weapons:[]};
+ npc=mergeSheetData(npc,{action:'entry',collection:'weapons',mode:'add',fields:{name:'Tentacle',attack_type:'melee',npcAttackBonus:8,target_defense:'touch'}},{npc:true});
+ assert.equal(npc.weapons[0].target_defense,'touch');
+ assert.throws(()=>mergeSheetData(player,{action:'entry',collection:'weapons',mode:'update',index:0,fields:{target_defense:'not_an_ac'}}),/valid target defense/);
+});
+
+test('Owlbear chooses flat-footed and CMD values for weapons and abilities',()=>{
+ const hero={id:'hero',siteId:'hero-sheet',name:'Hero',isNpc:false,visible:true,available:true};
+ const enemy={id:'enemy',npcId:'npc-sheet',name:'Enemy',isNpc:true,visible:true,available:true,ac:24,touch:12,flat:17,cmd:28};
+ const context={characterId:'hero-sheet',battle:[hero,enemy],turn:{id:'hero'},selection:['enemy'],ready:true};
+ for(const kind of ['weapon','ability']){
+  for(const [defense,expected] of [['flat',17],['cmd',28],['touch',12],['ac',24]]){
+   const target=resolveCombatTarget({...context,kind,row:{attack_type:'ranged',effect_type:'damage',target_defense:defense,damage:'1d8'}});
+   assert.deepEqual([target.defense,target.ac],[defense,expected]);
+   assert.equal(attackOutcome({kind:'weapon',rolls:[10],total:18},target),18>=expected?'Hit':'Miss');
+  }
+ }
 });
