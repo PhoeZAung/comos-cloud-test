@@ -21,7 +21,7 @@ window.fetch=async(input,options={})=>{
   if(row&&(body.kind==='weapon'||['damage','heal','temp_hp'].includes(row.effect_type))){
    combat=await connection.call('combat-context',{
     requestId:body.requestId,characterId:character.id,kind:body.kind,
-    row:{effect_type:row.effect_type,attack_type:row.attack_type,damage:row.damage}
+    row:{effect_type:row.effect_type,attack_type:row.attack_type,target_defense:row.target_defense,damage:row.damage}
    });
   }
   await connection.call('roll-context',{requestId:body.requestId});

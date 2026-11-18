@@ -4,6 +4,7 @@ import {randomUUID} from 'node:crypto';
 import {npcStatLabels,npcTextLabels,npcTextLimit,normalizeNpcSheet} from '../../src/features/characters/npc-stat-block.mjs';
 import {abilityGroup,abilityUsageGroup,abilityCollections,abilityLayout,abilityGroupEditorKeys} from '../../src/features/sheet/ability-groups.mjs';
 import {actionTypes,damageTypes} from '../../src/features/sheet/entry-options.mjs';
+import {targetDefenseChoices} from '../../src/features/sheet/target-defense.mjs';
 import {abilityKinds,srModes} from '../../src/features/sheet/pathfinder-defenses.mjs';
 import {effectTypes} from '../../src/features/sheet/effect-types.mjs';
 import {saveTypes,saveOutcomes} from '../../src/features/sheet/save-rules.mjs';
@@ -114,6 +115,8 @@ export function mergeSheetData(original,change,{npc=false}={}){
      if(value!==''&&!actionTypes.includes(value))bad('Choose a valid action type.');fields.action_type=value;
     }else if(key==='attack_type'){
      if(typeof value!=='string'||!['none',...Object.keys(attackTypes)].includes(value))bad('Choose a valid attack type.');fields.attack_type=value;
+    }else if(key==='target_defense'){
+     if(typeof value!=='string'||!Object.hasOwn(targetDefenseChoices,value))bad('Choose a valid target defense.');fields.target_defense=value;
     }else if(Object.hasOwn(groupEnums,key)){
      if(typeof value!=='string'||!Object.hasOwn(groupEnums[key],value))bad('Choose a valid '+key+'.');fields[key]=value;
     }else if(key==='damage_types'){
@@ -206,6 +209,10 @@ export function mergeSheetData(original,change,{npc=false}={}){
     }
     else if(key==='save_success_damage'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      safe[key]=text(value,300,'Alternate save damage dice');
+    }
+    else if(key==='target_defense'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
+     if(typeof value!=='string'||!Object.hasOwn(targetDefenseChoices,value))bad('Choose a valid target defense.');
+     safe.target_defense=value;
     }
     else if(key==='effect_type'&&['spells','activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)){
      if(typeof value!=='string'||!Object.hasOwn(effectTypes,value))bad('Choose a valid HP effect type.');
