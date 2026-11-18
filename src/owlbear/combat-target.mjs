@@ -1,5 +1,5 @@
 import {effectType} from '../features/sheet/effect-types.mjs';
-import {attackType} from '../features/sheet/model.mjs';
+import {targetDefenseForAttack} from '../features/sheet/target-defense.mjs';
 
 // Advisory action gate for the Owlbear UI. Actor sheet access is independently
 // verified by the existing Cosmos server session. No HP changes are performed.
@@ -23,8 +23,7 @@ export function resolveCombatTarget({characterId,kind,row={},battle=[],turn={},s
   // PC attack → enemy; NPC attack → PC. GM can still resolve ally damage manually.
   if(Boolean(actor.isNpc)===Boolean(target.isNpc))throw Error('Choose an opposing combatant token to attack.');
  }
- const type=attackType(row.attack_type||'melee');
- const defense=type==='cmb'?'cmd':['touch','ranged_touch'].includes(type)?'touch':'ac';
+ const defense=targetDefenseForAttack(row);
  return {actorId:actor.id,targetId:target.id,targetName:target.name,kind:kindEffect,
   defense,ac:Number.isFinite(target[defense])?target[defense]:null};
 }

@@ -50,10 +50,10 @@ export function renderAbilityEditorTabs(keys,render,{collection='activeAbilities
  const details=detailFields+(effects?'<div class="cs-ability-prose cs-ability-prose-sections">'+effects+'</div>':'')+
   group('Reference',['link']);
  const combat=group('Action',['action_type','range','duration','target'])+
-  group('Attack & Damage',['effect_type','attack_type','attack_misc','attack_bonus_override','damage','damage_types']);
+  group('Attack & Damage',['effect_type','attack_type','attack_misc','target_defense','attack_bonus_override','damage','damage_types']);
  const resources=group('Costs',['mp_cost','spell_failure'])+
   group('Uses',['uses_formula','u_curr','u_max','restoreOnLongRest'])+
-  (()=>{const known=new Set(['name','lvl','school','type','ability_kind','desc','effect','at_higher_lvls','link','action_type','range','duration','target','effect_type','attack_type','attack_misc','attack_bonus_override','damage','damage_types','saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist','mp_cost','spell_failure','uses_formula','u_curr','u_max','restoreOnLongRest']);return group('Other',keys.filter(k=>!known.has(k)));})();
+  (()=>{const known=new Set(['name','lvl','school','type','ability_kind','desc','effect','at_higher_lvls','link','action_type','range','duration','target','effect_type','attack_type','attack_misc','target_defense','attack_bonus_override','damage','damage_types','saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist','mp_cost','spell_failure','uses_formula','u_curr','u_max','restoreOnLongRest']);return group('Other',keys.filter(k=>!known.has(k)));})();
  const saves=group('Target Save',['saving_throw','save_type','save_success','save_success_damage','save_dc_override','dc_formula','casting_ability','dc_misc','caster_level','sr_bonus','spell_resist'])+
   '<details class="cs-save-help"><summary>How saves work in Owlbear</summary><p>Select a target NPC with a Fortitude, Reflex or Will bonus. Choose the save type and what a successful save does. Use the calculated DC or enter one; the GM controls approval. Auto HP changes require a supported save outcome.</p></details>';
  return renderSheetEditorTabs('ability',[
