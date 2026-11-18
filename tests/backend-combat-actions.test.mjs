@@ -13,7 +13,7 @@ function fixture(){
  const source=randomUUID(),target=randomUUID();
  for(const [id,name,owner,data] of [
   [source,'White Mage','player1',{hp_curr:30,hp_max:30,ac_total:14,owlbearStatusVisible:true}],
-  [target,'Fighter','player2',{hp_curr:20,hp_max:30,hp_temp:3,ac_total:15,touch_ac_total:11,cmd_total:20,owlbearStatusVisible:true}]
+  [target,'Fighter','player2',{hp_curr:20,hp_max:30,hp_temp:3,ac_total:15,touch_ac_total:11,flat_ac_total:13,cmd_total:20,owlbearStatusVisible:true}]
  ]){
   db.prepare('INSERT INTO characters VALUES(?,?,?,?,?,?,?)').run(id,name,'player',0,owner,1,'today');
   db.prepare('INSERT INTO character_details VALUES(?,?)').run(id,JSON.stringify(data));
@@ -236,4 +236,15 @@ test('NPC HP is absent from the player combat-apply and finalize responses, but 
  const retry=f.actions.apply(roomId,'player1',false,request);
  assert.equal(retry.event.after,undefined);
  f.db.close();
+});
+
+test('server resolves PC flat-footed AC and CMD from saved sheet rather than caller-provided AC',()=>{
+ for(const [defense,total,expectedHit,expectedAc] of [['flat',14,true,13],['ac',14,false,15],['cmd',21,true,20],['cmd',19,false,20]]){
+  const f=fixture(),receipt=f.insert({kind:'weapon',rolls:[10],total,damage:{total:5}});
+  const result=f.actions.apply(roomId,'player1',false,f.request(receipt,{defense,targetAc:1}));
+  assert.equal(result.event.hit,expectedHit);
+  assert.equal(result.event.defense,defense);
+  assert.equal(result.event.ac,expectedAc);
+  f.db.close();
+ }
 });
